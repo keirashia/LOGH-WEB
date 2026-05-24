@@ -1,43 +1,104 @@
 <template>
   <div class="map-wrap">
     <canvas ref="bgCvs" class="map-bg" />
-    <svg class="map-svg" viewBox="0 0 500 400"
-         @click.self="game.selectSystem(null)">
-      <!-- 항로 -->
-      <line v-for="l in lanes" :key="l.k"
-        :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
-        stroke="rgba(255,255,255,0.07)" stroke-width="1" stroke-dasharray="3 8"/>
-      <!-- 함대 마커 -->
-      <g v-for="f in game.allFleets" :key="f.id"
-         :transform="`translate(${f.sx+17},${f.sy-11})`"
-         class="fleet-dot" :class="{ sel: game.selectedFleet===f.id }"
-         @click.stop="game.selectFleet(f.id)">
-        <circle r="7" :fill="`${fclr[f.faction]}44`"
-                :stroke="fclr[f.faction]" stroke-width="1.5"/>
-        <text text-anchor="middle" dy="4" font-size="8" fill="white">🚀</text>
-      </g>
-      <!-- 성계 -->
-      <g v-for="s in systems" :key="s.id"
-         :transform="`translate(${s.x},${s.y})`"
-         class="sys-node" @click.stop="game.selectSystem(s.id)">
-        <circle v-if="game.selectedSystem===s.id"
-                :r="nr(s)+8" fill="none"
-                :stroke="fclr[s.faction]||'#555'"
-                stroke-width="1.5" opacity=".8"
-                style="animation:pulse 1.5s ease-in-out infinite"/>
-        <circle :r="nr(s)" :fill="`${fclr[s.faction]||'#333'}33`"/>
-        <circle :r="nr(s)*.62"
-                :fill="fclr[s.faction]||'#2a3a4a'"
-                :stroke="fclr[s.faction]||'#555'" stroke-width="1.5"/>
-        <text text-anchor="middle" dy="5" :font-size="s.type==='capital'?13:10">
-          {{ ico(s) }}
-        </text>
-        <text class="sys-lbl" text-anchor="middle" :dy="nr(s)+13"
-              font-size="9" :fill="fclr[s.faction]||'#6a8aaa'">{{ s.name }}</text>
-        <text v-if="s.underConstruction" text-anchor="middle"
-              :dy="-nr(s)-4" font-size="9">🔧</text>
+    <svg ref="svgEl" class="map-svg" :viewBox="`0 0 ${VW} ${VH}`"
+         preserveAspectRatio="xMidYMid slice"
+         :class="{ 'is-edit': editMode, [`tool-${activeTool}`]: editMode }"
+         @pointerdown="onPtrDown"
+         @pointermove="onPtrMove"
+         @pointerup="onPtrUp"
+         @pointercancel="onPtrUp">
+      <g :transform="mapTransform">
+
+        <!-- 항로 (reactive) -->
+        <g v-for="l in lanesComp" :key="l.k">
+          <!-- 클릭 영역 확장용 투명 선 -->
+          <line :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
+                stroke="transparent" stroke-width="12"/>
+          <!-- 선택된 항로 글로우 -->
+          <line v-if="selectedLane === l.k"
+                :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
+                stroke="rgba(255,220,80,0.35)" stroke-width="5"/>
+          <line :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
+                :stroke="selectedLane === l.k ? 'rgba(255,220,80,0.9)'
+                        : editMode ? 'rgba(255,255,255,0.65)' : 'rgba(255,255,255,0.45)'"
+                :stroke-width="selectedLane === l.k ? 2 : editMode ? 2 : 1.5"
+                :stroke-dasharray="selectedLane === l.k ? 'none' : '5 6'"/>
+        </g>
+
+        <!-- 함대 마커 -->
+        <g v-for="f in game.allFleets" :key="f.id"
+           :transform="`translate(${f.sx+17},${f.sy-11})`"
+           :class="['fleet-dot', { sel: game.selectedFleet===f.id }]">
+          <circle r="7" :fill="`${fclr[f.faction]}44`"
+                  :stroke="fclr[f.faction]" stroke-width="1.5"/>
+          <text text-anchor="middle" dy="4" font-size="8" fill="white">🚀</text>
+        </g>
+
+        <!-- 성계 -->
+        <g v-for="s in systems" :key="s.id"
+           :transform="`translate(${s.x},${s.y})`"
+           class="sys-node">
+          <circle v-if="game.selectedSystem===s.id && !editMode"
+                  :r="nr(s)+8" fill="none"
+                  :stroke="fclr[s.faction]||'#555'"
+                  stroke-width="1.5" opacity=".8" class="sel-ring"/>
+          <circle v-if="editMode && laneFrom===s.id"
+                  :r="nr(s)+9" fill="none" stroke="gold" stroke-width="2" opacity=".85"/>
+          <circle :r="nr(s)" :fill="`${fclr[s.faction]||'#333'}33`"/>
+          <circle :r="nr(s)*.62"
+                  :fill="fclr[s.faction]||'#2a3a4a'"
+                  :stroke="fclr[s.faction]||'#555'" stroke-width="1.5"/>
+          <text text-anchor="middle" dy="5" :font-size="s.type==='capital'?13:10">{{ ico(s) }}</text>
+          <text class="sys-lbl" text-anchor="middle" :dy="nr(s)+13"
+                font-size="9" :fill="fclr[s.faction]||'#6a8aaa'">{{ s.name }}</text>
+          <text v-if="s.underConstruction" text-anchor="middle" :dy="-nr(s)-4" font-size="9">🔧</text>
+        </g>
+
+        <!-- 추가 미리보기 -->
+        <g v-if="addPreview" :transform="`translate(${addPreview.x},${addPreview.y})`"
+           style="pointer-events:none">
+          <circle r="11" fill="#27ae6022" stroke="#27ae60" stroke-width="1.5" stroke-dasharray="3 3"/>
+          <text text-anchor="middle" dy="5" font-size="12" fill="#27ae60">+</text>
+        </g>
+
       </g>
     </svg>
+
+    <!-- 줌 + 편집 토글 -->
+    <div class="zoom-ctrl">
+      <button class="zb" @click="zoomStep(1.2)"   title="줌인 (+)">+</button>
+      <button class="zb" @click="resetZoom"         title="초기화">⌂</button>
+      <button class="zb" @click="zoomStep(1/1.2)"  title="줌아웃 (−)">−</button>
+      <div class="zb-sep"/>
+      <button :class="['zb', { active: editMode }]" @click="toggleEditMode" title="편집 모드">✏️</button>
+    </div>
+
+    <!-- 편집 툴바 -->
+    <transition name="tb-fade">
+      <div v-if="editMode" class="edit-tb">
+        <button v-for="t in TOOLS" :key="t.id"
+                :class="['tb-btn', { active: activeTool===t.id }]"
+                @click="activeTool=t.id" :title="t.hint">
+          <span class="tb-icon">{{ t.icon }}</span>
+          <span class="tb-lbl">{{ t.label }}</span>
+        </button>
+      </div>
+    </transition>
+
+    <!-- 성계 추가 폼 -->
+    <div v-if="addForm.visible" class="add-form panel"
+         :style="{ left: addForm.sx+'px', top: addForm.sy+'px' }">
+      <div class="af-title">새 성계</div>
+      <input ref="addInput" v-model="addForm.name" class="af-input"
+             placeholder="성계 이름" maxlength="10"
+             @keydown.enter="confirmAdd" @keydown.escape="cancelAdd"/>
+      <div class="af-btns">
+        <button class="btn btn-sm" @click="confirmAdd">추가</button>
+        <button class="btn btn-sm" style="opacity:.6" @click="cancelAdd">취소</button>
+      </div>
+    </div>
+
     <!-- 범례 -->
     <div class="map-legend panel">
       <div v-for="(f,fid) in FACTIONS" :key="fid" class="leg-row">
@@ -53,81 +114,411 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS, STAR_SYSTEMS, LANES as LANE_DEF } from '@/data/masterData'
 
-const game = useGameStore()
+const game  = useGameStore()
 const bgCvs = ref(null)
-let aid = null
+const svgEl = ref(null)
+let   aid   = null
 
-const fclr = computed(() => game.fColors)
+const VW = 820, VH = 490
+
+// ── 줌 / 팬 상태 ─────────────────────────────────────────────
+const scale = ref(1)
+const panX  = ref(0)
+const panY  = ref(0)
+const MIN_SCALE = 0.4
+const MAX_SCALE = 5
+
+const mapTransform = computed(() =>
+  `translate(${panX.value},${panY.value}) scale(${scale.value})`
+)
+
+function toSvg(clientX, clientY) {
+  const r = svgEl.value.getBoundingClientRect()
+  return { x: (clientX - r.left) / r.width * VW, y: (clientY - r.top) / r.height * VH }
+}
+function toContent(svgX, svgY) {
+  return { x: (svgX - panX.value) / scale.value, y: (svgY - panY.value) / scale.value }
+}
+function applyZoom(factor, svgX, svgY) {
+  const ns  = Math.min(MAX_SCALE, Math.max(MIN_SCALE, scale.value * factor))
+  const r   = ns / scale.value
+  panX.value  = svgX * (1 - r) + panX.value * r
+  panY.value  = svgY * (1 - r) + panY.value * r
+  scale.value = ns
+}
+function zoomStep(f) { applyZoom(f, VW / 2, VH / 2) }
+function resetZoom()  { scale.value = 1; panX.value = 0; panY.value = 0 }
+
+// ── 포인터 통합 (팬·드래그·핀치) ────────────────────────────
+const activePointers = new Map()   // pointerId → { x, y }
+let   pinchDist0     = 0
+
+// drag state: null | { type:'pan'|'sys', id?, startSvg, startPan, startContent, moved }
+const ds = ref(null)
+
+function onPtrDown(e) {
+  const sp = toSvg(e.clientX, e.clientY)
+  activePointers.set(e.pointerId, sp)
+  svgEl.value.setPointerCapture(e.pointerId)
+
+  if (activePointers.size === 2) {
+    const pts = [...activePointers.values()]
+    pinchDist0 = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y)
+    ds.value = null
+    return
+  }
+  if (activePointers.size > 2) return
+
+  const cp = toContent(sp.x, sp.y)
+  const sys = sysAt(cp.x, cp.y)
+
+  if (editMode.value && activeTool.value === 'move' && sys) {
+    ds.value = { type: 'sys', id: sys.id, startSvg: sp, moved: false }
+  } else {
+    ds.value = { type: 'pan', startSvg: sp,
+                 startPan: { x: panX.value, y: panY.value }, moved: false }
+  }
+}
+
+function onPtrMove(e) {
+  const sp = toSvg(e.clientX, e.clientY)
+  activePointers.set(e.pointerId, sp)
+
+  if (activePointers.size === 2) {
+    const pts = [...activePointers.values()]
+    const nd   = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y)
+    const midX = (pts[0].x + pts[1].x) / 2
+    const midY = (pts[0].y + pts[1].y) / 2
+    applyZoom(nd / pinchDist0, midX, midY)
+    pinchDist0 = nd
+    return
+  }
+
+  if (!ds.value) return
+  const d  = ds.value
+  const dx = sp.x - d.startSvg.x
+  const dy = sp.y - d.startSvg.y
+  if (!d.moved && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) d.moved = true
+
+  if (d.type === 'pan') {
+    panX.value = d.startPan.x + dx
+    panY.value = d.startPan.y + dy
+  } else if (d.type === 'sys') {
+    const cp = toContent(sp.x, sp.y)
+    const s  = game.systems[d.id]
+    if (s) { s.x = Math.round(cp.x); s.y = Math.round(cp.y) }
+  }
+
+  // 추가 모드 미리보기 업데이트
+  if (editMode.value && activeTool.value === 'add' && !d.moved) {
+    const cp = toContent(sp.x, sp.y)
+    if (!sysAt(cp.x, cp.y)) addPreview.value = { x: Math.round(cp.x), y: Math.round(cp.y) }
+    else addPreview.value = null
+  }
+}
+
+function onPtrUp(e) {
+  const sp   = toSvg(e.clientX, e.clientY)
+  const prev = ds.value
+  const wasMoved = prev?.moved
+  ds.value = null
+  activePointers.delete(e.pointerId)
+  addPreview.value = null
+
+  if (wasMoved) return
+
+  // 클릭 처리
+  const cp    = toContent(sp.x, sp.y)
+  const sys   = sysAt(cp.x, cp.y)
+  const fleet = !sys ? fleetAt(cp.x, cp.y) : null
+
+  if (editMode.value) {
+    handleEditClick(sys, cp.x, cp.y, e)
+  } else {
+    if (sys) {
+      selectedLane.value = null
+      game.selectSystem(sys.id)
+    } else if (fleet) {
+      selectedLane.value = null
+      game.selectFleet(fleet.id)
+    } else {
+      const lane = laneNear(cp.x, cp.y)
+      if (lane) {
+        selectedLane.value = selectedLane.value === lane ? null : lane
+        game.selectSystem(null)
+      } else {
+        selectedLane.value = null
+        game.selectSystem(null)
+      }
+    }
+  }
+}
+
+// ── 휠 줌 ────────────────────────────────────────────────────
+function onWheel(e) {
+  e.preventDefault()
+  const sp = toSvg(e.clientX, e.clientY)
+  applyZoom(e.deltaY < 0 ? 1.15 : 1 / 1.15, sp.x, sp.y)
+}
+
+// ── 히트 테스트 ──────────────────────────────────────────────
+function sysAt(cx, cy) {
+  return systems.value.find(s => {
+    const r = nr(s) + 8
+    return Math.abs(cx - s.x) <= r && Math.abs(cy - s.y) <= r
+  }) || null
+}
+function fleetAt(cx, cy) {
+  return game.allFleets.find(f => {
+    const fx = f.sx + 17, fy = f.sy - 11
+    return Math.hypot(cx - fx, cy - fy) <= 12
+  }) || null
+}
+function laneNear(cx, cy, threshold = 12) {
+  let best = null, bestD = threshold
+  lanesComp.value.forEach(l => {
+    const d = ptSegDist(cx, cy, l.x1, l.y1, l.x2, l.y2)
+    if (d < bestD) { bestD = d; best = l.k }
+  })
+  return best
+}
+function ptSegDist(px, py, x1, y1, x2, y2) {
+  const dx = x2-x1, dy = y2-y1, len2 = dx*dx+dy*dy
+  if (!len2) return Math.hypot(px-x1, py-y1)
+  const t = Math.max(0, Math.min(1, ((px-x1)*dx+(py-y1)*dy)/len2))
+  return Math.hypot(px-(x1+t*dx), py-(y1+t*dy))
+}
+
+// ── 편집 모드 ────────────────────────────────────────────────
+const selectedLane = ref(null)
+
+const editMode   = ref(false)
+const activeTool = ref('move')
+const laneFrom   = ref(null)
+const addPreview = ref(null)
+const addInput   = ref(null)
+const addForm    = ref({ visible: false, name: '', sx: 0, sy: 0, cx: 0, cy: 0 })
+
+const TOOLS = [
+  { id:'move',   icon:'✥', label:'이동',  hint:'드래그로 성계 위치 변경' },
+  { id:'lane',   icon:'⟷', label:'라인',  hint:'성계 두 개 클릭으로 항로 연결/해제' },
+  { id:'add',    icon:'＋', label:'추가',  hint:'빈 공간 클릭으로 성계 추가' },
+  { id:'delete', icon:'✕', label:'삭제',  hint:'성계·항로 클릭으로 삭제' },
+]
+
+function toggleEditMode() {
+  editMode.value = !editMode.value
+  if (!editMode.value) { laneFrom.value = null; cancelAdd() }
+  activeTool.value = 'move'
+}
+
+function handleEditClick(sys, cx, cy, e) {
+  const tool = activeTool.value
+  if (tool === 'move') {
+    // 클릭만으로는 아무것도 안함 (드래그가 이동)
+    return
+  }
+  if (tool === 'lane') {
+    if (!sys) { laneFrom.value = null; return }
+    if (!laneFrom.value) {
+      laneFrom.value = sys.id
+    } else {
+      if (laneFrom.value !== sys.id) toggleLane(laneFrom.value, sys.id)
+      laneFrom.value = null
+    }
+    return
+  }
+  if (tool === 'add') {
+    if (sys) return
+    const rect = svgEl.value.getBoundingClientRect()
+    addForm.value = {
+      visible: true, name: '',
+      sx: Math.min(e.clientX - rect.left + 10, rect.width  - 160),
+      sy: Math.min(e.clientY - rect.top  + 10, rect.height - 100),
+      cx: Math.round(cx), cy: Math.round(cy),
+    }
+    nextTick(() => addInput.value?.focus())
+    return
+  }
+  if (tool === 'delete') {
+    if (sys) {
+      game.removeSystem(sys.id)
+      laneKeySet.value = new Set([...laneKeySet.value].filter(k => !k.split('|').includes(sys.id)))
+    } else {
+      const key = laneNear(cx, cy)
+      if (key) laneKeySet.value = new Set([...laneKeySet.value].filter(k => k !== key))
+    }
+  }
+}
+
+function confirmAdd() {
+  const name = addForm.value.name.trim()
+  if (!name) return
+  game.addSystem(name, addForm.value.cx, addForm.value.cy)
+  cancelAdd()
+}
+function cancelAdd() {
+  addForm.value = { visible: false, name: '', sx: 0, sy: 0, cx: 0, cy: 0 }
+}
+
+// ── 라인 관리 ────────────────────────────────────────────────
+function laneKey(a, b) { return [a, b].sort().join('|') }
+
+const laneKeySet = ref(new Set(LANE_DEF.map(([a, b]) => laneKey(a, b))))
+
+function toggleLane(a, b) {
+  const k  = laneKey(a, b)
+  const ns = new Set(laneKeySet.value)
+  if (ns.has(k)) ns.delete(k); else ns.add(k)
+  laneKeySet.value = ns
+}
+
+const lanesComp = computed(() => {
+  return [...laneKeySet.value].map(k => {
+    const [a, b] = k.split('|')
+    const sa = game.systems[a], sb = game.systems[b]
+    if (!sa || !sb) return null
+    return { k, x1: sa.x, y1: sa.y, x2: sb.x, y2: sb.y }
+  }).filter(Boolean)
+})
+
+// ── 기존 헬퍼 ────────────────────────────────────────────────
+const fclr    = computed(() => game.fColors)
 const systems = computed(() => Object.values(game.systems))
 
-const lanes = (() => {
-  const m = {}; STAR_SYSTEMS.forEach(s => { m[s.id] = s })
-  return LANE_DEF.map(([a,b]) => ({
-    k:`${a}-${b}`, x1:m[a]?.x, y1:m[a]?.y, x2:m[b]?.x, y2:m[b]?.y
-  })).filter(l => l.x1 != null)
-})()
-
 function nr(s) {
-  if (s.type==='capital') return 16
-  if (s.type==='fortress') return 13
-  if (s.isGateway) return 14
+  if (s.type === 'capital')  return 16
+  if (s.type === 'fortress') return 13
+  if (s.isGateway)           return 14
   return 10
 }
 function ico(s) {
-  if (s.type==='capital') return '🏛'
-  if (s.type==='fortress') return '🏰'
-  if (s.isGateway) return '🌀'
-  if (s.type==='contested') return '⚡'
+  if (s.type === 'capital')  return '🏛'
+  if (s.type === 'fortress') return '🏰'
+  if (s.isGateway)           return '🌀'
+  if (s.type === 'contested') return '⚡'
   return '⭐'
 }
 
+// ── 별/성운 배경 ──────────────────────────────────────────────
 onMounted(() => {
+  svgEl.value.addEventListener('wheel', onWheel, { passive: false })
+
   const c = bgCvs.value
   if (!c) return
   const ctx = c.getContext('2d')
-  let w = c.width = c.offsetWidth || 500
-  let h = c.height = c.offsetHeight || 400
-  const stars = Array.from({length:320}, () => ({
-    x:Math.random()*w, y:Math.random()*h,
-    r:Math.random()*.9+.1, tw:Math.random()*Math.PI*2, sp:Math.random()*.15+.02,
+  let w = c.width = c.offsetWidth || 820
+  let h = c.height = c.offsetHeight || 490
+  const stars = Array.from({ length: 420 }, () => ({
+    x: Math.random()*w, y: Math.random()*h,
+    r: Math.random()*.9+.1, tw: Math.random()*Math.PI*2, sp: Math.random()*.15+.02,
   }))
-  const nebs = Array.from({length:3}, () => ({
-    x:Math.random()*w, y:Math.random()*h, r:70+Math.random()*100,
-    cl:['rgba(41,128,185,','rgba(192,57,43,','rgba(80,40,140,'][Math.floor(Math.random()*3)],
+  const nebs = Array.from({ length: 3 }, () => ({
+    x: Math.random()*w, y: Math.random()*h, r: 70+Math.random()*100,
+    cl: ['rgba(41,128,185,','rgba(192,57,43,','rgba(80,40,140,'][Math.floor(Math.random()*3)],
   }))
   function draw() {
-    ctx.fillStyle='#020508'; ctx.fillRect(0,0,w,h)
+    ctx.fillStyle = '#020508'; ctx.fillRect(0, 0, w, h)
     nebs.forEach(n => {
       const g = ctx.createRadialGradient(n.x,n.y,0,n.x,n.y,n.r)
-      g.addColorStop(0,`${n.cl}0.05)`); g.addColorStop(1,`${n.cl}0)`)
-      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2); ctx.fill()
+      g.addColorStop(0, `${n.cl}0.05)`); g.addColorStop(1, `${n.cl}0)`)
+      ctx.fillStyle = g; ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2); ctx.fill()
     })
     stars.forEach(s => {
-      s.tw+=.01; s.x-=s.sp; if(s.x<0){s.x=w; s.y=Math.random()*h}
+      s.tw += .01; s.x -= s.sp; if (s.x < 0) { s.x = w; s.y = Math.random()*h }
       ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2)
-      ctx.fillStyle=`rgba(200,220,255,${.1+Math.sin(s.tw)*.2})`; ctx.fill()
+      ctx.fillStyle = `rgba(200,220,255,${.1+Math.sin(s.tw)*.2})`; ctx.fill()
     })
     aid = requestAnimationFrame(draw)
   }
   draw()
 })
-onUnmounted(() => cancelAnimationFrame(aid))
+
+onUnmounted(() => {
+  cancelAnimationFrame(aid)
+  svgEl.value?.removeEventListener('wheel', onWheel)
+})
 </script>
 
 <style scoped>
-.map-wrap{position:relative;flex:1;overflow:hidden;background:var(--bg)}
-.map-bg{position:absolute;inset:0;width:100%;height:100%}
-.map-svg{position:absolute;inset:0;width:100%;height:100%}
-.sys-node{cursor:pointer}
-.sys-lbl{pointer-events:none;font-family:var(--font-sans)}
-.fleet-dot{cursor:pointer}
-.fleet-dot.sel circle{stroke-width:2.5}
-.map-legend{position:absolute;bottom:10px;left:10px;padding:7px 11px;display:flex;flex-direction:column;gap:4px;pointer-events:none}
-.leg-row{display:flex;align-items:center;gap:6px}
-.leg-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;display:inline-block}
-@keyframes pulse{0%,100%{opacity:.5}50%{opacity:1}}
+.map-wrap { position:relative; flex:1; overflow:hidden; background:var(--bg) }
+.map-bg   { position:absolute; inset:0; width:100%; height:100% }
+.map-svg  { position:absolute; inset:0; width:100%; height:100%; touch-action:none; user-select:none }
+.sys-node { cursor:pointer }
+.sys-lbl  { pointer-events:none; font-family:var(--font-sans) }
+.fleet-dot         { cursor:pointer }
+.fleet-dot.sel circle { stroke-width:2.5 }
+
+/* 편집 모드 커서 */
+.is-edit.tool-move   { cursor:move }
+.is-edit.tool-lane   { cursor:crosshair }
+.is-edit.tool-add    { cursor:cell }
+.is-edit.tool-delete { cursor:not-allowed }
+
+/* 줌 컨트롤 */
+.zoom-ctrl {
+  position:absolute; bottom:10px; right:10px;
+  display:flex; flex-direction:column; gap:4px; z-index:10;
+}
+.zb {
+  width:28px; height:28px;
+  background:rgba(10,16,24,.85); border:1px solid var(--bd);
+  color:var(--t2); border-radius:5px; cursor:pointer; font-size:14px;
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color .15s, color .15s;
+}
+.zb:hover, .zb.active { border-color:var(--fc); color:var(--fc) }
+.zb-sep { height:4px }
+
+/* 편집 툴바 */
+.edit-tb {
+  position:absolute; top:10px; left:50%; transform:translateX(-50%);
+  display:flex; gap:4px; z-index:10;
+  background:rgba(8,12,20,.88); border:1px solid var(--bd);
+  border-radius:8px; padding:5px 7px;
+}
+.tb-btn {
+  display:flex; align-items:center; gap:4px;
+  padding:4px 10px; border-radius:5px;
+  background:transparent; border:1px solid transparent;
+  color:var(--t3); cursor:pointer; font-size:12px;
+  transition:all .15s;
+}
+.tb-btn:hover  { border-color:var(--bd); color:var(--t1) }
+.tb-btn.active { background:var(--bg4); border-color:var(--fc); color:var(--fc) }
+.tb-icon { font-size:14px }
+.tb-lbl  { font-size:11px }
+
+/* 성계 추가 폼 */
+.add-form {
+  position:absolute; z-index:20;
+  padding:10px 12px; min-width:150px;
+}
+.af-title { font-size:11px; color:var(--t3); margin-bottom:6px }
+.af-input {
+  width:100%; padding:5px 7px; font-size:12px;
+  background:var(--bg3); border:1px solid var(--bd); border-radius:4px;
+  color:var(--t1); outline:none; margin-bottom:7px;
+}
+.af-input:focus { border-color:var(--fc) }
+.af-btns { display:flex; gap:6px }
+
+/* 범례 */
+.map-legend {
+  position:absolute; bottom:10px; left:10px;
+  padding:7px 11px; display:flex; flex-direction:column; gap:4px;
+  pointer-events:none;
+}
+.leg-row { display:flex; align-items:center; gap:6px }
+.leg-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; display:inline-block }
+
+@keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
+.sel-ring { animation:pulse 1.5s ease-in-out infinite }
+
+.tb-fade-enter-active, .tb-fade-leave-active { transition:opacity .2s, transform .2s }
+.tb-fade-enter-from, .tb-fade-leave-to { opacity:0; transform:translateX(-50%) translateY(-6px) }
 </style>

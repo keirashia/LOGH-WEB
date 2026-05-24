@@ -42,11 +42,11 @@
       </div>
     </transition>
   </div>
-  <BottomBar />
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
+import { useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
 import UserBar    from '@/components/ui/UserBar.vue'
@@ -64,7 +64,13 @@ import FinanceModal  from '@/components/game/modals/FinanceModal.vue'
 import MilitaryModal from '@/components/game/modals/MilitaryModal.vue'
 import IntelModal    from '@/components/game/modals/IntelModal.vue'
 
+const router = useRouter()
 const game = useGameStore()
+
+watch(() => game._pendingBattle, (val) => {
+  if (val) router.push('/game/tactical')
+})
+
 const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal }
 const modalComp = computed(() => game.activeModal ? MODAL_MAP[game.activeModal.name] : null)
 </script>

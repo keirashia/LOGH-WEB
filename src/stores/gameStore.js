@@ -45,6 +45,7 @@ function buildState(scId, pf) {
     log: [], selectedSystem: null, selectedFleet: null,
     _levyCooldown: 0, _loanBalance: 0, _loanDueTurn: null, _fleetSeq: 10, _truce: {}, _tradeBonus: 0,
     _reserve: 0, _intelligenceFund: 0, _budgetAllocation: null,
+    _pendingBattle: null,
     activeModal: null, gameOver: false, winner: null,
   }
 }
@@ -146,10 +147,97 @@ export const useGameStore = defineStore('game', {
       const fleet = this.pFleets.find(f => f.id === fleetId)
       const target = this.systems[targetId]
       if (!fleet || !target || fleet.status !== 'standby') return false
+
+      // 해당 성계에 주둔 중인 적 함대 수집
+      const defenderFleets = []
+      Object.entries(this.fleets).forEach(([faction, fleets]) => {
+        if (faction !== this.playerFaction) {
+          fleets.filter(f => f.location === targetId).forEach(f => {
+            defenderFleets.push({ ...f, faction })
+          })
+        }
+      })
+
       fleet.status = 'deployed'
+      fleet.target = targetId
+
+      if (defenderFleets.length > 0) {
+        // 전술전투 트리거
+        this._pendingBattle = {
+          attackerFleet:   { ...fleet, faction: this.playerFaction },
+          attackerFaction: this.playerFaction,
+          defenderFleets,
+          targetSystemId:  targetId,
+          opType,
+        }
+        this.addLog(`[출격] ${fleet.name} → ${target.name} — 적 함대 발견, 전술전투 개시!`)
+        return 'tactical'
+      }
+
+      // 방어 함대 없음 → 즉시 해결
       this.addLog(`[출격] ${fleet.name} → ${target.name} (${OPERATION_TYPES[opType]?.name})`)
       this._battle(fleet, target, opType)
       return true
+    },
+
+    applyBattleResult(result) {
+      const ctx = this._pendingBattle
+      if (!ctx) return
+
+      const attackerFleet = this.pFleets.find(f => f.id === ctx.attackerFleet.id)
+
+      if (result.winner === this.playerFaction) {
+        // 아군 승리
+        if (attackerFleet) {
+          attackerFleet.ships    = Math.max(1000, ctx.attackerFleet.ships - result.attackerLosses)
+          attackerFleet.status   = 'standby'
+          attackerFleet.target   = null
+          attackerFleet.location = ctx.targetSystemId
+        }
+
+        // 적 함대 피해 적용 (각 함대에 균등 분배)
+        const perFleet = Math.floor(result.defenderLosses / Math.max(1, ctx.defenderFleets.length))
+        ctx.defenderFleets.forEach(df => {
+          const factionFleets = this.fleets[df.faction]
+          if (!factionFleets) return
+          const idx = factionFleets.findIndex(f => f.id === df.id)
+          if (idx === -1) return
+          const remaining = df.ships - perFleet
+          if (remaining <= 1000) {
+            this.addLog(`💥 [격파] ${df.name} 전술전투 패배로 격파`)
+            factionFleets.splice(idx, 1)
+          } else {
+            factionFleets[idx].ships = remaining
+            const friendly = Object.values(this.systems).find(s => s.faction === df.faction)
+            if (friendly) factionFleets[idx].location = friendly.id
+          }
+        })
+
+        // 성계 점령 효과
+        const target = this.systems[ctx.targetSystemId]
+        const op     = OPERATION_TYPES[ctx.opType]
+        if (target && op) {
+          const prev = target.faction
+          target.faction  = this.playerFaction
+          target.defense  = Math.max(5, target.defense  - (op.defDmg   || 0))
+          target.morale   = Math.max(5, target.morale   - (op.moraleDmg || 0))
+          this.addLog(`✅ [점령] ${target.name} 전술전투 승리 (${prev || '중립'} → ${this.playerFaction})`)
+        }
+        this._victory()
+
+      } else {
+        // 아군 패배
+        if (attackerFleet) {
+          attackerFleet.ships  = Math.max(1000, ctx.attackerFleet.ships - result.attackerLosses)
+          attackerFleet.status = 'standby'
+          attackerFleet.target = null
+          const friendly = Object.values(this.systems).find(s => s.faction === this.playerFaction)
+          if (friendly) attackerFleet.location = friendly.id
+        }
+        this.addLog(`❌ [패배] 전술전투 패배, ${ctx.attackerFleet.name} 철수`)
+      }
+
+      this._pendingBattle = null
     },
 
     assignChar(charId, post) {
@@ -617,6 +705,20 @@ export const useGameStore = defineStore('game', {
       }
     },
 
+    addSystem(name, x, y) {
+      const id = `SYS_${Date.now()}`
+      this.systems[id] = {
+        id, name, faction: null, type: 'normal',
+        x, y, population: 50, industry: 50, defense: 30,
+        morale: 70, tax: 30, underConstruction: null,
+        isGateway: false, fortress: null,
+      }
+    },
+
+    removeSystem(id) {
+      delete this.systems[id]
+    },
+
     addLog(msg) {
       this.log.unshift({ msg, turn: this.turn, month: this.month })
       if (this.log.length > 300) this.log.pop()
@@ -628,13 +730,10 @@ export const useGameStore = defineStore('game', {
         Object.values(this.systems).forEach(s => {
           if (s.faction === f) inc += Math.floor(s.population * (s.tax / 100) * (s.industry / 100) * 10)
         })
-        this.resources[f].gold += inc
-        // 함대 유지비 차감
         let upkeepTotal = 0
         ;(this.fleets[f] || []).forEach(fl => { upkeepTotal += (fl.upkeep || 0) })
         this.resources[f].gold = Math.max(0, this.resources[f].gold + inc - upkeepTotal)
         if (f === this.playerFaction) this.addLog(`[수입] +${inc} / 유지비 -${upkeepTotal} (잔고 ${this.resources[f].gold})`)
-        else this.resources[f].gold += inc
       })
     },
 
