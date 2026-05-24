@@ -1,6 +1,5 @@
 <template>
   <div class="game-view" :class="`theme-${game.playerFaction}`">
-    <UserBar />
     <EventLog />
     <GameHud />
     <div class="game-main">
@@ -49,7 +48,6 @@ import { computed, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
-import UserBar    from '@/components/ui/UserBar.vue'
 import GameHud    from '@/components/ui/GameHud.vue'
 import EventLog   from '@/components/ui/EventLog.vue'
 import BottomBar  from '@/components/ui/BottomBar.vue'
@@ -76,7 +74,7 @@ const modalComp = computed(() => game.activeModal ? MODAL_MAP[game.activeModal.n
 </script>
 
 <style scoped>
-.game-view{display:flex;flex-direction:column;width:100%;height:100vh;overflow:hidden;background:var(--bg);padding-bottom:72px}
+.game-view{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden;background:var(--bg);padding-bottom:72px}
 .theme-EMPIRE  {--fc:var(--empire)}
 .theme-ALLIANCE{--fc:var(--alliance)}
 .theme-PHEZZAN {--fc:var(--phezzan)}

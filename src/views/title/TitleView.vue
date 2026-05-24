@@ -14,10 +14,6 @@
       </div>
       <!-- <p class="t-credit dim mono">원작: BOTHTEC (1996)</p> -->
     </div>
-    <!-- 계정 배지 -->
-    <div class="title-user-badge">
-      <UserBadge />
-    </div>
     <div v-for="c in ['tl','tr','bl','br']" :key="c" :class="['corner', c]" />
   </div>
 </template>
@@ -26,8 +22,6 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
-import UserBadge from '@/views/user/UserBadge.vue'
-
 const router = useRouter()
 const auth   = useAuthStore()
 const cvs    = ref(null)
@@ -72,7 +66,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.title-wrap{position:relative;width:100%;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.title-wrap{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center;overflow:hidden}
 .starfield{position:absolute;inset:0;z-index:0}
 .title-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:20px}
 .t-sub{font-size:11px;letter-spacing:5px;color:var(--t2);text-transform:uppercase}
@@ -93,6 +87,5 @@ onMounted(() => {
 .corner.tr{top:18px;right:18px;border-width:2px 2px 0 0}
 .corner.bl{bottom:18px;left:18px;border-width:0 0 2px 2px}
 .corner.br{bottom:18px;right:18px;border-width:0 2px 2px 0}
-.title-user-badge{position:absolute;top:18px;right:18px;z-index:2}
 @keyframes pulse{0%,100%{opacity:.7}50%{opacity:1}}
 </style>
