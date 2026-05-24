@@ -98,23 +98,28 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useGameStore } from '@/stores/gameStore'
 import { useAuthStore }  from '@/stores/authStore'
 import { useSeasonStore } from '@/stores/seasonStore'
 import { SCENARIOS, FACTIONS, CHARACTERS } from '@/data/masterData'
 
 const router = useRouter()
+const route  = useRoute()
 const game   = useGameStore()
 const auth   = useAuthStore()
 const season = useSeasonStore()
 
 const cvs    = ref(null)
-const mode   = ref(null)
+const mode   = ref(route.query.mode || null)
 const selSc  = ref(null)
 const selFac = ref(null)
 let aid = null
+
+watch(() => route.query.mode, (value) => {
+  mode.value = value || null
+})
 
 const leader = computed(() => {
   if (!selFac.value) return null

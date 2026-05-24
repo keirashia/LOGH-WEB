@@ -59,17 +59,22 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 
 const router = useRouter()
+const route  = useRoute()
 const auth   = useAuthStore()
 const cvs    = ref(null)
-const tab    = ref('login')
+const tab    = ref(String(route.query.tab || 'login'))
 const loading= ref(false)
 const error  = ref('')
 const form   = ref({ username:'', password:'', email:'', transferCode:'' })
+
+watch(() => route.query.tab, (value) => {
+  if (value) tab.value = String(value)
+})
 
 let aid = null
 
