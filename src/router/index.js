@@ -37,6 +37,11 @@ const routes = [
     },
   },
   {
+    path: '/game/tactical',
+    name: 'tactical',
+    component: () => import('@/views/game/TacticalView.vue'),
+  },
+  {
     path: '/tutorial',
     name: 'tutorial',
     component: () => import('@/views/tutorial/TutorialView.vue'),

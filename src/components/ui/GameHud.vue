@@ -1,30 +1,20 @@
 <template>
   <header class="hud">
-    <div class="hud-faction" :class="`bg-${game.playerFaction}`"
-         :style="`border-color:${game.pFaction.color}`">
-      <span>{{ game.pFaction.flag }}</span>
-      <span class="serif" style="font-size:12px;letter-spacing:1px">{{ game.pFaction.name }}</span>
+    <div class="hud-left">
+      <div class="hud-faction" :class="`bg-${game.playerFaction}`"
+           :style="`border-color:${game.pFaction.color}`">
+        <span>{{ game.pFaction.flag }}</span>
+        <span class="serif" style="font-size:12px;letter-spacing:1px">{{ game.pFaction.name }}</span>
+      </div>
     </div>
-    <span class="mono dim" style="font-size:10px;white-space:nowrap">{{ game.dateStr }}</span>
-    <div class="hud-res">
-      <span>💰</span>
-      <span class="gold mono">{{ game.pRes.gold.toLocaleString() }}</span>
-      <span class="dim" style="font-size:10px">마크</span>
-    </div>
-    <div class="hud-ctrl">
-      <span v-for="(f,fid) in FACTIONS" :key="fid" class="ctrl-item">
-        <span :class="`fc-${fid}`">{{ f.flag }}</span>
-        <span class="mono" style="font-size:11px">{{ game.sysCounts[fid]||0 }}</span>
-      </span>
+    <div class="hud-mid">
+      <span class="mono dim" style="font-size:10px;white-space:nowrap">{{ game.dateStr }}</span>
+      <div class="hud-res">
+        <span>💰</span>
+        <span class="gold mono">{{ game.pRes.gold.toLocaleString() }}</span>
+      </div>
     </div>
     <div class="hud-sp" />
-    <div class="hud-acts">
-      <button class="btn" @click="game.openModal('char')">👤 인사</button>
-      <button class="btn btn-gold" @click="game.openModal('finance')">💰 재정</button>
-      <button class="btn btn-red" @click="game.openModal('military')">⚔️ 군사</button>
-      <button class="btn btn-green" @click="game.openModal('intel')">🔍 정보</button>
-      <button class="btn" :class="endBtnCls" @click="game.endTurn()">턴 종료 →</button>
-    </div>
   </header>
 </template>
 
@@ -32,10 +22,13 @@
 import { computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
+import { useAuthStore } from '@/stores/authStore'
 const game = useGameStore()
 const endBtnCls = computed(() => ({
   EMPIRE:'btn-red', ALLIANCE:'btn-blue', PHEZZAN:'btn-green'
 }[game.playerFaction]))
+const auth = useAuthStore()
+const user = auth.user
 </script>
 
 <style scoped>

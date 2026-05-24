@@ -19,7 +19,7 @@
 import { ref } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 const game = useGameStore()
-const open = ref(true)
+const open = ref(false)
 function rowCls(m) {
   if (m.startsWith('✅')||m.startsWith('🏆')) return 'ok'
   if (m.startsWith('❌')||m.startsWith('⚠️')) return 'bad'

@@ -1,12 +1,14 @@
 <template>
   <div class="game-view" :class="`theme-${game.playerFaction}`">
+    <UserBar />
+    <EventLog />
     <GameHud />
     <div class="game-main">
       <SidePanel />
       <GalaxyMap />
       <InfoPanel />
     </div>
-    <EventLog />
+    <BottomBar />
 
     <!-- 모달 -->
     <transition name="fade">
@@ -40,14 +42,17 @@
       </div>
     </transition>
   </div>
+  <BottomBar />
 </template>
 
 <script setup>
 import { computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
+import UserBar    from '@/components/ui/UserBar.vue'
 import GameHud    from '@/components/ui/GameHud.vue'
 import EventLog   from '@/components/ui/EventLog.vue'
+import BottomBar  from '@/components/ui/BottomBar.vue'
 import SidePanel  from '@/components/game/panels/SidePanel.vue'
 import GalaxyMap  from '@/components/game/map/GalaxyMap.vue'
 import InfoPanel  from '@/components/game/panels/InfoPanel.vue'
@@ -65,7 +70,7 @@ const modalComp = computed(() => game.activeModal ? MODAL_MAP[game.activeModal.n
 </script>
 
 <style scoped>
-.game-view{display:flex;flex-direction:column;width:100%;height:100vh;overflow:hidden;background:var(--bg)}
+.game-view{display:flex;flex-direction:column;width:100%;height:100vh;overflow:hidden;background:var(--bg);padding-bottom:72px}
 .theme-EMPIRE  {--fc:var(--empire)}
 .theme-ALLIANCE{--fc:var(--alliance)}
 .theme-PHEZZAN {--fc:var(--phezzan)}
