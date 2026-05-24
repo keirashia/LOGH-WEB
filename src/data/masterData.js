@@ -1,39 +1,23 @@
-export const FACTIONS = {
-  EMPIRE:   { id:'EMPIRE',   name:'은하제국',     nameJp:'銀河帝国',        color:'#c0392b', flag:'⚔️',  ideology:'전제군주제', leader:'REINHARD', currency:'제국 마르크' },
-  ALLIANCE: { id:'ALLIANCE', name:'자유행성동맹', nameJp:'自由惑星同盟',    color:'#2980b9', flag:'🛡️', ideology:'민주공화제', leader:'YANG',     currency:'동맹 디나르' },
-  PHEZZAN:  { id:'PHEZZAN',  name:'페잔 자치령',  nameJp:'フェザーン自治領',color:'#27ae60', flag:'💰',  ideology:'상업 자치',  leader:'RUBINSKY', currency:'페잔 골드'  },
-}
+﻿import CHARACTERS_DATA from '@/data/characters/char.js'
+import FACTIONS_DATA from '@/data/factions/factions.js'
 
-export const CHARACTERS = {
-  REINHARD:     { id:'REINHARD',     faction:'EMPIRE',   name:'라인하르트 폰 로엔그람', rank:'원수/제국재상',  military:99, politics:95, intelligence:90, charisma:98, loyalty:100, health:85, portrait:'👑', quote:'나는 우주를 손에 넣을 것이다.' },
-  KIRCHEIS:     { id:'KIRCHEIS',     faction:'EMPIRE',   name:'지크프리트 키르히아이스',rank:'상급대장',       military:92, politics:80, intelligence:88, charisma:90, loyalty:100, health:95, portrait:'🌟', quote:'라인하르트 님, 반드시 지켜드리겠습니다.' },
-  MITTERMEYER:  { id:'MITTERMEYER',  faction:'EMPIRE',   name:'볼프강 미터마이어',      rank:'상급대장',       military:95, politics:60, intelligence:80, charisma:85, loyalty:95,  health:90, portrait:'⚡', quote:'질풍의 미터마이어, 전진한다!' },
-  REUENTHAL:    { id:'REUENTHAL',    faction:'EMPIRE',   name:'오스카 폰 로이엔탈',     rank:'상급대장',       military:95, politics:70, intelligence:85, charisma:80, loyalty:80,  health:90, portrait:'🦅', quote:'나는 반역자가 될 자격도 있다.' },
-  BITTENFELD:   { id:'BITTENFELD',   faction:'EMPIRE',   name:'프리츠 비텐펠트',        rank:'대장',           military:88, politics:30, intelligence:55, charisma:75, loyalty:92,  health:95, portrait:'🔥', quote:'흑색창기함대, 돌격!' },
-  EISENACH:     { id:'EISENACH',     faction:'EMPIRE',   name:'어네스트 아이제나흐',    rank:'대장',           military:85, politics:40, intelligence:82, charisma:60, loyalty:90,  health:90, portrait:'🤐', quote:'…' },
-  OBERSTEIN:    { id:'OBERSTEIN',    faction:'EMPIRE',   name:'파울 폰 오버슈타인',     rank:'군무상서',       military:55, politics:92, intelligence:98, charisma:20, loyalty:85,  health:80, portrait:'🤖', quote:'국가를 위해서는 감정을 배제해야 합니다.' },
-  WAHLEN:       { id:'WAHLEN',       faction:'EMPIRE',   name:'어거스트 바렌',          rank:'상급대장',       military:87, politics:45, intelligence:75, charisma:72, loyalty:93,  health:85, portrait:'🛡️', quote:'철벽의 바렌, 맡겨두십시오.' },
-  YANG:         { id:'YANG',         faction:'ALLIANCE', name:'양 웬리',                rank:'원수',           military:99, politics:65, intelligence:99, charisma:85, loyalty:95,  health:80, portrait:'🎓', quote:'하아, 최대한 노력해보겠습니다.' },
-  FREDERICA:    { id:'FREDERICA',    faction:'ALLIANCE', name:'프레데리카 그린힐',      rank:'소장',           military:65, politics:75, intelligence:85, charisma:80, loyalty:100, health:95, portrait:'💚', quote:'제독님, 지금 상황을 보고드립니다.' },
-  ATTENBOROUGH: { id:'ATTENBOROUGH', faction:'ALLIANCE', name:'드와이트 애튼버러',      rank:'중장',           military:88, politics:55, intelligence:80, charisma:82, loyalty:98,  health:90, portrait:'✊', quote:'양 제독은 항상 옳다!' },
-  MERKATZ:      { id:'MERKATZ',      faction:'ALLIANCE', name:'윌리발트 폰 메르카츠',   rank:'원수(亡命)',     military:92, politics:50, intelligence:85, charisma:70, loyalty:92,  health:75, portrait:'⚓', quote:'군인으로서의 의무를 다할 뿐이오.' },
-  CAZERNE:      { id:'CAZERNE',      faction:'ALLIANCE', name:'알렉스 카젤느',          rank:'중장(후방)',     military:50, politics:88, intelligence:90, charisma:70, loyalty:95,  health:85, portrait:'📋', quote:'보급 없이는 전쟁도 없다.' },
-  RUBINSKY:     { id:'RUBINSKY',     faction:'PHEZZAN',  name:'아드리안 루빈스키',      rank:'자치령주',       military:30, politics:99, intelligence:99, charisma:70, loyalty:50,  health:70, portrait:'🕷️', quote:'페잔이 우주의 진정한 지배자가 될 것이오.' },
-}
+export const CHARACTERS = CHARACTERS_DATA
+export const FACTIONS = Object.fromEntries(FACTIONS_DATA.map(f => [f.id, f]))
+
 
 export const STAR_SYSTEMS = [
-  { id:'ODIN',         name:'오딘',        faction:'EMPIRE',   type:'capital',  x:645, y:230, population:250, industry:95, defense:90, isGateway:false, fortress:null },
-  { id:'GAISHBURG',    name:'가이스부르크',faction:'EMPIRE',   type:'fortress', x:545, y:88,  population:60,  industry:70, defense:95, isGateway:false, fortress:'GAISHBURG' },
-  { id:'NEUE_LAND',    name:'노이에란트',  faction:'EMPIRE',   type:'frontier', x:755, y:78,  population:80,  industry:55, defense:60, isGateway:false, fortress:null },
-  { id:'RENTENBERG',   name:'렌텐베르크', faction:'EMPIRE',   type:'normal',   x:715, y:355, population:90,  industry:60, defense:50, isGateway:false, fortress:null },
-  { id:'KAPCHE_LANKA', name:'카프체란카', faction:'EMPIRE',   type:'frontier', x:555, y:408, population:40,  industry:35, defense:45, isGateway:false, fortress:null },
-  { id:'HEINESSEN',    name:'하이네센',   faction:'ALLIANCE', type:'capital',  x:88,  y:265, population:220, industry:90, defense:85, isGateway:false, fortress:null },
-  { id:'TIAMAT',       name:'티아마트',   faction:'ALLIANCE', type:'fortress', x:215, y:88,  population:50,  industry:60, defense:85, isGateway:false, fortress:'TIAMAT' },
-  { id:'URUVASI',      name:'우르바시',   faction:'ALLIANCE', type:'normal',   x:62,  y:80,  population:70,  industry:50, defense:45, isGateway:false, fortress:null },
-  { id:'SHAMLUU',      name:'샤므루',     faction:'ALLIANCE', type:'normal',   x:108, y:400, population:60,  industry:45, defense:40, isGateway:false, fortress:null },
-  { id:'LEGNICA',      name:'레그니차',   faction:'ALLIANCE', type:'frontier', x:295, y:205, population:55,  industry:40, defense:50, isGateway:false, fortress:null },
-  { id:'ISERLOHN',     name:'이젤론',     faction:'EMPIRE',   type:'fortress', x:425, y:238, population:20,  industry:50, defense:99, isGateway:true,  fortress:'ISERLOHN' },
-  { id:'PHEZZAN',      name:'페잔',       faction:'PHEZZAN',  type:'capital',  x:408, y:402, population:150, industry:99, defense:60, isGateway:true,  fortress:null },
+  { id:'ODIN',         name:'오딘',        faction:'REH',   type:'capital',  x:645, y:230, population:250, industry:95, defense:90, isGateway:false, fortress:null },
+  { id:'GAISHBURG',    name:'가이스부르크',faction:'REH',   type:'fortress', x:545, y:88,  population:60,  industry:70, defense:95, isGateway:false, fortress:'GAISHBURG' },
+  { id:'NEUE_LAND',    name:'노이에란트',  faction:'REH',   type:'frontier', x:755, y:78,  population:80,  industry:55, defense:60, isGateway:false, fortress:null },
+  { id:'RENTENBERG',   name:'렌텐베르크', faction:'REH',   type:'normal',   x:715, y:355, population:90,  industry:60, defense:50, isGateway:false, fortress:null },
+  { id:'KAPCHE_LANKA', name:'카프체란카', faction:'REH',   type:'frontier', x:555, y:408, population:40,  industry:35, defense:45, isGateway:false, fortress:null },
+  { id:'HEINESSEN',    name:'하이네센',   faction:'FPA', type:'capital',  x:88,  y:265, population:220, industry:90, defense:85, isGateway:false, fortress:null },
+  { id:'TIAMAT',       name:'티아마트',   faction:'FPA', type:'fortress', x:215, y:88,  population:50,  industry:60, defense:85, isGateway:false, fortress:'TIAMAT' },
+  { id:'URUVASI',      name:'우르바시',   faction:'FPA', type:'normal',   x:62,  y:80,  population:70,  industry:50, defense:45, isGateway:false, fortress:null },
+  { id:'SHAMLUU',      name:'샤므루',     faction:'FPA', type:'normal',   x:108, y:400, population:60,  industry:45, defense:40, isGateway:false, fortress:null },
+  { id:'LEGNICA',      name:'레그니차',   faction:'FPA', type:'frontier', x:295, y:205, population:55,  industry:40, defense:50, isGateway:false, fortress:null },
+  { id:'ISERLOHN',     name:'이젤론',     faction:'REH',   type:'fortress', x:425, y:238, population:20,  industry:50, defense:99, isGateway:true,  fortress:'ISERLOHN' },
+  { id:'PHEZZAN',  name:'페잔',       faction:'PZN',  type:'capital',  x:408, y:402, population:150, industry:99, defense:60, isGateway:true,  fortress:null },
   { id:'AMLITZER',     name:'아므리차',   faction:null,       type:'contested',x:355, y:195, population:10,  industry:20, defense:20, isGateway:false, fortress:null },
   { id:'VERMILION',    name:'버밀리온',   faction:null,       type:'contested',x:492, y:195, population:10,  industry:20, defense:20, isGateway:false, fortress:null },
 ]
@@ -70,31 +54,31 @@ export const CONSTRUCTION_TYPES = {
 }
 
 export const SCENARIOS = [
-  { id:0, name:'제국의 여명',      year:796, impYear:487, recommend:'EMPIRE',   desc:'라인하르트가 세력을 키우기 시작하는 시점. 키르히아이스와 함께 우주를 정복하라.',                           systems:{ EMPIRE:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG','KAPCHE_LANKA','ISERLOHN'], ALLIANCE:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA'], PHEZZAN:['PHEZZAN'] } },
-  { id:1, name:'이젤론 함락 직후', year:796, impYear:487, recommend:'ALLIANCE', desc:'양 웬리가 이젤론 요새를 무혈 점령한 직후. 제국과 동맹의 전면전이 임박한 상황.',                           systems:{ EMPIRE:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG','KAPCHE_LANKA'], ALLIANCE:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA','ISERLOHN'], PHEZZAN:['PHEZZAN'] } },
-  { id:2, name:'아므리차 성역 회전',year:796, impYear:487, recommend:'EMPIRE',   desc:'동맹군의 제국 침공 작전. 역사의 분기점에서 운명을 바꿀 수 있는가.',                                      systems:{ EMPIRE:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG','KAPCHE_LANKA','ISERLOHN'], ALLIANCE:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA','AMLITZER'], PHEZZAN:['PHEZZAN'] } },
-  { id:3, name:'립슈타트 전역',    year:797, impYear:488, recommend:'EMPIRE',   desc:'제국 내 귀족 연합군과 로엔그람 군의 내전. 라인하르트의 패권 장악이 눈앞에.',                               systems:{ EMPIRE:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG'], ALLIANCE:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA','ISERLOHN'], PHEZZAN:['PHEZZAN'] } },
-  { id:4, name:'회랑의 전투',      year:799, impYear:490, recommend:'ALLIANCE', desc:'버밀리온 회전 이후 최후의 결전. 양 웬리와 라인하르트의 숙명적 대결.',                                        systems:{ EMPIRE:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG','KAPCHE_LANKA','ISERLOHN','AMLITZER','VERMILION'], ALLIANCE:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA'], PHEZZAN:['PHEZZAN'] } },
+  { id:0, name:'제국의 여명',      year:796, impYear:487, recommend:'REH',   desc:'라인하르트가 세력을 키우기 시작하는 시점. 키르히아이스와 함께 우주를 정복하라.',                           systems:{ REH:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG','KAPCHE_LANKA','ISERLOHN'], FPA:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA'], PZN:['PHEZZAN'] } },
+  { id:1, name:'이젤론 함락 직후', year:796, impYear:487, recommend:'FPA', desc:'양 웬리가 이젤론 요새를 무혈 점령한 직후. 제국과 동맹의 전면전이 임박한 상황.',                           systems:{ REH:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG','KAPCHE_LANKA'], FPA:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA','ISERLOHN'], PZN:['PHEZZAN'] } },
+  { id:2, name:'아므리차 성역 회전',year:796, impYear:487, recommend:'REH',   desc:'동맹군의 제국 침공 작전. 역사의 분기점에서 운명을 바꿀 수 있는가.',                                      systems:{ REH:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG','KAPCHE_LANKA','ISERLOHN'], FPA:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA','AMLITZER'], PZN:['PHEZZAN'] } },
+  { id:3, name:'립슈타트 전역',    year:797, impYear:488, recommend:'REH',   desc:'제국 내 귀족 연합군과 로엔그람 군의 내전. 라인하르트의 패권 장악이 눈앞에.',                               systems:{ REH:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG'], FPA:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA','ISERLOHN'], PZN:['PHEZZAN'] } },
+  { id:4, name:'회랑의 전투',      year:799, impYear:490, recommend:'FPA', desc:'버밀리온 회전 이후 최후의 결전. 양 웬리와 라인하르트의 숙명적 대결.',                                        systems:{ REH:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG','KAPCHE_LANKA','ISERLOHN','AMLITZER','VERMILION'], FPA:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA'], PZN:['PHEZZAN'] } },
 ]
 
 // EVTALK.MSG 원문 대사
 export const DIALOGS = {
   TAX: {
-    empire: '황공하오나, 민에 대한 조세를 이와 같이 개정하려 하옵니다만, 폐하의 뜻은 어떠하옵니까.',
+    REH: '황공하오나, 민에 대한 조세를 이와 같이 개정하려 하옵니다만, 폐하의 뜻은 어떠하옵니까.',
     emperor: '음. 그리하도록 하라.',
     decree_empire: '황제 폐하의 어명으로, 내기의 조세는 이상과 같이 변경하는 것으로 한다.',
-    alliance: (rate) => `자유행성동맹 최고평의회의 결정을 전달한다. 내기의 세율은 ${rate}퍼센트로 결정되었다.`,
+    FPA: (rate) => `자유행성동맹 최고평의회의 결정을 전달한다. 내기의 세율은 ${rate}퍼센트로 결정되었다.`,
   },
   BUDGET: {
-    empire: '이번에 국고에 들어온 자금을, 이상과 같이 배분하려 합니다만, 폐하의 뜻은 어떠하옵니까.',
+    REH: '이번에 국고에 들어온 자금을, 이상과 같이 배분하려 합니다만, 폐하의 뜻은 어떠하옵니까.',
     emperor: '좋아, 그대 마음대로 하라.',
     decree: '황제 폐하의 어명으로, 이 자금은 이상과 같이 배분하는 것으로 한다.',
   },
   APPOINTMENT: {
-    empire: '삼장관직을 이상과 같이 임명하고자 합니다만, 어떠하옵니까.',
+    REH: '삼장관직을 이상과 같이 임명하고자 합니다만, 어떠하옵니까.',
     emperor: '좋아. 그대 마음대로 하라.',
     decree_empire: '황제 폐하의 어명으로, 삼장관직을 임명한다. 삼가 배명하라.',
-    alliance: '군 인사에 관한 최고평의회의 결정을 전달한다. 동맹 헌장에 준하여, 이상의 장관을 지휘관에 임명한다.',
+    FPA: '군 인사에 관한 최고평의회의 결정을 전달한다. 동맹 헌장에 준하여, 이상의 장관을 지휘관에 임명한다.',
   },
   SORTIE: {
     cmd: '작전의 총지휘는 본직이 맡는다.',
@@ -122,9 +106,9 @@ export const DIALOGS = {
 }
 
 export const POSTS = {
-  EMPIRE:   ['재상','군무상서','통수본부총장','우주함대사령장관','정보국장','국내안전보장국장'],
-  ALLIANCE: ['최고평의회의장','통합작전본부장','우주함대사령장관','정보부장','헌병총감'],
-  PHEZZAN:  ['자치령주','무역장관','외교장관','정보국장'],
+  REH:   ['재상','군무상서','통수본부총장','우주함대사령장관','정보국장','국내안전보장국장'],
+  FPA: ['최고평의회의장','통합작전본부장','우주함대사령장관','정보부장','헌병총감'],
+  PZN:  ['자치령주','무역장관','외교장관','정보국장'],
 }
 
 // ── 재정 시스템 (EVTALK.MSG 원문 기반) ───────────────────
@@ -241,7 +225,7 @@ export const INTEL = {
 
   // 제안 공작 종류
   PROPOSALS: {
-    ALLIANCE:   { id:'ALLIANCE',   name:'동맹 제안',   icon:'🤝', cost:400, desc:'페잔에 중립 유지를 요청하거나 동맹 협상을 시도합니다.' },
+    ALLIANCE: { id:'ALLIANCE', name:'동맹 제안', icon:'🤝', cost:400, desc:'페잔에 중립 유지를 요청하거나 동맹 협상을 시도합니다.' },
     TRADE:      { id:'TRADE',      name:'통상 조약',   icon:'📜', cost:300, desc:'교역로 개방으로 수입을 증대합니다.' },
     SURRENDER:  { id:'SURRENDER',  name:'항복 권고',   icon:'🏳️', cost:200, desc:'약세인 적에게 항복을 권고합니다.' },
     DEFECTION:  { id:'DEFECTION',  name:'귀순 공작',   icon:'🌟', cost:600, desc:'적 유능한 장교의 귀순을 유도합니다.' },

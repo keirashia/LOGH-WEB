@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="game-view" :class="`theme-${game.playerFaction}`">
     <EventLog />
     <GameHud />
@@ -75,9 +75,9 @@ const modalComp = computed(() => game.activeModal ? MODAL_MAP[game.activeModal.n
 
 <style scoped>
 .game-view{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden;background:var(--bg);padding-bottom:72px}
-.theme-EMPIRE  {--fc:var(--empire)}
-.theme-ALLIANCE{--fc:var(--alliance)}
-.theme-PHEZZAN {--fc:var(--phezzan)}
+.theme-REH  {--fc:var(--REH)}
+.theme-FPA{--fc:var(--FPA)}
+.theme-PZN {--fc:var(--PZN)}
 .game-main{display:flex;flex:1;overflow:hidden}
 .go-overlay{position:fixed;inset:0;z-index:2000;background:rgba(2,5,8,.93);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 .go-box{display:flex;flex-direction:column;align-items:center;gap:14px;padding:44px 52px;text-align:center}

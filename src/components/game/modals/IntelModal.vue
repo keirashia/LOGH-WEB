@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="modal-box intel-modal">
     <div class="modal-title">🔍 정보·외교</div>
 
@@ -78,7 +78,7 @@
 
     <!-- ── 치안 회복 ── -->
     <div v-show="tab==='security'" class="tab-content">
-      <div class="dialog-box" style="border-color:var(--alliance)">
+      <div class="dialog-box" style="border-color:var(--FPA)">
         <div class="dlg-spk mono dim">치안 담당관</div>
         <div class="dlg-txt serif">아군 성계의 민심과 방어 태세를 강화합니다.</div>
       </div>
@@ -148,7 +148,7 @@
 
     <!-- ── 제안 공작 ── -->
     <div v-show="tab==='proposal'" class="tab-content">
-      <div class="dialog-box" style="border-color:var(--phezzan)">
+      <div class="dialog-box" style="border-color:var(--PZN)">
         <div class="dlg-spk mono dim">재상 / 의장</div>
         <div class="dlg-txt serif">{{ INTEL.DIALOGS.PROPOSAL.prime_suggest }}</div>
       </div>
@@ -191,7 +191,7 @@
         </div>
         <div class="ep-row">
           <span class="dim">예상 성공률</span>
-          <span class="gold mono">{{ proposal.targetFaction === 'PHEZZAN' ? '70' : '45' }}%</span>
+          <span class="gold mono">{{ proposal.targetFaction === 'PZN' ? '70' : '45' }}%</span>
         </div>
         <div class="ep-row">
           <span class="dim">비용</span>
@@ -289,7 +289,7 @@ function doProposal() {
 /* 탭 */
 .intel-tabs { display:flex; border:1px solid var(--bd); border-radius:var(--r); overflow:hidden; margin-bottom:14px }
 .intel-tab  { flex:1; padding:8px 2px; background:none; border:none; color:var(--t2); font-size:10px; cursor:pointer; transition:all .15s; font-family:var(--font-sans) }
-.intel-tab.on { background:rgba(39,174,96,.12); color:var(--phezzan) }
+.intel-tab.on { background:rgba(39,174,96,.12); color:var(--PZN) }
 
 .tab-content { display:flex; flex-direction:column; gap:10px }
 
@@ -309,14 +309,14 @@ function doProposal() {
 .op-grid { display:flex; flex-direction:column; gap:5px; flex:1 }
 .op-item { display:flex; align-items:flex-start; gap:9px; padding:8px 10px; border:1px solid var(--bd); border-radius:var(--r); background:var(--bg4); cursor:pointer; transition:all .15s }
 .op-item:hover:not(.disabled) { background:var(--bgh) }
-.op-item.sel     { border-color:var(--phezzan); background:rgba(39,174,96,.1) }
+.op-item.sel     { border-color:var(--PZN); background:rgba(39,174,96,.1) }
 .op-item.disabled { opacity:.4; cursor:not-allowed }
 
 /* 치안 수준 그리드 */
 .level-grid { display:flex; gap:6px; flex:1 }
 .level-item { flex:1; display:flex; flex-direction:column; padding:9px; border:1px solid var(--bd); border-radius:var(--r); background:var(--bg4); cursor:pointer; transition:all .15s; align-items:flex-start }
 .level-item:hover:not(.disabled) { background:var(--bgh) }
-.level-item.sel { border-color:var(--alliance); background:rgba(41,128,185,.12) }
+.level-item.sel { border-color:var(--FPA); background:rgba(41,128,185,.12) }
 .level-item.disabled { opacity:.4; cursor:not-allowed }
 
 /* 세력 그리드 */

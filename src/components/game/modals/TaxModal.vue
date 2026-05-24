@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="modal-box">
     <div class="modal-title">💰 세율 변경 — {{ sys?.name }}</div>
     <div class="m-cur">
@@ -23,7 +23,7 @@
         <span :style="`color:${moraleChg>=0?'#2ecc71':'#e74c3c'}`" class="mono">{{ moraleChg>0?'+':'' }}{{ moraleChg }}</span>
       </div>
     </div>
-    <div class="m-dialog" v-if="game.playerFaction==='EMPIRE'">
+    <div class="m-dialog" v-if="game.playerFaction==='REH'">
       <div class="dlg-spk mono dim">재상 → 황제</div>
       <div class="dlg-txt serif">황공하오나, 민에 대한 조세를 이와 같이 개정하려 하옵니다만, 폐하의 뜻은 어떠하옵니까.</div>
     </div>

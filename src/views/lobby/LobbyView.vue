@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="lobby-wrap">
     <canvas ref="cvs" class="starfield"/>
     <div class="lobby-layout">
@@ -183,9 +183,9 @@ onMounted(() => {
 .sc-empty{align-items:center;justify-content:center;font-size:16px}
 .fs-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
 .fs-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:9px 4px;border:1px solid var(--bd);border-radius:var(--r);background:var(--bg4);cursor:pointer;transition:all .15s}
-.fs-btn.sel-EMPIRE{border-color:var(--empire);background:rgba(192,57,43,.18)}
-.fs-btn.sel-ALLIANCE{border-color:var(--alliance);background:rgba(41,128,185,.18)}
-.fs-btn.sel-PHEZZAN{border-color:var(--phezzan);background:rgba(39,174,96,.18)}
+.fs-btn.sel-REH{border-color:var(--REH);background:rgba(192,57,43,.18)}
+.fs-btn.sel-FPA{border-color:var(--FPA);background:rgba(41,128,185,.18)}
+.fs-btn.sel-PZN{border-color:var(--PZN);background:rgba(39,174,96,.18)}
 .leader-row{display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg4);border-radius:var(--r)}
 .start-btn{width:100%;justify-content:center;padding:12px;font-size:15px;letter-spacing:2px;margin-top:auto}
 /* 멀티 영역 */
@@ -193,7 +193,7 @@ onMounted(() => {
 .multi-inner{display:flex;gap:14px;flex-wrap:wrap;overflow-y:auto;padding:4px}
 .season-card{padding:18px;min-width:200px;position:relative}
 .sc-badge{font-size:10px;font-family:var(--font-mono);padding:2px 8px;border-radius:3px;display:inline-block;margin-bottom:8px}
-.sc-badge.active{background:rgba(39,174,96,.2);color:var(--phezzan)}
+.sc-badge.active{background:rgba(39,174,96,.2);color:var(--PZN)}
 .sc-badge.ended{background:rgba(100,100,100,.2);color:var(--t2)}
 .multi-notice{padding:20px;font-size:12px;text-align:center;width:100%}
 </style>

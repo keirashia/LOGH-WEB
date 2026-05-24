@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+﻿import { defineStore } from 'pinia'
 import { FORMATIONS, TERRAIN, MAP_W, MAP_H, buildTacticalMap } from '@/data/tacticalData'
 import { CHARACTERS } from '@/data/masterData'
 
@@ -44,10 +44,10 @@ export const useTacticalStore = defineStore('tactical', {
   }),
 
   getters: {
-    playerFaction:   s => s.context?.attackerFaction || 'EMPIRE',
+    playerFaction:   s => s.context?.attackerFaction || 'REH',
     selectedUnit:    s => s.units.find(u => u.id === s.selectedId) || null,
-    playerUnits:     s => s.units.filter(u => u.faction === (s.context?.attackerFaction || 'EMPIRE')),
-    enemyUnits:      s => s.units.filter(u => u.faction !== (s.context?.attackerFaction || 'EMPIRE')),
+    playerUnits:     s => s.units.filter(u => u.faction === (s.context?.attackerFaction || 'REH')),
+    enemyUnits:      s => s.units.filter(u => u.faction !== (s.context?.attackerFaction || 'REH')),
     tileAt:          s => (x, y) => s.map.tiles.find(t => t.x === x && t.y === y) || { terrain:'SPACE' },
     unitAt:          s => (x, y) => s.units.find(u => u.x === x && u.y === y) || null,
     isMovable:       s => (x, y) => s.movableCells.some(c => c.x === x && c.y === y),

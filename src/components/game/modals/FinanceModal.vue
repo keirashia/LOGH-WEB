@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="modal-box finance-modal">
     <div class="modal-title">💰 국정 재정</div>
 
@@ -59,7 +59,7 @@
 
     <!-- 페잔 차관 -->
     <div v-if="tab==='loan'" class="tab-content">
-      <div class="dialog-box" style="border-left-color:var(--phezzan)">
+      <div class="dialog-box" style="border-left-color:var(--PZN)">
         <div class="dlg-spk dim mono">페잔 상인</div>
         <div class="dlg-txt serif">{{ FINANCE.DIALOGS.LOAN.phezzan_offer }}</div>
       </div>
@@ -193,10 +193,10 @@ const TABS = [
 ]
 
 const factionLabel = computed(() =>
-  game.playerFaction === 'EMPIRE' ? '재상' : '의장'
+  game.playerFaction === 'REH' ? '재상' : '의장'
 )
 const factionKey = computed(() =>
-  game.playerFaction === 'EMPIRE' ? 'empire_prime' : 'alliance_council'
+  game.playerFaction === 'REH' ? 'empire_prime' : 'alliance_council'
 )
 
 // 예상 징수액 계산

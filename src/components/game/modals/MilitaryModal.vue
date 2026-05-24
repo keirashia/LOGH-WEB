@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="modal-box mil-modal">
     <div class="modal-title">⚔️ 군사 관리</div>
 
@@ -158,7 +158,7 @@
 
     <!-- ── 수송 ── -->
     <div v-if="tab==='transport'" class="tab-content">
-      <div class="dialog-box" style="border-color:var(--alliance)">
+      <div class="dialog-box" style="border-color:var(--FPA)">
         <div class="dlg-spk mono dim">수송 사령부</div>
         <div class="dlg-txt serif">아군 성계 간 자원을 수송하여 전략적 위치를 강화합니다.</div>
       </div>
@@ -240,7 +240,7 @@ const moveTargetId = ref(null)
 const transport = ref({ fromId:'', toId:'', itemType:'', amount:100 })
 
 const factionLabel = computed(() =>
-  game.playerFaction === 'EMPIRE' ? '재상' : '의장'
+  game.playerFaction === 'REH' ? '재상' : '의장'
 )
 
 const availableCommanders = computed(() =>
@@ -311,7 +311,7 @@ function doTransport() {
 .mil-modal { min-width: min(92vw, 500px) }
 .mil-tabs { display:flex; border:1px solid var(--bd); border-radius:var(--r); overflow:hidden; margin-bottom:14px }
 .mil-tab { flex:1; padding:8px 2px; background:none; border:none; color:var(--t2); font-size:10px; cursor:pointer; transition:all .15s; font-family:var(--font-sans) }
-.mil-tab.on { background:rgba(192,57,43,.12); color:var(--empire) }
+.mil-tab.on { background:rgba(192,57,43,.12); color:var(--REH) }
 .tab-content { display:flex; flex-direction:column; gap:10px }
 .dialog-box { border-left:3px solid var(--tg); padding:8px 12px; background:rgba(212,170,96,.05); border-radius:0 4px 4px 0 }
 .dlg-spk { font-size:9px; text-transform:uppercase; letter-spacing:1px; margin-bottom:3px }
@@ -326,7 +326,7 @@ function doTransport() {
 .size-grid { display:flex; flex-wrap:wrap; gap:5px; flex:1 }
 .size-opt { display:flex; flex-direction:column; align-items:center; gap:2px; padding:7px 8px; border:1px solid var(--bd); border-radius:var(--r); background:var(--bg4); cursor:pointer; transition:all .15s; min-width:72px; text-align:center }
 .size-opt:hover:not(.disabled) { background:var(--bgh) }
-.size-opt.sel { border-color:var(--empire); background:rgba(192,57,43,.12) }
+.size-opt.sel { border-color:var(--REH); background:rgba(192,57,43,.12) }
 .size-opt.disabled { opacity:.4; cursor:not-allowed }
 .so-name { font-size:11px }
 .so-cost { font-size:10px; font-family:var(--font-mono) }

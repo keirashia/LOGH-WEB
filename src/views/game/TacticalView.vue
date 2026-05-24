@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="tac-root">
 
     <!-- 헤더 -->
@@ -323,11 +323,11 @@ function cmdShort(id)     {
 }
 
 function unitBg(u) {
-  const base = { EMPIRE:'#4a1020', ALLIANCE:'#0d2a4a', PHEZZAN:'#0a2a16' }
+  const base = { REH:'#4a1020', FPA:'#0d2a4a', PZN:'#0a2a16' }
   return base[u.faction] || '#1a1a2e'
 }
 function unitStroke(u) {
-  const col = { EMPIRE:'#c0392b', ALLIANCE:'#2980b9', PHEZZAN:'#27ae60' }
+  const col = { REH:'#c0392b', FPA:'#2980b9', PZN:'#27ae60' }
   return col[u.faction] || '#555'
 }
 

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <aside class="info-panel">
     <!-- 성계 선택됨 -->
     <template v-if="sys">
@@ -97,7 +97,7 @@ const fleet = computed(() => game.selFleetObj)
 const cmd   = computed(() => fleet.value ? CHARACTERS[fleet.value.commander] : null)
 
 const isPlayer     = computed(() => sys.value?.faction === game.playerFaction)
-const isEnemy      = computed(() => sys.value?.faction && sys.value.faction !== game.playerFaction && sys.value.faction !== 'PHEZZAN')
+const isEnemy      = computed(() => sys.value?.faction && sys.value.faction !== game.playerFaction && sys.value.faction !== 'PZN')
 const isPlayerFleet= computed(() => game.pFleets.some(f => f.id === game.selectedFleet))
 
 function fName(fid) { return FACTIONS[fid]?.name || '중립' }

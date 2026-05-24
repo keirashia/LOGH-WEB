@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia'
+﻿import { defineStore } from 'pinia'
 import {
   FACTIONS, CHARACTERS, STAR_SYSTEMS, SCENARIOS,
   OPERATION_TYPES, CONSTRUCTION_TYPES, FORTRESS_WEAPONS, DIALOGS
@@ -11,32 +11,32 @@ function buildState(scId, pf) {
     systems[s.id] = {
       ...s, morale: 70 + Math.floor(Math.random() * 20),
       tax: 30, underConstruction: null,
-      faction: sc.systems.EMPIRE.includes(s.id) ? 'EMPIRE'
-              : sc.systems.ALLIANCE.includes(s.id) ? 'ALLIANCE'
-              : sc.systems.PHEZZAN.includes(s.id) ? 'PHEZZAN'
+      faction: sc.systems.REH.includes(s.id) ? 'REH'
+              : sc.systems.FPA.includes(s.id) ? 'FPA'
+              : sc.systems.PZN.includes(s.id) ? 'PZN'
               : null
     }
   })
   const resources = {
-    EMPIRE:   { gold: 5000 },
-    ALLIANCE: { gold: 4500 },
-    PHEZZAN:  { gold: 8000 },
+    REH:   { gold: 5000 },
+    FPA: { gold: 4500 },
+    PZN:  { gold: 8000 },
   }
   const characters = {}
   Object.values(CHARACTERS).forEach(c => {
     characters[c.id] = { ...c, currentPost: null }
   })
   const fleets = {
-    EMPIRE: [
+    REH: [
       { id:'E_1ST',  name:'제1함대',      commander:'MITTERMEYER', ships:15000, maxShips:15000, location:'ODIN',      status:'standby', target:null, upkeep:30 },
       { id:'E_2ND',  name:'제2함대',      commander:'REUENTHAL',   ships:15000, maxShips:15000, location:'ODIN',      status:'standby', target:null, upkeep:30 },
       { id:'E_3RD',  name:'흑색창기함대', commander:'BITTENFELD',  ships:13000, maxShips:13000, location:'GAISHBURG', status:'standby', target:null, upkeep:26 },
     ],
-    ALLIANCE: [
+    FPA: [
       { id:'A_1ST',  name:'제1함대',  commander:'YANG',         ships:15000, maxShips:15000, location:'HEINESSEN', status:'standby', target:null, upkeep:30 },
       { id:'A_13TH', name:'제13함대', commander:'ATTENBOROUGH', ships:12000, maxShips:12000, location:'TIAMAT',    status:'standby', target:null, upkeep:24 },
     ],
-    PHEZZAN: [],
+    PZN: [],
   }
   return {
     sc, playerFaction: pf,
@@ -51,14 +51,14 @@ function buildState(scId, pf) {
 }
 
 export const useGameStore = defineStore('game', {
-  state: () => ({ initialized: false, ...buildState(0, 'EMPIRE') }),
+  state: () => ({ initialized: false, ...buildState(0, 'REH') }),
 
   getters: {
     pRes:      s => s.resources[s.playerFaction],
     pFleets:   s => s.fleets[s.playerFaction] || [],
     pChars:    s => Object.values(s.characters).filter(c => c.faction === s.playerFaction),
     sysCounts: s => {
-      const c = { EMPIRE: 0, ALLIANCE: 0, PHEZZAN: 0 }
+      const c = { REH: 0, FPA: 0, PZN: 0 }
       Object.values(s.systems).forEach(x => { if (x.faction) c[x.faction] = (c[x.faction] || 0) + 1 })
       return c
     },
@@ -104,7 +104,7 @@ export const useGameStore = defineStore('game', {
           // 상환 불능 처리
           Object.values(this.systems).forEach(s => { if (s.faction === this.playerFaction) s.morale = Math.max(5, s.morale - 15) })
           this.addLog(`❌ [페잔] 상환 불능 상태입니다. 페잔은 이에 상응하는 조치를 취하겠습니다.`)
-          this.resources['PHEZZAN'].gold += Math.floor(this._loanBalance * 0.5)
+          this.resources['PZN'].gold += Math.floor(this._loanBalance * 0.5)
           this._loanBalance = 0; this._loanDueTurn = null
         }
       }
@@ -244,7 +244,7 @@ export const useGameStore = defineStore('game', {
       const c = this.characters[charId]
       if (!c || c.faction !== this.playerFaction) return
       c.currentPost = post
-      const dialog = this.playerFaction === 'EMPIRE' ? DIALOGS.APPOINTMENT.emperor : ''
+      const dialog = this.playerFaction === 'REH' ? DIALOGS.APPOINTMENT.emperor : ''
       if (dialog) this.addLog(`[황제] ${dialog}`)
       this.addLog(`[임명] ${c.name} → ${post}`)
     },
@@ -279,7 +279,7 @@ export const useGameStore = defineStore('game', {
       })
 
       const dlg = FINANCE.DIALOGS.EMERGENCY_LEVY
-      if (this.playerFaction === 'EMPIRE') {
+      if (this.playerFaction === 'REH') {
         this.addLog(`[재상] ${dlg.empire_prime}`)
         this.addLog(`[황제] ${dlg.emperor_reply}`)
       }
@@ -307,11 +307,11 @@ export const useGameStore = defineStore('game', {
       this._loanDueTurn = this.turn + terms.REPAY_TURNS
 
       // 페잔 수익
-      this.resources['PHEZZAN'].gold += totalRepay - amount
+      this.resources['PZN'].gold += totalRepay - amount
 
       const dlg = FINANCE.DIALOGS.LOAN
       this.addLog(`[페잔] ${dlg.phezzan_offer}`)
-      if (this.playerFaction === 'EMPIRE') this.addLog(`[황제] ${dlg.empire_accept}`)
+      if (this.playerFaction === 'REH') this.addLog(`[황제] ${dlg.empire_accept}`)
       else this.addLog(`[의장] ${dlg.alliance_accept}`)
       this.addLog(`📋 [차관] ${amount.toLocaleString()} 마크 수령. 상환액: ${totalRepay.toLocaleString()} 마크 (${terms.REPAY_TURNS}턴 내)`)
       return true
@@ -375,7 +375,7 @@ export const useGameStore = defineStore('game', {
       this._budgetAllocation = allocations
 
       const dlg = FINANCE.DIALOGS.BUDGET
-      if (this.playerFaction === 'EMPIRE') {
+      if (this.playerFaction === 'REH') {
         this.addLog(`[재상] ${dlg.empire_prime}`)
         this.addLog(`[황제] ${dlg.emperor_reply}`)
       } else {
@@ -411,7 +411,7 @@ export const useGameStore = defineStore('game', {
       this.fleets[this.playerFaction].push(fleet)
       this.pRes.gold -= size.cost
       const dlg = MILITARY.DIALOGS.FORMATION
-      const decree = this.playerFaction === 'EMPIRE' ? dlg.empire_decree(name) : dlg.alliance_decree(name)
+      const decree = this.playerFaction === 'REH' ? dlg.empire_decree(name) : dlg.alliance_decree(name)
       this.addLog(`[명령] ${decree}`)
       this.addLog(`✅ ${dlg.success(name, size.ships)}`)
       return true
@@ -566,8 +566,8 @@ export const useGameStore = defineStore('game', {
       this.pRes.gold -= op.cost
 
       const dlg = INTEL.DIALOGS.SPY
-      const orderFn = this.playerFaction === 'EMPIRE' ? dlg.empire_order : dlg.alliance_order
-      const replyMsg = this.playerFaction === 'EMPIRE' ? dlg.empire_reply : dlg.alliance_reply
+      const orderFn = this.playerFaction === 'REH' ? dlg.empire_order : dlg.alliance_order
+      const replyMsg = this.playerFaction === 'REH' ? dlg.empire_reply : dlg.alliance_reply
       if (officer) {
         this.addLog(`[${officer.name}] ${orderFn(officer.name)}`)
         this.addLog(`[${officer.name}] ${replyMsg}`)
@@ -633,8 +633,8 @@ export const useGameStore = defineStore('game', {
 
       const officer = this.characters[officerId]
       const dlg = INTEL.DIALOGS.SECURITY
-      const orderFn = this.playerFaction === 'EMPIRE' ? dlg.empire_order : dlg.alliance_order
-      const replyMsg = this.playerFaction === 'EMPIRE' ? dlg.empire_reply : dlg.alliance_reply
+      const orderFn = this.playerFaction === 'REH' ? dlg.empire_order : dlg.alliance_order
+      const replyMsg = this.playerFaction === 'REH' ? dlg.empire_reply : dlg.alliance_reply
       if (officer) {
         this.addLog(`[${officer.name}] ${orderFn(officer.name, sys.name)}`)
         this.addLog(`[${officer.name}] ${replyMsg}`)
@@ -662,12 +662,12 @@ export const useGameStore = defineStore('game', {
       this.addLog(`[황제/의장] ${dlg.emperor_reply}`)
 
       // 성공 판정 (페잔은 높음, 교전 중 세력은 낮음)
-      const baseRate = targetFaction === 'PHEZZAN' ? 0.70 : 0.45
+      const baseRate = targetFaction === 'PZN' ? 0.70 : 0.45
       const success  = Math.random() < baseRate
 
       if (success) {
         switch (propType) {
-          case 'ALLIANCE':
+          case 'FPA':
             this.addLog(`✅ ${dlg.success(tName)} — 동맹 체결. ${tName}은 당분간 공격을 자제합니다.`)
             // 일시적 불가침 플래그 (3턴)
             this._truce = this._truce || {}
@@ -725,7 +725,7 @@ export const useGameStore = defineStore('game', {
     },
 
     _income() {
-      ['EMPIRE','ALLIANCE','PHEZZAN'].forEach(f => {
+      ['REH','FPA','PZN'].forEach(f => {
         let inc = 0
         Object.values(this.systems).forEach(s => {
           if (s.faction === f) inc += Math.floor(s.population * (s.tax / 100) * (s.industry / 100) * 10)
@@ -815,7 +815,7 @@ export const useGameStore = defineStore('game', {
     },
 
     _ai() {
-      ['EMPIRE','ALLIANCE','PHEZZAN'].filter(f => f !== this.playerFaction).forEach(f => {
+      ['REH','FPA','PZN'].filter(f => f !== this.playerFaction).forEach(f => {
         let inc = 0
         Object.values(this.systems).forEach(s => {
           if (s.faction === f) inc += Math.floor(s.population * 0.3 * (s.industry / 100) * 10)
@@ -823,7 +823,7 @@ export const useGameStore = defineStore('game', {
         this.resources[f].gold += inc
         ;(this.fleets[f] || []).forEach(fleet => {
           if (fleet.status !== 'standby' || Math.random() > 0.12) return
-          const targets = Object.values(this.systems).filter(s => s.faction !== f && s.faction !== 'PHEZZAN')
+          const targets = Object.values(this.systems).filter(s => s.faction !== f && s.faction !== 'PZN')
           if (!targets.length) return
           const t = targets[Math.floor(Math.random() * targets.length)]
           if (Math.random() < 0.5) {

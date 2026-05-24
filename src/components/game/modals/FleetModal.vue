@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="modal-box">
     <div class="modal-title">⚔️ 함대 출격 명령</div>
     <!-- 목표 성계 -->
@@ -103,8 +103,8 @@ function confirm() {
 .op-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
 .op-item{display:flex;align-items:center;gap:7px;padding:7px 9px;border:1px solid var(--bd);border-radius:var(--r);background:var(--bg4);cursor:pointer;transition:all .15s;font-size:11px}
 .op-item:hover{background:var(--bgh)}
-.op-item.sel{border-color:var(--empire);background:rgba(192,57,43,.12)}
-.m-dialog{border-left:3px solid var(--empire);padding:8px 12px;background:rgba(192,57,43,.05);border-radius:0 4px 4px 0;margin-bottom:4px}
+.op-item.sel{border-color:var(--REH);background:rgba(192,57,43,.12)}
+.m-dialog{border-left:3px solid var(--REH);padding:8px 12px;background:rgba(192,57,43,.05);border-radius:0 4px 4px 0;margin-bottom:4px}
 .dlg-spk{font-size:9px;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;color:var(--t2);font-family:var(--font-mono)}
 .dlg-txt{font-size:11px;line-height:1.8;color:var(--t2);font-family:var(--font-serif)}
 </style>

@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <header class="hud">
     <div class="hud-left">
       <div class="hud-faction" :class="`bg-${game.playerFaction}`"
@@ -25,7 +25,7 @@ import { FACTIONS } from '@/data/masterData'
 import { useAuthStore } from '@/stores/authStore'
 const game = useGameStore()
 const endBtnCls = computed(() => ({
-  EMPIRE:'btn-red', ALLIANCE:'btn-blue', PHEZZAN:'btn-green'
+  REH:'btn-red', FPA:'btn-blue', PZN:'btn-green'
 }[game.playerFaction]))
 const auth = useAuthStore()
 const user = auth.user

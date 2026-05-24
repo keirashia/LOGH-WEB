@@ -1,4 +1,4 @@
-<template>
+﻿<template>
   <div class="bottom-bar">
     <div class="btns">
       <button class="btn" @click="game.openModal('char')">👤 인사</button>
@@ -17,7 +17,7 @@
 import { computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 const game = useGameStore()
-const endBtnCls = computed(() => ({ EMPIRE:'btn-red', ALLIANCE:'btn-blue', PHEZZAN:'btn-green' }[game.playerFaction]))
+const endBtnCls = computed(() => ({ REH:'btn-red', FPA:'btn-blue', PZN:'btn-green' }[game.playerFaction]))
 </script>
 
 <style scoped>
