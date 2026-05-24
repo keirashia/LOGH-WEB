@@ -1,19 +1,45 @@
 import { defineStore } from 'pinia'
 
+const STORAGE_KEY = 'logh_temp_code'
+
+function generateTempCode() {
+  const bytes = new Uint8Array(32) // 32 bytes = 64 hex chars
+  crypto.getRandomValues(bytes)
+  return Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('')
+}
+
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,        // { id, username, email, isAdmin }
     token: null,
     isLoggedIn: false,
     mode: null,        // 'single' | 'multi'
+    tempCode: null,    // 64자리 hex, localStorage 연동
+    points: 0,         // 유저 계정 포인트
   }),
 
   getters: {
     isAdmin: s => s.user?.isAdmin ?? false,
-    username: s => s.user?.username ?? '게스트',
+    username: s => s.isLoggedIn
+      ? (s.user?.username ?? '게스트')
+      : `사용자_${(s.tempCode ?? '').slice(0, 8)}`,
   },
 
   actions: {
+    // 앱 시작 시 호출 — localStorage에 코드가 있으면 재사용, 없으면 신규 생성
+    initTempCode() {
+      const stored = localStorage.getItem(STORAGE_KEY)
+      if (stored && stored.length === 64) {
+        this.tempCode = stored
+        console.log('[LOGH] tempCode 불러옴:', stored.slice(0, 8) + '...')
+      } else {
+        const code = generateTempCode()
+        localStorage.setItem(STORAGE_KEY, code)
+        this.tempCode = code
+        console.log('[LOGH] tempCode 신규 생성:', code.slice(0, 8) + '...')
+      }
+    },
+
     // 로그인 (Phase3에서 API 연동)
     async login(username, password) {
       // TODO: POST /api/auth/login
@@ -50,6 +76,7 @@ export const useAuthStore = defineStore('auth', {
       this.token = null
       this.isLoggedIn = false
       this.mode = null
+      // tempCode, points는 유지
     },
 
     setMode(mode) {
