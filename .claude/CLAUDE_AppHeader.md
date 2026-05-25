@@ -16,7 +16,7 @@
 | 클래스 | 요소 | 설명 |
 |---|---|---|
 | `.hdr-brand` | 좌측 타이틀 | serif 금색, `IV · EX` 서브 |
-| `.hdr-avatar` | `<img>` | 원형 크롭, `object-position: top center` |
+| `.hdr-avatar` | `<div>` | 원형, username 첫 글자 대문자 표시 (API 아바타 연동 전 플레이스홀더) |
 | `.hdr-name` | `<span>` | `auth.username` getter |
 | `.hdr-points` | `<span>` | `auth.points` (gold mono, `◆` 접두) |
 | `.hdr-auth-btn` | `<button>` | 로그인 시 "로그아웃" / 비로그인 시 "🔑 로그인" |
@@ -27,8 +27,10 @@
 ## 주요 상태 (script setup)
 
 ```js
-const optionsOpen = ref(false)  // OptionsPanel 표시 여부
-const avatarSrc   = testAvatar  // TODO: 유저 아바타 API 연동으로 교체
+const optionsOpen  = ref(false)   // OptionsPanel 표시 여부
+const apiOnline    = ref(false)   // API 서버 연결 상태
+const avatarInitial = computed(() => (auth.username?.[0] ?? '?').toUpperCase())
+// checkApi(): fetch(API_BASE + '/'), 3초 타임아웃, 30초마다 폴링
 ```
 
 ---

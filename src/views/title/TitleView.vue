@@ -5,12 +5,8 @@
       <p class="t-sub mono">LEGEND OF GALACTIC HEROES</p>
       <h1 class="t-main serif">銀河英雄伝説</h1>
       <p class="t-kr serif">은하영웅전설</p>
-      <span class="t-ver mono">IV EX · Vue Port</span>
       <div class="t-btns">
-        <button class="tbtn gold-btn serif" @click="$router.push('/user/login')">🔑 로그인 / 계정생성</button>
-        <button class="tbtn mid-btn serif"  @click="guestStart">⚔️ 빠른 시작 (게스트)</button>
-        <button class="tbtn dim-btn serif"  @click="$router.push('/tutorial')">🎓 튜토리얼</button>
-        <button class="tbtn dim-btn serif"  @click="$router.push('/encyclopedia')">📖 사전</button>
+        <button class="tbtn gold-btn serif" @click="guestStart">시작</button>
       </div>
       <!-- <p class="t-credit dim mono">원작: BOTHTEC (1996)</p> -->
     </div>

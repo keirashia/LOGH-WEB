@@ -5,7 +5,10 @@
       "Bash(xxd \"c:\\\\Users\\\\user\\\\Documents\\\\workspace\\\\LOGH\\\\Eun4ex\\\\G4XSNR00.DAT\")",
       "Bash(npm run *)",
       "Bash(node -e \"const p=require\\('./package.json'\\); console.log\\(JSON.stringify\\({...p.dependencies,...p.devDependencies}, null, 2\\)\\)\")",
-      "Bash(findstr /i sass)"
+      "Bash(findstr /i sass)",
+      "Bash(git -C \"c:\\\\Users\\\\user\\\\Documents\\\\workspace\\\\LOGH\\\\LOGH-WEB\" log --oneline -8)",
+      "Bash(git -C \"c:\\\\Users\\\\user\\\\Documents\\\\workspace\\\\LOGH\\\\LOGH-WEB\" show --stat HEAD)",
+      "Bash(git -C \"c:\\\\Users\\\\user\\\\Documents\\\\workspace\\\\LOGH\\\\LOGH-WEB\" show --stat HEAD~1)"
     ]
   }
 }

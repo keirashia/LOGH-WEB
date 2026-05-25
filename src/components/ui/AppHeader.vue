@@ -2,12 +2,15 @@
   <header class="app-header">
     <div class="hdr-brand">
       <span class="hdr-title serif">銀河英雄伝説</span>
-      <span class="hdr-sub mono dim">IV · EX</span>
+      <span class="hdr-server-status" :class="apiOnline ? 'online' : 'offline'">
+        <span class="hdr-status-dot" />
+        <span class="hdr-status-text mono">{{ apiOnline ? 'ONLINE' : 'SINGLE' }}</span>
+      </span>
     </div>
 
     <div class="hdr-right">
       <!-- 아바타 + 사용자명 -->
-      <img class="hdr-avatar" :src="avatarSrc" :alt="auth.username" />
+      <div class="hdr-avatar" :title="auth.username">{{ avatarInitial }}</div>
       <span class="hdr-name serif">{{ auth.username }}</span>
 
       <div class="hdr-divider" />
@@ -38,18 +41,39 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '@/stores/authStore'
 import OptionsPanel from '@/components/ui/OptionsPanel.vue'
-import testAvatar from '@/assets/Img/characters/face/CHA/CH_0001740.jpg'
+
+const API_BASE = 'http://localhost:8081'
+const PING_INTERVAL = 30_000
 
 const router = useRouter()
 const auth = useAuthStore()
 const optionsOpen = ref(false)
+const apiOnline = ref(false)
 
-// TODO: 실제 유저 아바타 이미지로 교체 예정
-const avatarSrc = testAvatar
+const avatarInitial = computed(() => (auth.username?.[0] ?? '?').toUpperCase())
+
+async function checkApi() {
+  try {
+    const ctrl = new AbortController()
+    const tid = setTimeout(() => ctrl.abort(), 3000)
+    await fetch(`${API_BASE}/`, { signal: ctrl.signal })
+    clearTimeout(tid)
+    apiOnline.value = true
+  } catch {
+    apiOnline.value = false
+  }
+}
+
+let _pingTimer = null
+onMounted(() => {
+  checkApi()
+  _pingTimer = setInterval(checkApi, PING_INTERVAL)
+})
+onUnmounted(() => clearInterval(_pingTimer))
 
 function logout() {
   auth.logout()
