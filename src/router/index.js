@@ -13,6 +13,16 @@ const routes = [
     component: () => import('@/views/lobby/LobbyView.vue'),
   },
   {
+    path: '/lobby/single',
+    name: 'single',
+    component: () => import('@/views/lobby/SingleView.vue'),
+  },
+  {
+    path: '/lobby/single/new',
+    name: 'scenario-select',
+    component: () => import('@/views/lobby/ScenarioSelectView.vue'),
+  },
+  {
     path: '/user/login',
     name: 'login',
     component: () => import('@/views/user/LoginView.vue'),
