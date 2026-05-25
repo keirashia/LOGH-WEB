@@ -1,36 +1,11 @@
 ﻿import CHARACTERS_DATA from '@/data/characters/char.js'
 import FACTIONS_DATA from '@/data/factions/factions.js'
+import { STAR_SYSTEMS as _SYSTEMS, LANES as _LANES } from '@/data/stars/starsData.js'
 
 export const CHARACTERS = CHARACTERS_DATA
 export const FACTIONS = Object.fromEntries(FACTIONS_DATA.map(f => [f.id, f]))
-
-
-export const STAR_SYSTEMS = [
-  { id:'ODIN',         name:'오딘',        faction:'REH',   type:'capital',  x:645, y:230, population:250, industry:95, defense:90, isGateway:false, fortress:null },
-  { id:'GAISHBURG',    name:'가이스부르크',faction:'REH',   type:'fortress', x:545, y:88,  population:60,  industry:70, defense:95, isGateway:false, fortress:'GAISHBURG' },
-  { id:'NEUE_LAND',    name:'노이에란트',  faction:'REH',   type:'frontier', x:755, y:78,  population:80,  industry:55, defense:60, isGateway:false, fortress:null },
-  { id:'RENTENBERG',   name:'렌텐베르크', faction:'REH',   type:'normal',   x:715, y:355, population:90,  industry:60, defense:50, isGateway:false, fortress:null },
-  { id:'KAPCHE_LANKA', name:'카프체란카', faction:'REH',   type:'frontier', x:555, y:408, population:40,  industry:35, defense:45, isGateway:false, fortress:null },
-  { id:'HEINESSEN',    name:'하이네센',   faction:'FPA', type:'capital',  x:88,  y:265, population:220, industry:90, defense:85, isGateway:false, fortress:null },
-  { id:'TIAMAT',       name:'티아마트',   faction:'FPA', type:'fortress', x:215, y:88,  population:50,  industry:60, defense:85, isGateway:false, fortress:'TIAMAT' },
-  { id:'URUVASI',      name:'우르바시',   faction:'FPA', type:'normal',   x:62,  y:80,  population:70,  industry:50, defense:45, isGateway:false, fortress:null },
-  { id:'SHAMLUU',      name:'샤므루',     faction:'FPA', type:'normal',   x:108, y:400, population:60,  industry:45, defense:40, isGateway:false, fortress:null },
-  { id:'LEGNICA',      name:'레그니차',   faction:'FPA', type:'frontier', x:295, y:205, population:55,  industry:40, defense:50, isGateway:false, fortress:null },
-  { id:'ISERLOHN',     name:'이젤론',     faction:'REH',   type:'fortress', x:425, y:238, population:20,  industry:50, defense:99, isGateway:true,  fortress:'ISERLOHN' },
-  { id:'PHEZZAN',  name:'페잔',       faction:'PZN',  type:'capital',  x:408, y:402, population:150, industry:99, defense:60, isGateway:true,  fortress:null },
-  { id:'AMLITZER',     name:'아므리차',   faction:null,       type:'contested',x:355, y:195, population:10,  industry:20, defense:20, isGateway:false, fortress:null },
-  { id:'VERMILION',    name:'버밀리온',   faction:null,       type:'contested',x:492, y:195, population:10,  industry:20, defense:20, isGateway:false, fortress:null },
-]
-
-export const LANES = [
-  ['ODIN','GAISHBURG'],['ODIN','NEUE_LAND'],['ODIN','RENTENBERG'],
-  ['RENTENBERG','KAPCHE_LANKA'],['KAPCHE_LANKA','ISERLOHN'],
-  ['GAISHBURG','VERMILION'],['ISERLOHN','VERMILION'],['ISERLOHN','AMLITZER'],
-  ['AMLITZER','LEGNICA'],['AMLITZER','HEINESSEN'],
-  ['LEGNICA','TIAMAT'],['HEINESSEN','TIAMAT'],
-  ['HEINESSEN','URUVASI'],['HEINESSEN','SHAMLUU'],
-  ['PHEZZAN','KAPCHE_LANKA'],['PHEZZAN','SHAMLUU'],
-]
+export const STAR_SYSTEMS = _SYSTEMS
+export const LANES = _LANES
 
 export const OPERATION_TYPES = {
   SURRENDER_DEMAND: { id:'SURRENDER_DEMAND', name:'항복 권고',   icon:'📢', successRate:0.30, moraleDmg:5,  defDmg:0  },

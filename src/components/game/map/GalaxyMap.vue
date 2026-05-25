@@ -10,21 +10,13 @@
          @pointercancel="onPtrUp">
       <g :transform="mapTransform">
 
-        <!-- 항로 (reactive) -->
-        <g v-for="l in lanesComp" :key="l.k">
-          <!-- 클릭 영역 확장용 투명 선 -->
-          <line :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
-                stroke="transparent" stroke-width="12"/>
-          <!-- 선택된 항로 글로우 -->
-          <line v-if="selectedLane === l.k"
-                :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
-                stroke="rgba(255,220,80,0.35)" stroke-width="5"/>
-          <line :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
-                :stroke="selectedLane === l.k ? 'rgba(255,220,80,0.9)'
-                        : editMode ? 'rgba(255,255,255,0.65)' : 'rgba(255,255,255,0.45)'"
-                :stroke-width="selectedLane === l.k ? 2 : editMode ? 2 : 1.5"
-                :stroke-dasharray="selectedLane === l.k ? 'none' : '5 6'"/>
-        </g>
+        <!-- 항로 (시각 전용) -->
+        <line v-for="l in lanesComp" :key="l.k"
+              :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
+              :stroke="editMode ? 'rgba(255,255,255,0.65)' : 'rgba(255,255,255,0.45)'"
+              :stroke-width="editMode ? 2 : 1.5"
+              stroke-dasharray="5 6"
+              style="pointer-events:none"/>
 
         <!-- 함대 마커 -->
         <g v-for="f in game.allFleets" :key="f.id"
@@ -239,22 +231,9 @@ function onPtrUp(e) {
   if (editMode.value) {
     handleEditClick(sys, cp.x, cp.y, e)
   } else {
-    if (sys) {
-      selectedLane.value = null
-      game.selectSystem(sys.id)
-    } else if (fleet) {
-      selectedLane.value = null
-      game.selectFleet(fleet.id)
-    } else {
-      const lane = laneNear(cp.x, cp.y)
-      if (lane) {
-        selectedLane.value = selectedLane.value === lane ? null : lane
-        game.selectSystem(null)
-      } else {
-        selectedLane.value = null
-        game.selectSystem(null)
-      }
-    }
+    if (sys)        game.selectSystem(sys.id)
+    else if (fleet) game.selectFleet(fleet.id)
+    else            game.selectSystem(null)
   }
 }
 
@@ -278,23 +257,7 @@ function fleetAt(cx, cy) {
     return Math.hypot(cx - fx, cy - fy) <= 12
   }) || null
 }
-function laneNear(cx, cy, threshold = 12) {
-  let best = null, bestD = threshold
-  lanesComp.value.forEach(l => {
-    const d = ptSegDist(cx, cy, l.x1, l.y1, l.x2, l.y2)
-    if (d < bestD) { bestD = d; best = l.k }
-  })
-  return best
-}
-function ptSegDist(px, py, x1, y1, x2, y2) {
-  const dx = x2-x1, dy = y2-y1, len2 = dx*dx+dy*dy
-  if (!len2) return Math.hypot(px-x1, py-y1)
-  const t = Math.max(0, Math.min(1, ((px-x1)*dx+(py-y1)*dy)/len2))
-  return Math.hypot(px-(x1+t*dx), py-(y1+t*dy))
-}
-
 // ── 편집 모드 ────────────────────────────────────────────────
-const selectedLane = ref(null)
 
 const editMode   = ref(false)
 const activeTool = ref('move')

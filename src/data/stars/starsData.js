@@ -1,4 +1,4 @@
-﻿export const STAR_SYSTEMS = [
+export const STAR_SYSTEMS = [
   { id:'ODIN',         name:'오딘',        faction:'REH',   type:'capital',  x:645, y:230, population:250, industry:95, defense:90, isGateway:false, fortress:null },
   { id:'GAISHBURG',    name:'가이스부르크',faction:'REH',   type:'fortress', x:545, y:88,  population:60,  industry:70, defense:95, isGateway:false, fortress:'GAISHBURG' },
   { id:'NEUE_LAND',    name:'노이에란트',  faction:'REH',   type:'frontier', x:755, y:78,  population:80,  industry:55, defense:60, isGateway:false, fortress:null },

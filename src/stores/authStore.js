@@ -40,35 +40,55 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    // 로그인 (Phase3에서 API 연동)
     async login(username, password) {
-      // TODO: POST /api/auth/login
-      this.user = { id: 1, username, email: '', isAdmin: username === 'admin' }
-      this.token = 'mock-token'
-      this.isLoggedIn = true
+      const res = await fetch('/api/user/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: username, userPwd: password }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || '로그인에 실패했습니다.')
+      this._applyUser(data.user)
       return true
     },
 
-    // 계정 생성
     async register(username, password, email) {
-      // TODO: POST /api/auth/register
-      this.user = { id: Date.now(), username, email, isAdmin: false }
-      this.token = 'mock-token'
-      this.isLoggedIn = true
+      if (!this.tempCode) this.initTempCode()
+      const res = await fetch('/api/user/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: username, userPwd: password, uuid: this.tempCode }),
+      })
+      const data = await res.json()
+      if (!res.ok) throw new Error(data.error || '계정 생성에 실패했습니다.')
+      this._applyUser(data.user)
       return true
     },
 
     // 기기 이전 — 이전 기기에서 발급된 이전 코드로 계정 복구
     async transferAccount(transferCode) {
-      // TODO: POST /api/auth/transfer
+      // TODO: POST /api/user/transfer (미구현)
       console.log('기기 이전 코드:', transferCode)
-      return true
+      throw new Error('기기 이전 기능은 아직 준비 중입니다.')
     },
 
     // 이전 코드 발급 (현재 기기에서)
     async generateTransferCode() {
-      // TODO: GET /api/auth/transfer-code
+      // TODO: GET /api/user/transfer-code (미구현)
       return 'LOGH-' + Math.random().toString(36).substr(2, 8).toUpperCase()
+    },
+
+    _applyUser(u) {
+      this.user = {
+        id: u.ID,
+        username: u.USER_ID,
+        email: u.USER_NAME || '',
+        isAdmin: u.USER_ID === 'admin',
+        points: u.POINT ?? 0,
+      }
+      this.points = u.POINT ?? 0
+      this.token = String(u.ID)
+      this.isLoggedIn = true
     },
 
     logout() {
