@@ -28,13 +28,13 @@ function buildState(scId, pf) {
   })
   const fleets = {
     REH: [
-      { id:'E_1ST',  name:'제1함대',      commander:'MITTERMEYER', ships:15000, maxShips:15000, location:'ODIN',      status:'standby', target:null, upkeep:30 },
-      { id:'E_2ND',  name:'제2함대',      commander:'REUENTHAL',   ships:15000, maxShips:15000, location:'ODIN',      status:'standby', target:null, upkeep:30 },
-      { id:'E_3RD',  name:'흑색창기함대', commander:'BITTENFELD',  ships:13000, maxShips:13000, location:'GAISHBURG', status:'standby', target:null, upkeep:26 },
+      { id:'E_1ST',  name:'제1함대',      commander:'MITTERMEYER', ships:15000, maxShips:15000, location:'230058', status:'standby', target:null, upkeep:30 },
+      { id:'E_2ND',  name:'제2함대',      commander:'REUENTHAL',   ships:15000, maxShips:15000, location:'230058', status:'standby', target:null, upkeep:30 },
+      { id:'E_3RD',  name:'흑색창기함대', commander:'BITTENFELD',  ships:13000, maxShips:13000, location:'230002', status:'standby', target:null, upkeep:26 },
     ],
     FPA: [
-      { id:'A_1ST',  name:'제1함대',  commander:'YANG',         ships:15000, maxShips:15000, location:'HEINESSEN', status:'standby', target:null, upkeep:30 },
-      { id:'A_13TH', name:'제13함대', commander:'ATTENBOROUGH', ships:12000, maxShips:12000, location:'TIAMAT',    status:'standby', target:null, upkeep:24 },
+      { id:'A_1ST',  name:'제1함대',  commander:'YANG',         ships:15000, maxShips:15000, location:'230006', status:'standby', target:null, upkeep:30 },
+      { id:'A_13TH', name:'제13함대', commander:'ATTENBOROUGH', ships:12000, maxShips:12000, location:'230055', status:'standby', target:null, upkeep:24 },
     ],
     PZN: [],
   }

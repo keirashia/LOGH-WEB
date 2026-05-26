@@ -115,7 +115,7 @@ const bgCvs = ref(null)
 const svgEl = ref(null)
 let   aid   = null
 
-const VW = 820, VH = 490
+const VW = 1640, VH = 980
 
 // ── 줌 / 팬 상태 ─────────────────────────────────────────────
 const scale = ref(1)

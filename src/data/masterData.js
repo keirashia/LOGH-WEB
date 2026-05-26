@@ -1,11 +1,44 @@
 ﻿import CHARACTERS_DATA from '@/data/characters/char.js'
 import FACTIONS_DATA from '@/data/factions/factions.js'
-import { STAR_SYSTEMS as _SYSTEMS, LANES as _LANES } from '@/data/stars/starsData.js'
+import { STAR_SYSTEMS as _NEW_SYSTEMS } from '@/data/stars/starSystemData.js'
+import { LANES as _NEW_LANES } from '@/data/stars/lane.js'
+import { PLANETS } from '@/data/stars/planetsData.js'
 
 export const CHARACTERS = CHARACTERS_DATA
 export const FACTIONS = Object.fromEntries(FACTIONS_DATA.map(f => [f.id, f]))
-export const STAR_SYSTEMS = _SYSTEMS
-export const LANES = _LANES
+
+// 행성 데이터에서 fortress 보유 성계 추출
+const _fortressMap = {}
+PLANETS.filter(p => p.fortress).forEach(p => { _fortressMap[p.starCode] = p.fortress })
+
+// 성계 타입별 기본 수치 (planetDetail 구현 전 임시값)
+const _DEFAULTS = {
+  capital:   { population: 200, industry: 90, defense: 80 },
+  fortress:  { population: 30,  industry: 60, defense: 95 },
+  frontier:  { population: 40,  industry: 40, defense: 55 },
+  contested: { population: 10,  industry: 20, defense: 25 },
+  noble:     { population: 70,  industry: 55, defense: 50 },
+  normal:    { population: 60,  industry: 50, defense: 45 },
+  neutral:   { population: 50,  industry: 40, defense: 40 },
+}
+
+export const STAR_SYSTEMS = _NEW_SYSTEMS.map(s => ({
+  id:        s.code,
+  code:      s.code,
+  name:      s.nameKr,
+  nameEn:    s.nameEn,
+  type:      s.type,
+  x:         s.x,
+  y:         s.y,
+  faction:   null,
+  isGateway: false,
+  fortress:  _fortressMap[s.code] || null,
+  desc:      s.desc,
+  ...(_DEFAULTS[s.type] ?? _DEFAULTS.normal),
+}))
+
+// lane.js {id, stars, type, period, stability} → GalaxyMap 호환 [codeA, codeB] 쌍
+export const LANES = _NEW_LANES.map(l => [l.stars[0], l.stars[1]])
 
 export const OPERATION_TYPES = {
   SURRENDER_DEMAND: { id:'SURRENDER_DEMAND', name:'항복 권고',   icon:'📢', successRate:0.30, moraleDmg:5,  defDmg:0  },
@@ -28,12 +61,17 @@ export const CONSTRUCTION_TYPES = {
   GARRISON: { id:'GARRISON', name:'주류기지', icon:'🛸', cost:120, turns:2, effect:{ defense:15, industry:5 } },
 }
 
+// 성계 코드 참조: code_map.json 기준 (구 ID → 새 6자리 code)
+// ODIN→230058  GAISHBURG→230002  NEUE_LAND→230040  RENTENBERG→230019
+// KAPCHE_LANKA→230025  ISERLOHN→230022  HEINESSEN→230006  TIAMAT→230055
+// URUVASI→230020  SHAMLUU→230049  LEGNICA→230029  PHEZZAN→230042
+// AMLITZER→230003  VERMILION→230061
 export const SCENARIOS = [
-  { id:0, flag:'S', name:'제국의 여명',       year:796, impYear:487, recommend:'REH', desc:'라인하르트가 세력을 키우기 시작하는 시점. 키르히아이스와 함께 우주를 정복하라.',       mission:['은하제국의 패권을 장악하라', '자유행성동맹을 항복시켜라'],             systems:{ REH:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG','KAPCHE_LANKA','ISERLOHN'], FPA:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA'], PZN:['PHEZZAN'] } },
-  { id:1, flag:'S', name:'이젤론 함락 직후',  year:796, impYear:487, recommend:'FPA', desc:'양 웬리가 이젤론 요새를 무혈 점령한 직후. 제국과 동맹의 전면전이 임박한 상황.',       mission:['이젤론 회랑을 사수하라', '은하제국의 침공을 막아내라'],               systems:{ REH:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG','KAPCHE_LANKA'], FPA:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA','ISERLOHN'], PZN:['PHEZZAN'] } },
-  { id:2, flag:'S', name:'아므리차 성역 회전', year:796, impYear:487, recommend:'REH', desc:'동맹군의 제국 침공 작전. 역사의 분기점에서 운명을 바꿀 수 있는가.',                  mission:['아므리차 성역에서 동맹군을 격멸하라', '제국령을 수호하라'],           systems:{ REH:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG','KAPCHE_LANKA','ISERLOHN'], FPA:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA','AMLITZER'], PZN:['PHEZZAN'] } },
-  { id:3, flag:'S', name:'립슈타트 전역',      year:797, impYear:488, recommend:'REH', desc:'제국 내 귀족 연합군과 로엔그람 군의 내전. 라인하르트의 패권 장악이 눈앞에.',         mission:['립슈타트 귀족 연합을 궤멸시켜라', '제국 전역의 지배권을 확립하라'], systems:{ REH:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG'], FPA:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA','ISERLOHN'], PZN:['PHEZZAN'] } },
-  { id:4, flag:'S', name:'회랑의 전투',        year:799, impYear:490, recommend:'FPA', desc:'버밀리온 회전 이후 최후의 결전. 양 웬리와 라인하르트의 숙명적 대결.',               mission:['은하제국의 총공세를 막아내라', '라인하르트를 저지하라'],               systems:{ REH:['ODIN','GAISHBURG','NEUE_LAND','RENTENBERG','KAPCHE_LANKA','ISERLOHN','AMLITZER','VERMILION'], FPA:['HEINESSEN','TIAMAT','URUVASI','SHAMLUU','LEGNICA'], PZN:['PHEZZAN'] } },
+  { id:0, flag:'S', name:'제국의 여명',       year:796, impYear:487, recommend:'REH', desc:'라인하르트가 세력을 키우기 시작하는 시점. 키르히아이스와 함께 우주를 정복하라.',       mission:['은하제국의 패권을 장악하라', '자유행성동맹을 항복시켜라'],             systems:{ REH:['230058','230002','230040','230019','230025','230022'], FPA:['230006','230055','230020','230049','230029'], PZN:['230042'] } },
+  { id:1, flag:'S', name:'이젤론 함락 직후',  year:796, impYear:487, recommend:'FPA', desc:'양 웬리가 이젤론 요새를 무혈 점령한 직후. 제국과 동맹의 전면전이 임박한 상황.',       mission:['이젤론 회랑을 사수하라', '은하제국의 침공을 막아내라'],               systems:{ REH:['230058','230002','230040','230019','230025'],           FPA:['230006','230055','230020','230049','230029','230022'], PZN:['230042'] } },
+  { id:2, flag:'S', name:'아므리차 성역 회전', year:796, impYear:487, recommend:'REH', desc:'동맹군의 제국 침공 작전. 역사의 분기점에서 운명을 바꿀 수 있는가.',                  mission:['아므리차 성역에서 동맹군을 격멸하라', '제국령을 수호하라'],           systems:{ REH:['230058','230002','230040','230019','230025','230022'], FPA:['230006','230055','230020','230049','230029','230003'], PZN:['230042'] } },
+  { id:3, flag:'S', name:'립슈타트 전역',      year:797, impYear:488, recommend:'REH', desc:'제국 내 귀족 연합군과 로엔그람 군의 내전. 라인하르트의 패권 장악이 눈앞에.',         mission:['립슈타트 귀족 연합을 궤멸시켜라', '제국 전역의 지배권을 확립하라'], systems:{ REH:['230058','230002','230040','230019'],                     FPA:['230006','230055','230020','230049','230029','230022'], PZN:['230042'] } },
+  { id:4, flag:'S', name:'회랑의 전투',        year:799, impYear:490, recommend:'FPA', desc:'버밀리온 회전 이후 최후의 결전. 양 웬리와 라인하르트의 숙명적 대결.',               mission:['은하제국의 총공세를 막아내라', '라인하르트를 저지하라'],               systems:{ REH:['230058','230002','230040','230019','230025','230022','230003','230061'], FPA:['230006','230055','230020','230049','230029'], PZN:['230042'] } },
 ]
 
 // EVTALK.MSG 원문 대사
