@@ -30,6 +30,7 @@
 | `nameJp` | string | 일본어 명칭 (추후 입력) |
 | `x` | number | 갤럭시맵 X 좌표 |
 | `y` | number | 갤럭시맵 Y 좌표 |
+| `mapSize` | number[2] | 성계 세부맵 크기 (기본 `[800, 800]`) |
 | `type` | string | capital / fortress / frontier / normal / noble / contested / neutral |
 | `desc` | string | 성계 설명 |
 
@@ -71,7 +72,7 @@
 | 키 | 타입 | 설명 |
 |---|---|---|
 | `id` | string | LANE_001 ~ LANE_NNN |
-| `stars` | string[2] | 연결 성계 code 2개 |
+| `stars` | string[2] | 연결 성계 code 2개 (예: `['230001','230022']`) |
 | `type` | string | normal / corridor / phezzan |
 | `period` | number | 이동 소요 턴 (1~3) |
 | `stability` | number | 기본 안정도 (0~100) |
@@ -171,6 +172,25 @@ TBL_FACTION           세력 5개 (REH/FPA/PZN/EAT/RAG)
 TBL_IDEOLOGY          정치이념 21종
 TBL_CHARACTER         인물 560명
 TBL_CHARACTER_STAT    인물 스탯
+TBL_PLANET_TRAIT      행성 트레잇 (PLANET_CODE + TRAIT_ID 복합키)
+TBL_STAR_TRAIT        성계 트레잇 (STAR_CODE + TRAIT_ID 복합키)
+```
+
+```sql
+CREATE TABLE IF NOT EXISTS TBL_PLANET_TRAIT (
+  PLANET_CODE  TEXT    NOT NULL,
+  TRAIT_ID     TEXT    NOT NULL,
+  START_TURN   INTEGER NOT NULL DEFAULT 0,
+  END_TURN     INTEGER,          -- null = 영구
+  PRIMARY KEY (PLANET_CODE, TRAIT_ID)
+);
+CREATE TABLE IF NOT EXISTS TBL_STAR_TRAIT (
+  STAR_CODE    TEXT    NOT NULL,
+  TRAIT_ID     TEXT    NOT NULL,
+  START_TURN   INTEGER NOT NULL DEFAULT 0,
+  END_TURN     INTEGER,
+  PRIMARY KEY (STAR_CODE, TRAIT_ID)
+);
 ```
 
 ### 시나리오 (초기값)

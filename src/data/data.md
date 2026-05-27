@@ -16,7 +16,7 @@ src/data/
 ├── scenarios/             → scenarios.md 참조
 ├── factions/              → factions.md 참조
 ├── characters/            → characters.md 참조
-└── trait/
+└── trait/                 → trait.md 참조
     └── stars/
         └── traitData.js   ← 22개 트레잇
 ```
