@@ -73,9 +73,33 @@
 
           <!-- 상세지도 탭 -->
           <template v-else-if="sysTab==='detail'">
-            <div class="placeholder-area">
+            <template v-if="starMapData">
+              <svg class="star-minimap"
+                   :viewBox="`0 0 ${starMapData.mapSize[0]} ${starMapData.mapSize[1]}`"
+                   preserveAspectRatio="xMidYMid meet">
+                <rect width="100%" height="100%" fill="#080c14"/>
+                <ellipse v-for="(n,i) in starMapData.nebulae" :key="'n'+i"
+                         :cx="n.x" :cy="n.y" :rx="n.r" :ry="n.r*.7"
+                         :fill="`${n.color}${n.alpha})`"/>
+                <g v-for="p in starMapData.planets" :key="p.nameKr"
+                   :transform="`translate(${p.x},${p.y})`">
+                  <circle :r="p.size/2" fill="#1a2a3a" stroke="#3a5a7a" stroke-width="2"/>
+                  <circle :r="p.size/2*.55" :fill="p.main?'#d4aa60':'#2a4a6a'"/>
+                  <text text-anchor="middle" :dy="p.size/2+18"
+                        font-size="28" fill="#8aaabb">{{ p.nameKr }}</text>
+                </g>
+              </svg>
+              <div class="star-map-legend">
+                <div v-for="p in starMapData.planets" :key="p.nameKr" class="sml-row">
+                  <span>{{ p.main?'⭐':'🪐' }}</span>
+                  <span>{{ p.nameKr }}</span>
+                  <span class="dim mono" style="font-size:9px">{{ p.type }}</span>
+                </div>
+              </div>
+            </template>
+            <div v-else class="placeholder-area">
               <div style="font-size:32px;margin-bottom:10px">🗺</div>
-              <div class="dim" style="font-size:11px">성계 세부 지도<br>미구현</div>
+              <div class="dim" style="font-size:11px">세부 지도 없음</div>
             </div>
           </template>
 
@@ -232,6 +256,7 @@ import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS, CHARACTERS, CONSTRUCTION_TYPES } from '@/data/masterData'
 import { PLANETS } from '@/data/stars/planetsData.js'
 import { LANES as RAW_LANES } from '@/data/stars/lane.js'
+import { getStarMapByCode } from '@/data/stars/maps/index.js'
 import StatRow from '@/components/ui/StatRow.vue'
 
 const game  = useGameStore()
@@ -273,6 +298,8 @@ function onTitleClick() {
 }
 
 // ── 파생 데이터 ────────────────────────────────────────────────
+const starMapData = computed(() => sys.value ? getStarMapByCode(sys.value.code ?? sys.value.id) : null)
+
 const sysPlanets = computed(() =>
   PLANETS.filter(p => p.starCode === sys.value?.id)
 )
@@ -468,6 +495,16 @@ function laneTypeName(t) {
   background: var(--bg4); border-radius: var(--r);
 }
 .cmd-st { display: flex; gap: 9px; margin-top: 4px; font-size: 10px; }
+
+/* ── 상세지도 ── */
+.star-minimap {
+  width: 100%; aspect-ratio: 1/1;
+  border-radius: var(--r); border: 1px solid var(--bd);
+  display: block; margin-bottom: 8px;
+}
+.star-map-legend { display: flex; flex-direction: column; gap: 4px; }
+.sml-row { display: flex; align-items: center; gap: 6px; font-size: 11px; }
+.sml-row > span:last-child { margin-left: auto; }
 
 /* ━━━ 빈 상태 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
 .ip-empty {
