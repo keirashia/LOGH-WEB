@@ -1,0 +1,452 @@
+// ================================================================
+//  traitData.js — 성계/행성 트레잇 마스터 (불변)
+//  경로: src/data/trait/stars/traitData.js
+//
+//  category:
+//    environment — 지형/자연환경 (주로 영구)
+//    history     — 역사적 사건 결과 (영구/임시 혼재)
+//    event       — 게임 중 이벤트로 부착 (주로 임시)
+//    political   — 정치/사회 상황 (임시)
+//    military    — 군사 상황 (임시)
+//
+//  target: 'planet' | 'star' | 'both'
+//
+//  effects 키:
+//    population, industry, defense, morale, tax (수치 보정, 절대값)
+//    incomeBonus    수입 보정 (배율, 예: 0.1 = +10%)
+//    buildSpeed     건설 속도 보정 (턴, 예: -1 = 1턴 단축)
+//
+//  eventChance: { 이벤트ID: 확률 보정 (예: 0.1 = +10%) }
+//  factionBonus: { 파벌ID: 지지율 보정 }
+//
+//  permanent: true  → 영구 (expiresAt 무시)
+//             false → 임시 (expiresAt 턴수로 소멸)
+// ================================================================
+
+export const STAR_TRAITS = [
+
+  // ── 환경 트레잇 (영구) ───────────────────────────────────
+  {
+    id:        'FERTILE_SOIL',
+    nameKr:    '비옥한 토지',
+    nameEn:    'Fertile Soil',
+    category:  'environment',
+    target:    'planet',
+    icon:      '🌾',
+    rarity:    'common',
+    desc:      '풍요로운 토양으로 농업 생산성이 높고 인구가 빠르게 증가한다.',
+    permanent: true,
+    effects: {
+      population: 20,
+      morale:      5,
+      incomeBonus: 0.05,
+    },
+    eventChance:  { EVT_FAMINE: -0.15 },
+    factionBonus: { REFORMIST: 5 },
+  },
+  {
+    id:        'MINERAL_RICH',
+    nameKr:    '풍부한 광물',
+    nameEn:    'Mineral Rich',
+    category:  'environment',
+    target:    'planet',
+    icon:      '⛏️',
+    rarity:    'uncommon',
+    desc:      '지하자원이 풍부하여 중공업 발전에 유리하다.',
+    permanent: true,
+    effects: {
+      industry:    25,
+      incomeBonus:  0.10,
+    },
+    eventChance:  { EVT_LABOR_DISPUTE: 0.10 },
+    factionBonus: { MILITARIST: 5, INDUSTRIALIST: 10 },
+  },
+  {
+    id:        'NATURAL_FORTRESS',
+    nameKr:    '천연 요새',
+    nameEn:    'Natural Fortress',
+    category:  'environment',
+    target:    'planet',
+    icon:      '🏔️',
+    rarity:    'uncommon',
+    desc:      '험준한 지형으로 방어에 유리하다. 공략하기 매우 어렵다.',
+    permanent: true,
+    effects: {
+      defense:     30,
+      population: -10,
+      industry:   -10,
+    },
+    eventChance:  { EVT_SIEGE: -0.20 },
+    factionBonus: { MILITARIST: 10 },
+  },
+  {
+    id:        'STRATEGIC_POSITION',
+    nameKr:    '전략적 요충지',
+    nameEn:    'Strategic Position',
+    category:  'environment',
+    target:    'star',
+    icon:      '🌀',
+    rarity:    'rare',
+    desc:      '항로의 교차점에 위치하여 모든 방면의 통행을 통제할 수 있다.',
+    permanent: true,
+    effects: {
+      incomeBonus: 0.15,
+      defense:     10,
+    },
+    eventChance:  { EVT_TRADE_DISPUTE: 0.10 },
+    factionBonus: { MERCHANT: 15 },
+  },
+  {
+    id:        'HARSH_ENVIRONMENT',
+    nameKr:    '가혹한 환경',
+    nameEn:    'Harsh Environment',
+    category:  'environment',
+    target:    'planet',
+    icon:      '🌪️',
+    rarity:    'common',
+    desc:      '극한의 기후와 환경으로 생활이 어렵다.',
+    permanent: true,
+    effects: {
+      population: -15,
+      morale:     -10,
+      industry:   -10,
+    },
+    eventChance:  { EVT_MIGRATION: 0.15 },
+    factionBonus: {},
+  },
+  {
+    id:        'OCEANIC_WORLD',
+    nameKr:    '해양 행성',
+    nameEn:    'Oceanic World',
+    category:  'environment',
+    target:    'planet',
+    icon:      '🌊',
+    rarity:    'uncommon',
+    desc:      '광대한 바다로 뒤덮인 행성. 수산업과 해상 교역이 발달해 있다.',
+    permanent: true,
+    effects: {
+      population:  10,
+      incomeBonus:  0.08,
+      defense:     -5,
+    },
+    eventChance:  {},
+    factionBonus: { MERCHANT: 10 },
+  },
+
+  // ── 역사 트레잇 (영구) ───────────────────────────────────
+  {
+    id:        'ANCIENT_CAPITAL',
+    nameKr:    '유서 깊은 수도',
+    nameEn:    'Ancient Capital',
+    category:  'history',
+    target:    'star',
+    icon:      '🏛️',
+    rarity:    'rare',
+    desc:      '오랜 역사를 가진 문명의 중심지. 문화적 영향력이 광범위하게 퍼져 있다.',
+    permanent: true,
+    effects: {
+      morale:      15,
+      incomeBonus:  0.10,
+    },
+    eventChance:  { EVT_CULTURAL_REVIVAL: 0.20 },
+    factionBonus: { TRADITIONALIST: 15, REFORMIST: -5 },
+  },
+  {
+    id:        'MILITARY_TRADITION',
+    nameKr:    '군사적 전통',
+    nameEn:    'Military Tradition',
+    category:  'history',
+    target:    'both',
+    icon:      '⚔️',
+    rarity:    'uncommon',
+    desc:      '오랜 전쟁의 역사 속에서 강력한 군사 문화가 뿌리내렸다.',
+    permanent: true,
+    effects: {
+      defense:     20,
+      morale:       5,
+      population:  -5,
+    },
+    eventChance:  { EVT_COUP: 0.10 },
+    factionBonus: { MILITARIST: 20, PACIFIST: -10 },
+  },
+  {
+    id:        'TRADE_HUB',
+    nameKr:    '무역 중심지',
+    nameEn:    'Trade Hub',
+    category:  'history',
+    target:    'star',
+    icon:      '💹',
+    rarity:    'uncommon',
+    desc:      '오래 전부터 상업 중심지로 발전해 교역이 활발하다.',
+    permanent: true,
+    effects: {
+      industry:    15,
+      incomeBonus:  0.20,
+    },
+    eventChance:  { EVT_MERCHANT_GUILD: 0.15 },
+    factionBonus: { MERCHANT: 20, MILITARIST: -5 },
+  },
+  {
+    id:        'IMPERIAL_HERITAGE',
+    nameKr:    '제국의 유산',
+    nameEn:    'Imperial Heritage',
+    category:  'history',
+    target:    'both',
+    icon:      '👑',
+    rarity:    'rare',
+    desc:      '제국 황가와 깊은 역사적 연관을 가진 성계. 황제에 대한 충성심이 강하다.',
+    permanent: true,
+    effects: {
+      morale:      20,
+    },
+    eventChance:  { EVT_NOBLE_UPRISING: -0.20 },
+    factionBonus: { IMPERIALIST: 25, REPUBLICAN: -15 },
+  },
+  {
+    id:        'FRONTIER_SPIRIT',
+    nameKr:    '개척자 정신',
+    nameEn:    'Frontier Spirit',
+    category:  'history',
+    target:    'both',
+    icon:      '🚀',
+    rarity:    'common',
+    desc:      '변경 지대에서 살아남은 개척자들의 강인한 정신이 뿌리내렸다.',
+    permanent: true,
+    effects: {
+      defense:     10,
+      morale:       5,
+      industry:     5,
+    },
+    eventChance:  { EVT_INDEPENDENCE_MOVEMENT: 0.10 },
+    factionBonus: { AUTONOMIST: 15 },
+  },
+
+  // ── 이벤트 트레잇 (임시) ─────────────────────────────────
+  {
+    id:        'WAR_SCAR',
+    nameKr:    '전쟁의 상흔',
+    nameEn:    'War Scar',
+    category:  'event',
+    target:    'both',
+    icon:      '💥',
+    rarity:    'common',
+    desc:      '최근 전투로 인해 기반시설이 파괴되고 민심이 흉흉하다.',
+    permanent: false,
+    effects: {
+      population: -20,
+      industry:   -20,
+      defense:    -15,
+      morale:     -25,
+    },
+    eventChance:  { EVT_REBELLION: 0.20, EVT_PLAGUE: 0.10 },
+    factionBonus: { PACIFIST: 15, MILITARIST: -10 },
+  },
+  {
+    id:        'OCCUPATION',
+    nameKr:    '점령지',
+    nameEn:    'Under Occupation',
+    category:  'event',
+    target:    'both',
+    icon:      '🏴',
+    rarity:    'common',
+    desc:      '적군에게 점령된 상태. 저항운동이 활발하고 치안이 불안정하다.',
+    permanent: false,
+    effects: {
+      morale:     -30,
+      industry:   -15,
+      tax:        -10,
+    },
+    eventChance:  { EVT_RESISTANCE: 0.30, EVT_REBELLION: 0.25 },
+    factionBonus: { NATIONALIST: 30 },
+  },
+  {
+    id:        'PROSPERITY',
+    nameKr:    '번영의 시대',
+    nameEn:    'Prosperity',
+    category:  'event',
+    target:    'both',
+    icon:      '✨',
+    rarity:    'uncommon',
+    desc:      '평화와 안정 속에서 경제가 번창하고 민심이 안정되어 있다.',
+    permanent: false,
+    effects: {
+      population:  15,
+      industry:    15,
+      morale:      20,
+      incomeBonus:  0.15,
+    },
+    eventChance:  { EVT_GOLDEN_AGE: 0.10 },
+    factionBonus: { REFORMIST: 10, MERCHANT: 10 },
+  },
+  {
+    id:        'PLAGUE',
+    nameKr:    '역병',
+    nameEn:    'Plague',
+    category:  'event',
+    target:    'planet',
+    icon:      '☣️',
+    rarity:    'uncommon',
+    desc:      '원인불명의 역병이 퍼져 인구가 급감하고 있다.',
+    permanent: false,
+    effects: {
+      population: -30,
+      morale:     -20,
+      industry:   -10,
+    },
+    eventChance:  { EVT_FAMINE: 0.15, EVT_REBELLION: 0.10 },
+    factionBonus: {},
+  },
+  {
+    id:        'BLOCKADE',
+    nameKr:    '봉쇄',
+    nameEn:    'Blockade',
+    category:  'event',
+    target:    'star',
+    icon:      '🚫',
+    rarity:    'common',
+    desc:      '항로가 봉쇄되어 물자 공급이 차단된 상태. 경제와 민심에 심각한 타격을 주고 있다.',
+    permanent: false,
+    effects: {
+      industry:   -20,
+      morale:     -15,
+      incomeBonus: -0.30,
+    },
+    eventChance:  { EVT_FAMINE: 0.20, EVT_SURRENDER: 0.15 },
+    factionBonus: { PACIFIST: 20 },
+  },
+
+  // ── 정치 트레잇 (임시) ───────────────────────────────────
+  {
+    id:        'MILITARIST_SURGE',
+    nameKr:    '군국주의 열풍',
+    nameEn:    'Militarist Surge',
+    category:  'political',
+    target:    'both',
+    icon:      '🎖️',
+    rarity:    'common',
+    desc:      '잇따른 전쟁으로 군사력 강화를 요구하는 여론이 들끓고 있다.',
+    permanent: false,
+    effects: {
+      defense:  10,
+      tax:       5,
+      morale:   -5,
+    },
+    eventChance:  { EVT_COUP: 0.15, EVT_CONSCRIPTION: 0.20 },
+    factionBonus: { MILITARIST: 25, PACIFIST: -20 },
+  },
+  {
+    id:        'REFORM_MOVEMENT',
+    nameKr:    '개혁 운동',
+    nameEn:    'Reform Movement',
+    category:  'political',
+    target:    'both',
+    icon:      '📜',
+    rarity:    'uncommon',
+    desc:      '기존 체제에 반발하는 개혁 세력이 성장하고 있다.',
+    permanent: false,
+    effects: {
+      morale:    -5,
+      incomeBonus: -0.05,
+    },
+    eventChance:  { EVT_COUP: 0.20, EVT_REFORM: 0.25 },
+    factionBonus: { REFORMIST: 30, TRADITIONALIST: -20 },
+  },
+  {
+    id:        'NOBLE_DOMINANCE',
+    nameKr:    '귀족 지배',
+    nameEn:    'Noble Dominance',
+    category:  'political',
+    target:    'star',
+    icon:      '🏰',
+    rarity:    'uncommon',
+    desc:      '강력한 귀족 세력이 성계 행정을 장악하고 있다.',
+    permanent: false,
+    effects: {
+      defense:     10,
+      tax:         -5,
+      incomeBonus: -0.10,
+    },
+    eventChance:  { EVT_NOBLE_UPRISING: 0.15, EVT_LIPPSTADT: 0.10 },
+    factionBonus: { IMPERIALIST: 10, TRADITIONALIST: 20, REFORMIST: -20 },
+  },
+
+  // ── 군사 트레잇 (임시) ───────────────────────────────────
+  {
+    id:        'FORTIFIED',
+    nameKr:    '요새화',
+    nameEn:    'Fortified',
+    category:  'military',
+    target:    'both',
+    icon:      '🛡️',
+    rarity:    'common',
+    desc:      '집중적인 군사 투자로 방어 시설이 강화되어 있다.',
+    permanent: false,
+    effects: {
+      defense:     25,
+      industry:    -5,
+      incomeBonus: -0.05,
+    },
+    eventChance:  {},
+    factionBonus: { MILITARIST: 10 },
+  },
+  {
+    id:        'DEVASTATED',
+    nameKr:    '초토화',
+    nameEn:    'Devastated',
+    category:  'military',
+    target:    'both',
+    icon:      '🔥',
+    rarity:    'common',
+    desc:      '무차별 폭격으로 지표면의 시설 대부분이 파괴되었다.',
+    permanent: false,
+    effects: {
+      population: -40,
+      industry:   -40,
+      defense:    -30,
+      morale:     -35,
+    },
+    eventChance:  { EVT_REBELLION: 0.30, EVT_EXODUS: 0.20 },
+    factionBonus: { PACIFIST: 30, MILITARIST: -20 },
+  },
+  {
+    id:        'GARRISON_CITY',
+    nameKr:    '주둔 도시',
+    nameEn:    'Garrison City',
+    category:  'military',
+    target:    'planet',
+    icon:      '🪖',
+    rarity:    'common',
+    desc:      '대규모 주둔군이 배치되어 치안이 안정되나 민간 경제는 위축되어 있다.',
+    permanent: false,
+    effects: {
+      defense:     20,
+      morale:       5,
+      industry:   -10,
+      incomeBonus: -0.08,
+    },
+    eventChance:  { EVT_REBELLION: -0.20 },
+    factionBonus: { MILITARIST: 15, MERCHANT: -10 },
+  },
+]
+
+// ── 트레잇 유틸 ──────────────────────────────────────────────
+export const TRAIT_MAP = Object.fromEntries(
+  STAR_TRAITS.map(t => [t.id, t])
+)
+
+// 카테고리별 분류
+export const TRAIT_BY_CATEGORY = STAR_TRAITS.reduce((acc, t) => {
+  if (!acc[t.category]) acc[t.category] = []
+  acc[t.category].push(t)
+  return acc
+}, {})
+
+// 대상별 분류
+export const TRAIT_BY_TARGET = STAR_TRAITS.reduce((acc, t) => {
+  const targets = t.target === 'both' ? ['planet', 'star'] : [t.target]
+  targets.forEach(tgt => {
+    if (!acc[tgt]) acc[tgt] = []
+    acc[tgt].push(t)
+  })
+  return acc
+}, {})

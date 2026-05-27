@@ -1,20 +1,43 @@
 ﻿import { defineStore } from 'pinia'
 import {
-  FACTIONS, CHARACTERS, STAR_SYSTEMS, SCENARIOS,
+  FACTIONS, CHARACTERS, SCENARIOS,
   OPERATION_TYPES, CONSTRUCTION_TYPES, FORTRESS_WEAPONS, DIALOGS
 } from '@/data/masterData'
+import { STAR_SYSTEMS } from '@/data/stars/starSystemData'
+import { STAR_DETAIL }  from '@/data/scenarios/S01/starDetail'
+
+const _DETAIL_MAP = Object.fromEntries(STAR_DETAIL.map(d => [d.code, d]))
+
+const _DEFAULTS = {
+  capital:   { population: 200, industry: 90, defense: 80 },
+  fortress:  { population: 30,  industry: 60, defense: 95 },
+  frontier:  { population: 40,  industry: 40, defense: 55 },
+  contested: { population: 10,  industry: 20, defense: 25 },
+  noble:     { population: 70,  industry: 55, defense: 50 },
+  normal:    { population: 60,  industry: 50, defense: 45 },
+  neutral:   { population: 50,  industry: 40, defense: 40 },
+}
 
 function buildState(scId, pf) {
   const sc = SCENARIOS[scId] || SCENARIOS[0]
   const systems = {}
   STAR_SYSTEMS.forEach(s => {
-    systems[s.id] = {
-      ...s, morale: 70 + Math.floor(Math.random() * 20),
-      tax: 30, underConstruction: null,
-      faction: sc.systems.REH.includes(s.id) ? 'REH'
-              : sc.systems.FPA.includes(s.id) ? 'FPA'
-              : sc.systems.PZN.includes(s.id) ? 'PZN'
-              : null
+    const d = _DETAIL_MAP[s.code] || {}
+    systems[s.code] = {
+      id:               s.code,
+      code:             s.code,
+      name:             s.nameKr,
+      nameEn:           s.nameEn,
+      type:             s.type,
+      x:                s.x,
+      y:                s.y,
+      desc:             s.desc,
+      faction:          d.faction ?? null,
+      morale:           d.morale  ?? 60,
+      tax:              d.tax     ?? 0,
+      traits:           d.traits  ?? [],
+      underConstruction: null,
+      ...(_DEFAULTS[s.type] ?? _DEFAULTS.normal),
     }
   })
   const resources = {
@@ -844,6 +867,66 @@ export const useGameStore = defineStore('game', {
           this.winner = f
           this.addLog(`🏆 [승리] ${FACTIONS[f].name} 우주 통일!`)
         }
+      })
+    },
+
+    // ── 스토리 이벤트 ────────────────────────────────────────
+    triggerCoup(charId, targetFaction) {
+      const c = this.characters[charId]
+      if (!c) return
+      const from = c.faction
+      c.faction = targetFaction
+      c.currentPost = null
+      this.addLog(`⚡ [쿠데타] ${c.name}이(가) ${FACTIONS[from]?.name || from}에서 ${FACTIONS[targetFaction]?.name || targetFaction}으로 귀순.`)
+      this.openModal('event', {
+        title: '쿠데타',
+        portrait: c.portrait || '⚡',
+        speaker: c.name,
+        desc: `${c.name}이(가) 정변을 일으켜 ${FACTIONS[targetFaction]?.name || targetFaction} 진영에 합류했습니다.`,
+        effect: { morale: -10 },
+      })
+    },
+
+    triggerDefection(charId, targetFaction) {
+      const c = this.characters[charId]
+      if (!c) return
+      const from = c.faction
+      c.faction = targetFaction
+      c.currentPost = null
+      this.addLog(`🚶 [망명] ${c.name}이(가) ${FACTIONS[targetFaction]?.name || targetFaction}으로 망명.`)
+      this.openModal('event', {
+        title: '망명',
+        portrait: c.portrait || '🚶',
+        speaker: c.name,
+        desc: `${c.name}이(가) ${FACTIONS[from]?.name || from}을 떠나 ${FACTIONS[targetFaction]?.name || targetFaction}으로 망명했습니다.`,
+      })
+    },
+
+    triggerResignation(charId) {
+      const c = this.characters[charId]
+      if (!c) return
+      const post = c.currentPost
+      c.currentPost = null
+      this.addLog(`📜 [사임] ${c.name}이(가) ${post || '현직'}에서 사임.`)
+      this.openModal('event', {
+        title: '사임',
+        portrait: c.portrait || '📜',
+        speaker: c.name,
+        desc: `${c.name}이(가) 직책을 사임했습니다.`,
+      })
+    },
+
+    triggerDeath(charId) {
+      const c = this.characters[charId]
+      if (!c) return
+      c.isDead = true
+      c.currentPost = null
+      this.addLog(`💀 [사망] ${c.name} 사망.`)
+      this.openModal('event', {
+        title: '사망',
+        portrait: c.portrait || '💀',
+        speaker: '전령',
+        desc: `${c.name}이(가) 사망했습니다.`,
       })
     },
   },

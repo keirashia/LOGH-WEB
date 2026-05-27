@@ -108,14 +108,16 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import { FACTIONS, STAR_SYSTEMS, LANES as LANE_DEF } from '@/data/masterData'
+import { FACTIONS } from '@/data/masterData'
+import { STAR_SYSTEMS } from '@/data/stars/starSystemData'
+import { LANES as LANE_DEF } from '@/data/stars/lane'
 
 const game  = useGameStore()
 const bgCvs = ref(null)
 const svgEl = ref(null)
 let   aid   = null
 
-const VW = 1640, VH = 980
+const VW = 1600, VH = 1000
 
 // ── 줌 / 팬 상태 ─────────────────────────────────────────────
 const scale = ref(1)
@@ -331,7 +333,7 @@ function cancelAdd() {
 // ── 라인 관리 ────────────────────────────────────────────────
 function laneKey(a, b) { return [a, b].sort().join('|') }
 
-const laneKeySet = ref(new Set(LANE_DEF.map(([a, b]) => laneKey(a, b))))
+const laneKeySet = ref(new Set(LANE_DEF.map(l => laneKey(l.stars[0], l.stars[1]))))
 
 function toggleLane(a, b) {
   const k  = laneKey(a, b)
