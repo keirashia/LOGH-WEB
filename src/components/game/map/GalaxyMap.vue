@@ -10,12 +10,12 @@
          @pointercancel="onPtrUp">
       <g :transform="mapTransform">
 
-        <!-- 항로 (시각 전용) -->
+        <!-- 항로 (type별 색상) -->
         <line v-for="l in lanesComp" :key="l.k"
               :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
-              :stroke="editMode ? 'rgba(255,255,255,0.65)' : 'rgba(255,255,255,0.45)'"
-              :stroke-width="editMode ? 2 : 1.5"
-              stroke-dasharray="5 6"
+              :stroke="editMode ? 'rgba(255,255,255,0.65)' : (LANE_STROKE[l.type] || LANE_STROKE.normal)"
+              :stroke-width="editMode ? 2 : (l.type==='corridor' || l.type==='phezzan' ? 2 : 1.5)"
+              :stroke-dasharray="l.type==='corridor' ? '8 4' : l.type==='phezzan' ? '4 3' : '5 6'"
               style="pointer-events:none"/>
 
         <!-- 함대 마커 -->
@@ -109,7 +109,6 @@
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
-import { STAR_SYSTEMS } from '@/data/stars/starSystemData'
 import { LANES as LANE_DEF } from '@/data/stars/lane'
 
 const game  = useGameStore()
@@ -333,7 +332,14 @@ function cancelAdd() {
 // ── 라인 관리 ────────────────────────────────────────────────
 function laneKey(a, b) { return [a, b].sort().join('|') }
 
-const laneKeySet = ref(new Set(LANE_DEF.map(l => laneKey(l.stars[0], l.stars[1]))))
+const laneTypeMap = Object.fromEntries(LANE_DEF.map(l => [laneKey(l.stars[0], l.stars[1]), l.type]))
+const laneKeySet  = ref(new Set(LANE_DEF.map(l => laneKey(l.stars[0], l.stars[1]))))
+
+const LANE_STROKE = {
+  corridor: 'rgba(100,200,255,0.55)',
+  phezzan:  'rgba(212,170,96,0.60)',
+  normal:   'rgba(255,255,255,0.35)',
+}
 
 function toggleLane(a, b) {
   const k  = laneKey(a, b)
@@ -347,7 +353,8 @@ const lanesComp = computed(() => {
     const [a, b] = k.split('|')
     const sa = game.systems[a], sb = game.systems[b]
     if (!sa || !sb) return null
-    return { k, x1: sa.x, y1: sa.y, x2: sb.x, y2: sb.y }
+    const type = laneTypeMap[k] || 'normal'
+    return { k, type, x1: sa.x, y1: sa.y, x2: sb.x, y2: sb.y }
   }).filter(Boolean)
 })
 
