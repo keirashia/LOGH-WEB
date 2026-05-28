@@ -1,12 +1,19 @@
 ﻿import { defineStore } from 'pinia'
 import {
-  FACTIONS, CHARACTERS, SCENARIOS,
+  FACTIONS, CHARACTERS,
   OPERATION_TYPES, CONSTRUCTION_TYPES, FORTRESS_WEAPONS, DIALOGS
 } from '@/data/masterData'
+import { SCENARIOS } from '@/data/scenarios/scenarios.js'
 import { STAR_SYSTEMS } from '@/data/stars/starSystemData'
-import { STAR_DETAIL }  from '@/data/scenarios/S01/starDetail'
+import { STAR_DETAIL as _DETAIL_796_01 } from '@/data/scenarios/796_01/starDetail'
+import { STAR_DETAIL as _DETAIL_745_01 } from '@/data/scenarios/745_01/starDetail'
+import { STAR_DETAIL as _DETAIL_640_01 } from '@/data/scenarios/640_01/starDetail'
 
-const _DETAIL_MAP = Object.fromEntries(STAR_DETAIL.map(d => [d.code, d]))
+const _SCENARIO_DETAIL_MAP = {
+  '796_01': Object.fromEntries(_DETAIL_796_01.map(d => [d.code, d])),
+  '745_01': Object.fromEntries(_DETAIL_745_01.map(d => [d.code, d])),
+  '640_01': Object.fromEntries(_DETAIL_640_01.map(d => [d.code, d])),
+}
 
 const _DEFAULTS = {
   capital:   { population: 200, industry: 90, defense: 80 },
@@ -19,10 +26,11 @@ const _DEFAULTS = {
 }
 
 function buildState(scId, pf) {
-  const sc = SCENARIOS[scId] || SCENARIOS[0]
+  const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]
+  const _detailMap = _SCENARIO_DETAIL_MAP[sc.id] || {}
   const systems = {}
   STAR_SYSTEMS.forEach(s => {
-    const d = _DETAIL_MAP[s.code] || {}
+    const d = _detailMap[s.code] || {}
     systems[s.code] = {
       id:               s.code,
       code:             s.code,
@@ -113,7 +121,8 @@ export const useGameStore = defineStore('game', {
     startGame(scId, pf) {
       const fresh = buildState(scId, pf)
       Object.assign(this.$state, { initialized: true, ...fresh })
-      this.addLog(`[${FACTIONS[pf].name}] ${SCENARIOS[scId].name} 시작.`)
+      const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]
+      this.addLog(`[${FACTIONS[pf].name}] ${sc.name} 시작.`)
     },
 
     endTurn() {

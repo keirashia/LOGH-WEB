@@ -253,7 +253,7 @@ TBL_SEASON      멀티플레이 시즌
 
 | 우선순위 | 항목 |
 |---|---|
-| 🔴 | **성계 좌표 수정 미반영**: starSystemData.js 좌표 수정 후 게임에 반영 안 됨 — gameStore.buildState() 에서 STAR_SYSTEMS를 제대로 읽는지, Vite HMR 캐시 문제인지 조사 |
+| ✅ | **성계 좌표 수정 미반영** — 버그 아님. 원인: Vite HMR은 JS 모듈만 교체, Pinia store state는 유지됨. 해결: starSystemData.js 수정 후 `/scenario`에서 게임 재시작(startGame() 재호출)하면 반영됨 |
 | 🟡 | 고립 성계 7개 항로 수기 추가: 230004(ARESHYUM), 230007(BARATULF), 230018(FIREZIERD), 230021(HAN), 230036(LUYKAS_FPA), 230038(MARBACH), 230044(PORGEN) |
 | 🟡 | nameJp 62개 전체 입력 (현재 빈 문자열) |
 | 🟡 | code 중복 3건 원작 확인: 230002(ALTENER) / 230035(LUYKAS) / 230037(MARADEITA) |

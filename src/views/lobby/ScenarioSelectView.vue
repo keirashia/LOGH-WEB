@@ -8,34 +8,25 @@
         <span class="serif gold" style="font-size:17px;letter-spacing:2px">새 게임 — 시나리오 선택</span>
       </div>
 
-      <!-- 게임 타입 탭 (T/S/F) -->
-      <div class="type-tabs">
-        <button v-for="t in TYPES" :key="t.code"
-                class="type-tab"
-                :class="{ active: activeType === t.code }"
-                @click="selectType(t.code)">
-          <span class="mono" style="font-size:9px;letter-spacing:2px;opacity:.6">{{ t.code }}</span>
-          <span class="serif">{{ t.name }}</span>
-        </button>
-      </div>
-
       <!-- 바디: 시나리오 목록 + 상세 패널 -->
       <div class="sc-body">
 
         <!-- 시나리오 목록 -->
         <div class="sc-list">
-          <button v-for="sc in filteredScenarios" :key="sc.id"
+          <button v-for="sc in implementedScenarios" :key="sc.id"
                   class="sc-item"
                   :class="{ active: selSc?.id === sc.id }"
-                  @click="selSc = sc; selFac = sc.recommend; activeTab = 'overview'">
-            <div class="mono dim" style="font-size:9px;letter-spacing:2px">
-              SCN.{{ String(sc.id).padStart(2,'0') }}
+                  @click="selectScenario(sc)">
+            <div class="sc-item-tags">
+              <span v-for="tag in sc.tags" :key="tag"
+                    class="sc-tag mono"
+                    :style="{ color: TAG_COLORS[tag] }">{{ tag }}</span>
             </div>
             <div class="serif sc-item-name">{{ sc.name }}</div>
             <div class="mono dim" style="font-size:9px">우주력 {{ sc.year }}년</div>
           </button>
 
-          <div v-if="filteredScenarios.length === 0" class="sc-empty-list dim">
+          <div v-if="implementedScenarios.length === 0" class="sc-empty-list dim">
             <span>준비 중인 시나리오입니다</span>
           </div>
         </div>
@@ -70,29 +61,22 @@
 
             <!-- 정보 -->
             <div v-if="activeTab === 'info'" class="tab-info">
-              <div class="info-row" v-for="(ids, fid) in selSc.systems" :key="fid">
-                <span class="info-faction" :style="{ color: `var(--${fid})` }">
-                  {{ FACTIONS[fid]?.name }}
-                </span>
-                <span class="dim" style="font-size:11px">
-                  {{ ids.map(i => STAR_SYSTEMS[i]?.name ?? i).join(' · ') }}
+              <div class="info-row">
+                <span class="info-label dim">우주력</span>
+                <span style="font-size:12px">{{ selSc.year }}년 {{ selSc.month ? selSc.month + '월' : '' }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label dim">제국력</span>
+                <span style="font-size:12px">{{ selSc.impYear }}년</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label dim">태그</span>
+                <span class="sc-tag-row">
+                  <span v-for="tag in selSc.tags" :key="tag"
+                        class="sc-tag mono"
+                        :style="{ color: TAG_COLORS[tag] }">{{ tag }}</span>
                 </span>
               </div>
-            </div>
-
-            <!-- 목표 -->
-            <div v-if="activeTab === 'mission'" class="tab-mission">
-              <ul class="mission-list">
-                <li v-for="(m, i) in selSc.mission" :key="i" class="mission-item">
-                  <span class="mono dim" style="font-size:10px">0{{ i+1 }}</span>
-                  <span style="font-size:12px">{{ m }}</span>
-                </li>
-              </ul>
-            </div>
-
-            <!-- 보상 -->
-            <div v-if="activeTab === 'rewards'" class="tab-rewards dim" style="font-size:12px">
-              <span>추후 업데이트 예정</span>
             </div>
           </div>
 
@@ -100,14 +84,14 @@
           <div class="faction-section">
             <div class="dim" style="font-size:10px;letter-spacing:1px;margin-bottom:8px">세력 선택</div>
             <div class="faction-grid">
-              <button v-for="(f, fid) in FACTIONS" :key="fid"
+              <button v-for="fid in availableFactions" :key="fid"
                       class="faction-btn"
                       :class="{ selected: selFac === fid }"
                       :style="selFac === fid ? { borderColor: `var(--${fid})`, background: `var(--${fid}-g)` } : {}"
                       @click="selFac = fid">
-                <span style="font-size:22px">{{ f.flag }}</span>
-                <span class="serif" style="font-size:11px">{{ f.name }}</span>
-                <span class="dim mono" style="font-size:9px">{{ f.ideology }}</span>
+                <span style="font-size:22px">{{ FACTIONS[fid]?.flag }}</span>
+                <span class="serif" style="font-size:11px">{{ FACTIONS[fid]?.name }}</span>
+                <span class="dim mono" style="font-size:9px">{{ FACTIONS[fid]?.ideology }}</span>
               </button>
             </div>
           </div>
@@ -144,32 +128,33 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/gameStore'
-import { SCENARIOS, FACTIONS, CHARACTERS, STAR_SYSTEMS as STAR_SYSTEMS_ARR } from '@/data/masterData'
-
-const STAR_SYSTEMS = Object.fromEntries(STAR_SYSTEMS_ARR.map(s => [s.id, s]))
+import { FACTIONS, CHARACTERS } from '@/data/masterData'
+import { SCENARIOS } from '@/data/scenarios/scenarios.js'
 
 const router = useRouter()
 const game   = useGameStore()
 
-const TYPES = [
-  { code: 'T', name: '튜토리얼' },
-  { code: 'S', name: '스탠다드' },
-  { code: 'F', name: '가상역사' },
-]
+const TAG_COLORS = {
+  '사실':   '#4488FF',
+  '가상':   '#8844CC',
+  '택틱스': '#CC6622',
+}
+
 const DETAIL_TABS = [
   { code: 'overview', name: '개요' },
   { code: 'info',     name: '정보' },
-  { code: 'mission',  name: '목표' },
-  { code: 'rewards',  name: '보상' },
 ]
 
-const activeType = ref('S')
-const activeTab  = ref('overview')
-const selSc      = ref(null)
-const selFac     = ref(null)
+const activeTab = ref('overview')
+const selSc     = ref(null)
+const selFac    = ref(null)
 
-const filteredScenarios = computed(() =>
-  SCENARIOS.filter(sc => sc.flag === activeType.value)
+const implementedScenarios = computed(() =>
+  SCENARIOS.filter(sc => sc.implemented)
+)
+
+const availableFactions = computed(() =>
+  selSc.value ? selSc.value.factions : []
 )
 
 const leader = computed(() => {
@@ -178,10 +163,10 @@ const leader = computed(() => {
   return fac?.leader ? CHARACTERS[fac.leader] : null
 })
 
-function selectType(code) {
-  activeType.value = code
-  selSc.value = null
-  selFac.value = null
+function selectScenario(sc) {
+  selSc.value = sc
+  selFac.value = sc.factions[0] ?? null
+  activeTab.value = 'overview'
 }
 
 function startGame() {
@@ -205,16 +190,10 @@ function startGame() {
 /* 헤더 */
 .sc-header { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 
-/* 타입 탭 */
-.type-tabs { display: flex; gap: 6px; flex-shrink: 0; }
-.type-tab {
-  display: flex; flex-direction: column; align-items: center; gap: 2px;
-  padding: 7px 20px; background: var(--bg3); border: 1px solid var(--bd);
-  border-radius: var(--r); cursor: pointer; transition: all .15s; min-width: 90px;
-}
-.type-tab:hover  { background: var(--bgh); }
-.type-tab.active { border-color: var(--tg); background: rgba(212,170,96,.1); color: var(--tg); }
-.type-tab .serif { font-size: 13px; letter-spacing: 1px; }
+/* 태그 */
+.sc-tag { font-size: 9px; letter-spacing: 1px; }
+.sc-item-tags { display: flex; gap: 5px; }
+.sc-tag-row { display: flex; gap: 6px; align-items: center; }
 
 /* 바디 */
 .sc-body { display: flex; gap: 14px; flex: 1; overflow: hidden; }
@@ -261,7 +240,7 @@ function startGame() {
 
 /* 정보 탭 */
 .info-row { display: flex; align-items: baseline; gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--bd); }
-.info-faction { font-size: 12px; font-weight: bold; min-width: 70px; flex-shrink: 0; }
+.info-label { font-size: 11px; min-width: 50px; flex-shrink: 0; }
 
 /* 목표 탭 */
 .mission-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }

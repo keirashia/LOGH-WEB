@@ -73,4 +73,4 @@ export { FORMATIONS, TERRAIN_TYPES, buildTacticalMap }
 
 - [ ] starsData.js (LEGACY) 삭제 확인 — encyclopediaStore 등 참조 여부 체크
 - [ ] traitData.js — 트레잇 적용 로직(gameStore endTurn) 연결
-- [ ] mainStory.js — 스토리 이벤트 트리거 조건 정의
+- [ ] scenarios.js.js — 스토리 이벤트 트리거 조건 정의
