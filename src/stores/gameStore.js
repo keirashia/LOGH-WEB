@@ -3,7 +3,7 @@ import {
   FACTIONS, CHARACTERS,
   OPERATION_TYPES, CONSTRUCTION_TYPES, FORTRESS_WEAPONS, DIALOGS
 } from '@/data/masterData'
-import { SCENARIOS } from '@/data/scenarios/scenarios.js'
+import { SCENARIOS } from '@/data/scenarios/scenario.js'
 import { STAR_SYSTEMS } from '@/data/stars/starSystemData'
 import { STAR_DETAIL as _DETAIL_796_01 } from '@/data/scenarios/796_01/starDetail'
 import { STAR_DETAIL as _DETAIL_745_01 } from '@/data/scenarios/745_01/starDetail'
@@ -71,7 +71,7 @@ function buildState(scId, pf) {
   }
   return {
     sc, playerFaction: pf,
-    year: sc.year, impYear: sc.impYear, month: 1, turn: 1,
+    year: sc.year, impYear: sc.year - 309, month: 1, turn: 1,
     systems, resources, characters, fleets,
     log: [], selectedSystem: null, selectedFleet: null,
     _levyCooldown: 0, _loanBalance: 0, _loanDueTurn: null, _fleetSeq: 10, _truce: {}, _tradeBonus: 0,

@@ -11,8 +11,9 @@
 
 ```
 src/data/scenarios/
-├── scenarios.md      ← 이 파일
-├── scenarios.js.js      ← 시나리오 메타 목록
+├── scenarioData.md   ← 이 파일
+├── scenario.js       ← 시나리오 메타 목록
+├── eventData.js      ← 연도별 역사 사건 목록
 └── {연도}_{seq}/
     ├── starDetail.js     성계 초기값 (faction/morale/tax/traits)
     ├── planetDetail.js   행성 초기값 (임시 빈 배열)
@@ -27,7 +28,6 @@ src/data/scenarios/
 {연도}_{seq}
 
 연도: 우주력(SE) 기준
-seq:  01 = 정사, 02+ = 가상/분기 
 
 예시:
   796_01   SE 796 정사 — 이젤론 함락 직후  ✅ 구현
@@ -36,23 +36,21 @@ seq:  01 = 정사, 02+ = 가상/분기
 ```
 ---
 
-## scenarios.js.js 스키마
+## scenario.js 스키마
+
+`impYear`는 `year - 309`로 화면에서 계산 (SE → IC 변환).
 
 ```js
 export const SCENARIOS = [
   {
-    id:          '796_01',
-    name:        '이젤론 함락 직후',
-    nameEn:      'After the Fall of Iserlohn',
-    year:        796,
-    impYear:     487,
-    month:       5,
-    tags:        ['사실'],           // 사실 / 가상 / 택틱스
-    desc:        '시나리오 설명',
-    recommend:   ['CH_000266', 'CH_000064'],  // 추천 인물 코드
-    factions:    ['REH', 'FPA', 'PZN'],       // 선택 가능 세력
-    eventId:     '796_EVT_03',
-    implemented: true,                         // false면 선택 화면에서 숨김
+    id:       '796_01',
+    name:     '이젤론 함락 직후',
+    nameEn:   'After the Fall of Iserlohn',
+    year:     796,
+    month:    5,
+    tags:     ['사실'],           // 사실 / 가상 / 택틱스
+    desc:     '시나리오 설명',
+    factions: ['REH', 'FPA', 'PZN'],       // 선택 가능 세력
   },
 ]
 ```
@@ -128,8 +126,11 @@ export const PLANET_DETAIL = [
 |---|---|
 | 2026-05-26 | 시나리오 폴더 S01/ 도입 |
 | 2026-05-28 | 시나리오 코드 {연도}_{seq} 확정, S01/ → 796_01/ 변경 |
-| 2026-05-28 | scenarios.js.js 새 스키마 (implemented, factions, recommend, tags) |
-| 2026-05-28 | SCENARIOS masterData.js 제거 → scenarios.js.js 단일 공급원 |
+| 2026-05-28 | scenario.js 새 스키마 (factions, tags, desc) |
+| 2026-05-28 | SCENARIOS masterData.js 제거 → scenario.js 단일 공급원 |
+| 2026-05-28 | impYear 필드 제거, year - 309 로 화면 계산으로 전환 |
+| 2026-05-28 | recommend, eventId, implemented 필드 제거 |
+| 2026-05-28 | eventData.js 뼈대 생성 (SE 640–801, 58개 사건) |
 
 ---
 
@@ -139,23 +140,6 @@ export const PLANET_DETAIL = [
 - [ ] 796_01/charDetail.js 작성 (등장 인물)
 - [ ] 796_01/planetDetail.js 완성 (현재 빈 배열)
 - [ ] 745_01/, 640_01/ 시나리오 전체 작성
-- [ ] eventData.js 생성 (연도별 사건 목록 — scenarioData.md 참조)
-
-
-### 구현 예정 연도별 사건 목록
-
-| 연도 | 사건 수 | 주요 사건 |
-|---|---|---|
-| 640 | 1 | 다곤 성역 회전 |
-| 745 | 1 | 제2차 티아마트 회전 |
-| 788 | 2 | 엘 파실 전투, 에코니아 포로수용소 |
-| 794 | 1 | 밴플리트 성역 회전 |
-| 795 | 5 | 제3차 티아마트, 클롭슈톡, 베네뮌데 등 |
-| 796 | 8 | 아스타테, 이젤론 공방전, 카스트로프, 제국령 침공, 암릿처 등 |
-| 797 | 10 | 립슈타트 전역, 베스터란트, 구국군사회의 쿠데타 등 |
-| 798 | 8 | 요새 대 요새, 라그나뢰크, 페잔 점령 등 |
-| 799 | 8 | 란테마리오, 버밀리온, 바라트 화약 등 |
-| 800 | 9 | 마르 아데타, 양 웬리 암살, 노이에란트 등 |
-| 801 | 5 | 시바 성역 회전 등 |
+- [ ] eventData.js 내용 채우기 (뼈대 생성 완료, 미입력 항목 상세화)
 
 ---

@@ -3,7 +3,7 @@ import FACTIONS_DATA from '@/data/factions/factions.js'
 import { STAR_SYSTEMS as _NEW_SYSTEMS } from '@/data/stars/starSystemData.js'
 import { LANES as _NEW_LANES } from '@/data/stars/lane.js'
 import { PLANETS } from '@/data/stars/planetsData.js'
-import { SCENARIOS as _SCENARIOS } from '@/data/scenarios/scenarios.js'
+import { SCENARIOS as _SCENARIOS } from '@/data/scenarios/scenario.js'
 
 export { _SCENARIOS as SCENARIOS }
 
