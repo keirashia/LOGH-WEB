@@ -122,7 +122,7 @@ export const useGameStore = defineStore('game', {
       const fresh = buildState(scId, pf)
       Object.assign(this.$state, { initialized: true, ...fresh })
       const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]
-      this.addLog(`[${FACTIONS[pf].name}] ${sc.name} 시작.`)
+      this.addLog(`[${FACTIONS[pf].name}] ${sc.nameKr} 시작.`)
     },
 
     endTurn() {

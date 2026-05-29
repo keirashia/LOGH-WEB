@@ -120,6 +120,52 @@ export const PLANET_DETAIL = [
 
 ---
 
+## scenario.js 최신 스키마 (2026-05-29 기준)
+
+```js
+{
+  yearType:    'SE',              // 'AD' | 'SE' | 'RC'
+  year:        796,
+  month:       5,
+  id:          '796_01',
+  nameKr:      '이젤론 함락 직후',
+  nameEn:      'After the Fall of Iserlohn',
+  nameJp:      '',
+  tags:        ['사실'],          // 사실 / 가상 / 택틱스 / 초심자추천 / 숙련자추천
+  factions:    ['REH', 'FPA', 'PZN'],
+  useYn:       true,
+  openPt:      0,                 // 0=무료, N=포인트 필요
+  appearances: ['은하영웅전설 1권'],
+  desc: [
+    {
+      index:  1,
+      image:  '796_01_01.webp',   // 없으면 '' → 그라디언트 대체
+      text:   '...',
+      effect: 'fade',             // 'fade' | 'slide'
+      libs:   ['ST_230022:이젤론', 'CH_000266:양 웬리'],
+    },
+  ],
+}
+```
+
+### libs 접두사 규칙
+```
+ST_{starCode}:{표시명}   성계 사전 팝업
+CH_{chaCode}:{표시명}    인물 사전 팝업
+```
+
+### 하단 버튼 분기 로직
+```
+useYn: false             → [다음 시나리오 →]
+useYn: true
+  openPt: 0              → [▶ 시작]
+  openPt > 0
+    구매완료             → [▶ 시작]
+    미구매               → [🔒 {openPt}P로 구매]
+```
+
+---
+
 ## 설계 결정 이력
 
 | 날짜 | 결정 |
@@ -131,6 +177,12 @@ export const PLANET_DETAIL = [
 | 2026-05-28 | impYear 필드 제거, year - 309 로 화면 계산으로 전환 |
 | 2026-05-28 | recommend, eventId, implemented 필드 제거 |
 | 2026-05-28 | eventData.js 뼈대 생성 (SE 640–801, 58개 사건) |
+| 2026-05-29 | desc[] scenario.js에 통합 (eventData 분리 유지) |
+| 2026-05-29 | libs 필드: ST_/CH_ 접두사 사전 팝업 연동 |
+| 2026-05-29 | openPt: 포인트 잠금해제 (TBL_USER_ITEM 구매 확인) |
+| 2026-05-29 | tags: 초심자추천/숙련자추천 추가 |
+| 2026-05-29 | useYn: false → 상세 열람만 가능, 게임 진입 불가 |
+| 2026-05-29 | name → nameKr, nameJp 추가, yearType 추가 |
 
 ---
 
