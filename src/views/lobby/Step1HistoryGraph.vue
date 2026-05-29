@@ -5,7 +5,6 @@
     <div class="graph-panel">
       <div class="graph-panel-header">
         <span class="serif gold" style="font-size:12px;letter-spacing:1px">역사 타임라인</span>
-        <!-- <span class="mono dim" style="font-size:11px;margin-top:3px"></span> -->
       </div>
 
       <div class="graph-track"
@@ -21,19 +20,19 @@
 
         <!-- 10vh 마진 내부 영역: 핀 + 절단선 -->
         <div class="graph-inner" ref="innerRef">
-          <template v-for="(item, i) in timelineItems" :key="item.type === 'year' ? item.year : 'brk-' + i">
+          <template v-for="(item, i) in timelineItems" :key="item.type === 'year' ? `${item.yearType}_${item.year}` : 'brk-' + i">
 
             <div v-if="item.type === 'year'"
                  class="year-pin"
-                 :class="{ selected: selYear === item.year }"
+                 :class="{ selected: selYear === item.year && selYearType === item.yearType }"
                  :style="{ top: item.top + '%' }"
-                 @click.stop="selectYear(item.year)"
-                 @mouseenter="hoveredYear = item.year"
-                 @mouseleave="hoveredYear = null">
+                 @click.stop="selectYear(item.year, item.yearType)"
+                 @mouseenter="hoveredKey = `${item.yearType}_${item.year}`"
+                 @mouseleave="hoveredKey = null">
               <div class="pin-label mono"
-                   v-show="showLabel(item) || hoveredYear === item.year || selYear === item.year"
-                   :style="{ color: (hoveredYear === item.year || selYear === item.year) ? 'var(--tg)' : 'var(--t1)' }">
-                SE {{ item.year }}
+                   v-show="showLabel(item) || hoveredKey === `${item.yearType}_${item.year}` || (selYear === item.year && selYearType === item.yearType)"
+                   :style="{ color: (hoveredKey === `${item.yearType}_${item.year}` || (selYear === item.year && selYearType === item.yearType)) ? 'var(--tg)' : 'var(--t1)' }">
+                {{ item.yearType }} {{ item.year }}
               </div>
               <div class="pin-dot"
                    :style="{ width: dotSz(item.count) + 'px', height: dotSz(item.count) + 'px' }">
@@ -61,14 +60,15 @@
     <div class="info-panel">
 
       <div class="info-header">
-        <template v-if="selYear">
-          <button class="nav-arrow" :disabled="!prevYear" @click="selectYear(prevYear)">‹</button>
+        <template v-if="selYear !== null">
+          <button class="nav-arrow" :disabled="!prevGroup" @click="selectYear(prevGroup.year, prevGroup.yearType)">‹</button>
           <div class="year-info">
-            <span class="serif gold" style="font-size:17px">SE {{ selYear }}년</span>
-            <span class="mono dim" style="font-size:11px;margin-left:8px">/ 제국력 {{ selYear - 309 }}년</span>
-            <span class="mono dim" style="font-size:10px;margin-left:10px">{{ selEvents.length }}건</span>
+            <span class="serif gold" style="font-size:22px">{{ selYearType }} {{ selYear }}년</span>
+            <span v-if="selYearType === 'SE'" class="mono dim" style="font-size:13px;margin-left:10px">/ 제국력 {{ selYear - 309 }}년</span>
+            <!-- 건수 제거 -->
+            <!-- <span class="mono dim" style="font-size:10px;margin-left:10px">{{ selEvents.length }}건</span> -->
           </div>
-          <button class="nav-arrow" :disabled="!nextYear" @click="selectYear(nextYear)">›</button>
+          <button class="nav-arrow" :disabled="!nextGroup" @click="selectYear(nextGroup.year, nextGroup.yearType)">›</button>
         </template>
         <template v-else>
           <span class="dim" style="font-size:13px">연도를 선택하세요</span>
@@ -76,11 +76,11 @@
       </div>
 
       <div class="event-list">
-        <template v-if="selYear">
+        <template v-if="selYear !== null">
           <button v-for="sc in selEvents" :key="sc.id"
                   class="event-card"
-                  :class="{ selected: selEvt?.id === sc.id, unimpl: !sc.useYn }"
-                  @click="selEvt = sc">
+                  :class="{ unimpl: !sc.useYn }"
+                  @click="$emit('select', sc)">
 
             <div class="card-top">
               <div class="tag-row">
@@ -95,9 +95,7 @@
             </div>
 
             <div class="card-name serif">{{ sc.nameKr }}</div>
-            <div class="card-desc dim" v-if="sc.desc?.[0]?.text">{{ sc.desc[0].text }}</div>
-            <div class="card-na mono dim" v-if="!sc.useYn">구현 예정</div>
-          </button>
+            <div v-if="sc.nameEn" class="card-na mono dim">{{ sc.nameEn }}</div>          </button>
 
           <div v-if="selEvents.length === 0" class="no-events dim serif">
             이 연도에 등록된 사건이 없습니다
@@ -112,11 +110,6 @@
       <!-- 하단 네비 -->
       <div class="step-nav">
         <button class="btn" @click="$router.push('/lobby/single')">← 뒤로</button>
-        <button class="btn btn-gold"
-                :disabled="!selEvt || !selEvt.useYn"
-                @click="$emit('select', selEvt)">
-          다음 →
-        </button>
       </div>
 
     </div>
@@ -139,14 +132,20 @@ const TAG_COLORS = {
   '숙련자추천': '#CC4444',
 }
 
+const ERA_ORDER = { AD: 0, SE: 1, RC: 2 }
+
 // ── 연도별 사건 집계 + 밀도 좌표 ──────────────────────────────
 const yearGroups = computed(() => {
   const m = {}
   SCENARIOS.forEach(s => {
-    if (!m[s.year]) m[s.year] = { year: s.year, count: 0 }
-    m[s.year].count++
+    const key = `${s.yearType}_${s.year}`
+    if (!m[key]) m[key] = { yearType: s.yearType, year: s.year, count: 0 }
+    m[key].count++
   })
-  const sorted = Object.values(m).sort((a, b) => a.year - b.year)
+  const sorted = Object.values(m).sort((a, b) => {
+    const eo = (ERA_ORDER[a.yearType] ?? 9) - (ERA_ORDER[b.yearType] ?? 9)
+    return eo !== 0 ? eo : a.year - b.year
+  })
   const total  = sorted.reduce((s, y) => s + y.count, 0)
   let cum = 0
   return sorted.map(y => {
@@ -157,13 +156,18 @@ const yearGroups = computed(() => {
 })
 
 // ── 뷰 상태: 밀도 좌표 [ds, de] (0~100) ──────────────────────
-const ds       = ref(0)
-const de       = ref(100)
-const selYear    = ref(796)
-const selEvt     = ref(null)
-const trackRef   = ref(null)
-const innerRef   = ref(null)
-const hoveredYear = ref(null)
+const ds         = ref(0)
+const de         = ref(100)
+const selYear     = ref(null)
+const selYearType = ref(null)
+const trackRef    = ref(null)
+const innerRef    = ref(null)
+const hoveredKey  = ref(null)   // `${yearType}_${year}` 형태
+
+function selectYear(year, yearType) {
+  selYear.value     = year
+  selYearType.value = yearType
+}
 
 // 밀도 좌표 → 뷰 내 비율(%)
 function viewPct(densPos) {
@@ -190,7 +194,7 @@ const labelSet = computed(() => {
     const p = pinPct(yr)
     if (p < 0 || p > 100) continue
     if (p - lastPct >= MIN_GAP_PCT) {
-      visible.add(yr.year)
+      visible.add(`${yr.yearType}_${yr.year}`)
       lastPct = p
     }
   }
@@ -198,11 +202,11 @@ const labelSet = computed(() => {
 })
 
 function showLabel(yr) {
-  return labelSet.value.has(yr.year)
+  return labelSet.value.has(`${yr.yearType}_${yr.year}`)
 }
 
 // ── 핀 간 최소 간격 보장 (겹침 방지) ─────────────────────────
-const MIN_PIN_GAP = 8   // graph-inner 높이의 8% ≈ 40px
+const MIN_PIN_GAP = 8
 
 const pinnedPositions = computed(() => {
   const yrs = visibleYears.value
@@ -210,31 +214,23 @@ const pinnedPositions = computed(() => {
 
   const pos = yrs.map(y => viewPct(y.densPos))
 
-  // 순방향: 너무 가까우면 아래로 밀기
   for (let i = 1; i < pos.length; i++) {
     if (pos[i] - pos[i - 1] < MIN_PIN_GAP) pos[i] = pos[i - 1] + MIN_PIN_GAP
   }
-  // 역방향: 100 초과 시 위로 당기기
   for (let i = pos.length - 2; i >= 0; i--) {
     if (pos[i + 1] - pos[i] < MIN_PIN_GAP) pos[i] = pos[i + 1] - MIN_PIN_GAP
   }
 
-  return new Map(yrs.map((y, i) => [y.year, Math.max(0, Math.min(100, pos[i]))]))
+  return new Map(yrs.map((y, i) => [`${y.yearType}_${y.year}`, Math.max(0, Math.min(100, pos[i]))]))
 })
 
 function pinPct(yr) {
-  return pinnedPositions.value.get(yr.year) ?? viewPct(yr.densPos)
+  return pinnedPositions.value.get(`${yr.yearType}_${yr.year}`) ?? viewPct(yr.densPos)
 }
 
 // ── 점 크기 ────────────────────────────────────────────────────
 function dotSz(count) {
   return Math.max(5, Math.min(14, 4 + count * 0.9))
-}
-
-// ── 연도 선택 ─────────────────────────────────────────────────
-function selectYear(year) {
-  selYear.value = year
-  selEvt.value  = null
 }
 
 // ── 드래그 (상하 이동) ─────────────────────────────────────────
@@ -266,12 +262,17 @@ function startDrag(e) {
   window.addEventListener('mouseup',   onUp)
 }
 
-// ── 초기 줌: 796 기준 휠업 2틱 적용 ──────────────────────────
+// ── 초기 줌: SE 796 기준, 없으면 마지막 SE, 없으면 마지막 항목 ──
 onMounted(() => {
-  const yr796 = yearGroups.value.find(y => y.year === 796)
-  if (!yr796) return
-  const pivot = yr796.densPos
-  const span  = 100 * 0.8 ** 4    // 4틱
+  if (!yearGroups.value.length) return
+  const target = yearGroups.value.find(y => y.yearType === 'SE' && y.year === 796)
+             ?? yearGroups.value.find(y => y.yearType === 'SE')
+             ?? yearGroups.value[yearGroups.value.length - 1]
+  if (!target) return
+  selYear.value     = target.year
+  selYearType.value = target.yearType
+  const pivot = target.densPos
+  const span  = 100 * 0.8 ** 4
   let ns = pivot - span / 2
   let ne = pivot + span / 2
   if (ns < 0)   { ne -= ns;     ns = 0 }
@@ -293,7 +294,6 @@ function onWheel(e) {
 }
 
 // ── 절단선 포함 타임라인 아이템 ───────────────────────────────
-// 연도 간격이 3년 초과이고 화면상 5% 이상 공간이 있을 때 절단선 삽입
 const BREAK_YEAR_GAP = 3
 const BREAK_MIN_PCT  = 5
 
@@ -303,9 +303,10 @@ const timelineItems = computed(() => {
   for (let i = 0; i < years.length; i++) {
     const top = pinPct(years[i])
     if (i > 0) {
-      const yearGap = years[i].year - years[i - 1].year
-      const prevTop = pinPct(years[i - 1])
-      if (yearGap > BREAK_YEAR_GAP && top - prevTop > BREAK_MIN_PCT) {
+      const yearGap    = years[i].year - years[i - 1].year
+      const prevTop    = pinPct(years[i - 1])
+      const eraChanged = years[i].yearType !== years[i - 1].yearType
+      if ((eraChanged || yearGap > BREAK_YEAR_GAP) && top - prevTop > BREAK_MIN_PCT) {
         items.push({ type: 'break', top: (prevTop + top) / 2 })
       }
     }
@@ -318,19 +319,21 @@ const atTop    = computed(() => ds.value < 0.1)
 const atBottom = computed(() => de.value > 99.9)
 
 // ── 이전/다음 연도 ────────────────────────────────────────────
-const prevYear = computed(() => {
-  const idx = yearGroups.value.findIndex(y => y.year === selYear.value)
-  return idx > 0 ? yearGroups.value[idx - 1].year : null
+const prevGroup = computed(() => {
+  const idx = yearGroups.value.findIndex(y => y.year === selYear.value && y.yearType === selYearType.value)
+  return idx > 0 ? yearGroups.value[idx - 1] : null
 })
 
-const nextYear = computed(() => {
-  const idx = yearGroups.value.findIndex(y => y.year === selYear.value)
-  return idx >= 0 && idx < yearGroups.value.length - 1 ? yearGroups.value[idx + 1].year : null
+const nextGroup = computed(() => {
+  const idx = yearGroups.value.findIndex(y => y.year === selYear.value && y.yearType === selYearType.value)
+  return idx >= 0 && idx < yearGroups.value.length - 1 ? yearGroups.value[idx + 1] : null
 })
 
 // ── 선택된 연도의 사건 목록 ───────────────────────────────────
 const selEvents = computed(() =>
-  selYear.value ? SCENARIOS.filter(s => s.year === selYear.value) : []
+  selYear.value !== null
+    ? SCENARIOS.filter(s => s.year === selYear.value && s.yearType === selYearType.value)
+    : []
 )
 </script>
 
@@ -495,18 +498,18 @@ const selEvents = computed(() =>
 .event-list {
   flex: 1;
   overflow-y: auto;
-  padding: 10px 14px;
+  padding: 14px 18px;
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 10px;
 }
 
 .event-card {
   text-align: left; width: 100%;
-  padding: 11px 14px;
+  padding: 16px 20px;
   background: var(--bg3); border: 1px solid var(--bd); border-radius: var(--r);
   cursor: pointer; transition: all .15s;
-  display: flex; flex-direction: column; gap: 5px;
+  display: flex; flex-direction: column; gap: 10px;
 }
 .event-card:hover   { background: var(--bgh); }
 .event-card.selected {
@@ -516,16 +519,15 @@ const selEvents = computed(() =>
 .event-card.unimpl:hover { background: var(--bg3); }
 
 .card-top  { display: flex; justify-content: space-between; align-items: center; }
-.tag-row   { display: flex; gap: 6px; }
-.evt-tag   { font-size: 10px; letter-spacing: .5px; }
-.card-meta { font-size: 10px; display: flex; gap: 6px; align-items: center; }
-.star-mark { color: var(--tg); font-size: 11px; }
-.card-name { font-size: 14px; color: var(--t1); }
-.card-desc { font-size: 11px; line-height: 1.6; }
-.card-na   { font-size: 10px; letter-spacing: .5px; }
+.tag-row   { display: flex; gap: 8px; }
+.evt-tag   { font-size: 12px; letter-spacing: .5px; }
+.card-meta { font-size: 12px; display: flex; gap: 8px; align-items: center; }
+.star-mark { color: var(--tg); font-size: 13px; }
+.card-name { font-size: 18px; color: var(--t1); }
+.card-na   { font-size: 12px; letter-spacing: .5px; }
 
 .no-events {
-  padding: 40px; text-align: center; font-size: 13px;
+  padding: 40px; text-align: center; font-size: 14px;
 }
 
 /* 네비 */
