@@ -84,7 +84,6 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { FACTIONS, CHARACTERS } from '@/data/masterData'
-import { SCENARIOS } from '@/data/scenarios/scenario.js'
 
 const props = defineProps({ event: Object, options: Object })
 defineEmits(['back', 'start'])
@@ -92,11 +91,7 @@ defineEmits(['back', 'start'])
 const q       = ref('')
 const selChar = ref(null)
 
-const sc = computed(() =>
-  SCENARIOS.find(s => s.id === props.event?.scenarioId)
-)
-
-const factionSet = computed(() => new Set(sc.value?.factions ?? []))
+const factionSet = computed(() => new Set(props.event?.factions ?? []))
 
 const scenarioChars = computed(() =>
   CHARACTERS.filter(c => factionSet.value.has(c.CHA_NATION) && c.CHA_USEYN === 'Y')

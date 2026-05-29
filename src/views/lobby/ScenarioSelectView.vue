@@ -43,8 +43,8 @@ function onOptionsNext(opts) {
 }
 
 function onStart(char) {
-  if (!selEvent.value?.scenarioId) return
-  game.startGame(selEvent.value.scenarioId, char.CHA_NATION)
+  if (!selEvent.value?.id) return
+  game.startGame(selEvent.value.id, char.CHA_NATION)
   router.push('/game')
 }
 </script>

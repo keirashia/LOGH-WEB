@@ -77,26 +77,26 @@
 
       <div class="event-list">
         <template v-if="selYear">
-          <button v-for="evt in selEvents" :key="evt.id"
+          <button v-for="sc in selEvents" :key="sc.id"
                   class="event-card"
-                  :class="{ selected: selEvt?.id === evt.id, unimpl: !evt.scenarioId }"
-                  @click="selEvt = evt">
+                  :class="{ selected: selEvt?.id === sc.id, unimpl: !sc.useYn }"
+                  @click="selEvt = sc">
 
             <div class="card-top">
               <div class="tag-row">
-                <span v-for="tag in evt.tags" :key="tag"
+                <span v-for="tag in sc.tags" :key="tag"
                       class="evt-tag mono"
                       :style="{ color: TAG_COLORS[tag] ?? 'var(--t2)' }">{{ tag }}</span>
               </div>
               <div class="card-meta mono dim">
-                <span v-if="evt.month">{{ evt.month }}월</span>
-                <span v-if="evt.scenarioId" class="star-mark">★</span>
+                <span v-if="sc.month">{{ sc.month }}월</span>
+                <span v-if="sc.useYn" class="star-mark">★</span>
               </div>
             </div>
 
-            <div class="card-name serif">{{ evt.name }}</div>
-            <div class="card-desc dim" v-if="evt.desc">{{ evt.desc }}</div>
-            <div class="card-na mono dim" v-if="!evt.scenarioId">구현 예정</div>
+            <div class="card-name serif">{{ sc.nameKr }}</div>
+            <div class="card-desc dim" v-if="sc.desc?.[0]?.text">{{ sc.desc[0].text }}</div>
+            <div class="card-na mono dim" v-if="!sc.useYn">구현 예정</div>
           </button>
 
           <div v-if="selEvents.length === 0" class="no-events dim serif">
@@ -113,7 +113,7 @@
       <div class="step-nav">
         <button class="btn" @click="$router.push('/lobby/single')">← 뒤로</button>
         <button class="btn btn-gold"
-                :disabled="!selEvt || !selEvt.scenarioId"
+                :disabled="!selEvt || !selEvt.useYn"
                 @click="$emit('select', selEvt)">
           다음 →
         </button>
@@ -125,24 +125,26 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { EVENTS } from '@/data/scenarios/eventData.js'
+import { SCENARIOS } from '@/data/scenarios/scenario.js'
 
 defineEmits(['select'])
 
 const TAG_COLORS = {
-  '사실':   '#4488FF',
-  '가상':   '#8844CC',
-  '택틱스': '#CC6622',
-  '전투':   '#4488FF',
-  '분기점': '#CC6622',
+  '사실':       '#4488FF',
+  '가상':       '#8844CC',
+  '택틱스':     '#CC6622',
+  '전투':       '#4488FF',
+  '분기점':     '#CC6622',
+  '초심자추천': '#44AA66',
+  '숙련자추천': '#CC4444',
 }
 
 // ── 연도별 사건 집계 + 밀도 좌표 ──────────────────────────────
 const yearGroups = computed(() => {
   const m = {}
-  EVENTS.forEach(e => {
-    if (!m[e.year]) m[e.year] = { year: e.year, count: 0 }
-    m[e.year].count++
+  SCENARIOS.forEach(s => {
+    if (!m[s.year]) m[s.year] = { year: s.year, count: 0 }
+    m[s.year].count++
   })
   const sorted = Object.values(m).sort((a, b) => a.year - b.year)
   const total  = sorted.reduce((s, y) => s + y.count, 0)
@@ -328,7 +330,7 @@ const nextYear = computed(() => {
 
 // ── 선택된 연도의 사건 목록 ───────────────────────────────────
 const selEvents = computed(() =>
-  selYear.value ? EVENTS.filter(e => e.year === selYear.value) : []
+  selYear.value ? SCENARIOS.filter(s => s.year === selYear.value) : []
 )
 </script>
 

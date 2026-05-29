@@ -9,7 +9,7 @@
 
     <!-- 선택된 사건 요약 -->
     <div class="event-summary panel">
-      <div class="serif" style="font-size:15px">{{ event.name }}</div>
+      <div class="serif" style="font-size:15px">{{ event.nameKr }}</div>
       <div class="mono dim" style="font-size:11px;margin-top:3px">
         SE {{ event.year }}년
         <span v-if="event.month"> {{ event.month }}월</span>
