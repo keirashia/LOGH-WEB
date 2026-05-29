@@ -1,5 +1,5 @@
-# src/components/game/modals/characters — 인물 화면 처리
-> 인물 관련 데이터는 src/data/characters/charactersData.md 참조
+# src/data/characters — 인물 화면 처리
+> 인물 관련 데이터는 charactersData.md 참조
 
 ---
 
@@ -148,7 +148,8 @@ const MODAL_MAP = {
 | 2026-05-28 | CharDetailModal — 세부 정보 (능력치 10개 한글, 성향, 직업, 트레잇, 함대) |
 | 2026-05-28 | 능력치 표기 영문→한글 통일 (통솔/카리스마/공격/방어/기동/운영/정보/육전/공전/정치) |
 | 2026-05-28 | 이념(IDEA) — 수치 대신 이념명으로 표시 |
-| 2026-05-28 | 정보 공개 Phase A(전체공개) 먼저 구현, Phase B(INF 기반) 추후 |
+| 2026-05-28 | 정보 공개 Phase A
+(전체공개) 먼저 구현, Phase B(INF 기반) 추후 |
 
 ---
 
@@ -158,3 +159,8 @@ const MODAL_MAP = {
 - [ ] `CharDetailModal.vue` 신규 생성
 - [ ] `GameView.vue` MODAL_MAP에 `charDetail` 추가
 - [ ] Phase B: INF 기반 정보 공개 범위 구현
+
+# 사용자 추가
+- vue명 좀 더 명확하게.
+- 사전모드일때의 캐릭터 팝업
+ 

@@ -27,7 +27,7 @@
 | `src/data/characters/charactersData.md` | 인물 데이터 |
 | `src/stores/stores.md` | 전체 스토어 개요, gameStore 상태/액션 상세 |
 | `src/components/components.md` | 컴포넌트 구조, GalaxyMap 스펙, 모달 목록 |
-| `src/components/game/modals/characters/characters.md` | 인물 모달 화면 설계 (CharModal/CharDetailModal) |
+| `src/components/game/modals/characters/charactersScreen.md` | 인물 모달 화면 설계 (CharModal/CharDetailModal) |
 | `src/views/views.md` | 뷰 목록, 라우터 경로, 각 뷰 상세 |
 | `src/router/router.md` | 라우터 가드, 접근 제어 |
 
