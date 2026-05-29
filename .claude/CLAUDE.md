@@ -24,7 +24,7 @@
 | `src/data/stars/stars.md` | 성계/항로/행성 마스터 데이터, 좌표 범위 |
 | `src/data/scenarios/scenarios.md` | 시나리오별 초기값 |
 | `src/data/factions/factions.md` | 세력/정치/이념 데이터 |
-| `src/data/characters/characters.md` | 인물 데이터 |
+| `src/data/characters/charactersData.md` | 인물 데이터 |
 | `src/stores/stores.md` | 전체 스토어 개요, gameStore 상태/액션 상세 |
 | `src/components/components.md` | 컴포넌트 구조, GalaxyMap 스펙, 모달 목록 |
 | `src/views/views.md` | 뷰 목록, 라우터 경로, 각 뷰 상세 |
@@ -86,6 +86,7 @@
 | 🟡 | starSystemData.js nameJp 62개 입력 | 현재 빈 문자열 |
 | 🟡 | code 중복 3건 원작 확인 | ALTENER/LUYKAS/MARADEITA |
 | 🟡 | starsData.js LEGACY 파일 삭제 확인 | 현재 미참조 |
+| 🟢 | 인물 데이터 리팩토링 | char.js → charBase/charTender/charDetail/charJobs/charTraits 분리 |
 | 🟢 | 민란 시스템 | morale < 20 → 반란 |
 | 🟢 | AI 개선 | 전략적 함대 건조, 세력별 성격 |
 | 🟢 | LOGH-API schema.sql 재작성 | 새 code 체계 반영 |

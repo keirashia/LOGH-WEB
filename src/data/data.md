@@ -10,12 +10,12 @@
 
 ```
 src/data/
-├── masterData.js          ← 호환성 shim (재export 전용)
+├── masterData.js          ← 게임 상수 집합 (SCENARIOS/CHARACTERS/FACTIONS/OPERATION_TYPES 등)
 ├── tacticalData.js        ← 전술전투 데이터 (진형 6종, 지형, 맵)
 ├── stars/                 → stars.md 참조
 ├── scenarios/             → scenarios.md 참조
 ├── factions/              → factions.md 참조
-├── characters/            → characters.md 참조
+├── characters/            → charactersData.md 참조
 └── trait/                 → trait.md 참조
     └── stars/
         └── traitData.js   ← 22개 트레잇
@@ -23,20 +23,21 @@ src/data/
 
 ---
 
-## masterData.js — 호환성 shim
+## masterData.js — 게임 상수 모음
 
-**직접 수정 금지.** encyclopediaStore.js, ScenarioSelectView.vue 등 구 코드와의 호환성을 위한 재export 파일.
+각 서브폴더 데이터를 재export하거나, 인라인 상수를 정의하는 집합 파일.  
+**STAR_SYSTEMS / LANES는 제거됨** — 직접 `starSystemData.js`, `lane.js`를 import할 것.
 
 ```js
-// 내부적으로 새 파일에서 import 후 구 포맷으로 변환해서 재export
-import { STAR_SYSTEMS as _NEW } from '@/data/stars/starSystemData.js'
-import { LANES as _LANES }     from '@/data/stars/lane.js'
+export { SCENARIOS }              // @/data/scenarios/scenario.js
+export { CHARACTERS }             // @/data/characters/char.js
+export { FACTIONS }               // @/data/factions/factions.js (id→obj map)
 
-export const STAR_SYSTEMS = _NEW.map(s => ({ id: s.code, name: s.nameKr, ... }))
-export const LANES        = _LANES.map(l => [l.stars[0], l.stars[1]])
+// 인라인 상수
+export { OPERATION_TYPES, FORTRESS_WEAPONS, CONSTRUCTION_TYPES }
+export { DIALOGS, POSTS }
+export { FINANCE, MILITARY, INTEL }
 ```
-
-새 코드에서는 직접 `starSystemData.js`, `lane.js` 등을 import할 것.
 
 ---
 

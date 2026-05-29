@@ -1,47 +1,11 @@
 ﻿import CHARACTERS_DATA from '@/data/characters/char.js'
 import FACTIONS_DATA from '@/data/factions/factions.js'
-import { STAR_SYSTEMS as _NEW_SYSTEMS } from '@/data/stars/starSystemData.js'
-import { LANES as _NEW_LANES } from '@/data/stars/lane.js'
-import { PLANETS } from '@/data/stars/planetsData.js'
 import { SCENARIOS as _SCENARIOS } from '@/data/scenarios/scenario.js'
 
 export { _SCENARIOS as SCENARIOS }
 
 export const CHARACTERS = CHARACTERS_DATA
 export const FACTIONS = Object.fromEntries(FACTIONS_DATA.map(f => [f.id, f]))
-
-// 행성 데이터에서 fortress 보유 성계 추출
-const _fortressMap = {}
-PLANETS.filter(p => p.fortress).forEach(p => { _fortressMap[p.starCode] = p.fortress })
-
-// 성계 타입별 기본 수치 (planetDetail 구현 전 임시값)
-const _DEFAULTS = {
-  capital:   { population: 200, industry: 90, defense: 80 },
-  fortress:  { population: 30,  industry: 60, defense: 95 },
-  frontier:  { population: 40,  industry: 40, defense: 55 },
-  contested: { population: 10,  industry: 20, defense: 25 },
-  noble:     { population: 70,  industry: 55, defense: 50 },
-  normal:    { population: 60,  industry: 50, defense: 45 },
-  neutral:   { population: 50,  industry: 40, defense: 40 },
-}
-
-export const STAR_SYSTEMS = _NEW_SYSTEMS.map(s => ({
-  id:        s.code,
-  code:      s.code,
-  name:      s.nameKr,
-  nameEn:    s.nameEn,
-  type:      s.type,
-  x:         s.x,
-  y:         s.y,
-  faction:   null,
-  isGateway: false,
-  fortress:  _fortressMap[s.code] || null,
-  desc:      s.desc,
-  ...(_DEFAULTS[s.type] ?? _DEFAULTS.normal),
-}))
-
-// lane.js {id, stars, type, period, stability} → GalaxyMap 호환 [codeA, codeB] 쌍
-export const LANES = _NEW_LANES.map(l => [l.stars[0], l.stars[1]])
 
 export const OPERATION_TYPES = {
   SURRENDER_DEMAND: { id:'SURRENDER_DEMAND', name:'항복 권고',   icon:'📢', successRate:0.30, moraleDmg:5,  defDmg:0  },

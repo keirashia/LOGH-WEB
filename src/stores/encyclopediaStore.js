@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
-import { CHARACTERS, STAR_SYSTEMS, FACTIONS } from '@/data/masterData'
+import { CHARACTERS, FACTIONS } from '@/data/masterData'
+import { STAR_SYSTEMS } from '@/data/stars/starSystemData'
 
 export const useEncyclopediaStore = defineStore('encyclopedia', {
   state: () => ({
@@ -26,7 +27,7 @@ export const useEncyclopediaStore = defineStore('encyclopedia', {
     filteredSystems: s => {
       const q = s.searchQuery.toLowerCase()
       return STAR_SYSTEMS.filter(sys =>
-        !q || sys.name.toLowerCase().includes(q)
+        !q || sys.nameKr.toLowerCase().includes(q)
       )
     },
   },
