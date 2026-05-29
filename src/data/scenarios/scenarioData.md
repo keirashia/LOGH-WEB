@@ -34,6 +34,7 @@ src/data/scenarios/
   745_01   SE 745 정사 — 제2차 티아마트 회전
   640_01   SE 640 정사 — 다곤 성역 회전
 ```
+
 ---
 
 ## scenario.js 스키마
@@ -43,16 +44,16 @@ src/data/scenarios/
 ```js
 export const SCENARIOS = [
   {
-    id:       '796_01',
-    name:     '이젤론 함락 직후',
-    nameEn:   'After the Fall of Iserlohn',
-    year:     796,
-    month:    5,
-    tags:     ['사실'],           // 사실 / 가상 / 택틱스
-    desc:     '시나리오 설명',
-    factions: ['REH', 'FPA', 'PZN'],       // 선택 가능 세력
+    id: "796_01",
+    name: "이젤론 함락 직후",
+    nameEn: "After the Fall of Iserlohn",
+    year: 796,
+    month: 5,
+    tags: ["사실"], // 사실 / 가상 / 택틱스
+    desc: "시나리오 설명",
+    factions: ["REH", "FPA", "PZN"], // 선택 가능 세력
   },
-]
+];
 ```
 
 ---
@@ -62,31 +63,33 @@ export const SCENARIOS = [
 ```js
 export const STAR_DETAIL = [
   {
-    code:    '230058',      // starSystemData.code
-    faction: 'REH',         // REH / FPA / PZN / null
-    morale:  85,
-    tax:     30,
-    traits: [
-      { traitId: 'IMPERIAL_HERITAGE', startTurn: 0, endTurn: null },
-    ],
+    code: "230058", // starSystemData.code
+    faction: "REH", // REH / FPA / PZN / null
+    morale: 85,
+    tax: 30,
+    traits: [{ traitId: "IMPERIAL_HERITAGE", startTurn: 0, endTurn: null }],
   },
-]
+];
 ```
 
 ### gameStore.buildState 병합 로직
 
 ```js
-const d = _DETAIL_MAP[s.code] || {}
+const d = _DETAIL_MAP[s.code] || {};
 systems[s.code] = {
-  id: s.code, code: s.code,
-  name: s.nameKr, nameEn: s.nameEn,
-  type: s.type, x: s.x, y: s.y,
+  id: s.code,
+  code: s.code,
+  name: s.nameKr,
+  nameEn: s.nameEn,
+  type: s.type,
+  x: s.x,
+  y: s.y,
   faction: d.faction ?? null,
-  morale:  d.morale  ?? 60,
-  tax:     d.tax     ?? 0,
-  traits:  d.traits  ?? [],
+  morale: d.morale ?? 60,
+  tax: d.tax ?? 0,
+  traits: d.traits ?? [],
   ...(_DEFAULTS[s.type] ?? _DEFAULTS.normal),
-}
+};
 ```
 
 ---
@@ -96,27 +99,52 @@ systems[s.code] = {
 ```js
 export const PLANET_DETAIL = [
   {
-    code:       '230058P01',
-    faction:    'REH',
+    code: "230058P01",
+    faction: "REH",
     population: 100,
-    industry:   50,
-    defense:    45,
-    morale:     85,
-    tax:        30,
-    traits:     [],
+    industry: 50,
+    defense: 45,
+    morale: 85,
+    tax: 30,
+    traits: [],
   },
-]
+];
 ```
 
 ---
 
 ## 구현 현황
 
-| 코드 | 제목 | 상태 |
-|---|---|---|
-| `796_01` | 이젤론 함락 직후 | ✅ starDetail 완성, planetDetail 임시 |
-| `745_01` | 제2차 티아마트 회전 | ⬜ 미구현 |
-| `640_01` | 다곤 성역 회전 | ⬜ 미구현 |
+| 코드     | 제목                | 상태                                  |
+| -------- | ------------------- | ------------------------------------- |
+| `796_01` | 이젤론 함락 직후    | ✅ starDetail 완성, planetDetail 임시 |
+| `745_01` | 제2차 티아마트 회전 | ⬜ 미구현                             |
+| `640_01` | 다곤 성역 회전      | ⬜ 미구현                             |
+
+---
+
+## 설계 결정 이력
+
+| 날짜       | 결정                                                   |
+| ---------- | ------------------------------------------------------ |
+| 2026-05-28 | 시나리오 코드 {연도}\_{seq} 확정, S01/ → 796_01/ 변경  |
+| 2026-05-28 | scenario.js 새 스키마 (factions, tags, desc)           |
+| 2026-05-28 | SCENARIOS masterData.js 제거 → scenario.js 단일 공급원 |
+| 2026-05-28 | impYear 필드 제거, year - 309 로 화면 계산으로 전환    |
+| 2026-05-28 | recommend, eventId, implemented 필드 제거              |
+| 2026-05-28 | eventData.js 뼈대 생성 (SE 640–801, 58개 사건)         |
+
+---
+
+## TODO
+
+- [ ] 796_01/fleetDetail.js 작성 (함대 초기 배치)
+- [ ] 796_01/charDetail.js 작성 (등장 인물)
+- [ ] 796_01/planetDetail.js 완성 (현재 빈 배열)
+- [ ] 745_01/, 640_01/ 시나리오 전체 작성
+- [ ] eventData.js 내용 채우기 (뼈대 생성 완료, 미입력 항목 상세화)
+
+---
 
 ---
 
@@ -124,25 +152,26 @@ export const PLANET_DETAIL = [
 
 ```js
 {
-  yearType:    'SE',              // 'AD' | 'SE' | 'RC'
+  yearType:    "AD" | "SE" | "RC",  // 연도 체계
   year:        796,
   month:       5,
-  id:          '796_01',
-  nameKr:      '이젤론 함락 직후',
-  nameEn:      'After the Fall of Iserlohn',
-  nameJp:      '',
-  tags:        ['사실'],          // 사실 / 가상 / 택틱스 / 초심자추천 / 숙련자추천
-  factions:    ['REH', 'FPA', 'PZN'],
+  id:          "796_01",            // {yearType}{year}_{seq} or {연도}_{seq}
+  nameKr:      "이젤론 함락 직후",
+  nameEn:      "After the Fall of Iserlohn",
+  nameJp:      "",
+  tags:        ["사실", "초심자추천"],
+  factions:    ["REH", "FPA", "PZN"],
   useYn:       true,
-  openPt:      0,                 // 0=무료, N=포인트 필요
-  appearances: ['은하영웅전설 1권'],
-  desc: [
+  openPt:      0,                   // 0=무료, N=포인트 필요
+  appearances: ["은하영웅전설 1권"],  // 출전 서술
+  desc: [                           // 상세 페이지 배열
     {
       index:  1,
-      image:  '796_01_01.webp',   // 없으면 '' → 그라디언트 대체
-      text:   '...',
-      effect: 'fade',             // 'fade' | 'slide'
-      libs:   ['ST_230022:이젤론', 'CH_000266:양 웬리'],
+      image:  "796_01_01.webp",     // 없으면 "" → 그라디언트 대체
+      text:   "...",
+      effect: "fade",               // fade / slide
+      libs:   ["ST_230022:이젤론", "CH_000266:양 웬리"],
+                                    // ST_=성계 / CH_=인물 사전 팝업
     },
   ],
 }
@@ -164,34 +193,11 @@ useYn: true
     미구매               → [🔒 {openPt}P로 구매]
 ```
 
----
-
-## 설계 결정 이력
-
+### 설계 결정 (2026-05-29 추가)
 | 날짜 | 결정 |
 |---|---|
-| 2026-05-26 | 시나리오 폴더 S01/ 도입 |
-| 2026-05-28 | 시나리오 코드 {연도}_{seq} 확정, S01/ → 796_01/ 변경 |
-| 2026-05-28 | scenario.js 새 스키마 (factions, tags, desc) |
-| 2026-05-28 | SCENARIOS masterData.js 제거 → scenario.js 단일 공급원 |
-| 2026-05-28 | impYear 필드 제거, year - 309 로 화면 계산으로 전환 |
-| 2026-05-28 | recommend, eventId, implemented 필드 제거 |
-| 2026-05-28 | eventData.js 뼈대 생성 (SE 640–801, 58개 사건) |
 | 2026-05-29 | desc[] scenario.js에 통합 (eventData 분리 유지) |
 | 2026-05-29 | libs 필드: ST_/CH_ 접두사 사전 팝업 연동 |
 | 2026-05-29 | openPt: 포인트 잠금해제 (TBL_USER_ITEM 구매 확인) |
-| 2026-05-29 | tags: 초심자추천/숙련자추천 추가 |
+| 2026-05-29 | tags: 사실/가상/택틱스 + 초심자/숙련자추천 추가 |
 | 2026-05-29 | useYn: false → 상세 열람만 가능, 게임 진입 불가 |
-| 2026-05-29 | name → nameKr, nameJp 추가, yearType 추가 |
-
----
-
-## TODO
-
-- [ ] 796_01/fleetDetail.js 작성 (함대 초기 배치)
-- [ ] 796_01/charDetail.js 작성 (등장 인물)
-- [ ] 796_01/planetDetail.js 완성 (현재 빈 배열)
-- [ ] 745_01/, 640_01/ 시나리오 전체 작성
-- [ ] eventData.js 내용 채우기 (뼈대 생성 완료, 미입력 항목 상세화)
-
----
