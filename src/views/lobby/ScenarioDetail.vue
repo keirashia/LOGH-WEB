@@ -29,9 +29,11 @@
 
       <!-- 본문 -->
       <div class="det-body">
-        <Transition :name="page?.effect ?? 'fade'" mode="out-in">
-          <p :key="pageIdx" class="det-text serif">{{ page?.text ?? '(내용 준비 중)' }}</p>
-        </Transition>
+        <div class="det-text-wrap">
+          <Transition :name="page?.effect ?? 'fade'" mode="out-in">
+            <p :key="pageIdx" class="det-text serif">{{ page?.text ?? '(내용 준비 중)' }}</p>
+          </Transition>
+        </div>
 
         <!-- 하단 고정: libs + 페이지 인디케이터 -->
         <div class="det-bottom">
@@ -232,11 +234,16 @@ function onStart() {
 .det-body {
   flex: 3;
   min-height: 0;
-  overflow-y: auto;
-  padding: 16px 24px 12px;
+  overflow: hidden;
+  padding: 12px 24px 12px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
+}
+.det-text-wrap {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
 }
 .det-text {
   font-size: 13px;
@@ -261,7 +268,7 @@ function onStart() {
 .lib-btn:hover { background: rgba(68,136,255,.2); border-color: #6aabff; }
 
 /* 하단 고정 영역 */
-.det-bottom { margin-top: auto; display: flex; flex-direction: column; gap: 8px; }
+.det-bottom { flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; }
 
 /* 페이지 인디케이터 */
 .page-dots { display: flex; justify-content: center; gap: 7px; padding-bottom: 2px; }
