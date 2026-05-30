@@ -18,7 +18,9 @@
 
       <!-- 이미지 -->
       <div class="det-image">
-        <img v-if="page?.image" :src="page.image" class="det-img" />
+        <img v-if="page?.image"
+             :src="`/img/scenarios/${cur.yearType}${cur.year}/${cur.id.split('_')[1]}/${page.image}`"
+             class="det-img" />
         <div v-else class="det-gradient" />
       </div>
 
