@@ -90,12 +90,14 @@
               </div>
               <div class="card-meta mono dim">
                 <span v-if="sc.month">{{ sc.month }}월</span>
-                <span v-if="sc.useYn" class="star-mark">★</span>
+                <!-- <span v-if="sc.useYn" class="star-mark">★</span> -->
               </div>
             </div>
 
             <div class="card-name serif">{{ sc.nameKr }}</div>
-            <div v-if="sc.nameEn" class="card-na mono dim">{{ sc.nameEn }}</div>          </button>
+            <div v-if="sc.nameEn" class="card-na mono">{{ sc.nameEn }}</div>
+            <div v-if="sc.nameJp" class="card-na mono">{{ sc.nameJp }}</div>
+          </button>
 
           <div v-if="selEvents.length === 0" class="no-events dim serif">
             이 연도에 등록된 사건이 없습니다
@@ -515,7 +517,7 @@ const selEvents = computed(() =>
 .event-card.selected {
   border-color: var(--tg); background: rgba(212,170,96,.07);
 }
-.event-card.unimpl  { opacity: .55; cursor: default; }
+.event-card.unimpl  { cursor: default; }
 .event-card.unimpl:hover { background: var(--bg3); }
 
 .card-top  { display: flex; justify-content: space-between; align-items: center; }
@@ -524,7 +526,7 @@ const selEvents = computed(() =>
 .card-meta { font-size: 12px; display: flex; gap: 8px; align-items: center; }
 .star-mark { color: var(--tg); font-size: 13px; }
 .card-name { font-size: 18px; color: var(--t1); }
-.card-na   { font-size: 12px; letter-spacing: .5px; }
+.card-na   { font-size: 12px; letter-spacing: .5px; color: var(--t1); }
 
 .no-events {
   padding: 40px; text-align: center; font-size: 14px;
