@@ -18,9 +18,12 @@
 
       <!-- 이미지 -->
       <div class="det-image">
-        <img v-if="page?.image"
-             :src="`/img/scenarios/${cur.yearType}${cur.year}/${cur.id.split('_')[1]}/${page.image}`"
-             class="det-img" />
+        <template v-if="page?.image">
+          <img class="det-img-bg"
+               :src="`/img/scenarios/${cur.yearType}${cur.year}/${cur.id.split('_')[1]}/${page.image}`" />
+          <img class="det-img"
+               :src="`/img/scenarios/${cur.yearType}${cur.year}/${cur.id.split('_')[1]}/${page.image}`" />
+        </template>
         <div v-else class="det-gradient" />
       </div>
 
@@ -204,11 +207,21 @@ function onStart() {
   flex: 5;
   min-height: 0;
   overflow: hidden;
-  background: linear-gradient(135deg, #06111e 0%, #0e1e3a 40%, #081018 100%);
+  position: relative;
+  background: #060d16;
 }
-.det-img {
+.det-img-bg {
+  position: absolute;
+  inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
+  filter: blur(18px) brightness(0.4);
+  transform: scale(1.1);
+}
+.det-img {
+  position: relative;
+  width: 100%; height: 100%;
+  object-fit: contain;
 }
 .det-gradient {
   width: 100%; height: 100%;
