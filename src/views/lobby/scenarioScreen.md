@@ -81,6 +81,23 @@ eventData.js →  삭제됨 (scenario.js로 통합)
 내부 cur ref 관리 (props mutation 없이 prev/next 전환)
 ```
 
+### image 필드 — 이미지 경로 규칙
+```
+public/img/scenarios/{yearType}{year}/{seq}/{desc.image}
+예) public/img/scenarios/SE796/1/01.webp
+    (id="SE796_1" → yearType="SE", year=796, seq=1)
+
+desc[].image: "01.webp"  → 파일명만 저장
+              ""          → 이미지 없음 (다크 그라디언트 폴백)
+```
+
+```html
+<!-- ScenarioDetail.vue -->
+<img :src="desc.image
+  ? `/img/scenarios/${sc.yearType}${sc.year}/${sc.id.split('_')[1]}/${desc.image}`
+  : ''" />
+```
+
 ### libs 필드 — 사전 팝업 연동
 ```js
 libs: ["ST_230017:엘 파실", "CH_000240:아서 린치"]
