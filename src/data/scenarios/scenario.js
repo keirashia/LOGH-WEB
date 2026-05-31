@@ -2,7 +2,16 @@
 //  scenario.js — 시나리오 메타 목록
 //  id: {우주력연도}_{seq}
 //  impYear는 year - 309 로 계산 (SE → IC 변환)
+//
+//  desc 인터페이스: { index, bg, char, charName, text, effect, libs }
+//    bg       : 배경 이미지 파일명 (image 필드도 하위 호환 유지)
+//    char     : 캐릭터 스프라이트 파일명 (없으면 나레이션 모드)
+//    charName : 대화 화자 이름
+//  폴더가 있는 시나리오는 {year}_{seq}/scenarioStartDesc.js 에서 import
 // ================================================================
+import { DESC as DESC_SE640_1 } from './640_01/scenarioStartDesc.js'
+import { DESC as DESC_SE745_1 } from './745_01/scenarioStartDesc.js'
+import { DESC as DESC_SE796_1 } from './796_01/scenarioStartDesc.js'
 /** 
     id: id값(PK) 및 시나리오 상세 폴더 위치    
     yearType : 연도 타입( )
@@ -328,7 +337,7 @@ export const SCENARIOS = [
   // SE 640
   { yearType:"SE", year:640, month:1, id:"SE640_1", nameKr:"다곤 성역 회전", nameEn:"Battle of Dagon", nameJp:"ダゴン星域会戦",
     tags:["사실"], factions:["REH", "FPA"], useYn:false, openPt:0, appearances:[],
-    desc:[{ index:1, image:"", text:"자유행성동맹과 은하제국의 첫 대규모 전면전. 다곤 성역에서 동맹군이 제국군에 대승을 거두며 이른바 '검붉은 6년'의 시작을 알렸다.", effect:"fade", libs:[] }] },
+    desc: DESC_SE640_1 },
 
   // SE 646
   { yearType:"SE", year:646, month:1, id:"SE646_1", nameKr:"막시밀리안 요제프 2세 즉위", nameEn:"", nameJp:"",
@@ -373,7 +382,7 @@ export const SCENARIOS = [
   // SE 745
   { yearType:"SE", year:745, month:1, id:"SE745_1", nameKr:"제2차 티아마트 회전", nameEn:"", nameJp:"",
     tags:["사실"], factions:["REH", "FPA", "PHZ"], useYn:false, openPt:0, appearances:[],
-    desc:[{ index:1, image:"", text:"티아마트 성역에서 두 번째 대규모 함대 회전이 벌어졌다.", effect:"fade", libs:[] }] },
+    desc: DESC_SE745_1 },
 
   // SE 751
   { yearType:"SE", year:751, month:1, id:"SE751_1", nameKr:"팔란티아 회전", nameEn:"", nameJp:"",
@@ -522,7 +531,7 @@ export const SCENARIOS = [
   { yearType:"SE", year:796, month:2, id:"SE796_1", nameKr:"아스타테 회전", nameEn:"Battle of Astarte", nameJp:"アスターテ会戦",
     tags:["사실","초심자추천"], factions:["REH","FPA","PHZ"], useYn:false, openPt:0,
     appearances:["은하영웅전설 1권 <여명편>"],
-    desc:[{ index:1, image:"", text:"우주력 796년 2월, 아스타테 성역. 제국의 라인하르트 폰 뮈젤 원수가 3배의 병력을 가진 동맹군을 개별격파하는 전술로 대승을 거두었다. 이 전투는 은하영웅전설의 역사가 본격적으로 시작되는 사건이다.", effect:"fade", libs:["ST_:아스타테"] }] },
+    desc: DESC_SE796_1 },
   { yearType:"SE", year:796, month:2, id:"SE796_2", nameKr:"양 웬리 관사 침입사건", nameEn:"", nameJp:"",
     tags:["사실"], factions:["FPA"], useYn:false, openPt:0, appearances:["은하영웅전설 1권 <여명편>"],
     desc:[{ index:1, image:"", text:"양 웬리 준장의 관사에 침입 사건이 발생하였다.", effect:"fade", libs:[] }] },

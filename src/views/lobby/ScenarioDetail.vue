@@ -18,13 +18,19 @@
 
       <!-- 이미지 -->
       <div class="det-image">
-        <template v-if="page?.image">
-          <img class="det-img-bg"
-               :src="`/img/scenarios/${cur.yearType}${cur.year}/${cur.id.split('_')[1]}/${page.image}`" />
-          <img class="det-img"
-               :src="`/img/scenarios/${cur.yearType}${cur.year}/${cur.id.split('_')[1]}/${page.image}`" />
+        <template v-if="bgSrc">
+          <img class="det-img-bg" :src="bgSrc" />
+          <img class="det-img"    :src="bgSrc" />
         </template>
         <div v-else class="det-gradient" />
+
+        <!-- 캐릭터 초상화 (대화 모드) -->
+        <Transition name="char-fade">
+          <div v-if="charSrc" class="det-char-wrap">
+            <div v-if="page.charName" class="det-char-name mono">{{ page.charName }}</div>
+            <img class="det-char-img" :src="charSrc" />
+          </div>
+        </Transition>
       </div>
 
       <!-- 본문 -->
@@ -57,8 +63,8 @@
         <button class="btn" :disabled="pageIdx === 0" @click="pageIdx--">← 이전</button>
 
         <button v-if="!cur.useYn"
-                class="btn dim-action" :disabled="!nextSc" @click="goTo(nextSc)">
-          다음 시나리오 →
+                class="btn dim-action" disabled>
+          진행 불가
         </button>
         <button v-else-if="cur.openPt === 0"
                 class="btn btn-gold" @click="onStart">
@@ -114,6 +120,19 @@ function goTo(sc) {
 const pages      = computed(() => cur.value?.desc ?? [])
 const totalPages = computed(() => Math.max(pages.value.length, 1))
 const page       = computed(() => pages.value[pageIdx.value] ?? null)
+
+// ── 이미지 경로 헬퍼 (bg 우선, image 하위호환) ────────────────
+function scenarioImgBase(sc) {
+  return `/img/scenarios/${sc.yearType}${sc.year}/${sc.id.split('_')[1]}`
+}
+const bgSrc   = computed(() => {
+  const f = page.value?.bg || page.value?.image
+  return f ? `${scenarioImgBase(cur.value)}/${f}` : ''
+})
+const charSrc = computed(() => {
+  const f = page.value?.char
+  return f ? `${scenarioImgBase(cur.value)}/${f}` : ''
+})
 
 // ── libs 팝업 ─────────────────────────────────────────────────
 function libLabel(lib) {
@@ -229,6 +248,38 @@ function onStart() {
   width: 100%; height: 100%;
   background: linear-gradient(135deg, #06111e 0%, #0e1e3a 40%, #081018 100%);
 }
+
+/* ── 캐릭터 초상화 ────────────────────────────────────────── */
+.det-char-wrap {
+  position: absolute;
+  bottom: 0;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  pointer-events: none;
+}
+.det-char-name {
+  font-size: 11px;
+  color: var(--t1);
+  background: rgba(160, 20, 20, 0.88);
+  border: 1px solid rgba(220, 70, 70, 0.45);
+  padding: 3px 10px;
+  border-radius: 2px;
+  letter-spacing: 0.04em;
+}
+.det-char-img {
+  height: 160px;
+  width: auto;
+  object-fit: contain;
+  object-position: bottom;
+  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.85));
+}
+
+/* 캐릭터 페이드 전환 */
+.char-fade-enter-active, .char-fade-leave-active { transition: opacity .2s; }
+.char-fade-enter-from, .char-fade-leave-to       { opacity: 0; }
 
 /* ── 본문 (30%) ───────────────────────────────────────────── */
 .det-body {
