@@ -7,11 +7,11 @@
 //    bg       : 배경 이미지 파일명 (image 필드도 하위 호환 유지)
 //    char     : 캐릭터 스프라이트 파일명 (없으면 나레이션 모드)
 //    charName : 대화 화자 이름
-//  폴더가 있는 시나리오는 {year}_{seq}/scenarioStartDesc.js 에서 import
+//  폴더가 있는 시나리오는 SE{year}/{seq}/scenarioStartDesc.js 에서 import
 // ================================================================
-import { DESC as DESC_SE640_1 } from './640_01/scenarioStartDesc.js'
-import { DESC as DESC_SE745_1 } from './745_01/scenarioStartDesc.js'
-import { DESC as DESC_SE796_1 } from './796_01/scenarioStartDesc.js'
+import { DESC as DESC_SE640_1 } from './SE640/01/scenarioStartDesc.js'
+import { DESC as DESC_SE745_1 } from './SE745/01/scenarioStartDesc.js'
+import { DESC as DESC_SE796_1 } from './SE796/01/scenarioStartDesc.js'
 /** 
     id: id값(PK) 및 시나리오 상세 폴더 위치    
     yearType : 연도 타입( )

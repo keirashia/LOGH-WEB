@@ -5,14 +5,14 @@ import {
 } from '@/data/masterData'
 import { SCENARIOS } from '@/data/scenarios/scenario.js'
 import { STAR_SYSTEMS } from '@/data/stars/starSystemData'
-import { STAR_DETAIL as _DETAIL_796_01 } from '@/data/scenarios/796_01/starDetail'
-import { STAR_DETAIL as _DETAIL_745_01 } from '@/data/scenarios/745_01/starDetail'
-import { STAR_DETAIL as _DETAIL_640_01 } from '@/data/scenarios/640_01/starDetail'
+import { STAR_DETAIL as _DETAIL_SE796_1 } from '@/data/scenarios/SE796/01/starDetail'
+import { STAR_DETAIL as _DETAIL_SE745_1 } from '@/data/scenarios/SE745/01/starDetail'
+import { STAR_DETAIL as _DETAIL_SE640_1 } from '@/data/scenarios/SE640/01/starDetail'
 
 const _SCENARIO_DETAIL_MAP = {
-  '796_01': Object.fromEntries(_DETAIL_796_01.map(d => [d.code, d])),
-  '745_01': Object.fromEntries(_DETAIL_745_01.map(d => [d.code, d])),
-  '640_01': Object.fromEntries(_DETAIL_640_01.map(d => [d.code, d])),
+  'SE796_1': Object.fromEntries(_DETAIL_SE796_1.map(d => [d.code, d])),
+  'SE745_1': Object.fromEntries(_DETAIL_SE745_1.map(d => [d.code, d])),
+  'SE640_1': Object.fromEntries(_DETAIL_SE640_1.map(d => [d.code, d])),
 }
 
 const _DEFAULTS = {

@@ -123,7 +123,8 @@ const page       = computed(() => pages.value[pageIdx.value] ?? null)
 
 // ── 이미지 경로 헬퍼 (bg 우선, image 하위호환) ────────────────
 function scenarioImgBase(sc) {
-  return `/img/scenarios/${sc.yearType}${sc.year}/${sc.id.split('_')[1]}`
+  const seq = sc.id.split('_')[1].padStart(2, '0')
+  return `/img/scenarios/${sc.yearType}${sc.year}/${seq}`
 }
 const bgSrc   = computed(() => {
   const f = page.value?.bg || page.value?.image
