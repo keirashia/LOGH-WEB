@@ -226,8 +226,8 @@ function onImgErr(e) { e.target.style.display = 'none' }
   align-items: flex-start;
 }
 .cdc-img-wrap {
-  width: 72px;
-  height: 88px;
+  width: 12vw;
+  aspect-ratio: 180 / 219;
   flex-shrink: 0;
   border-radius: 4px;
   overflow: hidden;
@@ -237,7 +237,7 @@ function onImgErr(e) { e.target.style.display = 'none' }
   align-items: center;
   justify-content: center;
 }
-.cdc-img { width: 100%; height: 100%; object-fit: cover; }
+.cdc-img { width: 100%; height: 100%; object-fit: contain; }
 .cdc-img-ph { font-size: 28px; color: var(--t3); }
 .cdc-info { flex: 1; display: flex; flex-direction: column; gap: 5px; }
 .cdc-kr-name { font-size: 17px; color: var(--tg); }

@@ -10,9 +10,23 @@
         </span>
         <button class="lib-close mono" @click="enc.close()">✕</button>
       </div>
+      <!-- 
+      1. 현재 선택된 시나리오 표시. 디폴트는 아스타테 회전 SE 796 / 제국력 487년
+      796년에 캐릭터가 사망상태면, 생몰년도 기준으로 살아있는 상태의 첫번째 가능 시나리오로 표시.
+
+      2. 클릭/터치 시, 연도 선택 뷰로 전환.
+      < SE798 SE799 SE800 ...   >
+      이런식으로 세로로 숫자 표기 간격은 좀 넓게 해줘. 팻핑거 방지
+      
+      3. 연도 선택 시, 드롭다운으로 해당 연도의 시나리오 노출.
+      시나리오 선택 시, 해당 시나리오의 데이터를 가져오고 해당 시나리오의 데이터가 없다면, 그냥 base기준 데이터를 노출함.      
+
+      이건 라이브러리 팝업에서만 노출되고, 실제 게임 상에서는 시나리오명만 노출되고, 클릭 터치 이벤트는 작동 X
+      -->
 
       <!-- 목록 뷰 -->
       <template v-if="!selectedCode">
+        <!-- 검색 + 국가 필터 -->
         <div class="lib-search-row">
           <input
             v-model="query"
@@ -30,14 +44,20 @@
           </div>
         </div>
 
+        <!-- 캐릭터 목록 -->
         <div class="lib-list" ref="listRef">
           <div v-if="!filtered.length" class="dim mono" style="padding:24px;text-align:center">
             검색 결과 없음
           </div>
-          <button v-else v-for="c in filtered" :key="c.CHA_CODE"
-                  class="lib-item" @click="selectedCode = c.CHA_CODE">
+          <button
+            v-else
+            v-for="c in filtered"
+            :key="c.CHA_CODE"
+            class="lib-item"
+            @click="open(c.CHA_CODE)"
+          >
             <div class="li-img-wrap">
-              <img :src="charImgSrc(c.CHA_IMG)"
+              <img :src="`/img/characters/${c.CHA_IMG}.png`"
                    class="li-img"
                    @error="e => e.target.style.display = 'none'" />
             </div>
@@ -50,6 +70,7 @@
           </button>
         </div>
 
+        <!-- 카운터 -->
         <div class="lib-footer dim mono">
           {{ filtered.length }}명 / 전체 {{ ALL.length }}명
         </div>
@@ -69,14 +90,13 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
-import { charImgSrc } from '@/utils/charImg.js'
 import { CHAR_BASE } from '@/data/characters/charBase.js'
 import { CHAR_TENDER } from '@/data/characters/charTender.js'
 import CharDetailComp from './CharDetailComp.vue'
 
 const enc = useEncyclopediaStore()
 
-const ALL        = CHAR_BASE
+const ALL = CHAR_BASE
 const TENDER_MAP = Object.fromEntries(CHAR_TENDER.map(c => [c.CHA_CODE, c]))
 
 const NATION_FILTERS = [
@@ -95,17 +115,21 @@ const NATION_DOT_COLOR = {
 const query        = ref('')
 const nationFilter = ref(null)
 const listRef      = ref(null)
+
+// enc.chaCode가 이미 지정된 경우 바로 상세 뷰
 const selectedCode = ref(enc.chaCode ?? null)
 
-const charName = computed(() =>
-  ALL.find(c => c.CHA_CODE === selectedCode.value)?.CHA_KR_NAME ?? selectedCode.value ?? ''
-)
+const charName = computed(() => {
+  if (!selectedCode.value) return ''
+  return ALL.find(c => c.CHA_CODE === selectedCode.value)?.CHA_KR_NAME ?? selectedCode.value
+})
 
 const filtered = computed(() => {
   const q = query.value.trim().toLowerCase()
   return ALL.filter(c => {
     if (nationFilter.value) {
-      if (TENDER_MAP[c.CHA_CODE]?.CHA_NATION !== nationFilter.value) return false
+      const nation = TENDER_MAP[c.CHA_CODE]?.CHA_NATION
+      if (nation !== nationFilter.value) return false
     }
     if (!q) return true
     return (
@@ -120,11 +144,15 @@ const filtered = computed(() => {
 function toggleNation(code) {
   nationFilter.value = nationFilter.value === code ? null : code
 }
+function open(code) {
+  selectedCode.value = code
+}
 function scrollToTop() {
   listRef.value?.scrollTo({ top: 0 })
 }
 function nationDot(chaCode) {
-  return NATION_DOT_COLOR[TENDER_MAP[chaCode]?.CHA_NATION] ?? '#445566'
+  const nation = TENDER_MAP[chaCode]?.CHA_NATION
+  return NATION_DOT_COLOR[nation] ?? '#445566'
 }
 </script>
 
@@ -163,7 +191,7 @@ function nationDot(chaCode) {
   border-bottom: 1px solid var(--bd);
   flex-shrink: 0;
 }
-.lib-title { flex: 1; text-align: center; font-size: 1.8vh; color: var(--tg); }
+.lib-header span { flex: 1; text-align: center; }
 .lib-back, .lib-close {
   font-size: 2.2vh;
   padding: 0.6vh 1.2vw;
