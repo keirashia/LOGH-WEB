@@ -416,7 +416,7 @@ export const SCENARIOS = [
     tags: ["사실"],
     factions: ["FPA", "REH", "PHZ"],
     useYn: true,
-    openPt: 1500,
+    openPt: 0,
     appearances: ["은하영웅전설 1권 <여명편>", "은하영웅전설 외전 <나선미궁>"],
     desc: [
       {

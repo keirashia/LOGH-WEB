@@ -187,7 +187,7 @@ const visibleYears = computed(() => {
 })
 
 // ── 라벨 겹침 방지 (세로 기준) ────────────────────────────────
-const MIN_GAP_PCT = 8
+const MIN_GAP_PCT = 12
 
 const labelSet = computed(() => {
   const visible = new Set()
@@ -208,7 +208,7 @@ function showLabel(yr) {
 }
 
 // ── 핀 간 최소 간격 보장 (겹침 방지) ─────────────────────────
-const MIN_PIN_GAP = 8
+const MIN_PIN_GAP = 12
 
 const pinnedPositions = computed(() => {
   const yrs = visibleYears.value
@@ -399,7 +399,7 @@ const selEvents = computed(() =>
 .year-pin {
   position: absolute;
   left: 0; right: 0;
-  height: 40px;
+  height: 48px;
   transform: translateY(-50%);
   cursor: pointer;
   color: var(--t1);
@@ -487,10 +487,10 @@ const selEvents = computed(() =>
 }
 
 .nav-arrow {
-  width: 32px; height: 32px;
+  width: 44px; height: 44px;
   display: flex; align-items: center; justify-content: center;
   background: var(--bg3); border: 1px solid var(--bd); border-radius: var(--r);
-  color: var(--t1); font-size: 18px; cursor: pointer;
+  color: var(--t1); font-size: 20px; cursor: pointer;
   transition: all .13s; flex-shrink: 0;
 }
 .nav-arrow:hover:not(:disabled) { border-color: var(--tg); color: var(--tg); }
@@ -503,7 +503,7 @@ const selEvents = computed(() =>
   padding: 14px 18px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
 }
 
 .event-card {
