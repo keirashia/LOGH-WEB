@@ -1,50 +1,40 @@
 import { defineStore } from 'pinia'
-import { CHARACTERS, FACTIONS } from '@/data/masterData'
-import { STAR_SYSTEMS } from '@/data/stars/starSystemData'
 
 export const useEncyclopediaStore = defineStore('encyclopedia', {
   state: () => ({
-    activeTab: 'characters',   // characters | ships | systems | politics | traits | skills
-    activeSubTab: null,
+    // 팝업 제어
+    popType: null,       // 'char' | 'star' | 'ship' | null
+    chaCode: null,       // 현재 열린 인물 코드 (null = 목록)
+    scenarioId: null,    // 고정 시나리오 (null = 탭 표시)
     searchQuery: '',
-    isOpen: false,             // 인게임 오버레이 여부
+    // 레거시 (인게임 오버레이용)
+    isOpen: false,
+    activeTab: 'characters',
   }),
 
-  getters: {
-    // 인물 목록
-    characters: () => Object.values(CHARACTERS),
-
-    filteredCharacters: s => {
-      const q = s.searchQuery.toLowerCase()
-      return Object.values(CHARACTERS).filter(c =>
-        !q || c.name.toLowerCase().includes(q) || c.rank.toLowerCase().includes(q)
-      )
-    },
-
-    // 성계 목록
-    systems: () => STAR_SYSTEMS,
-
-    filteredSystems: s => {
-      const q = s.searchQuery.toLowerCase()
-      return STAR_SYSTEMS.filter(sys =>
-        !q || sys.nameKr.toLowerCase().includes(q)
-      )
-    },
-  },
-
   actions: {
-    open(tab = 'characters') {
+    // open('char')                    → 인물 목록 팝업
+    // open('char', 'CH_000064')       → 인물 상세 직접 오픈
+    // open('char', 'CH_000064', '796_1') → 시나리오 고정
+    // open('star') / open('ship')     → 성계/함선 (추후)
+    open(type, code = null, scenarioId = null) {
+      const typeMap = { characters: 'char', systems: 'star', ships: 'ship' }
+      this.popType = typeMap[type] ?? type
+      this.chaCode = code
+      this.scenarioId = scenarioId
+      this.searchQuery = ''
       this.isOpen = true
-      this.activeTab = tab
+      this.activeTab = type
     },
     close() {
+      this.popType = null
+      this.chaCode = null
+      this.scenarioId = null
+      this.searchQuery = ''
       this.isOpen = false
-      this.searchQuery = ''
     },
-    setTab(tab) {
-      this.activeTab = tab
-      this.activeSubTab = null
-      this.searchQuery = ''
+    openChar(code, scenarioId = null) {
+      this.open('char', code, scenarioId)
     },
   },
 })

@@ -18,6 +18,11 @@ const routes = [
     component: () => import('@/views/lobby/SingleView.vue'),
   },
   {
+    path: '/lobby/encyclopedia',
+    name: 'encyclopedia-menu',
+    component: () => import('@/views/lobby/EncyclopediaMenuView.vue'),
+  },
+  {
     path: '/lobby/single/new',
     name: 'scenario-select',
     component: () => import('@/views/lobby/ScenarioSelectView.vue'),

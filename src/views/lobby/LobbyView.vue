@@ -2,6 +2,7 @@
   <div class="lobby-wrap">
     <canvas ref="cvs" class="starfield" />
 
+
     <div class="lobby-layout">
       <div class="lobby-title">
         <span class="serif gold lbt-main">銀河英雄伝説</span>
@@ -21,7 +22,7 @@
           <span class="mb-desc dim">{{ auth.isLoggedIn ? '시즌 서버에 접속하여 다른 플레이어와 대결' : '로그인이 필요합니다' }}</span>
         </button>
 
-        <button class="menu-btn" @click="$router.push('/encyclopedia')">
+        <button class="menu-btn" @click="$router.push('/lobby/encyclopedia')">
           <span class="mb-icon">📖</span>
           <span class="mb-title serif">사전</span>
           <span class="mb-desc dim">인물·성계·함선 데이터베이스</span>
@@ -133,4 +134,5 @@ onMounted(() => {
 /* 하단 */
 .login-notice { font-size: 11px; letter-spacing: 1px; }
 .lobby-footer { display: flex; gap: 10px; align-items: center; }
+
 </style>
