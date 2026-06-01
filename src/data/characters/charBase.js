@@ -15,7 +15,7 @@ export const CHAR_BASE = [
     CHA_KR_NICK: "싱클레어",
     CHA_JP_NAME: "D. シンクレア",
     CHA_JP_NICK: "シンクレア",
-    CHA_BIRTH: "SE 743.05.14",
+    CHA_BIRTH: "743.05.14",
     CHA_POINTS: "150",
   },
   {
@@ -27,7 +27,7 @@ export const CHAR_BASE = [
     CHA_KR_NICK: "맥켄지",
     CHA_JP_NAME: "E.J. マッケンジー",
     CHA_JP_NICK: "マッケンジー",
-    CHA_BIRTH: "SE 749.08.01",
+    CHA_BIRTH: "749.08.01",
     CHA_POINTS: "200",
   },
   {
@@ -39,7 +39,7 @@ export const CHAR_BASE = [
     CHA_KR_NICK: "깁슨",
     CHA_JP_NAME: "J・ギブソン",
     CHA_JP_NICK: "ギブソン",
-    CHA_BIRTH: "SE 763.02.13",
+    CHA_BIRTH: "763.02.13",
     CHA_POINTS: "0",
   },
   {
@@ -51,7 +51,7 @@ export const CHAR_BASE = [
     CHA_KR_NICK: "지구교 총대주교",
     CHA_JP_NAME: "総大主教",
     CHA_JP_NICK: "総大主教",
-    CHA_BIRTH: "SE 731.01.01",
+    CHA_BIRTH: "731.01.01",
     CHA_POINTS: "-", // 일반적인 방법으로는 해금 불가
   },
   {
@@ -63,7 +63,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ゲアハルト・フォン・シュテーガー",
     CHA_JP_NICK: "シュテーガー",
     CHA_IMG: "CH_0000050",
-    CHA_BIRTH: "SE 740.",
+    CHA_BIRTH: "740.",
     CHA_POINTS: "0",
   },
   {
@@ -75,7 +75,7 @@ export const CHAR_BASE = [
     CHA_KR_NICK: "겔라흐",
     CHA_JP_NAME: "ゲルラッハ",
     CHA_JP_NICK: "ゲルラッハ",
-    CHA_BIRTH: "SE 729.03.15",
+    CHA_BIRTH: "729.03.15",
     CHA_POINTS: "0",
   },
   {
@@ -87,7 +87,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ゴドウィン",
     CHA_JP_NICK: "ゴドウィン",
     CHA_IMG: "CH_0000070",
-    CHA_BIRTH: "SE 742.07.22",
+    CHA_BIRTH: "742.07.22",
     CHA_POINTS: "-",
   },
   {
@@ -99,7 +99,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ゴルトシュミット",
     CHA_JP_NICK: "ゴルトシュミット",
     CHA_IMG: "CH_0000080",
-    CHA_BIRTH: "SE 757.05.08",
+    CHA_BIRTH: "757.05.08",
     CHA_POINTS: "100",
   },
   {
@@ -112,7 +112,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000090",
-    CHA_BIRTH: "SE 757.01.01",
+    CHA_BIRTH: "757.01.01",
     CHA_POINTS: "X", // 선택 불가(이벤트로만 등장)
   },
   {
@@ -124,7 +124,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ゴットリーブ・フォン・インゴルシュタット",
     CHA_JP_NICK: "インゴルシュタット",
     CHA_IMG: "CH_0000100",
-    CHA_BIRTH: "SE 590.07.11",
+    CHA_BIRTH: "590.07.11",
     CHA_POINTS: "",
   },
   {
@@ -136,8 +136,8 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000110",
-    CHA_BIRTH: "SE 617.08.03",
-    CHA_DEATH: "SE 646.08.01",
+    CHA_BIRTH: "617.08.03",
+    CHA_DEATH: "646.08.01",
     CHA_POINTS: "X",
   },
   {
@@ -149,7 +149,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000120",
-    CHA_BIRTH: "SE 757.05.08",
+    CHA_BIRTH: "757.05.08",
     CHA_POINTS: "0",
   },
   {
@@ -161,7 +161,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000130",
-    CHA_BIRTH: "SE 757.03.12",
+    CHA_BIRTH: "757.03.12",
     CHA_POINTS: "0",
   },
   {
@@ -173,7 +173,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000140",
-    CHA_BIRTH: "SE 752.07.19",
+    CHA_BIRTH: "752.07.19",
     CHA_POINTS: "0",
   },
   {
@@ -185,7 +185,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ギュンター・キスリング",
     CHA_JP_NICK: "キスリング",
     CHA_IMG: "CH_0000150",
-    CHA_BIRTH: "SE 770.05.11",
+    CHA_BIRTH: "770.05.11",
     CHA_POINTS: "",
   },
   {
@@ -197,7 +197,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000160",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -209,7 +209,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "グレゴール・フォン・ミュッケンベルガ",
     CHA_JP_NICK: "G. ミュッケンベルガ",
     CHA_IMG: "CH_0000170",
-    CHA_BIRTH: "SE 738.11.19",
+    CHA_BIRTH: "738.11.19",
     CHA_POINTS: "0",
   },
   {
@@ -221,7 +221,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "グレゴール・フォン・クルムバッハ",
     CHA_JP_NICK: "クルムバッハ",
     CHA_IMG: "CH_0000180",
-    CHA_BIRTH: "SE 760.02.08",
+    CHA_BIRTH: "760.02.08",
     CHA_POINTS: "",
   },
   {
@@ -233,7 +233,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "グレドウィン・スコット",
     CHA_JP_NICK: "スコット",
     CHA_IMG: "CH_0000190",
-    CHA_BIRTH: "SE 746.03.08",
+    CHA_BIRTH: "746.03.08",
     CHA_POINTS: "0",
   },
   {
@@ -245,7 +245,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "グレーブナー",
     CHA_JP_NICK: "グレーブナー",
     CHA_IMG: "CH_0000200",
-    CHA_BIRTH: "SE 754.06.17",
+    CHA_BIRTH: "754.06.17",
     CHA_POINTS: "0",
   },
   {
@@ -257,7 +257,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000210",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -269,7 +269,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "グレーチェン・フォン・エアフルト",
     CHA_JP_NICK: "グレーチェン",
     CHA_IMG: "CH_0000220",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -281,7 +281,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000230",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -293,7 +293,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000240",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -305,7 +305,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000250",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -317,7 +317,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "グリューネマン",
     CHA_JP_NICK: "グリューネマン",
     CHA_IMG: "CH_0000260",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -329,7 +329,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000270",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -341,7 +341,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000280",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -353,7 +353,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000290",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -365,7 +365,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "グルック",
     CHA_JP_NICK: "グルック",
     CHA_IMG: "CH_0000300",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -377,7 +377,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000310",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -389,7 +389,7 @@ export const CHAR_BASE = [
     CHA_KR_NICK: "뮐러",
     CHA_JP_NAME: "ナイトハルト・ミュラー",
     CHA_JP_NICK: "ミュラー",
-    CHA_BIRTH: "SE 770.12.14",
+    CHA_BIRTH: "770.12.14",
     CHA_POINTS: "0",
   },
   {
@@ -401,7 +401,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ナポレオン・アントワーヌ・ド・オットテール",
     CHA_JP_NICK: "オットテール",
     CHA_IMG: "CH_0000330",
-    CHA_BIRTH: "SE 771.07.28",
+    CHA_BIRTH: "771.07.28",
     CHA_POINTS: "",
   },
   {
@@ -413,7 +413,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ネグロポンティ",
     CHA_JP_NICK: "ネグロポンティ",
     CHA_IMG: "CH_0000340",
-    CHA_BIRTH: "SE 747.05.10",
+    CHA_BIRTH: "747.05.10",
     CHA_POINTS: "",
   },
   {
@@ -425,7 +425,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000350",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -437,7 +437,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000360",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -449,7 +449,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ノルデン",
     CHA_JP_NICK: "ノルデン",
     CHA_IMG: "CH_0000370",
-    CHA_BIRTH: "SE 763.08.08",
+    CHA_BIRTH: "763.08.08",
     CHA_POINTS: "",
   },
   {
@@ -461,7 +461,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000380",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -473,7 +473,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ニコラス・ボルテック",
     CHA_JP_NICK: "ボルテック",
     CHA_IMG: "CH_0000390",
-    CHA_BIRTH: "SE 756.05.11",
+    CHA_BIRTH: "756.05.11",
     CHA_POINTS: "",
   },
   {
@@ -485,7 +485,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000400",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -497,7 +497,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ニルソン",
     CHA_JP_NICK: "ニルソン",
     CHA_IMG: "CH_0000410",
-    CHA_BIRTH: "SE 744.09.30",
+    CHA_BIRTH: "744.09.30",
     CHA_POINTS: "",
   },
   {
@@ -509,7 +509,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000420",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -521,7 +521,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ダスティ·アッテンボロー",
     CHA_JP_NICK: "アッテンボロー",
     CHA_IMG: "CH_0000430",
-    CHA_BIRTH: "SE 769.11.23",
+    CHA_BIRTH: "769.11.23",
     CHA_POINTS: "0",
   },
   {
@@ -533,7 +533,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "デグスビイ",
     CHA_JP_NICK: "デグスビイ",
     CHA_IMG: "CH_0000440",
-    CHA_BIRTH: "SE 777.01.07",
+    CHA_BIRTH: "777.01.07",
     CHA_POINTS: "0",
   },
   {
@@ -545,7 +545,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "デッシュ",
     CHA_JP_NICK: "デッシュ",
     CHA_IMG: "CH_0000450",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -557,7 +557,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ドロテーア・フォン・シャフハウゼン",
     CHA_JP_NICK: "ドロテーア",
     CHA_IMG: "CH_0000460",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -569,7 +569,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ドミニク・サン・ピエール",
     CHA_JP_NICK: "ドミニク",
     CHA_IMG: "CH_0000470",
-    CHA_BIRTH: "SE 772.02.16",
+    CHA_BIRTH: "772.02.16",
     CHA_POINTS: "0",
   },
   {
@@ -581,7 +581,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "ドーソン",
     CHA_JP_NICK: "ドーソン",
     CHA_IMG: "CH_0000480",
-    CHA_BIRTH: "SE 740.11.29",
+    CHA_BIRTH: "740.11.29",
     CHA_POINTS: "0",
   },
   {
@@ -593,7 +593,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000490",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -605,7 +605,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000500",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -617,7 +617,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000510",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -629,7 +629,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000520",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -641,7 +641,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000530",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -653,7 +653,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000540",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -665,7 +665,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000550",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -677,7 +677,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000560",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -689,7 +689,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000570",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -701,7 +701,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000580",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -713,7 +713,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000590",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -725,7 +725,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000600",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -737,7 +737,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000610",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -749,7 +749,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000620",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -761,7 +761,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000630",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -773,7 +773,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000640",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -785,7 +785,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000650",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -797,7 +797,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000660",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -809,7 +809,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000670",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -821,7 +821,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000680",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -833,7 +833,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000690",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -845,7 +845,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000700",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -857,7 +857,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000710",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -869,7 +869,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000720",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -881,7 +881,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000730",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -893,7 +893,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000740",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -905,7 +905,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000750",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -917,7 +917,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000760",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -929,7 +929,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000770",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -941,7 +941,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000780",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -953,7 +953,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000790",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -965,7 +965,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000800",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -977,7 +977,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000810",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -989,7 +989,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000820",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1001,7 +1001,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000830",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1013,7 +1013,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000840",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1025,7 +1025,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000850",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1037,7 +1037,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000860",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1049,7 +1049,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000870",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1061,7 +1061,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000880",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1073,7 +1073,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000890",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1085,7 +1085,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000900",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1097,7 +1097,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000910",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1109,7 +1109,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000920",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1121,7 +1121,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000930",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1133,7 +1133,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000940",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1145,7 +1145,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000950",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1157,7 +1157,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000960",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1169,7 +1169,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000970",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1181,7 +1181,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000980",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1193,7 +1193,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0000990",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1205,7 +1205,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001000",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1217,7 +1217,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001010",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1229,7 +1229,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001020",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1241,7 +1241,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001030",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1253,7 +1253,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001040",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1265,7 +1265,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001050",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1277,7 +1277,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001060",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1289,7 +1289,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001070",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1301,7 +1301,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001080",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1313,7 +1313,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001090",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1325,7 +1325,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001100",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1337,7 +1337,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001110",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1349,7 +1349,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001120",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1361,7 +1361,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001130",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1373,7 +1373,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001140",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1385,7 +1385,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001150",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1397,7 +1397,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001160",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1409,7 +1409,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001170",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1421,7 +1421,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001180",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1433,7 +1433,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001190",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1445,7 +1445,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001200",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1457,7 +1457,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001210",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1469,7 +1469,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001220",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1481,7 +1481,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001230",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1493,7 +1493,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001240",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1505,7 +1505,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001250",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1517,7 +1517,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001260",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1529,7 +1529,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001270",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1541,7 +1541,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001280",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1553,7 +1553,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001290",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1565,7 +1565,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001300",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1577,7 +1577,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001310",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1589,7 +1589,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001320",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1601,7 +1601,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001330",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1613,7 +1613,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001340",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1625,7 +1625,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001350",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1637,7 +1637,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001360",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1649,7 +1649,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001370",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1661,7 +1661,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001380",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1673,7 +1673,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001390",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1685,7 +1685,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001400",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1697,7 +1697,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001410",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1709,7 +1709,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001420",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1721,7 +1721,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001430",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1733,7 +1733,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001440",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1745,7 +1745,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001450",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1757,7 +1757,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001460",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1769,7 +1769,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001470",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1781,7 +1781,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001480",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1793,7 +1793,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001490",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1805,7 +1805,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001500",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1817,7 +1817,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001510",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1829,7 +1829,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001520",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1841,7 +1841,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001530",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1853,7 +1853,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001540",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1865,7 +1865,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001550",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1877,7 +1877,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001560",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1889,7 +1889,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001570",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1901,7 +1901,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001580",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1913,7 +1913,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001590",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1925,7 +1925,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001600",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1937,7 +1937,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001610",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1949,7 +1949,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001620",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1961,7 +1961,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001630",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1973,7 +1973,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001640",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1985,7 +1985,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001650",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -1997,7 +1997,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001660",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2009,7 +2009,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001670",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2021,7 +2021,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001680",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2033,7 +2033,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001690",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2045,7 +2045,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001700",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2057,7 +2057,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001710",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2069,7 +2069,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001720",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2081,7 +2081,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001730",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2093,7 +2093,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001740",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2105,7 +2105,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001750",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2117,7 +2117,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001760",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2129,7 +2129,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001770",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2141,7 +2141,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001780",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2153,7 +2153,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001790",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2165,7 +2165,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001800",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2177,7 +2177,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001810",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2189,7 +2189,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001820",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2201,7 +2201,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001830",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2213,7 +2213,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001840",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2225,7 +2225,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001850",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2237,7 +2237,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001860",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2249,7 +2249,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001870",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2261,7 +2261,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001880",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2273,7 +2273,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001890",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2285,7 +2285,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001900",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2297,7 +2297,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001910",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2309,7 +2309,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001920",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2321,7 +2321,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001930",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2333,7 +2333,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001940",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2345,7 +2345,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001950",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2357,7 +2357,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001960",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2369,7 +2369,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001970",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2381,7 +2381,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001980",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2393,7 +2393,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0001990",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2405,7 +2405,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002000",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2417,7 +2417,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002010",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2429,7 +2429,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002020",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2441,7 +2441,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002030",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2453,7 +2453,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002040",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2465,7 +2465,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002050",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2477,7 +2477,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002060",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2489,7 +2489,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002070",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2501,7 +2501,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002080",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2513,7 +2513,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002090",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2525,7 +2525,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002100",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2537,7 +2537,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002110",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2549,7 +2549,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002120",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2561,7 +2561,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002130",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2573,7 +2573,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002140",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2585,7 +2585,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002150",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2597,7 +2597,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002160",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2609,7 +2609,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002170",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2621,7 +2621,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002180",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2633,7 +2633,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002190",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2645,7 +2645,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002200",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2657,7 +2657,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002210",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2669,7 +2669,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002220",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2681,7 +2681,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002230",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2693,7 +2693,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002240",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2705,7 +2705,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002250",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2717,7 +2717,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002260",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2729,7 +2729,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002270",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2741,7 +2741,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002280",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2753,7 +2753,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002290",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2765,7 +2765,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002300",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2777,7 +2777,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002310",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2789,7 +2789,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002320",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2801,7 +2801,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002330",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2813,7 +2813,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002340",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2825,7 +2825,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002350",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2837,7 +2837,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002360",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2849,7 +2849,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002370",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2861,7 +2861,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002380",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2873,7 +2873,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002390",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2885,7 +2885,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002400",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2897,7 +2897,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002410",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2909,7 +2909,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002420",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2921,7 +2921,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002430",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2933,7 +2933,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002440",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2945,7 +2945,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002450",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2957,7 +2957,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002460",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2969,7 +2969,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002470",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2981,7 +2981,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002480",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -2993,7 +2993,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002490",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3005,7 +3005,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002500",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3017,7 +3017,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002510",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3029,7 +3029,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002520",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3041,7 +3041,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002530",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3053,7 +3053,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002540",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3065,7 +3065,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002550",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3077,7 +3077,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002560",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3089,7 +3089,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002570",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3101,7 +3101,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002580",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3113,7 +3113,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002590",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3125,7 +3125,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002600",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3137,7 +3137,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002610",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3149,7 +3149,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002620",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3161,7 +3161,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002630",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3173,7 +3173,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002640",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3185,7 +3185,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002650",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3197,7 +3197,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002660",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3209,7 +3209,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002670",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3221,7 +3221,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002680",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3233,7 +3233,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002690",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3245,7 +3245,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002700",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3257,7 +3257,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002710",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3269,7 +3269,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002720",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3281,7 +3281,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002730",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3293,7 +3293,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002740",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3305,7 +3305,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002750",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3317,7 +3317,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002760",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3329,7 +3329,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002770",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3341,7 +3341,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002780",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3353,7 +3353,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002790",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3365,7 +3365,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002800",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3377,7 +3377,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002810",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3389,7 +3389,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002820",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3401,7 +3401,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002830",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3413,7 +3413,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002840",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3425,7 +3425,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002850",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3437,7 +3437,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002860",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3449,7 +3449,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002870",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3461,7 +3461,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002880",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3473,7 +3473,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002890",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3485,7 +3485,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002900",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3497,7 +3497,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002910",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3509,7 +3509,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002920",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3521,7 +3521,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002930",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3533,7 +3533,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002940",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3545,7 +3545,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002950",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3557,7 +3557,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002960",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3569,7 +3569,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002970",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3581,7 +3581,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002980",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3593,7 +3593,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0002990",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3605,7 +3605,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003000",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3617,7 +3617,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003010",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3629,7 +3629,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003020",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3641,7 +3641,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003030",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3653,7 +3653,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003040",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3665,7 +3665,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003050",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3677,7 +3677,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003060",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3689,7 +3689,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003070",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3701,7 +3701,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003080",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3713,7 +3713,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003090",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3725,7 +3725,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003100",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3737,7 +3737,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003110",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3749,7 +3749,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003120",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3761,7 +3761,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003130",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3773,7 +3773,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003140",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3785,7 +3785,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003150",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3797,7 +3797,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003160",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3809,7 +3809,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003170",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3821,7 +3821,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003180",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3833,7 +3833,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003190",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3845,7 +3845,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003200",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3857,7 +3857,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003210",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3869,7 +3869,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003220",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3881,7 +3881,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003230",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3893,7 +3893,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003240",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3905,7 +3905,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003250",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3917,7 +3917,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003260",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3929,7 +3929,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003270",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3941,7 +3941,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003280",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3953,7 +3953,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003290",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3965,7 +3965,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003300",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3977,7 +3977,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003310",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -3989,7 +3989,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003320",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4001,7 +4001,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003330",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4013,7 +4013,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003340",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4025,7 +4025,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003350",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4037,7 +4037,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003360",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4049,7 +4049,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003370",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4061,7 +4061,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003380",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4073,7 +4073,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003390",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4085,7 +4085,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003400",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4097,7 +4097,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003410",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4109,7 +4109,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003420",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4121,7 +4121,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003430",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4133,7 +4133,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003440",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4145,7 +4145,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003450",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4157,7 +4157,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003460",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4169,7 +4169,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003470",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4181,7 +4181,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003480",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4193,7 +4193,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003490",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4205,7 +4205,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003500",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4217,7 +4217,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003510",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4229,7 +4229,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003520",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4241,7 +4241,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003530",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4253,7 +4253,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003540",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4265,7 +4265,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003550",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4277,7 +4277,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003560",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4289,7 +4289,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003570",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4301,7 +4301,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003580",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4313,7 +4313,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003590",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4325,7 +4325,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003600",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4337,7 +4337,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003610",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4349,7 +4349,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003620",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4361,7 +4361,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003630",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4373,7 +4373,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003640",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4385,7 +4385,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003650",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4397,7 +4397,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003660",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4409,7 +4409,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003670",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4421,7 +4421,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003680",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4433,7 +4433,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003690",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4445,7 +4445,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003700",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4457,7 +4457,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003710",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4469,7 +4469,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003720",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4481,7 +4481,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003730",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4493,7 +4493,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003740",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4505,7 +4505,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003750",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4517,7 +4517,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003760",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4529,7 +4529,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003770",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4541,7 +4541,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003780",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4553,7 +4553,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003790",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4565,7 +4565,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003800",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4577,7 +4577,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003810",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4589,7 +4589,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003820",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4601,7 +4601,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003830",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4613,7 +4613,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003840",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4625,7 +4625,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003850",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4637,7 +4637,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003860",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4649,7 +4649,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003870",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4661,7 +4661,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003880",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4673,7 +4673,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003890",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4685,7 +4685,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003900",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4697,7 +4697,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003910",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4709,7 +4709,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003920",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4721,7 +4721,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003930",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4733,7 +4733,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003940",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4745,7 +4745,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003950",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4757,7 +4757,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003960",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4769,7 +4769,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003970",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4781,7 +4781,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003980",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4793,7 +4793,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0003990",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4805,7 +4805,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004000",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4817,7 +4817,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004010",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4829,7 +4829,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004020",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4841,7 +4841,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004030",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4853,7 +4853,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004040",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4865,7 +4865,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004050",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4877,7 +4877,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004060",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4889,7 +4889,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004070",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4901,7 +4901,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004080",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4913,7 +4913,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004090",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4925,7 +4925,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004100",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4937,7 +4937,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004110",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4949,7 +4949,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004120",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4961,7 +4961,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004130",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4973,7 +4973,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004140",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4985,7 +4985,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004150",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -4997,7 +4997,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004160",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5009,7 +5009,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004170",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5021,7 +5021,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004180",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5033,7 +5033,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004190",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5045,7 +5045,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004200",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5057,7 +5057,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004210",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5069,7 +5069,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004220",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5081,7 +5081,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004230",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5093,7 +5093,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004240",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5105,7 +5105,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004250",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5117,7 +5117,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004260",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5129,7 +5129,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004270",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5141,7 +5141,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004280",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5153,7 +5153,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004290",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5165,7 +5165,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004300",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5177,7 +5177,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004310",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5189,7 +5189,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004320",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5201,7 +5201,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004330",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5213,7 +5213,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004340",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5225,7 +5225,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004350",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5237,7 +5237,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004360",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5249,7 +5249,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004370",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5261,7 +5261,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004380",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5273,7 +5273,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004390",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5285,7 +5285,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004400",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5297,7 +5297,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004410",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5309,7 +5309,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004420",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5321,7 +5321,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004430",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5333,7 +5333,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004440",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5345,7 +5345,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004450",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5357,7 +5357,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004460",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5369,7 +5369,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004470",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5381,7 +5381,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004480",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5393,7 +5393,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004490",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5405,7 +5405,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004500",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5417,7 +5417,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004510",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5429,7 +5429,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004520",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5441,7 +5441,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004530",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5453,7 +5453,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004540",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5465,7 +5465,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004550",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5477,7 +5477,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004560",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5489,7 +5489,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004570",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5501,7 +5501,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004580",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5513,7 +5513,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004590",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5525,7 +5525,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004600",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5537,7 +5537,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004610",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5549,7 +5549,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004620",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5561,7 +5561,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004630",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5573,7 +5573,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004640",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5585,7 +5585,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004650",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5597,7 +5597,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004660",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5609,7 +5609,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004670",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5621,7 +5621,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004680",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5633,7 +5633,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004690",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5645,7 +5645,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004700",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5657,7 +5657,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004710",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5669,7 +5669,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004720",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5681,7 +5681,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004730",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5693,7 +5693,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004740",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5705,7 +5705,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004750",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5717,7 +5717,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004760",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5729,7 +5729,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004770",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5741,7 +5741,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004780",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5753,7 +5753,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004790",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5765,7 +5765,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004800",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5777,7 +5777,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004810",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5789,7 +5789,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004820",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5801,7 +5801,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004830",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5813,7 +5813,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004840",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5825,7 +5825,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004850",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5837,7 +5837,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004860",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5849,7 +5849,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004870",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5861,7 +5861,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004880",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5873,7 +5873,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004890",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5885,7 +5885,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004900",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5897,7 +5897,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004910",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5909,7 +5909,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004920",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5921,7 +5921,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004930",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5933,7 +5933,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004940",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5945,7 +5945,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004950",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5957,7 +5957,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004960",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5969,7 +5969,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004970",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5981,7 +5981,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004980",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -5993,7 +5993,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0004990",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6005,7 +6005,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005000",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6017,7 +6017,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005010",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6029,7 +6029,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005020",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6041,7 +6041,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005030",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6053,7 +6053,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005040",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6065,7 +6065,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005050",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6077,7 +6077,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005060",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6089,7 +6089,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005070",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6101,7 +6101,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005080",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6113,7 +6113,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005090",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6125,7 +6125,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005100",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6137,7 +6137,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005110",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6149,7 +6149,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005120",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6161,7 +6161,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005130",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6173,7 +6173,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005140",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6185,7 +6185,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005150",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6197,7 +6197,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005160",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6209,7 +6209,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005170",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6221,7 +6221,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005180",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6233,7 +6233,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005190",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6245,7 +6245,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005200",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6257,7 +6257,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005210",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6269,7 +6269,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005220",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6281,7 +6281,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005230",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6293,7 +6293,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005240",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6305,7 +6305,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005250",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6317,7 +6317,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005260",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6329,7 +6329,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005270",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6341,7 +6341,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005280",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6353,7 +6353,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005290",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6365,7 +6365,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005300",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6377,7 +6377,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005310",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6389,7 +6389,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005320",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6401,7 +6401,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005330",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6413,7 +6413,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005340",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6425,7 +6425,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005350",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6437,7 +6437,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005360",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6449,7 +6449,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005370",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6461,7 +6461,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005380",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6473,7 +6473,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005390",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6485,7 +6485,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005400",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6497,7 +6497,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005410",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6509,7 +6509,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005420",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6521,7 +6521,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005430",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6533,7 +6533,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005440",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6545,7 +6545,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005450",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6557,7 +6557,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005460",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6569,7 +6569,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005470",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6581,7 +6581,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005480",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6593,7 +6593,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005490",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6605,7 +6605,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005500",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6617,7 +6617,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005510",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6629,7 +6629,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005520",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6641,7 +6641,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005530",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6653,7 +6653,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005540",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6665,7 +6665,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005550",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6677,7 +6677,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005560",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6689,7 +6689,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005570",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6701,7 +6701,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005580",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6713,7 +6713,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005590",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
   {
@@ -6725,7 +6725,7 @@ export const CHAR_BASE = [
     CHA_JP_NAME: "",
     CHA_JP_NICK: "",
     CHA_IMG: "CH_0005600",
-    CHA_BIRTH: "SE ",
+    CHA_BIRTH: "",
     CHA_POINTS: "",
   },
 ];
