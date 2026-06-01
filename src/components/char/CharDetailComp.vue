@@ -4,7 +4,7 @@
     <!-- 프로필 (고정) -->
     <div class="cdc-profile">
       <div class="cdc-img-wrap">
-        <img v-if="base" :src="`/img/characters/${base.CHA_IMG}.png`"
+        <img v-if="base" :src="charImgSrc(base.CHA_IMG)"
              class="cdc-img" @error="onImgErr" />
         <div v-else class="cdc-img-ph mono">?</div>
       </div>
@@ -110,6 +110,7 @@
 
 <script setup>
 import { reactive, computed } from 'vue'
+import { charImgSrc } from '@/utils/charImg.js'
 import { CHAR_BASE } from '@/data/characters/charBase.js'
 import { CHAR_STATUS, CHAR_STATUS_MAP } from '@/data/characters/charStatus.js'
 import { CHAR_TENDER } from '@/data/characters/charTender.js'

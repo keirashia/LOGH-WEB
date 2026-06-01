@@ -37,7 +37,7 @@
           <button v-else v-for="c in filtered" :key="c.CHA_CODE"
                   class="lib-item" @click="selectedCode = c.CHA_CODE">
             <div class="li-img-wrap">
-              <img :src="`/img/characters/${c.CHA_IMG}.png`"
+              <img :src="charImgSrc(c.CHA_IMG)"
                    class="li-img"
                    @error="e => e.target.style.display = 'none'" />
             </div>
@@ -69,6 +69,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
+import { charImgSrc } from '@/utils/charImg.js'
 import { CHAR_BASE } from '@/data/characters/charBase.js'
 import { CHAR_TENDER } from '@/data/characters/charTender.js'
 import CharDetailComp from './CharDetailComp.vue'
