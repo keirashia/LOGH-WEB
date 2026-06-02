@@ -4,8 +4,7 @@
 
     <div class="lobby-layout">
       <div class="lobby-title">
-        <span class="serif gold lbt-main">銀河英雄伝説</span>
-        <span class="mono dim lbt-sub">LEGEND OF GALACTIC HEROES · IV EX</span>
+        <span class="serif gold lbt-main">메뉴</span>
       </div>
 
       <div
@@ -25,7 +24,7 @@
             v-for="(c, i) in CARDS"
             :key="i"
             class="menu-btn"
-            :class="{ disabled: c.multi && !auth.isLoggedIn, lifting: liftingCard === i }"
+            :class="{ disabled: c.disabled, lifting: liftingCard === i }"
             draggable="false"
             @click="handleCard(c, i)"
           >
@@ -80,10 +79,10 @@ const trackRef = ref(null)
 let aid = null
 
 const CARDS = [
-  { icon: '⚔️', title: '싱글플레이', desc: 'Single Play',   abbr: 'SGL', to: '/lobby/single' },
-  { icon: '🌌', title: '멀티플레이', desc: 'Multi Play',    abbr: 'MLT', multi: true },
-  { icon: '📖', title: '사전',       desc: 'Encyclopedia',  abbr: 'ENC', to: '/lobby/encyclopedia' },
-  { icon: '🎓', title: '튜토리얼',   desc: 'Tutorial',      abbr: 'TUT', to: '/tutorial' },
+  { icon: '⚔️', title: '싱글플레이', desc: 'Single Play',  abbr: 'SGL', to: '/lobby/single' },
+  { icon: '🌌', title: '멀티플레이', desc: 'Multi Play',   abbr: 'MLT', disabled: true },
+  { icon: '📖', title: '사전',       desc: 'Encyclopedia', abbr: 'ENC', to: '/lobby/encyclopedia' },
+  { icon: '🎓', title: '튜토리얼',   desc: 'Tutorial',     abbr: 'TUT', disabled: true },
 ]
 
 // ── 드래그 슬라이더 ────────────────────────────────────────
@@ -101,7 +100,8 @@ const liftingCard = ref(-1)
 
 function cardWidth()     { return window.innerHeight * 0.6 * (5 / 7) }
 function unitWidth()     { return cardWidth() + GAP }
-function centerOf(i)     { return window.innerWidth / 2 - cardWidth() / 2 - i * unitWidth() }
+function sliderWidth()   { return trackRef.value?.parentElement?.offsetWidth ?? window.innerWidth }
+function centerOf(i)     { return sliderWidth() / 2 - cardWidth() / 2 - i * unitWidth() }
 function minOffset()     { return centerOf(CARDS.length - 1) }
 function maxOffset()     { return centerOf(0) }
 function clamp(val)      { return Math.max(minOffset(), Math.min(maxOffset(), val)) }
@@ -171,11 +171,6 @@ function handleCard(c, i) {
   liftingCard.value = i
   setTimeout(() => {
     liftingCard.value = -1
-    if (c.multi) {
-      if (!auth.isLoggedIn) return
-      alert('멀티플레이 서버는 준비 중입니다.')
-      return
-    }
     if (c.to) router.push(c.to)
   }, 500)
 }
@@ -256,18 +251,20 @@ onMounted(() => {
 .lobby-layout {
   position: relative; z-index: 1;
   display: flex; flex-direction: column; align-items: center;
-  gap: 20px; padding: 24px; width: 100%;
+  gap: 12px; padding: 12px 24px; width: 100%;
 }
 
-/* ── 타이틀 ──────────────────────────────────────────────── */
-.lobby-title { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-.lbt-main { font-size: clamp(22px, 3.5vw, 36px); letter-spacing: 4px; text-shadow: 0 0 24px rgba(212,170,96,.45); }
-.lbt-sub  { font-size: clamp(9px, 1vw, 11px); letter-spacing: 3px; }
+/* ── 타이틀 (카드보다 뒤) ────────────────────────────────── */
+.lobby-title { display: flex; flex-direction: column; align-items: center; gap: 2px; position: relative; z-index: 0; }
+.lbt-main { font-size: 2.2vh; letter-spacing: 0.4vw; text-shadow: 0 0 16px rgba(212,170,96,.4); }
+.lbt-sub  { font-size: 1.0vh; letter-spacing: 0.25vw; }
 
-/* ── 슬라이더 ────────────────────────────────────────────── */
+/* ── 슬라이더 (카드가 타이틀 위로) ─────────────────────── */
 .card-slider {
+  position: relative; z-index: 1;
   width: 100%;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: visible;
   cursor: grab;
   user-select: none;
 }
