@@ -38,15 +38,16 @@ lobby-wrap (전체 화면, 별 배경 캔버스 포함)
 
 ```js
 const CARDS = [
-  { icon: '⚔️', title: '싱글플레이', abbr: 'SGL', to: '/lobby/single' },
-  { icon: '🌌', title: '멀티플레이', abbr: 'MLT', multi: true },
-  { icon: '📖', title: '사전',       abbr: 'ENC', to: '/lobby/encyclopedia' },
-  { icon: '🎓', title: '튜토리얼',   abbr: 'TUT', to: '/tutorial' },
+  { icon: '⚔️', title: '싱글플레이', desc: 'Single Play',  abbr: 'SGL', to: '/lobby/single' },
+  { icon: '🌌', title: '멀티플레이', desc: 'Multi Play',   abbr: 'MLT', multi: true },
+  { icon: '📖', title: '사전',       desc: 'Encyclopedia', abbr: 'ENC', to: '/lobby/encyclopedia' },
+  { icon: '🎓', title: '튜토리얼',   desc: 'Tutorial',     abbr: 'TUT', to: '/tutorial' },
 ]
 ```
 
 - `to`: 이동 경로 (router.push)
 - `multi: true`: 로그인 필요. 미로그인 시 disabled 처리
+- `desc`: 영문 설명 (카드 하단 보조 텍스트)
 
 ### 슬라이드 범위
 
@@ -78,14 +79,24 @@ gap    : 16px
 
 ```
 ┌─ [icon] [abbr] ──────────────────┐  ← 좌상단 모서리 라벨
+│                                  │     icon: 3.2vh / abbr: 2.0vh
 │                                  │
-│                                  │
-│           [ icon ]               │  ← 중앙 (card-body)
-│           [ title ]              │    타이틀: writing-mode vertical-rl
-│                                  │
+│           [ icon ]               │  ← 9vh
+│           타이틀                  │  ← 4.8vh, 금색
+│           English Desc           │  ← 2.5vh, 금색 희미하게 (mono)
 │                                  │
 └──────────────── [icon] [abbr] ─┘  ← 우하단 모서리 라벨 (180° 회전)
 ```
+
+### 텍스트 크기 (vh 기준 — 디스플레이 비율 무관)
+
+| 요소 | 크기 | 비고 |
+|---|---|---|
+| 모서리 아이콘 | 3.2vh | |
+| 모서리 약어 | 2.0vh | mono, 금색 희미하게 |
+| 중앙 아이콘 | 9vh | |
+| 중앙 타이틀 | 4.8vh | serif, 금색, 글로우 |
+| 영문 설명 | 2.5vh | mono, 금색 반투명 |
 
 ### 시각 효과
 
@@ -115,7 +126,7 @@ translateY(-8px) scale(1.03) + 금색 내부 글로우
 
 ---
 
-## 드래그 인터랙션
+## 인터랙션
 
 ### 이벤트 바인딩 (card-slider)
 
@@ -127,8 +138,9 @@ translateY(-8px) scale(1.03) + 금색 내부 글로우
 | `touchstart` (passive) | onDragStart |
 | `touchmove` (prevent) | onDragMove |
 | `touchend` | onDragEnd |
+| `wheel` (prevent) | onWheel |
 
-### 동작 로직
+### 드래그 로직
 
 ```js
 // RAF 기반 — 프레임당 1회만 style 업데이트 (끊김 방지)
@@ -141,38 +153,37 @@ function onDragMove(e) {
     raf = null
   })
 }
-
-// 손을 떼면 가장 가까운 카드 중앙으로 스냅
 // transition: 'transform 0.34s cubic-bezier(.25,.8,.25,1)'
 // translate3d 사용 → GPU 가속
 ```
 
-### 클릭 vs 드래그 구분
+### 마우스 휠
 
 ```js
-dragDist < 5px  → 클릭으로 처리
-dragDist ≥ 5px  → 드래그로 처리 → handleCard 무시
+// deltaY > 0 → 다음 카드 / deltaY < 0 → 이전 카드
+// 400ms 쿨다운 (관성 스크롤 / 빠른 휠 방지)
 ```
 
 ### 클릭 동작 (handleCard)
 
 ```
-비중앙 카드 클릭  →  goToCard(i)  해당 카드를 중앙으로 이동
-중앙 카드 클릭   →  lift 애니메이션(0.5s) → 액션 실행
+드래그 거리 ≥ 5px  →  무시 (드래그로 판정)
+비중앙 카드 클릭   →  goToCard(i) — 중앙으로 이동
+중앙 카드 클릭     →  lift 애니메이션(0.5s) → 액션 실행
 ```
 
 ### 카드 lift 애니메이션
 
 ```css
 @keyframes card-lift {
-  0%   { transform: translateY(0)     scale(1);    opacity: 1; }
-  40%  { transform: translateY(-32px) scale(1.06); opacity: 1; }
-  100% { transform: translateY(-120px) scale(1.1); opacity: 0; }
+  0%   { transform: translateY(0)      scale(1);    opacity: 1; }
+  40%  { transform: translateY(-32px)  scale(1.06); opacity: 1; }
+  100% { transform: translateY(-120px) scale(1.1);  opacity: 0; }
 }
 ```
 
-- `.lifting` 클래스 부착 → 0.5s 후 `setTimeout` 실행 → 라우팅
-- 애니메이션 중 `pointer-events: none` → 중복 클릭 방지
+- `.lifting` 클래스 부착 → 0.5s 후 라우팅
+- 애니메이션 중 `pointer-events: none` (중복 클릭 방지)
 - hover 효과는 `.lifting` 상태에서 비활성
 
 ### 커서
@@ -180,6 +191,22 @@ dragDist ≥ 5px  → 드래그로 처리 → handleCard 무시
 ```css
 .card-slider         { cursor: grab; }
 .card-slider.grabbing{ cursor: grabbing; }
+```
+
+---
+
+## 히스토리 처리
+
+```js
+// 진입 시: 더미 state push → 백 버튼 감지용
+history.pushState(null, '')
+window.addEventListener('popstate', onBrowserBack)
+
+// 백 버튼 → 타이틀로 이동 (history 추가 없이)
+function onBrowserBack() {
+  window.removeEventListener('popstate', onBrowserBack)
+  router.replace('/')
+}
 ```
 
 ---
@@ -199,11 +226,13 @@ dragDist ≥ 5px  → 드래그로 처리 → handleCard 무시
 | 2026-06-02 | 메뉴 레이아웃: 2×2 그리드 → 세로 리스트 → 1×4 카드 슬라이더로 확정 |
 | 2026-06-02 | 카드 사이즈: 트럼프 카드 표준 비율 5:7, 높이 60vh 고정 |
 | 2026-06-02 | 슬라이드: 자동 슬라이드 제거 → 드래그/터치 기반으로 변경 |
-| 2026-06-02 | 무한 루프 제거 → 4장 고정, 싱글~튜토리얼 중앙 범위로 클램프 |
+| 2026-06-02 | 무한 루프 제거 → 4장 고정, 싱글~튜토리얼 중앙 범위 클램프 |
 | 2026-06-02 | 드래그 끊김 개선: RAF + pendingDelta 누적 + translate3d |
 | 2026-06-02 | 비중앙 카드 클릭 → 중앙 이동 / 중앙 카드 클릭 → lift 후 액션 |
-| 2026-06-02 | 타이틀: 세로쓰기(writing-mode: vertical-rl) |
-| 2026-06-02 | 인디케이터 dots 추가 |
+| 2026-06-02 | 마우스 휠 지원 추가 (400ms 쿨다운) |
+| 2026-06-02 | 히스토리 처리: 백 버튼 → 타이틀 이동 |
+| 2026-06-02 | 텍스트 가로 전환 (writing-mode 제거) + 영문 설명(desc) 추가 |
+| 2026-06-02 | 텍스트 전체 vh 단위 통일 (모바일 가시성 개선) |
 
 ---
 

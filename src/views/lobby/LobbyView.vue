@@ -18,6 +18,7 @@
         @touchstart.passive="onDragStart"
         @touchmove.prevent="onDragMove"
         @touchend="onDragEnd"
+        @wheel.prevent="onWheel"
       >
         <div ref="trackRef" class="card-track">
           <button
@@ -35,6 +36,7 @@
             <div class="card-body">
               <span class="mb-icon">{{ c.icon }}</span>
               <span class="mb-title serif">{{ c.title }}</span>
+              <span class="mb-desc mono">{{ c.desc }}</span>
             </div>
             <div class="card-corner br">
               <span class="cc-icon">{{ c.icon }}</span>
@@ -78,10 +80,10 @@ const trackRef = ref(null)
 let aid = null
 
 const CARDS = [
-  { icon: '⚔️', title: '싱글플레이', abbr: 'SGL', to: '/lobby/single' },
-  { icon: '🌌', title: '멀티플레이', abbr: 'MLT', multi: true },
-  { icon: '📖', title: '사전',       abbr: 'ENC', to: '/lobby/encyclopedia' },
-  { icon: '🎓', title: '튜토리얼',   abbr: 'TUT', to: '/tutorial' },
+  { icon: '⚔️', title: '싱글플레이', desc: 'Single Play',   abbr: 'SGL', to: '/lobby/single' },
+  { icon: '🌌', title: '멀티플레이', desc: 'Multi Play',    abbr: 'MLT', multi: true },
+  { icon: '📖', title: '사전',       desc: 'Encyclopedia',  abbr: 'ENC', to: '/lobby/encyclopedia' },
+  { icon: '🎓', title: '튜토리얼',   desc: 'Tutorial',      abbr: 'TUT', to: '/tutorial' },
 ]
 
 // ── 드래그 슬라이더 ────────────────────────────────────────
@@ -180,6 +182,16 @@ function handleCard(c, i) {
 
 function onResize() {
   applyOffset(centerOf(currentCard.value))
+}
+
+let wheelLocked = false
+function onWheel(e) {
+  if (wheelLocked) return
+  const next = currentCard.value + (e.deltaY > 0 ? 1 : -1)
+  if (next < 0 || next >= CARDS.length) return
+  goToCard(next)
+  wheelLocked = true
+  setTimeout(() => { wheelLocked = false }, 400)
 }
 
 function onBrowserBack() {
@@ -336,20 +348,23 @@ onMounted(() => {
 }
 .card-corner.tl { top: 14px; left: 16px; }
 .card-corner.br { bottom: 14px; right: 16px; transform: rotate(180deg); }
-.cc-icon { font-size: 14px; line-height: 1; }
-.cc-txt  { font-size: 9px; color: rgba(212,170,96,.65); letter-spacing: 1px; }
+.cc-icon { font-size: 3.2vh; line-height: 1; }
+.cc-txt  { font-size: 2.0vh; color: rgba(212,170,96,.65); letter-spacing: 0.1vw; }
 
 /* ── 카드 중앙 ───────────────────────────────────────────── */
 .card-body {
-  display: flex; flex-direction: column; align-items: center; gap: 18px;
+  display: flex; flex-direction: column; align-items: center; gap: 2vh;
   z-index: 2; pointer-events: none;
 }
-.mb-icon  { font-size: clamp(28px, 5vh, 52px); }
+.mb-icon  { font-size: 9vh; }
 .mb-title {
-  font-size: clamp(10px, 1.6vh, 16px);
-  letter-spacing: 4px; color: var(--tg);
-  writing-mode: vertical-rl; text-orientation: upright;
+  font-size: 4.8vh;
+  letter-spacing: 0.3vw; color: var(--tg);
   text-shadow: 0 0 20px rgba(212,170,96,.6);
+}
+.mb-desc  {
+  font-size: 2.5vh;
+  letter-spacing: 0.2vw; color: rgba(212,170,96,.5);
 }
 
 /* ── 인디케이터 ──────────────────────────────────────────── */
