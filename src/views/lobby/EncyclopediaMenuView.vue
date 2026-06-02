@@ -97,7 +97,8 @@ let wheelLocked  = false
 
 function cardWidth()    { return window.innerHeight * 0.6 * (5 / 7) }
 function unitWidth()    { return cardWidth() + GAP }
-function centerOf(i)    { return window.innerWidth / 2 - cardWidth() / 2 - i * unitWidth() }
+function sliderWidth()  { return trackRef.value?.parentElement?.offsetWidth ?? window.innerWidth }
+function centerOf(i)    { return sliderWidth() / 2 - cardWidth() / 2 - i * unitWidth() }
 function minOffset()    { return centerOf(CARDS.length - 1) }
 function maxOffset()    { return centerOf(0) }
 function clamp(val)     { return Math.max(minOffset(), Math.min(maxOffset(), val)) }
