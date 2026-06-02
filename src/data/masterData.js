@@ -1,5 +1,5 @@
-﻿import CHARACTERS_DATA from '@/data/characters/char.js'
-import FACTIONS_DATA from '@/data/factions/factions.js'
+﻿import { CHAR_BASE as CHARACTERS_DATA } from '@/data/characters/charactersData.js'
+import FACTIONS_DATA from '@/data/factions/factionsData.js'
 import { SCENARIOS as _SCENARIOS } from '@/data/scenarios/scenario.js'
 
 export { _SCENARIOS as SCENARIOS }

@@ -111,13 +111,13 @@
 <script setup>
 import { reactive, computed } from 'vue'
 import { charImgSrc } from '@/utils/charImg.js'
-import { CHAR_BASE } from '@/data/characters/charBase.js'
-import { CHAR_STATUS, CHAR_STATUS_MAP } from '@/data/characters/charStatus.js'
-import { CHAR_TENDER } from '@/data/characters/charTender.js'
-import { CHAR_DETAIL } from '@/data/characters/charDetail.js'
-import { CHAR_DESC } from '@/data/characters/charDesc.js'
-import { CHAR_JOBS } from '@/data/characters/charJobs.js'
-import { CHAR_TRAITS } from '@/data/characters/charTraits.js'
+import { CHAR_BASE } from '@/data/characters/legacy/charBase.js'
+import { CHAR_STATUS, CHAR_STATUS_MAP } from '@/data/characters/legacy/charStatus.js'
+import { CHAR_TENDER } from '@/data/characters/legacy/charTender.js'
+import { CHAR_DETAIL } from '@/data/characters/legacy/charDetail.js'
+import { CHAR_DESC } from '@/data/characters/legacy/charDesc.js'
+import { CHAR_JOBS } from '@/data/characters/legacy/charJobs.js'
+import { CHAR_TRAITS } from '@/data/characters/legacy/charTraits.js'
 import { JOBS } from '@/data/jobs/jobData.js'
 
 const props = defineProps({

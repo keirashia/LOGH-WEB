@@ -90,8 +90,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
-import { CHAR_BASE } from '@/data/characters/charBase.js'
-import { CHAR_TENDER } from '@/data/characters/charTender.js'
+import { CHAR_BASE } from '@/data/characters/legacy/charBase.js'
+import { CHAR_TENDER } from '@/data/characters/legacy/charTender.js'
 import CharDetailComp from './CharDetailComp.vue'
 
 const enc = useEncyclopediaStore()
