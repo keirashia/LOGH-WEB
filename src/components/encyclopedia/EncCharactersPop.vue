@@ -34,13 +34,29 @@
             placeholder="이름 검색..."
             @input="scrollToTop"
           />
-          <div class="nation-filters">
-            <button v-for="n in NATION_FILTERS" :key="n.code"
-                    class="nf-btn mono"
-                    :class="{ active: nationFilter === n.code }"
-                    @click="toggleNation(n.code)">
-              {{ n.label }}
-            </button>
+          <!-- 필터 칩 바 -->
+          <div class="filter-bar">
+            <!-- 국가 필터 -->
+            <div class="filter-slot" @click.stop>
+              <button class="filter-btn mono" :class="{ active: nationFilter }" @click="toggleNationDropdown">
+                <span class="fb-dot" v-if="nationFilter" :style="{ background: NATION_DOT_COLOR[nationFilter] }" />
+                <span class="fb-label">{{ nationFilter ? NATION_FILTERS.find(n => n.code === nationFilter)?.label : '국가' }}</span>
+                <span v-if="nationFilter" class="fb-clear" @click.stop="clearNation">✕</span>
+                <span v-else class="fb-arrow">▾</span>
+              </button>
+              <div v-if="nationDropdownOpen" class="filter-dropdown">
+                <button v-for="n in NATION_FILTERS" :key="n.code"
+                        class="fd-item mono"
+                        :class="{ active: nationFilter === n.code }"
+                        @mousedown.prevent="selectNation(n.code)">
+                  <span class="fd-dot" :style="{ background: NATION_DOT_COLOR[n.code] }" />
+                  {{ n.label }}
+                </button>
+              </div>
+            </div>
+            <!-- 추후 필터 슬롯 -->
+            <div class="filter-slot filter-slot--empty" />
+            <div class="filter-slot filter-slot--empty" />
           </div>
         </div>
 
@@ -49,25 +65,24 @@
           <div v-if="!filtered.length" class="dim mono" style="padding:24px;text-align:center">
             검색 결과 없음
           </div>
-          <button
+          <div
             v-else
             v-for="c in filtered"
-            :key="c.CHA_CODE"
+            :key="c.code"
             class="lib-item"
-            @click="open(c.CHA_CODE)"
+            @click="open(c.code)"
           >
             <div class="li-img-wrap">
-              <img :src="`/img/characters/${c.CHA_IMG}.png`"
+              <img :src="`/img/characters/${c.code}.png`"
                    class="li-img"
                    @error="e => e.target.style.display = 'none'" />
             </div>
             <div class="li-info">
-              <div class="serif li-name">{{ c.CHA_KR_NAME }}</div>
-              <div class="mono dim li-en">{{ c.CHA_EN_NICK || c.CHA_EN_NAME }}</div>
+              <div class="serif li-name">{{ NAMES_MAP[c.code]?.name ?? c.code }}</div>
+              <div class="mono dim li-en">{{ NAMES_MAP[c.code]?.nick ?? '' }}</div>
             </div>
-            <span class="nation-dot" :style="{ background: nationDot(c.CHA_CODE) }" />
-            <span class="mono dim li-arr">›</span>
-          </button>
+            <span class="nation-dot" :style="{ background: nationDot(c.code) }" />
+          </div>
         </div>
 
         <!-- 카운터 -->
@@ -88,16 +103,18 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
-import { CHAR_BASE } from '@/data/characters/legacy/charBase.js'
-import { CHAR_TENDER } from '@/data/characters/legacy/charTender.js'
+import { CHAR_BASE } from '@/data/characters/charactersData.js'
+import { CHAR_NAMES } from '@/data/characters/charactersName.js'
 import CharDetailComp from '@/components/char/CharDetailComp.vue'
 
 const enc = useEncyclopediaStore()
 
 const ALL = CHAR_BASE
-const TENDER_MAP = Object.fromEntries(CHAR_TENDER.map(c => [c.CHA_CODE, c]))
+const NAMES_MAP = Object.fromEntries(
+  CHAR_NAMES.filter(n => n.lang === 'Kr').map(n => [n.charCode, n])
+)
 
 const NATION_FILTERS = [
   { code: 'FPA', label: '동맹' },
@@ -112,48 +129,66 @@ const NATION_DOT_COLOR = {
   EAT: '#9955cc',
 }
 
-const query        = ref('')
-const nationFilter = ref(null)
-const listRef      = ref(null)
+const query              = ref('')
+const nationFilter       = ref(null)
+const nationDropdownOpen = ref(false)
+const listRef            = ref(null)
 
 // enc.chaCode가 이미 지정된 경우 바로 상세 뷰
 const selectedCode = ref(enc.chaCode ?? null)
 
 const charName = computed(() => {
   if (!selectedCode.value) return ''
-  return ALL.find(c => c.CHA_CODE === selectedCode.value)?.CHA_KR_NAME ?? selectedCode.value
+  return NAMES_MAP[selectedCode.value]?.name ?? selectedCode.value
 })
 
 const filtered = computed(() => {
   const q = query.value.trim().toLowerCase()
   return ALL.filter(c => {
-    if (nationFilter.value) {
-      const nation = TENDER_MAP[c.CHA_CODE]?.CHA_NATION
-      if (nation !== nationFilter.value) return false
-    }
+    if (nationFilter.value && c.nation !== nationFilter.value) return false
     if (!q) return true
+    const name = NAMES_MAP[c.code]
     return (
-      c.CHA_KR_NAME.toLowerCase().includes(q) ||
-      c.CHA_KR_NICK.toLowerCase().includes(q) ||
-      c.CHA_EN_NAME.toLowerCase().includes(q) ||
-      c.CHA_EN_NICK.toLowerCase().includes(q)
+      name?.name.toLowerCase().includes(q) ||
+      name?.nick.toLowerCase().includes(q)
     )
   })
 })
 
-function toggleNation(code) {
+function toggleNationDropdown() { nationDropdownOpen.value = !nationDropdownOpen.value }
+function selectNation(code) {
   nationFilter.value = nationFilter.value === code ? null : code
+  nationDropdownOpen.value = false
+  scrollToTop()
 }
-function open(code) {
-  selectedCode.value = code
-}
-function scrollToTop() {
-  listRef.value?.scrollTo({ top: 0 })
-}
-function nationDot(chaCode) {
-  const nation = TENDER_MAP[chaCode]?.CHA_NATION
+function clearNation() { nationFilter.value = null; scrollToTop() }
+
+function open(code) { selectedCode.value = code }
+function scrollToTop() { if (listRef.value) listRef.value.scrollTo({ top: 0 }) }
+function nationDot(code) {
+  const nation = ALL.find(c => c.code === code)?.nation
   return NATION_DOT_COLOR[nation] ?? '#445566'
 }
+
+// 이벤트 리스너 관리
+const handleDocClick = () => {
+  if (nationDropdownOpen.value) {
+    nationDropdownOpen.value = false
+  }
+}
+
+onMounted(() => {
+  document.addEventListener('click', handleDocClick, { capture: false })
+})
+
+onUnmounted(() => {
+  document.removeEventListener('click', handleDocClick, { capture: false })
+  // 상태 초기화
+  selectedCode.value = null
+  query.value = ''
+  nationFilter.value = null
+  nationDropdownOpen.value = false
+})
 </script>
 
 <style scoped>
@@ -234,19 +269,22 @@ function nationDot(chaCode) {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 1vh;
-  padding: 1.4vh 2vw 1vh;
+  gap: 1.2vh;
+  padding: 1.8vh 2vw 1.4vh;
+  height: 14vh;
+  box-sizing: border-box;
   flex-shrink: 0;
   border-bottom: 1px solid rgba(212,170,96,.15);
 }
 .lib-search {
   width: 100%;
-  padding: 1vh 1.5vw;
+  flex: 1;
+  padding: 0 1.5vw;
   background: rgba(255,255,255,.04);
   border: 1px solid rgba(212,170,96,.25);
   border-radius: var(--r);
   color: var(--t1);
-  font-size: 1.6vh;
+  font-size: 2.0vh;
   box-sizing: border-box;
   outline: none;
   transition: border-color .15s;
@@ -257,8 +295,9 @@ function nationDot(chaCode) {
 .nation-filters { display: flex; gap: 0.8vw; }
 .nf-btn {
   flex: 1;
-  padding: 0.6vh 0;
-  font-size: 1.3vh;
+  padding: 0;
+  height: 4vh;
+  font-size: 1.6vh;
   background: rgba(255,255,255,.04);
   border: 1px solid rgba(212,170,96,.2);
   border-radius: var(--r);
@@ -268,6 +307,68 @@ function nationDot(chaCode) {
 }
 .nf-btn:hover { color: var(--tg); border-color: rgba(212,170,96,.5); }
 .nf-btn.active { background: rgba(212,170,96,.12); border-color: var(--tg); color: var(--tg); }
+
+/* ── 필터 바 ─────────────────────────────────────────────── */
+.filter-bar { display: flex; gap: 1vw; align-items: center; }
+
+.filter-slot { position: relative; flex: 1; }
+.filter-slot--empty {
+  height: 4vh;
+  border: 1px dashed rgba(212,170,96,.12);
+  border-radius: var(--r);
+}
+
+.filter-btn {
+  width: 100%; height: 4vh;
+  display: flex; align-items: center; justify-content: center; gap: 0.6vw;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(212,170,96,.25);
+  border-radius: var(--r);
+  color: rgba(212,170,96,.55);
+  font-size: 1.6vh;
+  cursor: pointer;
+  transition: all .15s;
+}
+.filter-btn:hover { border-color: rgba(212,170,96,.6); color: var(--tg); }
+.filter-btn.active {
+  background: rgba(212,170,96,.1);
+  border-color: var(--tg);
+  color: var(--tg);
+}
+.fb-dot { width: 1vh; height: 1vh; border-radius: 50%; flex-shrink: 0; }
+.fb-label { flex: 1; text-align: center; }
+.fb-clear { font-size: 1.4vh; opacity: .7; padding: 0 0.2vw; }
+.fb-clear:hover { opacity: 1; }
+.fb-arrow { font-size: 1.2vh; opacity: .6; }
+
+.filter-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  background: #0d1520;
+  border: 1px solid rgba(212,170,96,.7);
+  border-radius: var(--r);
+  box-shadow: 0 8px 32px rgba(0,0,0,.95);
+  overflow: hidden;
+  z-index: 10;
+}
+.fd-item {
+  width: 100%; height: 4.5vh;
+  display: flex; align-items: center; gap: 1vw;
+  padding: 0 1.2vw;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(212,170,96,.1);
+  color: rgba(212,170,96,.6);
+  font-size: 1.6vh;
+  cursor: pointer;
+  transition: background .12s;
+  text-align: left;
+}
+.fd-item:last-child { border-bottom: none; }
+.fd-item:hover { background: rgba(212,170,96,.08); color: var(--tg); }
+.fd-item.active { background: rgba(212,170,96,.12); color: var(--tg); }
+.fd-dot { width: 1vh; height: 1vh; border-radius: 50%; flex-shrink: 0; }
 
 /* ── 목록 ────────────────────────────────────────────────── */
 .lib-list {
@@ -287,7 +388,8 @@ function nationDot(chaCode) {
   display: flex;
   align-items: center;
   gap: 1.2vw;
-  padding: 1.4vh 2vw;
+  height: 15vh;
+  padding: 0 2vw;
   background: none;
   border: none;
   border-bottom: 1px solid rgba(212,170,96,.1);
