@@ -3,9 +3,8 @@
     <canvas ref="cvs" class="starfield" />
 
     <div class="enc-layout">
-      <div class="enc-header">
-        <button class="btn" @click="$router.push('/lobby')">← 뒤로</button>
-        <span class="serif gold enc-title">사전</span>
+      <div class="enc-title">
+        <span class="serif gold lbt-main">사전</span>
       </div>
 
       <div
@@ -55,10 +54,17 @@
           @click="goToCard(i)"
         />
       </div>
+
+      <div class="enc-footer">
+        <button class="enc-back" @click="$router.push('/lobby')">
+          <!-- <span class="enc-back-arrow">←</span> -->
+          <span class="enc-back-label mono">메뉴</span>
+        </button>
+      </div>
     </div>
 
     <!-- 팝업 -->
-    <CharLibPop v-if="enc.popType === 'char'" />
+    <EncCharactersPop v-if="enc.popType === 'char'" />
   </div>
 </template>
 
@@ -66,7 +72,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
-import CharLibPop from '@/components/char/CharLibPop.vue'
+import EncCharactersPop from '@/components/encyclopedia/EncCharactersPop.vue'
 
 const router = useRouter()
 const enc    = useEncyclopediaStore()
@@ -241,17 +247,56 @@ onMounted(() => {
 .enc-layout {
   position: relative; z-index: 1;
   display: flex; flex-direction: column; align-items: center;
-  gap: 20px; padding: 24px; width: 100%;
+  justify-content: space-between;
+  gap: 12px; padding: 12px 24px; width: 100%; height: 100%;
 }
 
-/* ── 헤더 ────────────────────────────────────────────────── */
-.enc-header {
-  display: flex; align-items: center; gap: 16px; width: 100%; max-width: 600px;
-}
-.enc-title { font-size: 2.2vh; letter-spacing: 0.3vw; }
+/* ── 타이틀 (카드보다 뒤) ────────────────────────────────── */
+.enc-title { display: flex; align-items: center; justify-content: center; position: relative; z-index: 0; }
+.lbt-main  { font-size: 2.2vh; letter-spacing: 0.4vw; text-shadow: 0 0 16px rgba(212,170,96,.4); }
 
-/* ── 슬라이더 ────────────────────────────────────────────── */
+/* ── 푸터 뒤로가기 ───────────────────────────────────────── */
+.enc-footer { display: flex; justify-content: center; padding-bottom: 4px; }
+.enc-back {
+  position: relative;
+  display: flex; align-items: center; justify-content: center; gap: 1.6vh;
+  width: calc(60vh * 5 / 7);
+  padding: 1.8vh 0;
+  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
+  border: 2px solid rgba(212,170,96,.6);
+  border-radius: 12px;
+  box-shadow:
+    inset 0 0 0 4px #0d1520,
+    inset 0 0 0 6px rgba(212,170,96,.18),
+    0 6px 24px rgba(0,0,0,.7);
+  color: rgba(212,170,96,.8);
+  cursor: pointer;
+  transition: all .2s;
+  overflow: hidden;
+}
+.enc-back::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.02) 10px, rgba(212,170,96,.02) 11px),
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.02) 10px, rgba(212,170,96,.02) 11px);
+  pointer-events: none;
+}
+.enc-back:hover {
+  border-color: rgba(212,170,96,.9);
+  box-shadow:
+    inset 0 0 0 4px #0d1520,
+    inset 0 0 0 6px rgba(212,170,96,.4),
+    0 12px 40px rgba(212,170,96,.18);
+  color: var(--tg);
+  transform: translateY(-3px);
+}
+.enc-back-arrow { font-size: 2.2vh; line-height: 1; position: relative; z-index: 1; }
+.enc-back-label { font-size: 1.8vh; letter-spacing: 0.25vw; position: relative; z-index: 1; }
+
+/* ── 슬라이더 (카드가 타이틀 위로) ─────────────────────── */
 .card-slider {
+  position: relative; z-index: 1;
   width: 100%;
   overflow-x: clip;
   overflow-y: visible;

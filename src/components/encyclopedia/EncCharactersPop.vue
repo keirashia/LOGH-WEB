@@ -92,7 +92,7 @@ import { ref, computed } from 'vue'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
 import { CHAR_BASE } from '@/data/characters/legacy/charBase.js'
 import { CHAR_TENDER } from '@/data/characters/legacy/charTender.js'
-import CharDetailComp from './CharDetailComp.vue'
+import CharDetailComp from '@/components/char/CharDetailComp.vue'
 
 const enc = useEncyclopediaStore()
 
@@ -161,64 +161,89 @@ function nationDot(chaCode) {
 .lib-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, .6);
+  background: rgba(0, 0, 0, .75);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 200;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
 }
 
+/* ── 패널 (로비 카드 스타일) ──────────────────────────────── */
 .lib-panel {
-  width: 90%;
-  max-width: 560px;
+  position: relative;
+  width: min(95vw, 1000px);
   height: 80vh;
-  background: var(--bg2);
-  border: 1px solid var(--bdg);
+  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
+  border: 2px solid rgba(212,170,96,.8);
   border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 5px #0d1520,
+    inset 0 0 0 7px rgba(212,170,96,.22),
+    0 16px 64px rgba(0,0,0,.9);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 8px 48px rgba(0,0,0,.7);
+  color: var(--t1);
+}
+.lib-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px),
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px);
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* ── 헤더 ────────────────────────────────────────────────── */
 .lib-header {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   gap: 1vw;
-  padding: 1.6vh 2vw;
-  border-bottom: 1px solid var(--bd);
+  padding: 1.8vh 2vw;
+  border-bottom: 1px solid rgba(212,170,96,.25);
   flex-shrink: 0;
 }
 .lib-header span { flex: 1; text-align: center; }
+.lib-title { font-size: 2.2vh; letter-spacing: 0.3vw; color: var(--tg); text-shadow: 0 0 16px rgba(212,170,96,.4); }
 .lib-back, .lib-close {
-  font-size: 2.2vh;
+  font-size: 1.8vh;
   padding: 0.6vh 1.2vw;
-  background: var(--bg3);
-  border: 1px solid var(--bd);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(212,170,96,.3);
   border-radius: var(--r);
-  color: var(--t2);
+  color: rgba(212,170,96,.7);
   cursor: pointer;
-  transition: all .13s;
+  transition: all .15s;
   flex-shrink: 0;
 }
-.lib-back:hover, .lib-close:hover { color: var(--t1); border-color: var(--tg); }
+.lib-back:hover, .lib-close:hover {
+  color: var(--tg);
+  border-color: rgba(212,170,96,.8);
+  background: rgba(212,170,96,.08);
+}
 .lib-close { width: 3.5vh; height: 3.5vh; padding: 0; display: flex; align-items: center; justify-content: center; }
 
 /* ── 검색 + 필터 ─────────────────────────────────────────── */
 .lib-search-row {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 1vh;
-  padding: 1.4vh 1.8vw 1vh;
+  padding: 1.4vh 2vw 1vh;
   flex-shrink: 0;
+  border-bottom: 1px solid rgba(212,170,96,.15);
 }
 .lib-search {
   width: 100%;
   padding: 1vh 1.5vw;
-  background: var(--bg3);
-  border: 1px solid var(--bd);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(212,170,96,.25);
   border-radius: var(--r);
   color: var(--t1);
   font-size: 1.6vh;
@@ -226,52 +251,58 @@ function nationDot(chaCode) {
   outline: none;
   transition: border-color .15s;
 }
-.lib-search:focus { border-color: var(--tg); }
-.lib-search::placeholder { color: var(--t3); }
+.lib-search:focus { border-color: rgba(212,170,96,.8); }
+.lib-search::placeholder { color: rgba(212,170,96,.3); }
 
 .nation-filters { display: flex; gap: 0.8vw; }
 .nf-btn {
   flex: 1;
   padding: 0.6vh 0;
   font-size: 1.3vh;
-  background: var(--bg3);
-  border: 1px solid var(--bd);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(212,170,96,.2);
   border-radius: var(--r);
-  color: var(--t2);
+  color: rgba(212,170,96,.5);
   cursor: pointer;
-  transition: all .13s;
+  transition: all .15s;
 }
-.nf-btn:hover { color: var(--t1); }
+.nf-btn:hover { color: var(--tg); border-color: rgba(212,170,96,.5); }
 .nf-btn.active { background: rgba(212,170,96,.12); border-color: var(--tg); color: var(--tg); }
 
 /* ── 목록 ────────────────────────────────────────────────── */
 .lib-list {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
 }
+.lib-list::-webkit-scrollbar { width: 4px; }
+.lib-list::-webkit-scrollbar-track { background: transparent; }
+.lib-list::-webkit-scrollbar-thumb { background: rgba(212,170,96,.3); border-radius: 2px; }
+
 .lib-item {
   display: flex;
   align-items: center;
   gap: 1.2vw;
-  padding: 1.2vh 1.8vw;
+  padding: 1.4vh 2vw;
   background: none;
   border: none;
-  border-bottom: 1px solid var(--bd);
+  border-bottom: 1px solid rgba(212,170,96,.1);
   cursor: pointer;
   text-align: left;
   transition: background .12s;
   color: var(--t1);
 }
-.lib-item:hover { background: var(--bgh); }
+.lib-item:hover { background: rgba(212,170,96,.06); }
 .lib-item:last-child { border-bottom: none; }
 
 .li-img-wrap {
   width: 4.5vw; height: 5.5vh;
-  background: var(--bg4);
-  border: 1px solid var(--bd);
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(212,170,96,.2);
   border-radius: 0.4vh;
   overflow: hidden;
   flex-shrink: 0;
@@ -280,25 +311,30 @@ function nationDot(chaCode) {
 .li-img { width: 100%; height: 100%; object-fit: cover; }
 .li-info { flex: 1; }
 .li-name { font-size: 1.6vh; color: var(--t1); }
-.li-en   { font-size: 1.3vh; margin-top: 0.3vh; }
+.li-en   { font-size: 1.3vh; margin-top: 0.3vh; color: rgba(212,170,96,.5); }
 .nation-dot {
   width: 0.8vh; height: 0.8vh;
   border-radius: 50%;
   flex-shrink: 0;
 }
-.li-arr { font-size: 2vh; color: var(--t3); flex-shrink: 0; }
+.li-arr { font-size: 2vh; color: rgba(212,170,96,.4); flex-shrink: 0; }
 
 /* ── 풋터 ────────────────────────────────────────────────── */
 .lib-footer {
-  padding: 1vh 1.8vw;
+  position: relative;
+  z-index: 1;
+  padding: 1vh 2vw;
   font-size: 1.3vh;
-  border-top: 1px solid var(--bd);
+  border-top: 1px solid rgba(212,170,96,.2);
   flex-shrink: 0;
   text-align: right;
+  color: rgba(212,170,96,.4);
 }
 
 /* ── 상세 뷰 ─────────────────────────────────────────────── */
 .lib-detail-wrap {
+  position: relative;
+  z-index: 1;
   flex: 1;
   min-height: 0;
   overflow-y: auto;
