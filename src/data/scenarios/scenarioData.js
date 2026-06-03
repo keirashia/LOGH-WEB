@@ -7,11 +7,7 @@
 //    bg       : 배경 이미지 파일명 (image 필드도 하위 호환 유지)
 //    char     : 캐릭터 스프라이트 파일명 (없으면 나레이션 모드)
 //    charName : 대화 화자 이름
-//  폴더가 있는 시나리오는 SE{year}/{seq}/scenarioStartDesc.js 에서 import
 // ================================================================
-import { DESC as DESC_SE640_1 } from './SE640/01/scenarioStartDesc.js'
-import { DESC as DESC_SE745_1 } from './SE745/01/scenarioStartDesc.js'
-import { DESC as DESC_SE796_1 } from './SE796/01/scenarioStartDesc.js'
 /** 
     id: id값(PK) 및 시나리오 상세 폴더 위치    
     yearType : 연도 타입( )
@@ -337,7 +333,7 @@ export const SCENARIOS = [
   // SE 640
   { yearType:"SE", year:640, month:1, id:"SE640_1", nameKr:"다곤 성역 회전", nameEn:"Battle of Dagon", nameJp:"ダゴン星域会戦",
     tags:["사실"], factions:["REH", "FPA"], useYn:false, openPt:0, appearances:[],
-    desc: DESC_SE640_1 },
+    desc: [] },
 
   // SE 646
   { yearType:"SE", year:646, month:1, id:"SE646_1", nameKr:"막시밀리안 요제프 2세 즉위", nameEn:"", nameJp:"",
@@ -382,7 +378,7 @@ export const SCENARIOS = [
   // SE 745
   { yearType:"SE", year:745, month:1, id:"SE745_1", nameKr:"제2차 티아마트 회전", nameEn:"", nameJp:"",
     tags:["사실"], factions:["REH", "FPA", "PHZ"], useYn:false, openPt:0, appearances:[],
-    desc: DESC_SE745_1 },
+    desc: [] },
 
   // SE 751
   { yearType:"SE", year:751, month:1, id:"SE751_1", nameKr:"팔란티아 회전", nameEn:"", nameJp:"",
@@ -531,7 +527,7 @@ export const SCENARIOS = [
   { yearType:"SE", year:796, month:2, id:"SE796_1", nameKr:"아스타테 회전", nameEn:"Battle of Astarte", nameJp:"アスターテ会戦",
     tags:["사실","초심자추천"], factions:["REH","FPA","PHZ"], useYn:false, openPt:0,
     appearances:["은하영웅전설 1권 <여명편>"],
-    desc: DESC_SE796_1 },
+    desc: [] },
   { yearType:"SE", year:796, month:2, id:"SE796_2", nameKr:"양 웬리 관사 침입사건", nameEn:"", nameJp:"",
     tags:["사실"], factions:["FPA"], useYn:false, openPt:0, appearances:["은하영웅전설 1권 <여명편>"],
     desc:[{ index:1, image:"", text:"양 웬리 준장의 관사에 침입 사건이 발생하였다.", effect:"fade", libs:[] }] },
