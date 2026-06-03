@@ -18,14 +18,14 @@
                   class="char-card"
                   :class="{ selected: selChar?.CHA_CODE === ch.CHA_CODE }"
                   @click="selChar = ch">
-            <div class="card-star mono" :style="{ color: fcolor(ch.CHA_NATION) }">★</div>
+            <div class="card-star mono" :style="{ color: fcolor(ch.faction) }">★</div>
             <div class="card-avatar serif"
-                 :style="{ borderColor: selChar?.CHA_CODE === ch.CHA_CODE ? fcolor(ch.CHA_NATION) : 'var(--bd)' }">
+                 :style="{ borderColor: selChar?.CHA_CODE === ch.CHA_CODE ? fcolor(ch.faction) : 'var(--bd)' }">
               {{ ch.CHA_STD_NAME?.[0] ?? '?' }}
             </div>
             <div class="card-name serif">{{ ch.CHA_STD_NAME }}</div>
-            <div class="card-nation mono" :style="{ color: fcolor(ch.CHA_NATION) }">
-              {{ FACTIONS[ch.CHA_NATION]?.name ?? ch.CHA_NATION }}
+            <div class="card-faction mono" :style="{ color: fcolor(ch.faction) }">
+              {{ FACTIONS[ch.faction]?.name ?? ch.faction }}
             </div>
           </button>
         </div>
@@ -40,7 +40,7 @@
                   class="char-chip"
                   :class="{ selected: selChar?.CHA_CODE === ch.CHA_CODE }"
                   :style="selChar?.CHA_CODE === ch.CHA_CODE
-                    ? { borderColor: fcolor(ch.CHA_NATION), color: fcolor(ch.CHA_NATION) }
+                    ? { borderColor: fcolor(ch.faction), color: fcolor(ch.faction) }
                     : {}"
                   @click="selChar = ch">
             {{ ch.CHA_STD_NAME }}
@@ -53,14 +53,14 @@
     <!-- 선택 표시 바 -->
     <div class="selected-bar" v-if="selChar">
       <div class="sel-avatar serif"
-           :style="{ borderColor: fcolor(selChar.CHA_NATION) }">
+           :style="{ borderColor: fcolor(selChar.faction) }">
         {{ selChar.CHA_STD_NAME?.[0] ?? '?' }}
       </div>
       <div>
         <span class="serif" style="font-size:13px">{{ selChar.CHA_STD_NAME }}</span>
         <span class="mono" style="font-size:11px;margin-left:10px"
-              :style="{ color: fcolor(selChar.CHA_NATION) }">
-          {{ FACTIONS[selChar.CHA_NATION]?.name ?? selChar.CHA_NATION }}
+              :style="{ color: fcolor(selChar.faction) }">
+          {{ FACTIONS[selChar.faction]?.name ?? selChar.faction }}
         </span>
         <span class="mono dim" style="font-size:10px;margin-left:8px" v-if="selChar.CHA_JOB">
           {{ selChar.CHA_JOB }}
@@ -94,15 +94,15 @@ const selChar = ref(null)
 const factionSet = computed(() => new Set(props.event?.factions ?? []))
 
 const scenarioChars = computed(() =>
-  CHARACTERS.filter(c => factionSet.value.has(c.CHA_NATION) && c.CHA_USEYN === 'Y')
+  CHARACTERS.filter(c => factionSet.value.has(c.faction) && c.CHA_USEYN === 'Y')
 )
 
 // 세력별 첫 번째 Y 인물 → 추천
 const leadChars = computed(() => {
   const seen = new Set()
   return scenarioChars.value.filter(c => {
-    if (seen.has(c.CHA_NATION)) return false
-    seen.add(c.CHA_NATION)
+    if (seen.has(c.faction)) return false
+    seen.add(c.faction)
     return true
   })
 })
@@ -116,8 +116,8 @@ const filteredChars = computed(() => {
   )
 })
 
-function fcolor(nation) {
-  return FACTIONS[nation]?.color ?? 'var(--t2)'
+function fcolor(faction) {
+  return FACTIONS[faction]?.color ?? 'var(--t2)'
 }
 </script>
 
@@ -127,6 +127,10 @@ function fcolor(nation) {
   display: flex; flex-direction: column;
   padding: 16px 20px; gap: 10px;
   overflow: hidden;
+  background: linear-gradient(165deg, #0d1b2a 0%, #0d1520 100%);
+  border: 1px solid rgba(212,170,96,.45);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 3px #0d1520, inset 0 0 0 5px rgba(212,170,96,.12);
 }
 .step-header { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 .hint        { font-size: 11px; flex-shrink: 0; }
@@ -161,7 +165,7 @@ function fcolor(nation) {
   transition: border-color .15s;
 }
 .card-name   { font-size: 12px; color: var(--t1); }
-.card-nation { font-size: 10px; }
+.card-faction { font-size: 10px; }
 
 /* 검색 */
 .search-input {
@@ -187,7 +191,7 @@ function fcolor(nation) {
   display: flex; align-items: center; gap: 12px;
   padding: 10px 14px; flex-shrink: 0;
   background: var(--bg4); border-radius: var(--r);
-  border: 1px solid var(--bd);
+  border: 1px solid rgba(212,170,96,.3);
 }
 .sel-avatar {
   width: 36px; height: 36px; border-radius: 50%;
@@ -201,6 +205,6 @@ function fcolor(nation) {
 .step-nav {
   display: flex; justify-content: space-between; align-items: center;
   flex-shrink: 0; padding-top: 10px;
-  border-top: 1px solid var(--bd);
+  border-top: 1px solid rgba(212,170,96,.2);
 }
 </style>

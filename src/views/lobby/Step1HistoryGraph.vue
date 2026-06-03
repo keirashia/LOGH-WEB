@@ -543,6 +543,6 @@ const selEvents = computed(() =>
 .step-nav {
   display: flex; justify-content: space-between; align-items: center;
   flex-shrink: 0; padding: 10px 14px;
-  border-top: 1px solid var(--bd);
+  border-top: 1px solid rgba(212,170,96,.2);
 }
 </style>

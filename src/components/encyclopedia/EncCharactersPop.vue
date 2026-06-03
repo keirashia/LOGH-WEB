@@ -38,18 +38,18 @@
           <div class="filter-bar">
             <!-- 국가 필터 -->
             <div class="filter-slot" @click.stop>
-              <button class="filter-btn mono" :class="{ active: nationFilter }" @click="toggleNationDropdown">
-                <span class="fb-dot" v-if="nationFilter" :style="{ background: NATION_DOT_COLOR[nationFilter] }" />
-                <span class="fb-label">{{ nationFilter ? NATION_FILTERS.find(n => n.code === nationFilter)?.label : '모든 국가' }}</span>
-                <span v-if="nationFilter" class="fb-clear" @click.stop="clearNation">✕</span>
+              <button class="filter-btn mono" :class="{ active: factionFilter }" @click="toggleFactionDropdown">
+                <span class="fb-dot" v-if="factionFilter" :style="{ background: FACTION_DOT_COLOR[factionFilter] }" />
+                <span class="fb-label">{{ factionFilter ? FACTION_FILTERS.find(n => n.code === factionFilter)?.label : '모든 국가' }}</span>
+                <span v-if="factionFilter" class="fb-clear" @click.stop="clearFaction">✕</span>
                 <span v-else class="fb-arrow">▾</span>
               </button>
-              <div v-if="nationDropdownOpen" class="filter-dropdown">
-                <button v-for="n in NATION_FILTERS" :key="n.code"
+              <div v-if="factionDropdownOpen" class="filter-dropdown">
+                <button v-for="n in FACTION_FILTERS" :key="n.code"
                         class="fd-item mono"
-                        :class="{ active: nationFilter === n.code }"
-                        @mousedown.prevent="selectNation(n.code)">
-                  <span class="fd-dot" :style="{ background: NATION_DOT_COLOR[n.code] }" />
+                        :class="{ active: factionFilter === n.code }"
+                        @mousedown.prevent="selectFaction(n.code)">
+                  <span class="fd-dot" :style="{ background: FACTION_DOT_COLOR[n.code] }" />
                   {{ n.label }}
                 </button>
               </div>
@@ -81,7 +81,7 @@
               <div class="serif li-name">{{ NAMES_MAP[c.code]?.name ?? c.code }}</div>
               <div class="mono dim li-en">{{ NAMES_MAP[c.code]?.nick ?? '' }}</div>
             </div>
-            <span class="nation-dot" :style="{ background: nationDot(c.code) }" />
+            <span class="nation-dot" :style="{ background: factionDot(c.code) }" />
           </div>
         </div>
 
@@ -117,13 +117,13 @@ const NAMES_MAP = Object.fromEntries(
   CHAR_NAMES.filter(n => n.lang === 'Kr').map(n => [n.charCode, n])
 )
 
-const NATION_FILTERS = [
+const FACTION_FILTERS = [
   { code: 'FPA', label: '동맹' },
   { code: 'REH', label: '제국' },
   { code: 'PZN', label: '페잔' },
   { code: 'EAT', label: '지구교' },
 ]
-const NATION_DOT_COLOR = {
+const FACTION_DOT_COLOR = {
   FPA: '#4488ff',
   REH: '#cc4444',
   PZN: '#44aa66',
@@ -131,8 +131,8 @@ const NATION_DOT_COLOR = {
 }
 
 const query              = ref('')
-const nationFilter       = ref(null)
-const nationDropdownOpen = ref(false)
+const factionFilter       = ref(null)
+const factionDropdownOpen = ref(false)
 const listRef            = ref(null)
 
 // enc.chaCode가 이미 지정된 경우 바로 상세 뷰
@@ -146,7 +146,7 @@ const charName = computed(() => {
 const filtered = computed(() => {
   const q = query.value.trim().toLowerCase()
   return ALL.filter(c => {
-    if (nationFilter.value && c.nation !== nationFilter.value) return false
+    if (factionFilter.value && c.faction !== factionFilter.value) return false
     if (!q) return true
     const name = NAMES_MAP[c.code]
     return (
@@ -156,25 +156,25 @@ const filtered = computed(() => {
   })
 })
 
-function toggleNationDropdown() { nationDropdownOpen.value = !nationDropdownOpen.value }
-function selectNation(code) {
-  nationFilter.value = nationFilter.value === code ? null : code
-  nationDropdownOpen.value = false
+function toggleFactionDropdown() { factionDropdownOpen.value = !factionDropdownOpen.value }
+function selectFaction(code) {
+  factionFilter.value = factionFilter.value === code ? null : code
+  factionDropdownOpen.value = false
   scrollToTop()
 }
-function clearNation() { nationFilter.value = null; scrollToTop() }
+function clearFaction() { factionFilter.value = null; scrollToTop() }
 
 function open(code) { selectedCode.value = code }
 function scrollToTop() { if (listRef.value) listRef.value.scrollTo({ top: 0 }) }
-function nationDot(code) {
-  const nation = ALL.find(c => c.code === code)?.nation
-  return NATION_DOT_COLOR[nation] ?? '#445566'
+function factionDot(code) {
+  const faction = ALL.find(c => c.code === code)?.faction
+  return FACTION_DOT_COLOR[faction] ?? '#445566'
 }
 
 // 이벤트 리스너 관리
 const handleDocClick = () => {
-  if (nationDropdownOpen.value) {
-    nationDropdownOpen.value = false
+  if (factionDropdownOpen.value) {
+    factionDropdownOpen.value = false
   }
 }
 
@@ -187,8 +187,8 @@ onUnmounted(() => {
   // 상태 초기화
   selectedCode.value = null
   query.value = ''
-  nationFilter.value = null
-  nationDropdownOpen.value = false
+  factionFilter.value = null
+  factionDropdownOpen.value = false
 })
 </script>
 

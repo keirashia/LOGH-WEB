@@ -79,6 +79,10 @@ const optGroups = [
   display: flex; flex-direction: column;
   padding: 16px 20px; gap: 14px;
   overflow: hidden;
+  background: linear-gradient(165deg, #0d1b2a 0%, #0d1520 100%);
+  border: 1px solid rgba(212,170,96,.45);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 3px #0d1520, inset 0 0 0 5px rgba(212,170,96,.12);
 }
 .step-header { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 
@@ -113,6 +117,6 @@ const optGroups = [
 .step-nav {
   display: flex; justify-content: space-between; align-items: center;
   flex-shrink: 0; padding-top: 10px;
-  border-top: 1px solid var(--bd);
+  border-top: 1px solid rgba(212,170,96,.2);
 }
 </style>

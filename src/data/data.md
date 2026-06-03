@@ -30,8 +30,8 @@ src/data/
 
 ```js
 export { SCENARIOS }              // @/data/scenarios/scenario.js
-export { CHARACTERS }             // @/data/characters/char.js
-export { FACTIONS }               // @/data/factions/factions.js (id→obj map)
+export { CHARACTERS }             // @/data/characters/charactersData.js (CHAR_BASE)
+export { FACTIONS }               // @/data/factions/factionsData.js (id→obj map)
 
 // 인라인 상수
 export { OPERATION_TYPES, FORTRESS_WEAPONS, CONSTRUCTION_TYPES }
