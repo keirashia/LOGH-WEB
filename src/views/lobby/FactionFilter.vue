@@ -1,6 +1,8 @@
 <template>
   <div class="ff-root">
 
+    <div class="ff-divider" />
+
     <!-- 바 (항상 노출) -->
     <div class="faction-bar" @click="$emit('update:open', !open)">
       <span class="ff-bar-label mono"
@@ -9,6 +11,8 @@
       </span>
       <span class="dim" style="font-size:10px">{{ open ? '▲' : '▼' }}</span>
     </div>
+
+    <div v-if="open" class="ff-divider" />
 
     <!-- 필터 패널 (expanded) -->
     <div v-if="open" class="filter-panel">
@@ -78,6 +82,12 @@ function fcolor(faction) {
 }
 .faction-bar:hover { border-color: var(--tg); }
 .ff-bar-label { font-size: 2.8vh; font-weight: bold; }
+
+/* 구분선 */
+.ff-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(212,170,96,.4), transparent);
+}
 
 /* 패널 레이아웃 */
 .filter-panel {
