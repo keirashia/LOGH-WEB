@@ -40,7 +40,7 @@
             <div class="filter-slot" @click.stop>
               <button class="filter-btn mono" :class="{ active: nationFilter }" @click="toggleNationDropdown">
                 <span class="fb-dot" v-if="nationFilter" :style="{ background: NATION_DOT_COLOR[nationFilter] }" />
-                <span class="fb-label">{{ nationFilter ? NATION_FILTERS.find(n => n.code === nationFilter)?.label : '국가' }}</span>
+                <span class="fb-label">{{ nationFilter ? NATION_FILTERS.find(n => n.code === nationFilter)?.label : '모든 국가' }}</span>
                 <span v-if="nationFilter" class="fb-clear" @click.stop="clearNation">✕</span>
                 <span v-else class="fb-arrow">▾</span>
               </button>
@@ -73,9 +73,9 @@
             @click="open(c.code)"
           >
             <div class="li-img-wrap">
-              <img :src="`/img/characters/${c.code}.png`"
+              <img :src="charImgSrc(c.code)"
                    class="li-img"
-                   @error="e => e.target.style.display = 'none'" />
+                   @error="handleCharImgError($event, c.code, 'H')" />
             </div>
             <div class="li-info">
               <div class="serif li-name">{{ NAMES_MAP[c.code]?.name ?? c.code }}</div>
@@ -108,6 +108,7 @@ import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
 import { CHAR_BASE } from '@/data/characters/charactersData.js'
 import { CHAR_NAMES } from '@/data/characters/charactersName.js'
 import CharDetailComp from '@/components/char/CharDetailComp.vue'
+import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
 
 const enc = useEncyclopediaStore()
 
@@ -389,6 +390,7 @@ onUnmounted(() => {
   align-items: center;
   gap: 1.2vw;
   height: 15vh;
+  flex-shrink: 0;
   padding: 0 2vw;
   background: none;
   border: none;
@@ -402,7 +404,8 @@ onUnmounted(() => {
 .lib-item:last-child { border-bottom: none; }
 
 .li-img-wrap {
-  width: 4.5vw; height: 5.5vh;
+  height: 12vh;
+  aspect-ratio: 3 / 4;
   background: rgba(255,255,255,.05);
   border: 1px solid rgba(212,170,96,.2);
   border-radius: 0.4vh;
@@ -410,7 +413,7 @@ onUnmounted(() => {
   flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
 }
-.li-img { width: 100%; height: 100%; object-fit: cover; }
+.li-img { width: 100%; height: 100%; object-fit: contain; }
 .li-info { flex: 1; }
 .li-name { font-size: 1.6vh; color: var(--t1); }
 .li-en   { font-size: 1.3vh; margin-top: 0.3vh; color: rgba(212,170,96,.5); }
