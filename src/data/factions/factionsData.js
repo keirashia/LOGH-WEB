@@ -1,9 +1,6 @@
 // /src/data/factions/factionsData.js
-import IDEOLOGIES from "./ideologies.js";
+import { IDEOLOGY_MAP as byCode } from "@/data/regime/ideologyData.js";
 
-const byCode = Object.fromEntries(IDEOLOGIES.map((i) => [i.code, i]));
-
-export { IDEOLOGIES };
 export default [
 
   // ── AD 시대 ────────────────────────────────────────────────
@@ -12,7 +9,7 @@ export default [
   {
     id: "NOC",
     periodType: "AD",
-    period: ["2039", "2039"],
+    period: ["", "2039"],
     color: "",
     flag: "NOC01.webp",
     currency: "",
@@ -27,17 +24,17 @@ export default [
   {
     id: "USE",
     periodType: "AD",
-    period: ["2039", "2039"],
+    period: ["", "2039"],
     color: "",
     flag: "",
     currency: "",
     ideology: null,
   },
 
-  // 지구통일정부
+  // 지구통일정부 (은하연방 성립 이전 지구의 통합 정부)
   {
     id: "GBG",
-    periodType: "AD",
+    periodType: "SE",
     period: ["", ""],
     color: "",
     flag: "",
@@ -56,7 +53,7 @@ export default [
     ideology: null,
   },
 
-  // 은하연방 (TODO: id 미정)
+  // 은하연방
   {
     id: "GAF",
     periodType: "AD",
@@ -69,31 +66,31 @@ export default [
 
   // ── RC / SE 시대 ───────────────────────────────────────────
 
-  // 은하제국 골덴바움 왕조
+  // 은하제국 골덴바움 왕조 (창건: 1 IC = 310 UC, 멸망: 490 IC = 799 UC)
   {
     id: "REH",
     periodType: "RC",
-    period: ["", ""],
+    period: ["", "799"],
     color: "#c0392b",
     flag: "⚔️",
     currency: "제국 마르크",
     ideology: byCode[240],
   },
 
-  // 립슈타트 귀족연합
+  // 립슈타트 귀족연합 (488 IC = 797 UC 창설 → 같은 해 해산)
   {
     id: "LIP",
     periodType: "SE",
-    period: ["796", "797"],
+    period: ["797", "797"],
     color: "",
     flag: "",
     currency: "제국 마르크",
     ideology: byCode[240],
   },
 
-  // 은하제국 정통정부 (TODO: id 미정 — LIP 중복으로 임시 LGT 사용)
+  // 은하제국 정통정부 (Galaktische Reichsregierung der Legitimität)
   {
-    id: "LGT",
+    id: "GRL",
     periodType: "SE",
     period: ["800", "801"],
     color: "",
@@ -102,22 +99,22 @@ export default [
     ideology: byCode[240],
   },
 
-  // 은하제국 로엔그람 왕조
+  // 은하제국 로엔그람 왕조 (1 NIC = 490 IC = 799 UC 창건)
   {
     id: "NRH",
     periodType: "SE",
-    period: ["800", ""],
+    period: ["799", ""],
     color: "",
     flag: "",
     currency: "제국 마르크",
     ideology: byCode[240],
   },
 
-  // 자유행성동맹
+  // 자유행성동맹 (218 IC = 527 UC 창건 → 491 IC = 800 UC 해산)
   {
     id: "FPA",
     periodType: "SE",
-    period: ["527", "799"],
+    period: ["527", "800"],
     color: "#2980b9",
     flag: "🛡️",
     currency: "동맹 디나르",
@@ -135,9 +132,9 @@ export default [
     ideology: byCode[160],
   },
 
-  // 엘 파실 독립정부 (TODO: id 미정)
+  // 엘 파실 독립정부 (El Facil Revolutionary Government)
   {
-    id: "",
+    id: "EFR",
     periodType: "SE",
     period: ["796", "796"],
     color: "",
@@ -146,9 +143,9 @@ export default [
     ideology: null,
   },
 
-  // 이제르론 공화정부 (TODO: id 미정)
+  // 이제르론 공화정부 (Iserlohn Republic Government)
   {
-    id: "",
+    id: "IRG",
     periodType: "SE",
     period: ["800", "801"],
     color: "",
@@ -157,22 +154,25 @@ export default [
     ideology: null,
   },
 
-  // 바라트 성계 자치령 (TODO: id 미정)
+  // 바라트 성계 자치령 (Bharat Star System Autonomous Region)
   {
-    id: "",
+    id: "BAR",
     periodType: "SE",
-    period: ["", ""],
-    color: "",
+    period: ["801", ""],
+    color: "#1a6fa8",
     flag: "",
     currency: "동맹 디나르",
-    ideology: null,
+    ideology: byCode[100],
+    desc: `시바 성역 회전 이후 율리안 민츠와 라인하르트 폰 로엔그람의 회담을 통해 SE 801년 성립된 민주공화주의 자치령.
+    이제르론 요새의 반환을 조건으로 바라트 성계의 내정자치권을 얻었으며, 양 웬리가 꿈꾸었던 민주주의의 씨앗을 이어받았다.
+    약 100여 년간 존속하며 은하 전역에 민주공화정이 다시 꽃피우는 토대가 되었다.`,
   },
 
-  // 페잔 자치령
+  // 페잔 자치령 (373 IC = 682 UC 창건 → 491 IC = 800 UC 병합)
   {
     id: "PZN",
     periodType: "SE",
-    period: ["150", "800"],
+    period: ["682", "800"],
     color: "#27ae60",
     flag: "💰",
     currency: "페잔 골드",

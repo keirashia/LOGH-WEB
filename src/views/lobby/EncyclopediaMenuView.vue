@@ -7,21 +7,23 @@
     :star-count="200"
   >
     <EncCharactersPop v-if="enc.popType === 'char'" />
+    <EncFactionsPop   v-if="enc.popType === 'faction'" />
   </CardSliderLayout>
 </template>
 
 <script setup>
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
-import CardSliderLayout from '@/components/common/CardSliderLayout.vue'
-import EncCharactersPop from '@/components/encyclopedia/EncCharactersPop.vue'
+import CardSliderLayout    from '@/components/common/CardSliderLayout.vue'
+import EncCharactersPop   from '@/components/encyclopedia/EncCharactersPop.vue'
+import EncFactionsPop     from '@/components/encyclopedia/EncFactionsPop.vue'
 
 const enc = useEncyclopediaStore()
 
 const CARDS = [
-  { icon: '👤', title: '인물', desc: 'Characters',   abbr: 'CHR', action: () => enc.open('char') },
-  { icon: '🏛️', title: '국가', desc: 'Nations',      abbr: 'NAT', disabled: true },
-  { icon: '🌌', title: '성계', desc: 'Star Systems',  abbr: 'STR', disabled: true },
-  { icon: '🚀', title: '함선', desc: 'Fleet',         abbr: 'FLT', disabled: true },
-  { icon: '📚', title: '용어', desc: 'Glossary',      abbr: 'GLO', disabled: true },
+  { icon: '👤', title: '인물', desc: 'Characters', abbr: 'CHR', action: () => enc.open('char')    },
+  { icon: '🏛️', title: '세력', desc: 'Factions',   abbr: 'FAC', action: () => enc.open('faction') },
+  { icon: '🌌', title: '성계', desc: 'Star Systems', abbr: 'STR', disabled: true },
+  { icon: '🚀', title: '함선', desc: 'Fleet',        abbr: 'FLT', disabled: true },
+  { icon: '📚', title: '용어', desc: 'Glossary',     abbr: 'GLO', disabled: true },
 ]
 </script>

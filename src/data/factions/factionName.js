@@ -51,9 +51,9 @@ export const FACTION_NAMES = [
   { factionId: 'LIP', lang: 'Jp', name: 'リップシュタット連盟', shortName: 'リップシュタット' },
 
   // 은하제국 정통정부 (LGT — TODO: id 미정, 임시)
-  { factionId: 'LGT', lang: 'Kr', name: '은하제국 정통정부', shortName: '정통정부' },
-  { factionId: 'LGT', lang: 'En', name: 'Galactic Empire (Legitimität)', shortName: 'Legitimität'  },
-  { factionId: 'LGT', lang: 'Jp', name: '銀河帝国正統政府', shortName: '正統政府' },
+  { factionId: 'GRL', lang: 'Kr', name: '은하제국 정통정부', shortName: '정통정부' },
+  { factionId: 'GRL', lang: 'En', name: 'Galactic Empire (Legitimität)', shortName: 'Legitimität'  },
+  { factionId: 'GRL', lang: 'Jp', name: '銀河帝国正統政府', shortName: '正統政府' },
 
   // 은하제국 로엔그람 왕조 (NRH)
   { factionId: 'NRH', lang: 'Kr', name: '은하제국 로엔그람 왕조', shortName: '로엔그람' },
@@ -70,20 +70,20 @@ export const FACTION_NAMES = [
   { factionId: 'SMC', lang: 'En', name: 'National Salvation Military Council', shortName: 'NSMC'   },
   { factionId: 'SMC', lang: 'Jp', name: '救国軍事会議',   shortName: '救国会議'  },
 
-  // 엘 파실 독립정부 (TODO: id 미정 — factionId 확정 후 수정)
-  { factionId: '', lang: 'Kr', name: '엘 파실 독립정부',  shortName: '엘 파실'   },
-  { factionId: '', lang: 'En', name: 'El Facil Independent Government', shortName: 'El Facil'      },
-  { factionId: '', lang: 'Jp', name: 'エル・ファシル独立政府', shortName: 'エル・ファシル' },
+  // 엘 파실 독립정부 (EFR — El Facil Revolutionary Government)
+  { factionId: 'EFR', lang: 'Kr', name: '엘 파실 독립정부',  shortName: '엘 파실'        },
+  { factionId: 'EFR', lang: 'En', name: 'El Facil Revolutionary Government', shortName: 'El Facil' },
+  { factionId: 'EFR', lang: 'Jp', name: 'エル・ファシル革命政府', shortName: 'エル・ファシル' },
 
-  // 이제르론 공화정부 (TODO: id 미정 — factionId 확정 후 수정)
-  { factionId: '', lang: 'Kr', name: '이제르론 공화정부', shortName: '이제르론'  },
-  { factionId: '', lang: 'En', name: 'Iserlohn Republic',               shortName: 'Iserlohn Rep.'  },
-  { factionId: '', lang: 'Jp', name: 'イゼルローン共和政府', shortName: 'イゼルローン' },
+  // 이제르론 공화정부 (IRG — Iserlohn Republic Government)
+  { factionId: 'IRG', lang: 'Kr', name: '이제르론 공화정부', shortName: '이제르론'        },
+  { factionId: 'IRG', lang: 'En', name: 'Iserlohn Republic Government',  shortName: 'Iserlohn Rep.' },
+  { factionId: 'IRG', lang: 'Jp', name: 'イゼルローン共和政府', shortName: 'イゼルローン' },
 
-  // 바라트 성계 자치령 (TODO: id 미정 — factionId 확정 후 수정)
-  { factionId: '', lang: 'Kr', name: '바라트 성계 자치령', shortName: '바라트'   },
-  { factionId: '', lang: 'En', name: 'Baarat Autonomous Region',        shortName: 'Baarat'         },
-  { factionId: '', lang: 'Jp', name: 'バーラト星系自治領', shortName: 'バーラト' },
+  // 바라트 성계 자치령 (BAR — Bharat Star System Autonomous Region)
+  { factionId: 'BAR', lang: 'Kr', name: '바라트 성계 자치령', shortName: '바라트'   },
+  { factionId: 'BAR', lang: 'En', name: 'Bharat Star System Autonomous Region', shortName: 'Bharat' },
+  { factionId: 'BAR', lang: 'Jp', name: 'バーラト星系自治領', shortName: 'バーラト' },
 
   // 페잔 자치령 (PZN)
   { factionId: 'PZN', lang: 'Kr', name: '페잔 자치령',    shortName: '페잔'      },
