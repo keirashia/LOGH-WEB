@@ -2,21 +2,21 @@
   <div class="detail-overlay" @click.self="$emit('close')">
     <div class="detail-panel">
 
-      <!-- ìƒë‹¨ í—¤ë” -->
+      <!-- ?ë‹¨ ?¤ë” -->
       <div class="det-header">
-        <button class="adj-btn mono" :disabled="!prevSc" @click="goTo(prevSc)">â† ì´ì „</button>
+        <button class="adj-btn mono" :disabled="!prevSc" @click="goTo(prevSc)">???´ì „</button>
         <div class="det-title">
           <span class="serif" style="font-size:16px;color:var(--tg)">{{ cur.nameKr }}</span>
           <span class="mono dim" style="font-size:10px;margin-left:8px">
             {{ cur.yearType }} {{ cur.year }}
-            <template v-if="cur.yearType === 'SE'"> / ì œêµ­ë ¥ {{ cur.year - 309 }}ë…„</template>
+            <template v-if="cur.yearType === 'SE'"> / ?œêµ­??{{ cur.year - 309 }}??/template>
           </span>
         </div>
-        <button class="adj-btn mono" :disabled="!nextSc" @click="goTo(nextSc)">ë‹¤ìŒ â†’</button>
-        <button class="close-btn mono" @click="$emit('close')">âœ•</button>
+        <button class="adj-btn mono" :disabled="!nextSc" @click="goTo(nextSc)">?¤ìŒ ??/button>
+        <button class="close-btn mono" @click="$emit('close')">??/button>
       </div>
 
-      <!-- ì´ë¯¸ì§€ -->
+      <!-- ?´ë?ì§€ -->
       <div class="det-image">
         <template v-if="bgSrc">
           <img class="det-img-bg" :src="bgSrc" />
@@ -24,7 +24,7 @@
         </template>
         <div v-else class="det-gradient" />
 
-        <!-- ìºë¦­í„° ì´ˆìƒí™” (ëŒ€í™” ëª¨ë“œ) -->
+        <!-- ìºë¦­??ì´ˆìƒ??(?€??ëª¨ë“œ) -->
         <Transition name="char-fade">
           <div v-if="charSrc" class="det-char-wrap">
             <div v-if="page.charName" class="det-char-name mono">{{ page.charName }}</div>
@@ -37,11 +37,11 @@
       <div class="det-body">
         <div class="det-text-wrap">
           <Transition :name="page?.effect ?? 'fade'" mode="out-in">
-            <p :key="pageIdx" class="det-text serif">{{ page?.text ?? '(ë‚´ìš© ì¤€ë¹„ ì¤‘)' }}</p>
+            <p :key="pageIdx" class="det-text serif">{{ page?.text ?? '(?´ìš© ì¤€ë¹?ì¤?' }}</p>
           </Transition>
         </div>
 
-        <!-- í•˜ë‹¨ ê³ ì •: libs + í˜ì´ì§€ ì¸ë””ì¼€ì´í„° -->
+        <!-- ?˜ë‹¨ ê³ ì •: libs + ?˜ì´ì§€ ?¸ë””ì¼€?´í„° -->
         <div class="det-bottom">
           <div class="libs-row" v-if="page?.libs?.length">
             <button v-for="lib in page.libs" :key="lib"
@@ -58,24 +58,24 @@
         </div>
       </div>
 
-      <!-- í•˜ë‹¨ ë²„íŠ¼ -->
+      <!-- ?˜ë‹¨ ë²„íŠ¼ -->
       <div class="det-footer">
-        <button class="btn" :disabled="pageIdx === 0" @click="pageIdx--">â† ì´ì „</button>
+        <button class="btn" :disabled="pageIdx === 0" @click="pageIdx--">???´ì „</button>
 
         <button v-if="!cur.useYn"
                 class="btn dim-action" disabled>
-          ì§„í–‰ ë¶ˆê°€
+          ì§„í–‰ ë¶ˆê?
         </button>
         <button v-else-if="cur.openPt === 0"
                 class="btn btn-gold" @click="onStart">
-          â–¶ ì‹œì‘
+          ???œì‘
         </button>
         <button v-else
                 class="btn btn-blue">
-          ğŸ”’ {{ cur.openPt }}Pë¡œ êµ¬ë§¤
+          ?”’ {{ cur.openPt }}Pë¡?êµ¬ë§¤
         </button>
 
-        <button class="btn" :disabled="pageIdx >= totalPages - 1" @click="pageIdx++">ë‹¤ìŒ â†’</button>
+        <button class="btn" :disabled="pageIdx >= totalPages - 1" @click="pageIdx++">?¤ìŒ ??/button>
       </div>
 
     </div>
@@ -84,7 +84,7 @@
 
 <script setup>
 import { ref, computed, watch } from 'vue'
-import { SCENARIOS } from '@/data/scenarios/scenario.js'
+import { SCENARIOS } from '@/data/scenarios/scenarioData.js'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
 
 const props = defineProps({ scenario: Object })
@@ -92,13 +92,13 @@ const emit  = defineEmits(['close', 'start'])
 
 const enc = useEncyclopediaStore()
 
-// â”€â”€ ë‚´ë¶€ í˜„ì¬ ì‹œë‚˜ë¦¬ì˜¤ (í—¤ë” ì´ì „/ë‹¤ìŒìœ¼ë¡œ ì „í™˜ ê°€ëŠ¥) â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ?€?€ ?´ë? ?„ì¬ ?œë‚˜ë¦¬ì˜¤ (?¤ë” ?´ì „/?¤ìŒ?¼ë¡œ ?„í™˜ ê°€?? ?€?€?€?€?€?€?€?€?€
 const cur     = ref(props.scenario)
 const pageIdx = ref(0)
 
 watch(() => props.scenario, sc => { cur.value = sc; pageIdx.value = 0 })
 
-// â”€â”€ ì „ì²´ ì‹œë‚˜ë¦¬ì˜¤ ì •ë ¬ (AD â†’ SE â†’ RC, ì—°ë„ ìˆœ) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ?€?€ ?„ì²´ ?œë‚˜ë¦¬ì˜¤ ?•ë ¬ (AD ??SE ??RC, ?°ë„ ?? ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€
 const ERA_ORDER = { AD: 0, SE: 1, RC: 2 }
 const sortedAll = computed(() =>
   [...SCENARIOS].sort((a, b) => {
@@ -116,12 +116,12 @@ function goTo(sc) {
   pageIdx.value = 0
 }
 
-// â”€â”€ í˜„ì¬ í˜ì´ì§€ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ?€?€ ?„ì¬ ?˜ì´ì§€ ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€
 const pages      = computed(() => cur.value?.desc ?? [])
 const totalPages = computed(() => Math.max(pages.value.length, 1))
 const page       = computed(() => pages.value[pageIdx.value] ?? null)
 
-// â”€â”€ ì´ë¯¸ì§€ ê²½ë¡œ í—¬í¼ (bg ìš°ì„ , image í•˜ìœ„í˜¸í™˜) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ?€?€ ?´ë?ì§€ ê²½ë¡œ ?¬í¼ (bg ?°ì„ , image ?˜ìœ„?¸í™˜) ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€
 function scenarioImgBase(sc) {
   const seq = sc.id.split('_')[1].padStart(2, '0')
   return `/img/scenarios/${sc.yearType}${sc.year}/${seq}`
@@ -135,7 +135,7 @@ const charSrc = computed(() => {
   return f ? `${scenarioImgBase(cur.value)}/${f}` : ''
 })
 
-// â”€â”€ libs íŒì—… â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ?€?€ libs ?ì—… ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€
 function libLabel(lib) {
   return lib.slice(lib.indexOf(':') + 1)
 }
@@ -153,14 +153,14 @@ function openLib(lib) {
   }
 }
 
-// â”€â”€ ì‹œì‘ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ?€?€ ?œì‘ ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€
 function onStart() {
   emit('start', cur.value)
 }
 </script>
 
 <style scoped>
-/* â”€â”€ ì˜¤ë²„ë ˆì´ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ?€?€ ?¤ë²„?ˆì´ ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€ */
 .detail-overlay {
   position: absolute;
   inset: 0;
@@ -184,7 +184,7 @@ function onStart() {
   box-shadow: 0 -10px 40px rgba(0,0,0,.5);
 }
 
-/* â”€â”€ í—¤ë” â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ?€?€ ?¤ë” ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€ */
 .det-header {
   display: flex;
   align-items: center;
@@ -224,7 +224,7 @@ function onStart() {
 }
 .close-btn:hover { color: var(--t1); border-color: var(--bd); }
 
-/* â”€â”€ ì´ë¯¸ì§€ (50%) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ?€?€ ?´ë?ì§€ (50%) ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€ */
 .det-image {
   flex: 5;
   min-height: 0;
@@ -250,7 +250,7 @@ function onStart() {
   background: linear-gradient(135deg, #06111e 0%, #0e1e3a 40%, #081018 100%);
 }
 
-/* â”€â”€ ìºë¦­í„° ì´ˆìƒí™” â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ?€?€ ìºë¦­??ì´ˆìƒ???€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€ */
 .det-char-wrap {
   position: absolute;
   bottom: 0;
@@ -278,11 +278,11 @@ function onStart() {
   filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.85));
 }
 
-/* ìºë¦­í„° í˜ì´ë“œ ì „í™˜ */
+/* ìºë¦­???˜ì´???„í™˜ */
 .char-fade-enter-active, .char-fade-leave-active { transition: opacity .2s; }
 .char-fade-enter-from, .char-fade-leave-to       { opacity: 0; }
 
-/* â”€â”€ ë³¸ë¬¸ (30%) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ?€?€ ë³¸ë¬¸ (30%) ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€ */
 .det-body {
   flex: 3;
   min-height: 0;
@@ -319,10 +319,10 @@ function onStart() {
 }
 .lib-btn:hover { background: rgba(68,136,255,.2); border-color: #6aabff; }
 
-/* í•˜ë‹¨ ê³ ì • ì˜ì—­ */
+/* ?˜ë‹¨ ê³ ì • ?ì—­ */
 .det-bottom { flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; }
 
-/* í˜ì´ì§€ ì¸ë””ì¼€ì´í„° */
+/* ?˜ì´ì§€ ?¸ë””ì¼€?´í„° */
 .page-dots { display: flex; justify-content: center; gap: 7px; padding-bottom: 2px; }
 .dot {
   width: 7px; height: 7px; border-radius: 50%;
@@ -330,7 +330,7 @@ function onStart() {
 }
 .dot.active { background: var(--tg); }
 
-/* â”€â”€ í•˜ë‹¨ ë²„íŠ¼ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ?€?€ ?˜ë‹¨ ë²„íŠ¼ ?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€ */
 .det-footer {
   display: flex;
   justify-content: space-between;
@@ -347,7 +347,7 @@ function onStart() {
   font-size: 12px;
 }
 
-/* â”€â”€ í˜ì´ì§€ ì „í™˜ íŠ¸ëœì§€ì…˜ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* ?€?€ ?˜ì´ì§€ ?„í™˜ ?¸ëœì§€???€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€?€ */
 .fade-enter-active, .fade-leave-active { transition: opacity .25s; }
 .fade-enter-from, .fade-leave-to       { opacity: 0; }
 

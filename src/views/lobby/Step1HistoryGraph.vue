@@ -20,7 +20,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { SCENARIOS } from '@/data/scenarios/scenario.js'
+import { SCENARIOS } from '@/data/scenarios/scenarioData.js'
 import ScTimelineLayout from '@/components/lobby/ScTimelineLayout.vue'
 import ScEventListPanel from '@/components/lobby/ScEventListLayout.vue'
 

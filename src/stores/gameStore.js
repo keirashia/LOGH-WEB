@@ -1,9 +1,9 @@
-ï»¿import { defineStore } from 'pinia'
+import { defineStore } from 'pinia'
 import {
   FACTIONS, CHARACTERS,
   OPERATION_TYPES, CONSTRUCTION_TYPES, FORTRESS_WEAPONS, DIALOGS
 } from '@/data/masterData'
-import { SCENARIOS } from '@/data/scenarios/scenario.js'
+import { SCENARIOS } from '@/data/scenarios/scenarioData.js'
 import { STAR_SYSTEMS } from '@/data/stars/starSystemData'
 import { STAR_DETAIL as _DETAIL_SE796_1 } from '@/data/scenarios/SE796/01/starDetail'
 import { STAR_DETAIL as _DETAIL_SE745_1 } from '@/data/scenarios/SE745/01/starDetail'
@@ -59,13 +59,13 @@ function buildState(scId, pf) {
   })
   const fleets = {
     REH: [
-      { id:'E_1ST',  name:'ì œ1í•¨ëŒ€',      commander:'MITTERMEYER', ships:15000, maxShips:15000, location:'230058', status:'standby', target:null, upkeep:30 },
-      { id:'E_2ND',  name:'ì œ2í•¨ëŒ€',      commander:'REUENTHAL',   ships:15000, maxShips:15000, location:'230058', status:'standby', target:null, upkeep:30 },
-      { id:'E_3RD',  name:'í‘ìƒ‰ì°½ê¸°í•¨ëŒ€', commander:'BITTENFELD',  ships:13000, maxShips:13000, location:'230002', status:'standby', target:null, upkeep:26 },
+      { id:'E_1ST',  name:'Á¦1ÇÔ´ë',      commander:'MITTERMEYER', ships:15000, maxShips:15000, location:'230058', status:'standby', target:null, upkeep:30 },
+      { id:'E_2ND',  name:'Á¦2ÇÔ´ë',      commander:'REUENTHAL',   ships:15000, maxShips:15000, location:'230058', status:'standby', target:null, upkeep:30 },
+      { id:'E_3RD',  name:'Èæ»öÃ¢±âÇÔ´ë', commander:'BITTENFELD',  ships:13000, maxShips:13000, location:'230002', status:'standby', target:null, upkeep:26 },
     ],
     FPA: [
-      { id:'A_1ST',  name:'ì œ1í•¨ëŒ€',  commander:'YANG',         ships:15000, maxShips:15000, location:'230006', status:'standby', target:null, upkeep:30 },
-      { id:'A_13TH', name:'ì œ13í•¨ëŒ€', commander:'ATTENBOROUGH', ships:12000, maxShips:12000, location:'230055', status:'standby', target:null, upkeep:24 },
+      { id:'A_1ST',  name:'Á¦1ÇÔ´ë',  commander:'YANG',         ships:15000, maxShips:15000, location:'230006', status:'standby', target:null, upkeep:30 },
+      { id:'A_13TH', name:'Á¦13ÇÔ´ë', commander:'ATTENBOROUGH', ships:12000, maxShips:12000, location:'230055', status:'standby', target:null, upkeep:24 },
     ],
     PZN: [],
   }
@@ -93,7 +93,7 @@ export const useGameStore = defineStore('game', {
       Object.values(s.systems).forEach(x => { if (x.faction) c[x.faction] = (c[x.faction] || 0) + 1 })
       return c
     },
-    dateStr:   s => `ìš°ì£¼ë ¥ ${s.year}ë…„ ${s.month}ì›” / ì œêµ­ë ¥ ${s.impYear}ë…„`,
+    dateStr:   s => `¿ìÁÖ·Â ${s.year}³â ${s.month}¿ù / Á¦±¹·Â ${s.impYear}³â`,
     pFaction:  s => FACTIONS[s.playerFaction],
     fColors:   () => { const m = {}; Object.values(FACTIONS).forEach(f => { m[f.id] = f.color }); return m },
     allFleets: s => {
@@ -122,20 +122,20 @@ export const useGameStore = defineStore('game', {
       const fresh = buildState(scId, pf)
       Object.assign(this.$state, { initialized: true, ...fresh })
       const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]
-      this.addLog(`[${FACTIONS[pf].name}] ${sc.nameKr} ì‹œì‘.`)
+      this.addLog(`[${FACTIONS[pf].name}] ${sc.nameKr} ½ÃÀÛ.`)
     },
 
     endTurn() {
-      // ì„ì‹œ ì§•ìˆ˜ ì¿¨ë‹¤ìš´
+      // ÀÓ½Ã Â¡¼ö Äğ´Ù¿î
       if (this._levyCooldown > 0) this._levyCooldown--
-      // ì°¨ê´€ ë§Œê¸° ê²½ê³ 
+      // Â÷°ü ¸¸±â °æ°í
       if (this._loanBalance > 0) {
         const remaining = this._loanDueTurn - this.turn
-        if (remaining === 1) this.addLog(`âš ï¸ [í˜ì”] ë‹¤ìŒ í„´ì´ ì°¨ê´€ ìƒí™˜ ê¸°ì¼ì…ë‹ˆë‹¤. (${this._loanBalance.toLocaleString()} ë§ˆí¬)`)
+        if (remaining === 1) this.addLog(`?? [ÆäÀÜ] ´ÙÀ½ ÅÏÀÌ Â÷°ü »óÈ¯ ±âÀÏÀÔ´Ï´Ù. (${this._loanBalance.toLocaleString()} ¸¶Å©)`)
         if (remaining <= 0) {
-          // ìƒí™˜ ë¶ˆëŠ¥ ì²˜ë¦¬
+          // »óÈ¯ ºÒ´É Ã³¸®
           Object.values(this.systems).forEach(s => { if (s.faction === this.playerFaction) s.morale = Math.max(5, s.morale - 15) })
-          this.addLog(`âŒ [í˜ì”] ìƒí™˜ ë¶ˆëŠ¥ ìƒíƒœì…ë‹ˆë‹¤. í˜ì”ì€ ì´ì— ìƒì‘í•˜ëŠ” ì¡°ì¹˜ë¥¼ ì·¨í•˜ê² ìŠµë‹ˆë‹¤.`)
+          this.addLog(`? [ÆäÀÜ] »óÈ¯ ºÒ´É »óÅÂÀÔ´Ï´Ù. ÆäÀÜÀº ÀÌ¿¡ »óÀÀÇÏ´Â Á¶Ä¡¸¦ ÃëÇÏ°Ú½À´Ï´Ù.`)
           this.resources['PZN'].gold += Math.floor(this._loanBalance * 0.5)
           this._loanBalance = 0; this._loanDueTurn = null
         }
@@ -148,7 +148,7 @@ export const useGameStore = defineStore('game', {
       if (this.month > 12) { this.month = 1; this.year++; this.impYear++ }
       this.turn++
       this._victory()
-      this.addLog(`â”€â”€â”€â”€ ${this.year}ë…„ ${this.month}ì›” (í„´ ${this.turn}) â”€â”€â”€â”€`)
+      this.addLog(`¦¡¦¡¦¡¦¡ ${this.year}³â ${this.month}¿ù (ÅÏ ${this.turn}) ¦¡¦¡¦¡¦¡`)
     },
 
     selectSystem(id)  { this.selectedSystem = id;    this.selectedFleet = null },
@@ -162,7 +162,7 @@ export const useGameStore = defineStore('game', {
       const old = s.tax
       s.tax = Math.max(10, Math.min(80, rate))
       s.morale = Math.max(5, Math.min(100, s.morale - Math.floor((s.tax - old) * 0.5)))
-      this.addLog(`[${s.name}] ì„¸ìœ¨ ${old}% â†’ ${s.tax}%`)
+      this.addLog(`[${s.name}] ¼¼À² ${old}% ¡æ ${s.tax}%`)
     },
 
     buildConstruction(sysId, type) {
@@ -171,7 +171,7 @@ export const useGameStore = defineStore('game', {
       if (!s || s.faction !== this.playerFaction || this.pRes.gold < ct.cost || s.underConstruction) return false
       this.pRes.gold -= ct.cost
       s.underConstruction = { type, turnsLeft: ct.turns }
-      this.addLog(`[${s.name}] ${ct.name} ê±´ì„¤ ì‹œì‘ (${ct.turns}í„´)`)
+      this.addLog(`[${s.name}] ${ct.name} °Ç¼³ ½ÃÀÛ (${ct.turns}ÅÏ)`)
       return true
     },
 
@@ -180,7 +180,7 @@ export const useGameStore = defineStore('game', {
       const target = this.systems[targetId]
       if (!fleet || !target || fleet.status !== 'standby') return false
 
-      // í•´ë‹¹ ì„±ê³„ì— ì£¼ë‘” ì¤‘ì¸ ì  í•¨ëŒ€ ìˆ˜ì§‘
+      // ÇØ´ç ¼º°è¿¡ ÁÖµĞ ÁßÀÎ Àû ÇÔ´ë ¼öÁı
       const defenderFleets = []
       Object.entries(this.fleets).forEach(([faction, fleets]) => {
         if (faction !== this.playerFaction) {
@@ -194,7 +194,7 @@ export const useGameStore = defineStore('game', {
       fleet.target = targetId
 
       if (defenderFleets.length > 0) {
-        // ì „ìˆ ì „íˆ¬ íŠ¸ë¦¬ê±°
+        // Àü¼úÀüÅõ Æ®¸®°Å
         this._pendingBattle = {
           attackerFleet:   { ...fleet, faction: this.playerFaction },
           attackerFaction: this.playerFaction,
@@ -202,12 +202,12 @@ export const useGameStore = defineStore('game', {
           targetSystemId:  targetId,
           opType,
         }
-        this.addLog(`[ì¶œê²©] ${fleet.name} â†’ ${target.name} â€” ì  í•¨ëŒ€ ë°œê²¬, ì „ìˆ ì „íˆ¬ ê°œì‹œ!`)
+        this.addLog(`[Ãâ°İ] ${fleet.name} ¡æ ${target.name} ? Àû ÇÔ´ë ¹ß°ß, Àü¼úÀüÅõ °³½Ã!`)
         return 'tactical'
       }
 
-      // ë°©ì–´ í•¨ëŒ€ ì—†ìŒ â†’ ì¦‰ì‹œ í•´ê²°
-      this.addLog(`[ì¶œê²©] ${fleet.name} â†’ ${target.name} (${OPERATION_TYPES[opType]?.name})`)
+      // ¹æ¾î ÇÔ´ë ¾øÀ½ ¡æ Áï½Ã ÇØ°á
+      this.addLog(`[Ãâ°İ] ${fleet.name} ¡æ ${target.name} (${OPERATION_TYPES[opType]?.name})`)
       this._battle(fleet, target, opType)
       return true
     },
@@ -219,7 +219,7 @@ export const useGameStore = defineStore('game', {
       const attackerFleet = this.pFleets.find(f => f.id === ctx.attackerFleet.id)
 
       if (result.winner === this.playerFaction) {
-        // ì•„êµ° ìŠ¹ë¦¬
+        // ¾Æ±º ½Â¸®
         if (attackerFleet) {
           attackerFleet.ships    = Math.max(1000, ctx.attackerFleet.ships - result.attackerLosses)
           attackerFleet.status   = 'standby'
@@ -227,7 +227,7 @@ export const useGameStore = defineStore('game', {
           attackerFleet.location = ctx.targetSystemId
         }
 
-        // ì  í•¨ëŒ€ í”¼í•´ ì ìš© (ê° í•¨ëŒ€ì— ê· ë“± ë¶„ë°°)
+        // Àû ÇÔ´ë ÇÇÇØ Àû¿ë (°¢ ÇÔ´ë¿¡ ±Õµî ºĞ¹è)
         const perFleet = Math.floor(result.defenderLosses / Math.max(1, ctx.defenderFleets.length))
         ctx.defenderFleets.forEach(df => {
           const factionFleets = this.fleets[df.faction]
@@ -236,7 +236,7 @@ export const useGameStore = defineStore('game', {
           if (idx === -1) return
           const remaining = df.ships - perFleet
           if (remaining <= 1000) {
-            this.addLog(`ğŸ’¥ [ê²©íŒŒ] ${df.name} ì „ìˆ ì „íˆ¬ íŒ¨ë°°ë¡œ ê²©íŒŒ`)
+            this.addLog(`?? [°İÆÄ] ${df.name} Àü¼úÀüÅõ ÆĞ¹è·Î °İÆÄ`)
             factionFleets.splice(idx, 1)
           } else {
             factionFleets[idx].ships = remaining
@@ -245,7 +245,7 @@ export const useGameStore = defineStore('game', {
           }
         })
 
-        // ì„±ê³„ ì ë ¹ íš¨ê³¼
+        // ¼º°è Á¡·É È¿°ú
         const target = this.systems[ctx.targetSystemId]
         const op     = OPERATION_TYPES[ctx.opType]
         if (target && op) {
@@ -253,12 +253,12 @@ export const useGameStore = defineStore('game', {
           target.faction  = this.playerFaction
           target.defense  = Math.max(5, target.defense  - (op.defDmg   || 0))
           target.morale   = Math.max(5, target.morale   - (op.moraleDmg || 0))
-          this.addLog(`âœ… [ì ë ¹] ${target.name} ì „ìˆ ì „íˆ¬ ìŠ¹ë¦¬ (${prev || 'ì¤‘ë¦½'} â†’ ${this.playerFaction})`)
+          this.addLog(`? [Á¡·É] ${target.name} Àü¼úÀüÅõ ½Â¸® (${prev || 'Áß¸³'} ¡æ ${this.playerFaction})`)
         }
         this._victory()
 
       } else {
-        // ì•„êµ° íŒ¨ë°°
+        // ¾Æ±º ÆĞ¹è
         if (attackerFleet) {
           attackerFleet.ships  = Math.max(1000, ctx.attackerFleet.ships - result.attackerLosses)
           attackerFleet.status = 'standby'
@@ -266,7 +266,7 @@ export const useGameStore = defineStore('game', {
           const friendly = Object.values(this.systems).find(s => s.faction === this.playerFaction)
           if (friendly) attackerFleet.location = friendly.id
         }
-        this.addLog(`âŒ [íŒ¨ë°°] ì „ìˆ ì „íˆ¬ íŒ¨ë°°, ${ctx.attackerFleet.name} ì² ìˆ˜`)
+        this.addLog(`? [ÆĞ¹è] Àü¼úÀüÅõ ÆĞ¹è, ${ctx.attackerFleet.name} Ã¶¼ö`)
       }
 
       this._pendingBattle = null
@@ -277,23 +277,23 @@ export const useGameStore = defineStore('game', {
       if (!c || c.faction !== this.playerFaction) return
       c.currentPost = post
       const dialog = this.playerFaction === 'REH' ? DIALOGS.APPOINTMENT.emperor : ''
-      if (dialog) this.addLog(`[í™©ì œ] ${dialog}`)
-      this.addLog(`[ì„ëª…] ${c.name} â†’ ${post}`)
+      if (dialog) this.addLog(`[È²Á¦] ${dialog}`)
+      this.addLog(`[ÀÓ¸í] ${c.name} ¡æ ${post}`)
     },
 
 
-    // â”€â”€ ì„ì‹œ ì§•ìˆ˜ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ ÀÓ½Ã Â¡¼ö ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     emergencyLevy() {
       const res = this.pRes
       const { FINANCE } = require('@/data/masterData')
       const terms = FINANCE.LEVY_TERMS
 
       if (this._levyCooldown > 0) {
-        this.addLog(`âŒ [ì„ì‹œ ì§•ìˆ˜] ì¬ì‚¬ìš© ëŒ€ê¸° ì¤‘ (${this._levyCooldown}í„´ ë‚¨ìŒ)`)
+        this.addLog(`? [ÀÓ½Ã Â¡¼ö] Àç»ç¿ë ´ë±â Áß (${this._levyCooldown}ÅÏ ³²À½)`)
         return false
       }
 
-      // í˜„ì¬ ì›” ìˆ˜ì… ê³„ì‚°
+      // ÇöÀç ¿ù ¼öÀÔ °è»ê
       let monthlyIncome = 0
       Object.values(this.systems).forEach(s => {
         if (s.faction === this.playerFaction)
@@ -304,7 +304,7 @@ export const useGameStore = defineStore('game', {
       res.gold += amount
       this._levyCooldown = terms.COOLDOWN_TURNS
 
-      // ì „ ì„±ê³„ ë¯¼ì‹¬ í•˜ë½
+      // Àü ¼º°è ¹Î½É ÇÏ¶ô
       Object.values(this.systems).forEach(s => {
         if (s.faction === this.playerFaction)
           s.morale = Math.max(5, s.morale + terms.MORALE_PENALTY)
@@ -312,24 +312,24 @@ export const useGameStore = defineStore('game', {
 
       const dlg = FINANCE.DIALOGS.EMERGENCY_LEVY
       if (this.playerFaction === 'REH') {
-        this.addLog(`[ì¬ìƒ] ${dlg.empire_prime}`)
-        this.addLog(`[í™©ì œ] ${dlg.emperor_reply}`)
+        this.addLog(`[Àç»ó] ${dlg.empire_prime}`)
+        this.addLog(`[È²Á¦] ${dlg.emperor_reply}`)
       }
       this.addLog(dlg.success(amount))
       return true
     },
 
-    // â”€â”€ í˜ì” ì°¨ê´€ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ ÆäÀÜ Â÷°ü ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     takeLoan(amount) {
       const { FINANCE } = require('@/data/masterData')
       const terms = FINANCE.LOAN_TERMS
 
       if (amount < terms.MIN_AMOUNT || amount > terms.MAX_AMOUNT) {
-        this.addLog(`âŒ [ì°¨ê´€] ê¸ˆì•¡ì€ ${terms.MIN_AMOUNT}~${terms.MAX_AMOUNT} ë§ˆí¬ ì‚¬ì´ì—¬ì•¼ í•©ë‹ˆë‹¤.`)
+        this.addLog(`? [Â÷°ü] ±İ¾×Àº ${terms.MIN_AMOUNT}~${terms.MAX_AMOUNT} ¸¶Å© »çÀÌ¿©¾ß ÇÕ´Ï´Ù.`)
         return false
       }
       if (this._loanBalance > 0) {
-        this.addLog(`âŒ [ì°¨ê´€] ê¸°ì¡´ ì°¨ê´€(${this._loanBalance.toLocaleString()} ë§ˆí¬)ì„ ë¨¼ì € ìƒí™˜í•˜ì„¸ìš”.`)
+        this.addLog(`? [Â÷°ü] ±âÁ¸ Â÷°ü(${this._loanBalance.toLocaleString()} ¸¶Å©)À» ¸ÕÀú »óÈ¯ÇÏ¼¼¿ä.`)
         return false
       }
 
@@ -338,57 +338,57 @@ export const useGameStore = defineStore('game', {
       this._loanBalance = totalRepay
       this._loanDueTurn = this.turn + terms.REPAY_TURNS
 
-      // í˜ì” ìˆ˜ìµ
+      // ÆäÀÜ ¼öÀÍ
       this.resources['PZN'].gold += totalRepay - amount
 
       const dlg = FINANCE.DIALOGS.LOAN
-      this.addLog(`[í˜ì”] ${dlg.phezzan_offer}`)
-      if (this.playerFaction === 'REH') this.addLog(`[í™©ì œ] ${dlg.empire_accept}`)
-      else this.addLog(`[ì˜ì¥] ${dlg.alliance_accept}`)
-      this.addLog(`ğŸ“‹ [ì°¨ê´€] ${amount.toLocaleString()} ë§ˆí¬ ìˆ˜ë ¹. ìƒí™˜ì•¡: ${totalRepay.toLocaleString()} ë§ˆí¬ (${terms.REPAY_TURNS}í„´ ë‚´)`)
+      this.addLog(`[ÆäÀÜ] ${dlg.phezzan_offer}`)
+      if (this.playerFaction === 'REH') this.addLog(`[È²Á¦] ${dlg.empire_accept}`)
+      else this.addLog(`[ÀÇÀå] ${dlg.alliance_accept}`)
+      this.addLog(`?? [Â÷°ü] ${amount.toLocaleString()} ¸¶Å© ¼ö·É. »óÈ¯¾×: ${totalRepay.toLocaleString()} ¸¶Å© (${terms.REPAY_TURNS}ÅÏ ³»)`)
       return true
     },
 
-    // â”€â”€ ì°¨ê´€ ìƒí™˜ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ Â÷°ü »óÈ¯ ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     repayLoan() {
       const { FINANCE } = require('@/data/masterData')
       if (this._loanBalance <= 0) {
-        this.addLog('âŒ [ìƒí™˜] ìƒí™˜í•  ì°¨ê´€ì´ ì—†ìŠµë‹ˆë‹¤.')
+        this.addLog('? [»óÈ¯] »óÈ¯ÇÒ Â÷°üÀÌ ¾ø½À´Ï´Ù.')
         return false
       }
       if (this.pRes.gold < this._loanBalance) {
-        this.addLog(`âŒ [ìƒí™˜] ìê¸ˆì´ ë¶€ì¡±í•©ë‹ˆë‹¤. (í•„ìš”: ${this._loanBalance.toLocaleString()}, ë³´ìœ : ${this.pRes.gold.toLocaleString()})`)
+        this.addLog(`? [»óÈ¯] ÀÚ±İÀÌ ºÎÁ·ÇÕ´Ï´Ù. (ÇÊ¿ä: ${this._loanBalance.toLocaleString()}, º¸À¯: ${this.pRes.gold.toLocaleString()})`)
         return false
       }
       this.pRes.gold -= this._loanBalance
       const paid = this._loanBalance
       this._loanBalance = 0
       this._loanDueTurn = null
-      this.addLog(`[í˜ì”] ${FINANCE.DIALOGS.LOAN.repay_confirm}`)
-      this.addLog(`âœ… [ìƒí™˜] ${paid.toLocaleString()} ë§ˆí¬ ìƒí™˜ ì™„ë£Œ.`)
+      this.addLog(`[ÆäÀÜ] ${FINANCE.DIALOGS.LOAN.repay_confirm}`)
+      this.addLog(`? [»óÈ¯] ${paid.toLocaleString()} ¸¶Å© »óÈ¯ ¿Ï·á.`)
       return true
     },
 
-    // â”€â”€ ì˜ˆì‚° ë°°ë¶„ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ ¿¹»ê ¹èºĞ ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     allocateBudget(allocations) {
       // allocations: { MILITARY: n, CONSTRUCTION: n, INTELLIGENCE: n, WELFARE: n, RESERVE: n }
       const { FINANCE } = require('@/data/masterData')
       const total = Object.values(allocations).reduce((s, v) => s + v, 0)
       if (total > this.pRes.gold) {
-        this.addLog(`âŒ [ì˜ˆì‚°] ë°°ë¶„ ì´ì•¡(${total.toLocaleString()})ì´ ë³´ìœ  ìê¸ˆ(${this.pRes.gold.toLocaleString()})ì„ ì´ˆê³¼í•©ë‹ˆë‹¤.`)
+        this.addLog(`? [¿¹»ê] ¹èºĞ ÃÑ¾×(${total.toLocaleString()})ÀÌ º¸À¯ ÀÚ±İ(${this.pRes.gold.toLocaleString()})À» ÃÊ°úÇÕ´Ï´Ù.`)
         return false
       }
 
-      // ê° í•­ëª© íš¨ê³¼ ì ìš©
+      // °¢ Ç×¸ñ È¿°ú Àû¿ë
       Object.entries(allocations).forEach(([key, amount]) => {
         if (amount <= 0) return
         switch(key) {
           case 'MILITARY':
-            // í•¨ëŒ€ ì „ë ¥ ì†Œí­ íšŒë³µ
+            // ÇÔ´ë Àü·Â ¼ÒÆø È¸º¹
             this.pFleets.forEach(f => { f.ships = Math.min(f.ships * 1.05, f.ships + Math.floor(amount / 100)) })
             break
           case 'WELFARE':
-            // ì „ ì„±ê³„ ë¯¼ì‹¬ ìƒìŠ¹
+            // Àü ¼º°è ¹Î½É »ó½Â
             Object.values(this.systems).forEach(s => {
               if (s.faction === this.playerFaction)
                 s.morale = Math.min(100, s.morale + Math.floor(amount / 500))
@@ -408,28 +408,28 @@ export const useGameStore = defineStore('game', {
 
       const dlg = FINANCE.DIALOGS.BUDGET
       if (this.playerFaction === 'REH') {
-        this.addLog(`[ì¬ìƒ] ${dlg.empire_prime}`)
-        this.addLog(`[í™©ì œ] ${dlg.emperor_reply}`)
+        this.addLog(`[Àç»ó] ${dlg.empire_prime}`)
+        this.addLog(`[È²Á¦] ${dlg.emperor_reply}`)
       } else {
-        this.addLog(`[ì˜ì¥] ${dlg.alliance_council}`)
+        this.addLog(`[ÀÇÀå] ${dlg.alliance_council}`)
       }
-      this.addLog(`âœ… [ì˜ˆì‚°] ${dlg.success} (ì´ ${total.toLocaleString()} ë§ˆí¬)`)
+      this.addLog(`? [¿¹»ê] ${dlg.success} (ÃÑ ${total.toLocaleString()} ¸¶Å©)`)
       return true
     },
 
 
-    // â”€â”€ í•¨ëŒ€ í¸ì„± (ì‹ ê·œ ìƒì„±) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ ÇÔ´ë Æí¼º (½Å±Ô »ı¼º) ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     formFleet(name, commanderId, sizeKey, locationId) {
       const { MILITARY } = require('@/data/masterData')
       const size = MILITARY.FLEET_SIZES[sizeKey]
       if (!size) return false
       if (this.pRes.gold < size.cost) {
-        this.addLog(`âŒ [í¸ì„±] ìê¸ˆ ë¶€ì¡± (í•„ìš”: ${size.cost.toLocaleString()})`)
+        this.addLog(`? [Æí¼º] ÀÚ±İ ºÎÁ· (ÇÊ¿ä: ${size.cost.toLocaleString()})`)
         return false
       }
       const sys = this.systems[locationId]
       if (!sys || sys.faction !== this.playerFaction) {
-        this.addLog('âŒ [í¸ì„±] ì•„êµ° ì„±ê³„ì—ì„œë§Œ í¸ì„± ê°€ëŠ¥í•©ë‹ˆë‹¤.')
+        this.addLog('? [Æí¼º] ¾Æ±º ¼º°è¿¡¼­¸¸ Æí¼º °¡´ÉÇÕ´Ï´Ù.')
         return false
       }
       this._fleetSeq++
@@ -444,23 +444,23 @@ export const useGameStore = defineStore('game', {
       this.pRes.gold -= size.cost
       const dlg = MILITARY.DIALOGS.FORMATION
       const decree = this.playerFaction === 'REH' ? dlg.empire_decree(name) : dlg.alliance_decree(name)
-      this.addLog(`[ëª…ë ¹] ${decree}`)
-      this.addLog(`âœ… ${dlg.success(name, size.ships)}`)
+      this.addLog(`[¸í·É] ${decree}`)
+      this.addLog(`? ${dlg.success(name, size.ships)}`)
       return true
     },
 
-    // â”€â”€ í•¨ëŒ€ ì¬í¸ì„± (ê·œëª¨ ë³€ê²½) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ ÇÔ´ë ÀçÆí¼º (±Ô¸ğ º¯°æ) ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     reorganizeFleet(fleetId, newShips) {
       const { MILITARY } = require('@/data/masterData')
       const fleet = this.pFleets.find(f => f.id === fleetId)
       if (!fleet || fleet.status !== 'standby') {
-        this.addLog('âŒ [ì¬í¸ì„±] ëŒ€ê¸° ì¤‘ì¸ í•¨ëŒ€ë§Œ ì¬í¸ì„± ê°€ëŠ¥í•©ë‹ˆë‹¤.')
+        this.addLog('? [ÀçÆí¼º] ´ë±â ÁßÀÎ ÇÔ´ë¸¸ ÀçÆí¼º °¡´ÉÇÕ´Ï´Ù.')
         return false
       }
       const diff = newShips - fleet.ships
       const cost = Math.abs(Math.floor(diff * 0.02))
       if (diff > 0 && this.pRes.gold < cost) {
-        this.addLog(`âŒ [ì¬í¸ì„±] ìê¸ˆ ë¶€ì¡± (í•„ìš”: ${cost.toLocaleString()})`)
+        this.addLog(`? [ÀçÆí¼º] ÀÚ±İ ºÎÁ· (ÇÊ¿ä: ${cost.toLocaleString()})`)
         return false
       }
       const before = fleet.ships
@@ -468,55 +468,55 @@ export const useGameStore = defineStore('game', {
       fleet.maxShips = fleet.ships
       fleet.upkeep = Math.floor(fleet.ships / 500)
       if (diff > 0) this.pRes.gold -= cost
-      this.addLog(`âœ… ${MILITARY.DIALOGS.REORGANIZE.success(fleet.name, before, fleet.ships)}`)
+      this.addLog(`? ${MILITARY.DIALOGS.REORGANIZE.success(fleet.name, before, fleet.ships)}`)
       return true
     },
 
-    // â”€â”€ í•¨ëŒ€ í•´ì‚° â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ ÇÔ´ë ÇØ»ê ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     disbandFleet(fleetId) {
       const { MILITARY } = require('@/data/masterData')
       const idx = this.fleets[this.playerFaction].findIndex(f => f.id === fleetId)
       if (idx === -1) return false
       const fleet = this.fleets[this.playerFaction][idx]
       if (fleet.status === 'deployed') {
-        this.addLog('âŒ [í•´ì‚°] ì¶œê²© ì¤‘ì¸ í•¨ëŒ€ëŠ” í•´ì‚°í•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.')
+        this.addLog('? [ÇØ»ê] Ãâ°İ ÁßÀÎ ÇÔ´ë´Â ÇØ»êÇÒ ¼ö ¾ø½À´Ï´Ù.')
         return false
       }
-      // í•¨ì„  ì ˆë°˜ ê°€ì¹˜ í™˜ê¸‰
+      // ÇÔ¼± Àı¹İ °¡Ä¡ È¯±Ş
       const refund = Math.floor(fleet.ships * 0.01)
       this.pRes.gold += refund
       this.fleets[this.playerFaction].splice(idx, 1)
       this.addLog(MILITARY.DIALOGS.FORMATION.disband(fleet.name))
-      this.addLog(`ğŸ’° í•¨ì„  í™˜ê¸‰: ${refund.toLocaleString()} ë§ˆí¬`)
+      this.addLog(`?? ÇÔ¼± È¯±Ş: ${refund.toLocaleString()} ¸¶Å©`)
       return true
     },
 
-    // â”€â”€ í•¨ëŒ€ ì´ë™ (ì„±ê³„ ê°„ ìˆ˜ì†¡/ì´ë™) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ ÇÔ´ë ÀÌµ¿ (¼º°è °£ ¼ö¼Û/ÀÌµ¿) ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     moveFleet(fleetId, targetSystemId) {
       const fleet = this.pFleets.find(f => f.id === fleetId)
       const target = this.systems[targetSystemId]
       if (!fleet || !target) return false
       if (fleet.status !== 'standby') {
-        this.addLog('âŒ [ì´ë™] ëŒ€ê¸° ì¤‘ì¸ í•¨ëŒ€ë§Œ ì´ë™ ê°€ëŠ¥í•©ë‹ˆë‹¤.')
+        this.addLog('? [ÀÌµ¿] ´ë±â ÁßÀÎ ÇÔ´ë¸¸ ÀÌµ¿ °¡´ÉÇÕ´Ï´Ù.')
         return false
       }
       if (target.faction !== this.playerFaction) {
-        this.addLog('âŒ [ì´ë™] ì•„êµ° ì„±ê³„ë¡œë§Œ ì´ë™ ê°€ëŠ¥í•©ë‹ˆë‹¤. (ê³µê²©ì€ ì¶œê²© ëª…ë ¹ì„ ì‚¬ìš©í•˜ì„¸ìš”)')
+        this.addLog('? [ÀÌµ¿] ¾Æ±º ¼º°è·Î¸¸ ÀÌµ¿ °¡´ÉÇÕ´Ï´Ù. (°ø°İÀº Ãâ°İ ¸í·ÉÀ» »ç¿ëÇÏ¼¼¿ä)')
         return false
       }
       const from = this.systems[fleet.location]?.name || fleet.location
       fleet.location = targetSystemId
-      this.addLog(`ğŸš€ [ì´ë™] ${fleet.name}: ${from} â†’ ${target.name}`)
+      this.addLog(`?? [ÀÌµ¿] ${fleet.name}: ${from} ¡æ ${target.name}`)
       return true
     },
 
-    // â”€â”€ í•¨ëŒ€ ì² ìˆ˜ (ì „íˆ¬ ì¤‘ â†’ ì¸ì ‘ ì•„êµ° ì„±ê³„) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ ÇÔ´ë Ã¶¼ö (ÀüÅõ Áß ¡æ ÀÎÁ¢ ¾Æ±º ¼º°è) ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     retreatFleet(fleetId) {
       const { MILITARY } = require('@/data/masterData')
       const fleet = this.pFleets.find(f => f.id === fleetId)
       if (!fleet) return false
 
-      // ê°€ì¥ ê°€ê¹Œìš´ ì•„êµ° ì„±ê³„ë¡œ ì² ìˆ˜
+      // °¡Àå °¡±î¿î ¾Æ±º ¼º°è·Î Ã¶¼ö
       const homeSystems = Object.values(this.systems)
         .filter(s => s.faction === this.playerFaction)
       if (!homeSystems.length) return false
@@ -525,23 +525,23 @@ export const useGameStore = defineStore('game', {
       fleet.status = 'standby'
       fleet.target = null
       fleet.location = dest.id
-      // ì² ìˆ˜ ì‹œ í•¨ì„  10% ì†ì‹¤
+      // Ã¶¼ö ½Ã ÇÔ¼± 10% ¼Õ½Ç
       const loss = Math.floor(fleet.ships * 0.1)
       fleet.ships = Math.max(1000, fleet.ships - loss)
 
-      this.addLog(`[ëª…ë ¹] ${MILITARY.DIALOGS.RETREAT.order(fleet.name)}`)
-      this.addLog(`âœ… ${MILITARY.DIALOGS.RETREAT.complete(fleet.name, dest.name)} (ì†ì‹¤: ${loss.toLocaleString()}ì²™)`)
+      this.addLog(`[¸í·É] ${MILITARY.DIALOGS.RETREAT.order(fleet.name)}`)
+      this.addLog(`? ${MILITARY.DIALOGS.RETREAT.complete(fleet.name, dest.name)} (¼Õ½Ç: ${loss.toLocaleString()}Ã´)`)
       return true
     },
 
-    // â”€â”€ ìì› ìˆ˜ì†¡ (ì„±ê³„ â†’ ì„±ê³„) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ ÀÚ¿ø ¼ö¼Û (¼º°è ¡æ ¼º°è) ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     transportResources(fromSystemId, toSystemId, itemType, amount) {
       const { MILITARY } = require('@/data/masterData')
       const from = this.systems[fromSystemId]
       const to   = this.systems[toSystemId]
       if (!from || !to) return false
       if (from.faction !== this.playerFaction || to.faction !== this.playerFaction) {
-        this.addLog('âŒ [ìˆ˜ì†¡] ì•„êµ° ì„±ê³„ ê°„ì—ë§Œ ìˆ˜ì†¡ ê°€ëŠ¥í•©ë‹ˆë‹¤.')
+        this.addLog('? [¼ö¼Û] ¾Æ±º ¼º°è °£¿¡¸¸ ¼ö¼Û °¡´ÉÇÕ´Ï´Ù.')
         return false
       }
 
@@ -550,46 +550,46 @@ export const useGameStore = defineStore('game', {
 
       if (itemType === 'GOLD') {
         if (this.pRes.gold < amount + cost) {
-          this.addLog(`âŒ [ìˆ˜ì†¡] ìê¸ˆ ë¶€ì¡±`)
+          this.addLog(`? [¼ö¼Û] ÀÚ±İ ºÎÁ·`)
           return false
         }
         this.pRes.gold -= (amount + cost)
-        // ëª©ì ì§€ ì„±ê³„ ê¸ˆê³ ì— ì¶”ê°€ (ì¸í”„ë¼ íˆ¬ì ê°œë…)
+        // ¸ñÀûÁö ¼º°è ±İ°í¿¡ Ãß°¡ (ÀÎÇÁ¶ó ÅõÀÚ °³³ä)
         to.industry = Math.min(100, to.industry + Math.floor(amount / 1000))
       } else if (itemType === 'WELFARE') {
-        if (this.pRes.gold < cost) { this.addLog('âŒ [ìˆ˜ì†¡] ìê¸ˆ ë¶€ì¡±'); return false }
+        if (this.pRes.gold < cost) { this.addLog('? [¼ö¼Û] ÀÚ±İ ºÎÁ·'); return false }
         this.pRes.gold -= cost
         to.morale = Math.min(100, to.morale + Math.floor(amount / 10))
       } else {
-        if (this.pRes.gold < cost) { this.addLog('âŒ [ìˆ˜ì†¡] ìê¸ˆ ë¶€ì¡±'); return false }
+        if (this.pRes.gold < cost) { this.addLog('? [¼ö¼Û] ÀÚ±İ ºÎÁ·'); return false }
         this.pRes.gold -= cost
         to.defense = Math.min(100, to.defense + Math.floor(amount / 20))
       }
 
-      // ìˆ˜ì†¡ ì„±ê³µë¥  (ì  í•¨ëŒ€ ì—†ìœ¼ë©´ 100%)
+      // ¼ö¼Û ¼º°ø·ü (Àû ÇÔ´ë ¾øÀ¸¸é 100%)
       const enemyNearby = Object.values(this.fleets)
         .flat()
         .some(f => f.faction !== this.playerFaction && f.location === toSystemId)
 
       if (enemyNearby && Math.random() < 0.3) {
-        this.addLog(`âŒ ${MILITARY.DIALOGS.TRANSPORT.fail}`)
+        this.addLog(`? ${MILITARY.DIALOGS.TRANSPORT.fail}`)
         return false
       }
 
-      this.addLog(`[ëª…ë ¹] ${MILITARY.DIALOGS.TRANSPORT.order(from.name, to.name, item.name)}`)
-      this.addLog(`âœ… ${MILITARY.DIALOGS.TRANSPORT.success(to.name, item.name)}`)
+      this.addLog(`[¸í·É] ${MILITARY.DIALOGS.TRANSPORT.order(from.name, to.name, item.name)}`)
+      this.addLog(`? ${MILITARY.DIALOGS.TRANSPORT.success(to.name, item.name)}`)
       return true
     },
 
 
-    // â”€â”€ ì²©ë³´ ì‘ì „ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ Ã¸º¸ ÀÛÀü ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     launchIntelOp(targetSystemId, opType, officerId) {
       const { INTEL } = require('@/data/masterData')
       const op  = INTEL.OPERATIONS[opType]
       const sys = this.systems[targetSystemId]
       if (!op || !sys) return false
       if (this.pRes.gold < op.cost) {
-        this.addLog(`âŒ [ì²©ë³´] ìê¸ˆ ë¶€ì¡± (í•„ìš”: ${op.cost.toLocaleString()})`)
+        this.addLog(`? [Ã¸º¸] ÀÚ±İ ºÎÁ· (ÇÊ¿ä: ${op.cost.toLocaleString()})`)
         return false
       }
       const officer = this.characters[officerId]
@@ -612,28 +612,28 @@ export const useGameStore = defineStore('game', {
         switch (opType) {
           case 'SPY':
             this.addLog(dlg.success(sys.name))
-            this.addLog(`ğŸ“Š [ê¸°ë°€] ${sys.name}: ë°©ì–´ ${sys.defense}% / ì‚°ì—… ${sys.industry}% / ë¯¼ì‹¬ ${sys.morale}%`)
+            this.addLog(`?? [±â¹Ğ] ${sys.name}: ¹æ¾î ${sys.defense}% / »ê¾÷ ${sys.industry}% / ¹Î½É ${sys.morale}%`)
             break
           case 'SABOTAGE':
             sys.defense   = Math.max(5,  sys.defense   - 20)
             sys.industry  = Math.max(5,  sys.industry  - 15)
-            this.addLog(`ğŸ’£ [íŒŒê´´] ${sys.name} ì‹œì„¤ íŒŒê´´ ì„±ê³µ! (ë°©ì–´ -20, ì‚°ì—… -15)`)
+            this.addLog(`?? [ÆÄ±«] ${sys.name} ½Ã¼³ ÆÄ±« ¼º°ø! (¹æ¾î -20, »ê¾÷ -15)`)
             break
           case 'AGITATE':
             sys.morale = Math.max(5, sys.morale - 25)
-            this.addLog(`ğŸ“£ [ì„ ë™] ${sys.name} ë¯¼ì‹¬ êµë€ ì„±ê³µ! (ë¯¼ì‹¬ -25)`)
+            this.addLog(`?? [¼±µ¿] ${sys.name} ¹Î½É ±³¶õ ¼º°ø! (¹Î½É -25)`)
             break
           case 'ASSASSIN': {
-            // í•´ë‹¹ ì„±ê³„ì˜ ì  í•¨ëŒ€ ì‚¬ë ¹ê´€ êµì²´
+            // ÇØ´ç ¼º°èÀÇ Àû ÇÔ´ë »ç·É°ü ±³Ã¼
             const enemyFleets = Object.values(this.fleets)
               .flat()
               .filter(f => f.location === targetSystemId && f.faction !== this.playerFaction)
             if (enemyFleets.length > 0) {
               const target = enemyFleets[0]
-              this.addLog(`ğŸ—¡ï¸ [ì•”ì‚´] ${sys.name}ì˜ ${CHARACTERS?.[target.commander]?.name || target.commander} ì œê±° ì„±ê³µ!`)
+              this.addLog(`??? [¾Ï»ì] ${sys.name}ÀÇ ${CHARACTERS?.[target.commander]?.name || target.commander} Á¦°Å ¼º°ø!`)
               target.commander = null
             } else {
-              this.addLog(`ğŸ—¡ï¸ [ì•”ì‚´] ${sys.name}ì—ì„œ ìš”ì¸ì„ ì œê±°í–ˆìŠµë‹ˆë‹¤.`)
+              this.addLog(`??? [¾Ï»ì] ${sys.name}¿¡¼­ ¿äÀÎÀ» Á¦°ÅÇß½À´Ï´Ù.`)
             }
             break
           }
@@ -645,18 +645,18 @@ export const useGameStore = defineStore('game', {
       }
     },
 
-    // â”€â”€ ì¹˜ì•ˆ íšŒë³µ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ Ä¡¾È È¸º¹ ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     restoreSecurity(systemId, level, officerId) {
       const { INTEL } = require('@/data/masterData')
       const lvl = INTEL.SECURITY_LEVELS[level]
       const sys = this.systems[systemId]
       if (!lvl || !sys) return false
       if (sys.faction !== this.playerFaction) {
-        this.addLog('âŒ [ì¹˜ì•ˆ] ì•„êµ° ì„±ê³„ì—ì„œë§Œ ì‹¤í–‰ ê°€ëŠ¥í•©ë‹ˆë‹¤.')
+        this.addLog('? [Ä¡¾È] ¾Æ±º ¼º°è¿¡¼­¸¸ ½ÇÇà °¡´ÉÇÕ´Ï´Ù.')
         return false
       }
       if (this.pRes.gold < lvl.cost) {
-        this.addLog(`âŒ [ì¹˜ì•ˆ] ìê¸ˆ ë¶€ì¡± (í•„ìš”: ${lvl.cost.toLocaleString()})`)
+        this.addLog(`? [Ä¡¾È] ÀÚ±İ ºÎÁ· (ÇÊ¿ä: ${lvl.cost.toLocaleString()})`)
         return false
       }
       this.pRes.gold -= lvl.cost
@@ -671,68 +671,68 @@ export const useGameStore = defineStore('game', {
         this.addLog(`[${officer.name}] ${orderFn(officer.name, sys.name)}`)
         this.addLog(`[${officer.name}] ${replyMsg}`)
       }
-      this.addLog(`âœ… ${dlg.success(sys.name)} (ë¯¼ì‹¬ ${lvl.moraleEffect >= 0 ? '+' : ''}${lvl.moraleEffect}, ë°©ì–´ +${lvl.defEffect})`)
+      this.addLog(`? ${dlg.success(sys.name)} (¹Î½É ${lvl.moraleEffect >= 0 ? '+' : ''}${lvl.moraleEffect}, ¹æ¾î +${lvl.defEffect})`)
       return true
     },
 
-    // â”€â”€ ì œì•ˆ ê³µì‘ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ Á¦¾È °øÀÛ ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     launchProposal(targetFaction, propType) {
       const { INTEL, FACTIONS } = require('@/data/masterData')
       const prop = INTEL.PROPOSALS[propType]
       if (!prop) return false
       if (this.pRes.gold < prop.cost) {
-        this.addLog(`âŒ [ê³µì‘] ìê¸ˆ ë¶€ì¡± (í•„ìš”: ${prop.cost.toLocaleString()})`)
+        this.addLog(`? [°øÀÛ] ÀÚ±İ ºÎÁ· (ÇÊ¿ä: ${prop.cost.toLocaleString()})`)
         return false
       }
       this.pRes.gold -= prop.cost
       const dlg  = INTEL.DIALOGS.PROPOSAL
       const tName = FACTIONS[targetFaction]?.name || targetFaction
 
-      this.addLog(`[ì¬ìƒ] ${dlg.prime_suggest}`)
-      this.addLog(`[ê³ ë¬¸] ${dlg.advisor_reply}`)
-      this.addLog(`[í™©ì œ/ì˜ì¥] ${dlg.emperor_ask(tName)}`)
-      this.addLog(`[í™©ì œ/ì˜ì¥] ${dlg.emperor_reply}`)
+      this.addLog(`[Àç»ó] ${dlg.prime_suggest}`)
+      this.addLog(`[°í¹®] ${dlg.advisor_reply}`)
+      this.addLog(`[È²Á¦/ÀÇÀå] ${dlg.emperor_ask(tName)}`)
+      this.addLog(`[È²Á¦/ÀÇÀå] ${dlg.emperor_reply}`)
 
-      // ì„±ê³µ íŒì • (í˜ì”ì€ ë†’ìŒ, êµì „ ì¤‘ ì„¸ë ¥ì€ ë‚®ìŒ)
+      // ¼º°ø ÆÇÁ¤ (ÆäÀÜÀº ³ôÀ½, ±³Àü Áß ¼¼·ÂÀº ³·À½)
       const baseRate = targetFaction === 'PZN' ? 0.70 : 0.45
       const success  = Math.random() < baseRate
 
       if (success) {
         switch (propType) {
           case 'FPA':
-            this.addLog(`âœ… ${dlg.success(tName)} â€” ë™ë§¹ ì²´ê²°. ${tName}ì€ ë‹¹ë¶„ê°„ ê³µê²©ì„ ìì œí•©ë‹ˆë‹¤.`)
-            // ì¼ì‹œì  ë¶ˆê°€ì¹¨ í”Œë˜ê·¸ (3í„´)
+            this.addLog(`? ${dlg.success(tName)} ? µ¿¸Í Ã¼°á. ${tName}Àº ´çºĞ°£ °ø°İÀ» ÀÚÁ¦ÇÕ´Ï´Ù.`)
+            // ÀÏ½ÃÀû ºÒ°¡Ä§ ÇÃ·¡±× (3ÅÏ)
             this._truce = this._truce || {}
             this._truce[targetFaction] = this.turn + 3
             break
           case 'TRADE':
-            this.addLog(`âœ… ${dlg.success(tName)} â€” í†µìƒ ì¡°ì•½ ì²´ê²°. ìˆ˜ì… 10% ì¦ê°€.`)
+            this.addLog(`? ${dlg.success(tName)} ? Åë»ó Á¶¾à Ã¼°á. ¼öÀÔ 10% Áõ°¡.`)
             this._tradeBonus = (this._tradeBonus || 0) + 0.10
             break
           case 'SURRENDER':
-            // ìƒëŒ€ ì„±ê³„ ë¯¼ì‹¬ ëŒ€í­ í•˜ë½
+            // »ó´ë ¼º°è ¹Î½É ´ëÆø ÇÏ¶ô
             Object.values(this.systems).forEach(s => {
               if (s.faction === targetFaction) s.morale = Math.max(5, s.morale - 20)
             })
-            this.addLog(`âœ… ${dlg.success(tName)} â€” í•­ë³µ ê¶Œê³  ìˆ˜ë½. ${tName} ë¯¼ì‹¬ ëŒ€í­ í•˜ë½.`)
+            this.addLog(`? ${dlg.success(tName)} ? Ç×º¹ ±Ç°í ¼ö¶ô. ${tName} ¹Î½É ´ëÆø ÇÏ¶ô.`)
             break
           case 'DEFECTION': {
-            // ì  ë¯¸ë°°ì† ì¸ë¬¼ ê·€ìˆœ
+            // Àû ¹Ì¹è¼Ó ÀÎ¹° ±Í¼ø
             const defector = Object.values(this.characters).find(
               c => c.faction === targetFaction && !c.currentPost
             )
             if (defector) {
               defector.faction = this.playerFaction
-              this.addLog(`âœ… ${dlg.success(tName)} â€” ${defector.name}ì´ ê·€ìˆœí–ˆìŠµë‹ˆë‹¤!`)
+              this.addLog(`? ${dlg.success(tName)} ? ${defector.name}ÀÌ ±Í¼øÇß½À´Ï´Ù!`)
             } else {
-              this.addLog(`âœ… ${dlg.success(tName)} â€” ê·€ìˆœ ê³µì‘ ì„±ê³µ. (ê·€ìˆœ ê°€ëŠ¥ ì¸ë¬¼ ì—†ìŒ)`)
+              this.addLog(`? ${dlg.success(tName)} ? ±Í¼ø °øÀÛ ¼º°ø. (±Í¼ø °¡´É ÀÎ¹° ¾øÀ½)`)
             }
             break
           }
         }
         return true
       } else {
-        this.addLog(`âŒ ${dlg.fail(tName)}`)
+        this.addLog(`? ${dlg.fail(tName)}`)
         return false
       }
     },
@@ -765,7 +765,7 @@ export const useGameStore = defineStore('game', {
         let upkeepTotal = 0
         ;(this.fleets[f] || []).forEach(fl => { upkeepTotal += (fl.upkeep || 0) })
         this.resources[f].gold = Math.max(0, this.resources[f].gold + inc - upkeepTotal)
-        if (f === this.playerFaction) this.addLog(`[ìˆ˜ì…] +${inc} / ìœ ì§€ë¹„ -${upkeepTotal} (ì”ê³  ${this.resources[f].gold})`)
+        if (f === this.playerFaction) this.addLog(`[¼öÀÔ] +${inc} / À¯Áöºñ -${upkeepTotal} (ÀÜ°í ${this.resources[f].gold})`)
       })
     },
 
@@ -776,7 +776,7 @@ export const useGameStore = defineStore('game', {
         if (s.underConstruction.turnsLeft <= 0) {
           const ct = CONSTRUCTION_TYPES[s.underConstruction.type]
           if (ct?.effect) Object.entries(ct.effect).forEach(([k, v]) => { s[k] = Math.min(100, (s[k] || 0) + v) })
-          this.addLog(`[ì™„ê³µ] ${s.name} ${ct.name}`)
+          this.addLog(`[¿Ï°ø] ${s.name} ${ct.name}`)
           s.underConstruction = null
         }
       })
@@ -790,7 +790,7 @@ export const useGameStore = defineStore('game', {
       const defMod = (target.defense / 100) * 0.4
       const success = Math.random() < Math.min(0.95, op.successRate + bonus - defMod)
 
-      // ì›ë³¸ ëŒ€ì‚¬ ì¶œë ¥
+      // ¿øº» ´ë»ç Ãâ·Â
       const opDialogs = {
         SURRENDER_DEMAND: DIALOGS.BATTLE.surrender_cmd,
         PRECISION_BOMB:   DIALOGS.BATTLE.precision_cmd,
@@ -802,7 +802,7 @@ export const useGameStore = defineStore('game', {
       const cmdFn = opDialogs[opType]
       if (cmdFn) this.addLog(`[${char?.name || fleet.name}] ${cmdFn(target.name)}`)
 
-      // ìš”ìƒˆ ë¬´ê¸° ë°˜ê²©
+      // ¿ä»õ ¹«±â ¹İ°İ
       if (target.fortress && FORTRESS_WEAPONS[target.fortress]) {
         const fw = FORTRESS_WEAPONS[target.fortress]
         const fortDmg = Math.floor(fleet.ships * fw.dmgRatio)
@@ -828,21 +828,21 @@ export const useGameStore = defineStore('game', {
         }
         const okFn = okFns[opType]
         if (okFn) this.addLog(okFn(target.name))
-        this.addLog(`âœ… [ì ë ¹] ${target.name} (${prev || 'ì¤‘ë¦½'} â†’ ${this.playerFaction})`)
+        this.addLog(`? [Á¡·É] ${target.name} (${prev || 'Áß¸³'} ¡æ ${this.playerFaction})`)
       } else {
         const loss = Math.floor(fleet.ships * 0.15)
         fleet.ships = Math.max(1000, fleet.ships - loss)
         fleet.status = 'standby'
         fleet.target = null
         this.addLog(DIALOGS.BATTLE.fail_generic(fleet.name, target.name))
-        this.addLog(`âŒ [ì‹¤íŒ¨] ì†ì‹¤: ${loss.toLocaleString()}ì²™`)
+        this.addLog(`? [½ÇÆĞ] ¼Õ½Ç: ${loss.toLocaleString()}Ã´`)
       }
     },
 
     _events() {
       if (Math.random() < 0.1) {
-        const evs = ['ë°˜ë€êµ° ì§„ì•• ì™„ë£Œ.','ë°€ì•½ í˜‘ìƒ ì²©ë³´ ì…ìˆ˜.','ì‹ ì§„ ì¥êµ ë°œê²¬.','ë³´ê¸‰ ì°¨ì§ˆ ë°œìƒ.','í˜ì” ìƒì¸ì˜ ì œì•ˆ ë„ì°©.']
-        this.addLog(`ğŸ“° [ì´ë²¤íŠ¸] ${evs[Math.floor(Math.random() * evs.length)]}`)
+        const evs = ['¹İ¶õ±º Áø¾Ğ ¿Ï·á.','¹Ğ¾à Çù»ó Ã¸º¸ ÀÔ¼ö.','½ÅÁø Àå±³ ¹ß°ß.','º¸±Ş Â÷Áú ¹ß»ı.','ÆäÀÜ »óÀÎÀÇ Á¦¾È µµÂø.']
+        this.addLog(`?? [ÀÌº¥Æ®] ${evs[Math.floor(Math.random() * evs.length)]}`)
       }
     },
 
@@ -861,7 +861,7 @@ export const useGameStore = defineStore('game', {
           if (Math.random() < 0.5) {
             const prev = t.faction
             t.faction = f
-            this.addLog(`âš ï¸ [AI] ${FACTIONS[f].name} ${fleet.name}ì´ ${t.name} ì ë ¹! (${prev || 'ì¤‘ë¦½'} â†’ ${f})`)
+            this.addLog(`?? [AI] ${FACTIONS[f].name} ${fleet.name}ÀÌ ${t.name} Á¡·É! (${prev || 'Áß¸³'} ¡æ ${f})`)
           }
         })
       })
@@ -874,24 +874,24 @@ export const useGameStore = defineStore('game', {
         if ((counts[f] || 0) >= Math.ceil(total * 0.7)) {
           this.gameOver = true
           this.winner = f
-          this.addLog(`ğŸ† [ìŠ¹ë¦¬] ${FACTIONS[f].name} ìš°ì£¼ í†µì¼!`)
+          this.addLog(`?? [½Â¸®] ${FACTIONS[f].name} ¿ìÁÖ ÅëÀÏ!`)
         }
       })
     },
 
-    // â”€â”€ ìŠ¤í† ë¦¬ ì´ë²¤íŠ¸ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+    // ¦¡¦¡ ½ºÅä¸® ÀÌº¥Æ® ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
     triggerCoup(charId, targetFaction) {
       const c = this.characters[charId]
       if (!c) return
       const from = c.faction
       c.faction = targetFaction
       c.currentPost = null
-      this.addLog(`âš¡ [ì¿ ë°íƒ€] ${c.name}ì´(ê°€) ${FACTIONS[from]?.name || from}ì—ì„œ ${FACTIONS[targetFaction]?.name || targetFaction}ìœ¼ë¡œ ê·€ìˆœ.`)
+      this.addLog(`? [Äíµ¥Å¸] ${c.name}ÀÌ(°¡) ${FACTIONS[from]?.name || from}¿¡¼­ ${FACTIONS[targetFaction]?.name || targetFaction}À¸·Î ±Í¼ø.`)
       this.openModal('event', {
-        title: 'ì¿ ë°íƒ€',
-        portrait: c.portrait || 'âš¡',
+        title: 'Äíµ¥Å¸',
+        portrait: c.portrait || '?',
         speaker: c.name,
-        desc: `${c.name}ì´(ê°€) ì •ë³€ì„ ì¼ìœ¼ì¼œ ${FACTIONS[targetFaction]?.name || targetFaction} ì§„ì˜ì— í•©ë¥˜í–ˆìŠµë‹ˆë‹¤.`,
+        desc: `${c.name}ÀÌ(°¡) Á¤º¯À» ÀÏÀ¸ÄÑ ${FACTIONS[targetFaction]?.name || targetFaction} Áø¿µ¿¡ ÇÕ·ùÇß½À´Ï´Ù.`,
         effect: { morale: -10 },
       })
     },
@@ -902,12 +902,12 @@ export const useGameStore = defineStore('game', {
       const from = c.faction
       c.faction = targetFaction
       c.currentPost = null
-      this.addLog(`ğŸš¶ [ë§ëª…] ${c.name}ì´(ê°€) ${FACTIONS[targetFaction]?.name || targetFaction}ìœ¼ë¡œ ë§ëª….`)
+      this.addLog(`?? [¸Á¸í] ${c.name}ÀÌ(°¡) ${FACTIONS[targetFaction]?.name || targetFaction}À¸·Î ¸Á¸í.`)
       this.openModal('event', {
-        title: 'ë§ëª…',
-        portrait: c.portrait || 'ğŸš¶',
+        title: '¸Á¸í',
+        portrait: c.portrait || '??',
         speaker: c.name,
-        desc: `${c.name}ì´(ê°€) ${FACTIONS[from]?.name || from}ì„ ë– ë‚˜ ${FACTIONS[targetFaction]?.name || targetFaction}ìœ¼ë¡œ ë§ëª…í–ˆìŠµë‹ˆë‹¤.`,
+        desc: `${c.name}ÀÌ(°¡) ${FACTIONS[from]?.name || from}À» ¶°³ª ${FACTIONS[targetFaction]?.name || targetFaction}À¸·Î ¸Á¸íÇß½À´Ï´Ù.`,
       })
     },
 
@@ -916,12 +916,12 @@ export const useGameStore = defineStore('game', {
       if (!c) return
       const post = c.currentPost
       c.currentPost = null
-      this.addLog(`ğŸ“œ [ì‚¬ì„] ${c.name}ì´(ê°€) ${post || 'í˜„ì§'}ì—ì„œ ì‚¬ì„.`)
+      this.addLog(`?? [»çÀÓ] ${c.name}ÀÌ(°¡) ${post || 'ÇöÁ÷'}¿¡¼­ »çÀÓ.`)
       this.openModal('event', {
-        title: 'ì‚¬ì„',
-        portrait: c.portrait || 'ğŸ“œ',
+        title: '»çÀÓ',
+        portrait: c.portrait || '??',
         speaker: c.name,
-        desc: `${c.name}ì´(ê°€) ì§ì±…ì„ ì‚¬ì„í–ˆìŠµë‹ˆë‹¤.`,
+        desc: `${c.name}ÀÌ(°¡) Á÷Ã¥À» »çÀÓÇß½À´Ï´Ù.`,
       })
     },
 
@@ -930,12 +930,12 @@ export const useGameStore = defineStore('game', {
       if (!c) return
       c.isDead = true
       c.currentPost = null
-      this.addLog(`ğŸ’€ [ì‚¬ë§] ${c.name} ì‚¬ë§.`)
+      this.addLog(`?? [»ç¸Á] ${c.name} »ç¸Á.`)
       this.openModal('event', {
-        title: 'ì‚¬ë§',
-        portrait: c.portrait || 'ğŸ’€',
-        speaker: 'ì „ë ¹',
-        desc: `${c.name}ì´(ê°€) ì‚¬ë§í–ˆìŠµë‹ˆë‹¤.`,
+        title: '»ç¸Á',
+        portrait: c.portrait || '??',
+        speaker: 'Àü·É',
+        desc: `${c.name}ÀÌ(°¡) »ç¸ÁÇß½À´Ï´Ù.`,
       })
     },
   },
