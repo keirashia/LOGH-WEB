@@ -8,22 +8,50 @@
     </div>
     <div class="hint dim">인물 선택 시 소속 세력이 자동 결정됩니다</div>
 
+    <!-- 세력 필터 -->
+    <div class="faction-filter" role="radiogroup">
+      <div class="ff-wrap">
+        <button class="ff-btn ff-btn--all mono"
+                :class="{ active: factionFilter === null }"
+                @click="factionFilter = null">
+          <div v-for="fid in factionList" :key="fid"
+               class="ff-slice"
+               :style="{ backgroundImage: `url(/img/factions/${fid}.png)` }" />
+        </button>
+        <span class="ff-label mono" :class="{ active: factionFilter === null }">전체</span>
+      </div>
+      <div v-for="fid in factionList" :key="fid" class="ff-wrap">
+        <button class="ff-btn mono"
+                :class="{ active: factionFilter === fid }"
+                :style="{
+                  backgroundImage: `url(/img/factions/${fid}.png)`,
+                  ...(factionFilter === fid ? { borderColor: fcolor(fid) } : {})
+                }"
+                @click="factionFilter = fid" />
+        <span class="ff-label mono"
+              :class="{ active: factionFilter === fid }"
+              :style="{ color: fcolor(fid) }">
+          {{ FACTION_NAMES_MAP[fid]?.name ?? fid }}
+        </span>
+      </div>
+    </div>
+
     <div class="char-body">
 
       <!-- 추천 인물 (세력별 첫 번째 Y 인물) -->
       <div v-if="leadChars.length" class="section-block">
         <div class="section-label dim">추천 인물</div>
         <div class="recommend-row">
-          <button v-for="ch in leadChars" :key="ch.CHA_CODE"
+          <button v-for="ch in leadChars" :key="ch.code"
                   class="char-card"
-                  :class="{ selected: selChar?.CHA_CODE === ch.CHA_CODE }"
+                  :class="{ selected: selChar?.code === ch.code }"
                   @click="selChar = ch">
             <div class="card-star mono" :style="{ color: fcolor(ch.faction) }">★</div>
             <div class="card-avatar serif"
-                 :style="{ borderColor: selChar?.CHA_CODE === ch.CHA_CODE ? fcolor(ch.faction) : 'var(--bd)' }">
-              {{ ch.CHA_STD_NAME?.[0] ?? '?' }}
+                 :style="{ borderColor: selChar?.code === ch.code ? fcolor(ch.faction) : 'var(--bd)' }">
+              {{ NAMES_MAP[ch.code]?.name?.[0] ?? '?' }}
             </div>
-            <div class="card-name serif">{{ ch.CHA_STD_NAME }}</div>
+            <div class="card-name serif">{{ NAMES_MAP[ch.code]?.name ?? ch.code }}</div>
             <div class="card-faction mono" :style="{ color: fcolor(ch.faction) }">
               {{ FACTIONS[ch.faction]?.name ?? ch.faction }}
             </div>
@@ -36,14 +64,14 @@
         <div class="section-label dim">전체 인물</div>
         <input class="search-input mono" v-model="q" placeholder="🔍 이름으로 검색...">
         <div class="char-chip-grid">
-          <button v-for="ch in filteredChars" :key="ch.CHA_CODE"
+          <button v-for="ch in filteredChars" :key="ch.code"
                   class="char-chip"
-                  :class="{ selected: selChar?.CHA_CODE === ch.CHA_CODE }"
-                  :style="selChar?.CHA_CODE === ch.CHA_CODE
+                  :class="{ selected: selChar?.code === ch.code }"
+                  :style="selChar?.code === ch.code
                     ? { borderColor: fcolor(ch.faction), color: fcolor(ch.faction) }
                     : {}"
                   @click="selChar = ch">
-            {{ ch.CHA_STD_NAME }}
+            {{ NAMES_MAP[ch.code]?.name ?? ch.code }}
           </button>
         </div>
       </div>
@@ -54,16 +82,13 @@
     <div class="selected-bar" v-if="selChar">
       <div class="sel-avatar serif"
            :style="{ borderColor: fcolor(selChar.faction) }">
-        {{ selChar.CHA_STD_NAME?.[0] ?? '?' }}
+        {{ NAMES_MAP[selChar.code]?.name?.[0] ?? '?' }}
       </div>
       <div>
-        <span class="serif" style="font-size:13px">{{ selChar.CHA_STD_NAME }}</span>
+        <span class="serif" style="font-size:13px">{{ NAMES_MAP[selChar.code]?.name ?? selChar.code }}</span>
         <span class="mono" style="font-size:11px;margin-left:10px"
               :style="{ color: fcolor(selChar.faction) }">
           {{ FACTIONS[selChar.faction]?.name ?? selChar.faction }}
-        </span>
-        <span class="mono dim" style="font-size:10px;margin-left:8px" v-if="selChar.CHA_JOB">
-          {{ selChar.CHA_JOB }}
         </span>
       </div>
     </div>
@@ -83,21 +108,37 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { FACTIONS, CHARACTERS } from '@/data/masterData'
+import { FACTIONS } from '@/data/masterData'
+import { CHAR_BASE } from '@/data/characters/charactersData.js'
+import { CHAR_NAMES } from '@/data/characters/charactersName.js'
+import { FACTION_NAMES } from '@/data/factions/factionName.js'
 
 const props = defineProps({ event: Object, options: Object })
 defineEmits(['back', 'start'])
 
-const q       = ref('')
-const selChar = ref(null)
-
-const factionSet = computed(() => new Set(props.event?.factions ?? []))
-
-const scenarioChars = computed(() =>
-  CHARACTERS.filter(c => factionSet.value.has(c.faction) && c.CHA_USEYN === 'Y')
+const NAMES_MAP = Object.fromEntries(
+  CHAR_NAMES.filter(n => n.lang === 'Kr').map(n => [n.charCode, n])
+)
+const FACTION_NAMES_MAP = Object.fromEntries(
+  FACTION_NAMES.filter(n => n.lang === 'Kr').map(n => [n.factionId, n])
 )
 
-// 세력별 첫 번째 Y 인물 → 추천
+const q             = ref('')
+const selChar       = ref(null)
+const factionFilter = ref(null)
+
+const factionSet  = computed(() => new Set(props.event?.factions ?? []))
+const factionList = computed(() => props.event?.factions ?? [])
+
+const scenarioChars = computed(() =>
+  CHAR_BASE.filter(c => {
+    if (!factionSet.value.has(c.faction)) return false
+    if (factionFilter.value && c.faction !== factionFilter.value) return false
+    return true
+  })
+)
+
+// 세력별 첫 번째 인물 → 추천
 const leadChars = computed(() => {
   const seen = new Set()
   return scenarioChars.value.filter(c => {
@@ -110,9 +151,10 @@ const leadChars = computed(() => {
 const filteredChars = computed(() => {
   const kw = q.value.trim().toLowerCase()
   if (!kw) return scenarioChars.value
+  const entry = (c) => NAMES_MAP[c.code]
   return scenarioChars.value.filter(c =>
-    c.CHA_STD_NAME?.toLowerCase().includes(kw) ||
-    c.CHA_STD_NICK?.toLowerCase().includes(kw)
+    entry(c)?.name?.toLowerCase().includes(kw) ||
+    entry(c)?.nick?.toLowerCase().includes(kw)
   )
 })
 
@@ -134,6 +176,38 @@ function fcolor(faction) {
 }
 .step-header { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
 .hint        { font-size: 11px; flex-shrink: 0; }
+
+/* 세력 필터 */
+.faction-filter {
+  display: flex; gap: 6px; flex-shrink: 0; width: 100%;
+}
+.ff-wrap {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+}
+.ff-btn {
+  width: 100%;
+  aspect-ratio: 280 / 175;
+  background: var(--bg3) center / cover no-repeat;
+  border: 1px solid var(--bd); border-radius: var(--r);
+  cursor: pointer; transition: border-color .13s;
+}
+.ff-btn:hover { border-color: var(--tg); }
+.ff-btn.active { border-color: var(--tg); }
+
+.ff-btn--all { display: flex; padding: 0; overflow: hidden; }
+.ff-slice {
+  flex: 1; height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.ff-label {
+  font-size: 2.8vh;
+  font-weight: bold;
+  color: var(--t2);
+  text-align: center;
+}
 
 /* 바디 */
 .char-body {
