@@ -345,6 +345,7 @@ const selEvents = computed(() =>
   flex: 1;
   display: flex;
   overflow: hidden;
+  gap: 12px;
 }
 
 /* ── 왼쪽: 그래프 패널 ────────────────────────────────────── */
@@ -352,8 +353,10 @@ const selEvents = computed(() =>
   width: 25vw;
   min-width: 140px;
   max-width: 220px;
-  background: var(--bg2);
-  border-right: 1px solid var(--bd);
+  background: linear-gradient(165deg, #0d1b2a 0%, #0d1520 100%);
+  border: 1px solid rgba(212,170,96,.45);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 3px #0d1520, inset 0 0 0 5px rgba(212,170,96,.12);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -362,7 +365,7 @@ const selEvents = computed(() =>
 
 .graph-panel-header {
   padding: 12px 14px 8px;
-  border-bottom: 1px solid var(--bd);
+  border-bottom: 1px solid rgba(212,170,96,.2);
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -467,11 +470,15 @@ const selEvents = computed(() =>
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  background: linear-gradient(165deg, #0d1b2a 0%, #0d1520 100%);
+  border: 1px solid rgba(212,170,96,.45);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 3px #0d1520, inset 0 0 0 5px rgba(212,170,96,.12);
 }
 
 .info-header {
   padding: 8px 14px;
-  border-bottom: 1px solid var(--bd);
+  border-bottom: 1px solid rgba(212,170,96,.2);
   flex-shrink: 0;
   display: flex;
   align-items: center;

@@ -69,9 +69,11 @@ function onStart(char) {
 .sc-wrap {
   position: relative;
   width: 100%; height: 100%;
-  background: var(--bg);
+  background: #020508;
   display: flex;
   overflow: hidden;
+  padding: 16px;
+  gap: 12px;
 }
 .detail-layer {
   position: absolute;
