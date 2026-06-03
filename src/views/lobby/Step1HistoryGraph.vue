@@ -9,11 +9,10 @@
     <ScEventListPanel
       :sel-year="selYear"
       :sel-year-type="selYearType"
-      :prev-group="prevGroup"
-      :next-group="nextGroup"
       :events="selEvents"
-      @navigate="selectYear"
+      :target-sc-id="targetScId"
       @select="$emit('select', $event)"
+      @navigate="handleNavigate"
       @back="$router.push('/lobby/single')"
     />
   </div>
@@ -54,21 +53,18 @@ const yearGroups = computed(() => {
 
 const selYear     = ref(null)
 const selYearType = ref(null)
+const targetScId  = ref(null)
 
 function selectYear(year, yearType) {
   selYear.value     = year
   selYearType.value = yearType
+  targetScId.value  = null
 }
 
-const prevGroup = computed(() => {
-  const idx = yearGroups.value.findIndex(y => y.year === selYear.value && y.yearType === selYearType.value)
-  return idx > 0 ? yearGroups.value[idx - 1] : null
-})
-
-const nextGroup = computed(() => {
-  const idx = yearGroups.value.findIndex(y => y.year === selYear.value && y.yearType === selYearType.value)
-  return idx >= 0 && idx < yearGroups.value.length - 1 ? yearGroups.value[idx + 1] : null
-})
+function handleNavigate(sc) {
+  selectYear(sc.year, sc.yearType)
+  targetScId.value = sc.id
+}
 
 const selEvents = computed(() =>
   selYear.value !== null
