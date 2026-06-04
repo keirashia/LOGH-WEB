@@ -1,15 +1,8 @@
 <template>
   <div class="sc-wrap">
     <Step1HistoryGraph
-      v-show="step === 1 || step === '1-1'"
+      v-show="step === 1"
       @select="onDetailOpen"
-    />
-    <ScenarioDetail
-      v-if="step === '1-1'"
-      :scenario="selScenario"
-      class="detail-layer"
-      @close="step = 1"
-      @start="onDetailStart"
     />
     <Step2GameOptions
       v-else-if="step === 2"
@@ -32,7 +25,6 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/gameStore'
 import Step1HistoryGraph from './Step1HistoryGraph.vue'
-import ScenarioDetail    from './ScenarioDetail.vue'
 import Step2GameOptions  from './Step2GameOptions.vue'
 import Step3CharSelect   from './Step3CharSelect.vue'
 
@@ -44,14 +36,9 @@ const selScenario = ref(null)
 const options     = ref({ npcAppearance: 'fact', npcBehavior: 'fact' })
 
 function onDetailOpen(sc) {
-  selScenario.value = sc
-  step.value = '1-1'
+  router.push(`/lobby/single/new/${sc.id}`)
 }
 
-function onDetailStart(sc) {
-  if (sc) selScenario.value = sc
-  step.value = 2
-}
 
 function onOptionsNext(opts) {
   options.value = opts
@@ -74,9 +61,5 @@ function onStart(char) {
   overflow: hidden;
   padding: 16px;
   gap: 12px;
-}
-.detail-layer {
-  position: absolute;
-  inset: 0;
 }
 </style>

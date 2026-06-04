@@ -1,28 +1,68 @@
-# src/views/lobby — 시나리오 선택 화면 설계
-> 작성: 2026-05-29 / 최종 수정: 2026-05-30
+# src/views/lobby/scenario — 시나리오 선택 화면 설계
+> 작성: 2026-05-29 / 최종 수정: 2026-06-04
 > 데이터 설계: src/data/scenarios/scenarioData.md 참조
 
 ---
 
-## 화면 Flow
+## 화면 Flow (신규 라우팅 구조)
 
 ```
 LobbyView
   ↓ 싱글플레이
 SingleView
   ↓ 새 게임
-ScenarioSelectView
-  Step 1.   역사 그래프 + 사건 목록
-  Step 1-1. 시나리오 상세 레이어 (바텀시트)
-  Step 2.   게임 옵션
-  Step 3.   인물 선택
+/lobby/single/new          Step 1.   역사 그래프 + 사건 목록
+/lobby/single/new/:scId    Step 1-1. 시나리오 상세 (전체 화면)
+/lobby/single/new/:scId/options    Step 2.   게임 옵션
+/lobby/single/new/:scId/char       Step 3.   인물 선택
   ↓
 GameView
 ```
 
+### 라우팅 전환 규칙
+```
+Step1  사건 카드 클릭  → router.push(`/lobby/single/new/${scId}`)
+Step1-1 [▶ 시작]      → router.push(`/lobby/single/new/${scId}/options`)
+Step1-1 [← 뒤로]      → router.back()  (플랫폼 내장 히스토리)
+Step2  [다음]          → router.push(`/lobby/single/new/${scId}/char`)
+Step2  [← 뒤로]       → router.back()
+Step3  [게임 시작]     → game.startGame() + router.push('/game')
+Step3  [← 뒤로]       → router.back()
+```
+
+### 상태 공유
+```
+scId    : URL 파람으로 전달 (새로고침 복원 가능)
+options : lobbyStore (Pinia) — npcAppearance, npcBehavior
+```
+
+> **히스토리 관리**: router.push/back 위임으로 AOS/iOS/Web 플랫폼 내장 히스토리가
+> 자연스럽게 처리됨. ScenarioDetail의 history.pushState 수동 핵 제거.
+
 ---
 
-## Step 1 — 역사 그래프 ✅ 구현됨
+## 폴더 구조
+
+```
+src/views/lobby/scenario/
+├── scenarioScreen.md          ← 이 파일 (설계 문서)
+├── ScenarioSelectView.vue     ← Step1 (신규, 예정)
+├── ScenarioDetailView.vue     ← Step1-1 전체 화면 (신규, 예정)
+├── Step2GameOptions.vue       ← Step2 (legacy → 이동 예정)
+├── Step3CharSelect.vue        ← Step3 (legacy → 이동 예정)
+└── legacy/                    ← 기존 파일 보관 (마이그레이션 완료 후 삭제)
+    ├── ScenarioSelectView.vue
+    ├── ScenarioDetail.vue
+    ├── Step1HistoryGraph.vue
+    ├── Step2GameOptions.vue
+    ├── Step3CharSelect.vue
+    ├── CharSelectGrid.vue
+    └── FactionFilter.vue
+```
+
+---
+
+## Step 1 — 역사 그래프 ✅ 구현됨 (legacy)
 
 ```
 좌: 수직 타임라인 (밀도 기반, 줌/드래그)
@@ -43,24 +83,32 @@ ERA_ORDER = { AD: 0, SE: 1, RC: 2 }
 // 복합키: `${yearType}_${year}` 로 연도 구분 (AD2039 ≠ SE2039)
 ```
 
-### 사건 카드 클릭 → Step 1-1 진입
+### 사건 카드 클릭 → router.push(`/lobby/single/new/${scId}`)
 
 ---
 
-## Step 1-1 — 시나리오 상세 레이어 ✅ 구현됨
+## Step 1-1 — 시나리오 상세 🔄 전체 화면으로 재설계 예정
 
-### 구조 (바텀시트, 80vh)
+### 변경 사항
 ```
-┌──────────────────────────────────┐  ← 오버레이 (배경 클릭 시 닫힘)
-│ [← 이전] 사건명  연도 [다음 →] [✕] │  ← 상단 고정 헤더
+AS-IS: ScenarioDetail.vue — 바텀시트 오버레이 (80vh)
+        history.pushState 수동 관리 (AOS/iOS/Web 동작 불일치)
+TO-BE: ScenarioDetailView.vue — 전체 화면 라우트
+        router.back() 으로 뒤로가기 위임
+```
+
+### 구조 (전체 화면)
+```
+┌──────────────────────────────────┐
+│  [← 뒤로]  사건명  연도           │  ← 상단 헤더
 ├──────────────────────────────────┤
-│  desc[currentPage].image  (flex:5)│  ← 이미지 영역 (없으면 다크 그라디언트)
+│  desc[currentPage].image         │  ← 이미지 영역 (없으면 다크 그라디언트)
 │                                  │
 ├──────────────────────────────────┤
-│  desc[currentPage].text  (flex:3) │  ← 본문 텍스트 (serif, pre-line)
+│  desc[currentPage].text          │  ← 본문 텍스트 (serif, pre-line)
 │                                  │
-│  [libs 버튼들]                    │  ← 사전 팝업 링크 (하단 고정)
-│  ● ● ● (페이지 인디케이터)        │  ← 페이지 인디케이터 (하단 고정)
+│  [libs 버튼들]                    │
+│  ● ● ● (페이지 인디케이터)        │
 ├──────────────────────────────────┤
 │  [← 이전]    [중앙 버튼]  [다음 →]│  ← 하단 버튼 (footer)
 └──────────────────────────────────┘
@@ -68,17 +116,20 @@ ERA_ORDER = { AD: 0, SE: 1, RC: 2 }
 
 ### 데이터 소스
 ```
-scenario.js  →  SCENARIOS[]  전체 타임라인 + 상세 desc[] 표시
-eventData.js →  삭제됨 (scenario.js로 통합)
+route.params.scId  →  SCENARIOS.find(s => s.id === scId)
 ```
 
-### 상단 헤더 네비게이션
+### 하단 버튼 로직
 ```
-[← 이전]  nameKr  yearType year [/제국력 N년]  [다음 →]  [✕]
+useYn: false
+  [← 이전]  [다음 시나리오 →]  (nextSc 없으면 disabled)
 
-이전/다음: SCENARIOS 전체를 ERA_ORDER+year 정렬 후 인접 항목 이동
-✕: Step1 사건 목록으로 복귀 (오버레이 배경 클릭도 동일)
-내부 cur ref 관리 (props mutation 없이 prev/next 전환)
+useYn: true + openPt: 0
+  [← 이전]  [▶ 시작]  [다음 →]
+
+useYn: true + openPt > 0 + 미구매
+  [← 이전]  [🔒 Npt로 구매]  [다음 →]
+  → 구매: 포인트 차감 + TBL_USER_ITEM 저장 (미구현)
 ```
 
 ### image 필드 — 이미지 경로 규칙
@@ -87,15 +138,9 @@ public/img/scenarios/{yearType}{year}/{seq}/{desc.image}
 예) public/img/scenarios/SE796/1/01.webp
     (id="SE796_1" → yearType="SE", year=796, seq=1)
 
-desc[].image: "01.webp"  → 파일명만 저장
+desc[].bg   : "01.webp"  → 우선 사용
+desc[].image: "01.webp"  → 하위 호환 폴백
               ""          → 이미지 없음 (다크 그라디언트 폴백)
-```
-
-```html
-<!-- ScenarioDetail.vue -->
-<img :src="desc.image
-  ? `/img/scenarios/${sc.yearType}${sc.year}/${sc.id.split('_')[1]}/${desc.image}`
-  : ''" />
 ```
 
 ### libs 필드 — 사전 팝업 연동
@@ -107,28 +152,9 @@ ST_{code}  → encyclopediaStore.open('systems');  enc.searchQuery = label
 CH_{code}  → encyclopediaStore.open('characters'); enc.searchQuery = label
 ```
 
-### 하단 버튼 로직
-```
-useYn: false
-  [← 이전]  [다음 시나리오 →]  (nextSc 없으면 disabled)
-
-useYn: true + openPt: 0
-  [← 이전]  [▶ 시작]  [다음 →]
-
-useYn: true + openPt > 0 + 구매완료  (미구현)
-  [← 이전]  [▶ 시작]  [다음 →]
-
-useYn: true + openPt > 0 + 미구매
-  [← 이전]  [🔒 Npt로 구매]  [다음 →]
-  → 구매: 포인트 차감 + TBL_USER_ITEM 저장 (미구현)
-  → 구매 완료 후: [▶ 시작] 로 변경
-```
-
-### [▶ 시작] 클릭 → emit('start', cur) → Step 2 진입
-
 ---
 
-## Step 2 — 게임 옵션 ✅ 구현됨
+## Step 2 — 게임 옵션 ✅ 구현됨 (legacy, 이동 예정)
 
 ```
 NPC 등장: 사실 / 가상
@@ -136,21 +162,21 @@ NPC 행동: 사실 / 가상
 (추가 옵션 추후 구현)
 ```
 
+### NPC 등장 옵션 동작
+```
+사실: charactersData.js birth/death 기준 시나리오 연도 생존 인물만 표시
+가상: 생몰년도 무관 전원 표시
+```
+
 ---
 
-## Step 3 — 인물 선택 ✅ 구현됨 (수정 필요)
+## Step 3 — 인물 선택 ✅ 구현됨 (legacy, 이동 예정)
 
 ```
-추천 인물 (scenario.factions 기준 세력별)
-전체 인물 검색
-인물 선택 → 세력 자동 결정
-```
-
-### ⚠️ 수정 필요
-```
-현재: CHA_USEYN = 'Y' 필터링
-변경: 시나리오 charDetail.js 기반으로 수정 예정
-     (charDetail.js 완성 후 작업)
+CHAR_BASE 전체 풀 기반
+  charList.js에 faction 있으면 → charList 값 우선
+  charList.js에 faction 없으면 → charactersData.js 폴백
+NPC 등장 옵션에 따라 생존 필터 적용
 ```
 
 ---
@@ -188,7 +214,7 @@ NPC 행동: 사실 / 가상
 | yearType | ✅ 타임라인 핀 | ✅ 헤더 | - | - | |
 | year | ✅ 타임라인/헤더 | ✅ 헤더 | ✅ 요약 | - | |
 | month | ✅ 카드 | - | ✅ 요약 | - | |
-| id | - | - | - | - | 키 전용 |
+| id | - | - | - | - | 키/URL 파람 |
 | nameKr | ✅ 카드 | ✅ 헤더 | ✅ 요약 | - | |
 | **nameEn** | ❌ | ❌ | ❌ | ❌ | **미노출** |
 | **nameJp** | ❌ | ❌ | ❌ | ❌ | **미노출** |
@@ -205,7 +231,7 @@ NPC 행동: 사실 / 가상
 
 ### 미노출 필드 활용 방안 (미확정)
 ```
-nameEn   →  Step1 카드 하단 소자 표시 (영문 부제) — 현재 sc.name 참조 버그 있음
+nameEn   →  Step1 카드 하단 소자 표시 (영문 부제)
 nameJp   →  Step1-1 상세 헤더 하단 (일문 병기) 또는 미표시
 appearances → Step1-1 상세 본문 하단 "출처: 은하영웅전설 N권 ..." 형태
 factions →  Step1-1 상세 헤더 또는 태그 영역 세력 뱃지 표시
@@ -213,16 +239,18 @@ factions →  Step1-1 상세 헤더 또는 태그 영역 세력 뱃지 표시
 
 ---
 
-## 컴포넌트 구조
+## 컴포넌트 구조 (신규 목표)
 
 ```
-ScenarioSelectView.vue     Step 라우팅 (step: 1 → '1-1' → 2 → 3)
-├── Step1HistoryGraph.vue  타임라인 + 사건 목록 ✅
-│   └── emit('select', sc) → ScenarioDetail 진입
-├── ScenarioDetail.vue     상세 바텀시트 (80vh) ✅
-│   └── emit('close') / emit('start', sc)
-├── Step2GameOptions.vue   게임 옵션 ✅
-└── Step3CharSelect.vue    인물 선택 ✅ (charDetail 수정 필요)
+router
+  /lobby/single/new              → ScenarioSelectView.vue   (Step1 타임라인)
+  /lobby/single/new/:scId        → ScenarioDetailView.vue   (Step1-1 전체 화면)
+  /lobby/single/new/:scId/options → Step2GameOptions.vue
+  /lobby/single/new/:scId/char   → Step3CharSelect.vue
+
+공유 상태
+  route.params.scId              → 시나리오 조회
+  lobbyStore (Pinia)             → options { npcAppearance, npcBehavior }
 ```
 
 ---
@@ -245,17 +273,32 @@ ScenarioSelectView.vue     Step 라우팅 (step: 1 → '1-1' → 2 → 3)
 | 2026-05-30 | 이미지 없을 시 다크 그라디언트 폴백 |
 | 2026-05-30 | det-image flex:5 / det-body flex:3 비율 고정 |
 | 2026-05-30 | det-bottom (libs+페이지인디케이터) margin-top:auto로 하단 고정 |
+| 2026-06-04 | Step 1-1 바텀시트 → 전체 화면 라우트로 변경 (AOS/iOS/Web 히스토리 통일) |
+| 2026-06-04 | step 변수 기반 오케스트레이션 → Vue Router 라우팅으로 전환 |
+| 2026-06-04 | 기존 파일 legacy/ 보관, scenario/ 하위에 신규 파일 작성 |
+| 2026-06-04 | scId URL 파람 + lobbyStore(Pinia)로 상태 공유 |
 
 ---
 
 ## TODO
 
-- [ ] `Step3CharSelect.vue` charDetail.js 기반으로 수정 (charDetail.js 완성 후)
+### 진행 중
+- [ ] `ScenarioDetailView.vue` 신규 작성 (전체 화면, route.params.scId 기반)
+- [ ] `ScenarioSelectView.vue` 신규 작성 (Step1 타임라인, legacy/Step1HistoryGraph 이식)
+- [ ] `router/index.js` 신규 라우트 4개 추가
+- [ ] `lobbyStore.js` 신규 생성 (options 공유)
+- [ ] `Step2GameOptions.vue` legacy → scenario/ 이동 + emit → router 전환
+- [ ] `Step3CharSelect.vue` legacy → scenario/ 이동 + emit → router 전환
+
+### 미결
 - [ ] `scenario.js` SE640~SE801 이벤트 항목 입력 (사용자 직접 작업)
-- [ ] `ScenarioDetail.vue` 구매 완료 상태 연동 (TBL_USER_ITEM, Phase 3)
-- [ ] nameEn 카드 노출 여부 결정 (현재 sc.name 참조 버그 수정 필요)
+- [ ] `ScenarioDetailView.vue` 구매 완료 상태 연동 (TBL_USER_ITEM, Phase 3)
+- [ ] nameEn 카드 노출 여부 결정
 - [ ] appearances 화면 노출 방안 결정
 - [ ] factions 세력 뱃지 표시 여부 결정
+- [ ] legacy/ 폴더 삭제 (마이그레이션 완료 후)
+
+### 완료
 - [x] `ScenarioDetail.vue` 신규 생성 (desc[] 페이지, libs, 버튼 분기)
 - [x] `Step1HistoryGraph.vue` 사건 카드 클릭 → ScenarioDetail 진입
 - [x] `ScenarioSelectView.vue` Step1-1 레이어 추가
@@ -266,3 +309,6 @@ ScenarioSelectView.vue     Step 라우팅 (step: 1 → '1-1' → 2 → 3)
 - [x] `Step2GameOptions.vue` event.name → event.nameKr
 - [x] `ScenarioSelectView.vue` scenarioId → id
 - [x] `Step3CharSelect.vue` SCENARIOS 조회 제거 (props.event 직접 사용)
+- [x] `Step3CharSelect.vue` charList.js faction 우선 + charactersData.js 폴백
+- [x] `Step3CharSelect.vue` NPC 등장 사실 모드 → birth/death 기준 생존 필터
+- [x] `gameStore.js` startGame FACTIONS[pf] undefined 크래시 수정

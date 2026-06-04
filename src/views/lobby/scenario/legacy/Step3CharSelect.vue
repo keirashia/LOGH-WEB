@@ -83,7 +83,6 @@ const NAMES_MAP = Object.fromEntries(
 const FACTION_NAMES_MAP = Object.fromEntries(
   FACTION_NAMES.filter(n => n.lang === 'Kr').map(n => [n.factionId, n])
 )
-const CHAR_BASE_MAP = Object.fromEntries(CHAR_BASE.map(c => [c.code, c]))
 
 const selChar       = ref(null)
 const factionFilter = ref(null)
@@ -106,24 +105,37 @@ watchEffect(async () => {
   }
 })
 
+function isAliveAt(char, yearType, year) {
+  if (char.birth) {
+    const [bType, bRest] = char.birth.split('|')
+    const bYear = parseInt(bRest)
+    if (bType === yearType && !isNaN(bYear) && bYear > year) return false
+  }
+  if (char.death) {
+    const [dType, dRest] = char.death.split('|')
+    const dYear = parseInt(dRest)
+    if (dType === yearType && !isNaN(dYear) && dYear < year) return false
+  }
+  return true
+}
+
 const scenarioChars = computed(() => {
-  const listed = new Set(charList.value.map(c => c.charCode))
+  const listedMap = Object.fromEntries(charList.value.map(c => [c.charCode, c]))
+  const isFact = props.options?.npcAppearance === 'fact'
+  const yearType = props.event?.yearType
+  const year = props.event?.year
 
-  const base = charList.value
-    .map(c => ({ ...CHAR_BASE_MAP[c.charCode], recommend: c.recommend }))
-    .filter(c => c.code && (!factionFilter.value || c.faction === factionFilter.value))
-
-  if (props.options?.npcAppearance !== 'fiction') return base
-
-  const extra = CHAR_BASE
-    .filter(c =>
-      factionSet.value.has(c.faction) &&
-      !listed.has(c.code) &&
-      (!factionFilter.value || c.faction === factionFilter.value)
-    )
-    .map(c => ({ ...c, recommend: 0 }))
-
-  return [...base, ...extra]
+  return CHAR_BASE
+    .map(c => {
+      const entry = listedMap[c.code]
+      return { ...c, faction: entry?.faction || c.faction, recommend: entry?.recommend ?? 0 }
+    })
+    .filter(c => {
+      if (!factionSet.value.has(c.faction) && !listedMap[c.code]) return false
+      if (isFact && yearType && year && !isAliveAt(c, yearType, year)) return false
+      if (factionFilter.value && c.faction !== factionFilter.value) return false
+      return true
+    })
 })
 
 

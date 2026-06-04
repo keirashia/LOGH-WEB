@@ -25,7 +25,12 @@ const routes = [
   {
     path: '/lobby/single/new',
     name: 'scenario-select',
-    component: () => import('@/views/lobby/ScenarioSelectView.vue'),
+    component: () => import('@/views/lobby/scenario/legacy/ScenarioSelectView.vue'),
+  },
+  {
+    path: '/lobby/single/new/:scId',
+    name: 'scenario-detail',
+    component: () => import('@/views/lobby/scenario/ScenarioDetailView.vue'),
   },
   {
     path: '/user/login',
