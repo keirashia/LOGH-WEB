@@ -84,7 +84,9 @@
     </div>
 
     <div class="step-nav">
-      <button class="btn" @click="emit('back')">← 뒤로</button>
+      <button class="back-btn" @click="emit('back')">
+        <span class="back-label mono">뒤로</span>
+      </button>
     </div>
 
   </div>
@@ -391,7 +393,36 @@ onUnmounted(() => removeEventListener('resize', onResize))
 
 /* ── 푸터 ────────────────────────────────────────────────── */
 .step-nav {
-  display: flex; justify-content: space-between; align-items: center;
+  display: flex; justify-content: center; align-items: center;
   flex-shrink: 0; padding: 1vh 1.4vw; border-top: 0.1vh solid rgba(212,170,96,.2);
 }
+.back-btn {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  width: calc(55vh * 5 / 7); padding: 1.8vh 0;
+  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
+  border: 0.2vh solid rgba(212,170,96,.6); border-radius: 1.2vh;
+  box-shadow:
+    inset 0 0 0 0.4vh #0d1520,
+    inset 0 0 0 0.6vh rgba(212,170,96,.18),
+    0 0.6vh 2.4vh rgba(0,0,0,.7);
+  color: rgba(212,170,96,.8);
+  cursor: pointer; transition: all .2s; overflow: hidden;
+}
+.back-btn::before {
+  content: ''; position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient( 45deg, transparent, transparent 1vw, rgba(212,170,96,.02) 1vw, rgba(212,170,96,.02) 1.1vw),
+    repeating-linear-gradient(-45deg, transparent, transparent 1vw, rgba(212,170,96,.02) 1vw, rgba(212,170,96,.02) 1.1vw);
+  pointer-events: none;
+}
+.back-btn:hover {
+  border-color: rgba(212,170,96,.9);
+  box-shadow:
+    inset 0 0 0 0.4vh #0d1520,
+    inset 0 0 0 0.6vh rgba(212,170,96,.4),
+    0 1.2vh 4vh rgba(212,170,96,.18);
+  color: var(--tg); transform: translateY(-0.3vh);
+}
+.back-label { font-size: 1.8vh; letter-spacing: 0.25vw; position: relative; z-index: 1; }
 </style>

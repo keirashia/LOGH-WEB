@@ -1,7 +1,8 @@
 <template>
   <div class="sc-wrap">
+    <StarfieldCanvas :star-count="250" :neb-colors="['rgba(41,128,185,', 'rgba(192,57,43,', 'rgba(100,50,180,']" />
     <Step1HistoryGraph
-      v-show="step === 1"
+      v-if="step === 1"
       @select="onDetailOpen"
     />
     <Step2GameOptions
@@ -24,6 +25,7 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/gameStore'
+import StarfieldCanvas from '@/components/common/StarfieldCanvas.vue'
 import Step1HistoryGraph from './Step1HistoryGraph.vue'
 import Step2GameOptions  from './Step2GameOptions.vue'
 import Step3CharSelect   from './Step3CharSelect.vue'

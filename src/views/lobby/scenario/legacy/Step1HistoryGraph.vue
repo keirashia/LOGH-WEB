@@ -74,5 +74,5 @@ const selEvents = computed(() =>
 </script>
 
 <style scoped>
-.sc-layout { flex: 1; display: flex; overflow: hidden; gap: 12px; }
+.sc-layout { flex: 1; display: flex; overflow: hidden; gap: 12px; position: relative; z-index: 1; }
 </style>

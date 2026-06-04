@@ -257,10 +257,10 @@ onUnmounted(() => removeEventListener('resize', onResize))
   border-left: 2px solid transparent;
   cursor: pointer; text-align: left; color: var(--t1);
   transition: opacity .2s, border-color .2s, background .2s;
-  opacity: 0.15;
+  opacity: 0.28;
 }
-.yr-card.is-far    { opacity: 0.38; }
-.yr-card.is-near   { opacity: 0.62; border-left-color: rgba(212,170,96,.25); }
+.yr-card.is-far    { opacity: 0.48; }
+.yr-card.is-near   { opacity: 0.72; border-left-color: rgba(212,170,96,.25); }
 .yr-card.is-center {
   opacity: 1;
   border-left-color: var(--tg);
