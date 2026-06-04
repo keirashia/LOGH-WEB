@@ -11,6 +11,7 @@
 | 파일 | 상태 | 설명 |
 |---|---|---|
 | `stars/traitData.js` | ✅ 22개 | 성계/행성 트레잇 마스터 (불변) |
+| `chars/charTraitData.js` | ✅ 1개 | 인물 트레잇 마스터 |
 
 ---
 
@@ -106,6 +107,45 @@ TRAIT_MAP            // { [id]: trait } 객체 — 단건 조회
 TRAIT_BY_CATEGORY    // { environment: [...], history: [...], ... }
 TRAIT_BY_TARGET      // { planet: [...], star: [...] }
 ```
+
+---
+
+---
+
+## 인물 트레잇 (chars/charTraitData.js)
+
+### ID 네이밍 규칙
+
+```
+TRC_{TYPE}_{CODE}
+
+TRC  = Trait Character
+TYPE = U (고유/Unique)  — 특정 인물 전용
+       G (공통/General) — 성격·행동 특성, 여러 인물 공유 가능
+       S (상태/Status)  — 부상·질병 등 신체 상태
+CODE = U 타입: 대상 캐릭터 번호 6자리 (예: TRC_U_000223)
+       G·S 타입: 순번 3자리           (예: TRC_G_001, TRC_S_001)
+```
+
+### charTraitData.js 스키마
+
+| 키 | 타입 | 설명 |
+|---|---|---|
+| `id` | string | PK (네이밍 규칙 참조) |
+| `nameKr` | string | 한국어 명칭 |
+| `nameEn` | string | 영문 명칭 |
+| `rarity` | string | `common` / `uncommon` / `rare` / `unique` |
+| `desc` | string | 설명 |
+| `permanent` | boolean | `true` = 영구, `false` = 임시 |
+| `effects` | object | 능력치 보정 (statCmd, statCsm, statAtt, statDef, statFst, statMng, statInf, statGfg, statAfg, statMmp) |
+
+### 인물 트레잇 목록
+
+| id | 명칭 | rarity | 효과 |
+|---|---|---|---|
+| `TRC_U_000223` | 이론무쌍 | unique | statMng+8, statInf+5, statFst-5 |
+| `TRC_G_001` | 현실부정 | uncommon | 없음 (이벤트 트리거) |
+| `TRC_S_001` | 위경련 | common | 없음 (이벤트 트리거) |
 
 ---
 

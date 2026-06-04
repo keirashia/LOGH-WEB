@@ -4,23 +4,22 @@
     <!-- 프로필 (고정) -->
     <div class="cdc-profile">
       <div class="cdc-img-wrap">
-        <img v-if="base" :src="charImgSrc(base.CHA_IMG)"
-             class="cdc-img" @error="onImgErr" />
-        <div v-else class="cdc-img-ph mono">?</div>
+        <img :src="charImgSrc(chaCode)"
+             class="cdc-img" @error="handleCharImgError($event, chaCode, 'H')" />
       </div>
       <div class="cdc-info">
-        <div class="serif cdc-kr-name">{{ base?.CHA_KR_NAME ?? '—' }}</div>
-        <div class="mono dim cdc-en-name">{{ base?.CHA_EN_NAME }}</div>
+        <div class="serif cdc-kr-name">{{ nameData?.name ?? chaCode }}</div>
+        <div class="mono dim cdc-en-name">{{ nameData?.nick ?? '' }}</div>
         <div class="cdc-badges">
-          <span v-if="tender?.CHA_NATION" class="nation-badge mono"
+          <span v-if="charData?.faction" class="nation-badge mono"
                 :style="{ background: nationBg, borderColor: nationBorder }">
-            {{ NATION_LABEL[tender.CHA_NATION] ?? tender.CHA_NATION }}
+            {{ NATION_LABEL[charData.faction] ?? charData.faction }}
           </span>
-          <span v-for="j in topJobs" :key="j.JOB_CODE" class="job-badge mono">
-            {{ JOB_MAP[j.JOB_CODE]?.nameKr ?? j.JOB_CODE }}
+          <span v-for="j in topJobs" :key="j.jobCode" class="job-badge mono">
+            {{ JOB_MAP[j.jobCode]?.nameKr ?? j.jobCode }}
           </span>
         </div>
-        <div v-if="desc?.descKr" class="cdc-desc dim">{{ desc.descKr }}</div>
+        <div v-if="descData?.desc" class="cdc-desc dim">{{ descData.desc }}</div>
       </div>
     </div>
 
@@ -35,12 +34,12 @@
       </button>
       <div v-if="open.job" class="acc-body">
         <div v-if="!jobList.length" class="dim" style="font-size:11px;padding:4px 0">없음</div>
-        <div v-else v-for="j in jobList" :key="j.JOB_CODE" class="job-item">
+        <div v-else v-for="j in jobList" :key="j.jobCode" class="job-item">
           <div>
-            <span class="serif" style="font-size:12px">{{ JOB_MAP[j.JOB_CODE]?.nameKr ?? j.JOB_CODE }}</span>
-            <span class="mono dim" style="font-size:10px;margin-left:6px">{{ JOB_MAP[j.JOB_CODE]?.nameEn }}</span>
+            <span class="serif" style="font-size:12px">{{ JOB_MAP[j.jobCode]?.nameKr ?? j.jobCode }}</span>
+            <span class="mono dim" style="font-size:10px;margin-left:6px">{{ JOB_MAP[j.jobCode]?.nameEn }}</span>
           </div>
-          <span class="mono dim" style="font-size:10px">exp {{ j.JOB_EXPS }}</span>
+          <span class="mono dim" style="font-size:10px">exp {{ j.jobExp }}</span>
         </div>
       </div>
     </div>
@@ -56,9 +55,12 @@
       </button>
       <div v-if="open.trait" class="acc-body">
         <div v-if="!traitList.length" class="dim" style="font-size:11px;padding:4px 0">없음</div>
-        <div v-else v-for="t in traitList" :key="t.TRAIT_CODE" class="trait-item mono">
-          {{ t.TRAIT_CODE }}
-          <span class="dim" style="font-size:10px">exp {{ t.TRAIT_EXPS }}</span>
+        <div v-else v-for="t in traitList" :key="t.traitCode" class="trait-item mono">
+          <div>
+            <span class="serif" style="font-size:12px">{{ CHAR_TRAIT_MAP[t.traitCode]?.nameKr ?? t.traitCode }}</span>
+            <span class="mono dim" style="font-size:10px;margin-left:6px">{{ CHAR_TRAIT_MAP[t.traitCode]?.nameEn }}</span>
+          </div>
+          <span class="dim" style="font-size:10px">exp {{ t.traitExp }}</span>
         </div>
       </div>
     </div>
@@ -68,16 +70,16 @@
       <button class="acc-head" @click="toggle('stat')">
         <span class="acc-label">능력치</span>
         <span class="acc-sep">|</span>
-        <span class="acc-csm mono" v-if="status">CAP {{ status.CHA_ST_CSM }}</span>
+        <span class="acc-csm mono" v-if="charData">CAP {{ charData.statCsm }}</span>
         <span class="acc-arrow">{{ open.stat ? '▲' : '▼' }}</span>
       </button>
       <div v-if="open.stat" class="acc-body stat-grid">
         <div v-for="[key, label] in STAT_KEYS" :key="key" class="stat-row">
           <span class="stat-lbl dim">{{ label }}</span>
           <div class="stat-bar">
-            <div class="stat-fill" :style="{ width: `${status?.[key] ?? 0}%`, background: statColor(status?.[key] ?? 0) }" />
+            <div class="stat-fill" :style="{ width: `${charData?.[key] ?? 0}%`, background: statColor(charData?.[key] ?? 0) }" />
           </div>
-          <span class="stat-num mono">{{ status?.[key] ?? '—' }}</span>
+          <span class="stat-num mono">{{ charData?.[key] ?? '—' }}</span>
         </div>
       </div>
     </div>
@@ -93,14 +95,14 @@
         <div class="tend-idea">
           <span class="dim" style="font-size:11px;width:36px;flex-shrink:0">이념</span>
           <span class="mono" style="font-size:11px">{{ ideaLabel }}</span>
-          <span class="dim" style="font-size:10px;margin-left:auto">{{ tender?.CHA_IDEA ?? '—' }}</span>
+          <span class="dim" style="font-size:10px;margin-left:auto">{{ charData?.idea ?? '—' }}</span>
         </div>
         <div v-for="[key, label] in TEND_KEYS" :key="key" class="stat-row">
           <span class="stat-lbl dim">{{ label }}</span>
           <div class="stat-bar">
-            <div class="stat-fill" :style="{ width: `${tender?.[key] ?? 0}%`, background: '#5bc4a0' }" />
+            <div class="stat-fill" :style="{ width: `${charData?.[key] ?? 0}%`, background: '#5bc4a0' }" />
           </div>
-          <span class="stat-num mono">{{ tender?.[key] ?? '—' }}</span>
+          <span class="stat-num mono">{{ charData?.[key] ?? '—' }}</span>
         </div>
       </div>
     </div>
@@ -110,14 +112,13 @@
 
 <script setup>
 import { reactive, computed } from 'vue'
-import { charImgSrc } from '@/utils/charImg.js'
-import { CHAR_BASE } from '@/data/characters/legacy/charBase.js'
-import { CHAR_STATUS, CHAR_STATUS_MAP } from '@/data/characters/legacy/charStatus.js'
-import { CHAR_TENDER } from '@/data/characters/legacy/charTender.js'
-import { CHAR_DETAIL } from '@/data/characters/legacy/charDetail.js'
-import { CHAR_DESC } from '@/data/characters/legacy/charDesc.js'
-import { CHAR_JOBS } from '@/data/characters/legacy/charJobs.js'
-import { CHAR_TRAITS } from '@/data/characters/legacy/charTraits.js'
+import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
+import { CHAR_BASE }  from '@/data/characters/charactersData.js'
+import { CHAR_NAMES } from '@/data/characters/charactersName.js'
+import { CHAR_DESC }  from '@/data/characters/charactersDesc.js'
+import { CHAR_JOBS }  from '@/data/characters/charactersJobs.js'
+import { CHAR_TRAITS }      from '@/data/characters/charactersTraits.js'
+import { CHAR_TRAIT_MAP }   from '@/data/trait/chars/charTraitData.js'
 import { JOBS } from '@/data/jobs/jobData.js'
 
 const props = defineProps({
@@ -126,12 +127,13 @@ const props = defineProps({
 })
 
 // ── 정적 맵 ────────────────────────────────────────────────────
-const CHAR_BASE_MAP   = Object.fromEntries(CHAR_BASE.map(c => [c.CHA_CODE, c]))
-const CHAR_TENDER_MAP = Object.fromEntries(CHAR_TENDER.map(c => [c.CHA_CODE, c]))
-const CHAR_DETAIL_MAP = Object.fromEntries(CHAR_DETAIL.map(c => [c.CHA_CODE, c]))
-const CHAR_DESC_MAP   = Object.fromEntries(CHAR_DESC.map(c => [c.CHA_CODE, c]))
-const CHAR_JOBS_MAP   = Object.fromEntries(CHAR_JOBS.map(c => [c.CHA_CODE, c]))
-const CHAR_TRAITS_MAP = Object.fromEntries(CHAR_TRAITS.map(c => [c.CHA_CODE, c]))
+const CHAR_DATA_MAP  = Object.fromEntries(CHAR_BASE.map(c => [c.code, c]))
+const CHAR_NAME_MAP  = Object.fromEntries(
+  CHAR_NAMES.filter(n => n.lang === 'Kr').map(n => [n.charCode, n])
+)
+const CHAR_DESC_MAP  = Object.fromEntries(
+  CHAR_DESC.filter(d => d.lang === 'KR').map(d => [d.charCode, d])
+)
 const JOB_MAP         = Object.fromEntries(JOBS.map(j => [j.id, j]))
 
 const NATION_LABEL = {
@@ -148,15 +150,15 @@ const NATION_COLORS = {
 }
 
 const STAT_KEYS = [
-  ['CHA_ST_CMD','통솔'], ['CHA_ST_CSM','카리스마'],
-  ['CHA_ST_ATT','공격'], ['CHA_ST_DEF','방어'],
-  ['CHA_ST_FST','기동'], ['CHA_ST_MNG','운영'],
-  ['CHA_ST_INF','정보'], ['CHA_ST_GFG','육전'],
-  ['CHA_ST_AFG','공전'], ['CHA_ST_MMP','정치'],
+  ['statCmd','통솔'], ['statCsm','카리스마'],
+  ['statAtt','공격'], ['statDef','방어'],
+  ['statFst','기동'], ['statMng','운영'],
+  ['statInf','정보'], ['statGfg','육전'],
+  ['statAfg','공전'], ['statMmp','정치'],
 ]
 const TEND_KEYS = [
-  ['CHA_BRAVE','용맹'],
-  ['CHA_MORAL','도덕'],
+  ['brave','용맹'],
+  ['moral','도덕'],
 ]
 
 const IDEA_LABELS = [
@@ -173,23 +175,25 @@ const open = reactive({ stat: false, tend: false, trait: false, job: false })
 function toggle(key) { open[key] = !open[key] }
 
 // ── 데이터 ───────────────────────────────────────────────────
-const base   = computed(() => CHAR_BASE_MAP[props.chaCode] ?? null)
-const status = computed(() => CHAR_STATUS_MAP[props.chaCode] ?? null)
-const tender = computed(() => CHAR_TENDER_MAP[props.chaCode] ?? null)
-const detail = computed(() => CHAR_DETAIL_MAP[props.chaCode] ?? null)
-const desc   = computed(() => CHAR_DESC_MAP[props.chaCode] ?? null)
-const jobs   = computed(() => CHAR_JOBS_MAP[props.chaCode] ?? null)
-const traits = computed(() => CHAR_TRAITS_MAP[props.chaCode] ?? null)
+const charData  = computed(() => CHAR_DATA_MAP[props.chaCode] ?? null)
+const nameData  = computed(() => CHAR_NAME_MAP[props.chaCode] ?? null)
+const descData  = computed(() => CHAR_DESC_MAP[props.chaCode] ?? null)
+const traitListRaw = computed(() =>
+  CHAR_TRAITS.filter(t => t.charCode === props.chaCode)
+    .sort((a, b) => a.traitStDate - b.traitStDate)
+)
 
 const jobList = computed(() =>
-  [...(jobs.value?.jobs ?? [])].sort((a, b) => a.JOB_ST_DATE - b.JOB_ST_DATE)
+  CHAR_JOBS
+    .filter(j => j.charCode === props.chaCode)
+    .sort((a, b) => a.jobStDate - b.jobStDate)
 )
-const topJobs = computed(() => jobList.value.slice(0, 3))
-const traitList = computed(() => traits.value?.traits ?? [])
+const topJobs   = computed(() => jobList.value.slice(0, 3))
+const traitList = computed(() => traitListRaw.value)
 
 // ── 이념 라벨 ────────────────────────────────────────────────
 const ideaLabel = computed(() => {
-  const v = tender.value?.CHA_IDEA ?? 0
+  const v = parseInt(charData.value?.idea) || 0
   const found = IDEA_LABELS.find(([lo, hi]) => v >= lo && v <= hi)
   return found ? found[2] : '미상'
 })
@@ -204,10 +208,8 @@ function statColor(v) {
 }
 
 // ── 국가 배지 ─────────────────────────────────────────────────
-const nationBg     = computed(() => NATION_COLORS[tender.value?.CHA_NATION]?.bg ?? 'rgba(80,80,80,.2)')
-const nationBorder = computed(() => NATION_COLORS[tender.value?.CHA_NATION]?.border ?? 'rgba(120,120,120,.4)')
-
-function onImgErr(e) { e.target.style.display = 'none' }
+const nationBg     = computed(() => NATION_COLORS[charData.value?.faction]?.bg ?? 'rgba(80,80,80,.2)')
+const nationBorder = computed(() => NATION_COLORS[charData.value?.faction]?.border ?? 'rgba(120,120,120,.4)')
 </script>
 
 <style scoped>

@@ -1,8 +1,7 @@
 // ================================================================
 //  charJobs.js — 인물 직업 기본값
 //  경로: src/data/characters/charJobs.js
-//  1인 다직업 가능 | jobData.js 참조
-//  주요 인물 796_01 기준 입력, 나머지 빈 배열
+//  1인 다직업 가능 | src/data/jobs/jobData.js 참조
 //  작성: 2026-05-29
 // ================================================================
 // charCode: "", 대상 캐릭터 키 (charactersData.js)
@@ -11,6 +10,11 @@
 // jobExp: 0, 직업의 경험치
 // jobStDate: 0, 직업의 시작턴
 // jobEdDate: 0, 직업의 종료턴
+// ================================================================
+// 직업 리스트는 제발 charCode, jobCode 순으로 정렬해주세요.
+
+
+
 export const CHAR_JOBS = [
   {
     charCode: "CH_000001",
@@ -23,6 +27,31 @@ export const CHAR_JOBS = [
   {
     charCode: "CH_000001",
     jobCode: "JB_C003",
+    jobLevel: 0,
+    jobExp: 0,
+    jobStDate: 0,
+    jobEdDate: 0,
+  },
+  // 슈타덴
+  {
+    charCode: "CH_000223",
+    jobCode: "JB_M001",
+    jobLevel: 0,
+    jobExp: 0,
+    jobStDate: 0,
+    jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000223",
+    jobCode: "JB_MR004",
+    jobLevel: 0,
+    jobExp: 0,
+    jobStDate: 0,
+    jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000223",
+    jobCode: "JB_N005",
     jobLevel: 0,
     jobExp: 0,
     jobStDate: 0,

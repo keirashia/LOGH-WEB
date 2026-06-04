@@ -219,6 +219,56 @@ export const JOBS = [
     desc: '',
   },
 
+  // ── 군사 계급 (military_rank) ─────────────────────────────────
+  {
+    id: 'JB_MR001', nameKr: '원수', nameEn: 'Fleet Admiral',
+    category: 'military_rank', faction: null,
+    effects: { CMD: 8 },
+    canCommand: true, canGovern: false,
+    expToNext: null, nextJob: null,
+    desc: '',
+  },
+  {
+    id: 'JB_MR002', nameKr: '상급대장', nameEn: 'Senior Admiral',
+    category: 'military_rank', faction: null,
+    effects: { CMD: 6 },
+    canCommand: true, canGovern: false,
+    expToNext: null, nextJob: null,
+    desc: '',
+  },
+  {
+    id: 'JB_MR003', nameKr: '대장', nameEn: 'Admiral',
+    category: 'military_rank', faction: null,
+    effects: { CMD: 4 },
+    canCommand: true, canGovern: false,
+    expToNext: null, nextJob: null,
+    desc: '',
+  },
+  {
+    id: 'JB_MR004', nameKr: '중장', nameEn: 'Vice Admiral',
+    category: 'military_rank', faction: null,
+    effects: { CMD: 2 },
+    canCommand: true, canGovern: false,
+    expToNext: null, nextJob: null,
+    desc: '',
+  },
+  {
+    id: 'JB_MR005', nameKr: '소장', nameEn: 'Rear Admiral',
+    category: 'military_rank', faction: null,
+    effects: {},
+    canCommand: true, canGovern: false,
+    expToNext: null, nextJob: null,
+    desc: '',
+  },
+  {
+    id: 'JB_MR006', nameKr: '준장', nameEn: 'Commodore',
+    category: 'military_rank', faction: null,
+    effects: {},
+    canCommand: false, canGovern: false,
+    expToNext: null, nextJob: null,
+    desc: '',
+  },
+
   // ── 일반직 (civilian) ──────────────────────────────────────────
   {
     id: 'JB_C001', nameKr: '시민', nameEn: 'Civilian',
