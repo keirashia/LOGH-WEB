@@ -114,13 +114,13 @@ function fcolor(faction) {
 .ff-card {
   height: 18vh;
   aspect-ratio: 280 / 175;
-  background: var(--bg3) center / cover no-repeat;
-  border: 2px solid rgba(212,170,96,.5);
-  border-radius: 12px;
+  background: #0d1520 center / cover no-repeat;
+  border: 2px solid rgba(212,170,96,.8);
+  border-radius: 14px;
   box-shadow:
-    inset 0 0 0 4px #0d1520,
-    inset 0 0 0 6px rgba(212,170,96,.15),
-    0 6px 20px rgba(0,0,0,.7);
+    inset 0 0 0 5px #0d1520,
+    inset 0 0 0 7px rgba(212,170,96,.22),
+    0 8px 32px rgba(0,0,0,.85);
   cursor: pointer; transition: all .2s;
   position: relative; overflow: hidden;
 }
@@ -131,19 +131,19 @@ function fcolor(faction) {
     repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.025) 10px, rgba(212,170,96,.025) 11px);
 }
 .ff-card:hover {
-  border-color: rgba(212,170,96,.85);
+  border-color: rgba(212,170,96,.9);
   box-shadow:
-    inset 0 0 0 4px #0d1520,
-    inset 0 0 0 6px rgba(212,170,96,.35),
-    0 12px 36px rgba(212,170,96,.18);
-  transform: translateY(-3px);
+    inset 0 0 0 5px #0d1520,
+    inset 0 0 0 7px rgba(212,170,96,.5),
+    0 20px 56px rgba(212,170,96,.2);
+  transform: translateY(-4px) scale(1.02);
 }
 .ff-card.active {
   border-color: rgba(212,170,96,.95);
   box-shadow:
-    inset 0 0 0 4px #0d1520,
-    inset 0 0 0 6px rgba(212,170,96,.4),
-    0 12px 36px rgba(212,170,96,.22);
+    inset 0 0 0 5px #0d1520,
+    inset 0 0 0 7px rgba(212,170,96,.45),
+    0 12px 36px rgba(212,170,96,.25);
 }
 
 /* 전체 카드 복합 이미지 */

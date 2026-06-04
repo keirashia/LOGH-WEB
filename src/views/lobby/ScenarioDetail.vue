@@ -195,25 +195,28 @@ function onStart() {
 }
 
 .detail-panel {
+  position: relative;
   width: 100%;
   height: 90vh;
-  background: var(--bg2);
-  border: 1px solid var(--bdg);
+  background: #060d16;
+  border: 1px solid rgba(212,170,96,.45);
   border-radius: 12px 12px 0 0;
-  display: flex;
-  flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 -10px 40px rgba(0,0,0,.5);
+  box-shadow: inset 0 0 0 3px #0d1520, inset 0 0 0 5px rgba(212,170,96,.12);
 }
 
-/* ── 헤더 ─────────────────────────────────────────────────── */
+/* ── 헤더 (상단 오버레이) ──────────────────────────────────── */
 .det-header {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 20;
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 16px;
-  border-bottom: 1px solid var(--bd);
-  flex-shrink: 0;
+  padding: 10px 16px;
+  background: rgba(6,13,22,.78);
+  border-bottom: 1px solid rgba(212,170,96,.18);
+  backdrop-filter: blur(6px);
 }
 .det-title {
   flex: 1;
@@ -226,8 +229,8 @@ function onStart() {
 .adj-btn {
   font-size: 11px;
   padding: 5px 10px;
-  background: var(--bg3);
-  border: 1px solid var(--bd);
+  background: rgba(212,170,96,.08);
+  border: 1px solid rgba(212,170,96,.25);
   border-radius: var(--r);
   color: var(--t2);
   cursor: pointer;
@@ -235,37 +238,38 @@ function onStart() {
   white-space: nowrap;
   flex-shrink: 0;
 }
-.adj-btn:hover:not(:disabled) { color: var(--t1); border-color: var(--tg); }
+.adj-btn:hover:not(:disabled) { color: var(--tg); border-color: rgba(212,170,96,.55); }
 .adj-btn:disabled { opacity: .3; cursor: default; }
 .close-btn {
   font-size: 13px;
   width: 28px; height: 28px;
   display: flex; align-items: center; justify-content: center;
-  background: var(--bg3); border: 1px solid var(--bd); border-radius: var(--r);
+  background: rgba(212,170,96,.08);
+  border: 1px solid rgba(212,170,96,.25);
+  border-radius: var(--r);
   color: var(--t2); cursor: pointer; transition: all .13s; flex-shrink: 0;
 }
-.close-btn:hover { color: var(--t1); border-color: var(--bd); }
+.close-btn:hover { color: var(--tg); border-color: rgba(212,170,96,.55); }
 
-/* ── 이미지 (50%) ────────────────────────────────────────── */
+/* ── 이미지 (패널 전체 채움) ───────────────────────────────── */
 .det-image {
-  flex: 5;
-  min-height: 0;
-  overflow: hidden;
-  position: relative;
+  position: absolute;
+  inset: 0;
   background: #060d16;
+  /* z-index 미설정 → stacking context 미생성 → 내부 det-char-wrap이 상위 z-index 참조 */
 }
 .det-img-bg {
   position: absolute;
   inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
-  filter: blur(18px) brightness(0.4);
+  filter: blur(18px) brightness(0.35);
   transform: scale(1.1);
 }
 .det-img {
   position: relative;
   width: 100%; height: 100%;
-  object-fit: contain;
+  object-fit: cover;
 }
 .det-gradient {
   width: 100%; height: 100%;
@@ -275,8 +279,9 @@ function onStart() {
 /* ── 캐릭터 초상화 ────────────────────────────────────────── */
 .det-char-wrap {
   position: absolute;
-  bottom: 0;
+  bottom: 56px;
   left: 16px;
+  z-index: 15;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -297,26 +302,29 @@ function onStart() {
   width: auto;
   object-fit: contain;
   object-position: bottom;
-  filter: drop-shadow(0 2px 10px rgba(0, 0, 0, 0.85));
+  filter: drop-shadow(0 2px 12px rgba(0, 0, 0, 0.9));
 }
 
 /* 캐릭터 페이드 전환 */
 .char-fade-enter-active, .char-fade-leave-active { transition: opacity .2s; }
 .char-fade-enter-from, .char-fade-leave-to       { opacity: 0; }
 
-/* ── 본문 (30%) ───────────────────────────────────────────── */
+/* ── 본문 (하단 오버레이) ──────────────────────────────────── */
 .det-body {
-  flex: 3;
-  min-height: 0;
-  overflow: hidden;
-  padding: 12px 24px 12px;
+  position: absolute;
+  bottom: 56px;
+  left: 0; right: 0;
+  z-index: 10;
+  background: rgba(6,13,22,.84);
+  border-top: 1px solid rgba(212,170,96,.2);
+  backdrop-filter: blur(3px);
+  padding: 14px 24px 10px;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 .det-text-wrap {
-  flex: 1;
-  min-height: 0;
+  max-height: 110px;
   overflow-y: auto;
 }
 .det-text {
@@ -348,24 +356,28 @@ function onStart() {
 .page-dots { display: flex; justify-content: center; gap: 7px; padding-bottom: 2px; }
 .dot {
   width: 7px; height: 7px; border-radius: 50%;
-  background: var(--bd); cursor: pointer; transition: background .15s;
+  background: rgba(212,170,96,.25); cursor: pointer; transition: background .15s;
 }
-.dot.active { background: var(--tg); }
+.dot.active { background: rgba(212,170,96,.85); }
 
-/* ── 하단 버튼 ───────────────────────────────────────────── */
+/* ── 하단 버튼 (하단 오버레이) ─────────────────────────────── */
 .det-footer {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 20;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 12px 16px;
-  border-top: 1px solid var(--bd);
-  flex-shrink: 0;
+  padding: 0 16px;
+  height: 56px;
+  background: rgba(6,13,22,.88);
+  border-top: 1px solid rgba(212,170,96,.15);
   gap: 8px;
 }
 .dim-action {
   color: var(--t2);
-  border-color: var(--bd);
-  background: var(--bg3);
+  border-color: rgba(212,170,96,.2);
+  background: rgba(212,170,96,.05);
   font-size: 12px;
 }
 
