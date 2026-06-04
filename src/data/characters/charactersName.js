@@ -4900,8 +4900,8 @@ export const CHAR_NAMES = [
     charCode: "CH_000223",
     scCode: "",
     lang: "En",
-    name: `Staaden`,
-    nick: `Staaden`,
+    name: `Staden`,
+    nick: `Staden`,
   },
   {
     charCode: "CH_000223",

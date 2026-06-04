@@ -17,6 +17,7 @@ export const CHAR_TRAITS = [
   {
     charCode:    "CH_000223",
     traitCode:   "TRC_U_000223",
+    traitLv:     0,
     traitExp:    0,
     traitStDate: 0,
     traitEdDate: null,
@@ -24,6 +25,7 @@ export const CHAR_TRAITS = [
   {
     charCode:    "CH_000223",
     traitCode:   "TRC_G_001",
+    traitLv:     0,
     traitExp:    0,
     traitStDate: 0,
     traitEdDate: null,
@@ -31,6 +33,7 @@ export const CHAR_TRAITS = [
   {
     charCode:    "CH_000223",
     traitCode:   "TRC_S_001",
+    traitLv:     0,
     traitExp:    0,
     traitStDate: 0,
     traitEdDate: null,

@@ -55,13 +55,13 @@
       </button>
       <div v-if="open.trait" class="acc-body">
         <div v-if="!traitList.length" class="dim" style="font-size:11px;padding:4px 0">없음</div>
-        <div v-else v-for="t in traitList" :key="t.traitCode" class="trait-item mono">
-          <div>
-            <span class="serif" style="font-size:12px">{{ CHAR_TRAIT_MAP[t.traitCode]?.nameKr ?? t.traitCode }}</span>
-            <span class="mono dim" style="font-size:10px;margin-left:6px">{{ CHAR_TRAIT_MAP[t.traitCode]?.nameEn }}</span>
-          </div>
-          <span class="dim" style="font-size:10px">exp {{ t.traitExp }}</span>
-        </div>
+        <template v-else>
+          <TraitBadge
+            v-for="t in traitList" :key="t.traitCode"
+            :trait="CHAR_TRAIT_MAP[t.traitCode]"
+            :char-trait="t"
+          />
+        </template>
       </div>
     </div>
 
@@ -112,6 +112,7 @@
 
 <script setup>
 import { reactive, computed } from 'vue'
+import TraitBadge from '@/components/char/TraitBadge.vue'
 import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
 import { CHAR_BASE }  from '@/data/characters/charactersData.js'
 import { CHAR_NAMES } from '@/data/characters/charactersName.js'
@@ -352,17 +353,6 @@ const nationBorder = computed(() => NATION_COLORS[charData.value?.faction]?.bord
   gap: 8px;
   padding: 4px 0 6px;
 }
-
-/* ── 트레잇 ──────────────────────────────────────────── */
-.trait-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 11px;
-  padding: 4px 0;
-  border-bottom: 1px solid var(--bd);
-}
-.trait-item:last-child { border-bottom: none; }
 
 /* ── 직업 ────────────────────────────────────────────── */
 .job-item {
