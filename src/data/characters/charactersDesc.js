@@ -112,6 +112,25 @@ export const CHAR_DESC = [
     scCode: "",
     desc: `銀河史上屈指の戦略家。歴史家を夢見ていたが、生活苦から士官学校へ入学し軍人の道を歩む。戦争を憎みながらも部下の命を守るため戦場で不敗の戦術を駆使し、「魔術師ヤン」の名声を得る。`,
   },
+  // 엘라흐
+  {
+    charCode: "CH_000290",
+    lang: "KR",
+    scCode: "",
+    desc: `은하제국의 함대 지휘관. 아스타테 회전에서 라인하르트 함대의 분함대 사령관으로 참전했으나 전투 중 전사했다.`,
+  },
+  {
+    charCode: "CH_000290",
+    lang: "EN",
+    scCode: "",
+    desc: `A fleet commander of the Galactic Empire. He participated in the Battle of Astarte as a sub-fleet commander under Reinhard's fleet, but was killed in action during the engagement.`,
+  },
+  {
+    charCode: "CH_000290",
+    lang: "JP",
+    scCode: "",
+    desc: `銀河帝国の艦隊指揮官。アスターテ会戦ではラインハルト艦隊の分艦隊司令官として参戦したが、戦闘中に戦死した。`,
+  },
   // 파스톨레
   {
     charCode: "CH_000478",

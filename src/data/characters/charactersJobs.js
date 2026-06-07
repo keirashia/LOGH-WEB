@@ -104,6 +104,17 @@ export const CHAR_JOBS = [
     jobStDate: 0,
     jobEdDate: 0,
   },
+  // 엘라흐
+  {
+    charCode: "CH_000290",
+    jobCode: "JB_M001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000290",
+    jobCode: "JB_MR004",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
   // 아달베르트 폰 파렌하이트
   {
     charCode: "CH_000233",
