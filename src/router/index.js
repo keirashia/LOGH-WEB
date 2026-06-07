@@ -33,6 +33,16 @@ const routes = [
     component: () => import('@/views/lobby/scenario/ScenarioDetailView.vue'),
   },
   {
+    path: '/lobby/single/new/:scId/options',
+    name: 'scenario-options',
+    component: () => import('@/views/lobby/scenario/ScenarioOptionsView.vue'),
+  },
+  {
+    path: '/lobby/single/new/:scId/char',
+    name: 'scenario-char',
+    component: () => import('@/views/lobby/scenario/ScenarioCharSelectView.vue'),
+  },
+  {
     path: '/user/login',
     name: 'login',
     component: () => import('@/views/user/LoginView.vue'),

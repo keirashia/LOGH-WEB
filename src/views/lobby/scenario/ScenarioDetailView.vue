@@ -3,7 +3,6 @@
 
     <!-- 상단 네비 -->
     <div class="top-nav">
-      <button class="back-btn mono" @click="router.back()">← 뒤로</button>
       <div class="nav-title">
         <span class="serif">{{ cur.nameKr }}</span>
         <span class="mono dim nav-year">
@@ -11,6 +10,7 @@
           <template v-if="cur.yearType === 'SE'"> / 제국력 {{ cur.year - 309 }}년</template>
         </span>
       </div>
+      <button class="close-btn mono" @click="router.back()">✕</button>
     </div>
 
     <!-- 히어로 이미지 -->
@@ -108,59 +108,63 @@ function openLib(lib) {
 }
 
 function onStart() {
-  // router.push(`/lobby/single/new/${cur.value.id}/options`)
+  router.push({ name: 'scenario-options', params: { scId: cur.value.id } })
 }
 </script>
 
 <style scoped>
 .page {
+  position: relative;
   width: 100%; height: 100%;
-  display: flex;
-  flex-direction: column;
   background: #020508;
   overflow: hidden;
 }
 
 /* 상단 네비 */
 .top-nav {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  flex-shrink: 0;
-  background: rgba(2,5,8,.9);
+  padding: 0 1.5vw;
+  height: 7vh;
+  background: rgba(2,5,8,.7);
   border-bottom: 1px solid rgba(212,170,96,.15);
   backdrop-filter: blur(8px);
 }
-.back-btn {
-  font-size: 12px;
-  padding: 6px 12px;
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: var(--r);
-  color: var(--t2);
-  cursor: pointer;
-  white-space: nowrap;
-  flex-shrink: 0;
-  transition: all .13s;
-}
-.back-btn:hover { color: var(--t1); border-color: rgba(255,255,255,.25); }
 .nav-title {
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 2px;
 }
-.nav-title .serif { font-size: 15px; color: var(--t1); }
-.nav-year { font-size: 10px; }
+.nav-title .serif { font-size: 3.0vh; color: var(--t1); }
+.nav-year { font-size: 1.8vh; }
+.close-btn {
+  flex-shrink: 0;
+  width: 3.5vh;
+  height: 3.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6vh;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 50%;
+  color: var(--t2);
+  cursor: pointer;
+  transition: all .13s;
+}
+.close-btn:hover { color: var(--t1); border-color: rgba(255,255,255,.3); }
 
 /* 히어로 이미지 */
 .hero {
-  position: relative;
-  flex: 1;
+  position: absolute;
+  inset: 0;
   overflow: hidden;
   background: #060d16;
-  min-height: 0;
 }
 .hero-bg {
   position: absolute;
@@ -204,14 +208,15 @@ function onStart() {
 
 /* 본문 */
 .body {
-  flex-shrink: 0;
-  padding: 18px 20px 12px;
-  background: #060d16;
-  border-top: 1px solid rgba(212,170,96,.15);
+  position: absolute;
+  bottom: 7vh; left: 0; right: 0;
+  z-index: 10;
+  padding: 32px 20px 14px;
+  background: linear-gradient(to bottom, transparent, rgba(2,5,8,.92) 28%);
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 40%;
+  max-height: 48%;
   overflow-y: auto;
 }
 .body-text {
@@ -239,15 +244,28 @@ function onStart() {
 
 /* 하단 액션 바 */
 .action-bar {
-  flex-shrink: 0;
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 10;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 16px;
-  height: 56px;
-  background: #020508;
+  align-items: stretch;
+  padding: 0.1vh 2vw;
+  height: 7vh;
+  background: rgba(2,5,8,.85);
   border-top: 1px solid rgba(212,170,96,.15);
-  gap: 8px;
+  gap: 1.5vw;
+  backdrop-filter: blur(8px);
+}
+.action-bar > button {
+  flex: 1;
+  font-size: 1.8vh;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.action-bar > button:nth-child(2) {
+  flex: 3;
 }
 .dim-action {
   color: var(--t2);
@@ -262,4 +280,49 @@ function onStart() {
 .slide-enter-active, .slide-leave-active { transition: all .25s; }
 .slide-enter-from  { opacity: 0; transform: translateX(20px); }
 .slide-leave-to    { opacity: 0; transform: translateX(-20px); }
+
+/* 모바일 세로 — width 기준 이미지, 수직 스택 레이아웃 */
+@media (orientation: portrait) and (max-width: 768px) {
+  .page {
+    display: flex;
+    flex-direction: column;
+  }
+  .top-nav {
+    position: relative;
+    top: auto; left: auto; right: auto;
+    height: auto;
+    min-height: 7vh;
+    padding: 0 4vw;
+  }
+  .hero {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    flex-shrink: 0;
+  }
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+  }
+  .body {
+    position: relative;
+    bottom: auto; left: auto; right: auto;
+    flex: 1;
+    max-height: none;
+    padding: 16px 20px;
+    background: #060d16;
+    border-top: 1px solid rgba(212,170,96,.15);
+  }
+  .body-text {
+    flex: 1;
+  }
+  .action-bar {
+    position: relative;
+    bottom: auto; left: auto; right: auto;
+    padding: 0.1vh 4vw;
+    gap: 3vw;
+  }
+}
 </style>
