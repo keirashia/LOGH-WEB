@@ -28,6 +28,7 @@
 | `src/stores/stores.md` | 전체 스토어 개요, gameStore 상태/액션 상세 |
 | `src/components/components.md` | 컴포넌트 구조, GalaxyMap 스펙, 모달 목록 |
 | `src/components/game/modals/characters/charactersScreen.md` | 인물 모달 화면 설계 (CharModal/CharDetailModal) |
+| `src/components/game/ternsScreen.md` | 턴 시스템 설계 (hourStep, 서브턴, 날짜 표시) |
 | `src/views/views.md` | 뷰 목록, 라우터 경로, 각 뷰 상세 |
 | `src/views/lobby/scenarioScreen.md` | 시나리오 선택 화면 설계 (Step1/1-1/2/3, ScenarioDetail 신규) |
 | `src/router/router.md` | 라우터 가드, 접근 제어 |

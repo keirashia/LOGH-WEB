@@ -91,11 +91,14 @@
       </div>
     </div>
 
+    <!-- 날짜 -->
+    <GameDateDisplay class="map-date" />
+
     <!-- 범례 -->
     <div class="map-legend panel">
-      <div v-for="(f,fid) in FACTIONS" :key="fid" class="leg-row">
-        <span class="leg-dot" :style="`background:${f.color}`"/>
-        <span class="dim" style="font-size:10px">{{ f.name }}</span>
+      <div v-for="fid in scenarioFactions" :key="fid" class="leg-row">
+        <span class="leg-dot" :style="`background:${FACTIONS[fid]?.color}`"/>
+        <span class="dim" style="font-size:10px">{{ FACTION_NAME_MAP[fid] }}</span>
       </div>
       <div class="leg-row">
         <span class="leg-dot" style="background:#555"/>
@@ -109,7 +112,9 @@
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
+import { FACTION_NAMES } from '@/data/factions/factionName.js'
 import { LANES as LANE_DEF } from '@/data/stars/lane'
+import GameDateDisplay from '@/components/game/GameDateDisplay.vue'
 
 const game  = useGameStore()
 const bgCvs = ref(null)
@@ -117,6 +122,12 @@ const svgEl = ref(null)
 let   aid   = null
 
 const VW = 1600, VH = 1000
+
+const scenarioFactions = computed(() => game.sc?.factions ?? [])
+
+const FACTION_NAME_MAP = Object.fromEntries(
+  FACTION_NAMES.filter(n => n.lang === 'Kr').map(n => [n.factionId, n.shortName])
+)
 
 // ── 줌 / 팬 상태 ─────────────────────────────────────────────
 const scale = ref(1)
@@ -478,6 +489,12 @@ onUnmounted(() => {
 }
 .af-input:focus { border-color:var(--fc) }
 .af-btns { display:flex; gap:6px }
+
+/* 날짜 */
+.map-date {
+  position: absolute; top: 10px; right: 10px;
+  padding: 7px 12px;
+}
 
 /* 범례 */
 .map-legend {
