@@ -71,7 +71,7 @@ function buildState(scId, pf) {
   }
   return {
     sc, playerFaction: pf,
-    year: sc.year, impYear: sc.year - 309, month: 1, turn: 1,
+    year: sc.year, impYear: sc.year - 309, month: 1, day: 1, turn: 1,
     systems, resources, characters, fleets,
     log: [], selectedSystem: null, selectedFleet: null,
     _levyCooldown: 0, _loanBalance: 0, _loanDueTurn: null, _fleetSeq: 10, _truce: {}, _tradeBonus: 0,
@@ -144,11 +144,16 @@ export const useGameStore = defineStore('game', {
       this._construct()
       this._events()
       this._ai()
-      this.month++
-      if (this.month > 12) { this.month = 1; this.year++; this.impYear++ }
+      const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+      this.day++
+      if (this.day > DAYS_IN_MONTH[this.month - 1]) {
+        this.day = 1
+        this.month++
+        if (this.month > 12) { this.month = 1; this.year++; this.impYear++ }
+      }
       this.turn++
       this._victory()
-      this.addLog(`�������� ${this.year}�� ${this.month}�� (�� ${this.turn}) ��������`)
+      this.addLog(`�������� ${this.year}�� ${this.month}�� ${this.day}�� (�� ${this.turn}) ��������`)
     },
 
     selectSystem(id)  { this.selectedSystem = id;    this.selectedFleet = null },

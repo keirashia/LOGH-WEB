@@ -29,4 +29,9 @@ const endBtnCls = computed(() => ({ REH:'btn-red', FPA:'btn-blue', PZN:'btn-gree
   .bottom-bar{padding:8px}
   .btns button{padding:8px 10px;font-size:13px}
 }
+@media (orientation:landscape) and (max-height:480px){
+  .bottom-bar{padding:5px 12px}
+  .btns button{padding:5px 10px;font-size:12px}
+  .end .btn{padding:5px 14px;font-size:12px}
+}
 </style>

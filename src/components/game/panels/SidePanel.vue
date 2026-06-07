@@ -79,7 +79,12 @@ function stCls(s) { return {standby:'dim',deployed:'alert',retreat:'gold'}[s] }
 </script>
 
 <style scoped>
-.side{width:178px;flex-shrink:0;display:flex;flex-direction:column;border-right:1px solid var(--bd);background:var(--bg3);overflow:hidden}
+.side{width:178px;flex-shrink:0;display:flex;flex-direction:column;border-right:1px solid var(--bd);background:var(--bg3);overflow:hidden;transition:transform .25s ease}
+
+@media (orientation:landscape) and (max-height:480px){
+  .side{position:absolute;left:0;top:0;bottom:0;z-index:100;transform:translateX(-100%);box-shadow:4px 0 24px rgba(0,0,0,.6)}
+  .side.is-open{transform:translateX(0)}
+}
 .tabs{display:flex;border-bottom:1px solid var(--bd);flex-shrink:0}
 .tab{flex:1;padding:8px 2px;background:none;border:none;color:var(--t2);font-size:11px;cursor:pointer;transition:all .15s;border-bottom:2px solid transparent}
 .tab.on{color:var(--tg);border-bottom-color:var(--tg);background:rgba(255,255,255,.02)}

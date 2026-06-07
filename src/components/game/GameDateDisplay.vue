@@ -40,7 +40,7 @@ const hourStr = computed(() => `${String(currentHour.value).padStart(2, '0')}시
 .game-date.left   { text-align: left; }
 .game-date.center { text-align: center; }
 
-.date-year   { font-size: 10px; color: var(--tg); opacity: .8; }
-.date-detail { font-size: 13px; color: var(--t1); }
-.date-hour   { margin-left: 4px; color: var(--tg); }
+.date-year   { font-size: 1.6vh; color: var(--tg); opacity: .8; }
+.date-detail { font-size: 2.2vh; color: var(--t1); }
+.date-hour   { margin-left: 0.4vw; color: var(--tg); }
 </style>

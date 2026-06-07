@@ -388,6 +388,12 @@ function laneTypeName(t) {
   border-left: 1px solid var(--bd);
   background: var(--bg3);
   overflow: hidden;
+  transition: transform .25s ease;
+}
+
+@media (orientation:landscape) and (max-height:480px){
+  .info-panel{position:absolute;right:0;top:0;bottom:0;z-index:100;transform:translateX(100%);box-shadow:-4px 0 24px rgba(0,0,0,.6)}
+  .info-panel.is-open{transform:translateX(0)}
 }
 
 /* ━━━ 헤더 영역 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */

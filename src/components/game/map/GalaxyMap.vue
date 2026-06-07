@@ -8,15 +8,45 @@
          @pointermove="onPtrMove"
          @pointerup="onPtrUp"
          @pointercancel="onPtrUp">
+      <defs>
+        <!-- 영역 블러 -->
+        <filter id="tsf" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="20"/>
+        </filter>
+        <!-- 국경선 warp -->
+        <filter id="bt-warp" x="-10%" y="-100%" width="120%" height="300%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.007 0.003" numOctaves="2" result="noise">
+            <animate attributeName="seed" from="0" to="60" dur="8s" repeatCount="indefinite"/>
+          </feTurbulence>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+      </defs>
       <g :transform="mapTransform">
 
-        <!-- 항로 (type별 색상) -->
-        <line v-for="l in lanesComp" :key="l.k"
+        <!-- 영역 (세력 territory) -->
+        <circle v-for="s in systems.filter(s => s.faction)" :key="'tr_'+s.id"
+                :cx="s.x" :cy="s.y" :r="territoryR(s)"
+                :fill="fclr[s.faction]" fill-opacity="0.28"
+                stroke="none" filter="url(#tsf)"
+                style="pointer-events:none"/>
+
+        <!-- 항로 (비경계) -->
+        <line v-for="l in normalLanesComp" :key="l.k"
               :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
               :stroke="editMode ? 'rgba(255,255,255,0.65)' : (LANE_STROKE[l.type] || LANE_STROKE.normal)"
               :stroke-width="editMode ? 2 : (l.type==='corridor' || l.type==='phezzan' ? 2 : 1.5)"
               :stroke-dasharray="l.type==='corridor' ? '8 4' : l.type==='phezzan' ? '4 3' : '5 6'"
               style="pointer-events:none"/>
+
+        <!-- 국경 3중 금선 (비활성화)
+        <g filter="url(#bt-warp)" style="pointer-events:none">
+          <g v-for="bl in borderLanes" :key="'bl_'+bl.k">
+            <line :x1="bl.segs[0].x1" :y1="bl.segs[0].y1" :x2="bl.segs[0].x2" :y2="bl.segs[0].y2" class="bline bl-1"/>
+            <line :x1="bl.segs[1].x1" :y1="bl.segs[1].y1" :x2="bl.segs[1].x2" :y2="bl.segs[1].y2" class="bline bl-2"/>
+            <line :x1="bl.segs[2].x1" :y1="bl.segs[2].y1" :x2="bl.segs[2].x2" :y2="bl.segs[2].y2" class="bline bl-3"/>
+          </g>
+        </g>
+        -->
 
         <!-- 함대 마커 -->
         <g v-for="f in game.allFleets" :key="f.id"
@@ -32,19 +62,16 @@
            :transform="`translate(${s.x},${s.y})`"
            class="sys-node">
           <circle v-if="game.selectedSystem===s.id && !editMode"
-                  :r="nr(s)+8" fill="none"
+                  r="14" fill="none"
                   :stroke="fclr[s.faction]||'#555'"
                   stroke-width="1.5" opacity=".8" class="sel-ring"/>
           <circle v-if="editMode && laneFrom===s.id"
-                  :r="nr(s)+9" fill="none" stroke="gold" stroke-width="2" opacity=".85"/>
-          <circle :r="nr(s)" :fill="`${fclr[s.faction]||'#333'}33`"/>
-          <circle :r="nr(s)*.62"
-                  :fill="fclr[s.faction]||'#2a3a4a'"
-                  :stroke="fclr[s.faction]||'#555'" stroke-width="1.5"/>
+                  r="16" fill="none" stroke="gold" stroke-width="2" opacity=".85"/>
+          <circle r="5" fill="#0c1520" :stroke="fclr[s.faction]||'#445'" stroke-width="1"/>
           <text text-anchor="middle" dy="5" :font-size="s.type==='capital'?13:10">{{ ico(s) }}</text>
-          <text class="sys-lbl" text-anchor="middle" :dy="nr(s)+13"
+          <text class="sys-lbl" text-anchor="middle" dy="17"
                 font-size="9" :fill="fclr[s.faction]||'#6a8aaa'">{{ s.name }}</text>
-          <text v-if="s.underConstruction" text-anchor="middle" :dy="-nr(s)-4" font-size="9">🔧</text>
+          <text v-if="s.underConstruction" text-anchor="middle" dy="-14" font-size="9">🔧</text>
         </g>
 
         <!-- 추가 미리보기 -->
@@ -359,6 +386,48 @@ function toggleLane(a, b) {
   laneKeySet.value = ns
 }
 
+// 영역 반경
+function territoryR(s) {
+  if (s.type === 'capital')  return 90
+  if (s.type === 'fortress') return 72
+  if (s.isGateway)           return 66
+  return 56
+}
+
+// 비경계 항로 (같은 세력 or 중립 포함)
+const normalLanesComp = computed(() => {
+  return [...laneKeySet.value].map(k => {
+    const [a, b] = k.split('|')
+    const sa = game.systems[a], sb = game.systems[b]
+    if (!sa || !sb) return null
+    if (sa.faction && sb.faction && sa.faction !== sb.faction) return null
+    const type = laneTypeMap[k] || 'normal'
+    return { k, type, x1: sa.x, y1: sa.y, x2: sb.x, y2: sb.y }
+  }).filter(Boolean)
+})
+
+// 국경 항로 — 3중 금선용
+const borderLanes = computed(() => {
+  return [...laneKeySet.value].map(k => {
+    const [a, b] = k.split('|')
+    const sa = game.systems[a], sb = game.systems[b]
+    if (!sa || !sb) return null
+    if (!sa.faction || !sb.faction || sa.faction === sb.faction) return null
+    const dx = sb.x - sa.x, dy = sb.y - sa.y
+    const len = Math.hypot(dx, dy)
+    if (len < 1) return null
+    const px = -dy / len, py = dx / len  // 수직 단위벡터
+    return {
+      k,
+      segs: [-10, 0, 10].map(o => ({
+        x1: sa.x + px * o, y1: sa.y + py * o,
+        x2: sb.x + px * o, y2: sb.y + py * o,
+      }))
+    }
+  }).filter(Boolean)
+})
+
+// 하위 호환 (edit 모드 delete 등에서 사용)
 const lanesComp = computed(() => {
   return [...laneKeySet.value].map(k => {
     const [a, b] = k.split('|')
@@ -507,6 +576,13 @@ onUnmounted(() => {
 
 @keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
 .sel-ring { animation:pulse 1.5s ease-in-out infinite }
+
+/* 국경 3중 금선 */
+.bline { fill:none; stroke:rgba(212,170,96,0.8); }
+.bl-1  { stroke-width:1.5; stroke-dasharray:10 5;  animation:bflow 2.5s linear infinite; }
+.bl-2  { stroke-width:1;   stroke-dasharray:5 10;  animation:bflow 3.8s linear infinite reverse; opacity:.6; }
+.bl-3  { stroke-width:2;   stroke-dasharray:14 3;  animation:bflow 2.0s linear infinite; opacity:.45; }
+@keyframes bflow { to { stroke-dashoffset:-96; } }
 
 .tb-fade-enter-active, .tb-fade-leave-active { transition:opacity .2s, transform .2s }
 .tb-fade-enter-from, .tb-fade-leave-to { opacity:0; transform:translateX(-50%) translateY(-6px) }

@@ -2,103 +2,69 @@
 
 ## 개요
 
-LOGH-WEB의 시간 단위 체계. 플레이어가 게임 시작 시 "1턴의 길이"를 설정하여
-게임 속도(턴당 시간 스케일)를 조절한다.
+- **전략 턴 1턴 = 1일** (전략맵 명령 단위, 고정)
+- **1년 = 365일** (월별 실제 일수 적용: 31/28/31/30/31/30/31/31/30/31/30/31, 윤년 미적용)
+- **전투는 전략 턴 종료 시점에 발생** (하루가 끝날 때 교전 탐지 → 전투 화면 진입)
+- **전투 내부는 서브턴으로 진행** (hourStep 옵션에 따라 1일을 N라운드로 분할)
 
 ---
 
-## 시간 단위 계층
+## 턴 흐름
 
 ```
-우주력 년도
-  └─ 월 (1~12)
-       └─ 일 (1~30, 게임 단순화)
-            └─ 서브턴 (1일을 hourStep으로 나눈 단위)
-                  └─ 시 (0, hourStep, 2×hourStep, ...)
-```
-
----
-
-## hourStep 옵션
-
-| 옵션 | 1턴 = | 하루 서브턴 수 | 비고 |
-|------|--------|----------------|------|
-| 24h  | 1일    | 1              | 기본값, 현재 구현 |
-| 12h  | 반나절 | 2              | 빠른 전술 대응 |
-| 8h   | 8시간  | 3              | 교전 단위 |
-| 6h   | 6시간  | 4              | 소규모 기동 |
-| 4h   | 4시간  | 6              | 세밀한 함대 제어 |
-| 3h   | 3시간  | 8              | 최고 세밀도 |
-
-> 24의 약수만 허용: 1, 2, 3, 4, 6, 8, 12, 24 (3h 미만은 미지원)
-
----
-
-## 날짜/시각 표시 (`GameDateDisplay.vue`)
-
-```
-우주력 796년 (제국력 487년)      ← date-year (10px, --tg)
-2월 14일  06시                   ← date-detail (13px, --t1) + date-hour (--tg)
-```
-
-- `game.year` / `game.impYear` / `game.month` / `game.day`
-- `game.subTurn` : 현재 서브턴 카운터 (전체 누적)
-- `game.hourStep` : 서브턴당 실시간 시간(h), 기본 24
-- `currentHour = (subTurn % (24/hourStep)) × hourStep`
-
----
-
-## gameStore 확장 계획
-
-```js
-// 추가 예정 상태 (초기값)
-hourStep:  24,     // 옵션: 3 | 4 | 6 | 8 | 12 | 24
-subTurn:   0,      // 전체 서브턴 누적 카운터
-day:       1,      // 현재 일 (1~30)
-```
-
-### nextSubTurn() 로직
-
-```js
-nextSubTurn() {
-  this.subTurn++
-  const stepsPerDay = 24 / this.hourStep
-
-  if (this.subTurn % stepsPerDay === 0) {
-    // 하루 경과
-    this.day++
-    if (this.day > 30) {
-      this.day = 1
-      this.month++
-      if (this.month > 12) {
-        this.month = 1
-        this.year++
-        this.impYear++
-      }
-    }
-  }
-
-  // 기존 nextTurn()의 월별 처리(징세 등)는
-  // subTurn % stepsPerDay === 0 && day === 1 조건으로 이동 예정
-}
+[ 전략 턴 시작 (day N) ]
+  ├─ 플레이어 명령 입력 (함대 이동 / 건조 / 외교 등)
+  ├─ AI 행동
+  └─ 전략 턴 종료
+       ├─ 교전 없음 → day N+1, 징세/이벤트 처리
+       └─ 교전 있음 → 전투 진입 (서브턴 × N) → 종료 → day N+1
 ```
 
 ---
 
-## 관련 컴포넌트/스토어
+## hourStep 옵션 (전투 서브턴 단위)
+
+| hourStep | 전투 1라운드 = | 하루 라운드 수 |
+|----------|----------------|----------------|
+| 24h      | 1일 (즉결)     | 1 (기본값)     |
+| 12h      | 반나절         | 2              |
+| 8h       | 8시간          | 3              |
+| 6h       | 6시간          | 4              |
+| 4h       | 4시간          | 6              |
+| 3h       | 3시간          | 8              |
+
+> 24의 약수만 허용: 3, 4, 6, 8, 12, 24
+
+---
+
+## 날짜/시각 표시
+
+```
+우주력 796년 (제국력 487년)
+2월 14일  06시
+```
+
+- 전략맵 : 시각 = `00시` 고정
+- 전투 중 : 시각 = `subTurn × hourStep`
+
+---
+
+## 관련 파일
 
 | 파일 | 역할 |
 |------|------|
 | `src/components/game/GameDateDisplay.vue` | 날짜/시각 표시 컴포넌트 |
-| `src/stores/gameStore.js` | year/impYear/month/day/subTurn/hourStep 상태 |
-| `src/views/lobby/scenario/ScenarioOptionsView.vue` | hourStep 옵션 선택 UI (예정) |
+| `src/stores/gameStore.js` | 시간 상태 관리 |
+| `src/views/lobby/scenario/ScenarioOptionsView.vue` | hourStep 선택 UI |
+| `src/views/game/TacticalView.vue` | 전투 화면, 서브턴 진행 |
 
 ---
 
 ## TODO
 
-- [ ] `gameStore`에 `day`, `subTurn`, `hourStep` 상태 추가
-- [ ] `nextTurn()` → `nextSubTurn()` 로 교체 (월별 이벤트 조건 이동)
-- [ ] `ScenarioOptionsView`에 hourStep 선택 UI 추가 (3/4/6/8/12/24h)
-- [ ] `GameDateDisplay` props로 `align` 지원 (right/left/center)
-- [ ] 전술 전투 시간 연동 (서브턴 = 교전 라운드와 매핑 여부 검토)
+- [ ] `gameStore` — `day`, `subTurn`, `hourStep` 상태 추가
+- [ ] `gameStore` — `nextTurn()` → `nextDay()` + `nextSubTurn()` 분리
+- [ ] `gameStore` — 전략 턴 종료 시 교전 탐지 (`_resolveBattles()`)
+- [ ] `gameStore` — 전투 종료 후 `_advanceDay()` 연결
+- [ ] `ScenarioOptionsView` — hourStep 선택 UI (3/4/6/8/12/24h)
+- [ ] `GameDateDisplay` — 전투 중 서브턴 시각 반영
