@@ -32,6 +32,53 @@ export const CHAR_JOBS = [
     jobStDate: 0,
     jobEdDate: 0,
   },
+  // 라인하르트 폰 뮤젤 (로엔그람)
+  {
+    charCode: "CH_000064",
+    jobCode: "JB_M001",
+    jobLevel: 0,
+    jobExp: 0,
+    jobStDate: 0,
+    jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000064",
+    jobCode: "JB_MR001",
+    jobLevel: 0,
+    jobExp: 0,
+    jobStDate: 0,
+    jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000064",
+    jobCode: "JB_N003",
+    jobLevel: 0,
+    jobExp: 0,
+    jobStDate: 0,
+    jobEdDate: 0,
+  },
+  // 무어
+  {
+    charCode: "CH_000139",
+    jobCode: "JB_M001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000139",
+    jobCode: "JB_MR004",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  // 빌리바르트 요아힘 폰 메르카츠
+  {
+    charCode: "CH_000195",
+    jobCode: "JB_M001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000195",
+    jobCode: "JB_MR002",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
   // 슈타덴
   {
     charCode: "CH_000223",
@@ -56,6 +103,61 @@ export const CHAR_JOBS = [
     jobExp: 0,
     jobStDate: 0,
     jobEdDate: 0,
+  },
+  // 아달베르트 폰 파렌하이트
+  {
+    charCode: "CH_000233",
+    jobCode: "JB_M001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000233",
+    jobCode: "JB_MR003",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  // 양 웬리
+  {
+    charCode: "CH_000266",
+    jobCode: "JB_M001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000266",
+    jobCode: "JB_MR005",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  // 파스톨레
+  {
+    charCode: "CH_000478",
+    jobCode: "JB_M001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000478",
+    jobCode: "JB_MR004",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  // 파에타
+  {
+    charCode: "CH_000479",
+    jobCode: "JB_M001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000479",
+    jobCode: "JB_MR004",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  // 포겔
+  {
+    charCode: "CH_000494",
+    jobCode: "JB_M001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000494",
+    jobCode: "JB_MR005",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
 ];
 

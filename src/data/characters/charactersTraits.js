@@ -13,6 +13,67 @@
 // 직업 리스트는 제발 charCode, traitCode 순으로 정렬해주세요.
 
 export const CHAR_TRAITS = [
+  // 무어
+  {
+    charCode:    "CH_000139",
+    traitCode:   "TRC_U_000139",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  // 빌리바르트 요아힘 폰 메르카츠
+  {
+    charCode:    "CH_000195",
+    traitCode:   "TRC_U_000195",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  // 아달베르트 폰 파렌하이트
+  {
+    charCode:    "CH_000233",
+    traitCode:   "TRC_U_000233",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  // 양 웬리
+  {
+    charCode:    "CH_000266",
+    traitCode:   "TRC_U_000266",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  {
+    charCode:    "CH_000266",
+    traitCode:   "TRC_G_002",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  // 파에타
+  {
+    charCode:    "CH_000479",
+    traitCode:   "TRC_U_000479",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  {
+    charCode:    "CH_000479",
+    traitCode:   "TRC_G_001",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
   // 슈타덴
   {
     charCode:    "CH_000223",
