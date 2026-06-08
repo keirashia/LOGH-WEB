@@ -10,13 +10,13 @@
 //    S = 분함대 사령관 (상위 함대 소속, 독립 행동 가능)
 //
 //  parentFlt:
-//    S 타입의 경우 상위 함대 코드 지정
+//    S 타입의 경우 상위 함대 코드 지정 (full fltCode 형식)
 //    null이면 독립 함대
 // ================================================================
 
 export const FLEET_CHARACTER_DATA = [
 
-  // ── FPA002 자유행성동맹 제2함대 ──────────────────────────────
+  // ── FPA0020 자유행성동맹 제2함대 ─────────────────────────────
 
   {
     fltCode  : "FPA002",
@@ -33,97 +33,97 @@ export const FLEET_CHARACTER_DATA = [
     stDate   : "0",
   },
 
-  // ── FPA004 자유행성동맹 제4함대 ──────────────────────────────
+  // ── FPA0040 자유행성동맹 제4함대 ─────────────────────────────
 
   {
     fltCode  : "FPA004",
-    charCode : "CH_000478",   // 파스톨레 (전사)
+    charCode : "CH_000478",   // 파스톨레
     type     : "C",
     parentFlt: null,
     stDate   : "0",
   },
 
-  // ── FPA006 자유행성동맹 제6함대 ──────────────────────────────
+  // ── FPA0060 자유행성동맹 제6함대 ─────────────────────────────
 
   {
     fltCode  : "FPA006",
-    charCode : "CH_000139",   // 무어 (전사)
+    charCode : "CH_000139",   // 무어
     type     : "C",
     parentFlt: null,
     stDate   : "0",
   },
   {
     fltCode  : "FPA006",
-    charCode : "CH_000368",   // 장 로베르 랍 (전사)
+    charCode : "CH_000368",   // 장 로베르 랍
     type     : "O",
     parentFlt: null,
     stDate   : "0",
   },
 
-  // ── REH001 로엔그람 함대 (총사령관) ──────────────────────────
+  // ── REH0040 로엔그람 함대 (총사령관) ─────────────────────────
 
   {
-    fltCode  : "REH001",
+    fltCode  : "REH0040",
     charCode : "CH_000064",   // 라인하르트 폰 뮤젤
     type     : "C",
     parentFlt: null,
     stDate   : "0",
   },
   {
-    fltCode  : "REH001",
+    fltCode  : "REH0040",
     charCode : "CH_000388",   // 지크프리트 키르히아이스
     type     : "O",
     parentFlt: null,
     stDate   : "0",
   },
 
-  // ── REH002 메르카츠 분함대 ───────────────────────────────────
+  // ── REH0041 메르카츠 분함대 ──────────────────────────────────
 
   {
-    fltCode  : "REH002",
+    fltCode  : "REH0041",
     charCode : "CH_000195",   // 빌리바르트 요아힘 폰 메르카츠
     type     : "S",
-    parentFlt: "REH001",
+    parentFlt: "REH0040",
     stDate   : "0",
   },
 
-  // ── REH003 슈타덴 분함대 ─────────────────────────────────────
+  // ── REH0042 슈타덴 분함대 ────────────────────────────────────
 
   {
-    fltCode  : "REH003",
+    fltCode  : "REH0042",
     charCode : "CH_000223",   // 슈타덴
     type     : "S",
-    parentFlt: "REH001",
+    parentFlt: "REH0040",
     stDate   : "0",
   },
 
-  // ── REH004 파렌하이트 분함대 ─────────────────────────────────
+  // ── REH0043 파렌하이트 분함대 ────────────────────────────────
 
   {
-    fltCode  : "REH004",
+    fltCode  : "REH0043",
     charCode : "CH_000233",   // 아달베르트 폰 파렌하이트
     type     : "S",
-    parentFlt: "REH001",
+    parentFlt: "REH0040",
     stDate   : "0",
   },
 
-  // ── REH005 에를라헤 분함대 ───────────────────────────────────
+  // ── REH0044 에를라흐 분함대 ──────────────────────────────────
 
   {
-    fltCode  : "REH005",
-    charCode : "CH_000290",   // 에를라헤 (전사)
+    fltCode  : "REH0044",
+    charCode : "CH_000290",   // 에를라흐
     type     : "S",
-    parentFlt: "REH001",
+    parentFlt: "REH0040",
     stDate   : "0",
   },
 
-  // ── REH006 포겔 분함대 ───────────────────────────────────────
+  // ── REH0045 포겔 분함대 ───────────────────────────────────────
 
   {
-    fltCode  : "REH006",
+    fltCode  : "REH0045",
     charCode : "CH_000494",   // 포겔
     type     : "S",
-    parentFlt: "REH001",
+    parentFlt: "REH0040",
     stDate   : "0",
   },
 ]

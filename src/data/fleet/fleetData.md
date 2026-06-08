@@ -192,13 +192,17 @@ statAfg (공전) : 소속 인원 중 최고값. statCsm 초과 불가
 | 2026-06-08 | 함대 능력치 상한 = 사령관 statCsm 고정            |
 | 2026-06-08 | location 형식: SE796/01                           |
 | 2026-06-08 | 기본 데이터 없음, 시나리오별 생성                 |
+| 2026-06-08 | 분함대 fltCode 형식 확정: 분함대는 seq 포함 full fltCode 사용 (REH0041 등), parentFlt도 full fltCode |
 
 ---
 
 ## TODO
 
+- [x] 분함대 대응 코드 수정 (fltCode/fltNum/parentFlt SE796/01 전체 통일)
 - [ ] unitshipData.js 설계
 - [ ] flagshipData.js 설계
 - [ ] shipTraitData.js 설계
+- [ ] fltLoc 성계 코드 입력 (SE796/01 전체)
+- [ ] fleetFormationData.js 생성 (SE796/01)
 - [ ] 분함대 사령관 작계 처리 로직 설계
 - [ ] 함대 괴멸 조건 정의 (함선 N% 이하?)

@@ -6,9 +6,6 @@
 // ================================================================
 
 export const FLEET_DATA = [
-  // 수정 fltCode : nation + fltNum + seq 조합으로 사용. 0이 본함대
-  // fltLoc : 시나리오 코드가 아니라, 현재 위치한 성계 또는 레인
-  //  >> 위 수정사항 md파일 반영 후 이 주석은 삭제
 
   // ── 자유행성동맹 (FPA) ───────────────────────────────────────
   // 사령관 쿠브르슬리
@@ -138,7 +135,7 @@ export const FLEET_DATA = [
   {
     fltCode: "REH0040",
     faction: "REH",
-    fltNum: "001",
+    fltNum: "004",
     fltName: "로엔그람 함대",
     fltLoc: "", // 아스타테
     parentFlt: null,
@@ -150,7 +147,7 @@ export const FLEET_DATA = [
     fltNum: "002",
     fltName: "로엔그람 함대 메르카츠 분함대",
     fltLoc: "", // 아스타테
-    parentFlt: "REH004",
+    parentFlt: "REH0040",
   },
   // 분함대 — 슈타덴
   {
@@ -159,7 +156,7 @@ export const FLEET_DATA = [
     fltNum: "003",
     fltName: "로엔그람 함대 슈타덴 분함대",
     fltLoc: "", // 아스타테
-    parentFlt: "REH004",
+    parentFlt: "REH0040",
   },
   // 분함대 — 파렌하이트
   {
@@ -168,7 +165,7 @@ export const FLEET_DATA = [
     fltNum: "004",
     fltName: "로엔그람 함대 파렌하이트 분함대",
     fltLoc: "",
-    parentFlt: "REH004",
+    parentFlt: "REH0040",
   },
   // 분함대 — 에를라흐
   {
@@ -177,7 +174,7 @@ export const FLEET_DATA = [
     fltNum: "005",
     fltName: "로엔그람 함대 에를라흐 분함대",
     fltLoc: "", // 아스타테
-    parentFlt: "REH004",
+    parentFlt: "REH0040",
   },
   // 분함대 — 포겔
   {
@@ -186,7 +183,7 @@ export const FLEET_DATA = [
     fltNum: "006",
     fltName: "로엔그람 함대 포겔 분함대",
     fltLoc: "", // 아스타테
-    parentFlt: "REH004",
+    parentFlt: "REH0040",
   },
   // 그 외.
   // 이젤론 주둔함대 미터마이어함대 로이엔탈함대 슈바르츠란첸라이터 등 제국 후방에 존재하는 함대

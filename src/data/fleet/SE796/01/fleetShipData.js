@@ -14,7 +14,7 @@
 
 export const FLEET_SHIP_DATA = [
 
-  // ── FPA002 자유행성동맹 제2함대 ──────────────────────────────
+  // ── FPA0020 자유행성동맹 제2함대 ─────────────────────────────
   // 총 15,000척
 
   {
@@ -32,7 +32,7 @@ export const FLEET_SHIP_DATA = [
     shipType : "warship",
   },
 
-  // ── FPA004 자유행성동맹 제4함대 ──────────────────────────────
+  // ── FPA0040 자유행성동맹 제4함대 ─────────────────────────────
   // 총 12,000척
 
   {
@@ -50,7 +50,7 @@ export const FLEET_SHIP_DATA = [
     shipType : "warship",
   },
 
-  // ── FPA006 자유행성동맹 제6함대 ──────────────────────────────
+  // ── FPA0060 자유행성동맹 제6함대 ─────────────────────────────
   // 총 13,000척
 
   {
@@ -68,65 +68,70 @@ export const FLEET_SHIP_DATA = [
     shipType : "warship",
   },
 
-  // ── REH001 로엔그람 함대 ─────────────────────────────────────
+  // ── REH0040 로엔그람 함대 ─────────────────────────────────────
   // 총 20,000척 (분함대 포함)
   // 기함은 라인하르트 직속 함대에만 배정
   // 분함대별 함선 수는 임의 배분 (원작 미상)
 
   {
-    fltCode  : "REH001",
+    fltCode  : "REH0040",
     type     : "F",
     shipIndex: 1,
     shipAmt  : 1,
     shipType : "Brunhild",      // 기함 브륀힐트
   },
   {
-    fltCode  : "REH001",
+    fltCode  : "REH0040",
     type     : "U",
     shipIndex: 2,
     shipAmt  : 2999,            // 라인하르트 직속 (임의)
     shipType : "warship",
   },
 
-  // REH002 메르카츠 분함대
+  // ── REH0041 메르카츠 분함대 ──────────────────────────────────
+
   {
-    fltCode  : "REH002",
+    fltCode  : "REH0041",
     type     : "U",
     shipIndex: 1,
     shipAmt  : 4000,            // 임의 배분
     shipType : "warship",
   },
 
-  // REH003 슈타덴 분함대
+  // ── REH0042 슈타덴 분함대 ────────────────────────────────────
+
   {
-    fltCode  : "REH003",
+    fltCode  : "REH0042",
     type     : "U",
     shipIndex: 1,
     shipAmt  : 3000,            // 임의 배분
     shipType : "warship",
   },
 
-  // REH004 파렌하이트 분함대
+  // ── REH0043 파렌하이트 분함대 ────────────────────────────────
+
   {
-    fltCode  : "REH004",
+    fltCode  : "REH0043",
     type     : "U",
     shipIndex: 1,
     shipAmt  : 4000,            // 임의 배분
     shipType : "warship",
   },
 
-  // REH005 에를라헤 분함대 (전사)
+  // ── REH0044 에를라흐 분함대 (전사) ───────────────────────────
+
   {
-    fltCode  : "REH005",
+    fltCode  : "REH0044",
     type     : "U",
     shipIndex: 1,
     shipAmt  : 3000,            // 임의 배분
     shipType : "warship",
   },
 
-  // REH006 포겔 분함대
+  // ── REH0045 포겔 분함대 ───────────────────────────────────────
+
   {
-    fltCode  : "REH006",
+    fltCode  : "REH0045",
     type     : "U",
     shipIndex: 1,
     shipAmt  : 3000,            // 임의 배분
