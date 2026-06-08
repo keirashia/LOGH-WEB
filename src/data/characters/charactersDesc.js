@@ -170,6 +170,44 @@ export const CHAR_DESC = [
     desc: `自由惑星同盟第2艦隊司令官。アスターテ会戦でラインハルトの攻勢により重傷を負い前線から離脱した。部下ヤン・ウェンリーの助言を無視したことが大きな損害につながった。`,
   },
   // 포겔
+  // 장 로베르 랍
+  {
+    charCode: "CH_000368",
+    lang: "KR",
+    scCode: "",
+    desc: `자유행성동맹 제6함대 사령관 무어의 부관. SE796년 아스타테 회전에서 상관과 함께 전사했다.`,
+  },
+  {
+    charCode: "CH_000368",
+    lang: "EN",
+    scCode: "",
+    desc: `Adjutant of 6th Fleet Commander Moor of the Free Planets Alliance. Killed in action alongside his commander at the Battle of Astarte in SE796.`,
+  },
+  {
+    charCode: "CH_000368",
+    lang: "JP",
+    scCode: "",
+    desc: `自由惑星同盟第6艦隊司令官ムーアの副官。SE796年のアスターテ会戦でムーア提督と共に戦死した。`,
+  },
+  // 지크프리트 키르히아이스
+  {
+    charCode: "CH_000388",
+    lang: "KR",
+    scCode: "",
+    desc: `라인하르트 폰 뮤젤의 절친한 친구이자 가장 신뢰하는 부관. 탁월한 전술 능력과 높은 도덕성을 겸비한 인물로, 라인하르트의 야망을 함께 지지하며 제국 최강의 함대를 이끌었다. SE796년 말, 쿠데타 음모에 맞서다 총격을 받고 전사했다.`,
+  },
+  {
+    charCode: "CH_000388",
+    lang: "EN",
+    scCode: "",
+    desc: `Reinhard's closest friend and most trusted adjutant. Possessing both exceptional tactical ability and high moral character, he stood by Reinhard's ambitions and commanded a powerful fleet. He was shot and killed late in SE796 while opposing a coup attempt.`,
+  },
+  {
+    charCode: "CH_000388",
+    lang: "JP",
+    scCode: "",
+    desc: `ラインハルト・フォン・ミューゼルの親友で最も信頼する副官。卓越した戦術能力と高い道徳性を兼ね備え、ラインハルトの野望を支えながら帝国最強の艦隊を率いた。SE796年末、クーデター陰謀に抗して銃撃を受け戦死した。`,
+  },
   {
     charCode: "CH_000494",
     lang: "KR",

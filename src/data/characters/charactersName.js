@@ -8090,7 +8090,7 @@ export const CHAR_NAMES = [
     charCode: "CH_000368",
     scCode: "",
     lang: "En",
-    name: ``,
+    name: `Jean Robert Lap`,
     nick: ``,
   },
   {
@@ -8104,7 +8104,7 @@ export const CHAR_NAMES = [
     charCode: "CH_000368",
     scCode: "",
     lang: "Jp",
-    name: ``,
+    name: `ジャン・ロベール・ラップ`,
     nick: ``,
   },
   // 제노
@@ -8544,8 +8544,8 @@ export const CHAR_NAMES = [
     charCode: "CH_000388",
     scCode: "",
     lang: "Jp",
-    name: ``,
-    nick: ``,
+    name: `ジークフリート・キルヒアイス`,
+    nick: `キルヒアイス`,
   },
   // 차오 유이룽
   {

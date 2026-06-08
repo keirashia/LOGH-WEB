@@ -159,6 +159,28 @@ export const CHAR_JOBS = [
     jobCode: "JB_MR004",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
+  // 장 로베르 랍
+  {
+    charCode: "CH_000368",
+    jobCode: "JB_M002",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000368",
+    jobCode: "JB_MR005",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  // 지크프리트 키르히아이스
+  {
+    charCode: "CH_000388",
+    jobCode: "JB_M001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000388",
+    jobCode: "JB_MR004",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
   // 포겔
   {
     charCode: "CH_000494",
