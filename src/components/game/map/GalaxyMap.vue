@@ -23,12 +23,15 @@
       </defs>
       <g :transform="mapTransform">
 
-        <!-- 영역 (세력 territory) -->
-        <circle v-for="s in systems.filter(s => s.faction)" :key="'tr_'+s.id"
-                :cx="s.x" :cy="s.y" :r="territoryR(s)"
-                :fill="fclr[s.faction]" fill-opacity="0.28"
-                stroke="none" filter="url(#tsf)"
-                style="pointer-events:none"/>
+        <!-- 영역 (세력 territory) — 세력별 그룹으로 묶어 opacity 누적 방지 -->
+        <g v-for="fid in scenarioFactions" :key="'fac_'+fid"
+           opacity="0.28" filter="url(#tsf)" style="pointer-events:none">
+          <line v-for="l in (territoryLanesByFaction[fid] ?? [])" :key="'tl_'+l.k"
+                :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
+                :stroke="fclr[fid]" :stroke-width="l.sw" stroke-linecap="round"/>
+          <circle v-for="s in systems.filter(s => s.faction === fid)" :key="'tr_'+s.id"
+                  :cx="s.x" :cy="s.y" :r="territoryR(s)" :fill="fclr[fid]"/>
+        </g>
 
         <!-- 항로 (비경계) -->
         <line v-for="l in normalLanesComp" :key="l.k"
@@ -90,7 +93,7 @@
       <button class="zb" @click="resetZoom"         title="초기화">⌂</button>
       <button class="zb" @click="zoomStep(1/1.2)"  title="줌아웃 (−)">−</button>
       <div class="zb-sep"/>
-      <button :class="['zb', { active: editMode }]" @click="toggleEditMode" title="편집 모드">✏️</button>
+      <!-- <button :class="['zb', { active: editMode }]" @click="toggleEditMode" title="편집 모드">✏️</button> -->
     </div>
 
     <!-- 편집 툴바 -->
@@ -117,6 +120,9 @@
         <button class="btn btn-sm" style="opacity:.6" @click="cancelAdd">취소</button>
       </div>
     </div>
+
+    <!-- 줌 수치 표시 (테스트용) -->
+    <div class="zoom-indicator">x{{ scale.toFixed(2) }}</div>
 
     <!-- 날짜 -->
     <GameDateDisplay class="map-date" />
@@ -160,7 +166,7 @@ const FACTION_NAME_MAP = Object.fromEntries(
 const scale = ref(1)
 const panX  = ref(0)
 const panY  = ref(0)
-const MIN_SCALE = 0.4
+const MIN_SCALE = 1
 const MAX_SCALE = 5
 
 const mapTransform = computed(() =>
@@ -394,6 +400,23 @@ function territoryR(s) {
   return 56
 }
 
+// 영역 연결 세그먼트 (세력별, 같은 세력 항로)
+const territoryLanesByFaction = computed(() => {
+  const map = {}
+  for (const k of laneKeySet.value) {
+    const [a, b] = k.split('|')
+    const sa = game.systems[a], sb = game.systems[b]
+    if (!sa || !sb || !sa.faction || !sb.faction || sa.faction !== sb.faction) continue
+    if (!map[sa.faction]) map[sa.faction] = []
+    map[sa.faction].push({
+      k,
+      x1: sa.x, y1: sa.y, x2: sb.x, y2: sb.y,
+      sw: Math.min(territoryR(sa), territoryR(sb)) * 2,
+    })
+  }
+  return map
+})
+
 // 비경계 항로 (같은 세력 or 중립 포함)
 const normalLanesComp = computed(() => {
   return [...laneKeySet.value].map(k => {
@@ -558,6 +581,14 @@ onUnmounted(() => {
 }
 .af-input:focus { border-color:var(--fc) }
 .af-btns { display:flex; gap:6px }
+
+/* 줌 수치 (테스트용) */
+.zoom-indicator {
+  position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
+  background: rgba(10,16,24,.75); border: 1px solid var(--bd);
+  color: var(--fc); font-size: 12px; padding: 3px 10px; border-radius: 4px;
+  pointer-events: none; z-index: 10; font-variant-numeric: tabular-nums;
+}
 
 /* 날짜 */
 .map-date {
