@@ -25,6 +25,8 @@
 | `src/data/scenarios/scenarios.md` | 시나리오별 초기값 |
 | `src/data/factions/factions.md` | 세력/정치/이념 데이터 |
 | `src/data/characters/charactersData.md` | 인물 데이터 |
+| `src/data/fleet/fleetData.md` | 함대 데이터 설계 — fltCode 체계, 지휘 계층(C/O/S), 스탯 계산 규칙, 시나리오별 파일 구조 |
+| `src/data/fleet/formationData.js` | 진형 데이터 (FF_01~10, ffType: ATK/DEF/MOV/ENC, weight 전환 딜레이) |
 | `src/stores/stores.md` | 전체 스토어 개요, gameStore 상태/액션 상세 |
 | `src/components/components.md` | 컴포넌트 구조, GalaxyMap 스펙, 모달 목록 |
 | `src/components/game/modals/characters/charactersScreen.md` | 인물 모달 화면 설계 (CharModal/CharDetailModal) |
