@@ -12,6 +12,7 @@
 src/data/
 ├── masterData.js          ← 게임 상수 집합 (SCENARIOS/CHARACTERS/FACTIONS/OPERATION_TYPES 등)
 ├── tacticalData.js        ← 전술전투 데이터 (진형 6종, 지형, 맵)
+├── tactical/              → tactical.md 참조
 ├── stars/                 → stars.md 참조
 ├── scenarios/             → scenarios.md 참조
 ├── factions/              → factions.md 참조
@@ -60,12 +61,13 @@ export { FINANCE, MILITARY, INTEL }
 
 ---
 
-## tacticalData.js
+## tacticalData.js / tactical/
 
-전술전투에서만 사용. 진형 6종, 지형 타입, 맵 빌더 포함.
+전술전투에서만 사용. 진형 6종, 지형 타입, 맵 빌더 포함.  
+상세 설계(TERRAIN·HAZARD 체계, starMaps 연동)는 `tactical/tactical.md` 참조.
 
 ```js
-export { FORMATIONS, TERRAIN_TYPES, buildTacticalMap }
+export { FORMATIONS, TERRAIN, HAZARD_TYPES, buildTacticalMap }
 ```
 
 ---
