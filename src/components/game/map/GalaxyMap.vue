@@ -9,11 +9,11 @@
          @pointerup="onPtrUp"
          @pointercancel="onPtrUp">
       <defs>
-        <!-- 영역 블러 -->
-        <filter id="tsf" x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="20"/>
-        </filter>
-        <!-- 국경선 warp -->
+        <!-- 보로노이 클립 -->
+        <clipPath id="map-clip" clipPathUnits="userSpaceOnUse">
+          <rect x="0" y="0" :width="VW" :height="VH"/>
+        </clipPath>
+        <!-- 국경선 warp (비활성화용 보존) -->
         <filter id="bt-warp" x="-10%" y="-100%" width="120%" height="300%">
           <feTurbulence type="fractalNoise" baseFrequency="0.007 0.003" numOctaves="2" result="noise">
             <animate attributeName="seed" from="0" to="60" dur="8s" repeatCount="indefinite"/>
@@ -23,14 +23,28 @@
       </defs>
       <g :transform="mapTransform">
 
-        <!-- 영역 (세력 territory) — 세력별 그룹으로 묶어 opacity 누적 방지 -->
-        <g v-for="fid in scenarioFactions" :key="'fac_'+fid"
-           opacity="0.28" filter="url(#tsf)" style="pointer-events:none">
-          <line v-for="l in (territoryLanesByFaction[fid] ?? [])" :key="'tl_'+l.k"
-                :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
-                :stroke="fclr[fid]" :stroke-width="l.sw" stroke-linecap="round"/>
-          <circle v-for="s in systems.filter(s => s.faction === fid)" :key="'tr_'+s.id"
-                  :cx="s.x" :cy="s.y" :r="territoryR(s)" :fill="fclr[fid]"/>
+        <!-- 보로노이 영역 -->
+        <g style="pointer-events:none" clip-path="url(#map-clip)">
+          <!-- 셀 채움 -->
+          <path v-for="cell in voronoiCells" :key="'vc_'+cell.id"
+                :d="cell.path"
+                :fill="cell.faction ? fclr[cell.faction] : '#0a0f1a'"
+                fill-opacity="0.18"/>
+          <!-- 동일 세력 내부 경계 (얇은 선) -->
+          <line v-for="(e,i) in voronoiInternalEdges" :key="'vi_'+i"
+                :x1="e.x1" :y1="e.y1" :x2="e.x2" :y2="e.y2"
+                :stroke="fclr[e.faction]" stroke-width="0.6" opacity="0.30"/>
+          <!-- 이종 세력 경계 (이중선 + 글로우) -->
+          <g v-for="(e,i) in voronoiBorderEdges" :key="'vb_'+i">
+            <line :x1="e.ax1" :y1="e.ay1" :x2="e.ax2" :y2="e.ay2"
+                  :stroke="fclr[e.fA]" stroke-width="4" opacity="0.15"/>
+            <line :x1="e.ax1" :y1="e.ay1" :x2="e.ax2" :y2="e.ay2"
+                  :stroke="fclr[e.fA]" stroke-width="1.5" opacity="0.9" class="border-line"/>
+            <line :x1="e.bx1" :y1="e.by1" :x2="e.bx2" :y2="e.by2"
+                  :stroke="fclr[e.fB]" stroke-width="4" opacity="0.15"/>
+            <line :x1="e.bx1" :y1="e.by1" :x2="e.bx2" :y2="e.by2"
+                  :stroke="fclr[e.fB]" stroke-width="1.5" opacity="0.9" class="border-line"/>
+          </g>
         </g>
 
         <!-- 항로 (비경계) -->
@@ -143,6 +157,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
+import { Delaunay } from 'd3-delaunay'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
 import { FACTION_NAMES } from '@/data/factions/factionName.js'
@@ -392,30 +407,59 @@ function toggleLane(a, b) {
   laneKeySet.value = ns
 }
 
-// 영역 반경
-function territoryR(s) {
-  if (s.type === 'capital')  return 90
-  if (s.type === 'fortress') return 72
-  if (s.isGateway)           return 66
-  return 56
-}
+// ── 보로노이 영역 ─────────────────────────────────────────────
+const voronoiData = computed(() => {
+  const sysList = Object.values(game.systems)
+  if (sysList.length < 2) return { cells: [], internalEdges: [], borderEdges: [] }
 
-// 영역 연결 세그먼트 (세력별, 같은 세력 항로)
-const territoryLanesByFaction = computed(() => {
-  const map = {}
-  for (const k of laneKeySet.value) {
-    const [a, b] = k.split('|')
-    const sa = game.systems[a], sb = game.systems[b]
-    if (!sa || !sb || !sa.faction || !sb.faction || sa.faction !== sb.faction) continue
-    if (!map[sa.faction]) map[sa.faction] = []
-    map[sa.faction].push({
-      k,
-      x1: sa.x, y1: sa.y, x2: sb.x, y2: sb.y,
-      sw: Math.min(territoryR(sa), territoryR(sb)) * 2,
-    })
+  const delaunay = Delaunay.from(sysList, s => s.x, s => s.y)
+  const voronoi  = delaunay.voronoi([0, 0, VW, VH])
+  const OFFSET   = 2.5
+
+  const cells = sysList.map((s, i) => ({
+    id:      s.id,
+    path:    voronoi.renderCell(i),
+    faction: s.faction || null,
+  }))
+
+  const internalEdges = []
+  const borderEdges   = []
+
+  for (let e = 0; e < delaunay.halfedges.length; e++) {
+    const opp = delaunay.halfedges[e]
+    if (opp < 0 || e > opp) continue
+
+    const i  = delaunay.triangles[e]
+    const j  = delaunay.triangles[opp]
+    const fA = sysList[i]?.faction || null
+    const fB = sysList[j]?.faction || null
+
+    const c1 = Math.floor(e   / 3) * 2
+    const c2 = Math.floor(opp / 3) * 2
+    const x1 = voronoi.circumcenters[c1],     y1 = voronoi.circumcenters[c1 + 1]
+    const x2 = voronoi.circumcenters[c2],     y2 = voronoi.circumcenters[c2 + 1]
+    const dx = x2 - x1, dy = y2 - y1
+    const len = Math.hypot(dx, dy)
+    if (len < 0.5) continue
+
+    if (fA && fB && fA !== fB) {
+      const nx = -dy / len * OFFSET, ny = dx / len * OFFSET
+      borderEdges.push({
+        ax1: x1 + nx, ay1: y1 + ny, ax2: x2 + nx, ay2: y2 + ny,
+        bx1: x1 - nx, by1: y1 - ny, bx2: x2 - nx, by2: y2 - ny,
+        fA, fB,
+      })
+    } else if (fA && fA === fB) {
+      internalEdges.push({ x1, y1, x2, y2, faction: fA })
+    }
   }
-  return map
+
+  return { cells, internalEdges, borderEdges }
 })
+
+const voronoiCells         = computed(() => voronoiData.value.cells)
+const voronoiInternalEdges = computed(() => voronoiData.value.internalEdges)
+const voronoiBorderEdges   = computed(() => voronoiData.value.borderEdges)
 
 // 비경계 항로 (같은 세력 or 중립 포함)
 const normalLanesComp = computed(() => {
@@ -607,6 +651,9 @@ onUnmounted(() => {
 
 @keyframes pulse { 0%,100%{opacity:.5} 50%{opacity:1} }
 .sel-ring { animation:pulse 1.5s ease-in-out infinite }
+
+.border-line { animation: border-pulse 2.5s ease-in-out infinite }
+@keyframes border-pulse { 0%,100%{opacity:.7} 50%{opacity:1} }
 
 /* 국경 3중 금선 */
 .bline { fill:none; stroke:rgba(212,170,96,0.8); }
