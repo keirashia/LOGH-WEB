@@ -115,6 +115,18 @@ export const CHAR_JOBS = [
     jobCode: "JB_MR004",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
+  // 안토네르 야노슈 (https://gineipaedia.com/wiki/Antonel_Yanosher)
+  {
+    charCode: "CH_000248",
+    jobCode: "JB_C003",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  // 알레 하이네센 (https://gineipaedia.com/wiki/Arle_Heinessen)
+  {
+    charCode: "CH_000252",
+    jobCode: "JB_C001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
   // 아달베르트 폰 파렌하이트
   {
     charCode: "CH_000233",
@@ -135,6 +147,46 @@ export const CHAR_JOBS = [
   {
     charCode: "CH_000266",
     jobCode: "JB_MR005",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  // 크리스토퍼 우드 (https://gineipaedia.com/wiki/Christpher_Wood)
+  {
+    charCode: "CH_000454",
+    jobCode: "JB_M001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000454",
+    jobCode: "JB_MR001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  // 칼레 팔름그렌 (https://gineipaedia.com/wiki/Carle_Palmgren)
+  {
+    charCode: "CH_000420",
+    jobCode: "JB_F001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  // 차오 유이룽 (https://gineipaedia.com/wiki/Chao_Yuiling)
+  {
+    charCode: "CH_000389",
+    jobCode: "JB_M003",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  // 졸리오 프랑쿠르 (https://gineipaedia.com/wiki/Joliot_Frankul)
+  {
+    charCode: "CH_000381",
+    jobCode: "JB_M001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  {
+    charCode: "CH_000381",
+    jobCode: "JB_MR001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
+  // 이온 파제카스 (https://gineipaedia.com/wiki/Ion_Fazekath_(person))
+  {
+    charCode: "CH_000358",
+    jobCode: "JB_C001",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
   // 파스톨레
