@@ -1,5 +1,5 @@
-﻿import { defineStore } from 'pinia'
-import { FORMATIONS, TERRAIN, MAP_W, MAP_H, buildTacticalMap } from '@/data/tacticalData'
+import { defineStore } from 'pinia'
+import { FORMATIONS, TERRAIN, MAP_W, MAP_H, buildTacticalMap } from '@/data/base/tactical/tacticalData'
 import { CHARACTERS } from '@/data/masterData'
 
 function fm(id)            { return FORMATIONS[id] || FORMATIONS.DOUBLE_COL }

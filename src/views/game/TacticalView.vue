@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <div class="tac-root">
 
     <!-- 헤더 -->
@@ -256,7 +256,7 @@ import { computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTacticalStore } from '@/stores/tacticalStore'
 import { useGameStore }     from '@/stores/gameStore'
-import { FORMATIONS, TERRAIN, MAP_W, MAP_H, CELL_SIZE } from '@/data/tacticalData'
+import { FORMATIONS, TERRAIN, MAP_W, MAP_H, CELL_SIZE } from '@/data/base/tactical/tacticalData'
 import { CHARACTERS, FACTIONS } from '@/data/masterData'
 
 const router = useRouter()

@@ -135,3 +135,100 @@ export const CHAR_TRAITS_MASTER = [
 export const CHAR_TRAIT_MAP = Object.fromEntries(
   CHAR_TRAITS_MASTER.map(t => [t.id, t])
 )
+
+// ================================================================
+//  캐릭터-트레잇 할당 목록 (구 charactersTraits.js)
+//  charCode:     대상 캐릭터 키 (charactersData.js)
+//  traitCode:    대상 트레잇 키 (CHAR_TRAITS_MASTER)
+//  traitStDate:  취득 턴 (0=처음부터)
+//  traitEdDate:  종료 턴 (null=영구)
+// ================================================================
+
+export const CHAR_TRAITS = [
+  // 무어
+  {
+    charCode:    "CH_000139",
+    traitCode:   "TRC_U_000139",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  // 빌리바르트 요아힘 폰 메르카츠
+  {
+    charCode:    "CH_000195",
+    traitCode:   "TRC_U_000195",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  // 아달베르트 폰 파렌하이트
+  {
+    charCode:    "CH_000233",
+    traitCode:   "TRC_U_000233",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  // 양 웬리
+  {
+    charCode:    "CH_000266",
+    traitCode:   "TRC_U_000266",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  {
+    charCode:    "CH_000266",
+    traitCode:   "TRC_G_002",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  // 파에타
+  {
+    charCode:    "CH_000479",
+    traitCode:   "TRC_U_000479",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  {
+    charCode:    "CH_000479",
+    traitCode:   "TRC_G_001",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  // 슈타덴
+  {
+    charCode:    "CH_000223",
+    traitCode:   "TRC_U_000223",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  {
+    charCode:    "CH_000223",
+    traitCode:   "TRC_G_001",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+  {
+    charCode:    "CH_000223",
+    traitCode:   "TRC_S_001",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
+]

@@ -84,7 +84,7 @@
 
 <script setup>
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
-import { SCENARIOS } from '@/data/scenarios/scenarioData.js'
+import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
 
 const props = defineProps({ scenario: Object })

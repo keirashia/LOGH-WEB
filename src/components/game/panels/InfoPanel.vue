@@ -254,9 +254,9 @@
 import { ref, computed, watch } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS, CHARACTERS, CONSTRUCTION_TYPES } from '@/data/masterData'
-import { PLANETS } from '@/data/stars/planetsData.js'
-import { LANES as RAW_LANES } from '@/data/stars/lane.js'
-import { getStarMapByCode } from '@/data/stars/maps/index.js'
+import { PLANETS } from '@/data/base/stars/planetsData.js'
+import { LANES as RAW_LANES } from '@/data/base/stars/laneData.js'
+import { getStarMapByCode } from '@/data/base/stars/maps/index.js'
 import StatRow from '@/components/ui/StatRow.vue'
 
 const game  = useGameStore()

@@ -105,8 +105,8 @@
 <script setup>
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
-import { CHAR_BASE } from '@/data/characters/charactersData.js'
-import { CHAR_NAMES } from '@/data/characters/charactersName.js'
+import { CHAR_BASE } from '@/data/base/characters/charactersData.js'
+import { CHAR_NAMES } from '@/data/base/characters/charactersName.js'
 import CharDetailComp from '@/components/char/CharDetailComp.vue'
 import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
 

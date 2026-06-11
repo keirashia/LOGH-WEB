@@ -52,12 +52,12 @@
 <script setup>
 import { ref, computed, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { SCENARIOS } from '@/data/scenarios/scenarioData.js'
+import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
-import { CHAR_BASE } from '@/data/characters/charactersData.js'
-import { CHAR_NAMES } from '@/data/characters/charactersName.js'
-import { FACTION_NAMES } from '@/data/factions/factionName.js'
+import { CHAR_BASE } from '@/data/base/characters/charactersData.js'
+import { CHAR_NAMES } from '@/data/base/characters/charactersName.js'
+import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
 import FactionFilter  from './legacy/FactionFilter.vue'
 import CharSelectGrid from './legacy/CharSelectGrid.vue'
 
@@ -93,7 +93,7 @@ watchEffect(async () => {
   try {
     const [base, num] = cur.value.id.split('_')
     const folder = num.padStart(2, '0')
-    const mod = await import(`@/data/scenarios/${base}/${folder}/charList.js`)
+    const mod = await import(`@/data/scenario/${base}/${folder}/charList.js`)
     charList.value = mod.CHAR_LIST
   } catch {
     charList.value = []

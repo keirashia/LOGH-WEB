@@ -1,6 +1,6 @@
-import { CHAR_BASE as CHARACTERS_DATA } from '@/data/characters/charactersData.js'
-import FACTIONS_DATA from '@/data/factions/factionsData.js'
-import { SCENARIOS as _SCENARIOS } from '@/data/scenarios/scenarioData.js'
+import { CHAR_BASE as CHARACTERS_DATA } from '@/data/base/characters/charactersData.js'
+import FACTIONS_DATA from '@/data/base/factions/factionsData.js'
+import { SCENARIOS as _SCENARIOS } from '@/data/scenario/scenarioData.js'
 
 export { _SCENARIOS as SCENARIOS }
 

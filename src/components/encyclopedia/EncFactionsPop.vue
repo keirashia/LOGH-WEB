@@ -71,8 +71,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
-import FACTIONS_ALL from '@/data/factions/factionsData.js'
-import { FACTION_NAMES } from '@/data/factions/factionName.js'
+import FACTIONS_ALL from '@/data/base/factions/factionsData.js'
+import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
 
 const enc = useEncyclopediaStore()
 

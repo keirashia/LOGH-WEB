@@ -67,7 +67,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { SCENARIOS } from '@/data/scenarios/scenarioData.js'
+import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
 
 const route  = useRoute()

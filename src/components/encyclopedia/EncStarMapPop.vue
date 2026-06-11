@@ -131,9 +131,9 @@
 import { ref, computed } from 'vue'
 import { Delaunay } from 'd3-delaunay'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
-import { STAR_SYSTEMS } from '@/data/stars/starSystemData'
-import { LANES }        from '@/data/stars/lane'
-import { STAR_DETAIL }  from '@/data/scenarios/SE796/01/starDetail'
+import { STAR_SYSTEMS } from '@/data/base/stars/starSystemData'
+import { LANES }        from '@/data/base/stars/laneData'
+import { STAR_DETAIL }  from '@/data/scenario/SE796/01/starDetail'
 import { FACTIONS }     from '@/data/masterData'
 
 const enc = useEncyclopediaStore()

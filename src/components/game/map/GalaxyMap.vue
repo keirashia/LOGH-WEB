@@ -160,8 +160,8 @@ import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { Delaunay } from 'd3-delaunay'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
-import { FACTION_NAMES } from '@/data/factions/factionName.js'
-import { LANES as LANE_DEF } from '@/data/stars/lane'
+import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
+import { LANES as LANE_DEF } from '@/data/base/stars/laneData'
 import GameDateDisplay from '@/components/game/GameDateDisplay.vue'
 
 const game  = useGameStore()

@@ -1,5 +1,5 @@
 // starMaps index — 전체 성계 세부맵 import
-// 사용: import { getStarMap } from "@/data/stars/maps/index.js"
+// 사용: import { getStarMap } from "@/data/base/stars/maps/index.js"
 
 import { STAR_MAP as ALMENTPUVEL } from './230001_ALMENTPUVEL.js'
 import { STAR_MAP as ALTENER } from './230002_ALTENER.js'

@@ -114,13 +114,13 @@
 import { reactive, computed } from 'vue'
 import TraitBadge from '@/components/char/TraitBadge.vue'
 import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
-import { CHAR_BASE }  from '@/data/characters/charactersData.js'
-import { CHAR_NAMES } from '@/data/characters/charactersName.js'
-import { CHAR_DESC }  from '@/data/characters/charactersDesc.js'
-import { CHAR_JOBS }  from '@/data/characters/charactersJobs.js'
-import { CHAR_TRAITS }      from '@/data/characters/charactersTraits.js'
-import { CHAR_TRAIT_MAP }   from '@/data/trait/chars/charTraitData.js'
-import { JOBS } from '@/data/jobs/jobData.js'
+import { CHAR_BASE }  from '@/data/base/characters/charactersData.js'
+import { CHAR_NAMES } from '@/data/base/characters/charactersName.js'
+import { CHAR_DESC }  from '@/data/base/characters/charactersDesc.js'
+import { CHAR_JOBS }  from '@/data/base/characters/charactersJobs.js'
+import { CHAR_TRAITS }      from '@/data/base/trait/chars/charTraitData.js'
+import { CHAR_TRAIT_MAP }   from '@/data/base/trait/chars/charTraitData.js'
+import { JOBS } from '@/data/base/jobs/jobData.js'
 
 const props = defineProps({
   chaCode:    { type: String, required: true },

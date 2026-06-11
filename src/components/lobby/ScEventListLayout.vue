@@ -94,7 +94,7 @@
 
 <script setup>
 import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
-import { SCENARIOS } from '@/data/scenarios/scenarioData.js'
+import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 
 const TAG_COLORS = {
   '사실':       '#4488FF',

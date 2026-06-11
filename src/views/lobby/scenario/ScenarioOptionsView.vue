@@ -35,7 +35,7 @@
 <script setup>
 import { reactive, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { SCENARIOS } from '@/data/scenarios/scenarioData.js'
+import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 
 const route  = useRoute()
 const router = useRouter()

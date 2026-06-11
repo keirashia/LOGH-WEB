@@ -1,5 +1,5 @@
 // /src/data/factions/factionsData.js
-import { IDEOLOGY_MAP as byCode } from "@/data/regime/ideologyData.js";
+import { IDEOLOGY_MAP as byCode } from "@/data/base/regime/ideologyData.js";
 
 export default [
 

@@ -3,11 +3,11 @@ import {
   FACTIONS, CHARACTERS,
   OPERATION_TYPES, CONSTRUCTION_TYPES, FORTRESS_WEAPONS, DIALOGS
 } from '@/data/masterData'
-import { SCENARIOS } from '@/data/scenarios/scenarioData.js'
-import { STAR_SYSTEMS } from '@/data/stars/starSystemData'
-import { STAR_DETAIL as _DETAIL_SE796_1 } from '@/data/scenarios/SE796/01/starDetail'
-import { STAR_DETAIL as _DETAIL_SE745_1 } from '@/data/scenarios/SE745/01/starDetail'
-import { STAR_DETAIL as _DETAIL_SE640_1 } from '@/data/scenarios/SE640/01/starDetail'
+import { SCENARIOS } from '@/data/scenario/scenarioData.js'
+import { STAR_SYSTEMS } from '@/data/base/stars/starSystemData'
+import { STAR_DETAIL as _DETAIL_SE796_1 } from '@/data/scenario/SE796/01/starDetail'
+import { STAR_DETAIL as _DETAIL_SE745_1 } from '@/data/scenario/SE745/01/starDetail'
+import { STAR_DETAIL as _DETAIL_SE640_1 } from '@/data/scenario/SE640/01/starDetail'
 
 const _SCENARIO_DETAIL_MAP = {
   'SE796_1': Object.fromEntries(_DETAIL_SE796_1.map(d => [d.code, d])),
