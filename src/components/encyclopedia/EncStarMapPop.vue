@@ -46,6 +46,16 @@
               </g>
             </g>
 
+            <!-- 사르갓소 / 장애물 폴리곤 -->
+            <g style="pointer-events:none">
+              <polygon v-for="obs in OBSTACLES" :key="obs.id"
+                       :points="obs.points.map(p => p.join(',')).join(' ')"
+                       :fill="obs.color.fill"
+                       :stroke="obs.color.outline"
+                       stroke-width="1.5"
+                       opacity="0.88"/>
+            </g>
+
             <!-- 항로 -->
             <line v-for="l in lanesComp" :key="l.id"
                   :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
@@ -131,8 +141,8 @@
 import { ref, computed } from 'vue'
 import { Delaunay } from 'd3-delaunay'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
-import { STAR_SYSTEMS } from '@/data/base/stars/starSystemData'
-import { LANES }        from '@/data/base/stars/laneData'
+import { STAR_SYSTEMS, OBSTACLES } from '@/data/base/stars/starSystemData'
+import { LANES }                   from '@/data/base/stars/laneData'
 import { STAR_DETAIL }  from '@/data/scenario/SE796/01/starDetail'
 import { FACTIONS }     from '@/data/masterData'
 
@@ -174,10 +184,43 @@ const lanesComp = computed(() =>
 )
 
 // ── 보로노이 ──────────────────────────────────────────────────
+const GHOST_STEP     = 450
+const SARGASSO_STEP  = 25
+
+function pointInPolygon(x, y, pts) {
+  let inside = false
+  for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+    const xi = pts[i][0], yi = pts[i][1]
+    const xj = pts[j][0], yj = pts[j][1]
+    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi)
+      inside = !inside
+  }
+  return inside
+}
+
 const voronoiData = computed(() => {
   if (systems.length < 2) return { cells: [], internalEdges: [], borderEdges: [] }
 
-  const delaunay = Delaunay.from(systems, s => s.x, s => s.y)
+  const ghosts = []
+  for (let gx = 0; gx <= VW; gx += GHOST_STEP)
+    for (let gy = 0; gy <= VH; gy += GHOST_STEP)
+      ghosts.push({ x: gx, y: gy, faction: null })
+
+  for (const obs of OBSTACLES) {
+    const xs = obs.points.map(p => p[0])
+    const ys = obs.points.map(p => p[1])
+    const x0 = Math.min(...xs), x1 = Math.max(...xs)
+    const y0 = Math.min(...ys), y1 = Math.max(...ys)
+    for (let gx = x0; gx <= x1; gx += SARGASSO_STEP)
+      for (let gy = y0; gy <= y1; gy += SARGASSO_STEP)
+        if (pointInPolygon(gx, gy, obs.points))
+          ghosts.push({ x: gx, y: gy, faction: null })
+  }
+
+  const nReal  = systems.length
+  const allPts = [...systems, ...ghosts]
+
+  const delaunay = Delaunay.from(allPts, s => s.x, s => s.y)
   const voronoi  = delaunay.voronoi([0, 0, VW, VH])
   const OFFSET   = 2.5
 
@@ -193,10 +236,12 @@ const voronoiData = computed(() => {
     const opp = delaunay.halfedges[e]
     if (opp < 0 || e > opp) continue
 
-    const i  = delaunay.triangles[e]
-    const j  = delaunay.triangles[opp]
-    const fA = systems[i]?.faction || null
-    const fB = systems[j]?.faction || null
+    const i = delaunay.triangles[e]
+    const j = delaunay.triangles[opp]
+    if (i >= nReal || j >= nReal) continue
+
+    const fA = allPts[i]?.faction || null
+    const fB = allPts[j]?.faction || null
 
     const c1 = Math.floor(e   / 3) * 2
     const c2 = Math.floor(opp / 3) * 2
