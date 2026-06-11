@@ -47,6 +47,16 @@
           </g>
         </g>
 
+        <!-- 사르갓소 / 장애물 폴리곤 -->
+        <g style="pointer-events:none">
+          <polygon v-for="obs in OBSTACLES" :key="obs.id"
+                   :points="obs.points.map(p => p.join(',')).join(' ')"
+                   :fill="obs.color.fill"
+                   :stroke="obs.color.outline"
+                   stroke-width="1.5"
+                   opacity="0.88"/>
+        </g>
+
         <!-- 항로 (비경계) -->
         <line v-for="l in normalLanesComp" :key="l.k"
               :x1="l.x1" :y1="l.y1" :x2="l.x2" :y2="l.y2"
@@ -162,6 +172,7 @@ import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
 import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
 import { LANES as LANE_DEF } from '@/data/base/stars/laneData'
+import { OBSTACLES } from '@/data/base/stars/starSystemData.js'
 import GameDateDisplay from '@/components/game/GameDateDisplay.vue'
 
 const game  = useGameStore()
@@ -408,14 +419,52 @@ function toggleLane(a, b) {
 }
 
 // ── 보로노이 영역 ─────────────────────────────────────────────
+// 팬텀 포인트 간격 — 값이 작을수록 끄트머리 셀이 타이트해짐
+const GHOST_STEP = 80
+// 사르갓소 내부 팬텀 밀도 — 값이 작을수록 회랑 경계가 정밀해짐
+const SARGASSO_STEP = 25
+
+function pointInPolygon(x, y, pts) {
+  let inside = false
+  for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
+    const xi = pts[i][0], yi = pts[i][1]
+    const xj = pts[j][0], yj = pts[j][1]
+    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi)
+      inside = !inside
+  }
+  return inside
+}
+
 const voronoiData = computed(() => {
   const sysList = Object.values(game.systems)
   if (sysList.length < 2) return { cells: [], internalEdges: [], borderEdges: [] }
 
-  const delaunay = Delaunay.from(sysList, s => s.x, s => s.y)
+  // 격자 팬텀 포인트 (셀 최대 크기 제한용, 렌더링 안 함)
+  const ghosts = []
+  for (let gx = 0; gx <= VW; gx += GHOST_STEP)
+    for (let gy = 0; gy <= VH; gy += GHOST_STEP)
+      ghosts.push({ x: gx, y: gy, faction: null })
+
+  // 사르갓소 폴리곤 내부 팬텀 (보로노이가 회랑을 침범하지 못하게)
+  for (const obs of OBSTACLES) {
+    const xs = obs.points.map(p => p[0])
+    const ys = obs.points.map(p => p[1])
+    const x0 = Math.min(...xs), x1 = Math.max(...xs)
+    const y0 = Math.min(...ys), y1 = Math.max(...ys)
+    for (let gx = x0; gx <= x1; gx += SARGASSO_STEP)
+      for (let gy = y0; gy <= y1; gy += SARGASSO_STEP)
+        if (pointInPolygon(gx, gy, obs.points))
+          ghosts.push({ x: gx, y: gy, faction: null })
+  }
+
+  const nReal  = sysList.length
+  const allPts = [...sysList, ...ghosts]
+
+  const delaunay = Delaunay.from(allPts, s => s.x, s => s.y)
   const voronoi  = delaunay.voronoi([0, 0, VW, VH])
   const OFFSET   = 2.5
 
+  // 실제 성계 셀만 렌더링 (팬텀 셀 제외)
   const cells = sysList.map((s, i) => ({
     id:      s.id,
     path:    voronoi.renderCell(i),
@@ -429,10 +478,13 @@ const voronoiData = computed(() => {
     const opp = delaunay.halfedges[e]
     if (opp < 0 || e > opp) continue
 
-    const i  = delaunay.triangles[e]
-    const j  = delaunay.triangles[opp]
-    const fA = sysList[i]?.faction || null
-    const fB = sysList[j]?.faction || null
+    const i = delaunay.triangles[e]
+    const j = delaunay.triangles[opp]
+    // 팬텀 포인트 연결은 경계선 계산 제외
+    if (i >= nReal || j >= nReal) continue
+
+    const fA = allPts[i]?.faction || null
+    const fB = allPts[j]?.faction || null
 
     const c1 = Math.floor(e   / 3) * 2
     const c2 = Math.floor(opp / 3) * 2
