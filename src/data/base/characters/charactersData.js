@@ -2203,12 +2203,13 @@ export const CHAR_BASE = [
     descEn: ``,
     descJp: ``,
   },
+  // Reinhard von Lohengramm · ラインハルト・フォン・ローエングラム
   {
     // — 기본
     code: "CH_000064",
-    nameKr: "라인하르트 폰 뮤젤",
-    nameEn: "Reinhard von Müsel",
-    nameJp: "ラインハルト・フォン・ミューゼル",
+    nameKr: "라인하르트 폰 로엔그람",
+    nameEn: "Reinhard von Lohengramm",
+    nameJp: "ラインハルト・フォン・ローエングラム",
     nickKr: "라인하르트",
     nickEn: "Reinhard",
     nickJp: "ラインハルト",
@@ -2234,9 +2235,9 @@ export const CHAR_BASE = [
     statMmp: 72,
     // — 기타
     point: "0",
-    descKr: `은하제국의 군사 천재. 누나 아네로제가 황제의 후궁으로 끌려간 것에 분노하여 제국의 정점을 향한 야망을 품는다. 압도적인 통솔력과 카리스마로 제국 최강의 함대를 이끌며, 은하를 통일하여 로엔그람 왕조를 세운다.`,
-    descEn: `Military genius of the Galactic Empire. Driven by rage over his sister Annerose being taken as the Emperor's concubine, he harbors ambitions to reach the pinnacle of the empire. Commanding the empire's most powerful fleet with overwhelming leadership and charisma, he unifies the galaxy and founds the Lohengramm Dynasty.`,
-    descJp: `銀河帝国の軍事天才。姉アンネローゼが皇帝の後宮に召し上げられたことへの憤りを胸に、帝国の頂点へと野望を燃やす。圧倒的な統率力とカリスマで帝国最強の艦隊を率い、銀河を統一してローエングラム王朝を樹立する。`,
+    descKr: `은하제국의 군사 천재. 누나 안네로제가 황제의 후궁으로 끌려간 것에 분노하여 제국의 정점을 향한 야망을 품는다.`,
+    descEn: `Military genius of the Galactic Empire. Driven by rage over his sister Annerose being taken as the Emperor's concubine, he harbors ambitions to reach the pinnacle of the empire.`,
+    descJp: `銀河帝国の軍事天才。姉アンネローゼが皇帝の後宮に召し上げられたことへの憤りを胸に、帝国の頂点へと野望を燃やす`,
   },
   {
     // — 기본
