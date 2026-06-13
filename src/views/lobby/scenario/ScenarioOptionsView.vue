@@ -170,7 +170,7 @@ function onNext() {
 .layout {
   position: relative; z-index: 1;
   display: flex; flex-direction: column;
-  width: 100%; max-width: 600px;
+  width: 100%;
   height: 100%;
 }
 
@@ -178,8 +178,8 @@ function onNext() {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  display: flex; flex-direction: column; align-items: center;
-  padding: 2vh 24px 2vh;
+  display: flex; flex-direction: column; align-items: stretch;
+  padding: 2vh 0;
 }
 .scroll-body::-webkit-scrollbar { width: 4px; }
 .scroll-body::-webkit-scrollbar-track { background: transparent; }
@@ -190,7 +190,8 @@ function onNext() {
   display: flex; flex-direction: column; align-items: center; gap: 1vh;
   flex-shrink: 0;
   padding: 4vh 24px 2vh;
-  width: 100%;
+  width: 100%; max-width: 640px;
+  margin: 0 auto;
   overflow: visible;
 }
 .title-scenario {
@@ -332,6 +333,7 @@ function onNext() {
 .groups {
   display: flex; flex-direction: column; gap: 3vh;
   width: 100%;
+  padding: 0 3vw;
 }
 .group { display: flex; flex-direction: column; gap: 1.2vh; }
 .group-label {
@@ -341,7 +343,7 @@ function onNext() {
   text-align: center;
   text-transform: uppercase;
 }
-.group-row { display: flex; gap: 16px; }
+.group-row { display: flex; gap: 2vw; }
 
 /* ── 옵션 카드 ── */
 .opt-card {
@@ -420,9 +422,9 @@ function onNext() {
 
 /* ── 푸터 ── */
 .footer {
-  display: flex; gap: 16px;
+  display: flex; gap: 2vw;
   width: 100%;
-  padding: 2vh 24px;
+  padding: 2vh 3vw;
   flex-shrink: 0;
   border-top: 1px solid rgba(212,170,96,.1);
   background: rgba(2,5,8,.6);

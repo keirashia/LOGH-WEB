@@ -3,9 +3,9 @@
     <EventLog />
     <GameHud />
     <div class="game-main">
-      <SidePanel :class="{ 'is-open': showSide }" />
+      <SidePanel v-show="false" :class="{ 'is-open': showSide }" />
       <GalaxyMap />
-      <InfoPanel :class="{ 'is-open': showInfo }" />
+      <InfoPanel v-show="false" :class="{ 'is-open': showInfo }" />
 
       <Transition name="bd-fade">
         <div v-if="isMobileLs && (showSide || showInfo)"
@@ -28,7 +28,7 @@
 
     <!-- 모달 -->
     <transition name="fade">
-      <div v-if="game.activeModal" class="modal-overlay" @click.self="game.closeModal()">
+      <div v-if="game.activeModal && modalComp" class="modal-overlay" @click.self="game.closeModal()">
         <transition name="slide-up">
           <component :is="modalComp" v-if="game.activeModal"
                      :payload="game.activeModal.payload"
@@ -98,11 +98,11 @@ watch(() => game._pendingBattle, (val) => {
 })
 
 const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal }
-const modalComp = computed(() => game.activeModal ? MODAL_MAP[game.activeModal.name] : null)
+const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.name] ?? null) : null)
 </script>
 
 <style scoped>
-.game-view{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden;background:var(--bg);padding-bottom:72px}
+.game-view{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden;background:var(--bg);padding-bottom:106px}
 .theme-REH  {--fc:var(--REH)}
 .theme-FPA{--fc:var(--FPA)}
 .theme-PZN {--fc:var(--PZN)}
