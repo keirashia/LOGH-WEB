@@ -106,7 +106,6 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
 import { CHAR_BASE } from '@/data/base/characters/charactersData.js'
-import { CHAR_NAMES } from '@/data/base/characters/charactersName.js'
 import CharDetailComp from '@/components/char/CharDetailComp.vue'
 import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
 
@@ -114,7 +113,7 @@ const enc = useEncyclopediaStore()
 
 const ALL = CHAR_BASE
 const NAMES_MAP = Object.fromEntries(
-  CHAR_NAMES.filter(n => n.lang === 'Kr').map(n => [n.charCode, n])
+  CHAR_BASE.map(c => [c.code, { name: c.nameKr, nick: c.nickKr }])
 )
 
 const FACTION_FILTERS = [

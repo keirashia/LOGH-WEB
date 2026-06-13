@@ -115,8 +115,6 @@ import { reactive, computed } from 'vue'
 import TraitBadge from '@/components/char/TraitBadge.vue'
 import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
 import { CHAR_BASE }  from '@/data/base/characters/charactersData.js'
-import { CHAR_NAMES } from '@/data/base/characters/charactersName.js'
-import { CHAR_DESC }  from '@/data/base/characters/charactersDesc.js'
 import { CHAR_JOBS }  from '@/data/base/characters/charactersJobs.js'
 import { CHAR_TRAITS }      from '@/data/base/trait/chars/charTraitData.js'
 import { CHAR_TRAIT_MAP }   from '@/data/base/trait/chars/charTraitData.js'
@@ -129,12 +127,6 @@ const props = defineProps({
 
 // ── 정적 맵 ────────────────────────────────────────────────────
 const CHAR_DATA_MAP  = Object.fromEntries(CHAR_BASE.map(c => [c.code, c]))
-const CHAR_NAME_MAP  = Object.fromEntries(
-  CHAR_NAMES.filter(n => n.lang === 'Kr').map(n => [n.charCode, n])
-)
-const CHAR_DESC_MAP  = Object.fromEntries(
-  CHAR_DESC.filter(d => d.lang === 'KR').map(d => [d.charCode, d])
-)
 const JOB_MAP         = Object.fromEntries(JOBS.map(j => [j.id, j]))
 
 const NATION_LABEL = {
@@ -177,8 +169,8 @@ function toggle(key) { open[key] = !open[key] }
 
 // ── 데이터 ───────────────────────────────────────────────────
 const charData  = computed(() => CHAR_DATA_MAP[props.chaCode] ?? null)
-const nameData  = computed(() => CHAR_NAME_MAP[props.chaCode] ?? null)
-const descData  = computed(() => CHAR_DESC_MAP[props.chaCode] ?? null)
+const nameData  = computed(() => charData.value ? { name: charData.value.nameKr, nick: charData.value.nickKr } : null)
+const descData  = computed(() => charData.value ? { desc: charData.value.descKr } : null)
 const traitListRaw = computed(() =>
   CHAR_TRAITS.filter(t => t.charCode === props.chaCode)
     .sort((a, b) => a.traitStDate - b.traitStDate)

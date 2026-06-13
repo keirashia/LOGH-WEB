@@ -69,7 +69,6 @@
 import { ref, computed, watchEffect } from 'vue'
 import { FACTIONS } from '@/data/masterData'
 import { CHAR_BASE } from '@/data/base/characters/charactersData.js'
-import { CHAR_NAMES } from '@/data/base/characters/charactersName.js'
 import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
 import CharSelectGrid from './CharSelectGrid.vue'
 import FactionFilter  from './FactionFilter.vue'
@@ -78,7 +77,7 @@ const props = defineProps({ event: Object, options: Object })
 defineEmits(['back', 'start'])
 
 const NAMES_MAP = Object.fromEntries(
-  CHAR_NAMES.filter(n => n.lang === 'Kr').map(n => [n.charCode, n])
+  CHAR_BASE.map(c => [c.code, { name: c.nameKr, nick: c.nickKr }])
 )
 const FACTION_NAMES_MAP = Object.fromEntries(
   FACTION_NAMES.filter(n => n.lang === 'Kr').map(n => [n.factionId, n])
