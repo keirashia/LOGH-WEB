@@ -4,5 +4,6 @@ export const useLobbyStore = defineStore('lobby', {
   state: () => ({
     options: { npcAppearance: 'fact', npcBehavior: 'fact' },
     selectedFaction: null,
+    selectedVariant: null,
   }),
 })

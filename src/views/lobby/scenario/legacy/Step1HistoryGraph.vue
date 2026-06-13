@@ -28,9 +28,11 @@ defineEmits(['select'])
 
 const ERA_ORDER = { AD: 0, SE: 1, RC: 2 }
 
+const visible = computed(() => SCENARIOS.filter(s => s.showYn !== false))
+
 const yearGroups = computed(() => {
   const m = {}
-  SCENARIOS.forEach(s => {
+  visible.value.forEach(s => {
     const key = `${s.yearType}_${s.year}`
     if (!m[key]) m[key] = { yearType: s.yearType, year: s.year, count: 0 }
     m[key].count++
@@ -43,7 +45,7 @@ const yearGroups = computed(() => {
   let cum = 0
   return sorted.map(y => {
     const densPos     = (cum + y.count / 2) / total * 100
-    const hasPlayable = SCENARIOS.some(s =>
+    const hasPlayable = visible.value.some(s =>
       s.yearType === y.yearType && s.year === y.year && s.useYn && s.openPt === 0
     )
     cum += y.count
@@ -68,7 +70,7 @@ function handleNavigate(sc) {
 
 const selEvents = computed(() =>
   selYear.value !== null
-    ? SCENARIOS.filter(s => s.year === selYear.value && s.yearType === selYearType.value)
+    ? visible.value.filter(s => s.year === selYear.value && s.yearType === selYearType.value)
     : []
 )
 </script>

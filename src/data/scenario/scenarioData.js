@@ -1,4 +1,4 @@
-import { SCENARIO_DESC as _DESC_SE796_1 } from './SE796/01/scenarioDesc.js'
+﻿import { SCENARIO_DESC as _DESC_SE796_10 } from './SE796/10/scenarioDesc.js'
 
 // ================================================================
 //  scenario.js — 시나리오 메타 목록
@@ -526,21 +526,86 @@ export const SCENARIOS = [
     desc:[{ index:1, image:"", text:"제국과 동맹 사이에 일시적인 정전이 성립되었다.", effect:"fade", libs:[] }] },
 
   // SE 796
+  /** SE796 02 11 
+   *  아스타테 성역 회전
+   */
   {
     yearType: "SE",
     year: 796,
     month: 2,
-    id: "SE796_1",
-    nameKr: "아스타테 회전",
+    date: 11, // 시작일자 (796년 2월 11일)
+    id: "SE796_10",
+    nameKr: "아스타테 성역 회전",
     nameEn: "Battle of Astarte",
     nameJp: "アスターテ会戦",
+    subTitle: "영원한 어둠 속에서",
     tags: ["사실", "초심자추천"],
     factions: ["REH", "FPA", "PZN"],
     useYn: true,
+    showYn: true,
     openPt: 0,
     appearances: ["은하영웅전설 1권 <여명편>"],
     desc: _DESC_SE796_1,
+    variants: [ "SE796_10" ,"SE796_11" , "SE796_12", "SE796_13"],
   },
+   {
+    yearType: "SE",
+    year: 796,
+    month: 2,
+    date: 11, // 시작일자 (796년 2월 11일)
+    id: "SE796_11",
+    nameKr: "아스타테 성역 회전",
+    nameEn: "Battle of Astarte",
+    nameJp: "アスターテ会戦",
+    subTitle: "노원수의 출정",
+    tags: ["가상", "초심자추천"],
+    factions: ["REH", "FPA", "PZN"],
+    useYn: true,
+    showYn: false,
+    openPt: 0,
+    appearances: ["은하영웅전설 1권 <여명편>"],
+    desc: _DESC_SE796_11,
+    variants: [ "SE796_10" ,"SE796_11" , "SE796_12", "SE796_13"],
+  },
+   {
+    yearType: "SE",
+    year: 796,
+    month: 2,
+    date: 11, // 시작일자 (796년 2월 11일)
+    id: "SE796_12",
+    nameKr: "아스타테 성역 회전",
+    nameEn: "Battle of Astarte",
+    nameJp: "アスターテ会戦",
+    subTitle: "주둔함대의 출격",
+    tags: ["가상", "초심자추천"],
+    factions: ["REH", "FPA", "PZN"],
+    useYn: true,
+    showYn: false,
+    openPt: 0,
+    appearances: ["은하영웅전설 1권 <여명편>"],
+    desc: _DESC_SE796_1,
+     variants: [ "SE796_10" ,"SE796_11" , "SE796_12", "SE796_13"],
+  },
+   {
+    yearType: "SE",
+    year: 796,
+    month: 2,
+    date: 11, // 시작일자 (796년 2월 11일)
+    id: "SE796_13",
+    nameKr: "아스타테 성역 회전",
+    nameEn: "Battle of Astarte",
+    nameJp: "アスターテ会戦",
+    subTitle: "젊은 사자들",
+    tags: ["가상", "초심자추천"],
+    factions: ["REH", "FPA", "PZN"],
+    useYn: true,
+    showYn: false,
+    openPt: 0,
+    appearances: ["은하영웅전설 1권 <여명편>"],
+    desc: _DESC_SE796_1,
+     variants: [ "SE796_10" ,"SE796_11" , "SE796_12", "SE796_13"],
+  },
+
   { yearType:"SE", year:796, month:2, id:"SE796_2", nameKr:"양 웬리 관사 침입사건", nameEn:"", nameJp:"",
     tags:["사실"], factions:["FPA"], useYn:false, openPt:0, appearances:["은하영웅전설 1권 <여명편>"],
     desc:[{ index:1, image:"", text:"양 웬리 준장의 관사에 침입 사건이 발생하였다.", effect:"fade", libs:[] }] },

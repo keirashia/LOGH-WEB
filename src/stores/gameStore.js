@@ -5,14 +5,19 @@ import {
 } from '@/data/masterData'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { STAR_SYSTEMS } from '@/data/base/stars/starSystemData'
-import { STAR_DETAIL as _DETAIL_SE796_1 } from '@/data/scenario/SE796/01/starDetail'
-import { STAR_DETAIL as _DETAIL_SE745_1 } from '@/data/scenario/SE745/01/starDetail'
-import { STAR_DETAIL as _DETAIL_SE640_1 } from '@/data/scenario/SE640/01/starDetail'
+import { STAR_DETAIL as _DETAIL_SE796_10 } from '@/data/scenario/SE796/10/starDetail'
+import { STAR_DETAIL as _DETAIL_SE745_1  } from '@/data/scenario/SE745/01/starDetail'
+import { STAR_DETAIL as _DETAIL_SE640_1  } from '@/data/scenario/SE640/01/starDetail'
+
+const _SE796_10_MAP = Object.fromEntries(_DETAIL_SE796_10.map(d => [d.code, d]))
 
 const _SCENARIO_DETAIL_MAP = {
-  'SE796_1': Object.fromEntries(_DETAIL_SE796_1.map(d => [d.code, d])),
-  'SE745_1': Object.fromEntries(_DETAIL_SE745_1.map(d => [d.code, d])),
-  'SE640_1': Object.fromEntries(_DETAIL_SE640_1.map(d => [d.code, d])),
+  'SE796_10': _SE796_10_MAP,
+  'SE796_11': _SE796_10_MAP,
+  'SE796_12': _SE796_10_MAP,
+  'SE796_13': _SE796_10_MAP,
+  'SE745_1':  Object.fromEntries(_DETAIL_SE745_1.map(d => [d.code, d])),
+  'SE640_1':  Object.fromEntries(_DETAIL_SE640_1.map(d => [d.code, d])),
 }
 
 const _DEFAULTS = {
