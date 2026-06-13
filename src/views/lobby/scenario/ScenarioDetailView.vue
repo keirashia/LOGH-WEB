@@ -54,10 +54,10 @@
     <div class="action-bar">
       <button class="btn" :disabled="pageIdx === 0" @click="pageIdx--">← 이전</button>
 
-      <button v-if="!cur.useYn"           class="btn dim-action" disabled>진행 불가</button>
-      <button v-else-if="route.query.faction && cur.openPt === 0" class="btn btn-gold" @click="onStart">⚔ 게임 시작</button>
-      <button v-else-if="cur.openPt === 0" class="btn btn-gold" @click="onStart">▶ 시작</button>
-      <button v-else                       class="btn btn-blue">🔒 {{ cur.openPt }}P로 구매</button>
+      <button v-if="!cur.useYn"                              class="btn dim-action" disabled>진행 불가</button>
+      <button v-else-if="lobby.selectedFaction && cur.openPt === 0" class="btn btn-gold" @click="onStart">⚔ 게임 시작</button>
+      <button v-else-if="cur.openPt === 0"                    class="btn btn-gold" @click="onStart">▶ 시작</button>
+      <button v-else                                          class="btn btn-blue">🔒 {{ cur.openPt }}P로 구매</button>
 
       <button class="btn" :disabled="pageIdx >= totalPages - 1" @click="pageIdx++">다음 →</button>
     </div>
@@ -71,11 +71,13 @@ import { useRoute, useRouter } from 'vue-router'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
 import { useGameStore } from '@/stores/gameStore'
+import { useLobbyStore } from '@/stores/lobbyStore'
 
 const route  = useRoute()
 const router = useRouter()
 const enc    = useEncyclopediaStore()
 const game   = useGameStore()
+const lobby  = useLobbyStore()
 
 const cur     = ref(SCENARIOS.find(s => s.id === route.params.scId) ?? SCENARIOS[0])
 const pageIdx = ref(0)
@@ -111,9 +113,9 @@ function openLib(lib) {
 }
 
 function onStart() {
-  const faction = route.query.faction
-  if (faction) {
-    game.startGame(cur.value.id, faction)
+  if (lobby.selectedFaction) {
+    game.startGame(cur.value.id, lobby.selectedFaction)
+    lobby.selectedFaction = null
     router.push('/game')
   } else {
     router.push({ name: 'scenario-options', params: { scId: cur.value.id } })

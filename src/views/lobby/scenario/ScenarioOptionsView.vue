@@ -19,8 +19,8 @@
               v-for="opt in grp.opts"
               :key="opt.val"
               class="opt-card"
-              :class="{ active: localOpts[grp.key] === opt.val }"
-              @click="localOpts[grp.key] = opt.val"
+              :class="{ active: lobby.options[grp.key] === opt.val }"
+              @click="lobby.options[grp.key] = opt.val"
             >
               <div class="card-corner tl">
                 <span class="cc-icon">{{ opt.icon }}</span>
@@ -33,7 +33,7 @@
               <div class="card-corner br">
                 <span class="cc-icon">{{ opt.icon }}</span>
               </div>
-              <div v-if="localOpts[grp.key] === opt.val" class="active-glow" />
+              <div v-if="lobby.options[grp.key] === opt.val" class="active-glow" />
             </button>
           </div>
         </div>
@@ -54,17 +54,17 @@
 </template>
 
 <script setup>
-import { reactive, computed } from 'vue'
+import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
+import { useLobbyStore } from '@/stores/lobbyStore'
 import StarfieldCanvas from '@/components/common/StarfieldCanvas.vue'
 
 const route  = useRoute()
 const router = useRouter()
+const lobby  = useLobbyStore()
 
 const cur = computed(() => SCENARIOS.find(s => s.id === route.params.scId) ?? SCENARIOS[0])
-
-const localOpts = reactive({ npcAppearance: 'fact', npcBehavior: 'fact' })
 
 const optGroups = [
   {
@@ -86,11 +86,7 @@ const optGroups = [
 ]
 
 function onNext() {
-  router.push({
-    name: 'scenario-char',
-    params: { scId: route.params.scId },
-    query: { ...localOpts },
-  })
+  router.push({ name: 'scenario-char', params: { scId: route.params.scId } })
 }
 </script>
 

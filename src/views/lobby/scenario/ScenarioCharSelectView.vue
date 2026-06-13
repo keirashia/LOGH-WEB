@@ -54,6 +54,7 @@ import { ref, computed, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useGameStore } from '@/stores/gameStore'
+import { useLobbyStore } from '@/stores/lobbyStore'
 import { FACTIONS } from '@/data/masterData'
 import { CHAR_BASE } from '@/data/base/characters/charactersData.js'
 import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
@@ -63,9 +64,10 @@ import CharSelectGrid from './legacy/CharSelectGrid.vue'
 const route  = useRoute()
 const router = useRouter()
 const game   = useGameStore()
+const lobby  = useLobbyStore()
 
 const cur     = computed(() => SCENARIOS.find(s => s.id === route.params.scId) ?? SCENARIOS[0])
-const options = computed(() => route.query)
+const options = computed(() => lobby.options)
 
 const NAMES_MAP = Object.fromEntries(
   CHAR_BASE.map(c => [c.code, { name: c.nameKr, nick: c.nickKr }])
@@ -144,11 +146,8 @@ function fcolor(faction) {
 
 function onNext() {
   if (!selChar.value) return
-  router.push({
-    name: 'scenario-detail',
-    params: { scId: cur.value.id },
-    query: { ...options.value, faction: selChar.value.faction },
-  })
+  lobby.selectedFaction = selChar.value.faction
+  router.push({ name: 'scenario-detail', params: { scId: cur.value.id } })
 }
 </script>
 
