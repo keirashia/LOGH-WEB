@@ -1,5 +1,5 @@
 # src/views/lobby/scenario — 시나리오 선택 화면 설계
-> 작성: 2026-05-29 / 최종 수정: 2026-06-04
+> 작성: 2026-05-29 / 최종 수정: 2026-06-13
 > 데이터 설계: src/data/scenarios/scenarioData.md 참조
 
 ---
@@ -154,12 +154,22 @@ CH_{code}  → encyclopediaStore.open('characters'); enc.searchQuery = label
 
 ---
 
-## Step 2 — 게임 옵션 ✅ 구현됨 (legacy, 이동 예정)
+## Step 2 — 게임 옵션 ✅ 구현됨 (`ScenarioOptionsView.vue`)
 
 ```
+레이아웃: StarfieldCanvas 배경 + gold-dark 카드 UI
+타이틀: nameKr (gold serif, 3.6vh)
+서브타이틀: subTitle — pill 칩, 클릭 시 variants 드롭다운 (multi-variant 시나리오용)
+요약: summary 필드 — 칩 아래 짧은 시나리오 소개 (1.6vh, dim 색상)
 NPC 등장: 사실 / 가상
 NPC 행동: 사실 / 가상
-(추가 옵션 추후 구현)
+```
+
+### variant 선택 드롭다운
+```
+cur.variants 배열이 존재하고 2개 이상일 때 서브타이틀 칩에 ▾ 표시
+클릭 → 드롭다운 패널 (각 variant의 subTitle 표시, 현재 선택 항목 gold 강조)
+선택 → router.replace(`/lobby/single/new/${sc.id}/options`)
 ```
 
 ### NPC 등장 옵션 동작
@@ -211,6 +221,8 @@ NPC 등장 옵션에 따라 생존 필터 적용
 
 | 필드 | Step1 카드 | Step1-1 상세 | Step2 | Step3 | 비고 |
 |---|---|---|---|---|---|
+| **summary** | ❌ | ❌ | ✅ 타이틀 하단 | ❌ | 짧은 시나리오 소개 |
+| **variants** | ❌ | ❌ | ✅ subTitle 드롭다운 | ❌ | variant 간 전환 |
 | yearType | ✅ 타임라인 핀 | ✅ 헤더 | - | - | |
 | year | ✅ 타임라인/헤더 | ✅ 헤더 | ✅ 요약 | - | |
 | month | ✅ 카드 | - | ✅ 요약 | - | |
@@ -277,6 +289,14 @@ router
 | 2026-06-04 | step 변수 기반 오케스트레이션 → Vue Router 라우팅으로 전환 |
 | 2026-06-04 | 기존 파일 legacy/ 보관, scenario/ 하위에 신규 파일 작성 |
 | 2026-06-04 | scId URL 파람 + lobbyStore(Pinia)로 상태 공유 |
+| 2026-06-13 | 시나리오 화면 flow 변경: 선택→소개→옵션→캐릭터 → 선택→옵션→캐릭터→소개 |
+| 2026-06-13 | ScenarioOptionsView.vue 전면 재설계 (gold-dark 카드 UI, StarfieldCanvas) |
+| 2026-06-13 | ScenarioCharSelectView.vue 전면 재설계 (faction→캐릭터 2단계, slide 트랜지션) |
+| 2026-06-13 | lobbyStore.js 신규: options, selectedFaction, selectedVariant |
+| 2026-06-13 | scenarioData.js: SE796_10~13 추가 (variants, showYn, subTitle, date, summary 필드) |
+| 2026-06-13 | ScenarioOptionsView: subTitle 칩 클릭 → variant 드롭다운으로 시나리오 전환 |
+| 2026-06-13 | ScenarioOptionsView: summary 필드 화면 표시 추가 |
+| 2026-06-13 | Step1HistoryGraph.vue: showYn !== false 필터로 숨김 variant 제외 |
 
 ---
 
