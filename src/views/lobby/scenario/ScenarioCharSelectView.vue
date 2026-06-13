@@ -43,7 +43,7 @@
 
     <div class="action-bar">
       <button class="btn" @click="router.back()">← 뒤로</button>
-      <button class="btn btn-gold" :disabled="!selChar" @click="onStart">⚔ 게임 시작</button>
+      <button class="btn btn-gold" :disabled="!selChar" @click="onNext">다음 →</button>
     </div>
 
   </div>
@@ -142,10 +142,13 @@ function fcolor(faction) {
   return FACTIONS[faction]?.color ?? 'var(--t2)'
 }
 
-function onStart() {
+function onNext() {
   if (!selChar.value) return
-  game.startGame(cur.value.id, selChar.value.faction)
-  router.push('/game')
+  router.push({
+    name: 'scenario-detail',
+    params: { scId: cur.value.id },
+    query: { ...options.value, faction: selChar.value.faction },
+  })
 }
 </script>
 

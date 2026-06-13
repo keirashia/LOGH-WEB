@@ -38,7 +38,7 @@ const selScenario = ref(null)
 const options     = ref({ npcAppearance: 'fact', npcBehavior: 'fact' })
 
 function onDetailOpen(sc) {
-  router.push(`/lobby/single/new/${sc.id}`)
+  router.push(`/lobby/single/new/${sc.id}/options`)
 }
 
 

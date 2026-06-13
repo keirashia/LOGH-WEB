@@ -1,34 +1,55 @@
 <template>
-  <div class="page">
+  <div class="sc-wrap">
+    <StarfieldCanvas :star-count="220" :neb-colors="['rgba(41,128,185,', 'rgba(100,50,180,']" />
 
-    <div class="top-nav">
-      <div class="nav-title">
-        <span class="serif">게임 옵션</span>
-        <span class="mono dim nav-year">{{ cur.nameKr }}</span>
+    <div class="layout">
+
+      <!-- 타이틀 -->
+      <div class="title-block">
+        <span class="serif gold title-main">게임 옵션</span>
+        <span class="mono dim title-sub">{{ cur.nameKr }}</span>
       </div>
-      <button class="close-btn mono" @click="router.push('/lobby/single/new')">✕</button>
-    </div>
 
-    <div class="body">
-      <div v-for="grp in optGroups" :key="grp.key" class="opt-group">
-        <div class="opt-label mono dim">{{ grp.label }}</div>
-        <div class="opt-row">
-          <button v-for="opt in grp.opts" :key="opt.val"
-                  class="opt-btn"
-                  :class="{ active: localOpts[grp.key] === opt.val }"
-                  @click="localOpts[grp.key] = opt.val">
-            <span class="opt-name serif">{{ opt.name }}</span>
-            <span class="opt-desc mono dim">{{ opt.desc }}</span>
-          </button>
+      <!-- 옵션 그룹 -->
+      <div class="groups">
+        <div v-for="grp in optGroups" :key="grp.key" class="group">
+          <div class="group-label mono">{{ grp.label }}</div>
+          <div class="group-row">
+            <button
+              v-for="opt in grp.opts"
+              :key="opt.val"
+              class="opt-card"
+              :class="{ active: localOpts[grp.key] === opt.val }"
+              @click="localOpts[grp.key] = opt.val"
+            >
+              <div class="card-corner tl">
+                <span class="cc-icon">{{ opt.icon }}</span>
+              </div>
+              <div class="card-body">
+                <span class="cb-icon">{{ opt.icon }}</span>
+                <span class="cb-name serif">{{ opt.name }}</span>
+                <span class="cb-desc mono dim">{{ opt.desc }}</span>
+              </div>
+              <div class="card-corner br">
+                <span class="cc-icon">{{ opt.icon }}</span>
+              </div>
+              <div v-if="localOpts[grp.key] === opt.val" class="active-glow" />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="action-bar">
-      <button class="btn" @click="router.back()">← 뒤로</button>
-      <button class="btn btn-gold" @click="onNext">다음 →</button>
-    </div>
+      <!-- 푸터 버튼 -->
+      <div class="footer">
+        <button class="footer-btn" @click="router.back()">
+          <span class="mono">← 뒤로</span>
+        </button>
+        <button class="footer-btn gold-btn" @click="onNext">
+          <span class="mono">다음 →</span>
+        </button>
+      </div>
 
+    </div>
   </div>
 </template>
 
@@ -36,6 +57,7 @@
 import { reactive, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
+import StarfieldCanvas from '@/components/common/StarfieldCanvas.vue'
 
 const route  = useRoute()
 const router = useRouter()
@@ -49,16 +71,16 @@ const optGroups = [
     key: 'npcAppearance',
     label: 'NPC 등장',
     opts: [
-      { val: 'fact',    name: '사실', desc: '원작 인물만 등장' },
-      { val: 'fiction', name: '가상', desc: '추가 인물 등장 가능' },
+      { val: 'fact',    icon: '📜', name: '사실',  desc: '원작 인물만 등장' },
+      { val: 'fiction', icon: '✨', name: '가상',  desc: '추가 인물 등장 가능' },
     ],
   },
   {
     key: 'npcBehavior',
     label: 'NPC 행동',
     opts: [
-      { val: 'fact',    name: '사실', desc: '원작 역사대로 행동' },
-      { val: 'fiction', name: '가상', desc: 'AI가 자유롭게 판단' },
+      { val: 'fact',    icon: '🗺️', name: '사실',  desc: '원작 역사대로 행동' },
+      { val: 'fiction', icon: '🤖', name: '가상',  desc: 'AI가 자유롭게 판단' },
     ],
   },
 ]
@@ -73,63 +95,170 @@ function onNext() {
 </script>
 
 <style scoped>
-.page {
+.sc-wrap {
+  position: relative;
   width: 100%; height: 100%;
-  display: flex; flex-direction: column;
-  background: #020508;
+  display: flex; align-items: center; justify-content: center;
   overflow: hidden;
+  background: #020508;
 }
 
-.top-nav {
-  display: flex; align-items: center;
-  padding: 0 1.5vw; height: 7vh;
-  background: rgba(2,5,8,.9);
-  border-bottom: 1px solid rgba(212,170,96,.15);
-  flex-shrink: 0;
+.layout {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column; align-items: center;
+  gap: 3vh;
+  padding: 3vh 24px;
+  width: 100%; max-width: 600px;
 }
-.nav-title {
-  flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px;
+
+/* ── 타이틀 ── */
+.title-block {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
 }
-.nav-title .serif { font-size: 3.0vh; color: var(--t1); }
-.nav-year { font-size: 1.8vh; }
-.close-btn {
-  flex-shrink: 0; width: 3.5vh; height: 3.5vh;
+.title-main {
+  font-size: 2.4vh;
+  letter-spacing: 0.4vw;
+  text-shadow: 0 0 16px rgba(212,170,96,.45);
+}
+.title-sub { font-size: 1.5vh; }
+
+/* ── 옵션 그룹 ── */
+.groups {
+  display: flex; flex-direction: column; gap: 3vh;
+  width: 100%;
+}
+.group { display: flex; flex-direction: column; gap: 1.2vh; }
+.group-label {
+  font-size: 1.3vh;
+  letter-spacing: 1.5px;
+  color: rgba(212,170,96,.6);
+  text-align: center;
+  text-transform: uppercase;
+}
+.group-row { display: flex; gap: 16px; }
+
+/* ── 옵션 카드 ── */
+.opt-card {
+  flex: 1;
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  height: 22vh;
+  padding: 14px;
+  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
+  border: 2px solid rgba(212,170,96,.35);
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 4px #0d1520,
+    inset 0 0 0 6px rgba(212,170,96,.1),
+    0 6px 24px rgba(0,0,0,.7);
+  cursor: pointer;
+  transition: transform .2s, border-color .2s, box-shadow .2s;
+  overflow: hidden;
+  color: var(--t1);
+}
+.opt-card::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px),
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px);
+  pointer-events: none;
+}
+.opt-card:hover:not(.active) {
+  border-color: rgba(212,170,96,.6);
+  transform: translateY(-4px);
+  box-shadow:
+    inset 0 0 0 4px #0d1520,
+    inset 0 0 0 6px rgba(212,170,96,.25),
+    0 14px 40px rgba(0,0,0,.8);
+}
+.opt-card.active {
+  border-color: rgba(212,170,96,.9);
+  box-shadow:
+    inset 0 0 0 4px #0d1520,
+    inset 0 0 0 6px rgba(212,170,96,.35),
+    0 10px 36px rgba(212,170,96,.2);
+  transform: translateY(-5px);
+}
+
+/* 카드 모서리 라벨 */
+.card-corner {
+  position: absolute;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  z-index: 2;
+}
+.card-corner.tl { top: 10px; left: 12px; }
+.card-corner.br { bottom: 10px; right: 12px; transform: rotate(180deg); }
+.cc-icon { font-size: 2vh; line-height: 1; opacity: 0.5; }
+
+/* 카드 중앙 */
+.card-body {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 1.2vh; z-index: 2; pointer-events: none;
+}
+.cb-icon { font-size: 5.5vh; }
+.cb-name {
+  font-size: 3.2vh;
+  letter-spacing: 0.2vw;
+  color: var(--tg);
+  text-shadow: 0 0 14px rgba(212,170,96,.5);
+}
+.cb-desc { font-size: 1.3vh; letter-spacing: 0.5px; }
+
+/* 선택 시 안쪽 글로우 */
+.active-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at center, rgba(212,170,96,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── 푸터 ── */
+.footer {
+  display: flex; gap: 16px;
+  width: 100%;
+}
+.footer-btn {
+  flex: 1;
+  position: relative;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.6vh;
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 50%; color: var(--t2); cursor: pointer; transition: all .13s;
+  padding: 1.8vh 0;
+  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
+  border: 2px solid rgba(212,170,96,.45);
+  border-radius: 12px;
+  box-shadow:
+    inset 0 0 0 4px #0d1520,
+    inset 0 0 0 6px rgba(212,170,96,.12),
+    0 6px 24px rgba(0,0,0,.6);
+  color: rgba(212,170,96,.7);
+  cursor: pointer;
+  transition: all .2s;
+  overflow: hidden;
+  font-size: 1.8vh;
+  letter-spacing: 0.2vw;
 }
-.close-btn:hover { color: var(--t1); border-color: rgba(255,255,255,.3); }
-
-.body {
-  flex: 1; overflow-y: auto;
-  padding: 24px 20px;
-  display: flex; flex-direction: column; gap: 24px;
+.footer-btn::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px),
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px);
+  pointer-events: none;
 }
-
-.opt-group { display: flex; flex-direction: column; gap: 10px; }
-.opt-label { font-size: 1.4vh; letter-spacing: 1px; }
-.opt-row   { display: flex; gap: 10px; }
-.opt-btn {
-  flex: 1; padding: 14px 16px;
-  display: flex; flex-direction: column; gap: 5px; text-align: left;
-  background: var(--bg3); border: 1px solid var(--bd); border-radius: var(--r);
-  cursor: pointer; transition: all .13s;
+.footer-btn:hover {
+  border-color: rgba(212,170,96,.8);
+  color: var(--tg);
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 0 0 4px #0d1520,
+    inset 0 0 0 6px rgba(212,170,96,.3),
+    0 12px 36px rgba(212,170,96,.15);
 }
-.opt-btn:hover  { background: var(--bgh); }
-.opt-btn.active { border-color: var(--tg); background: rgba(212,170,96,.08); }
-.opt-name { font-size: 1.8vh; color: var(--t1); }
-.opt-desc { font-size: 1.2vh; }
-
-.action-bar {
-  flex-shrink: 0; display: flex; align-items: stretch;
-  padding: 0.1vh 2vw; height: 7vh; gap: 1.5vw;
-  background: rgba(2,5,8,.85);
-  border-top: 1px solid rgba(212,170,96,.15);
-}
-.action-bar > button {
-  flex: 1; font-size: 1.8vh; padding: 0;
-  display: flex; align-items: center; justify-content: center;
+.footer-btn > span { position: relative; z-index: 1; }
+.gold-btn { flex: 2; }
+.gold-btn:hover {
+  box-shadow:
+    inset 0 0 0 4px #0d1520,
+    inset 0 0 0 6px rgba(212,170,96,.4),
+    0 14px 44px rgba(212,170,96,.25);
 }
 </style>
