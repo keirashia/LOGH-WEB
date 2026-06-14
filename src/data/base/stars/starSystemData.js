@@ -1074,8 +1074,8 @@ export const STAR_SYSTEMS = [
     nameEn: "FORSETI",
     nameJp: "",
     alias:    ["포르세티", "Forseti", "FORSETI", "Folseti"],
-    x: 800,
-    y: 550,
+    x: 710,
+    y: 555,
     desc: "동맹 남부의 변방성계",
   },
   // /** 구현 필요 없음. 추후 구현 예정이니 주석만 유지할 것

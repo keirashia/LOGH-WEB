@@ -4,7 +4,7 @@
 
       <!-- 헤더 -->
       <div class="lib-header">
-        <span class="serif lib-title">🌌 성계 지도 — 우주력 796년</span>
+        <span class="serif lib-title">🌌 성계 지도 — {{ mapTitle }}</span>
         <button class="lib-close mono" @click="enc.close()">✕</button>
       </div>
 
@@ -141,12 +141,14 @@
 import { ref, computed } from 'vue'
 import { Delaunay } from 'd3-delaunay'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
+import { useGameStore }         from '@/stores/gameStore'
 import { STAR_SYSTEMS, OBSTACLES } from '@/data/base/stars/starSystemData'
 import { LANES }                   from '@/data/base/stars/laneData'
 import { STAR_DETAIL }  from '@/data/scenario/SE796/01/starDetail'
 import { FACTIONS }     from '@/data/masterData'
 
-const enc = useEncyclopediaStore()
+const enc  = useEncyclopediaStore()
+const game = useGameStore()
 
 // ── 상수 ──────────────────────────────────────────────────────
 const VW = 1600, VH = 1000
@@ -165,19 +167,30 @@ const LANE_STROKE = {
 }
 
 // ── 데이터 ────────────────────────────────────────────────────
-// SE796/01 세력 정보를 STAR_SYSTEMS에 병합
-const factionMap = Object.fromEntries(STAR_DETAIL.map(d => [d.code, d.faction]))
+const gameActive = computed(() => Object.keys(game.systems).length > 0)
 
-const systems = STAR_SYSTEMS
-  .filter(s => s.x > 0 && s.y > 0)
-  .map(s => ({ ...s, faction: factionMap[s.code] ?? null }))
+const mapTitle = computed(() =>
+  gameActive.value ? `우주력 ${game.year}년 ${game.month}월` : '우주력 796년 2월'
+)
+
+const systems = computed(() => {
+  if (gameActive.value) {
+    return Object.values(game.systems)
+      .filter(s => s.x > 0 && s.y > 0)
+      .map(s => ({ ...s, nameKr: s.name }))
+  }
+  const factionMap = Object.fromEntries(STAR_DETAIL.map(d => [d.code, d.faction]))
+  return STAR_SYSTEMS
+    .filter(s => s.x > 0 && s.y > 0)
+    .map(s => ({ ...s, faction: factionMap[s.code] ?? null }))
+})
 
 // ── 항로 ──────────────────────────────────────────────────────
-const sysMap = Object.fromEntries(systems.map(s => [s.code, s]))
+const sysMap = computed(() => Object.fromEntries(systems.value.map(s => [s.code, s])))
 
 const lanesComp = computed(() =>
   LANES.map(l => {
-    const sa = sysMap[l.stars[0]], sb = sysMap[l.stars[1]]
+    const sa = sysMap.value[l.stars[0]], sb = sysMap.value[l.stars[1]]
     if (!sa || !sb) return null
     return { id: l.id, type: l.type, x1: sa.x, y1: sa.y, x2: sb.x, y2: sb.y }
   }).filter(Boolean)
@@ -199,7 +212,8 @@ function pointInPolygon(x, y, pts) {
 }
 
 const voronoiData = computed(() => {
-  if (systems.length < 2) return { cells: [], internalEdges: [], borderEdges: [] }
+  const sysList = systems.value
+  if (sysList.length < 2) return { cells: [], internalEdges: [], borderEdges: [] }
 
   const ghosts = []
   for (let gx = 0; gx <= VW; gx += GHOST_STEP)
@@ -217,14 +231,14 @@ const voronoiData = computed(() => {
           ghosts.push({ x: gx, y: gy, faction: null })
   }
 
-  const nReal  = systems.length
-  const allPts = [...systems, ...ghosts]
+  const nReal  = sysList.length
+  const allPts = [...sysList, ...ghosts]
 
   const delaunay = Delaunay.from(allPts, s => s.x, s => s.y)
   const voronoi  = delaunay.voronoi([0, 0, VW, VH])
   const OFFSET   = 2.5
 
-  const cells = systems.map((s, i) => ({
+  const cells = sysList.map((s, i) => ({
     code:    s.code,
     path:    voronoi.renderCell(i),
     faction: s.faction,
@@ -280,7 +294,7 @@ function ico(s) {
 
 // ── 선택 ──────────────────────────────────────────────────────
 const selectedCode   = ref(null)
-const selectedSystem = computed(() => systems.find(s => s.code === selectedCode.value) ?? null)
+const selectedSystem = computed(() => systems.value.find(s => s.code === selectedCode.value) ?? null)
 
 // ── 줌 / 팬 ──────────────────────────────────────────────────
 const scale = ref(1), panX = ref(0), panY = ref(0)

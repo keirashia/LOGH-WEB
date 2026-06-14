@@ -192,7 +192,7 @@ const FACTION_NAME_MAP = Object.fromEntries(
 const scale = ref(1)
 const panX  = ref(0)
 const panY  = ref(0)
-const MIN_SCALE = 1
+const MIN_SCALE = 0.5
 const MAX_SCALE = 5
 
 const mapTransform = computed(() =>
@@ -439,11 +439,11 @@ const voronoiData = computed(() => {
   const sysList = Object.values(game.systems)
   if (sysList.length < 2) return { cells: [], internalEdges: [], borderEdges: [] }
 
-  // 격자 팬텀 포인트 (셀 최대 크기 제한용, 렌더링 안 함)
+  // 격자 팬텀 포인트 (셀 최대 크기 제한용)
   const ghosts = []
   for (let gx = 0; gx <= VW; gx += GHOST_STEP)
     for (let gy = 0; gy <= VH; gy += GHOST_STEP)
-      ghosts.push({ x: gx, y: gy, faction: null })
+      ghosts.push({ x: gx, y: gy, faction: null, _grid: true })
 
   // 사르갓소 폴리곤 내부 팬텀 (보로노이가 회랑을 침범하지 못하게)
   for (const obs of OBSTACLES) {
@@ -454,7 +454,7 @@ const voronoiData = computed(() => {
     for (let gx = x0; gx <= x1; gx += SARGASSO_STEP)
       for (let gy = y0; gy <= y1; gy += SARGASSO_STEP)
         if (pointInPolygon(gx, gy, obs.points))
-          ghosts.push({ x: gx, y: gy, faction: null })
+          ghosts.push({ x: gx, y: gy, faction: null, _grid: false })
   }
 
   const nReal  = sysList.length
@@ -464,11 +464,30 @@ const voronoiData = computed(() => {
   const voronoi  = delaunay.voronoi([0, 0, VW, VH])
   const OFFSET   = 2.5
 
-  // 실제 성계 셀만 렌더링 (팬텀 셀 제외)
-  const cells = sysList.map((s, i) => ({
-    id:      s.id,
-    path:    voronoi.renderCell(i),
-    faction: s.faction || null,
+  // 모든 팬텀: 가장 가까운 실제 성계의 세력 상속 (동일 국가 사이 빈 틈 제거)
+  for (let g = nReal; g < allPts.length; g++) {
+    let minD = Infinity, nf = null
+    for (let r = 0; r < nReal; r++) {
+      const dx = allPts[g].x - allPts[r].x
+      const dy = allPts[g].y - allPts[r].y
+      const d  = dx * dx + dy * dy
+      if (d < minD) { minD = d; nf = allPts[r].faction || null }
+    }
+    allPts[g].faction = nf
+  }
+
+  // 세력별 경로 병합 → 단일 <path>로 안티앨리어싱 틈 없이 렌더링
+  const factionPathMap = {}
+  for (let i = 0; i < allPts.length; i++) {
+    const f = allPts[i].faction
+    if (!f) continue
+    if (!factionPathMap[f]) factionPathMap[f] = []
+    factionPathMap[f].push(voronoi.renderCell(i))
+  }
+  const cells = Object.entries(factionPathMap).map(([faction, paths]) => ({
+    id:      `f_${faction}`,
+    path:    paths.join(' '),
+    faction,
   }))
 
   const internalEdges = []
