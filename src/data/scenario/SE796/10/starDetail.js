@@ -158,7 +158,7 @@ export const STAR_DETAIL = [
   },
   {
     code:    '230022',
-    faction: 'FPA',
+    faction: 'REH',
     morale:  72,
     tax:     25,
     traits:  [{ traitId:'NATURAL_FORTRESS', startTurn:0, endTurn:null }, { traitId:'STRATEGIC_POSITION', startTurn:0, endTurn:null }, { traitId:'MILITARY_TRADITION', startTurn:0, endTurn:null }],
@@ -424,7 +424,7 @@ export const STAR_DETAIL = [
   },
   {
     code:    '230060',
-    faction: 'FPA',
+    faction: 'REH',
     morale:  58,
     tax:     33,
     traits:  [{ traitId:'WAR_SCAR', startTurn:0, endTurn:null }, { traitId:'FRONTIER_SPIRIT', startTurn:0, endTurn:null }],

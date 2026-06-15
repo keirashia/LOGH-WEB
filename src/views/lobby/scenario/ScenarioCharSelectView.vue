@@ -14,7 +14,9 @@
 
         <div class="faction-row">
           <!-- 전체 -->
-          <button class="fc-card fc-all" @click="pickFaction(null)">
+          <button class="fc-card fc-all"
+                  :class="{ active: pickedFaction === null }"
+                  @click="pickedFaction = null">
             <div class="fc-slices">
               <div v-for="fid in cur.factions" :key="fid"
                    class="fc-slice"
@@ -26,8 +28,9 @@
 
           <button v-for="fid in cur.factions" :key="fid"
                   class="fc-card"
+                  :class="{ active: pickedFaction === fid }"
                   :style="{ backgroundImage: `url(/img/factions/${fid}.png)` }"
-                  @click="pickFaction(fid)">
+                  @click="pickedFaction = fid">
             <div class="fc-overlay" />
             <div class="fc-info">
               <span class="fc-faction-tag mono"
@@ -42,6 +45,9 @@
         <div class="footer">
           <button class="footer-btn" @click="router.back()">
             <span class="mono">← 뒤로</span>
+          </button>
+          <button class="footer-btn gold-btn" :disabled="pickedFaction === undefined" @click="goToChar">
+            <span class="mono">다음 →</span>
           </button>
         </div>
 
@@ -163,6 +169,7 @@ const factionNamesMap = Object.fromEntries(
 
 const stage         = ref('faction')
 const transDir      = ref('slide-forward')
+const pickedFaction = ref(undefined)
 const factionFilter = ref(null)
 const selChar       = ref(null)
 const charList      = ref([])
@@ -230,8 +237,8 @@ function fcolor(faction) {
   return FACTIONS[faction]?.color ?? 'var(--t2)'
 }
 
-function pickFaction(fid) {
-  factionFilter.value = fid
+function goToChar() {
+  factionFilter.value = pickedFaction.value
   transDir.value = 'slide-forward'
   stage.value = 'char'
   selChar.value = null
@@ -320,6 +327,14 @@ function onNext() {
     inset 0 0 0 5px #0d1520,
     inset 0 0 0 7px rgba(212,170,96,.45),
     0 20px 56px rgba(212,170,96,.2);
+}
+.fc-card.active {
+  border-color: rgba(212,170,96,1);
+  transform: translateY(-8px) scale(1.03);
+  box-shadow:
+    inset 0 0 0 5px #0d1520,
+    inset 0 0 0 7px rgba(212,170,96,.55),
+    0 20px 56px rgba(212,170,96,.3);
 }
 
 /* 전체 카드 분할 이미지 */
@@ -462,34 +477,59 @@ function onNext() {
 
 /* ── 푸터 ─────────────────────────────────────────────────── */
 .footer {
+  display: flex; gap: 2vw;
+  width: 100%;
+  padding: 2vh 3vw;
   flex-shrink: 0;
-  display: flex; gap: 16px;
-  width: 100%; max-width: 640px;
+  border-top: 1px solid rgba(212,170,96,.1);
+  background: rgba(2,5,8,.6);
+  backdrop-filter: blur(8px);
 }
 .footer-btn {
-  flex: 1; position: relative;
+  flex: 1;
+  position: relative;
   display: flex; align-items: center; justify-content: center;
   padding: 1.8vh 0;
   background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
-  border: 2px solid rgba(212,170,96,.45); border-radius: 12px;
-  box-shadow: inset 0 0 0 4px #0d1520, inset 0 0 0 6px rgba(212,170,96,.12), 0 6px 24px rgba(0,0,0,.6);
-  color: rgba(212,170,96,.7); cursor: pointer; transition: all .2s;
-  overflow: hidden; font-size: 1.8vh; letter-spacing: 0.2vw;
+  border: 2px solid rgba(212,170,96,.45);
+  border-radius: 12px;
+  box-shadow:
+    inset 0 0 0 4px #0d1520,
+    inset 0 0 0 6px rgba(212,170,96,.12),
+    0 6px 24px rgba(0,0,0,.6);
+  color: rgba(212,170,96,.7);
+  cursor: pointer;
+  transition: all .2s;
+  overflow: hidden;
+  font-size: 1.8vh;
+  letter-spacing: 0.2vw;
 }
 .footer-btn::before {
-  content: ''; position: absolute; inset: 0;
+  content: '';
+  position: absolute; inset: 0;
   background-image:
-    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.015) 10px, rgba(212,170,96,.015) 11px),
-    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.015) 10px, rgba(212,170,96,.015) 11px);
+    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px),
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px);
   pointer-events: none;
 }
 .footer-btn:hover {
-  border-color: rgba(212,170,96,.8); color: var(--tg); transform: translateY(-3px);
-  box-shadow: inset 0 0 0 4px #0d1520, inset 0 0 0 6px rgba(212,170,96,.3), 0 12px 36px rgba(212,170,96,.15);
+  border-color: rgba(212,170,96,.8);
+  color: var(--tg);
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 0 0 4px #0d1520,
+    inset 0 0 0 6px rgba(212,170,96,.3),
+    0 12px 36px rgba(212,170,96,.15);
 }
 .footer-btn:disabled { opacity: .35; cursor: not-allowed; transform: none; }
 .footer-btn > span { position: relative; z-index: 1; }
 .gold-btn { flex: 2; }
+.gold-btn:hover {
+  box-shadow:
+    inset 0 0 0 4px #0d1520,
+    inset 0 0 0 6px rgba(212,170,96,.4),
+    0 14px 44px rgba(212,170,96,.25);
+}
 
 /* ── 페이지 전환 ──────────────────────────────────────────── */
 .slide-forward-enter-active,

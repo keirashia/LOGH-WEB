@@ -76,7 +76,7 @@ function buildState(scId, pf) {
   }
   return {
     sc, playerFaction: pf,
-    year: sc.year, impYear: sc.year - 309, month: 1, day: 1, turn: 1,
+    year: sc.year, impYear: sc.year - 309, month: sc.month ?? 1, day: sc.date ?? 1, turn: 1,
     systems, resources, characters, fleets,
     log: [], selectedSystem: null, selectedFleet: null,
     _levyCooldown: 0, _loanBalance: 0, _loanDueTurn: null, _fleetSeq: 10, _truce: {}, _tradeBonus: 0,

@@ -538,7 +538,6 @@ const normalLanesComp = computed(() => {
     const [a, b] = k.split('|')
     const sa = game.systems[a], sb = game.systems[b]
     if (!sa || !sb) return null
-    if (sa.faction && sb.faction && sa.faction !== sb.faction) return null
     const type = laneTypeMap[k] || 'normal'
     return { k, type, x1: sa.x, y1: sa.y, x2: sb.x, y2: sb.y }
   }).filter(Boolean)
