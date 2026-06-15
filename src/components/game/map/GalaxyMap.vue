@@ -88,17 +88,26 @@
         <g v-for="s in systems" :key="s.id"
            :transform="`translate(${s.x},${s.y})`"
            class="sys-node">
+          <circle v-if="showHit"
+                  :r="nr(s) + hitPadContent"
+                  fill="rgba(255,255,255,0.08)"
+                  stroke="rgba(255,255,255,0.5)"
+                  stroke-width="0.5"
+                  stroke-dasharray="3 2"
+                  style="pointer-events:none"/>
           <circle v-if="game.selectedSystem===s.id && !editMode"
-                  r="14" fill="none"
+                  :r="vr(s)+6" fill="none"
                   :stroke="fclr[s.faction]||'#555'"
                   stroke-width="1.5" opacity=".8" class="sel-ring"/>
           <circle v-if="editMode && laneFrom===s.id"
-                  r="16" fill="none" stroke="gold" stroke-width="2" opacity=".85"/>
-          <circle r="5" fill="#0c1520" :stroke="fclr[s.faction]||'#445'" stroke-width="1"/>
-          <text text-anchor="middle" dy="5" :font-size="s.type==='capital'?13:10">{{ ico(s) }}</text>
-          <text class="sys-lbl" text-anchor="middle" dy="17"
+                  :r="vr(s)+8" fill="none" stroke="gold" stroke-width="2" opacity=".85"/>
+          <circle :r="vr(s)+2" :fill="fclr[s.faction]||'#334'" opacity="0.25"/>
+          <circle :r="vr(s)" fill="white" opacity="0.9"/>
+          <circle v-if="s.underConstruction"
+                  :r="vr(s)+3" fill="none" stroke="#f0b030"
+                  stroke-width="0.8" stroke-dasharray="2 2" opacity=".7"/>
+          <text class="sys-lbl" text-anchor="middle" :dy="vr(s)+10"
                 font-size="9" :fill="fclr[s.faction]||'#6a8aaa'">{{ s.name }}</text>
-          <text v-if="s.underConstruction" text-anchor="middle" dy="-14" font-size="9">🔧</text>
         </g>
 
         <!-- 추가 미리보기 -->
@@ -117,6 +126,7 @@
       <button class="zb" @click="resetZoom"         title="초기화">⌂</button>
       <button class="zb" @click="zoomStep(1/1.2)"  title="줌아웃 (−)">−</button>
       <div class="zb-sep"/>
+      <button :class="['zb', { active: showHit }]" @click="showHit=!showHit" title="터치 영역 표시">◎</button>
       <!-- <button :class="['zb', { active: editMode }]" @click="toggleEditMode" title="편집 모드">✏️</button> -->
     </div>
 
@@ -180,6 +190,12 @@ const bgCvs = ref(null)
 const svgEl = ref(null)
 let   aid   = null
 
+const svgW    = ref(0)
+const showHit = ref(false)
+const hitPadContent = computed(() =>
+  svgW.value ? 28 * VW / svgW.value / scale.value : 36
+)
+
 const VW = 1600, VH = 1000
 
 const scenarioFactions = computed(() => game.sc?.factions ?? [])
@@ -237,7 +253,7 @@ function onPtrDown(e) {
   if (activePointers.size > 2) return
 
   const cp = toContent(sp.x, sp.y)
-  const sys = sysAt(cp.x, cp.y)
+  const sys = sysAt(sp.x, sp.y)
 
   if (editMode.value && activeTool.value === 'move' && sys) {
     ds.value = { type: 'sys', id: sys.id, startSvg: sp, moved: false }
@@ -279,7 +295,7 @@ function onPtrMove(e) {
   // 추가 모드 미리보기 업데이트
   if (editMode.value && activeTool.value === 'add' && !d.moved) {
     const cp = toContent(sp.x, sp.y)
-    if (!sysAt(cp.x, cp.y)) addPreview.value = { x: Math.round(cp.x), y: Math.round(cp.y) }
+    if (!sysAt(sp.x, sp.y)) addPreview.value = { x: Math.round(cp.x), y: Math.round(cp.y) }
     else addPreview.value = null
   }
 }
@@ -296,7 +312,7 @@ function onPtrUp(e) {
 
   // 클릭 처리
   const cp    = toContent(sp.x, sp.y)
-  const sys   = sysAt(cp.x, cp.y)
+  const sys   = sysAt(sp.x, sp.y)
   const fleet = !sys ? fleetAt(cp.x, cp.y) : null
 
   if (editMode.value) {
@@ -316,11 +332,22 @@ function onWheel(e) {
 }
 
 // ── 히트 테스트 ──────────────────────────────────────────────
-function sysAt(cx, cy) {
-  return systems.value.find(s => {
-    const r = nr(s) + 8
-    return Math.abs(cx - s.x) <= r && Math.abs(cy - s.y) <= r
-  }) || null
+// SVG 뷰포트 좌표로 판정. 패딩 36px(화면 기준) → 패딩 내 가장 가까운 별 반환.
+function sysAt(svgX, svgY) {
+  const rect = svgEl.value?.getBoundingClientRect()
+  const pad  = rect ? 28 * VW / rect.width : 36
+  let best = null, bestDist = Infinity
+  for (const s of systems.value) {
+    const sx = s.x * scale.value + panX.value
+    const sy = s.y * scale.value + panY.value
+    const r  = nr(s) * scale.value + pad
+    const dx = svgX - sx, dy = svgY - sy
+    if (Math.abs(dx) <= r && Math.abs(dy) <= r) {
+      const dist = Math.hypot(dx, dy)
+      if (dist < bestDist) { bestDist = dist; best = s }
+    }
+  }
+  return best
 }
 function fleetAt(cx, cy) {
   return game.allFleets.find(f => {
@@ -585,17 +612,21 @@ function nr(s) {
   if (s.isGateway)           return 14
   return 10
 }
-function ico(s) {
-  if (s.type === 'capital')  return '🏛'
-  if (s.type === 'fortress') return '🏰'
-  if (s.isGateway)           return '🌀'
-  if (s.type === 'contested') return '⚡'
-  return '⭐'
+// 시각적 원 반지름 (이미지 대체 전 임시 흰 원)
+function vr(s) {
+  if (s.type === 'capital')  return 7
+  if (s.type === 'fortress') return 5
+  if (s.isGateway)           return 5
+  return 4
 }
 
 // ── 별/성운 배경 ──────────────────────────────────────────────
+function updateSvgW() { svgW.value = svgEl.value?.getBoundingClientRect().width || 0 }
+
 onMounted(() => {
   svgEl.value.addEventListener('wheel', onWheel, { passive: false })
+  updateSvgW()
+  window.addEventListener('resize', updateSvgW)
 
   const c = bgCvs.value
   if (!c) return
@@ -630,6 +661,7 @@ onMounted(() => {
 onUnmounted(() => {
   cancelAnimationFrame(aid)
   svgEl.value?.removeEventListener('wheel', onWheel)
+  window.removeEventListener('resize', updateSvgW)
 })
 </script>
 
