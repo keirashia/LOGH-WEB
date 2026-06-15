@@ -1,45 +1,142 @@
 ﻿<template>
   <div class="bottom-bar">
-    <div class="btns">
-      <div class="btn-row">
-        <button class="btn btn-red" @click="game.openModal('military')">⚔️ 군사</button>
-        <button class="btn" @click="game.openModal('char')">👤 인사</button>
-        <button class="btn btn-blue" @click="game.openModal('fleet')">🚀 함대</button>
-        <button class="btn" @click="game.openModal('build')">🏗️ 기지</button>
+    <div class="cat-area">
+      <div class="cat-row">
+        <button v-for="c in ROW1" :key="c.id"
+                class="cat-btn" :class="{ on: activecat === c.id }"
+                @click="toggle(c.id)">{{ c.label }}</button>
       </div>
-      <div class="btn-row">
-        <button class="btn btn-green" @click="game.openModal('intel')">🔍 정보</button>
-        <button class="btn" @click="game.openModal('special')">⚡ 특수</button>
-        <button class="btn btn-gold" @click="game.openModal('finance')">💰 재정</button>
+      <div class="cat-row">
+        <button v-for="c in ROW2" :key="c.id"
+                class="cat-btn" :class="{ on: activecat === c.id }"
+                @click="toggle(c.id)">{{ c.label }}</button>
       </div>
     </div>
-    <div class="sp" />
-    <div class="end">
-      <button class="btn" :class="endBtnCls" @click="game.endTurn()">턴 종료</button>
-    </div>
+    <button class="btn end-btn" :class="endBtnCls" @click="game.endTurn()">턴 종료</button>
   </div>
+
+  <MenuPanel :category="activecat" @close="activecat = null" />
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import MenuPanel from '@/components/game/panels/MenuPanel.vue'
+
 const game = useGameStore()
+const activecat = ref(null)
 const endBtnCls = computed(() => ({ REH:'btn-red', FPA:'btn-blue', PZN:'btn-green' }[game.playerFaction]))
+
+const ROW1 = [
+  { id: 'military',  label: '군사' },
+  { id: 'domestic',  label: '내정' },
+  { id: 'personnel', label: '인사' },
+  { id: 'intel',     label: '첩보' },
+]
+const ROW2 = [
+  { id: 'research',  label: '연구' },
+  { id: 'finance',   label: '재정' },
+  { id: 'personal',  label: '개인' },
+  { id: 'info',      label: '정보' },
+]
+
+function toggle(id) {
+  activecat.value = activecat.value === id ? null : id
+}
 </script>
 
 <style scoped>
-.bottom-bar{position:fixed;left:0;right:0;bottom:0;display:flex;align-items:center;padding:8px 14px;background:var(--bg3);border-top:1px solid var(--bd);gap:10px;z-index:1500}
-.btns{display:flex;flex-direction:column;gap:6px}
-.btn-row{display:flex;gap:8px}
-.sp{flex:1}
-.end .btn{padding:10px 18px}
-@media (max-width:600px){
-  .bottom-bar{padding:6px 8px}
-  .btn-row button{padding:6px 8px;font-size:12px}
+.bottom-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 1500;
+  display: flex; align-items: stretch;
+  height: var(--bar-h);
+  background: linear-gradient(165deg, #0d1b2a 0%, #0a0f1c 60%, #060a10 100%);
+  border-top: 2px solid rgba(212,170,96,.55);
+  box-shadow:
+    0 -1px 0 rgba(212,170,96,.1),
+    0 -8px 32px rgba(0,0,0,.85),
+    inset 0 1px 0 rgba(212,170,96,.08);
 }
-@media (orientation:landscape) and (max-height:480px){
-  .bottom-bar{padding:4px 12px}
-  .btn-row button{padding:4px 8px;font-size:11px}
-  .end .btn{padding:4px 12px;font-size:11px}
+
+.cat-area {
+  flex: 1; display: flex; flex-direction: column; min-width: 0;
+}
+
+.cat-row {
+  flex: 1; display: flex;
+}
+.cat-row:first-child {
+  border-bottom: 1px solid rgba(212,170,96,.1);
+}
+
+.cat-btn {
+  flex: 1; padding: 0;
+  position: relative; overflow: hidden;
+  background: none; border: none;
+  border-right: 1px solid rgba(212,170,96,.08);
+  color: var(--td);
+  font-size: clamp(12px, 2vh, 20px); font-family: var(--font-serif);
+  letter-spacing: .6px;
+  cursor: pointer;
+  transition: color .18s, background .18s, box-shadow .18s;
+  white-space: nowrap;
+}
+.cat-btn:last-child { border-right: none; }
+
+/* 격자 패턴 오버레이 (카드 스타일 참조) */
+.cat-btn::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.025) 10px, rgba(212,170,96,.025) 11px),
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.025) 10px, rgba(212,170,96,.025) 11px);
+  opacity: 0; transition: opacity .2s;
+}
+.cat-btn.on::before { opacity: 1; }
+
+.cat-btn:hover {
+  color: var(--t2);
+  background: rgba(212,170,96,.04);
+}
+.cat-btn.on {
+  color: var(--tg);
+  background: linear-gradient(180deg, rgba(13,27,42,.9) 0%, rgba(8,12,20,.8) 100%);
+  box-shadow:
+    inset 0 2px 0 rgba(212,170,96,.9),
+    inset 0 0 24px rgba(212,170,96,.06);
+  text-shadow: 0 0 12px rgba(212,170,96,.5);
+}
+
+/* 턴 종료 */
+.end-btn {
+  flex-shrink: 0; padding: 0 22px;
+  position: relative; overflow: hidden;
+  border-radius: 0;
+  border-left: 2px solid rgba(212,170,96,.4);
+  font-size: clamp(12px, 2vh, 20px); font-family: var(--font-serif);
+  letter-spacing: 1.5px; align-self: stretch;
+  color: var(--fc);
+  background: linear-gradient(180deg, rgba(13,27,42,.6) 0%, transparent 100%);
+  transition: all .18s;
+}
+.end-btn::before {
+  content: '';
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.015) 10px, rgba(212,170,96,.015) 11px),
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.015) 10px, rgba(212,170,96,.015) 11px);
+}
+.end-btn::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: var(--fc); opacity: 0;
+  transition: opacity .18s;
+}
+.end-btn:hover { text-shadow: 0 0 12px var(--fc); }
+.end-btn:hover::after { opacity: .08; }
+.end-btn:active::after { opacity: .18; }
+
+@media (orientation:landscape) and (max-height:480px) {
+  .end-btn { padding: 0 14px; }
 }
 </style>

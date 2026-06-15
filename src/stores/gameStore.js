@@ -3,6 +3,9 @@ import {
   FACTIONS, CHARACTERS,
   OPERATION_TYPES, CONSTRUCTION_TYPES, FORTRESS_WEAPONS, DIALOGS
 } from '@/data/masterData'
+import {
+  AGENDA_ACTIONS, APPROVAL_CHAINS, AGENDA_EXPIRE_TURNS
+} from '@/data/base/agenda/agendaData'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { STAR_SYSTEMS } from '@/data/base/stars/starSystemData'
 import { STAR_DETAIL as _DETAIL_SE796_10 } from '@/data/scenario/SE796/10/starDetail'
@@ -83,6 +86,7 @@ function buildState(scId, pf) {
     _reserve: 0, _intelligenceFund: 0, _budgetAllocation: null,
     _pendingBattle: null,
     activeModal: null, gameOver: false, winner: null,
+    agendas: [], _agendaSeq: 0,
   }
 }
 
@@ -145,6 +149,7 @@ export const useGameStore = defineStore('game', {
           this._loanBalance = 0; this._loanDueTurn = null
         }
       }
+      this._processAgendas()
       this._income()
       this._construct()
       this._events()
@@ -940,13 +945,115 @@ export const useGameStore = defineStore('game', {
       if (!c) return
       c.isDead = true
       c.currentPost = null
-      this.addLog(`?? [���] ${c.name} ���.`)
+      this.addLog(`?? [???] ${c.name} ???.`)
       this.openModal('event', {
-        title: '���',
+        title: '???',
         portrait: c.portrait || '??',
-        speaker: '����',
-        desc: `${c.name}��(��) ����߽��ϴ�.`,
+        speaker: '????',
+        desc: `${c.name}??(??) ???????.`,
       })
+    },
+
+    // ── 의안 등록 ─────────────────────────────────────────────────
+    registerAgenda(action, payload = {}, registeredBy = null) {
+      const def = AGENDA_ACTIONS[action]
+      if (!def) return null
+      const seq = String(++this._agendaSeq).padStart(4, '0')
+      const id = `AGD_${seq}`
+      this.agendas.push({
+        id,
+        category:       def.category,
+        action,
+        title:          payload.title || def.label,
+        payload,
+        registeredBy,
+        registeredTurn: this.turn,
+        status:         'pending',
+      })
+      this.addLog(`[의안] ${def.label} 등록`)
+      return id
+    },
+
+    // ── 의안 취소 ─────────────────────────────────────────────────
+    cancelAgenda(agendaId) {
+      const idx = this.agendas.findIndex(a => a.id === agendaId && a.status === 'pending')
+      if (idx === -1) return false
+      this.agendas.splice(idx, 1)
+      return true
+    },
+
+    // ── 의안 처리 (턴 종료 시 호출) ────────────────────────────────
+    _processAgendas() {
+      const pf = this.playerFaction
+      const chain = APPROVAL_CHAINS[pf] || {}
+      const categories = Object.keys(chain)
+
+      categories.forEach(cat => {
+        const pending = this.agendas.filter(a => a.category === cat && a.status === 'pending')
+        if (!pending.length) return
+
+        // 결재권자 탐색: 체인 순서대로 공석 건너뜀
+        let approverChar = null
+        for (const jobId of (chain[cat] || [])) {
+          approverChar = Object.values(this.characters).find(
+            c => c.currentPost === jobId && c.faction === pf && !c.isDead
+          )
+          if (approverChar) break
+        }
+        if (!approverChar) return
+
+        // 활성 의안 수: politics / 10 (최소 1)
+        const activeCount = Math.max(1, Math.floor((approverChar.politics || 50) / 10))
+
+        // 친밀도 기준 정렬 (TODO: 친밀도 시스템 구현 전까지 등록 순서)
+        const sorted = [...pending].sort((a, b) => a.registeredTurn - b.registeredTurn)
+        const active = sorted.slice(0, activeCount)
+        if (!active.length) return
+
+        // 활성 의안 중 1건 처리
+        this._executeAgenda(active[0])
+      })
+
+      // 만료 처리
+      this.agendas.forEach(a => {
+        if (a.status === 'pending' && (this.turn - a.registeredTurn) >= AGENDA_EXPIRE_TURNS) {
+          a.status = 'expired'
+          this.addLog(`[의안 만료] ${a.title}`)
+        }
+      })
+
+      // 처리 완료/만료 의안 정리 (최근 30건까지 보관)
+      const done = this.agendas.filter(a => a.status !== 'pending')
+      const keep = done.slice(0, 30)
+      this.agendas = [...this.agendas.filter(a => a.status === 'pending'), ...keep]
+    },
+
+    // ── 의안 실행 ─────────────────────────────────────────────────
+    _executeAgenda(agenda) {
+      agenda.status = 'approved'
+      const { action, payload } = agenda
+
+      if (action === 'fleet_deploy') {
+        this.deployFleet(payload.fleetId, payload.targetStar, payload.opType)
+      } else if (action === 'fleet_transport') {
+        this.transportResources(payload.fromStar, payload.toStar, payload.itemType, payload.amount)
+      } else if (action === 'fleet_reorganize') {
+        this.reorganizeFleet(payload.fleetId, payload.newShips)
+      } else if (action === 'fleet_disband') {
+        this.disbandFleet(payload.fleetId)
+      } else if (action === 'budget_alloc') {
+        this.allocateBudget(payload.allocations)
+      } else if (action === 'appoint') {
+        this.assignChar(payload.charId, payload.jobId)
+      } else if (action === 'dismiss') {
+        const c = this.characters[payload.charId]
+        if (c) { c.currentPost = null; this.addLog(`[인사] ${c.name} 해임`) }
+      } else if (action === 'intel_spy' || action === 'intel_counter' || action === 'intel_special') {
+        this.launchIntelOp(payload.targetStar, payload.opType, payload.officerId)
+      }
+      // TODO: planet_develop, ship_design, ship_build, research_* 구현 예정
+
+      this.addLog(`[결재] ${agenda.title} 처리 완료`)
     },
   },
 })

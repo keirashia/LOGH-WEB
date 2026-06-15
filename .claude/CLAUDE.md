@@ -28,7 +28,8 @@
 | `src/data/fleet/fleetData.md` | 함대 데이터 설계 — fltCode 체계, 지휘 계층(C/O/S), 스탯 계산 규칙, 시나리오별 파일 구조 |
 | `src/data/fleet/formationData.js` | 진형 데이터 (FF_01~10, ffType: ATK/DEF/MOV/ENC, weight 전환 딜레이) |
 | `src/stores/stores.md` | 전체 스토어 개요, gameStore 상태/액션 상세 |
-| `src/components/components.md` | 컴포넌트 구조, GalaxyMap 스펙, 모달 목록 |
+| `src/components/components.md` | 컴포넌트 구조, GalaxyMap 스펙, BottomBar v2, MenuPanel, 모달 목록 |
+| `src/data/base/agenda/agenda.md` | 의안 시스템 설계 (흐름/데이터 구조/결재 체인/활성화 규칙/TODO) |
 | `src/components/game/modals/characters/charactersScreen.md` | 인물 모달 화면 설계 (CharModal/CharDetailModal) |
 | `src/components/game/ternsScreen.md` | 턴 시스템 설계 (hourStep, 서브턴, 날짜 표시) |
 | `src/views/views.md` | 뷰 목록, 라우터 경로, 각 뷰 상세 |
@@ -81,6 +82,9 @@
 - **데이터 구조 개편**: starSystemData.js (62개) + lane.js (72개) + S01/starDetail.js
 - **GalaxyMap**: VW=1600/VH=1000, 항로 type별 색상 구분 (corridor/phezzan/normal)
 - **세부맵**: src/data/stars/maps/ 62개 성계 개별 파일
+- **BottomBar v2**: 8개 카테고리 2×4 그리드 + 로비 카드 다크 골드 CSS, --bar-h CSS 변수 도입
+- **MenuPanel**: 카테고리별 drill-down 메뉴 패널 (navStack, menuTree.js)
+- **의안 시스템**: agendaData.js + menuTree.js + gameStore 통합 (registerAgenda / _processAgendas)
 
 ### ⬜ 진행 중 / 다음 작업
 
@@ -91,6 +95,10 @@
 | 🟡 | starSystemData.js nameJp 62개 입력 | 현재 빈 문자열 |
 | 🟡 | code 중복 3건 원작 확인 | ALTENER/LUYKAS/MARADEITA |
 | 🟡 | starsData.js LEGACY 파일 삭제 확인 | 현재 미참조 |
+| 🟡 | 의안 _executeAgenda 액션 구현 | planet_develop/ship_design/research_* stub 상태 |
+| 🟡 | 친밀도(intimacy) 시스템 | 현재 등록 순서로 임시 정렬 |
+| 🟢 | REH 군사 3장관 협의 로직 | 2/3 동의 판정 미구현 |
+| 🟢 | FPA 평의원 11명 AI 투표 | 미구현 |
 | 🟢 | 인물 데이터 리팩토링 | char.js → charBase/charTender/charDetail/charJobs/charTraits 분리 |
 | 🟢 | 민란 시스템 | morale < 20 → 반란 |
 | 🟢 | AI 개선 | 전략적 함대 건조, 세력별 성격 |

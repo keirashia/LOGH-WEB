@@ -102,7 +102,7 @@ const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.
 </script>
 
 <style scoped>
-.game-view{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden;background:var(--bg);padding-bottom:106px}
+.game-view{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden;background:var(--bg);padding-bottom:var(--bar-h)}
 .theme-REH  {--fc:var(--REH)}
 .theme-FPA{--fc:var(--FPA)}
 .theme-PZN {--fc:var(--PZN)}
@@ -126,7 +126,5 @@ const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.
 .panel-tab-l{left:0; border-radius:0 var(--r) var(--r) 0; border-left:none}
 .panel-tab-r{right:0; border-radius:var(--r) 0 0 var(--r); border-right:none}
 
-@media (orientation:landscape) and (max-height:480px){
-  .game-view{padding-bottom:52px}
-}
+/* padding-bottom은 --bar-h 변수로 통일 관리 (global.css landscape 오버라이드 적용) */
 </style>

@@ -7,7 +7,7 @@ components/
 ├── ui/             공통 UI (헤더/HUD/로그/바)
 └── game/
     ├── map/        갤럭시맵
-    ├── panels/     사이드/인포 패널
+    ├── panels/     사이드/인포/메뉴 패널
     └── modals/     게임 모달 9종
 ```
 
@@ -21,7 +21,7 @@ components/
 | `OptionsPanel.vue` | AppHeader 메뉴 패널 |
 | `GameHud.vue` | 게임 중 HUD (세력/자원/날짜) |
 | `EventLog.vue` | 이벤트 로그 패널 |
-| `BottomBar.vue` | 하단 주요 버튼 + 턴 종료 (position: fixed) |
+| `BottomBar.vue` | 하단 카테고리 버튼 8개(2×4 그리드) + 턴 종료 (position: fixed) |
 | `StatRow.vue` | 스탯 행 공통 컴포넌트 |
 
 ### AppHeader 상세
@@ -64,12 +64,70 @@ import { LANE_DEF } from '@/data/stars/lane'
 
 ---
 
+## BottomBar / MenuPanel 상세
+
+### BottomBar (v2 — 2×4 카테고리 그리드)
+
+- `ROW1`: 군사 / 내정 / 인사 / 첩보  
+- `ROW2`: 연구 / 재정 / 개인 / 정보  
+- 우측 고정: **턴 종료** 버튼 (세력별 `btn-red/btn-blue/btn-green`)
+- 버튼 클릭 시 `toggle(id)` → 같은 버튼 재클릭이면 MenuPanel 닫음
+- 높이: `--bar-h: clamp(88px, 11vh, 112px)` (모바일 팻핑거 대응, 행당 최소 44px)
+- 랜드스케이프 low-height: `--bar-h: 52px` (global.css `@media` 오버라이드)
+
+**CSS 패턴 (로비 카드 스타일 참조)**:
+```css
+.bottom-bar {
+  background: linear-gradient(165deg, #0d1b2a 0%, #0a0f1c 60%, #060a10 100%);
+  border-top: 2px solid rgba(212,170,96,.55);
+}
+.cat-btn.on {
+  color: var(--tg);
+  background: linear-gradient(180deg, rgba(13,27,42,.9) 0%, rgba(8,12,20,.8) 100%);
+  box-shadow: inset 0 2px 0 rgba(212,170,96,.9), inset 0 0 24px rgba(212,170,96,.06);
+  text-shadow: 0 0 12px rgba(212,170,96,.5);
+}
+/* ::before: 대각선 격자 패턴 오버레이 (활성 버튼) */
+```
+
+---
+
+### MenuPanel (신규 — game/panels/)
+
+- props: `category` (String), emit: `close`
+- `navStack` ref → 뎁스 이동 (push/pop), 카테고리 변경 시 초기화
+- `currentItems` computed: `MENU_TREES[category]`를 navStack으로 traverse
+- `headerTitle` computed: navStack 기반 현재 레벨 라벨
+- 위치: `bottom: var(--bar-h)` → BottomBar 위에 슬라이드업
+- Teleport to body, z-index 1900
+
+**결재권자 표시 (의안 카테고리 + 최상위 레벨)**:
+- `APPROVAL_CHAINS[playerFaction][category]` 배열 순서대로 공석 건너뜀
+- `maxActive = floor(approver.politics / 10)` (최소 1)
+- 대기 의안 상위 10건 표시, `maxActive`건 활성 / 나머지 비활(opacity .4)
+
+**메뉴 트리 (`src/data/base/agenda/menuTree.js`)**:
+```
+military:  작전 발의(출격/수송) / 함대관리(편성·재편/해산) / 훈련* / 모의*
+domestic:  예산 배분 / 행성 개발 / 함선 설계* / 함선 제작
+personnel: 내정 인사 / 군사 인사
+intel:     첩보 / 방첩 / 특수
+research:  체제* / 사상* / 내정설비* / 군사설비* / 전술연구*
+finance:   재정 현황 / 세율 조정
+personal:  뉴스* / 임관·퇴역* / 입당·탈당* / 개인 훈련* / 교육*
+info:      인물 / 함대 / 세력 / 성계*
+```
+*disabled 항목
+
+---
+
 ## game/panels/
 
 | 파일 | 설명 |
 |---|---|
 | `SidePanel.vue` | 좌측 패널: 세력 목록, 함대 목록 |
 | `InfoPanel.vue` | 우측 패널: 선택 성계 상세 (탭: 개요/함대/경제/세부맵) |
+| `MenuPanel.vue` | BottomBar 카테고리 메뉴 슬라이드업 패널 |
 
 ### InfoPanel 세부맵 탭
 
@@ -152,4 +210,6 @@ const starMapData = computed(() => getStarMapByCode(sys.value.code ?? sys.value.
 - [ ] GalaxyMap 성계 좌표 수정 미반영 문제 조사
 - [ ] AppHeader: 아바타 이미지 API 연동, OptionsPanel 내용 채우기
 - [ ] InfoPanel: 위 설계 목표대로 탭 구현 (planetsData.js 완성 후)
-- [ ] 제안 시스템 MD 파일 작성
+- [ ] MenuPanel: 의안 등록 UI 연동 (현재는 openModal 직접 호출)
+- [ ] MenuPanel: BottomBar 각 버튼 개별 카드 스타일 (취소됨, 추후 재검토)
+- [ ] 의안 시스템 상세 설계 → `src/data/base/agenda/agenda.md` 참조

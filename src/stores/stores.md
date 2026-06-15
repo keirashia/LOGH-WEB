@@ -29,8 +29,24 @@
   gameOver, winner,
   _pendingBattle,    // 전술전투 브릿지 (GameView watch → /game/tactical 라우팅)
   _levyCooldown, _loanBalance, _loanDueTurn, _reserve, _intelligenceFund,
-  _fleetSeq,
+  _fleetSeq, _agendaSeq,
   _truce, _tradeBonus,
+  agendas,      // 의안 목록 — agenda.md 참조
+}
+```
+
+#### 의안(agendas) 항목 구조
+
+```js
+{
+  id:             'AGD_0001',
+  category:       'military',   // military|domestic|personnel|intel|research
+  action:         'fleet_deploy',
+  title:          '제13함대 출격',
+  payload:        { ... },
+  registeredBy:   'CHR_001',    // 친밀도 계산 기준 (null 허용)
+  registeredTurn: 5,
+  status:         'pending',    // pending|approved|expired
 }
 ```
 
@@ -86,6 +102,12 @@ systems[s.code] = { ...s, ...d, underConstruction: null }
 - `triggerDefection(charId, targetFaction)` — 망명
 - `triggerResignation(charId)` — 사임
 - `triggerDeath(charId)` — 사망
+
+**의안 시스템** (상세: `src/data/base/agenda/agenda.md`)
+- `registerAgenda(action, payload, registeredBy)` — 의안 등록 → id 반환
+- `cancelAgenda(agendaId)` — 의안 취소
+- `_processAgendas()` — 턴 종료 시 자동 호출, 카테고리별 결재권자 판정 → 1건 처리
+- `_executeAgenda(agenda)` — 의안 실행 (action → 기존 액션 위임)
 
 ---
 

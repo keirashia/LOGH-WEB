@@ -1,6 +1,11 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700&family=Noto+Sans+KR:wght@300;400;700&family=Share+Tech+Mono&display=swap');
 :root{
   --hdr-h: clamp(36px, 4.5vh, 50px);
+  --bar-h: clamp(88px, 11vh, 112px);
+}
+@media (orientation:landscape) and (max-height:480px){
+  :root{ --bar-h: 52px; }
+}
   --bg:#020508;--bg2:#080c14;--bg3:#0d1420;--bg4:#121a28;--bgh:#1a2438;
   --bd:#1e2d44;--bdg:#2a4060;
   --t1:#c8d8e8;--t2:#7a9ab8;--td:#3a5068;--tg:#d4aa60;--ta:#e05050;
