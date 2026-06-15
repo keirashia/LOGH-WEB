@@ -517,4 +517,45 @@ export const CHAR_TRAITS = [
     traitStDate: 0,
     traitEdDate: null,
   },
+  // ── 2026-06-15 추가 (CHAR_TRAITS_MASTER 내부에 잘못 배치된 항목 이관) ──
+  // 오스카 폰 로이엔탈
+  { charCode: "CH_000301", traitCode: "TRC_U_000301", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 파울 폰 오베르슈타인
+  { charCode: "CH_000481", traitCode: "TRC_U_000481", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 프리츠 요제프 비텐펠트
+  { charCode: "CH_000515", traitCode: "TRC_U_000515", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 나이트하르트 뮐러
+  { charCode: "CH_000032", traitCode: "TRC_U_000032", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 울리히 케슬러
+  { charCode: "CH_000335", traitCode: "TRC_U_000335", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 코르넬리아스 루츠
+  { charCode: "CH_000429", traitCode: "TRC_U_000429", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 알렉산드르 뷰코크
+  { charCode: "CH_000254", traitCode: "TRC_U_000254", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 시드니 시톨레
+  { charCode: "CH_000230", traitCode: "TRC_U_000230", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 에드윈 피셔
+  { charCode: "CH_000270", traitCode: "TRC_U_000270", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 프레데리카 그린힐
+  { charCode: "CH_000506", traitCode: "TRC_U_000506", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 바그다쉬
+  { charCode: "CH_000148", traitCode: "TRC_U_000148", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 아우구스트 자무엘 바렌
+  { charCode: "CH_000241", traitCode: "TRC_U_000241", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 에르네스트 메크링거
+  { charCode: "CH_000272", traitCode: "TRC_U_000272", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 힐데가르트 폰 마린도르프
+  { charCode: "CH_000559", traitCode: "TRC_U_000559", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 더스티 아텐보로
+  { charCode: "CH_000043", traitCode: "TRC_U_000043", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 발터 폰 쇤코프
+  { charCode: "CH_000156", traitCode: "TRC_U_000156", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 알렉스 카젤느
+  { charCode: "CH_000255", traitCode: "TRC_U_000255", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 드와이트 그린힐
+  { charCode: "CH_000055", traitCode: "TRC_U_000055", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 제시카 에드워즈
+  { charCode: "CH_000371", traitCode: "TRC_U_000371", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 볼프강 미터마이어
+  { charCode: "CH_000173", traitCode: "TRC_U_000173", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
 ];

@@ -244,6 +244,32 @@ export const CHAR_JOBS = [
     jobCode: "JB_MR005",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
+  // ── REH 3장관 ─────────────────────────────────────────────────
+  // 그레고르 폰 뮈켄베르거 — 우주함대사령장관
+  { charCode: "CH_000017", jobCode: "JB_R006", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 슈타인호프 — 통수본부총장
+  { charCode: "CH_000224", jobCode: "JB_R007", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 에렌베르크 — 군무상서
+  { charCode: "CH_000271", jobCode: "JB_R004", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 클라우스 폰 리히텐라데 — 제국재상
+  { charCode: "CH_000462", jobCode: "JB_R002", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // ── FPA 최고평의회 ─────────────────────────────────────────────
+  // 로열 샌포드 — 최고평의회의장
+  { charCode: "CH_000082", jobCode: "JB_F001", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 욥 트류니히트 — 국방위원장
+  { charCode: "CH_000329", jobCode: "JB_F002", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 드와이트 그린힐 — 각료
+  { charCode: "CH_000055", jobCode: "JB_F003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 헤르만 크라우스 — 법질서위원장 (CH_000565)
+  { charCode: "CH_000565", jobCode: "JB_F004", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 에릭 발렌타인 — 천연자원위원장 (CH_000562)
+  { charCode: "CH_000562", jobCode: "JB_F005", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 클로드 모리스 — 경제개발위원장 (CH_000563)
+  { charCode: "CH_000563", jobCode: "JB_F007", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 앤서니 버클리 — 지역사회개발위원장 (CH_000564)
+  { charCode: "CH_000564", jobCode: "JB_F008", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 리처드 호프만 — 부의장 → 각료 코드 사용 (부의장 JB 코드 미정의)
+  { charCode: "CH_000561", jobCode: "JB_F003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
 ];
 
 export const CHAR_JOBS_MAP = Object.fromEntries(
