@@ -5,12 +5,33 @@
 //  수정: 2026-06-12 데이터 1차 마이그레이션 완료.
 // ================================================================
 
-/** TODO
- * export const fncGetCharInfo('char code', 'scenario code')로
- * 데이터 조회.
- * 기본정보/성향/능력치/기타/
+/**
+ * fncGetCharInfo(charCode, scenarioCode?)
  *
- * */
+ * 인물 데이터 조회 함수.
+ * 시나리오 코드가 있으면 시나리오별 오버라이드 값을 우선 적용하고,
+ * 없는 필드는 CHAR_BASE 기본값으로 fallback.
+ *
+//  * @param {string} charCode     - 인물 코드 (예: 'CH_000064')
+//  * @param {string} [scenarioCode] - 시나리오 코드 (예: 'SE796_01'), 생략 시 기본값 반환
+//  * @returns {object|null}       - 인물 데이터 객체, 없으면 null
+//  *
+ * 사용 예:
+ *   fncGetCharInfo('CH_000064')              // 라인하르트 기본값
+ *   fncGetCharInfo('CH_000064', 'SE796_01')  // 아스타테 시나리오 오버라이드 적용
+ *
+ * TODO: 시나리오 오버라이드 로직 구현 필요
+ *   - src/data/scenario/{scenarioCode}/charOverride.js 에서 오버라이드 데이터 로드
+ *   - 이름(라인하르트→로엔그람), 파벌 변경 등 시나리오별 분기 처리
+ */
+// export function fncGetCharInfo(charCode, scenarioCode = null) {
+//   const base = CHAR_BASE_MAP[charCode] ?? null;
+//   if (!base) return null;
+//   // TODO: scenarioCode가 있으면 오버라이드 데이터 merge
+//   // const override = getScenarioCharOverride(scenarioCode, charCode);
+//   // return override ? { ...base, ...override } : base;
+//   return base;
+// }
 
 export const CHAR_BASE = [
   // D. 싱클레어
@@ -38,15 +59,14 @@ export const CHAR_BASE = [
     statAtt: 5,
     statDef: 5,
     statFst: 15,
-    statMng: 50,
-    statInf: 88,
+    statMng: 76,
+    statInf: 74,
     statGfg: 5,
     statAfg: 5,
     statMmp: 75,
     // — 기타
     point: "150",
-    descKr: `명망높은 역사가이자 역사 다큐멘터리 해설가로 은하제국, 자유행성동맹의 역사에 해박하다.
-    언변이 좋아 대중들로부터 많은 사랑을 받고 있다.`,
+    descKr: `명망높은 역사가이자 역사 다큐멘터리 해설가. 언변이 좋아 대중들로부터 많은 사랑을 받고 있다.`,
     descEn: ``,
     descJp: ``,
   },
@@ -192,39 +212,43 @@ export const CHAR_BASE = [
     descEn: ``,
     descJp: ``,
   },
+  // 겔라흐 Gerlach/Gerlache ・ ゲルラッハ
+  // TODO :
   {
     // — 기본
     code: "CH_000006",
     nameKr: "겔라흐",
-    nameEn: "Gerlach",
+    nameEn: "Gerlache",
     nameJp: "ゲルラッハ",
     nickKr: "겔라흐",
-    nickEn: "Gerlach",
+    nickEn: "Gerlache",
     nickJp: "ゲルラッハ",
-    birth: "SE|729.03.15",
+    nickFn: ["Gerlach", "겔라하", "게를라흐"],
+    birth: "SE|735.08.14",
+    death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "270", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "25", // 신중
+    moral: "52",
+    friend: "108",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 3,
+    statCsm: 62,
+    statAtt: 2,
+    statDef: 4,
+    statFst: 2,
+    statMng: 82,
+    statInf: 65,
+    statGfg: 2,
+    statAfg: 2,
+    statMmp: 78,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `자작 귀족 출신으로 궁정 내각의 일원.`,
+    descEn: `Imperial Minister of Finance under Kaiser Friedrich IV. A Viscount and member of the court cabinet. He was replaced by Eugen Richter following the fall of the Goldenbaum Dynasty.`,
+    descJp: `フリードリヒ4世治下の帝国財務尚書。子爵貴族出身で宮廷内閣の一員。ゴールデンバウム王朝崩壊後にオイゲン・リヒターに交代させられた。`,
   },
   {
     // — 기본
@@ -573,34 +597,35 @@ export const CHAR_BASE = [
     code: "CH_000017",
     nameKr: "그레고르 폰 뮈켄베르거",
     nameEn: "Gregor von Mückenberger",
-    nameJp: "グレゴール・フォン・ミュッケンベルガ",
-    nickKr: "G. 뮈켄베르거",
-    nickEn: "G. Mückenberger",
-    nickJp: "G. ミュッケンベルガ",
+    nameJp: "グレゴール・フォン・ミュッケンベルガー",
+    nickKr: "뮈켄베르거",
+    nickEn: "Mückenberger",
+    nickJp: "ミュッケンベルガー",
     birth: "SE|738.11.19",
+    death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "270", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "60", // 일반
+    moral: "72",
+    friend: "115",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 89,
+    statCsm: 78,
+    statAtt: 58,
+    statDef: 60,
+    statFst: 63,
+    statMng: 30,
+    statInf: 35,
+    statGfg: 71,
+    statAfg: 83,
+    statMmp: 88,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `프리드리히 4세 치하 제국 우주함대사령장관. 3장관 중 실질적 군사 지휘권을 보유한 최고위직. 라인하르트 폰 뮤젤의 급속한 성장을 경계했으나 막을 수 없었다. 립슈타트 반란 이후 강제 퇴역하였다.`,
+    descEn: `Space Fleet Commander in Chief under Kaiser Friedrich IV, the most senior of the three Imperial military chiefs with actual field command authority. He viewed Reinhard von Lohengramm's rise with wariness but was powerless to stop it. Forced into retirement following the Lippstadt Rebellion.`,
+    descJp: `フリードリヒ4世治下の宇宙艦隊司令長官。三長官の中で実質的な軍事指揮権を持つ最高位職。ラインハルト・フォン・ミューゼルの台頭を警戒したが阻めなかった。リップシュタット叛乱後に強制退役した。`,
   },
   {
     // — 기본
@@ -1482,9 +1507,9 @@ export const CHAR_BASE = [
     birth: "SE|769.11.23",
     death: "",
     // — 성향
-    faction: "FPA",   // 자유행성동맹
-    idea: "100",      // 자유민주공화국
-    econ: "100",      // 시장경제
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 시장경제
     brave: "80",
     moral: "82",
     friend: "170",
@@ -1618,30 +1643,31 @@ export const CHAR_BASE = [
     nickKr: "도미니크",
     nickEn: "Dominique",
     nickJp: "ドミニク",
-    birth: "SE|772.02.16",
+    birth: "SE|768.03.24",
+    death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "PZN", // 페잔 자치령
+    idea: "150", // 귀족제
+    econ: "220", // 국가자본주의
+    brave: "72", // 용맹
+    moral: "55",
+    friend: "130",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 4,
+    statCsm: 88,
+    statAtt: 3,
+    statDef: 5,
+    statFst: 5,
+    statMng: 65,
+    statInf: 78,
+    statGfg: 3,
+    statAfg: 3,
+    statMmp: 82,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `페잔의 가수이자 댄서. 아드리안 루빈스키의 오랜 연인. 루빈스키의 야망과 계략을 가까이서 지켜본 인물로, 페잔의 몰락과 함께 공범으로 체포됐다.`,
+    descEn: `A Fezzani singer and dancer and the long-time companion of Adrian Rubinsky. She witnessed his ambitions and schemes at close range, and was arrested as an accomplice following the fall of Fezzan.`,
+    descJp: `ペザンの歌手兼ダンサー。アドリアン・ルビンスキーの長年の恋人。ルビンスキーの野望と謀略を間近で見届けた人物で、ペザン崩壊とともに共犯者として逮捕された。`,
   },
   {
     // — 기본
@@ -1900,10 +1926,10 @@ export const CHAR_BASE = [
     birth: "SE|745.04.03",
     death: "SE|797.08.30",
     // — 성향
-    faction: "FPA",   // 자유행성동맹
-    idea: "100",      // 자유민주공화국
-    econ: "100",      // 자본주의
-    brave: "25",      // 신중
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "25", // 신중
     moral: "80",
     friend: "285",
     // — 능력치
@@ -2075,9 +2101,9 @@ export const CHAR_BASE = [
     birth: "SE|765.04.09",
     death: "",
     // — 성향
-    faction: "FPA",   // 자유행성동맹
-    idea: "100",      // 자유민주공화국
-    econ: "100",      // 시장경제
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 시장경제
     brave: "72",
     moral: "78",
     friend: "130",
@@ -2244,35 +2270,35 @@ export const CHAR_BASE = [
     code: "CH_000065",
     nameKr: "라자르 로보스",
     nameEn: "Lassalle Lobos",
-    nameJp: "",
+    nameJp: "ラザール・ロボス",
     nickKr: "로보스",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nickEn: "Lobos",
+    nickJp: "ロボス",
+    birth: "SE|740.09.14",
+    death: "SE|796.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "60", // 일반
+    moral: "55",
+    friend: "130",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 80,
+    statCsm: 75,
+    statAtt: 72,
+    statDef: 80,
+    statFst: 58,
+    statMng: 55,
+    statInf: 52,
+    statGfg: 60,
+    statAfg: 79,
+    statMmp: 68,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `자유행성동맹 우주함대 총사령관. 앤드류 포크의 제국 침공 계획을 승인하고 원정군 최고사령관을 맡았으나, 보급 위기 속에서도 후퇴 명령을 거부하는 무능함을 드러냈다. 아무리트사 성전 참패의 최고 책임자.`,
+    descEn: `Supreme Commander of the Free Planets Star Fleet. He approved Andrew Falk's invasion plan and assumed command of the expeditionary force, but proved incapable by refusing retreat orders even as the supply crisis deepened. He bears ultimate responsibility for the catastrophic defeat at the Battle of Amritsar.`,
+    descJp: `自由惑星同盟宇宙艦隊総司令官。アンドリュー・フォークの帝国侵攻計画を承認し遠征軍最高司令官を務めたが、補給危機の中でも撤退命令を拒否する無能さを露呈した。アムリッツァ星域会戦大敗の最高責任者。`,
   },
   {
     // — 기본
@@ -2837,37 +2863,37 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000082",
-    nameKr: "로열 센포드",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameKr: "로열 샌포드",
+    nameEn: "Royal Sanford",
+    nameJp: "ロイヤル・サンフォード",
+    nickKr: "샌포드",
+    nickEn: "Sanford",
+    nickJp: "サンフォード",
+    birth: "SE|738.04.22",
+    death: "SE|796.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "FPA", // 자유행성동맹
+    idea: "120", // 입헌군주제
+    econ: "100", // 자본주의
+    brave: "60", // 일반
+    moral: "48",
+    friend: "105",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 4,
+    statCsm: 72,
+    statAtt: 3,
+    statDef: 5,
+    statFst: 3,
+    statMng: 78,
+    statInf: 58,
+    statGfg: 3,
+    statAfg: 3,
+    statMmp: 85,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `자유행성동맹 최고평의회 의장. 지지율 만회를 위해 제국령 침공 작전을 승인한 인물. 참담한 패전의 책임을 지고 내각 전원과 함께 사퇴했다.`,
+    descEn: `Supreme Chairman of the Free Planets Alliance High Council. He approved the invasion of Imperial territory in a bid to reverse flagging approval ratings, and resigned along with the entire cabinet following the catastrophic defeat.`,
+    descJp: `自由惑星同盟最高評議会議長。支持率挽回のために帝国領侵攻作戦を承認した人物。惨敗の責任を取り内閣全員とともに辞任した。`,
   },
   {
     // — 기본
@@ -3223,36 +3249,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000093",
     nameKr: "루퍼트 케셀링크",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Rupert Kesserling",
+    nameJp: "ルパート・ケッセルリンク",
+    nickKr: "케셀링크",
+    nickEn: "Kesserling",
+    nickJp: "ケッセルリンク",
+    birth: "SE|774.09.18",
+    death: "SE|799.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "PZN", // 페잔 자치령
+    idea: "150", // 귀족제
+    econ: "220", // 국가자본주의
+    brave: "45", // 냉정
+    moral: "22",
+    friend: "70",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 5,
+    statCsm: 72,
+    statAtt: 3,
+    statDef: 5,
+    statFst: 4,
+    statMng: 78,
+    statInf: 85,
+    statGfg: 3,
+    statAfg: 3,
+    statMmp: 88,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `아드리안 루빈스키의 서자이자 비서. 아버지의 정치 음모를 실행하는 야심 찬 마키아벨리스트. 속으로는 루빈스키를 몰아내고 자치령주 자리를 차지하려 했으나, 루빈스키에게 발각되어 제국의 페잔 침공 당일 밤 살해당했다.`,
+    descEn: `Illegitimate son and secretary of Adrian Rubinsky. A highly ambitious Machiavellian who executed his father's political schemes while secretly plotting to overthrow him and seize the position of Landesherr. His ambitions were fully known to Rubinsky, who had him killed on the night of the Imperial invasion of Fezzan.`,
+    descJp: `アドリアン・ルビンスキーの庶子にして秘書。父の政治的陰謀を実行する野心的なマキャベリスト。内心ではルビンスキーを追い落とし自治領主の座を狙っていたが、ルビンスキーに看破され帝国のペザン侵攻当夜に殺害された。`,
   },
   {
     // — 기본
@@ -3537,37 +3563,37 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000102",
-    nameKr: "리히터",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
+    nameKr: "오이겐 리처",
+    nameEn: "Eugen Richter",
+    nameJp: "オイゲン・リヒター",
+    nickKr: "리처",
+    nickEn: "Richter",
+    nickJp: "リヒター",
+    birth: "SE|750.04.22",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "240", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "25", // 신중
+    moral: "62",
+    friend: "112",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 3,
+    statCsm: 60,
+    statAtt: 2,
+    statDef: 4,
+    statFst: 2,
+    statMng: 80,
+    statInf: 68,
+    statGfg: 2,
+    statAfg: 2,
+    statMmp: 72,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `겔라흐의 후임 제국 재무장관. 골덴바움 왕조 붕괴 후 로엔그람 체제에서 재무장관직을 이어받았다.`,
+    descEn: `Imperial Minister of Finance, succeeding Gerlach after the fall of the Goldenbaum Dynasty under the Lohengramm administration.`,
+    descJp: `ゲルラッハの後任の帝国財務尚書。ゴールデンバウム王朝崩壊後、ローエングラム体制で財務尚書職を引き継いだ。`,
   },
   {
     // — 기본
@@ -5438,9 +5464,9 @@ export const CHAR_BASE = [
     birth: "SE|765.07.28",
     death: "SE|801.06.01",
     // — 성향
-    faction: "FPA",   // 자유행성동맹
-    idea: "100",      // 자유민주공화국
-    econ: "100",      // 시장경제
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 시장경제
     brave: "80",
     moral: "72",
     friend: "155",
@@ -6902,71 +6928,71 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000198",
     nameKr: "빌헬름 폰 리텐하임",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Wilhelm von Littenheim",
+    nameJp: "ウィルヘルム・フォン・リッテンハイム",
+    nickKr: "리텐하임",
+    nickEn: "Littenheim",
+    nickJp: "リッテンハイム",
+    birth: "SE|747.11.08",
+    death: "SE|797.08.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "290", // 신성군주제
+    econ: "180", // 국가자본주의
+    brave: "25", // 신중
+    moral: "38",
+    friend: "80",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 25,
+    statCsm: 72,
+    statAtt: 22,
+    statDef: 28,
+    statFst: 20,
+    statMng: 48,
+    statInf: 42,
+    statGfg: 18,
+    statAfg: 22,
+    statMmp: 78,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `골덴바움 왕조 최대 문벌귀족 후작. 황제 프리드리히 4세의 사위로 딸 사비네의 황위 계승을 획책하며 브라운슈바이크와 함께 립슈타트 동맹을 이끌었다. 실질적인 군사적 재능이 없어 키르히아이스에게 패배하고 부하의 자폭 테러로 사망했다.`,
+    descEn: `An Imperial Marquis and son-in-law of Kaiser Friedrich IV, he co-led the Lippstadt Alliance alongside Duke Braunschweig in an attempt to place his daughter Sabine on the throne. Lacking any real martial talent, he was defeated by Siegfried Kircheis and was killed by a suicide attack from one of his own resentful subordinates.`,
+    descJp: `ゴールデンバウム王朝の有力門閥貴族侯爵。皇帝フリードリヒ4世の義息子で、娘ザービネの皇位継承を目指しブラウンシュヴァイクとともにリップシュタット同盟を率いた。実質的な軍事的才能を持たずキルヒアイスに敗北し、部下の自爆テロで死亡した。`,
   },
   {
     // — 기본
     code: "CH_000199",
     nameKr: "빌헬름 폰 뮈켄베르거",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Wilhelm von Muckenburger",
+    nameJp: "ヴィルヘルム・フォン・ミュッケンベルガー",
+    nickKr: "W.뮈켄베르거",
+    nickEn: "W.Muckenburger",
+    nickJp: "W.ミュッケンベルガー",
+    birth: "SE|705.04.12",
+    death: "SE|770.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "270", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "60", // 일반
+    moral: "68",
+    friend: "110",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 55,
+    statCsm: 60,
+    statAtt: 42,
+    statDef: 48,
+    statFst: 38,
+    statMng: 45,
+    statInf: 40,
+    statGfg: 35,
+    statAfg: 38,
+    statMmp: 62,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `그레고르 폰 뮈켄베르거의 부친. 작중 이미 사망한 인물로 직접 등장하지 않는다.`,
+    descEn: `Father of Gregor von Mückenberger. Deceased prior to the events of the story and does not appear directly.`,
+    descJp: `グレゴール・フォン・ミュッケンベルガーの父。作中ではすでに死亡しており、直接登場しない。`,
   },
   {
     // — 기본
@@ -7042,36 +7068,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000202",
     nameKr: "사비네 폰 리텐하임",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
+    nameEn: "Sabine von Littenheim",
+    nameJp: "ザービネ・フォン・リッテンハイム",
+    nickKr: "사비네",
+    nickEn: "Sabine",
+    nickJp: "ザービネ",
+    birth: "SE|782.04.08",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "270", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "58", // 일반
+    moral: "62",
+    friend: "115",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 2,
+    statCsm: 65,
+    statAtt: 2,
+    statDef: 3,
+    statFst: 2,
+    statMng: 30,
+    statInf: 38,
+    statGfg: 2,
+    statAfg: 2,
+    statMmp: 42,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `빌헬름 폰 리텐하임의 딸. 796년 황위 계승 후보로 내세워졌으나 에르빈 요제프 2세에게 황위를 빼앗겼다. 립슈타트 내전 이후 행방 불명.`,
+    descEn: `Daughter of Marquis Wilhelm von Littenheim. Put forward as a claimant to the throne after Kaiser Friedrich IV's death but passed over in favour of Erwin Josef II. Her fate following the Lippstadt Rebellion is unknown.`,
+    descJp: `ヴィルヘルム・フォン・リッテンハイムの娘。フリードリヒ4世崩御後に皇位継承候補として擁立されたがエルウィン・ヨーゼフ2世に皇位を奪われた。リップシュタット内乱後は行方不明。`,
   },
   {
     // — 기본
@@ -7813,36 +7839,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000224",
     nameKr: "슈타인호프",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
+    nameEn: "Steinhof",
+    nameJp: "シュタインホフ",
+    nickKr: "슈타인호프",
+    nickEn: "Steinhof",
+    nickJp: "シュタインホフ",
+    birth: "SE|728.09.24",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "270", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "60", // 일반
+    moral: "68",
+    friend: "112",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 58,
+    statCsm: 70,
+    statAtt: 43,
+    statDef: 47,
+    statFst: 43,
+    statMng: 93,
+    statInf: 90,
+    statGfg: 38,
+    statAfg: 42,
+    statMmp: 85,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `프리드리히 4세 치하 제국군 3장관 중 통수본부총장. 군사 행정에 특화된 관료형 장성으로, 립슈타트 반란 이후 강제 퇴역하였다.`,
+    descEn: `Chief of the Supreme Command Headquarters and one of the three Imperial military chiefs of staff under Kaiser Friedrich IV. A bureaucratic general specialising in military administration, he was forced into retirement following the Lippstadt Rebellion.`,
+    descJp: `フリードリヒ4世治下の帝国軍三長官の一人、統帥本部総長。軍事行政に特化した官僚型将帥で、リップシュタット叛乱後に強制退役した。`,
   },
   {
     // — 기본
@@ -8164,36 +8190,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000234",
     nameKr: "아드리안 루빈스키",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Adrian Rubinsky",
+    nameJp: "アドリアン・ルビンスキー",
+    nickKr: "루빈스키",
+    nickEn: "Rubinsky",
+    nickJp: "ルビンスキー",
+    birth: "SE|745.07.19",
+    death: "SE|800.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "PZN", // 페잔 자치령
+    idea: "150", // 귀족제
+    econ: "220", // 국가자본주의
+    brave: "45", // 냉정
+    moral: "30",
+    friend: "80",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 10,
+    statCsm: 88,
+    statAtt: 5,
+    statDef: 8,
+    statFst: 5,
+    statMng: 95,
+    statInf: 92,
+    statGfg: 5,
+    statAfg: 5,
+    statMmp: 98,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `페잔 자치령의 제5대 자치령주. '페잔의 흑여우'라 불리는 책략가로 제국과 동맹 양쪽을 조종하며 페잔의 금융 지배를 꿈꿨다. 지구교와도 깊이 연루되어 있으며 은하 정치의 막후 실력자.`,
+    descEn: `The fifth Landesherr of the Dominion of Fezzan, nicknamed the "Black Fox of Fezzan." A consummate schemer who manipulated both the Empire and the Alliance while dreaming of Fezzan's financial domination of the galaxy. Deeply entangled with the Terraist Church, he was the shadow power behind galactic politics.`,
+    descJp: `ペザン自治領第5代自治領主。「ペザンの黒狐」と称される策謀家で、帝国と同盟の両方を操りながらペザンの金融支配を夢見た。地球教とも深く関わり、銀河政治の黒幕的存在。`,
   },
   {
     // — 기본
@@ -8619,36 +8645,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000247",
     nameKr: "안스바흐",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Ansbach",
+    nameJp: "アンスバッハ",
+    nickKr: "안스바흐",
+    nickEn: "Ansbach",
+    nickJp: "アンスバッハ",
+    birth: "SE|758.06.22",
+    death: "SE|797.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "240", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "80", // 용맹
+    moral: "78",
+    friend: "140",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 35,
+    statCsm: 62,
+    statAtt: 55,
+    statDef: 52,
+    statFst: 48,
+    statMng: 58,
+    statInf: 65,
+    statGfg: 70,
+    statAfg: 45,
+    statMmp: 60,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `오토 폰 브라운슈바이크 공작의 부관. 주군에 대한 충성심이 강하나 웨스터란트 핵폭격 결정에 강하게 반대하다 투옥됐다. 결국 주군의 비겁한 행동에 환멸을 느끼고 직접 독을 먹여 브라운슈바이크를 살해했다.`,
+    descEn: `Aide to Duke Otto von Braunschweig. A man of strong loyalty to his lord, he was imprisoned after vocally opposing Braunschweig's decision to use nuclear weapons on Westerland. Ultimately disillusioned by his lord's cowardice, he personally administered the poison that killed Braunschweig.`,
+    descJp: `オットー・フォン・ブラウンシュヴァイク公爵の副官。主君への忠誠心は強いが、ウェスターランドへの核爆撃決定に強く反対し投獄された。最終的に主君の臆病な行動に幻滅し、自ら毒を盛ってブラウンシュヴァイクを殺害した。`,
   },
   // https://gineipaedia.com/wiki/Antonel_Yanosher
   {
@@ -8725,36 +8751,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000250",
     nameKr: "안톤 힐머 폰 샤프트",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
+    nameEn: "Anton Hilmer von Schaft",
+    nameJp: "アントン・ヒルマー・フォン・シャフト",
+    nickKr: "샤프트",
+    nickEn: "Schaft",
+    nickJp: "シャフト",
+    birth: "SE|748.09.15",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "240", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "45", // 냉정
+    moral: "38",
+    friend: "88",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 5,
+    statCsm: 58,
+    statAtt: 3,
+    statDef: 5,
+    statFst: 3,
+    statMng: 72,
+    statInf: 88,
+    statGfg: 3,
+    statAfg: 3,
+    statMmp: 75,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `공학·철학 박사 학위를 보유한 제국 과학기술감찰총감. 페잔의 사주를 받아 가이에스부르크 요새 기동화 계획을 추진하여 제8차 이젤론 공방전을 일으켰으나, 패전 후 루빈스키의 명으로 증거가 제공되어 부패·횡령·군사기밀 누설 혐의로 체포됐다.`,
+    descEn: `Inspector General of the Imperial Science and Technology Division, holding doctoral degrees in both engineering and philosophy. Acting under covert direction from Fezzan, he devised and implemented the plan to mobilise Geiersburg Fortress, triggering the Eighth Battle of Iserlohn. After the Imperial defeat, Rubinsky had evidence of his crimes handed over to the Empire and he was arrested on charges of corruption, embezzlement, and betrayal of military secrets.`,
+    descJp: `工学・哲学の博士号を持つ帝国科学技術監察総監。ペザンの指示のもとでガイエスブルク要塞機動化計画を立案・実行し第8次イゼルローン攻防戦を引き起こした。敗戦後、ルビンスキーの命で証拠が帝国に渡され、腐敗・横領・軍事機密漏洩の容疑で逮捕された。`,
   },
   {
     // — 기본
@@ -8909,10 +8935,10 @@ export const CHAR_BASE = [
     birth: "SE|761.05.01",
     death: "",
     // — 성향
-    faction: "FPA",   // 자유행성동맹
-    idea: "100",      // 자유민주공화국
-    econ: "100",      // 자본주의
-    brave: "25",      // 신중
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "25", // 신중
     moral: "85",
     friend: "150",
     // — 능력치
@@ -9181,36 +9207,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000263",
     nameKr: "앤드류 포크",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Andrew Falk",
+    nameJp: "アンドリュー・フォーク",
+    nickKr: "포크",
+    nickEn: "Falk",
+    nickJp: "フォーク",
+    birth: "SE|768.11.30",
+    death: "SE|800.04.15",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "72", // 용맹
+    moral: "40",
+    friend: "85",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 25,
+    statCsm: 68,
+    statAtt: 22,
+    statDef: 20,
+    statFst: 25,
+    statMng: 62,
+    statInf: 58,
+    statGfg: 18,
+    statAfg: 22,
+    statMmp: 55,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `자유행성동맹 통합작전본부 참모. 사관학교 수석 졸업의 수재로 제국령 침공 작전을 입안했다. 야망과 허영심이 강해 양 웬리와 우란푸의 경고를 무시하고 침공을 밀어붙였다. 아무리트사 패전 후 정신이상자가 되었다가 지구교의 음모에 휘말려 사망했다.`,
+    descEn: `Staff officer at the Free Planets Alliance Joint Operations Headquarters. A brilliant graduate who topped his Academy class, he devised and pushed for the Imperial invasion despite warnings from Yang Wen-li and Ulanhu. After the catastrophic defeat at Amritsar he suffered a mental breakdown, and was later killed when caught up in a Terraist Church conspiracy.`,
+    descJp: `自由惑星同盟統合作戦本部参謀。士官学校首席卒業の秀才で帝国領侵攻作戦を立案した。野望と虚栄心が強くヤン・ウェンリーとウランフの警告を無視して侵攻を押し進めた。アムリッツァ大敗後に精神異常をきたし、後に地球教の陰謀に巻き込まれ死亡した。`,
   },
   {
     // — 기본
@@ -9468,36 +9494,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000271",
     nameKr: "에렌베르크",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
+    nameEn: "Ehrenberg",
+    nameJp: "エーレンベルク",
+    nickKr: "에렌베르크",
+    nickEn: "Ehrenberg",
+    nickJp: "エーレンベルク",
+    birth: "SE|730.05.12",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "270", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "60", // 일반
+    moral: "65",
+    friend: "110",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 50,
+    statCsm: 72,
+    statAtt: 32,
+    statDef: 24,
+    statFst: 21,
+    statMng: 62,
+    statInf: 52,
+    statGfg: 45,
+    statAfg: 21,
+    statMmp: 88,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `프리드리히 4세 치하 제국군 3장관 중 군무상서. 라인하르트 폰 뮤젤의 세력 확장에 반발한 구체제 귀족 세력의 일원으로, 립슈타트 반란 당시 비텐펠트에게 체포되어 강제 퇴역당했다.`,
+    descEn: `Minister of Military Affairs and one of the three Imperial military chiefs of staff under Kaiser Friedrich IV. A member of the old guard who resisted Reinhard von Lohengramm's rise, he was captured by Bittenfeld during the Lippstadt Rebellion and forced into retirement.`,
+    descJp: `フリードリヒ4世治下の帝国軍三長官の一人、軍務尚書。ラインハルト・フォン・ミューゼルの台頭に反発した旧体制貴族勢力の一員で、リップシュタット叛乱時にビッテンフェルトに捕縛され強制退役させられた。`,
   },
   {
     // — 기본
@@ -9530,7 +9556,8 @@ export const CHAR_BASE = [
     statMmp: 85,
     // — 기타
     point: "0",
-    descKr: `'예술가 제독'이라 불리는 제국군 후방 사령관. 군사적 능력과 예술적 소양을 겸비한 지휘관으로, 라인하르트의 참모장을 역임했다. 라인하르트 임종 시 원수 승진을 추천받았다.`,
+    descKr: `'예술가 제독'이라 불리는 제국군 후방 사령관. 
+    군사적 능력과 예술적 소양을 겸비한 지휘관으로 평가받고 있다.`,
     descEn: `Known as the "Artistic Admiral," Mecklinger served as rear forces commander and former chief of staff under Reinhard. A commander who combined military skill with genuine artistic sensibility, he was recommended for promotion to Fleet Admiral by Reinhard on his deathbed.`,
     descJp: `「芸術家提督」と称される帝国軍後方司令官。軍事的能力と芸術的素養を兼ね備えた指揮官で、ラインハルトの参謀長を歴任。ラインハルトの臨終の際に元帥への昇進を推薦された。`,
   },
@@ -10204,46 +10231,47 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000292",
     nameKr: "엘리자베트 폰 브라운슈바이크",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
+    nameEn: "Elisabeth von Braunschweig",
+    nameJp: "エリザベート・フォン・ブラウンシュヴァイク",
+    nickKr: "엘리자베트",
+    nickEn: "Elisabeth",
+    nickJp: "エリザベート",
+    birth: "SE|780.06.12",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "270", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "60", // 일반
+    moral: "65",
+    friend: "120",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 2,
+    statCsm: 70,
+    statAtt: 2,
+    statDef: 3,
+    statFst: 2,
+    statMng: 35,
+    statInf: 42,
+    statGfg: 2,
+    statAfg: 2,
+    statMmp: 48,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `오토 폰 브라운슈바이크의 딸. 796년 프리드리히 4세 붕어 후 황위 계승 후보로 내세워졌으나 에르빈 요제프 2세에게 황위를 빼앗겼다. 립슈타트 내전 이후 행방 불명.`,
+    descEn: `Daughter of Duke Otto von Braunschweig. Put forward as a claimant to the throne after Kaiser Friedrich IV's death in 796 UC, but the throne went to Erwin Josef II instead. Her fate following the Lippstadt Rebellion is unknown.`,
+    descJp: `オットー・フォン・ブラウンシュヴァイクの娘。796年フリードリヒ4世崩御後に皇位継承候補として擁立されたが、エルウィン・ヨーゼフ2世に皇位を奪われた。リップシュタット内乱後は行方不明。`,
   },
+  // 엘리자베트 폰 카스트로프 Elisabeth von Castrop ・ オイゲン・フォン・カストロプ
   {
     // — 기본
     code: "CH_000293",
     nameKr: "엘리자베트 폰 카스트로프",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
+    nameEn: "Elisabeth von Castrop",
+    nameJp: "オイゲン・フォン・カストロプ",
+    nickKr: "E. 카스트로프",
+    nickEn: "E. Castrop",
+    nickJp: "E. カストロプ",
     birth: "",
     death: "",
     // — 성향
@@ -10620,15 +10648,16 @@ export const CHAR_BASE = [
     descEn: ``,
     descJp: ``,
   },
+  // 오이겐 폰 카스트로프 Eugen von Castrop ・ オイゲン・フォン・カストロプ
   {
     // — 기본
     code: "CH_000304",
     nameKr: "오이겐 폰 카스트로프",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
+    nameEn: "Eugen von Castrop",
+    nameJp: "オイゲン・フォン・カストロプ",
+    nickKr: "Eug. 카스트로프",
+    nickEn: "Eug. Castrop",
+    nickJp: "Eug. カストロプ",
     birth: "",
     death: "",
     // — 성향
@@ -10694,36 +10723,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000306",
     nameKr: "오토 폰 브라운슈바이크",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Otto von Braunschweig",
+    nameJp: "オットー・フォン・ブラウンシュヴァイク",
+    nickKr: "브라운슈바이크",
+    nickEn: "Braunschweig",
+    nickJp: "ブラウンシュヴァイク",
+    birth: "SE|745.03.18",
+    death: "SE|797.09.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "290", // 신성군주제
+    econ: "180", // 국가자본주의
+    brave: "72", // 용맹
+    moral: "42",
+    friend: "85",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 42,
+    statCsm: 78,
+    statAtt: 38,
+    statDef: 35,
+    statFst: 30,
+    statMng: 55,
+    statInf: 48,
+    statGfg: 32,
+    statAfg: 35,
+    statMmp: 82,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `골덴바움 왕조 최대 문벌귀족 공작. 황제 프리드리히 4세의 사위로 딸 엘리자베트의 황위 계승을 획책하며 립슈타트 동맹을 주도했다. 리텐하임과 대립하면서도 연합하여 라인하르트에 맞섰으나 패배하고 측근 안스바흐에게 독살당했다.`,
+    descEn: `The most powerful high noble Duke of the Goldenbaum Dynasty and son-in-law of Kaiser Friedrich IV. He led the Lippstadt Alliance in an attempt to place his daughter Elisabeth on the throne, forming a fragile coalition with his rival Marquis Littenheim against Reinhard von Lohengramm. Defeated in the civil war, he was poisoned by his own aide Ansbach.`,
+    descJp: `ゴールデンバウム王朝最大の門閥貴族公爵。皇帝フリードリヒ4世の義息子で、娘エリザベートの皇位継承を画策しリップシュタット同盟を主導した。宿敵リッテンハイムと連合してラインハルトに対抗したが敗北し、側近アンスバッハに毒殺された。`,
   },
   {
     // — 기본
@@ -11499,36 +11528,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000329",
     nameKr: "욥 트류니히트",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Job Trunicht",
+    nameJp: "ヨブ・トリューニヒト",
+    nickKr: "트류니히트",
+    nickEn: "Trunicht",
+    nickJp: "トリューニヒト",
+    birth: "SE|748.06.12",
+    death: "SE|800.12.16",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "60", // 일반
+    moral: "8",
+    friend: "20",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 3,
+    statCsm: 90,
+    statAtt: 2,
+    statDef: 3,
+    statFst: 2,
+    statMng: 90,
+    statInf: 10,
+    statGfg: 2,
+    statAfg: 2,
+    statMmp: 98,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `자유행성동맹의 정치가. 부패하고 무능한 행정으로 동맹 몰락의 한 원인이 된 최고평의회 의장. 공포 정치와 선동으로 권력을 유지했으며 제국에 항복 후에도 생존을 위해 지구교, 제국과 거래하는 등 철저한 기회주의자다.`,
+    descEn: `An Alliance politician and penultimate head of state whose corrupt and incompetent administration was one of the contributing factors to the fall of the Alliance. He maintained power through fear and demagoguery, and after surrendering to the Empire continued to survive through dealings with the Church of Terra and the New Galactic Empire — a consummate opportunist to the last.`,
+    descJp: `自由惑星同盟の政治家。腐敗した無能な行政で同盟崩壊の一因となった最高評議会議長。恐怖政治と扇動で権力を維持し、帝国への降伏後も地球教・帝国と取引するなど徹底した機会主義者。`,
   },
   {
     // — 기본
@@ -11950,6 +11979,7 @@ export const CHAR_BASE = [
     descEn: ``,
     descJp: ``,
   },
+  // https://gineipaedia.com/wiki/Winslow_Kennes_Townshent
   {
     // — 기본
     code: "CH_000342",
@@ -12242,9 +12272,9 @@ export const CHAR_BASE = [
     birth: "SE|782.03.25",
     death: "",
     // — 성향
-    faction: "FPA",   // 자유행성동맹
-    idea: "100",      // 자유민주공화국
-    econ: "100",      // 시장경제
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 시장경제
     brave: "85",
     moral: "92",
     friend: "165",
@@ -12981,9 +13011,9 @@ export const CHAR_BASE = [
     birth: "SE|768.04.15",
     death: "SE|797.06.22",
     // — 성향
-    faction: "FPA",   // 자유행성동맹
-    idea: "30",       // 민주공화제
-    econ: "100",      // 자본주의
+    faction: "FPA", // 자유행성동맹
+    idea: "30", // 민주공화제
+    econ: "100", // 자본주의
     brave: "80",
     moral: "98",
     friend: "160",
@@ -13183,36 +13213,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000377",
     nameKr: "조안 레벨로",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "João Rebelo",
+    nameJp: "ジョアン・レベロ",
+    nickKr: "레벨로",
+    nickEn: "Rebelo",
+    nickJp: "レベロ",
+    birth: "SE|741.09.14",
+    death: "SE|800.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "FPA", // 자유행성동맹
+    idea: "80", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "45", // 냉정
+    moral: "82",
+    friend: "140",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 5,
+    statCsm: 75,
+    statAtt: 3,
+    statDef: 6,
+    statFst: 4,
+    statMng: 88,
+    statInf: 72,
+    statGfg: 3,
+    statAfg: 3,
+    statMmp: 82,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `자유행성동맹 최고평의회 재정위원장. 양식 있는 화평파 정치인으로 제국령 침공 작전에 반대했다. 이후 최고평의회 의장까지 올랐으나 제국의 침공 앞에 속수무책으로 동맹을 잃었다.`,
+    descEn: `Secretary of the Treasury of the Free Planets Alliance High Council. A principled peace-faction politician who opposed the Imperial invasion. He later rose to Supreme Chairman but was powerless to prevent the Alliance's fall to the Empire.`,
+    descJp: `自由惑星同盟最高評議会財政委員長。良識ある和平派政治家で帝国領侵攻作戦に反対した。後に最高評議会議長にまで昇り詰めたが、帝国の侵攻を前に為す術なく同盟を失った。`,
   },
   {
     // — 기본
@@ -14270,37 +14300,37 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000408",
-    nameKr: "카프란",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
+    nameKr: "카플랑",
+    nameEn: "Kaplan",
+    nameJp: "カプラン",
+    nickKr: "카플랑",
+    nickEn: "Kaplan",
+    nickJp: "カプラン",
+    birth: "SE|750.11.03",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "58", // 일반
+    moral: "65",
+    friend: "115",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 3,
+    statCsm: 55,
+    statAtt: 2,
+    statDef: 4,
+    statFst: 2,
+    statMng: 70,
+    statInf: 62,
+    statGfg: 2,
+    statAfg: 2,
+    statMmp: 65,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `자유행성동맹 최고평의회 서기. 평의회 행정 및 의사록 관리를 담당하는 실무형 관료.`,
+    descEn: `Chief Clerk of the Free Planets Alliance High Council. A practical bureaucrat responsible for council administration and the management of minutes.`,
+    descJp: `自由惑星同盟最高評議会書記。評議会の行政および議事録管理を担う実務型官僚。`,
   },
   {
     // — 기본
@@ -14937,36 +14967,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000427",
     nameKr: "코넬리아 윈저",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
+    nameEn: "Cornelia Windsor",
+    nameJp: "コーネリア・ウィンザー",
+    nickKr: "윈저",
+    nickEn: "Windsor",
+    nickJp: "ウィンザー",
+    birth: "SE|745.02.17",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "FPA", // 자유행성동맹
+    idea: "110", // 온건군주제
+    econ: "100", // 자본주의
+    brave: "60", // 일반
+    moral: "52",
+    friend: "112",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 4,
+    statCsm: 68,
+    statAtt: 3,
+    statDef: 5,
+    statFst: 3,
+    statMng: 75,
+    statInf: 65,
+    statGfg: 3,
+    statAfg: 3,
+    statMmp: 72,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `자유행성동맹 최고평의회 정보교통위원장. 뇌물수수 혐의로 실각했다. 샌포드 내각의 부패를 상징하는 인물 중 하나.`,
+    descEn: `Secretary of Transportation of the Free Planets Alliance High Council. She was forced out of office on bribery charges, becoming one of the symbols of the Sanford Administration's corruption.`,
+    descJp: `自由惑星同盟最高評議会情報交通委員長。収賄容疑で失脚した。サンフォード内閣の腐敗を象徴する人物の一人。`,
   },
   {
     // — 기본
@@ -16163,36 +16193,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000462",
     nameKr: "클라우스 폰 리히텐라데",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Klaus von Lichtenlade",
+    nameJp: "クラウス・フォン・リヒテンラーデ",
+    nickKr: "리히텐라데",
+    nickEn: "Lichtenlade",
+    nickJp: "リヒテンラーデ",
+    birth: "SE|725.11.18",
+    death: "SE|797.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "270", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "25", // 신중
+    moral: "55",
+    friend: "100",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 10,
+    statCsm: 68,
+    statAtt: 4,
+    statDef: 16,
+    statFst: 6,
+    statMng: 100,
+    statInf: 82,
+    statGfg: 17,
+    statAfg: 9,
+    statMmp: 90,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `프리드리히 4세 치하 제국재상. 궁정 귀족 출신으로 군사력 없이 정치력만으로 권세를 유지했다. 프리드리히 4세 붕어 후 라인하르트와 손잡고 에르빈 요제프 2세를 옹립했으나, 립슈타트 전역 종전 후 라인하르트에게 체포되어 자결했다.`,
+    descEn: `Imperial Prime Minister under Kaiser Friedrich IV. A court noble who maintained power through political acumen alone, with no military force of his own. After Friedrich IV's death he allied with Reinhard to place Erwin Josef II on the throne, but was arrested by Reinhard's forces after the Lippstadt Rebellion and forced to commit suicide.`,
+    descJp: `フリードリヒ4世治下の帝国宰相。宮廷貴族出身で軍事力なく政治力のみで権勢を保った。フリードリヒ4世崩御後、ラインハルトと組んでエルウィン・ヨーゼフ2世を擁立したが、リップシュタット戦役終結後にラインハルトに逮捕され自決した。`,
   },
   {
     // — 기본
@@ -17676,36 +17706,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000505",
     nameKr: "프란츠 폰 마린도르프",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
+    nameEn: "Franz von Mariendorf",
+    nameJp: "フランツ・フォン・マリーンドルフ",
+    nickKr: "마린도르프",
+    nickEn: "Mariendorf",
+    nickJp: "マリーンドルフ",
+    birth: "SE|742.08.11",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "240", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "25", // 신중
+    moral: "82",
+    friend: "145",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 8,
+    statCsm: 65,
+    statAtt: 3,
+    statDef: 6,
+    statFst: 3,
+    statMng: 85,
+    statInf: 72,
+    statGfg: 3,
+    statAfg: 3,
+    statMmp: 78,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `마린도르프 백작가의 당주이자 힐데가르트 폰 마린도르프의 부친. 딸의 판단을 신뢰하여 라인하르트 폰 뮤젤을 지지하는 결단을 내렸으며, 제국 내 온건한 귀족 세력의 대표적 인물이다.`,
+    descEn: `Count of the Mariendorf family and father of Hildegard von Mariendorf. Trusting his daughter's judgment, he made the pivotal decision to support Reinhard von Lohengramm, making him a representative figure of the moderate noble faction within the Empire.`,
+    descJp: `マリーンドルフ伯爵家の当主にしてヒルデガルド・フォン・マリーンドルフの父。娘の判断を信頼してラインハルト・フォン・ミューゼルを支持する決断を下し、帝国内の穏健貴族勢力を代表する人物。`,
   },
   {
     // — 기본
@@ -17991,36 +18021,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000514",
     nameKr: "프리드리히 폰 골덴바움 4세",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Friedrich von Goldenbaum IV",
+    nameJp: "フリードリヒ・フォン・ゴールデンバウム4世",
+    nickKr: "프리드리히 4세",
+    nickEn: "Friedrich IV",
+    nickJp: "フリードリヒ4世",
+    birth: "SE|733.06.18",
+    death: "SE|796.10.12",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국
+    idea: "270", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "25", // 신중
+    moral: "45",
+    friend: "95",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 2,
+    statCsm: 72,
+    statAtt: 2,
+    statDef: 3,
+    statFst: 2,
+    statMng: 55,
+    statInf: 48,
+    statGfg: 2,
+    statAfg: 2,
+    statMmp: 65,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `골덴바움 왕조 제36대 황제. '재의 황제'로 불리는 무능한 군주로 정치에 무관심하고 향락에 빠진 채 제국을 방치했다. 안네로제 폰 그뤼네발트를 후궁으로 들이며 라인하르트의 야망에 불을 지폈다. 796년 심장마비로 붕어하며 골덴바움 왕조 몰락의 도화선이 됐다.`,
+    descEn: `The 36th Kaiser of the Goldenbaum Dynasty, known as the "Kaiser of the Ashes." An indolent ruler who showed little interest in governance and allowed the Empire to drift while pursuing personal pleasure. By taking Annerose von Grünewald as his concubine, he ignited Reinhard von Lohengramm's ambitions. His death from a heart attack in 796 UC set off the chain of events that led to the dynasty's collapse.`,
+    descJp: `ゴールデンバウム王朝第36代皇帝。「灰燼の皇帝」と呼ばれる無能な君主で、政治に無関心のまま享楽に耽り帝国を放置した。アンネローゼ・フォン・グリューネワルトを後宮に迎えることでラインハルトの野望に火を付けた。796年の心臓発作による崩御がゴールデンバウム王朝崩壊の導火線となった。`,
   },
   {
     // — 기본
@@ -19391,36 +19421,36 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000554",
     nameKr: "황 루이",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
+    nameEn: "Huang Rui",
+    nameJp: "ファン・ルイ",
+    nickKr: "황 루이",
+    nickEn: "Huang Rui",
+    nickJp: "ファン・ルイ",
+    birth: "SE|743.06.08",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "FPA", // 자유행성동맹
+    idea: "80", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "45", // 냉정
+    moral: "85",
+    friend: "138",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 4,
+    statCsm: 72,
+    statAtt: 3,
+    statDef: 5,
+    statFst: 3,
+    statMng: 82,
+    statInf: 70,
+    statGfg: 3,
+    statAfg: 3,
+    statMmp: 78,
     // — 기타
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `자유행성동맹 최고평의회 인적자원위원장. 레벨로와 함께 제국령 침공 작전에 반대한 화평파. 전쟁이 사회 구조를 무너뜨릴 것이라 경고했으나 받아들여지지 않았다.`,
+    descEn: `Secretary of Human Resources of the Free Planets Alliance High Council. A peace-faction member alongside Rebelo who opposed the Imperial invasion, warning that continued war would unravel the social fabric of the Alliance — a warning that went unheeded.`,
+    descJp: `自由惑星同盟最高評議会人的資源委員長。レベロとともに帝国領侵攻作戦に反対した和平派。戦争が社会構造を崩壊させると警告したが受け入れられなかった。`,
   },
   {
     // — 기본
@@ -19817,7 +19847,6 @@ export const CHAR_BASE = [
 // https://gineipaedia.com/wiki/Hassan_el-Sayyid
 // https://gineipaedia.com/wiki/Joseph_Massalich
 // https://gineipaedia.com/wiki/Michel_Cuffren
-// https://gineipaedia.com/wiki/Winslow_Kennes_Townshent
 // ================================================================
 
 export const CHAR_BASE_MAP = Object.fromEntries(
