@@ -63,17 +63,17 @@ function buildState(scId, pf) {
   }
   const characters = {}
   Object.values(CHARACTERS).forEach(c => {
-    characters[c.id] = { ...c, currentPost: null }
+    characters[c.code] = { ...c, currentPost: null }
   })
   const fleets = {
     REH: [
-      { id:'E_1ST',  name:'��1�Դ�',      commander:'MITTERMEYER', ships:15000, maxShips:15000, location:'230058', status:'standby', target:null, upkeep:30 },
-      { id:'E_2ND',  name:'��2�Դ�',      commander:'REUENTHAL',   ships:15000, maxShips:15000, location:'230058', status:'standby', target:null, upkeep:30 },
-      { id:'E_3RD',  name:'���â���Դ�', commander:'BITTENFELD',  ships:13000, maxShips:13000, location:'230002', status:'standby', target:null, upkeep:26 },
+      { id:'E_1ST',  name:'제1함대',      commander:'CH_000173', ships:15000, maxShips:15000, location:'230058', status:'standby', target:null, upkeep:30 },
+      { id:'E_2ND',  name:'제2함대',      commander:'CH_000301', ships:15000, maxShips:15000, location:'230058', status:'standby', target:null, upkeep:30 },
+      { id:'E_3RD',  name:'흑색창기함대', commander:'CH_000515', ships:13000, maxShips:13000, location:'230002', status:'standby', target:null, upkeep:26 },
     ],
     FPA: [
-      { id:'A_1ST',  name:'��1�Դ�',  commander:'YANG',         ships:15000, maxShips:15000, location:'230006', status:'standby', target:null, upkeep:30 },
-      { id:'A_13TH', name:'��13�Դ�', commander:'ATTENBOROUGH', ships:12000, maxShips:12000, location:'230055', status:'standby', target:null, upkeep:24 },
+      { id:'A_1ST',  name:'제1함대',  commander:'CH_000266', ships:15000, maxShips:15000, location:'230006', status:'standby', target:null, upkeep:30 },
+      { id:'A_13TH', name:'제13함대', commander:'CH_000043', ships:12000, maxShips:12000, location:'230055', status:'standby', target:null, upkeep:24 },
     ],
     PZN: [],
   }
@@ -102,7 +102,7 @@ export const useGameStore = defineStore('game', {
       Object.values(s.systems).forEach(x => { if (x.faction) c[x.faction] = (c[x.faction] || 0) + 1 })
       return c
     },
-    dateStr:   s => `���ַ� ${s.year}�� ${s.month}�� / ������ ${s.impYear}��`,
+    dateStr:   s => `우주력 ${s.year}년 ${s.month}월 / 제국력 ${s.impYear}년`,
     pFaction:  s => FACTIONS[s.playerFaction],
     fColors:   () => { const m = {}; Object.values(FACTIONS).forEach(f => { m[f.id] = f.color }); return m },
     allFleets: s => {
@@ -135,16 +135,16 @@ export const useGameStore = defineStore('game', {
     },
 
     endTurn() {
-      // �ӽ� ¡�� ��ٿ�
+      // 임시 징세 쿨다운
       if (this._levyCooldown > 0) this._levyCooldown--
-      // ���� ���� ���
+      // 페잔 차관 처리
       if (this._loanBalance > 0) {
         const remaining = this._loanDueTurn - this.turn
-        if (remaining === 1) this.addLog(`?? [����] ���� ���� ���� ��ȯ �����Դϴ�. (${this._loanBalance.toLocaleString()} ��ũ)`)
+        if (remaining === 1) this.addLog(`⚠ [차관] 다음 턴에 차관 상환 기일입니다. (${this._loanBalance.toLocaleString()} 마크)`)
         if (remaining <= 0) {
-          // ��ȯ �Ҵ� ó��
+          // 상환 불능 처리
           Object.values(this.systems).forEach(s => { if (s.faction === this.playerFaction) s.morale = Math.max(5, s.morale - 15) })
-          this.addLog(`? [����] ��ȯ �Ҵ� �����Դϴ�. ������ �̿� �����ϴ� ��ġ�� ���ϰڽ��ϴ�.`)
+          this.addLog(`⚠ [차관] 상환 불능 상태입니다. 페잔이 이에 상응하는 조치를 취하겠습니다.`)
           this.resources['PZN'].gold += Math.floor(this._loanBalance * 0.5)
           this._loanBalance = 0; this._loanDueTurn = null
         }
@@ -163,7 +163,7 @@ export const useGameStore = defineStore('game', {
       }
       this.turn++
       this._victory()
-      this.addLog(`�������� ${this.year}�� ${this.month}�� ${this.day}�� (�� ${this.turn}) ��������`)
+      this.addLog(`은하력 ${this.year}년 ${this.month}월 ${this.day}일 (턴 ${this.turn}) 시작합니다`)
     },
 
     selectSystem(id)  { this.selectedSystem = id;    this.selectedFleet = null },
@@ -177,7 +177,7 @@ export const useGameStore = defineStore('game', {
       const old = s.tax
       s.tax = Math.max(10, Math.min(80, rate))
       s.morale = Math.max(5, Math.min(100, s.morale - Math.floor((s.tax - old) * 0.5)))
-      this.addLog(`[${s.name}] ���� ${old}% �� ${s.tax}%`)
+      this.addLog(`[${s.name}] 세율 ${old}% → ${s.tax}%`)
     },
 
     buildConstruction(sysId, type) {
@@ -186,7 +186,7 @@ export const useGameStore = defineStore('game', {
       if (!s || s.faction !== this.playerFaction || this.pRes.gold < ct.cost || s.underConstruction) return false
       this.pRes.gold -= ct.cost
       s.underConstruction = { type, turnsLeft: ct.turns }
-      this.addLog(`[${s.name}] ${ct.name} �Ǽ� ���� (${ct.turns}��)`)
+      this.addLog(`[${s.name}] ${ct.name} 건설 시작 (${ct.turns}턴)`)
       return true
     },
 
@@ -195,7 +195,7 @@ export const useGameStore = defineStore('game', {
       const target = this.systems[targetId]
       if (!fleet || !target || fleet.status !== 'standby') return false
 
-      // �ش� ���迡 �ֵ� ���� �� �Դ� ����
+      // 해당 성계에 있는 적국 함대 탐색
       const defenderFleets = []
       Object.entries(this.fleets).forEach(([faction, fleets]) => {
         if (faction !== this.playerFaction) {
@@ -209,7 +209,7 @@ export const useGameStore = defineStore('game', {
       fleet.target = targetId
 
       if (defenderFleets.length > 0) {
-        // �������� Ʈ����
+        // 전술전투로 전환
         this._pendingBattle = {
           attackerFleet:   { ...fleet, faction: this.playerFaction },
           attackerFaction: this.playerFaction,
@@ -217,12 +217,12 @@ export const useGameStore = defineStore('game', {
           targetSystemId:  targetId,
           opType,
         }
-        this.addLog(`[���] ${fleet.name} �� ${target.name} ? �� �Դ� �߰�, �������� ����!`)
+        this.addLog(`[출격] ${fleet.name} → ${target.name} ← 적 함대 감지, 전술전투 시작!`)
         return 'tactical'
       }
 
-      // ��� �Դ� ���� �� ��� �ذ�
-      this.addLog(`[���] ${fleet.name} �� ${target.name} (${OPERATION_TYPES[opType]?.name})`)
+      // 방어 함대 없을 때 전략 해결
+      this.addLog(`[출격] ${fleet.name} → ${target.name} (${OPERATION_TYPES[opType]?.name})`)
       this._battle(fleet, target, opType)
       return true
     },
@@ -234,7 +234,7 @@ export const useGameStore = defineStore('game', {
       const attackerFleet = this.pFleets.find(f => f.id === ctx.attackerFleet.id)
 
       if (result.winner === this.playerFaction) {
-        // �Ʊ� �¸�
+        // 아군 승리
         if (attackerFleet) {
           attackerFleet.ships    = Math.max(1000, ctx.attackerFleet.ships - result.attackerLosses)
           attackerFleet.status   = 'standby'
@@ -242,7 +242,7 @@ export const useGameStore = defineStore('game', {
           attackerFleet.location = ctx.targetSystemId
         }
 
-        // �� �Դ� ���� ���� (�� �Դ뿡 �յ� �й�)
+        // 적 함대에 패배 분배 (각 함대에 균등 분배)
         const perFleet = Math.floor(result.defenderLosses / Math.max(1, ctx.defenderFleets.length))
         ctx.defenderFleets.forEach(df => {
           const factionFleets = this.fleets[df.faction]
@@ -251,7 +251,7 @@ export const useGameStore = defineStore('game', {
           if (idx === -1) return
           const remaining = df.ships - perFleet
           if (remaining <= 1000) {
-            this.addLog(`?? [����] ${df.name} �������� �й�� ����`)
+            this.addLog(`🗡️ [격멸] ${df.name} 전투에서 격멸 → 해산`)
             factionFleets.splice(idx, 1)
           } else {
             factionFleets[idx].ships = remaining
@@ -260,7 +260,7 @@ export const useGameStore = defineStore('game', {
           }
         })
 
-        // ���� ���� ȿ��
+        // 성계 점령 효과
         const target = this.systems[ctx.targetSystemId]
         const op     = OPERATION_TYPES[ctx.opType]
         if (target && op) {
@@ -268,12 +268,12 @@ export const useGameStore = defineStore('game', {
           target.faction  = this.playerFaction
           target.defense  = Math.max(5, target.defense  - (op.defDmg   || 0))
           target.morale   = Math.max(5, target.morale   - (op.moraleDmg || 0))
-          this.addLog(`? [����] ${target.name} �������� �¸� (${prev || '�߸�'} �� ${this.playerFaction})`)
+          this.addLog(`✅ [점령] ${target.name} 점령 완료 (${prev || '무소속'} → ${this.playerFaction})`)
         }
         this._victory()
 
       } else {
-        // �Ʊ� �й�
+        // 아군 패배
         if (attackerFleet) {
           attackerFleet.ships  = Math.max(1000, ctx.attackerFleet.ships - result.attackerLosses)
           attackerFleet.status = 'standby'
@@ -281,7 +281,7 @@ export const useGameStore = defineStore('game', {
           const friendly = Object.values(this.systems).find(s => s.faction === this.playerFaction)
           if (friendly) attackerFleet.location = friendly.id
         }
-        this.addLog(`? [�й�] �������� �й�, ${ctx.attackerFleet.name} ö��`)
+        this.addLog(`⚠ [패배] 아군함대 패배, ${ctx.attackerFleet.name} 철수`)
       }
 
       this._pendingBattle = null
@@ -292,23 +292,23 @@ export const useGameStore = defineStore('game', {
       if (!c || c.faction !== this.playerFaction) return
       c.currentPost = post
       const dialog = this.playerFaction === 'REH' ? DIALOGS.APPOINTMENT.emperor : ''
-      if (dialog) this.addLog(`[Ȳ��] ${dialog}`)
-      this.addLog(`[�Ӹ�] ${c.name} �� ${post}`)
+      if (dialog) this.addLog(`[황제] ${dialog}`)
+      this.addLog(`[임명] ${c.name} → ${post}`)
     },
 
 
-    // ���� �ӽ� ¡�� ����������������������������������������������������������������������������������
+    // ── 임시 징세 ─────────────────────────────────────────────────
     emergencyLevy() {
       const res = this.pRes
       const { FINANCE } = require('@/data/masterData')
       const terms = FINANCE.LEVY_TERMS
 
       if (this._levyCooldown > 0) {
-        this.addLog(`? [�ӽ� ¡��] ���� ��� �� (${this._levyCooldown}�� ����)`)
+        this.addLog(`⚠ [임시 징세] 쿨다운 중 (${this._levyCooldown}턴 남음)`)
         return false
       }
 
-      // ���� �� ���� ���
+      // 월 수입 계산
       let monthlyIncome = 0
       Object.values(this.systems).forEach(s => {
         if (s.faction === this.playerFaction)
@@ -319,7 +319,7 @@ export const useGameStore = defineStore('game', {
       res.gold += amount
       this._levyCooldown = terms.COOLDOWN_TURNS
 
-      // �� ���� �ν� �϶�
+      // 전 성계 민심 저하
       Object.values(this.systems).forEach(s => {
         if (s.faction === this.playerFaction)
           s.morale = Math.max(5, s.morale + terms.MORALE_PENALTY)
@@ -327,24 +327,24 @@ export const useGameStore = defineStore('game', {
 
       const dlg = FINANCE.DIALOGS.EMERGENCY_LEVY
       if (this.playerFaction === 'REH') {
-        this.addLog(`[���] ${dlg.empire_prime}`)
-        this.addLog(`[Ȳ��] ${dlg.emperor_reply}`)
+        this.addLog(`[재상] ${dlg.empire_prime}`)
+        this.addLog(`[황제] ${dlg.emperor_reply}`)
       }
       this.addLog(dlg.success(amount))
       return true
     },
 
-    // ���� ���� ���� ����������������������������������������������������������������������������������
+    // ── 페잔 차관 ─────────────────────────────────────────────────
     takeLoan(amount) {
       const { FINANCE } = require('@/data/masterData')
       const terms = FINANCE.LOAN_TERMS
 
       if (amount < terms.MIN_AMOUNT || amount > terms.MAX_AMOUNT) {
-        this.addLog(`? [����] �ݾ��� ${terms.MIN_AMOUNT}~${terms.MAX_AMOUNT} ��ũ ���̿��� �մϴ�.`)
+        this.addLog(`⚠ [차관] 금액은 ${terms.MIN_AMOUNT}~${terms.MAX_AMOUNT} 마크 사이여야 합니다.`)
         return false
       }
       if (this._loanBalance > 0) {
-        this.addLog(`? [����] ���� ����(${this._loanBalance.toLocaleString()} ��ũ)�� ���� ��ȯ�ϼ���.`)
+        this.addLog(`⚠ [차관] 기존 차관(${this._loanBalance.toLocaleString()} 마크)을 먼저 상환하세요.`)
         return false
       }
 
@@ -353,57 +353,57 @@ export const useGameStore = defineStore('game', {
       this._loanBalance = totalRepay
       this._loanDueTurn = this.turn + terms.REPAY_TURNS
 
-      // ���� ����
+      // 페잔 수익
       this.resources['PZN'].gold += totalRepay - amount
 
       const dlg = FINANCE.DIALOGS.LOAN
-      this.addLog(`[����] ${dlg.phezzan_offer}`)
-      if (this.playerFaction === 'REH') this.addLog(`[Ȳ��] ${dlg.empire_accept}`)
-      else this.addLog(`[����] ${dlg.alliance_accept}`)
-      this.addLog(`?? [����] ${amount.toLocaleString()} ��ũ ����. ��ȯ��: ${totalRepay.toLocaleString()} ��ũ (${terms.REPAY_TURNS}�� ��)`)
+      this.addLog(`[페잔] ${dlg.phezzan_offer}`)
+      if (this.playerFaction === 'REH') this.addLog(`[황제] ${dlg.empire_accept}`)
+      else this.addLog(`[의장] ${dlg.alliance_accept}`)
+      this.addLog(`💰 [차관] ${amount.toLocaleString()} 마크 수령. 상환액: ${totalRepay.toLocaleString()} 마크 (${terms.REPAY_TURNS}턴 내)`)
       return true
     },
 
-    // ���� ���� ��ȯ ����������������������������������������������������������������������������������
+    // ── 차관 상환 ─────────────────────────────────────────────────
     repayLoan() {
       const { FINANCE } = require('@/data/masterData')
       if (this._loanBalance <= 0) {
-        this.addLog('? [��ȯ] ��ȯ�� ������ �����ϴ�.')
+        this.addLog('⚠ [상환] 상환할 차관이 없습니다.')
         return false
       }
       if (this.pRes.gold < this._loanBalance) {
-        this.addLog(`? [��ȯ] �ڱ��� �����մϴ�. (�ʿ�: ${this._loanBalance.toLocaleString()}, ����: ${this.pRes.gold.toLocaleString()})`)
+        this.addLog(`⚠ [상환] 자금이 부족합니다. (필요: ${this._loanBalance.toLocaleString()}, 보유: ${this.pRes.gold.toLocaleString()})`)
         return false
       }
       this.pRes.gold -= this._loanBalance
       const paid = this._loanBalance
       this._loanBalance = 0
       this._loanDueTurn = null
-      this.addLog(`[����] ${FINANCE.DIALOGS.LOAN.repay_confirm}`)
-      this.addLog(`? [��ȯ] ${paid.toLocaleString()} ��ũ ��ȯ �Ϸ�.`)
+      this.addLog(`[페잔] ${FINANCE.DIALOGS.LOAN.repay_confirm}`)
+      this.addLog(`✅ [상환] ${paid.toLocaleString()} 마크 상환 완료.`)
       return true
     },
 
-    // ���� ���� ��� ����������������������������������������������������������������������������������
+    // ── 예산 배분 ─────────────────────────────────────────────────
     allocateBudget(allocations) {
       // allocations: { MILITARY: n, CONSTRUCTION: n, INTELLIGENCE: n, WELFARE: n, RESERVE: n }
       const { FINANCE } = require('@/data/masterData')
       const total = Object.values(allocations).reduce((s, v) => s + v, 0)
       if (total > this.pRes.gold) {
-        this.addLog(`? [����] ��� �Ѿ�(${total.toLocaleString()})�� ���� �ڱ�(${this.pRes.gold.toLocaleString()})�� �ʰ��մϴ�.`)
+        this.addLog(`⚠ [예산] 배분 합계(${total.toLocaleString()})가 보유 자금(${this.pRes.gold.toLocaleString()})을 초과합니다.`)
         return false
       }
 
-      // �� �׸� ȿ�� ����
+      // 각 항목 효과 적용
       Object.entries(allocations).forEach(([key, amount]) => {
         if (amount <= 0) return
         switch(key) {
           case 'MILITARY':
-            // �Դ� ���� ���� ȸ��
+            // 함대 전투력 소폭 회복
             this.pFleets.forEach(f => { f.ships = Math.min(f.ships * 1.05, f.ships + Math.floor(amount / 100)) })
             break
           case 'WELFARE':
-            // �� ���� �ν� ���
+            // 전 성계 민심 상승
             Object.values(this.systems).forEach(s => {
               if (s.faction === this.playerFaction)
                 s.morale = Math.min(100, s.morale + Math.floor(amount / 500))
@@ -423,28 +423,28 @@ export const useGameStore = defineStore('game', {
 
       const dlg = FINANCE.DIALOGS.BUDGET
       if (this.playerFaction === 'REH') {
-        this.addLog(`[���] ${dlg.empire_prime}`)
-        this.addLog(`[Ȳ��] ${dlg.emperor_reply}`)
+        this.addLog(`[재상] ${dlg.empire_prime}`)
+        this.addLog(`[황제] ${dlg.emperor_reply}`)
       } else {
-        this.addLog(`[����] ${dlg.alliance_council}`)
+        this.addLog(`[의장] ${dlg.alliance_council}`)
       }
-      this.addLog(`? [����] ${dlg.success} (�� ${total.toLocaleString()} ��ũ)`)
+      this.addLog(`✅ [예산] ${dlg.success} (총 ${total.toLocaleString()} 마크)`)
       return true
     },
 
 
-    // ���� �Դ� ���� (�ű� ����) ��������������������������������������������������������
+    // ── 함대 편성 (비용 차감) ─────────────────────────────────────
     formFleet(name, commanderId, sizeKey, locationId) {
       const { MILITARY } = require('@/data/masterData')
       const size = MILITARY.FLEET_SIZES[sizeKey]
       if (!size) return false
       if (this.pRes.gold < size.cost) {
-        this.addLog(`? [����] �ڱ� ���� (�ʿ�: ${size.cost.toLocaleString()})`)
+        this.addLog(`⚠ [편성] 자금 부족 (필요: ${size.cost.toLocaleString()})`)
         return false
       }
       const sys = this.systems[locationId]
       if (!sys || sys.faction !== this.playerFaction) {
-        this.addLog('? [����] �Ʊ� ���迡���� ���� �����մϴ�.')
+        this.addLog('⚠ [편성] 아군 성계에서만 편성 가능합니다.')
         return false
       }
       this._fleetSeq++
@@ -459,23 +459,23 @@ export const useGameStore = defineStore('game', {
       this.pRes.gold -= size.cost
       const dlg = MILITARY.DIALOGS.FORMATION
       const decree = this.playerFaction === 'REH' ? dlg.empire_decree(name) : dlg.alliance_decree(name)
-      this.addLog(`[����] ${decree}`)
-      this.addLog(`? ${dlg.success(name, size.ships)}`)
+      this.addLog(`[편성] ${decree}`)
+      this.addLog(`✅ ${dlg.success(name, size.ships)}`)
       return true
     },
 
-    // ���� �Դ� ������ (�Ը� ����) ����������������������������������������������������
+    // ── 함대 재편성 (척수 변경) ───────────────────────────────────
     reorganizeFleet(fleetId, newShips) {
       const { MILITARY } = require('@/data/masterData')
       const fleet = this.pFleets.find(f => f.id === fleetId)
       if (!fleet || fleet.status !== 'standby') {
-        this.addLog('? [������] ��� ���� �Դ븸 ������ �����մϴ�.')
+        this.addLog('⚠ [재편성] 대기 중인 함대만 재편성 가능합니다.')
         return false
       }
       const diff = newShips - fleet.ships
       const cost = Math.abs(Math.floor(diff * 0.02))
       if (diff > 0 && this.pRes.gold < cost) {
-        this.addLog(`? [������] �ڱ� ���� (�ʿ�: ${cost.toLocaleString()})`)
+        this.addLog(`⚠ [재편성] 자금 부족 (필요: ${cost.toLocaleString()})`)
         return false
       }
       const before = fleet.ships
@@ -483,55 +483,55 @@ export const useGameStore = defineStore('game', {
       fleet.maxShips = fleet.ships
       fleet.upkeep = Math.floor(fleet.ships / 500)
       if (diff > 0) this.pRes.gold -= cost
-      this.addLog(`? ${MILITARY.DIALOGS.REORGANIZE.success(fleet.name, before, fleet.ships)}`)
+      this.addLog(`✅ ${MILITARY.DIALOGS.REORGANIZE.success(fleet.name, before, fleet.ships)}`)
       return true
     },
 
-    // ���� �Դ� �ػ� ��������������������������������������������������������������������������������
+    // ── 함대 해산 ─────────────────────────────────────────────────
     disbandFleet(fleetId) {
       const { MILITARY } = require('@/data/masterData')
       const idx = this.fleets[this.playerFaction].findIndex(f => f.id === fleetId)
       if (idx === -1) return false
       const fleet = this.fleets[this.playerFaction][idx]
       if (fleet.status === 'deployed') {
-        this.addLog('? [�ػ�] ��� ���� �Դ�� �ػ��� �� �����ϴ�.')
+        this.addLog('⚠ [해산] 출격 중인 함대는 해산할 수 없습니다.')
         return false
       }
-      // �Լ� ���� ��ġ ȯ��
+      // 잔여 함선 보상 환급
       const refund = Math.floor(fleet.ships * 0.01)
       this.pRes.gold += refund
       this.fleets[this.playerFaction].splice(idx, 1)
       this.addLog(MILITARY.DIALOGS.FORMATION.disband(fleet.name))
-      this.addLog(`?? �Լ� ȯ��: ${refund.toLocaleString()} ��ũ`)
+      this.addLog(`💰 잔여 환급: ${refund.toLocaleString()} 마크`)
       return true
     },
 
-    // ���� �Դ� �̵� (���� �� ����/�̵�) ��������������������������������������
+    // ── 함대 이동 (아군 성계 간 자유이동) ─────────────────────────
     moveFleet(fleetId, targetSystemId) {
       const fleet = this.pFleets.find(f => f.id === fleetId)
       const target = this.systems[targetSystemId]
       if (!fleet || !target) return false
       if (fleet.status !== 'standby') {
-        this.addLog('? [�̵�] ��� ���� �Դ븸 �̵� �����մϴ�.')
+        this.addLog('⚠ [이동] 대기 중인 함대만 이동 가능합니다.')
         return false
       }
       if (target.faction !== this.playerFaction) {
-        this.addLog('? [�̵�] �Ʊ� ����θ� �̵� �����մϴ�. (������ ��� ������ ����ϼ���)')
+        this.addLog('⚠ [이동] 아군 성계로만 이동 가능합니다. (출격은 작전 메뉴를 이용하세요)')
         return false
       }
       const from = this.systems[fleet.location]?.name || fleet.location
       fleet.location = targetSystemId
-      this.addLog(`?? [�̵�] ${fleet.name}: ${from} �� ${target.name}`)
+      this.addLog(`🚀 [이동] ${fleet.name}: ${from} → ${target.name}`)
       return true
     },
 
-    // ���� �Դ� ö�� (���� �� �� ���� �Ʊ� ����) ������������������������
+    // ── 함대 철수 (출격 중 또는 적 성계에서 철수) ─────────────────
     retreatFleet(fleetId) {
       const { MILITARY } = require('@/data/masterData')
       const fleet = this.pFleets.find(f => f.id === fleetId)
       if (!fleet) return false
 
-      // ���� ����� �Ʊ� ����� ö��
+      // 가장 가까운 아군 성계로 철수
       const homeSystems = Object.values(this.systems)
         .filter(s => s.faction === this.playerFaction)
       if (!homeSystems.length) return false
@@ -540,23 +540,23 @@ export const useGameStore = defineStore('game', {
       fleet.status = 'standby'
       fleet.target = null
       fleet.location = dest.id
-      // ö�� �� �Լ� 10% �ս�
+      // 철수 시 함선 10% 손실
       const loss = Math.floor(fleet.ships * 0.1)
       fleet.ships = Math.max(1000, fleet.ships - loss)
 
-      this.addLog(`[����] ${MILITARY.DIALOGS.RETREAT.order(fleet.name)}`)
-      this.addLog(`? ${MILITARY.DIALOGS.RETREAT.complete(fleet.name, dest.name)} (�ս�: ${loss.toLocaleString()}ô)`)
+      this.addLog(`[철수] ${MILITARY.DIALOGS.RETREAT.order(fleet.name)}`)
+      this.addLog(`✅ ${MILITARY.DIALOGS.RETREAT.complete(fleet.name, dest.name)} (손실: ${loss.toLocaleString()}척)`)
       return true
     },
 
-    // ���� �ڿ� ���� (���� �� ����) ��������������������������������������������������
+    // ── 자원 수송 (아군 성계 간 이동) ─────────────────────────────
     transportResources(fromSystemId, toSystemId, itemType, amount) {
       const { MILITARY } = require('@/data/masterData')
       const from = this.systems[fromSystemId]
       const to   = this.systems[toSystemId]
       if (!from || !to) return false
       if (from.faction !== this.playerFaction || to.faction !== this.playerFaction) {
-        this.addLog('? [����] �Ʊ� ���� ������ ���� �����մϴ�.')
+        this.addLog('⚠ [수송] 아군 성계 간에만 수송 가능합니다.')
         return false
       }
 
@@ -565,46 +565,46 @@ export const useGameStore = defineStore('game', {
 
       if (itemType === 'GOLD') {
         if (this.pRes.gold < amount + cost) {
-          this.addLog(`? [����] �ڱ� ����`)
+          this.addLog(`⚠ [수송] 자금 부족`)
           return false
         }
         this.pRes.gold -= (amount + cost)
-        // ������ ���� �ݰ��� �߰� (������ ���� ����)
+        // 목적지 산업 소폭 증가 (자금으로 시설 투자)
         to.industry = Math.min(100, to.industry + Math.floor(amount / 1000))
       } else if (itemType === 'WELFARE') {
-        if (this.pRes.gold < cost) { this.addLog('? [����] �ڱ� ����'); return false }
+        if (this.pRes.gold < cost) { this.addLog('⚠ [수송] 자금 부족'); return false }
         this.pRes.gold -= cost
         to.morale = Math.min(100, to.morale + Math.floor(amount / 10))
       } else {
-        if (this.pRes.gold < cost) { this.addLog('? [����] �ڱ� ����'); return false }
+        if (this.pRes.gold < cost) { this.addLog('⚠ [수송] 자금 부족'); return false }
         this.pRes.gold -= cost
         to.defense = Math.min(100, to.defense + Math.floor(amount / 20))
       }
 
-      // ���� ������ (�� �Դ� ������ 100%)
+      // 적 함대 인근 시 30% 확률로 수송 실패
       const enemyNearby = Object.values(this.fleets)
         .flat()
         .some(f => f.faction !== this.playerFaction && f.location === toSystemId)
 
       if (enemyNearby && Math.random() < 0.3) {
-        this.addLog(`? ${MILITARY.DIALOGS.TRANSPORT.fail}`)
+        this.addLog(`⚠ ${MILITARY.DIALOGS.TRANSPORT.fail}`)
         return false
       }
 
-      this.addLog(`[����] ${MILITARY.DIALOGS.TRANSPORT.order(from.name, to.name, item.name)}`)
-      this.addLog(`? ${MILITARY.DIALOGS.TRANSPORT.success(to.name, item.name)}`)
+      this.addLog(`[수송] ${MILITARY.DIALOGS.TRANSPORT.order(from.name, to.name, item.name)}`)
+      this.addLog(`✅ ${MILITARY.DIALOGS.TRANSPORT.success(to.name, item.name)}`)
       return true
     },
 
 
-    // ���� ø�� ���� ��������������������������������������������������������������������������������
+    // ── 첩보 작전 ─────────────────────────────────────────────────
     launchIntelOp(targetSystemId, opType, officerId) {
       const { INTEL } = require('@/data/masterData')
       const op  = INTEL.OPERATIONS[opType]
       const sys = this.systems[targetSystemId]
       if (!op || !sys) return false
       if (this.pRes.gold < op.cost) {
-        this.addLog(`? [ø��] �ڱ� ���� (�ʿ�: ${op.cost.toLocaleString()})`)
+        this.addLog(`⚠ [첩보] 자금 부족 (필요: ${op.cost.toLocaleString()})`)
         return false
       }
       const officer = this.characters[officerId]
@@ -627,28 +627,28 @@ export const useGameStore = defineStore('game', {
         switch (opType) {
           case 'SPY':
             this.addLog(dlg.success(sys.name))
-            this.addLog(`?? [���] ${sys.name}: ��� ${sys.defense}% / ��� ${sys.industry}% / �ν� ${sys.morale}%`)
+            this.addLog(`🔍 [정찰] ${sys.name}: 방어 ${sys.defense}% / 산업 ${sys.industry}% / 민심 ${sys.morale}%`)
             break
           case 'SABOTAGE':
             sys.defense   = Math.max(5,  sys.defense   - 20)
             sys.industry  = Math.max(5,  sys.industry  - 15)
-            this.addLog(`?? [�ı�] ${sys.name} �ü� �ı� ����! (��� -20, ��� -15)`)
+            this.addLog(`💣 [파괴] ${sys.name} 시설 파괴 완료! (방어 -20, 산업 -15)`)
             break
           case 'AGITATE':
             sys.morale = Math.max(5, sys.morale - 25)
-            this.addLog(`?? [����] ${sys.name} �ν� ���� ����! (�ν� -25)`)
+            this.addLog(`📣 [선동] ${sys.name} 민심 교란 완료! (민심 -25)`)
             break
           case 'ASSASSIN': {
-            // �ش� ������ �� �Դ� ��ɰ� ��ü
+            // 해당 성계의 적 함대 지휘관 교체
             const enemyFleets = Object.values(this.fleets)
               .flat()
               .filter(f => f.location === targetSystemId && f.faction !== this.playerFaction)
             if (enemyFleets.length > 0) {
               const target = enemyFleets[0]
-              this.addLog(`??? [�ϻ�] ${sys.name}�� ${CHARACTERS?.[target.commander]?.name || target.commander} ���� ����!`)
+              this.addLog(`🗡️ [암살] ${sys.name}의 ${CHARACTERS?.[target.commander]?.name || target.commander} 암살 성공!`)
               target.commander = null
             } else {
-              this.addLog(`??? [�ϻ�] ${sys.name}���� ������ �����߽��ϴ�.`)
+              this.addLog(`🗡️ [암살] ${sys.name}에서 대상을 찾지 못했습니다.`)
             }
             break
           }
@@ -660,18 +660,18 @@ export const useGameStore = defineStore('game', {
       }
     },
 
-    // ���� ġ�� ȸ�� ��������������������������������������������������������������������������������
+    // ── 치안 회복 ─────────────────────────────────────────────────
     restoreSecurity(systemId, level, officerId) {
       const { INTEL } = require('@/data/masterData')
       const lvl = INTEL.SECURITY_LEVELS[level]
       const sys = this.systems[systemId]
       if (!lvl || !sys) return false
       if (sys.faction !== this.playerFaction) {
-        this.addLog('? [ġ��] �Ʊ� ���迡���� ���� �����մϴ�.')
+        this.addLog('⚠ [치안] 아군 성계에서만 가능합니다.')
         return false
       }
       if (this.pRes.gold < lvl.cost) {
-        this.addLog(`? [ġ��] �ڱ� ���� (�ʿ�: ${lvl.cost.toLocaleString()})`)
+        this.addLog(`⚠ [치안] 자금 부족 (필요: ${lvl.cost.toLocaleString()})`)
         return false
       }
       this.pRes.gold -= lvl.cost
@@ -686,68 +686,68 @@ export const useGameStore = defineStore('game', {
         this.addLog(`[${officer.name}] ${orderFn(officer.name, sys.name)}`)
         this.addLog(`[${officer.name}] ${replyMsg}`)
       }
-      this.addLog(`? ${dlg.success(sys.name)} (�ν� ${lvl.moraleEffect >= 0 ? '+' : ''}${lvl.moraleEffect}, ��� +${lvl.defEffect})`)
+      this.addLog(`✅ ${dlg.success(sys.name)} (민심 ${lvl.moraleEffect >= 0 ? '+' : ''}${lvl.moraleEffect}, 방어 +${lvl.defEffect})`)
       return true
     },
 
-    // ���� ���� ���� ��������������������������������������������������������������������������������
+    // ── 제안 공작 ─────────────────────────────────────────────────
     launchProposal(targetFaction, propType) {
       const { INTEL, FACTIONS } = require('@/data/masterData')
       const prop = INTEL.PROPOSALS[propType]
       if (!prop) return false
       if (this.pRes.gold < prop.cost) {
-        this.addLog(`? [����] �ڱ� ���� (�ʿ�: ${prop.cost.toLocaleString()})`)
+        this.addLog(`⚠ [공작] 자금 부족 (필요: ${prop.cost.toLocaleString()})`)
         return false
       }
       this.pRes.gold -= prop.cost
       const dlg  = INTEL.DIALOGS.PROPOSAL
       const tName = FACTIONS[targetFaction]?.name || targetFaction
 
-      this.addLog(`[���] ${dlg.prime_suggest}`)
-      this.addLog(`[����] ${dlg.advisor_reply}`)
-      this.addLog(`[Ȳ��/����] ${dlg.emperor_ask(tName)}`)
-      this.addLog(`[Ȳ��/����] ${dlg.emperor_reply}`)
+      this.addLog(`[재상] ${dlg.prime_suggest}`)
+      this.addLog(`[고문] ${dlg.advisor_reply}`)
+      this.addLog(`[황제/의장] ${dlg.emperor_ask(tName)}`)
+      this.addLog(`[황제/의장] ${dlg.emperor_reply}`)
 
-      // ���� ���� (������ ����, ���� �� ������ ����)
+      // 성공 판정 (페잔은 우호적, 적국은 낮은 확률)
       const baseRate = targetFaction === 'PZN' ? 0.70 : 0.45
       const success  = Math.random() < baseRate
 
       if (success) {
         switch (propType) {
           case 'FPA':
-            this.addLog(`? ${dlg.success(tName)} ? ���� ü��. ${tName}�� ��а� ������ �����մϴ�.`)
-            // �Ͻ��� �Ұ�ħ �÷��� (3��)
+            this.addLog(`✅ ${dlg.success(tName)} ← 불가침 체결. ${tName}와의 교전이 중단됩니다.`)
+            // 임시 불가침 플래그 (3턴)
             this._truce = this._truce || {}
             this._truce[targetFaction] = this.turn + 3
             break
           case 'TRADE':
-            this.addLog(`? ${dlg.success(tName)} ? ��� ���� ü��. ���� 10% ����.`)
+            this.addLog(`✅ ${dlg.success(tName)} ← 통상 조약 체결. 수입 10% 증가.`)
             this._tradeBonus = (this._tradeBonus || 0) + 0.10
             break
           case 'SURRENDER':
-            // ��� ���� �ν� ���� �϶�
+            // 적국 전 성계 민심 급격 저하
             Object.values(this.systems).forEach(s => {
               if (s.faction === targetFaction) s.morale = Math.max(5, s.morale - 20)
             })
-            this.addLog(`? ${dlg.success(tName)} ? �׺� �ǰ� ����. ${tName} �ν� ���� �϶�.`)
+            this.addLog(`✅ ${dlg.success(tName)} ← 항복 권고 성공. ${tName} 민심 급격 저하.`)
             break
           case 'DEFECTION': {
-            // �� �̹�� �ι� �ͼ�
+            // 적 이탈 인물 귀순
             const defector = Object.values(this.characters).find(
               c => c.faction === targetFaction && !c.currentPost
             )
             if (defector) {
               defector.faction = this.playerFaction
-              this.addLog(`? ${dlg.success(tName)} ? ${defector.name}�� �ͼ��߽��ϴ�!`)
+              this.addLog(`✅ ${dlg.success(tName)} ← ${defector.name}이 귀순했습니다!`)
             } else {
-              this.addLog(`? ${dlg.success(tName)} ? �ͼ� ���� ����. (�ͼ� ���� �ι� ����)`)
+              this.addLog(`✅ ${dlg.success(tName)} ← 귀순 성공. (귀순 가능 인물 없음)`)
             }
             break
           }
         }
         return true
       } else {
-        this.addLog(`? ${dlg.fail(tName)}`)
+        this.addLog(`⚠ ${dlg.fail(tName)}`)
         return false
       }
     },
@@ -780,7 +780,7 @@ export const useGameStore = defineStore('game', {
         let upkeepTotal = 0
         ;(this.fleets[f] || []).forEach(fl => { upkeepTotal += (fl.upkeep || 0) })
         this.resources[f].gold = Math.max(0, this.resources[f].gold + inc - upkeepTotal)
-        if (f === this.playerFaction) this.addLog(`[����] +${inc} / ������ -${upkeepTotal} (�ܰ� ${this.resources[f].gold})`)
+        if (f === this.playerFaction) this.addLog(`[수입] +${inc} / 유지비 -${upkeepTotal} (잔고 ${this.resources[f].gold})`)
       })
     },
 
@@ -791,7 +791,7 @@ export const useGameStore = defineStore('game', {
         if (s.underConstruction.turnsLeft <= 0) {
           const ct = CONSTRUCTION_TYPES[s.underConstruction.type]
           if (ct?.effect) Object.entries(ct.effect).forEach(([k, v]) => { s[k] = Math.min(100, (s[k] || 0) + v) })
-          this.addLog(`[�ϰ�] ${s.name} ${ct.name}`)
+          this.addLog(`[완공] ${s.name} ${ct.name}`)
           s.underConstruction = null
         }
       })
@@ -805,7 +805,7 @@ export const useGameStore = defineStore('game', {
       const defMod = (target.defense / 100) * 0.4
       const success = Math.random() < Math.min(0.95, op.successRate + bonus - defMod)
 
-      // ���� ��� ���
+      // 작전 명령 대사
       const opDialogs = {
         SURRENDER_DEMAND: DIALOGS.BATTLE.surrender_cmd,
         PRECISION_BOMB:   DIALOGS.BATTLE.precision_cmd,
@@ -817,7 +817,7 @@ export const useGameStore = defineStore('game', {
       const cmdFn = opDialogs[opType]
       if (cmdFn) this.addLog(`[${char?.name || fleet.name}] ${cmdFn(target.name)}`)
 
-      // ��� ���� �ݰ�
+      // 요새 방어 반격
       if (target.fortress && FORTRESS_WEAPONS[target.fortress]) {
         const fw = FORTRESS_WEAPONS[target.fortress]
         const fortDmg = Math.floor(fleet.ships * fw.dmgRatio)
@@ -843,21 +843,21 @@ export const useGameStore = defineStore('game', {
         }
         const okFn = okFns[opType]
         if (okFn) this.addLog(okFn(target.name))
-        this.addLog(`? [����] ${target.name} (${prev || '�߸�'} �� ${this.playerFaction})`)
+        this.addLog(`✅ [점령] ${target.name} (${prev || '무소속'} → ${this.playerFaction})`)
       } else {
         const loss = Math.floor(fleet.ships * 0.15)
         fleet.ships = Math.max(1000, fleet.ships - loss)
         fleet.status = 'standby'
         fleet.target = null
         this.addLog(DIALOGS.BATTLE.fail_generic(fleet.name, target.name))
-        this.addLog(`? [����] �ս�: ${loss.toLocaleString()}ô`)
+        this.addLog(`⚠ [패배] 손실: ${loss.toLocaleString()}척`)
       }
     },
 
     _events() {
       if (Math.random() < 0.1) {
-        const evs = ['�ݶ��� ���� �Ϸ�.','�о� ���� ø�� �Լ�.','���� �屳 �߰�.','���� ���� �߻�.','���� ������ ���� ����.']
-        this.addLog(`?? [�̺�Ʈ] ${evs[Math.floor(Math.random() * evs.length)]}`)
+        const evs = ['반란군 진압 완료.','첩보 자금 확보.','외교 제안.','군사 침공.','내부 분열 발생.']
+        this.addLog(`⚠️ [이벤트] ${evs[Math.floor(Math.random() * evs.length)]}`)
       }
     },
 
@@ -876,7 +876,7 @@ export const useGameStore = defineStore('game', {
           if (Math.random() < 0.5) {
             const prev = t.faction
             t.faction = f
-            this.addLog(`?? [AI] ${FACTIONS[f].name} ${fleet.name}�� ${t.name} ����! (${prev || '�߸�'} �� ${f})`)
+            this.addLog(`⚔️ [AI] ${FACTIONS[f].name} ${fleet.name}이 ${t.name} 공략! (${prev || '무소속'} → ${f})`)
           }
         })
       })
@@ -889,24 +889,24 @@ export const useGameStore = defineStore('game', {
         if ((counts[f] || 0) >= Math.ceil(total * 0.7)) {
           this.gameOver = true
           this.winner = f
-          this.addLog(`?? [�¸�] ${FACTIONS[f].name} ���� ����!`)
+          this.addLog(`🏆 [승리] ${FACTIONS[f].name} 우주 통일!`)
         }
       })
     },
 
-    // ���� ���丮 �̺�Ʈ ��������������������������������������������������������������������������������
+    // ── 스토리 이벤트 ──────────────────────────────────────────────
     triggerCoup(charId, targetFaction) {
       const c = this.characters[charId]
       if (!c) return
       const from = c.faction
       c.faction = targetFaction
       c.currentPost = null
-      this.addLog(`? [����Ÿ] ${c.name}��(��) ${FACTIONS[from]?.name || from}���� ${FACTIONS[targetFaction]?.name || targetFaction}���� �ͼ�.`)
+      this.addLog(`🔴 [쿠데타] ${c.name}이(가) ${FACTIONS[from]?.name || from}에서 ${FACTIONS[targetFaction]?.name || targetFaction}으로 이적.`)
       this.openModal('event', {
-        title: '����Ÿ',
-        portrait: c.portrait || '?',
+        title: '쿠데타',
+        portrait: c.portrait || '⚔️',
         speaker: c.name,
-        desc: `${c.name}��(��) ������ ������ ${FACTIONS[targetFaction]?.name || targetFaction} ������ �շ��߽��ϴ�.`,
+        desc: `${c.name}이(가) 수수께끼의 세력과 함께 ${FACTIONS[targetFaction]?.name || targetFaction} 측에 합류했습니다.`,
         effect: { morale: -10 },
       })
     },
@@ -917,12 +917,12 @@ export const useGameStore = defineStore('game', {
       const from = c.faction
       c.faction = targetFaction
       c.currentPost = null
-      this.addLog(`?? [����] ${c.name}��(��) ${FACTIONS[targetFaction]?.name || targetFaction}���� ����.`)
+      this.addLog(`💫 [이탈] ${c.name}이(가) ${FACTIONS[targetFaction]?.name || targetFaction}으로 이탈.`)
       this.openModal('event', {
-        title: '����',
-        portrait: c.portrait || '??',
+        title: '이탈',
+        portrait: c.portrait || '🌟',
         speaker: c.name,
-        desc: `${c.name}��(��) ${FACTIONS[from]?.name || from}�� ���� ${FACTIONS[targetFaction]?.name || targetFaction}���� �����߽��ϴ�.`,
+        desc: `${c.name}이(가) ${FACTIONS[from]?.name || from}을 떠나 ${FACTIONS[targetFaction]?.name || targetFaction}으로 귀순했습니다.`,
       })
     },
 
@@ -931,12 +931,12 @@ export const useGameStore = defineStore('game', {
       if (!c) return
       const post = c.currentPost
       c.currentPost = null
-      this.addLog(`?? [����] ${c.name}��(��) ${post || '����'}���� ����.`)
+      this.addLog(`📝 [사직] ${c.name}이(가) ${post || '미직위'}에서 사직.`)
       this.openModal('event', {
-        title: '����',
-        portrait: c.portrait || '??',
+        title: '사직',
+        portrait: c.portrait || '📝',
         speaker: c.name,
-        desc: `${c.name}��(��) ��å�� �����߽��ϴ�.`,
+        desc: `${c.name}이(가) 직책을 사임했습니다.`,
       })
     },
 
@@ -945,12 +945,12 @@ export const useGameStore = defineStore('game', {
       if (!c) return
       c.isDead = true
       c.currentPost = null
-      this.addLog(`?? [???] ${c.name} ???.`)
+      this.addLog(`💀 [사망] ${c.name} 사망.`)
       this.openModal('event', {
-        title: '???',
-        portrait: c.portrait || '??',
-        speaker: '????',
-        desc: `${c.name}??(??) ???????.`,
+        title: '사망',
+        portrait: c.portrait || '💀',
+        speaker: '시스템',
+        desc: `${c.name}이(가) 사망했습니다.`,
       })
     },
 

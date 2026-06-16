@@ -1,6 +1,6 @@
 <template>
   <div class="modal-box op-modal">
-    <div class="modal-title">⚔️ 작전 수립</div>
+    <div class="modal-title">⚔️ 작전 제안</div>
 
     <!-- 작전 유형 -->
     <div class="op-type-row">
@@ -23,7 +23,7 @@
         <div class="op-val approver-wrap">
           <button class="approver-btn" :class="{ unset: !selectedApprover }" @click="showPicker=!showPicker">
             <template v-if="selectedApprover">
-              <span class="serif">{{ selectedApprover.name }}</span>
+              <span class="serif">{{ selectedApprover.nameKr }}</span>
               <span class="mono" :class="acceptanceRate>=50?'gold':'alert'" style="font-size:11px">
                 {{ acceptanceRate }}%
               </span>
@@ -42,17 +42,17 @@
               임명된 인물이 없습니다
             </div>
             <button
-              v-for="c in approverCandidates" :key="c.id"
+              v-for="c in approverCandidates" :key="c.code"
               class="picker-item"
-              :class="{ sel: selectedApprover?.id===c.id }"
+              :class="{ sel: selectedApprover?.code===c.code }"
               @click="selectApprover(c)"
             >
               <div class="pi-left">
                 <span class="pi-badge" :class="c.isDecisionMaker ? 'badge-dm' : 'badge-gen'">
                   {{ c.isDecisionMaker ? '결정권자' : '중장급' }}
                 </span>
-                <span class="serif pi-name">{{ c.name }}</span>
-                <span class="dim mono pi-rank" style="font-size:10px">{{ c.rank }}</span>
+                <span class="serif pi-name">{{ c.nameKr }}</span>
+                <span class="dim mono pi-rank" style="font-size:10px">{{ c.rankLabel }}</span>
               </div>
               <span class="mono pi-rate" :class="c.rate>=50?'gold':'alert'">{{ c.rate }}%</span>
             </button>
@@ -132,28 +132,29 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import { APPROVAL_CHAINS } from '@/data/base/agenda/agendaData'
+import { JOB_MAP } from '@/data/base/jobs/jobData'
 
 const emit = defineEmits(['close'])
 const game = useGameStore()
 
-// ── 세력별 군사 결정권 직위 (POSTS와 매핑) ─────────────────────
-const MILITARY_DM_POSTS = {
-  REH: ['군무상서', '통수본부총장', '우주함대사령장관', '재상'],
-  FPA: ['통합작전본부장', '최고평의회의장'],
-  PZN: ['자치령주'],
+// ── 세력별 군사 결정권자 직위 (JB_ 코드) ──────────────────────
+const MILITARY_DM_JOBS = {
+  REH: ['JB_R006', 'JB_R007', 'JB_R004', 'JB_R002'], // 사령장관, 통수본부총장, 군무상서, 재상
+  FPA: ['JB_F002', 'JB_F001'],                         // 국방위원장, 최고평의회의장
+  PZN: ['JB_P001'],                                     // 자치령총독
 }
-// 중장급 이상으로 간주하는 군사 직위
-const GENERAL_POSTS = {
-  REH: ['우주함대사령장관', '통수본부총장', '군무상서'],
-  FPA: ['통합작전본부장', '우주함대사령장관'],
-  PZN: ['자치령주'],
+
+// 중장급 이상 계급 코드 (원수·상급대장·대장·중장)
+const GENERAL_RANK_JOBS = new Set(['JB_MR001', 'JB_MR002', 'JB_MR003', 'JB_MR004'])
+
+function isGeneralRank(jobId) {
+  return GENERAL_RANK_JOBS.has(jobId)
 }
 
 // ── 상태 ────────────────────────────────────────────────────────
-const opType      = ref('attack')
+const opType       = ref('attack')
 const targetStarId = ref('')
 const fleetId      = ref('')
 const period       = ref(3)
@@ -168,12 +169,8 @@ const targetSystems = computed(() => {
     : all.filter(s => s.faction === game.playerFaction)
 })
 
-// 작전 유형 변경 시 대상 초기화
-function onTypeChange() { targetStarId.value = '' }
-const _opTypeWatch = computed(() => {
-  onTypeChange()
-  return opType.value
-})
+// 작전 유형 변경 시 대상 성계 초기화
+watch(opType, () => { targetStarId.value = '' })
 
 // ── 작전명 ───────────────────────────────────────────────────────
 const operationName = computed(() => {
@@ -191,33 +188,26 @@ const endDateStr = computed(() => {
 })
 
 // ── 승인자 후보 목록 ─────────────────────────────────────────────
-const dmPosts = computed(() => MILITARY_DM_POSTS[game.playerFaction] || [])
-const genPosts = computed(() => GENERAL_POSTS[game.playerFaction] || [])
+const dmJobs = computed(() => new Set(MILITARY_DM_JOBS[game.playerFaction] || []))
 
 const approverCandidates = computed(() => {
-  const pf = game.playerFaction
   const chars = game.pChars.filter(c => !c.isDead)
   const baseRate = opType.value === 'attack' ? 50 : 70
 
-  // 결정권자: dmPosts 에 있는 직위 보유자 (앞에서 첫 번째 우선)
-  const dmList = dmPosts.value
-    .map(post => chars.find(c => c.currentPost === post))
-    .filter(Boolean)
+  // 결정권자: DM 직위 보유자 (JB_ 코드로 비교)
+  const dmList = chars.filter(c => dmJobs.value.has(c.currentPost))
 
-  // 중장급: genPosts 에 있는 직위이지만 결정권자는 아닌 인물
-  //         또는 military 스탯이 높은 인물 (직위 없어도)
-  const dmIds = new Set(dmList.map(c => c.id))
+  // 중장급: 결정권자가 아니면서 중장 이상 계급 보유자
+  const dmCodes = new Set(dmList.map(c => c.code))
   const generals = chars.filter(c =>
-    !dmIds.has(c.id) && (
-      genPosts.value.includes(c.currentPost) ||
-      (c.military ?? c.statCmd ?? 0) >= 65
-    )
+    !dmCodes.has(c.code) && isGeneralRank(c.currentPost)
   )
 
   const toCand = (c, isDm) => ({
     ...c,
     isDecisionMaker: isDm,
-    rate: Math.min(90, Math.max(10, baseRate + Math.round(((c.military ?? c.statCmd ?? 50) - 50) / 5))),
+    rankLabel: JOB_MAP[c.currentPost]?.nameKr ?? '',
+    rate: Math.min(90, Math.max(10, baseRate + Math.round(((c.statCmd ?? 50) - 50) / 5))),
   })
 
   return [

@@ -28,6 +28,7 @@
 | `src/data/fleet/fleetData.md` | 함대 데이터 설계 — fltCode 체계, 지휘 계층(C/O/S), 스탯 계산 규칙, 시나리오별 파일 구조 |
 | `src/data/fleet/formationData.js` | 진형 데이터 (FF_01~10, ffType: ATK/DEF/MOV/ENC, weight 전환 딜레이) |
 | `src/stores/stores.md` | 전체 스토어 개요, gameStore 상태/액션 상세 |
+| `src/stores/gameInit.md` | 게임 초기화 데이터 설계 — 국가/성계/함대/인물 로드 흐름, 저장 방식 |
 | `src/components/components.md` | 컴포넌트 구조, GalaxyMap 스펙, BottomBar v2, MenuPanel, 모달 목록 |
 | `src/data/base/agenda/agenda.md` | 의안 시스템 설계 (흐름/데이터 구조/결재 체인/활성화 규칙/TODO) |
 | `src/components/game/modals/characters/charactersScreen.md` | 인물 모달 화면 설계 (CharModal/CharDetailModal) |
