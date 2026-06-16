@@ -31,12 +31,28 @@
 
         <!-- 메뉴 항목 목록 -->
         <div class="mp-list">
-          <div v-for="item in currentItems" :key="item.id"
-               class="mp-item" :class="{ disabled: item.disabled }"
-               @click="!item.disabled && handleItem(item)">
-            <span class="mp-item-label">{{ item.label }}</span>
-            <span v-if="item.children" class="mono dim" style="font-size:12px">›</span>
-          </div>
+          <template v-for="item in currentItems" :key="item.id">
+            <!-- 그룹 행 -->
+            <div v-if="item.type === 'group'" class="mp-group-row">
+              <span class="mp-group-label mono">{{ item.label }}</span>
+              <div class="mp-group-items">
+                <button
+                  v-for="sub in item.items" :key="sub.id"
+                  class="mp-group-btn"
+                  :class="{ disabled: sub.disabled }"
+                  :disabled="sub.disabled"
+                  @click="!sub.disabled && handleItem(sub)"
+                >{{ sub.label }}</button>
+              </div>
+            </div>
+            <!-- 일반 항목 -->
+            <div v-else
+                 class="mp-item" :class="{ disabled: item.disabled }"
+                 @click="!item.disabled && handleItem(item)">
+              <span class="mp-item-label">{{ item.label }}</span>
+              <span v-if="item.children" class="mono dim" style="font-size:12px">›</span>
+            </div>
+          </template>
         </div>
 
         <!-- 의안 미리보기 (최상위 레벨) -->
@@ -77,7 +93,7 @@ const game = useGameStore()
 const navStack = ref([])
 watch(() => props.category, () => { navStack.value = [] })
 
-const AGENDA_CATS = new Set(['military', 'domestic', 'personnel', 'intel', 'research'])
+const AGENDA_CATS = new Set(['domestic', 'personnel', 'intel', 'research'])
 const isAgendaCat = computed(() => AGENDA_CATS.has(props.category))
 
 const CAT_LABEL = {
@@ -199,6 +215,27 @@ function closeAll() {
 
 /* 메뉴 항목 */
 .mp-list { display: flex; flex-direction: column; flex-shrink: 0; }
+
+/* 그룹 행 */
+.mp-group-row {
+  display: flex; align-items: center; gap: 14px;
+  padding: 11px 18px; border-bottom: 1px solid var(--bd);
+}
+.mp-group-label {
+  font-size: 10px; color: var(--td); letter-spacing: 1px;
+  flex-shrink: 0; width: 30px; text-align: right;
+}
+.mp-group-items { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.mp-group-btn {
+  padding: 5px 12px; font-size: 12px; font-family: var(--font-serif);
+  color: var(--t2); background: var(--bg4);
+  border: 1px solid var(--bd); border-radius: var(--r);
+  cursor: pointer; transition: all .15s; letter-spacing: .3px;
+}
+.mp-group-btn:hover:not(.disabled) {
+  background: var(--bgh); border-color: var(--bdg); color: var(--t1);
+}
+.mp-group-btn.disabled { opacity: .35; cursor: not-allowed; }
 
 .mp-item {
   display: flex; align-items: center; justify-content: space-between;

@@ -77,8 +77,9 @@ import BuildModal from '@/components/game/modals/BuildModal.vue'
 import CharModal  from '@/components/game/modals/CharModal.vue'
 import FinanceModal  from '@/components/game/modals/FinanceModal.vue'
 import MilitaryModal from '@/components/game/modals/MilitaryModal.vue'
-import IntelModal    from '@/components/game/modals/IntelModal.vue'
-import EventModal   from '@/components/game/modals/EventModal.vue'
+import IntelModal       from '@/components/game/modals/IntelModal.vue'
+import EventModal      from '@/components/game/modals/EventModal.vue'
+import OperationModal  from '@/components/game/modals/OperationModal.vue'
 
 const router = useRouter()
 const game = useGameStore()
@@ -97,7 +98,7 @@ watch(() => game._pendingBattle, (val) => {
   if (val) router.push('/game/tactical')
 })
 
-const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal }
+const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal }
 const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.name] ?? null) : null)
 </script>
 
