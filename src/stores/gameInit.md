@@ -134,20 +134,25 @@ const _SCENARIO_CHAR_MAP = {
 
 ---
 
-## 5. 저장 방식 (미결)
+## 5. 저장 방식 ✅ 확정: Pinia persist
 
 | 방식 | 장점 | 단점 |
 |---|---|---|
 | `localStorage` | 간단, 오프라인 | 용량 제한 (~5MB), 기기 종속 |
-| Pinia persist 플러그인 | 자동화, 코드 최소화 | localStorage 의존 |
+| **Pinia persist 플러그인** | **자동화, 코드 최소화, 스토어 구조 유지** | localStorage 의존 |
 | LOGH_API (Phase 3) | 서버 저장, 멀티 기기 | 구현 비용 높음 |
 
-**방향**: 일단 `localStorage` 선구현 → Phase 3에서 API 교체.
+**Phase 1~2**: `pinia-plugin-persistedstate` 사용 (`persist: true` 한 줄로 적용)  
+**Phase 3**: persist 옵션 비활성화 후 LOGH_API 저장으로 교체 예정
 
 저장 대상:
 - `gameStore.$state` 전체 (turn, systems, characters, fleets, resources, log, agendas)
 - 저장 트리거: 턴 종료 시 자동 저장 + 수동 저장 버튼
 - 슬롯: 자동 1개 + 수동 3개 (미정)
+- 로그는 최근 200건만 유지 (localStorage 5MB 제한 대응)
+
+> 보안: localStorage는 평문 JSON — 클라이언트 위변조 가능하나 싱글플레이 범위에서는 허용.  
+> Phase 3 멀티플레이 시 서버 검증 필수.
 
 ---
 
@@ -160,5 +165,5 @@ const _SCENARIO_CHAR_MAP = {
 | 🟡 | `_SCENARIO_FLEET_MAP` / `_SCENARIO_CHAR_MAP` 등록 구조 추가 |
 | 🟡 | `fltLoc` 빈 값 → 시나리오별 성계 코드 입력 |
 | 🟡 | `resources` 초기값 → scenarioDesc에서 로드 |
-| 🟢 | 저장/불러오기 (localStorage) 구현 |
+| 🟢 | 저장/불러오기 — pinia-plugin-persistedstate 설치 및 gameStore에 persist 적용 |
 | 🟢 | 시나리오 charOverride (시나리오별 인물 이름/파벌 오버라이드) |
