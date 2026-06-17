@@ -87,6 +87,10 @@ function buildState(scId, pf) {
     _pendingBattle: null,
     activeModal: null, gameOver: false, winner: null,
     agendas: [], _agendaSeq: 0,
+    playerCharCode: null,
+    _pendingOp: null,
+    _opActionsUsed: 0,
+    _actionSlots: [],
   }
 }
 
@@ -115,6 +119,7 @@ export const useGameStore = defineStore('game', {
       })
       return r
     },
+    playerChar:  s => s.playerCharCode ? (s.characters[s.playerCharCode] ?? null) : null,
     selSysObj:   s => s.selectedSystem ? s.systems[s.selectedSystem] : null,
     selFleetObj: s => {
       if (!s.selectedFleet) return null
@@ -127,9 +132,10 @@ export const useGameStore = defineStore('game', {
   },
 
   actions: {
-    startGame(scId, pf) {
+    startGame(scId, pf, charCode = null) {
       const fresh = buildState(scId, pf)
       Object.assign(this.$state, { initialized: true, ...fresh })
+      if (charCode) this.playerCharCode = charCode
       const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]
       this.addLog(`[${FACTIONS[pf]?.name ?? pf}] ${sc.nameKr} 시작.`)
     },
@@ -149,6 +155,8 @@ export const useGameStore = defineStore('game', {
           this._loanBalance = 0; this._loanDueTurn = null
         }
       }
+      this._opActionsUsed = 0
+      this._actionSlots   = []
       this._processAgendas()
       this._income()
       this._construct()
@@ -952,6 +960,21 @@ export const useGameStore = defineStore('game', {
         speaker: '시스템',
         desc: `${c.name}이(가) 사망했습니다.`,
       })
+    },
+
+    holdOp(data)     { this._pendingOp = data },
+    clearHeldOp()    { this._pendingOp = null },
+    useActionSlot(label, agendaId = null) {
+      if (this._opActionsUsed >= 3) return
+      this._actionSlots.push({ label, agendaId })
+      this._opActionsUsed++
+    },
+    cancelActionSlot(idx) {
+      const slot = this._actionSlots[idx]
+      if (!slot) return
+      if (slot.agendaId) this.cancelAgenda(slot.agendaId)
+      this._actionSlots.splice(idx, 1)
+      this._opActionsUsed = Math.max(0, this._opActionsUsed - 1)
     },
 
     // ── 의안 등록 ─────────────────────────────────────────────────

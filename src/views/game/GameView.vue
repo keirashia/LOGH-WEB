@@ -3,26 +3,54 @@
     <EventLog />
     <GameHud />
     <div class="game-main">
-      <SidePanel v-show="false" :class="{ 'is-open': showSide }" />
-      <GalaxyMap />
-      <InfoPanel v-show="false" :class="{ 'is-open': showInfo }" />
 
-      <Transition name="bd-fade">
-        <div v-if="isMobileLs && (showSide || showInfo)"
-             class="panel-backdrop"
-             @click="showSide = false; showInfo = false" />
-      </Transition>
+      <!-- CharInfoPanel: PC(landscape)에서 좌측 고정 -->
+      <CharInfoPanel v-if="!isPortrait" />
 
-      <template v-if="isMobileLs">
-        <button class="panel-tab panel-tab-l" :class="{ on: showSide }"
-                @click="showSide = !showSide; showInfo = false">
-          {{ showSide ? '✕' : '🚀' }}
+      <!-- GalaxyMap 영역 -->
+      <div class="galaxy-area">
+        <SidePanel v-show="false" :class="{ 'is-open': showSide }" />
+        <GalaxyMap />
+        <InfoPanel v-show="false" :class="{ 'is-open': showInfo }" />
+
+        <!-- CharInfoPanel: 모바일(portrait) 오버레이 -->
+        <Transition name="slide-char">
+          <CharInfoPanel v-if="isPortrait && showCharPanel"
+                         :is-overlay="true"
+                         @close="showCharPanel = false" />
+        </Transition>
+
+        <!-- 버튼 a-1: 모바일 portrait 전용 탭 -->
+        <button v-if="isPortrait" class="char-tab-btn"
+                :class="{ on: showCharPanel }"
+                @click="showCharPanel = !showCharPanel">
+          <span class="char-tab-text">
+            {{ game.playerChar?.nickKr ?? '인물' }}
+          </span>
+          <span class="char-tab-dots">
+            <span v-for="i in 3" :key="i" class="tab-dot"
+                  :class="i <= game._opActionsUsed ? 'used' : 'free'" />
+          </span>
         </button>
-        <button class="panel-tab panel-tab-r" :class="{ on: showInfo }"
-                @click="showInfo = !showInfo; showSide = false">
-          {{ showInfo ? '✕' : 'ℹ' }}
-        </button>
-      </template>
+
+        <Transition name="bd-fade">
+          <div v-if="isMobileLs && (showSide || showInfo)"
+               class="panel-backdrop"
+               @click="showSide = false; showInfo = false" />
+        </Transition>
+
+        <template v-if="isMobileLs">
+          <button class="panel-tab panel-tab-l" :class="{ on: showSide }"
+                  @click="showSide = !showSide; showInfo = false">
+            {{ showSide ? '✕' : '🚀' }}
+          </button>
+          <button class="panel-tab panel-tab-r" :class="{ on: showInfo }"
+                  @click="showInfo = !showInfo; showSide = false">
+            {{ showInfo ? '✕' : 'ℹ' }}
+          </button>
+        </template>
+      </div>
+
     </div>
     <BottomBar />
 
@@ -68,9 +96,10 @@ import { FACTIONS } from '@/data/masterData'
 import GameHud    from '@/components/ui/GameHud.vue'
 import EventLog   from '@/components/ui/EventLog.vue'
 import BottomBar  from '@/components/ui/BottomBar.vue'
-import SidePanel  from '@/components/game/panels/SidePanel.vue'
-import GalaxyMap  from '@/components/game/map/GalaxyMap.vue'
-import InfoPanel  from '@/components/game/panels/InfoPanel.vue'
+import SidePanel     from '@/components/game/panels/SidePanel.vue'
+import GalaxyMap     from '@/components/game/map/GalaxyMap.vue'
+import InfoPanel     from '@/components/game/panels/InfoPanel.vue'
+import CharInfoPanel from '@/components/game/panels/CharInfoPanel.vue'
 import TaxModal   from '@/components/game/modals/TaxModal.vue'
 import FleetModal from '@/components/game/modals/FleetModal.vue'
 import BuildModal from '@/components/game/modals/BuildModal.vue'
@@ -84,15 +113,31 @@ import OperationModal  from '@/components/game/modals/OperationModal.vue'
 const router = useRouter()
 const game = useGameStore()
 
-const showSide   = ref(false)
-const showInfo   = ref(false)
-const isMobileLs = ref(false)
+const showSide     = ref(false)
+const showInfo     = ref(false)
+const showCharPanel = ref(false)
+const isMobileLs   = ref(false)
+const isPortrait   = ref(false)
 
-function checkMobileLs() {
+function checkLayout() {
   isMobileLs.value = window.innerHeight < 480 && window.innerWidth > window.innerHeight
+  isPortrait.value = window.innerWidth <= window.innerHeight
+  if (!isPortrait.value) showCharPanel.value = false
 }
-onMounted(() => { checkMobileLs(); window.addEventListener('resize', checkMobileLs) })
-onUnmounted(() => window.removeEventListener('resize', checkMobileLs))
+onMounted(() => {
+  checkLayout()
+  window.addEventListener('resize', checkLayout)
+  window.addEventListener('popstate', onPopState)
+})
+onUnmounted(() => {
+  window.removeEventListener('resize', checkLayout)
+  window.removeEventListener('popstate', onPopState)
+})
+
+function onPopState() {
+  if (game.activeModal) { game.closeModal(); return }
+  if (showCharPanel.value)  { showCharPanel.value = false; history.pushState(null, '') }
+}
 
 watch(() => game._pendingBattle, (val) => {
   if (val) router.push('/game/tactical')
@@ -104,10 +149,12 @@ const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.
 
 <style scoped>
 .game-view{display:flex;flex-direction:column;width:100%;height:100%;overflow:hidden;background:var(--bg);padding-bottom:var(--bar-h)}
-.theme-REH  {--fc:var(--REH)}
+.theme-REH{--fc:var(--REH)}
 .theme-FPA{--fc:var(--FPA)}
-.theme-PZN {--fc:var(--PZN)}
+.theme-PZN{--fc:var(--PZN)}
 .game-main{display:flex;flex:1;overflow:hidden;position:relative}
+.galaxy-area{position:relative;flex:1;display:flex;overflow:hidden}
+
 .go-overlay{position:fixed;inset:0;z-index:2000;background:rgba(2,5,8,.93);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 .go-box{display:flex;flex-direction:column;align-items:center;gap:14px;padding:44px 52px;text-align:center}
 
@@ -127,5 +174,47 @@ const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.
 .panel-tab-l{left:0; border-radius:0 var(--r) var(--r) 0; border-left:none}
 .panel-tab-r{right:0; border-radius:var(--r) 0 0 var(--r); border-right:none}
 
-/* padding-bottom은 --bar-h 변수로 통일 관리 (global.css landscape 오버라이드 적용) */
+/* 버튼 a-1 (모바일 세로 탭) */
+.char-tab-btn {
+  position: absolute;
+  top: 0; right: 0;
+  width: clamp(32px, 10vw, 52px);
+  height: 100%;
+  z-index: 120;
+  background: rgba(8,12,20,.85);
+  border-left: 1px solid var(--bd);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px;
+  cursor: pointer; transition: all .15s;
+}
+.char-tab-btn:hover,.char-tab-btn.on {
+  background: rgba(12,20,36,.95);
+  border-left-color: var(--tg);
+}
+.char-tab-text {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  font-family: var(--font-serif);
+  font-size: clamp(9px, 1.4vw, 13px);
+  color: var(--t2);
+  letter-spacing: 2px;
+  line-height: 1;
+  white-space: nowrap;
+  transition: color .15s;
+}
+.char-tab-btn.on .char-tab-text { color: var(--tg); }
+.char-tab-dots { display: flex; flex-direction: column; gap: 3px; }
+.tab-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  border: 1px solid var(--bd);
+}
+.tab-dot.free { background: rgba(212,170,96,.3); border-color: var(--tg); }
+.tab-dot.used { background: var(--bg4); opacity: .35; }
+
+/* CharInfoPanel 오버레이 슬라이드 트랜지션 */
+.slide-char-enter-active { transition: transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s; }
+.slide-char-leave-active { transition: transform .18s ease, opacity .15s; }
+.slide-char-enter-from   { transform: translateX(-100%); opacity: 0; }
+.slide-char-leave-to     { transform: translateX(-100%); opacity: 0; }
 </style>

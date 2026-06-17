@@ -20,27 +20,28 @@ docs/
 │
 ├── 100_DATA.md           데이터 총괄
 ├── 101_data_core.md      데이터 폴더 / 코드 체계
-├── 102_data_stars.md     성계 / 항로          (미작성)
-├── 103_data_scenarios.md 시나리오 초기값       (미작성)
-├── 104_data_factions.md  세력 / 정치 / 이념    (미작성)
-├── 105_data_characters.md 캐릭터 마스터         (미작성)
-├── 106_data_fleet.md     함대 설계             (미작성)
-├── 107_data_agenda.md    의안 시스템
-├── 108_data_turns.md     턴 시스템
-├── 109_data_stores.md    Pinia 스토어
-├── 110_data_init.md      게임 초기화
+├── 102_data_stars.md      성계 / 항로 / 행성
+├── 103_data_scenarios.md  시나리오 초기값
+├── 104_data_factions.md   세력 / 정치 / 이념
+├── 105_data_characters.md 인물 마스터
+├── 106_data_fleet.md      함대 설계
+├── 107_data_agenda.md     의안 시스템
+├── 108_data_turns.md      턴 시스템
+├── 109_data_stores.md     Pinia 스토어
+├── 110_data_init.md       게임 초기화
 │   111~199 여유
 │
-├── 200_SCREEN.md         화면 총괄
-├── 201_screen_design.md  디자인 시스템
-├── 202_screen_router.md  라우터
-├── 203_screen_views.md   뷰 목록
-├── 204_screen_lobby.md   로비 화면
+├── 200_SCREEN.md          화면 총괄
+├── 201_screen_design.md   디자인 시스템
+├── 202_screen_router.md   라우터
+├── 203_screen_views.md    뷰 목록
+├── 204_screen_lobby.md    로비 화면
 ├── 205_screen_scenario.md 시나리오 선택 화면
 ├── 206_screen_encyclopedia.md 사전 화면
 ├── 207_screen_characters.md   인물 모달 화면
 ├── 208_screen_components.md   컴포넌트
-│   209~299 여유
+├── 209_screen_bottombar.md    BottomBar / MenuPanel 상세
+│   210~299 여유
 │
 │   300~: 전투 / 정치 / API 등 향후 확장
 ```
@@ -110,12 +111,13 @@ docs/
 - **Phase 1-3**: 정보·외교 (첩보작전/치안회복/제안공작)
 - **Phase 1-4**: 스토리 이벤트 (EventModal + triggerCoup/Defection/Resignation/Death)
 - **전술 전투**: tacticalData.js + tacticalStore.js + TacticalView.vue 완성
-- **데이터 구조 개편**: starSystemData.js (62개) + lane.js (72개) + S01/starDetail.js
+- **데이터 구조 개편**: starSystemData.js (62개) + laneData.js + starDetail.js (시나리오별)
 - **GalaxyMap**: VW=1600/VH=1000, 항로 type별 색상 구분 (corridor/phezzan/normal)
-- **세부맵**: src/data/stars/maps/ 62개 성계 개별 파일
+- **세부맵**: src/data/base/stars/maps/ 62개 성계 개별 파일
 - **BottomBar v2**: 8개 카테고리 2×4 그리드 + 로비 카드 다크 골드 CSS, --bar-h CSS 변수 도입
 - **MenuPanel**: 카테고리별 drill-down 메뉴 패널 (navStack, menuTree.js)
 - **의안 시스템**: agendaData.js + menuTree.js + gameStore 통합 (registerAgenda / _processAgendas)
+- **MD 개편**: docs/ 폴더 중앙화 (102~106 신규 작성, src/ 분산 MD 전체 삭제)
 
 ### ⬜ 진행 중 / 다음 작업
 
@@ -134,7 +136,7 @@ docs/
 | 🟢 | 민란 시스템 | morale < 20 → 반란 |
 | 🟢 | AI 개선 | 전략적 함대 건조, 세력별 성격 |
 | 🟢 | LOGH-API schema.sql 재작성 | 새 code 체계 반영 |
-| 🟢 | 누락 상세 MD 작성 | 102~106 미작성 MD (100_DATA.md 참조) |
+| ✅ | 누락 상세 MD 작성 | 102~106 전체 작성 완료 (2026-06-17) |
 
 ### ⬜ 예정 (Phase 2~3)
 

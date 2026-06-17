@@ -114,8 +114,9 @@ function openLib(lib) {
 
 function onStart() {
   if (lobby.selectedFaction) {
-    game.startGame(cur.value.id, lobby.selectedFaction)
-    lobby.selectedFaction = null
+    game.startGame(cur.value.id, lobby.selectedFaction, lobby.selectedCharCode)
+    lobby.selectedFaction  = null
+    lobby.selectedCharCode = null
     router.push('/game')
   } else {
     router.push({ name: 'scenario-options', params: { scId: cur.value.id } })

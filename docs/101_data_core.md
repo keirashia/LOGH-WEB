@@ -14,16 +14,43 @@
 
 ```
 src/data/
-├── masterData.js          ← 게임 상수 집합 (SCENARIOS/CHARACTERS/FACTIONS/OPERATION_TYPES 등)
-├── tacticalData.js        ← 전술전투 데이터 (진형 6종, 지형, 맵)
-├── tactical/              → tactical.md 참조
-├── stars/                 → stars.md 참조
-├── scenarios/             → scenarios.md 참조
-├── factions/              → factions.md 참조
-├── characters/            → charactersData.md 참조
-└── trait/                 → trait.md 참조
-    └── stars/
-        └── traitData.js   ← 22개 트레잇
+├── masterData.js          ← 게임 상수 집합
+├── base/                  ← 불변 마스터 데이터
+│   ├── stars/             → 102_data_stars.md
+│   │   ├── starSystemData.js
+│   │   ├── laneData.js
+│   │   ├── planetsData.js
+│   │   ├── code_map.json
+│   │   └── maps/          ← 62개 성계 세부맵 + starMaps.js
+│   ├── factions/          → 104_data_factions.md
+│   │   ├── factionsData.js
+│   │   └── factionName.js
+│   ├── characters/        → 105_data_characters.md
+│   │   ├── charactersData.js
+│   │   ├── charactersJobs.js
+│   │   └── charactersTraits.js
+│   ├── fleet/             → 106_data_fleet.md
+│   │   ├── formationData.js
+│   │   ├── flagshipData.js
+│   │   └── unitshipData.js
+│   ├── regime/
+│   │   ├── ideologyData.js
+│   │   ├── economyData.js
+│   │   └── regimeData.js
+│   ├── jobs/
+│   │   └── jobData.js
+│   ├── agenda/
+│   │   ├── agendaData.js
+│   │   └── menuTree.js
+│   ├── tactical/
+│   │   └── (전술전투 데이터)
+│   └── trait/
+│       └── traitData.js   ← 22개 트레잇
+└── scenario/              → 103_data_scenarios.md
+    ├── scenarioData.js
+    ├── SE640/01/
+    ├── SE745/01/
+    └── SE796/01/, 10/, ...
 ```
 
 ---
@@ -31,12 +58,12 @@ src/data/
 ## masterData.js — 게임 상수 모음
 
 각 서브폴더 데이터를 재export하거나, 인라인 상수를 정의하는 집합 파일.  
-**STAR_SYSTEMS / LANES는 제거됨** — 직접 `starSystemData.js`, `lane.js`를 import할 것.
+**STAR_SYSTEMS / LANES는 제거됨** — 직접 `starSystemData.js`, `laneData.js`를 import할 것.
 
 ```js
-export { SCENARIOS }              // @/data/scenarios/scenario.js
-export { CHARACTERS }             // @/data/characters/charactersData.js (CHAR_BASE)
-export { FACTIONS }               // @/data/factions/factionsData.js (id→obj map)
+export { SCENARIOS }              // @/data/scenario/scenarioData.js
+export { CHARACTERS }             // @/data/base/characters/charactersData.js (CHAR_BASE)
+export { FACTIONS }               // @/data/base/factions/factionsData.js
 
 // 인라인 상수
 export { OPERATION_TYPES, FORTRESS_WEAPONS, CONSTRUCTION_TYPES }
@@ -61,17 +88,16 @@ export { FINANCE, MILITARY, INTEL }
 230061=VERMILION    230062=VILLENSTEIN
 ```
 
-구 id → 새 code 변환은 `src/data/stars/json/code_map.json` 참조.
+구 id → 새 code 변환은 `src/data/base/stars/code_map.json` 참조.
 
 ---
 
-## tacticalData.js / tactical/
+## src/data/base/tactical/ — 전술전투 데이터
 
-전술전투에서만 사용. 진형 6종, 지형 타입, 맵 빌더 포함.  
-상세 설계(TERRAIN·HAZARD 체계, starMaps 연동)는 `tactical/tactical.md` 참조.
+전술전투에서만 사용. 진형 6종(`formationData.js` → [106_data_fleet.md](106_data_fleet.md) 참조), 지형 타입, 맵 빌더 포함.
 
 ```js
-export { FORMATIONS, TERRAIN, HAZARD_TYPES, buildTacticalMap }
+export { TERRAIN, HAZARD_TYPES, buildTacticalMap }
 ```
 
 ---

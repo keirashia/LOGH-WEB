@@ -253,7 +253,8 @@ function goBackToFaction() {
 
 function onNext() {
   if (!selChar.value) return
-  lobby.selectedFaction = selChar.value.faction
+  lobby.selectedFaction  = selChar.value.faction
+  lobby.selectedCharCode = selChar.value.code
   router.push({ name: 'scenario-detail', params: { scId: cur.value.id } })
 }
 </script>

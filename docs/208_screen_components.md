@@ -132,6 +132,53 @@ info:      인물 / 함대 / 세력 / 성계*
 | `SidePanel.vue` | 좌측 패널: 세력 목록, 함대 목록 |
 | `InfoPanel.vue` | 우측 패널: 선택 성계 상세 (탭: 개요/함대/경제/세부맵) |
 | `MenuPanel.vue` | BottomBar 카테고리 메뉴 슬라이드업 패널 |
+| `CharInfoPanel.vue` | 좌측 패널: 현재 플레이 인물 정보 (PC 상시노출 / 모바일 오버레이) |
+
+### CharInfoPanel.vue (신규)
+
+**목적**: 현재 플레이 중인 인물(playerChar)의 정보를 항상 볼 수 있도록 노출.
+
+#### 반응형 동작
+
+| 디스플레이 | 동작 |
+|---|---|
+| 가로(landscape, PC) | 항상 노출 — GalaxyMap 좌측에 고정 배치 |
+| 세로(portrait, 모바일) | 기본 숨김, 버튼(a-1) 터치 시 GalaxyMap 위 오버레이로 노출 |
+
+#### 컴포넌트 내용
+
+```
+[인물명] — kr 크게 / jp + en 서브
+[행동력 슬롯] × 3개  (매 턴 3회, default 빈칸)
+  슬롯 채워진 예시: "제안 : 작전 발의  (x)"
+[직업]
+[능력치]  CMD / CSM / ATT / DEF / FST / MNG / INF / GFG / AFG / MMP
+```
+
+#### 버튼 (a-1) — 모바일 전용
+
+- GalaxyMap 우측에 `~10vw` 폭으로 노출 (북인덱스 스티커 형태, 위→아래)
+- 터치 시 CharInfoPanel이 GalaxyMap 위에 오버레이
+- 현재는 인물 정보 1개만, 향후 확장 가능
+
+#### GameView 레이아웃 변경
+
+```
+기존: [ GalaxyMap (상단) ]
+      [ BottomBar (하단) ]
+
+변경 (PC):    [ CharInfoPanel | GalaxyMap ]
+                               [ BottomBar ]
+변경 (모바일): [ GalaxyMap + 버튼a-1 ]
+               [ BottomBar ]
+               (CharInfoPanel은 오버레이)
+```
+
+#### 뒤로가기 / 닫기 처리
+
+- 명령 관련 컴포넌트(MenuPanel 등) 우측 상단 **X** → 행동 취소(닫기)
+- 브라우저 백버튼 / 마우스 뒤로가기 → 동일 동작 (`popstate` 이벤트 처리)
+- ⚠️ 브라우저/기기 제약으로 백버튼이 막힐 경우 대응 방안 별도 검토 필요
 
 ### InfoPanel 세부맵 탭
 
@@ -217,3 +264,7 @@ const starMapData = computed(() => getStarMapByCode(sys.value.code ?? sys.value.
 - [ ] MenuPanel: 의안 등록 UI 연동 (현재는 openModal 직접 호출)
 - [ ] MenuPanel: BottomBar 각 버튼 개별 카드 스타일 (취소됨, 추후 재검토)
 - [ ] 의안 시스템 상세 설계 → `src/data/base/agenda/agenda.md` 참조
+- [x] **CharInfoPanel.vue** 신규 구현 (반응형: PC 좌측 고정 / 모바일 오버레이 토글) — 2026-06-17
+- [x] **GameView.vue** 레이아웃 변경 — galaxy-area 래퍼 추가, isPortrait 기반 분기 — 2026-06-17
+- [x] 버튼(a-1) 모바일 토글 버튼 구현 (GalaxyMap 우측 북인덱스 형태) — 2026-06-17
+- [x] 뒤로가기 처리 (`popstate` 이벤트: activeModal 닫기 / showCharPanel 닫기) — 2026-06-17
