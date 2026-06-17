@@ -1,7 +1,8 @@
 # LOGH-WEB — 디자인 시스템
-
-> **기준 화면**: `/#/lobby` (CardSliderLayout 기반 메뉴 화면)
-> 모든 화면은 이 문서에 정의된 토큰과 패턴을 따른다.
+> 분류: 화면
+> 경로: `docs/201_screen_design.md`
+> 상위: [200_SCREEN.md](200_SCREEN.md)
+> 최종 수정: 2026-06-17
 
 ---
 

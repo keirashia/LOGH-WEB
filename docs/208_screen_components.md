@@ -1,4 +1,8 @@
 # src/components — 컴포넌트
+> 분류: 화면
+> 경로: `docs/208_screen_components.md`
+> 상위: [200_SCREEN.md](200_SCREEN.md)
+> 최종 수정: 2026-06-17
 
 ## 개요
 

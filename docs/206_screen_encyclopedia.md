@@ -1,6 +1,8 @@
-# src/components/encyclopedia — 사전 화면 설계
-> 작성: 2026-06-02
-> 파일 위치: `src/components/encyclopedia/`
+# 사전 화면 설계
+> 분류: 화면
+> 경로: `docs/206_screen_encyclopedia.md`
+> 상위: [200_SCREEN.md](200_SCREEN.md)
+> 최종 수정: 2026-06-17
 
 ---
 

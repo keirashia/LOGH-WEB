@@ -1,42 +1,24 @@
-# LOGH-WEB — 문서 관리 가이드
+# LOGH-WEB — Claude 가이드
 
 ## 프로젝트 개요
 
 - 원작: BOTHTEC 은하영웅전설 IV EX (1996, DOS)
 - 스택: Vue 3 + Vite + Pinia (JS, 순수 프론트엔드)
 - 목표: 원작 DOS 게임을 Vue3 기반 웹앱으로 완전 포팅
-- 멀티플레이: Phase 3에서 WebSocket(LOGH_API) 연동 예정
 
 ---
 
-## MD 파일 관리 규칙
+## 문서 위치
 
-### 원칙
-- `.claude/` 폴더에는 이 가이드 파일만 존재
-- 각 주요 폴더에 `{폴더명}.md` 파일 하나씩 배치
-- 내용 구조: **개요** → **파일 목록** → **상세** → **TODO**
+모든 설계 문서는 `docs/` 폴더에 집중 관리.
 
-### MD 파일 목록
-
-| 파일 | 담당 내용 |
+| 파일 | 내용 |
 |---|---|
-| `src/data/data.md` | 데이터 폴더 전체 구조, masterData.js, 코드 체계 |
-| `src/data/stars/stars.md` | 성계/항로/행성 마스터 데이터, 좌표 범위 |
-| `src/data/scenarios/scenarios.md` | 시나리오별 초기값 |
-| `src/data/factions/factions.md` | 세력/정치/이념 데이터 |
-| `src/data/characters/charactersData.md` | 인물 데이터 |
-| `src/data/fleet/fleetData.md` | 함대 데이터 설계 — fltCode 체계, 지휘 계층(C/O/S), 스탯 계산 규칙, 시나리오별 파일 구조 |
-| `src/data/fleet/formationData.js` | 진형 데이터 (FF_01~10, ffType: ATK/DEF/MOV/ENC, weight 전환 딜레이) |
-| `src/stores/stores.md` | 전체 스토어 개요, gameStore 상태/액션 상세 |
-| `src/stores/gameInit.md` | 게임 초기화 데이터 설계 — 국가/성계/함대/인물 로드 흐름, 저장 방식 |
-| `src/components/components.md` | 컴포넌트 구조, GalaxyMap 스펙, BottomBar v2, MenuPanel, 모달 목록 |
-| `src/data/base/agenda/agenda.md` | 의안 시스템 설계 (흐름/데이터 구조/결재 체인/활성화 규칙/TODO) |
-| `src/components/game/modals/characters/charactersScreen.md` | 인물 모달 화면 설계 (CharModal/CharDetailModal) |
-| `src/components/game/ternsScreen.md` | 턴 시스템 설계 (hourStep, 서브턴, 날짜 표시) |
-| `src/views/views.md` | 뷰 목록, 라우터 경로, 각 뷰 상세 |
-| `src/views/lobby/scenarioScreen.md` | 시나리오 선택 화면 설계 (Step1/1-1/2/3, ScenarioDetail 신규) |
-| `src/router/router.md` | 라우터 가드, 접근 제어 |
-| `src/design.md` | **디자인 시스템** — 색상·타이포·레이아웃·컴포넌트 패턴 기준 문서 (새 화면 추가 시 필독) |
+| `docs/000_INDEX.md` | 총괄 인덱스 — 진행 현황, 코딩 컨벤션 |
+| `docs/100_DATA.md` | 데이터 계층 인덱스 |
+| `docs/200_SCREEN.md` | 화면 계층 인덱스 |
+
+세부 문서는 각 총괄 인덱스 참조.
 
 ---
 
@@ -69,60 +51,3 @@
 .btn-blue     블루 (동맹/정보)
 .btn-green    그린 (페잔/성공)
 ```
-
----
-
-## 진행 현황
-
-### ✅ 완료
-
-- **Phase 1-1**: 국정 재정 (임시징수/페잔차관/예산배분)
-- **Phase 1-2**: 군사 확장 (함대 편성·재편성·해산/수송/철수)
-- **Phase 1-3**: 정보·외교 (첩보작전/치안회복/제안공작)
-- **Phase 1-4**: 스토리 이벤트 (EventModal + triggerCoup/Defection/Resignation/Death)
-- **전술 전투**: tacticalData.js + tacticalStore.js + TacticalView.vue 완성
-- **데이터 구조 개편**: starSystemData.js (62개) + lane.js (72개) + S01/starDetail.js
-- **GalaxyMap**: VW=1600/VH=1000, 항로 type별 색상 구분 (corridor/phezzan/normal)
-- **세부맵**: src/data/stars/maps/ 62개 성계 개별 파일
-- **BottomBar v2**: 8개 카테고리 2×4 그리드 + 로비 카드 다크 골드 CSS, --bar-h CSS 변수 도입
-- **MenuPanel**: 카테고리별 drill-down 메뉴 패널 (navStack, menuTree.js)
-- **의안 시스템**: agendaData.js + menuTree.js + gameStore 통합 (registerAgenda / _processAgendas)
-
-### ⬜ 진행 중 / 다음 작업
-
-| 우선순위 | 항목 | 비고 |
-|---|---|---|
-| 🔴 | 성계 좌표 수정 미반영 문제 | starSystemData.js 수정 후 게임에 반영 안 됨 — 원인 조사 |
-| 🟡 | lane.js 고립 성계 7개 항로 추가 | ARESHYUM/BARATULF/FIREZIERD/HAN/LUYKAS_FPA/MARBACH/PORGEN |
-| 🟡 | starSystemData.js nameJp 62개 입력 | 현재 빈 문자열 |
-| 🟡 | code 중복 3건 원작 확인 | ALTENER/LUYKAS/MARADEITA |
-| 🟡 | starsData.js LEGACY 파일 삭제 확인 | 현재 미참조 |
-| 🟡 | 의안 _executeAgenda 액션 구현 | planet_develop/ship_design/research_* stub 상태 |
-| 🟡 | 친밀도(intimacy) 시스템 | 현재 등록 순서로 임시 정렬 |
-| 🟢 | REH 군사 3장관 협의 로직 | 2/3 동의 판정 미구현 |
-| 🟢 | FPA 평의원 11명 AI 투표 | 미구현 |
-| 🟢 | 인물 데이터 리팩토링 | char.js → charBase/charTender/charDetail/charJobs/charTraits 분리 |
-| 🟢 | 민란 시스템 | morale < 20 → 반란 |
-| 🟢 | AI 개선 | 전략적 함대 건조, 세력별 성격 |
-| 🟢 | LOGH-API schema.sql 재작성 | 새 code 체계 반영 |
-
-### ⬜ 예정 (Phase 2~3)
-
-- **Phase 2-1**: Encyclopedia/Tutorial/Admin 뷰 채우기
-- **Phase 2-2**: 리팩토링 (turnEngine 분리 등)
-- **Phase 3-1**: LOGH_API 연동 (저장/불러오기)
-- **Phase 3-2**: WebSocket 멀티플레이
-
----
-
-## 원본 데이터 (Eun4ex/)
-
-경로: `c:\Users\user\Documents\workspace\LOGH\Eun4ex\`
-
-| 파일 | 내용 |
-|---|---|
-| EVTALK.MSG | 전략 이벤트 대사 (Shift-JIS, 28개 섹션) |
-| EVTAC.MSG | 전술 전투 대사 |
-| G4XSNR00~09.DAT | 시나리오 10개 데이터 |
-| UNIT00.DAT | 유닛 스탯 |
-| MSG00.DAT | 게임 메시지 |

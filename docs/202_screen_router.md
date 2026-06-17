@@ -1,4 +1,8 @@
 # src/router — 라우터
+> 분류: 화면
+> 경로: `docs/202_screen_router.md`
+> 상위: [200_SCREEN.md](200_SCREEN.md)
+> 최종 수정: 2026-06-17
 
 ## 개요
 

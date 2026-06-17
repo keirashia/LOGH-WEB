@@ -1,4 +1,8 @@
 # src/views — 뷰 & 라우터
+> 분류: 화면
+> 경로: `docs/203_screen_views.md`
+> 상위: [200_SCREEN.md](200_SCREEN.md)
+> 최종 수정: 2026-06-17
 
 ## 라우터 경로
 

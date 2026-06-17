@@ -1,7 +1,8 @@
-# gameInit.md — 게임 초기화 데이터 설계
-
-경로: `src/stores/gameInit.md`
-관련 파일: `src/stores/gameStore.js` → `buildState(scId, pf)`
+# 게임 초기화 데이터 설계
+> 분류: 데이터
+> 경로: `docs/110_data_init.md`
+> 상위: [100_DATA.md](100_DATA.md)
+> 최종 수정: 2026-06-17
 
 ---
 

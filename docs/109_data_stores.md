@@ -1,4 +1,8 @@
 # src/stores — Pinia 스토어
+> 분류: 데이터
+> 경로: `docs/109_data_stores.md`
+> 상위: [100_DATA.md](100_DATA.md)
+> 최종 수정: 2026-06-17
 
 ## 개요
 

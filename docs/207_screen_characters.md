@@ -1,5 +1,8 @@
-# src/data/characters — 인물 화면 처리
-> 인물 관련 데이터는 charactersData.md 참조
+# 인물 모달 화면 설계
+> 분류: 화면
+> 경로: `docs/207_screen_characters.md`
+> 상위: [200_SCREEN.md](200_SCREEN.md)
+> 최종 수정: 2026-06-17
 
 ---
 

@@ -1,6 +1,8 @@
-# src/views/lobby — 로비 화면 설계
-> 작성: 2026-06-02 / 최종 수정: 2026-06-02
-> 파일: `src/views/lobby/LobbyView.vue`
+# 로비 화면 설계
+> 분류: 화면
+> 경로: `docs/204_screen_lobby.md`
+> 상위: [200_SCREEN.md](200_SCREEN.md)
+> 최종 수정: 2026-06-17
 
 ---
 

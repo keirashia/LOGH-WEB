@@ -1,6 +1,8 @@
-# src/views/lobby/scenario — 시나리오 선택 화면 설계
-> 작성: 2026-05-29 / 최종 수정: 2026-06-13
-> 데이터 설계: src/data/scenarios/scenarioData.md 참조
+# 시나리오 선택 화면 설계
+> 분류: 화면
+> 경로: `docs/205_screen_scenario.md`
+> 상위: [200_SCREEN.md](200_SCREEN.md)
+> 최종 수정: 2026-06-17
 
 ---
 
