@@ -152,7 +152,7 @@ info:      인물 / 함대 / 세력 / 성계*
 [행동력 슬롯] × 3개  (매 턴 3회, default 빈칸)
   슬롯 채워진 예시: "제안 : 작전 발의  (x)"
 [직업]
-[능력치]  CMD / CSM / ATT / DEF / FST / MNG / INF / GFG / AFG / MMP
+[능력치]  CMD / CSM / ATT / DEF / FST / MNG / INF / GFG / AFG / PLT
 ```
 
 #### 버튼 (a-1) — 모바일 전용

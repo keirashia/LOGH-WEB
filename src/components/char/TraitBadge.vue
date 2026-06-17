@@ -65,7 +65,7 @@ const RARITY_LABEL = { common: '일반', uncommon: '비범', rare: '희귀', uni
 const STAT_LABEL = {
   statCmd: '통솔', statCsm: '카리스마', statAtt: '공격', statDef: '방어',
   statFst: '기동', statMng: '운영', statInf: '정보', statGfg: '육전',
-  statAfg: '공전', statMmp: '정치',
+  statAfg: '공전', statMmp: '정략',
 }
 
 const gaugePercent = ref(0)

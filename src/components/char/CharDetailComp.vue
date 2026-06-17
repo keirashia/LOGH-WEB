@@ -147,7 +147,7 @@ const STAT_KEYS = [
   ['statAtt','공격'], ['statDef','방어'],
   ['statFst','기동'], ['statMng','운영'],
   ['statInf','정보'], ['statGfg','육전'],
-  ['statAfg','공전'], ['statMmp','정치'],
+  ['statAfg','공전'], ['statMmp','정략'],
 ]
 const TEND_KEYS = [
   ['brave','용맹'],

@@ -112,7 +112,7 @@ const STATS = [
   { key: 'statInf', short: 'INF', label: '정보' },
   { key: 'statGfg', short: 'GFG', label: '지상전' },
   { key: 'statAfg', short: 'AFG', label: '공중전' },
-  { key: 'statMmp', short: 'MMP', label: '사기' },
+  { key: 'statMmp', short: 'PLT', label: '정략' },
 ]
 
 function statClass(val) {

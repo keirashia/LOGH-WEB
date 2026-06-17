@@ -110,7 +110,7 @@ const filtered = computed(() => {
 
 능력치 ▼
   통솔 / 카리스마 / 공격 / 방어 / 기동
-  운영 / 정보 / 육전 / 공전 / 정치  (10개 바 차트)
+  운영 / 정보 / 육전 / 공전 / 정략  (10개 바 차트)
 
 성향 ▼
   이념 (수치 → 텍스트 변환)
@@ -138,7 +138,7 @@ const filtered = computed(() => {
 | `CHA_ST_INF` | 정보 |
 | `CHA_ST_GFG` | 육전 |
 | `CHA_ST_AFG` | 공전 |
-| `CHA_ST_MMP` | 정치 |
+| `CHA_ST_MMP` | 정략 |
 
 ### 이념(CHA_IDEA) 수치 → 텍스트 변환
 
