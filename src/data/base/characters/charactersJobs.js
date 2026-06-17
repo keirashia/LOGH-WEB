@@ -43,7 +43,7 @@ export const CHAR_JOBS = [
   },
   {
     charCode: "CH_000064",
-    jobCode: "JB_MR001",
+    jobCode: "JB_MR002",
     jobLevel: 0,
     jobExp: 0,
     jobStDate: 0,

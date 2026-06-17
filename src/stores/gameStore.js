@@ -8,11 +8,20 @@ import {
 } from '@/data/base/agenda/agendaData'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { STAR_SYSTEMS } from '@/data/base/stars/starSystemData'
+import { CHAR_JOBS as _BASE_CHAR_JOBS } from '@/data/base/characters/charactersJobs'
+import { CHAR_JOBS as _CHAR_JOBS_SE796_10 } from '@/data/scenario/SE796/10/characters/charactersJobs'
 import { STAR_DETAIL as _DETAIL_SE796_10 } from '@/data/scenario/SE796/10/starDetail'
 import { STAR_DETAIL as _DETAIL_SE745_1  } from '@/data/scenario/SE745/01/starDetail'
 import { STAR_DETAIL as _DETAIL_SE640_1  } from '@/data/scenario/SE640/01/starDetail'
 
 const _SE796_10_MAP = Object.fromEntries(_DETAIL_SE796_10.map(d => [d.code, d]))
+
+const _SCENARIO_CHAR_JOBS = {
+  'SE796_10': _CHAR_JOBS_SE796_10,
+  'SE796_11': _CHAR_JOBS_SE796_10,
+  'SE796_12': _CHAR_JOBS_SE796_10,
+  'SE796_13': _CHAR_JOBS_SE796_10,
+}
 
 const _SCENARIO_DETAIL_MAP = {
   'SE796_10': _SE796_10_MAP,
@@ -61,9 +70,15 @@ function buildState(scId, pf) {
     FPA: { gold: 4500 },
     PZN:  { gold: 8000 },
   }
+  const _scJobs = _SCENARIO_CHAR_JOBS[sc.id] ?? []
+  const _jobSrc = _scJobs.length ? _scJobs : _BASE_CHAR_JOBS
+  const _initPostMap = {}
+  _jobSrc.forEach(j => {
+    if (!_initPostMap[j.charCode]) _initPostMap[j.charCode] = j.jobCode
+  })
   const characters = {}
   Object.values(CHARACTERS).forEach(c => {
-    characters[c.code] = { ...c, currentPost: null }
+    characters[c.code] = { ...c, currentPost: _initPostMap[c.code] ?? null }
   })
   const fleets = {
     REH: [

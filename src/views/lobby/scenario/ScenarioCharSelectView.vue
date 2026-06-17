@@ -179,7 +179,7 @@ watchEffect(async () => {
   if (!cur.value?.id) return
   try {
     const [base, num] = cur.value.id.split('_')
-    const mod = await import(`@/data/scenario/${base}/${num.padStart(2, '0')}/charList.js`)
+    const mod = await import(`@/data/scenario/${base}/${num.padStart(2, '0')}/characters/charactersData.js`)
     charList.value = mod.CHAR_LIST
   } catch {
     charList.value = []

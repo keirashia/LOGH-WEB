@@ -21,12 +21,21 @@
         </div>
       </div>
 
-      <!-- 직책 -->
-      <div class="job-row mono dim">
-        <span class="job-label">{{ jobLabel || '직책 없음' }}</span>
-        <span v-if="factionLabel" class="faction-tag" :class="`fc-${char.faction}`">
-          {{ factionLabel }}
-        </span>
+      <!-- 직책 목록 -->
+      <div class="job-list">
+        <div v-for="(label, i) in visibleJobLabels" :key="i" class="job-row mono dim">
+          <span class="job-label">{{ label }}</span>
+          <span v-if="i === 0 && factionLabel" class="faction-tag" :class="`fc-${char.faction}`">
+            {{ factionLabel }}
+          </span>
+        </div>
+        <div v-if="!charJobLabels.length" class="job-row mono dim">
+          <span class="job-label">직책 없음</span>
+        </div>
+        <button v-if="charJobLabels.length >= 2" class="job-toggle mono dim"
+                @click="jobsExpanded = !jobsExpanded">
+          {{ jobsExpanded ? '▲' : `▼ +${charJobLabels.length - 1}` }}
+        </button>
       </div>
 
       <!-- 행동력 슬롯 -->
@@ -69,9 +78,10 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { JOB_MAP } from '@/data/base/jobs/jobData'
+import { CHAR_JOBS } from '@/data/base/characters/charactersJobs'
 import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
 
 defineProps({ isOverlay: { type: Boolean, default: false } })
@@ -81,10 +91,17 @@ const game = useGameStore()
 
 const char = computed(() => game.playerChar)
 
-const jobLabel = computed(() => {
-  if (!char.value?.currentPost) return ''
-  return JOB_MAP[char.value.currentPost]?.nameKr ?? char.value.currentPost
+const charJobLabels = computed(() => {
+  if (!char.value) return []
+  return CHAR_JOBS
+    .filter(j => j.charCode === char.value.code)
+    .map(j => JOB_MAP[j.jobCode]?.nameKr ?? j.jobCode)
 })
+
+const jobsExpanded = ref(false)
+const visibleJobLabels = computed(() =>
+  jobsExpanded.value ? charJobLabels.value : charJobLabels.value.slice(0, 1)
+)
 
 const factionLabel = computed(() => {
   if (!char.value) return ''
@@ -186,13 +203,24 @@ function statClass(val) {
 .name-sep { opacity: .4; }
 
 /* ── 직책 ──────────────────────────────────────────────────────── */
-.job-row {
-  display: flex; align-items: center; justify-content: space-between; gap: 4px;
-  padding: 8px 14px;
-  font-size: 10px; letter-spacing: .4px;
+.job-list {
   border-bottom: 1px solid var(--bd);
 }
+.job-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 4px;
+  padding: 5px 14px;
+  font-size: 10px; letter-spacing: .4px;
+}
+.job-row:first-child { padding-top: 8px; }
+.job-row:last-child  { padding-bottom: 8px; }
 .job-label { flex: 1; }
+.job-toggle {
+  width: 100%; padding: 3px 14px;
+  font-size: 9px; letter-spacing: .5px;
+  text-align: left; color: var(--td);
+  cursor: pointer; transition: color .13s;
+}
+.job-toggle:hover { color: var(--t2); }
 .faction-tag {
   font-size: 9px; padding: 1px 5px;
   border: 1px solid currentColor;
