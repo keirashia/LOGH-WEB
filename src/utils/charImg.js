@@ -15,7 +15,7 @@
 export const IMG_VERSION = { O: 'O', N: 'N', T: 'T', F: 'F' }
 export const IMG_PART    = { H: 'H', U: 'U', A: 'A' }
 
-export const CHAR_PLACEHOLDER = '/img/characters/CH_0000000.png'
+export const CHAR_PLACEHOLDER = '/img/characters/CH_000000O_H.png'
 
 const VERSIONS = ['O', 'N', 'T', 'F']
 const EXTS     = ['png', 'webp', 'jpg']

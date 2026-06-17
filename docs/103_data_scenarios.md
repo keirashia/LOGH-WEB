@@ -21,15 +21,21 @@ src/data/scenario/
     ├── 01/                   SE 796년 시나리오 01 (아스타테 — 정사)
     │   ├── starDetail.js
     │   ├── planetDetail.js
-    │   ├── charList.js
     │   ├── scenarioDesc.js
+    │   ├── characters/
+    │   │   ├── charactersData.js   등장 인물 목록 (CHAR_LIST)
+    │   │   └── charactersJobs.js   시나리오 시작 직책 (CHAR_JOBS)
     │   └── fleet/
     │       ├── fleetData.js
     │       ├── fleetCharacterData.js
     │       ├── fleetShipData.js
     │       └── fleetTraitData.js
     └── 10/                   SE 796년 시나리오 10 (아스타테 — 가상)
-        └── (동일 구조)
+        ├── starDetail.js
+        ├── scenarioDesc.js
+        └── characters/
+            ├── charactersData.js
+            └── charactersJobs.js
 ```
 
 ---
@@ -95,9 +101,16 @@ src/data/scenario/
 **tax 기준값:**
 - REH: 28~30% / FPA: 33~35% / PZN: 20% / 중립: 0%
 
-### charList.js
+### characters/charactersData.js
 
-시나리오에 등장하는 인물 코드 목록. 게임 초기화 시 해당 목록의 인물만 활성화.
+시나리오에 등장하는 인물 코드 목록 (`CHAR_LIST`). 게임 로비 인물 선택 화면에서 동적 import.
+
+### characters/charactersJobs.js
+
+시나리오 시작 시점의 직책 초기값 (`CHAR_JOBS`). `gameStore.buildState()`에서 정적 import.
+- `currentPost` (string): 1순위 직책 — 결재체인·승인 등 게임 로직용
+- `currentPosts` (array): 전체 직책 목록 — CharInfoPanel 표시용
+- 시나리오 charJobs 없는 경우 `base/characters/charactersJobs.js` 폴백
 
 ### fleet/ 서브폴더
 
@@ -110,3 +123,6 @@ src/data/scenario/
 - [ ] SE640/01, SE745/01 시나리오 데이터 입력 (starDetail 빈값)
 - [ ] 시나리오 분기(SE796_11/12) 가상 전제 조건 설계
 - [ ] charOverride.js 설계 — 시나리오별 인물 오버라이드 (이름/파벌 변경)
+- [ ] SE796/01/characters/ 폴더 생성 및 charList.js 마이그레이션
+- [ ] **삭제 대상**: `src/views/lobby/scenario/legacy/ScenarioSelectView.vue`, `Step3CharSelect.vue` — router `scenario-select` 대체 후 삭제
+- [ ] **삭제 대상**: `src/data/scenario/SE796/10/charList.js` — characters/charactersData.js 로 이전 완료

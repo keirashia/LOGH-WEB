@@ -13,29 +13,55 @@
 
       <!-- 이름 블록 -->
       <div class="name-block">
-        <div class="name-kr serif gold">{{ char.nameKr }}</div>
-        <div class="name-sub mono dim">
-          <span>{{ char.nameJp }}</span>
-          <span class="name-sep">·</span>
-          <span>{{ char.nameEn }}</span>
+        <div class="name-kr serif gold" :style="nameFontStyle">{{ displayName }}</div>
+      </div>
+
+      <!-- 초상화 -->
+      <div class="portrait-wrap" :style="portraitBgStyle">
+        <img
+          :key="char.code"
+          :src="charImgSrc(char.code)"
+          class="portrait-img"
+          @error="onPortraitError"
+          :alt="displayName"
+        />
+        <div v-if="portraitMissing" class="portrait-hint mono dim">
+          {{ char.code }}O_H.png
         </div>
       </div>
 
       <!-- 직책 목록 -->
       <div class="job-list">
-        <div v-for="(label, i) in visibleJobLabels" :key="i" class="job-row mono dim">
-          <span class="job-label">{{ label }}</span>
-          <span v-if="i === 0 && factionLabel" class="faction-tag" :class="`fc-${char.faction}`">
-            {{ factionLabel }}
-          </span>
-        </div>
-        <div v-if="!charJobLabels.length" class="job-row mono dim">
-          <span class="job-label">직책 없음</span>
-        </div>
-        <button v-if="charJobLabels.length >= 2" class="job-toggle mono dim"
-                @click="jobsExpanded = !jobsExpanded">
-          {{ jobsExpanded ? '▲' : `▼ +${charJobLabels.length - 1}` }}
-        </button>
+        <div v-if="!charJobData.length" class="job-row mono dim">직책 없음</div>
+        <template v-else>
+          <div v-if="charJobData.length >= 2"
+               class="job-toggle-bar mono"
+               @click="jobsExpanded = !jobsExpanded">
+            <span>직책 {{ charJobData.length }}개</span>
+            <span class="job-arrow">{{ jobsExpanded ? '▲' : '▼' }}</span>
+          </div>
+          <div v-if="jobsExpanded || charJobData.length === 1"
+               v-for="j in charJobData" :key="j.jobCode"
+               class="job-row">
+            <span class="job-label serif">{{ j.nameKr }}</span>
+            <div class="job-right mono">
+              <span class="job-lv">Lv.{{ j.jobLevel }}</span>
+              <div class="job-exp-bar">
+                <div class="job-exp-fill" :style="{ width: `${j.jobExp}%` }" />
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+
+      <!-- 트레잇 -->
+      <div class="trait-section">
+        <TraitBadge
+          v-for="t in charTraits" :key="t.traitCode"
+          :trait="CHAR_TRAIT_MAP[t.traitCode]"
+          :char-trait="t"
+        />
+        <div v-if="!charTraits.length" class="no-trait mono dim">트레잇 없음</div>
       </div>
 
       <!-- 행동력 슬롯 -->
@@ -78,11 +104,13 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { charImgSrc, handleCharImgError, CHAR_PLACEHOLDER } from '@/utils/charImg'
+import TraitBadge from '@/components/char/TraitBadge.vue'
+import { CHAR_TRAITS, CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
 import { useGameStore } from '@/stores/gameStore'
 import { JOB_MAP } from '@/data/base/jobs/jobData'
-import { CHAR_JOBS } from '@/data/base/characters/charactersJobs'
-import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
+import { CHAR_JOBS } from '@/data/base/characters/charactersJobs.js'
 
 defineProps({ isOverlay: { type: Boolean, default: false } })
 defineEmits(['close'])
@@ -91,23 +119,72 @@ const game = useGameStore()
 
 const char = computed(() => game.playerChar)
 
-const charJobLabels = computed(() => {
-  if (!char.value) return []
-  return CHAR_JOBS
-    .filter(j => j.charCode === char.value.code)
-    .map(j => JOB_MAP[j.jobCode]?.nameKr ?? j.jobCode)
+const charJobData = computed(() => {
+  const code = char.value?.code
+  const posts = char.value?.currentPosts ?? []
+  return posts.map(jobCode => {
+    const entry = CHAR_JOBS.find(j => j.charCode === code && j.jobCode === jobCode)
+    return {
+      jobCode,
+      nameKr:   JOB_MAP[jobCode]?.nameKr ?? jobCode,
+      jobLevel: entry?.jobLevel ?? 0,
+      jobExp:   entry?.jobExp   ?? 0,
+    }
+  })
 })
 
-const jobsExpanded = ref(false)
-const visibleJobLabels = computed(() =>
-  jobsExpanded.value ? charJobLabels.value : charJobLabels.value.slice(0, 1)
+const charJobLabels = computed(() => charJobData.value.map(j => j.nameKr))
+
+const USER_LANG = 'Kr'  // TODO: 유저 설정에서 읽기
+
+const NAME_MIN_PX = 11
+const NAME_MAX_PX = 15
+const NAME_AVAIL  = 172  // 패널 최소폭(200) - 좌우패딩(28) = 172
+
+function _nameFit(str) {
+  if (!str) return NAME_MAX_PX
+  return Math.floor(NAME_AVAIL / (str.length * 1.15))
+}
+
+const displayName = computed(() => {
+  if (!char.value) return ''
+  const name = char.value[`name${USER_LANG}`] ?? char.value.nameKr
+  if (_nameFit(name) >= NAME_MIN_PX) return name
+  const nick = char.value[`nick${USER_LANG}`] ?? char.value.nickKr
+  return (nick && nick !== name) ? nick : name
+})
+
+const nameFontStyle = computed(() => ({
+  fontSize: Math.max(NAME_MIN_PX, Math.min(NAME_MAX_PX, _nameFit(displayName.value))) + 'px'
+}))
+
+const portraitMissing = ref(false)
+
+function onPortraitError(e) {
+  handleCharImgError(e, char.value?.code)
+  if (e.target.src.endsWith(CHAR_PLACEHOLDER.split('/').pop())) {
+    portraitMissing.value = true
+  }
+}
+
+watch(() => char.value?.code, () => { portraitMissing.value = false })
+
+const _FACTION_COLORS = { REH: '#c0392b', FPA: '#2980b9', PZN: '#27ae60' }
+
+const portraitBgStyle = computed(() => {
+  const color = _FACTION_COLORS[char.value?.faction]
+  if (!color) return {}
+  return {
+    background: `linear-gradient(160deg, #0a0f1c 20%, ${color}cc 100%)`
+  }
+})
+
+const charTraits = computed(() =>
+  CHAR_TRAITS.filter(t => t.charCode === char.value?.code)
+    .sort((a, b) => a.traitStDate - b.traitStDate)
 )
 
-const factionLabel = computed(() => {
-  if (!char.value) return ''
-  const found = FACTION_NAMES.find(n => n.factionId === char.value.faction && n.lang === 'Kr')
-  return found?.name ?? char.value.faction
-})
+const jobsExpanded = ref(false)
 
 // 행동력 슬롯 (항상 3개)
 const actionSlotDisplay = computed(() => {
@@ -143,7 +220,7 @@ function statClass(val) {
 <style scoped>
 /* ── 패널 기본 ───────────────────────────────────────────────────── */
 .char-panel {
-  width: clamp(160px, 20vw, 240px);
+  width: clamp(200px, 22vw, 280px);
   height: 100%;
   background: linear-gradient(180deg, #080e1a 0%, #050a12 100%);
   border-right: 1px solid var(--bd);
@@ -188,45 +265,84 @@ function statClass(val) {
 
 /* ── 이름 블록 ─────────────────────────────────────────────────── */
 .name-block {
-  padding: 16px 14px 10px;
+  padding: 12px 14px 10px;
   border-bottom: 1px solid var(--bd);
+  min-width: 0;
 }
 .name-kr {
-  font-size: clamp(15px, 1.6vw, 20px);
-  letter-spacing: 1px;
+  letter-spacing: .5px;
   line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: right;
 }
-.name-sub {
-  font-size: 9px; letter-spacing: .3px; margin-top: 4px;
-  display: flex; gap: 4px; flex-wrap: wrap;
+/* ── 초상화 ─────────────────────────────────────────────────────── */
+.portrait-wrap {
+  width: 100%;
+  background: var(--bg3);
+  border-bottom: 1px solid var(--bd);
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: background .3s;
 }
-.name-sep { opacity: .4; }
+.portrait-img {
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: top;
+}
+.portrait-hint {
+  padding: 4px 8px;
+  font-size: 9px;
+  letter-spacing: .3px;
+  text-align: center;
+  opacity: .5;
+  word-break: break-all;
+}
 
 /* ── 직책 ──────────────────────────────────────────────────────── */
 .job-list {
   border-bottom: 1px solid var(--bd);
 }
-.job-row {
-  display: flex; align-items: center; justify-content: space-between; gap: 4px;
+.job-toggle-bar {
+  display: flex; align-items: center; justify-content: space-between;
   padding: 5px 14px;
-  font-size: 10px; letter-spacing: .4px;
-}
-.job-row:first-child { padding-top: 8px; }
-.job-row:last-child  { padding-bottom: 8px; }
-.job-label { flex: 1; }
-.job-toggle {
-  width: 100%; padding: 3px 14px;
-  font-size: 9px; letter-spacing: .5px;
-  text-align: left; color: var(--td);
+  font-size: 10px; letter-spacing: .5px; color: var(--td);
+  background: var(--bg3);
+  border-bottom: 1px solid var(--bd);
   cursor: pointer; transition: color .13s;
 }
-.job-toggle:hover { color: var(--t2); }
-.faction-tag {
-  font-size: 9px; padding: 1px 5px;
-  border: 1px solid currentColor;
-  border-radius: 3px; opacity: .7;
-  flex-shrink: 0;
+.job-toggle-bar:hover { color: var(--t1); }
+.job-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 6px 14px;
+  font-size: 12px; letter-spacing: .5px;
+  color: var(--t1);
+  border-bottom: 1px solid rgba(255,255,255,.04);
 }
+.job-row:last-child { border-bottom: none; }
+.job-label { flex: 1; }
+.job-right {
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 3px; flex-shrink: 0;
+}
+.job-lv { font-size: 10px; color: var(--t2); }
+.job-exp-bar {
+  width: 40px; height: 3px;
+  background: var(--bd); border-radius: 2px; overflow: hidden;
+}
+.job-exp-fill {
+  height: 100%; background: var(--tg); border-radius: 2px; transition: width .3s;
+}
+.job-arrow { font-size: 8px; color: var(--td); }
+
+/* ── 트레잇 ─────────────────────────────────────────────────────── */
+.trait-section {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--bd);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.no-trait { font-size: 10px; padding: 2px 4px; }
 
 /* ── 행동력 슬롯 ────────────────────────────────────────────────── */
 .action-section {

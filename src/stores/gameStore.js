@@ -73,12 +73,18 @@ function buildState(scId, pf) {
   const _scJobs = _SCENARIO_CHAR_JOBS[sc.id] ?? []
   const _jobSrc = _scJobs.length ? _scJobs : _BASE_CHAR_JOBS
   const _initPostMap = {}
+  const _initPostsMap = {}
   _jobSrc.forEach(j => {
     if (!_initPostMap[j.charCode]) _initPostMap[j.charCode] = j.jobCode
+    ;(_initPostsMap[j.charCode] ??= []).push(j.jobCode)
   })
   const characters = {}
   Object.values(CHARACTERS).forEach(c => {
-    characters[c.code] = { ...c, currentPost: _initPostMap[c.code] ?? null }
+    characters[c.code] = {
+      ...c,
+      currentPost:  _initPostMap[c.code]  ?? null,
+      currentPosts: _initPostsMap[c.code] ?? [],
+    }
   })
   const fleets = {
     REH: [
@@ -314,6 +320,7 @@ export const useGameStore = defineStore('game', {
       const c = this.characters[charId]
       if (!c || c.faction !== this.playerFaction) return
       c.currentPost = post
+      if (!c.currentPosts.includes(post)) c.currentPosts.unshift(post)
       const dialog = this.playerFaction === 'REH' ? DIALOGS.APPOINTMENT.emperor : ''
       if (dialog) this.addLog(`[황제] ${dialog}`)
       this.addLog(`[임명] ${c.name} → ${post}`)

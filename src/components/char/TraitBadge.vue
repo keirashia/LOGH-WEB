@@ -147,7 +147,7 @@ const hasEffects = computed(() => Object.keys(props.trait.effects ?? {}).length 
 .tb-btn:active { background: var(--bgh); }
 
 .tb-rarity {
-  font-size: 1.8vh;
+  font-size: 9px;
   color: var(--rc);
   border: 1px solid var(--rc);
   padding: 1px 5px;
@@ -156,9 +156,10 @@ const hasEffects = computed(() => Object.keys(props.trait.effects ?? {}).length 
   letter-spacing: .5px;
 }
 .tb-name {
-  font-size: 2.0vh;
+  font-size: 12px;
   color: var(--t1);
   flex: 1;
+  letter-spacing: .5px;
 }
 .tb-right {
   display: flex;
@@ -168,12 +169,11 @@ const hasEffects = computed(() => Object.keys(props.trait.effects ?? {}).length 
   flex-shrink: 0;
 }
 .tb-lv {
-  font-size: 1.6vh;
-  color: var(--t1);
-  font-weight: 700;
+  font-size: 10px;
+  color: var(--t2);
 }
 .tb-exp-bar {
-  width: 6vw;
+  width: 40px;
   height: 3px;
   background: var(--bd);
   border-radius: 2px;

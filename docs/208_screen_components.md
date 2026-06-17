@@ -2,7 +2,7 @@
 > 분류: 화면
 > 경로: `docs/208_screen_components.md`
 > 상위: [200_SCREEN.md](200_SCREEN.md)
-> 최종 수정: 2026-06-17
+> 최종 수정: 2026-06-18
 
 ## 개요
 
@@ -134,9 +134,11 @@ info:      인물 / 함대 / 세력 / 성계*
 | `MenuPanel.vue` | BottomBar 카테고리 메뉴 슬라이드업 패널 |
 | `CharInfoPanel.vue` | 좌측 패널: 현재 플레이 인물 정보 (PC 상시노출 / 모바일 오버레이) |
 
-### CharInfoPanel.vue (신규)
+### CharInfoPanel.vue
 
 **목적**: 현재 플레이 중인 인물(playerChar)의 정보를 항상 볼 수 있도록 노출.
+
+**패널 폭**: `clamp(200px, 22vw, 280px)` (PC 고정) / 모바일 오버레이 시 `width: 100%`
 
 #### 반응형 동작
 
@@ -145,15 +147,45 @@ info:      인물 / 함대 / 세력 / 성계*
 | 가로(landscape, PC) | 항상 노출 — GalaxyMap 좌측에 고정 배치 |
 | 세로(portrait, 모바일) | 기본 숨김, 버튼(a-1) 터치 시 GalaxyMap 위 오버레이로 노출 |
 
-#### 컴포넌트 내용
+#### 컴포넌트 구성 (위→아래)
 
 ```
-[인물명] — kr 크게 / jp + en 서브
-[행동력 슬롯] × 3개  (매 턴 3회, default 빈칸)
-  슬롯 채워진 예시: "제안 : 작전 발의  (x)"
-[직업]
+[이름]
+  - USER_LANG(현재 'Kr' 하드코딩) 기준 nameKr 표시
+  - 글자 수 기반 동적 font-size: 11~15px (clamp 없이 JS 계산)
+  - 이름이 너무 길면(11px 미만 예상) nickKr로 자동 대체
+  - text-align: right
+
+[초상화]
+  - charImg.js 헬퍼 사용: {charCode}O_H.png → webp → jpg → N/T/F 버전 순 탐색
+  - 모두 없으면 CH_000000O_H.png (플레이스홀더)
+  - 플레이스홀더 시 이미지 아래 파일명 힌트 표시 ({charCode}O_H.png)
+  - 배경: 세력 색상 그라데이션 (#0a0f1c → {faction color}cc, 160deg)
+
+[직책]
+  - 직책 2개 이상: "직책 N개 ▼/▲" 토글 바 + 전체 행 열기/닫기
+  - 직책 1개: 토글 바 없이 직책 행만 표시
+  - 각 직책 행: 직책명(serif 12px) + Lv.N + 경험치 바(40px 골드)
+  - 데이터: CHAR_JOBS(base)에서 jobLevel/jobExp 조회, 없으면 0
+
+[트레잇]
+  - TraitBadge 컴포넌트 사용 (CHAR_TRAITS → charCode 필터)
+  - 없으면 "트레잇 없음"
+
+[행동력 슬롯] × 3  (매 턴 3회, 빈칸 기본)
+
 [능력치]  CMD / CSM / ATT / DEF / FST / MNG / INF / GFG / AFG / PLT
 ```
+
+**직책 데이터 흐름**:
+- `gameStore.buildState()` → 시나리오 `characters/charactersJobs.js` 로드
+- `character.currentPost` (string): 1순위 직책 — 결재체인 로직용
+- `character.currentPosts` (array): 전체 직책 코드 목록 — CharInfoPanel 표시용
+- `charJobData` computed: `currentPosts` × `CHAR_JOBS` 조인 → `{ jobCode, nameKr, jobLevel, jobExp }`
+
+**이미지 관련**:
+- `src/utils/charImg.js`: `charImgSrc(code)` + `handleCharImgError(e, code)` 사용
+- `CHAR_PLACEHOLDER`: `CH_000000O_H.png` (흑백 실루엣, 투명 배경)
 
 #### 버튼 (a-1) — 모바일 전용
 
@@ -268,3 +300,10 @@ const starMapData = computed(() => getStarMapByCode(sys.value.code ?? sys.value.
 - [x] **GameView.vue** 레이아웃 변경 — galaxy-area 래퍼 추가, isPortrait 기반 분기 — 2026-06-17
 - [x] 버튼(a-1) 모바일 토글 버튼 구현 (GalaxyMap 우측 북인덱스 형태) — 2026-06-17
 - [x] 뒤로가기 처리 (`popstate` 이벤트: activeModal 닫기 / showCharPanel 닫기) — 2026-06-17
+- [x] CharInfoPanel 이름 표시 개선 — lang 기반 단일 표시, 동적 font-size, nickKr 폴백 — 2026-06-18
+- [x] CharInfoPanel 초상화 영역 추가 — charImg.js 헬퍼, 세력 그라데이션 배경, 미등록 파일명 힌트 — 2026-06-18
+- [x] CharInfoPanel 직책 UI 개선 — 토글 바(직책 N개), Lv + 경험치 바 — 2026-06-18
+- [x] CharInfoPanel 트레잇 영역 추가 — TraitBadge 컴포넌트 연결 — 2026-06-18
+- [x] TraitBadge.vue 폰트 px 통일 (vh/vw → px) — 2026-06-18
+- [ ] CharInfoPanel USER_LANG 하드코딩 → 유저 스토어 lang 값 연동
+- [ ] 시나리오 charactersJobs.js에 jobLevel/jobExp 필드 추가

@@ -97,7 +97,7 @@ watchEffect(async () => {
   try {
     const [base, num] = props.event.id.split('_')
     const folder = num.padStart(2, '0')
-    const mod = await import(`@/data/scenario/${base}/${folder}/charList.js`)
+    const mod = await import(`@/data/scenario/${base}/${folder}/characters/charactersData.js`)
     charList.value = mod.CHAR_LIST
   } catch {
     charList.value = []
