@@ -24,8 +24,7 @@ const cvs    = ref(null)
 let aid = null
 
 function guestStart() {
-  auth.user = { id: 0, username: '게스트', email: '', isAdmin: false }
-  auth.isLoggedIn = true
+  auth.setMode('single')
   router.push('/lobby')
 }
 

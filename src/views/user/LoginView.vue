@@ -102,9 +102,8 @@ async function submit() {
   }
 }
 
-async function guestLogin() {
-  auth.user = { id: 0, username: '게스트', email: '', isAdmin: false }
-  auth.isLoggedIn = true
+function guestLogin() {
+  auth.setMode('single')
   router.push('/lobby')
 }
 
