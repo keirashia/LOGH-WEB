@@ -33,6 +33,9 @@
 //   return base;
 // }
 
+// 아래 주석에 TODO가 있는 항목(인물)은 변동이 있는 항목이니 체크해야함. 수정 완료 후 주석에서 TODO 부분은 삭제
+// 단 다른 시리즈에서의 능력치와 같은 참고형 영역은 유지가 필요함
+
 export const CHAR_BASE = [
   // D. 싱클레어
   {
@@ -44,6 +47,7 @@ export const CHAR_BASE = [
     nickKr: "싱클레어",
     nickEn: "Sinclair",
     nickJp: "シンクレア",
+    searchKeys: [], // TODO 다른 캐릭터에도 적용 필요
     birth: "SE|743.05.14",
     death: "SE|801.07.26",
     // — 성향
@@ -1504,6 +1508,7 @@ export const CHAR_BASE = [
     nickKr: "아텐보로",
     nickEn: "Attenborough",
     nickJp: "アッテンボロー",
+    searchKeys: ["아텐보로", "어텐보로", "Attemborough", "Attenborough"], // TODO 다른 캐릭터에도 적용 필요
     birth: "SE|769.11.23",
     death: "",
     // — 성향
@@ -1526,9 +1531,35 @@ export const CHAR_BASE = [
     statMmp: 75,
     // — 기타
     point: "0",
-    descKr: `자유행성동맹 소속의 군인. 양 웬리의 부하이자 친구, 그리고 사관학교 후배. 재치와 과단성을 자랑하는 명장으로 빠른 기동력을 앞세운 허를 찌르는 날카로운 공격이 주특기. 사회에 대한 불평불만이 많고 독설가이며 전쟁을 싫어하지만 뛰어난 재능을 가지고 있다.`,
+    descKr: `자유행성동맹 소속의 군인. 
+    재치와 과단성을 자랑하는 명장으로 빠른 기동력을 앞세운 허를 찌르는 날카로운 공격이 주특기.
+    사회에 대한 불평불만이 많고 독설가이며 전쟁을 싫어하지만 뛰어난 재능을 가지고 있다.`,
     descEn: ``,
     descJp: ``,
+    /** TODO 아스타데 회전 기준 2함대 소속의 부관으로 참전했음.
+     * JOBS에 JB_C001(자유행성동맹의 시민임) JB_MR008(당시 중령이었음)
+     * TRAITS
+     * src/data/base/trait/chars/charTraitData.js
+     * TRC_U_000043 등록 필요함. 명칭은 고민이 필요
+     * {
+        id: "TRC_U_000043",
+        nameKr: "",
+        nameEn: "",
+        nameJp: "",
+        rarity: "unique",
+        desc: "",
+        permanent: true,
+        effects: { statFst : +5 , statAtt: +5 },
+        conditionalEffects: [
+          {
+            trigger: "fleet_outnumbered",
+            effects: { statFst: +8, statAtt: +8, zocIgnore : true },
+          },
+        ],
+      },
+     * 
+     *
+     * */
   },
   {
     // — 기본
@@ -2089,6 +2120,7 @@ export const CHAR_BASE = [
     descEn: ``,
     descJp: ``,
   },
+  // 라오 Lao ラオ
   {
     // — 기본
     code: "CH_000060",
@@ -2120,9 +2152,15 @@ export const CHAR_BASE = [
     statMmp: 68,
     // — 기타
     point: "0",
-    descKr: `자유행성동맹 함대 지휘관. 아스타테 회전에서 양 웬리가 FPA 2함대 지휘권을 인수한 후 보좌역을 맡았다. 이후 더스티 아텐보로 휘하에서 복무했다.`,
-    descEn: `An Alliance fleet commander who assisted Yang Wen-li after he took over command of the FPA 2nd Fleet at the Battle of Astarte. He later served under Dusty Attenborough.`,
-    descJp: `自由惑星同盟の艦隊指揮官。アスターテ会戦でヤン・ウェンリーがFPA第2艦隊の指揮権を引き継いだ後、補佐役を務めた。その後ダスティ・アテンボロー麾下で服務した。`,
+    descKr: `자유행성동맹 소속의 군인`,
+    descEn: ``,
+    descJp: ``,
+    /** TODO 아스타데 회전 기준 2함대 소속의 부관으로 참전했음.
+     * JOBS에 JB_C001(자유행성동맹의 시민임) JB_MR008(당시 중령이었음)
+     * TRAITS
+     *
+     *
+     * */
   },
   {
     // — 기본
@@ -4867,13 +4905,13 @@ export const CHAR_BASE = [
     nickJp: "ムーア",
     birth: "",
     death: "SE|796.02.11",
-    // — 성향
+    // — 성향 (TODO 주석 참조하여 확인하고 수정 필요하면 수정)
     faction: "FPA",
-    idea: "100",
-    econ: "140",
-    brave: "80",
-    moral: "65",
-    friend: "120",
+    idea: "100", // 통제 자유경제 선호하는 것으로
+    econ: "140", // 살아있었으면 아마 구국군사회의 참가했을 것으로 보임
+    brave: "80", // 용맹 좀 더 높게
+    moral: "65", // 더 낮게
+    friend: "120", // 양웬리와는 극상성의 성격으로 보임.
     // — 능력치
     statCmd: 68,
     statCsm: 62,
@@ -4891,6 +4929,13 @@ export const CHAR_BASE = [
     참모의 조언을 무시하는 독단적 성격도 있지만, 엄격한 군율을 세우는데 능해 뛰어난 사령관 중 하나로 평가받고 있다.`,
     descEn: ``,
     descJp: ``,
+    /** TODO 아스타데 회전 기준 4함대 소속의 사령관
+     * JOBS에 JB_C001(자유행성동맹의 시민임) JB_MR008(당시 중장이었음)
+     * TRAITS 추가 필요
+     *  독선(범용) : 함대 사령관인 경우, 해당 함대는 다른 인물의 효과를 받지 않음
+     *  엄격한 군율(범용) : 함대 사령관인 경우, 해당 함대는
+     *
+     * */
   },
   {
     // — 기본
@@ -12901,16 +12946,30 @@ export const CHAR_BASE = [
     nickKr: "랍",
     nickEn: "Lapp",
     nickJp: "ラップ",
-    birth: "SE|767",
+    searchKeys: [
+      "잔",
+      "쟝",
+      "장",
+      "로베르",
+      "로벨",
+      "러프",
+      "랏프",
+      "랩",
+      "라프",
+    ],
+    birth: "SE|767.03.29",
     death: "SE|796.02.11",
     // — 성향
+    /** TODO 양웬리와 비슷한 성향으로 brave의 경우 당시 양웬리와의 차이가 좀 있음. 조금 더 용맹 */
     faction: "FPA",
     idea: "30",
     econ: "100",
     brave: "65",
     moral: "72",
     friend: "100",
-    // — 능력치 (TODO / 전면 재설계 필요.)
+    // — 능력치
+    /** TODO 전면 재설계 필요. 양 웬리보다 조금 낮지만, 어텐보로 말콤와이드본 보다는 조금 높음
+     *    전체적으로 육각형 */
     statCmd: 45,
     statCsm: 40,
     statAtt: 52,
@@ -12928,6 +12987,13 @@ export const CHAR_BASE = [
     // 사망 이후 시나리오에선 desc에 추가 '아스타테 회전에서 전사. 이후 양 웬리는 그의 이른 죽음을 두고두고 안타까워했다.'
     descEn: ``,
     descJp: ``,
+    /** TODO 아스타데 회전 기준 6함대 소속의 참모
+     * JOBS에 JB_C001(자유행성동맹의 시민임) JB_MR009(당시 소령이었음)
+     * TRAITS 추가 필요
+     * 그 역시 군인이 될 생각은 없었지만 양과 비슷한 사정으로 입대를 하게 되었고, 집단을 지도하는 역량과 아랫사람의 신뢰감을 사는 인격을 갖추어 지휘관으로서 제격인 인물이었다. 양도 외전 나선미궁에서 동기 중 가장 출세할 사람은 수석 말콤 와이드본이 아니라 랍이라고 생각했다.
+     *
+     *
+     * */
   },
   {
     // — 기본
@@ -16759,6 +16825,7 @@ export const CHAR_BASE = [
     nickKr: "파스톨레",
     nickEn: "Pastolle",
     nickJp: "パストーレ",
+    searchKeys: ["파스토레", "파스트레이", "파스톨"],
     birth: "",
     death: "SE|796.02.11",
     // — 성향
@@ -16769,6 +16836,8 @@ export const CHAR_BASE = [
     moral: "68",
     friend: "110",
     // — 능력치
+    /** TODO 파스톨레 / 무어 / 파에타는 비슷한 능력치로 표기하되, 파스톨레가 가장 높은 능력치를 보유하도록
+     */
     statCmd: 58,
     statCsm: 52,
     statAtt: 60,
@@ -16825,6 +16894,13 @@ export const CHAR_BASE = [
     역전의 용장이자 유능한 전술가라는 평을 들었지만 다소 독선적이고 성급한 성격을 가지고 있다.`,
     descEn: ``,
     descJp: ``,
+    /** TODO 아스타데 회전 기준 2함대 소속의 사령관
+     * JOBS에 JB_C001(자유행성동맹의 시민임) JB_MR008(당시 중장이었음)
+     * TRAITS 추가 필요
+     *  독선(범용) : 함대 사령관인 경우, 해당 함대는 다른 인물의 효과를 받지 않음
+     *  행운(범용) : 전투에서 사망하지 않음
+     *
+     * */
   },
   {
     // — 기본
@@ -17328,7 +17404,13 @@ export const CHAR_BASE = [
     nickJp: "フォーゲル",
     birth: "",
     death: "",
+    searchKeys: ["포겔"],
     // — 성향
+    /** TODO 슈타덴과 마찬가지로 라인하르트 폰 로엔그람에 대한 각개격파 작전을 비웃었고,
+     * 전투에선 소극적으로 행동하였으므로 아스타테 회전에선 별 활약도 하지 못해 진급되지 못했다.
+     * 처음 배속되었을 때부터 라인하르트에게 악감정을 가진 것을 보니 립슈타트 전역 때 립슈타트 귀족연합으로 갔을 것으로 보임
+     * 이를 반영하여 성향 재설계
+     *  */
     faction: "REH",
     idea: "250",
     econ: "180",
@@ -17351,6 +17433,12 @@ export const CHAR_BASE = [
     descKr: `은하제국의 함대 지휘관. 아스타테 회전에서 라인하르트 함대의 분함대 사령관으로 참전했다.`,
     descEn: `A fleet commander of the Galactic Empire. Participated in the Battle of Astarte as a sub-fleet commander under Reinhard's fleet.`,
     descJp: `銀河帝国の艦隊指揮官。アスターテ会戦ではラインハルト艦隊の分艦隊司令官として参戦した。`,
+    /** TODO 아스타데 회전 기준 소장
+     * JOBS에 JB_MR005(당시 소장이었음)
+     * TRAITS 추가 필요
+     *  독선(범용) : 함대 사령관인 경우, 해당 함대는 다른 인물의 효과를 받지 않음
+     *
+     * */
   },
   {
     // — 기본
@@ -18087,19 +18175,21 @@ export const CHAR_BASE = [
     descEn: `Commander of the Black Lancers, the most powerful offensive fleet in the Imperial Navy. Renowned for his fiery temperament and overwhelming assault tactics, he values battlefield momentum over the caution expected of a commander. His recklessness has brought him close to court-martial more than once, yet his firepower and charge are unmatched in the Empire.`,
     descJp: `黒色槍騎兵隊を率いる帝国軍最強の攻撃型提督。激しい気性と圧倒的な突撃戦術で知られ、指揮官としての慎重さより戦場の勢いを重んじる。無謀さから幾度も危機を招くが、その火力と突進力は帝国軍内でも独歩の存在である。`,
   },
+  // 플레겔 Flegel · フレーゲル
   {
     // — 기본
     code: "CH_000516",
     nameKr: "플레겔",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Flegel",
+    nameJp: "フレーゲル",
+    nickKr: "플레겔",
+    nickEn: "Flegel",
+    nickJp: "フレーゲル",
+    searchKeys: ["플레겔", "프레겔"],
+    birth: "SE|771.01.07",
+    death: "SE|797.09.23",
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
     brave: "",
@@ -18121,6 +18211,16 @@ export const CHAR_BASE = [
     descKr: ``,
     descEn: ``,
     descJp: ``,
+    /** TODO 아스타데 회전 기준 오딘에 있음.
+     * JOBS에 JB_N005(남작) JB_MR004(중장. 소장이라는 설정오류가 존재하나 중장이 맞음)
+     * TRAITS 추가 필요
+     *  독선(범용) : 함대 사령관인 경우, 해당 함대는 다른 인물의 효과를 받지 않음
+     *  모략의 대가(범용) : 제안, 모략 실행 시, 수락 확률에 보너스
+     *  아른거리는 그림자(범용) : 제안, 모략 실행 시, 보안도에 보너스
+     *  고귀한 혈통(범용) : 매 월의 1일마다 군사경험치 획득
+     *  문벌 귀족(범용) : 동일 트레잇 보유자와의 관계 +20, 동일 트레잇 미보유자와의 관계 -20
+     *  꽃밭을 망치는 해조 : 라인하르트와의 관계 -100
+     * */
   },
   {
     // — 기본
@@ -18472,19 +18572,21 @@ export const CHAR_BASE = [
     descEn: ``,
     descJp: ``,
   },
+  // 하이드리히 랑 Heydrich Lang · ハイドリッヒ・ラング
   {
     // — 기본
     code: "CH_000527",
     nameKr: "하이드리히 랑",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Heydrich Lang",
+    nameJp: "ハイドリッヒ・ラング",
+    nickKr: "랑",
+    nickEn: "Lang",
+    nickJp: "ラング",
+    searchKeys: ["하이드리히", "랭", "랑"],
+    birth: "SE|754.05.24",
+    death: "SE|801.05.18",
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
     brave: "",
@@ -18506,6 +18608,14 @@ export const CHAR_BASE = [
     descKr: ``,
     descEn: ``,
     descJp: ``,
+    /** TODO
+     * JOBS에 JB_N007(은하제국 귀족 작위 없음)
+     * TRAITS 추가 필요
+     *  소수의 지배(고유) : 성계 방위사령관, 행정관일 때, 매 월의 시작일에 해당 성계의 인구 1을 현재 국가 체제와 동일한 idea로 변경
+     *  모략의 대가(범용) : 제안, 모략 실행 시, 수락 확률에 보너스
+     *  아른거리는 그림자(범용) : 제안, 모략 실행 시, 보안도에 보너스
+     *  청렴함(범용) : 모략의 대상이 되었을 때, 성공확률에 -15%
+     * */
   },
   {
     // — 기본
@@ -18682,25 +18792,30 @@ export const CHAR_BASE = [
     descEn: ``,
     descJp: ``,
   },
+  // 한스 디트리히 폰 젝트 Hans Dietrich Von Seeckt ・ ハンス・ディートリッヒ・フォン・ゼークト
   {
     // — 기본
     code: "CH_000533",
     nameKr: "한스 디트리히 폰 젝트",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    birth: "",
-    death: "",
+    nameEn: "Hans Dietrich Von Seeckt",
+    nameJp: "ハンス・ディートリッヒ・フォン・ゼークト",
+    nickKr: "젝트",
+    nickEn: "Seeckt",
+    nickJp: "ゼークト",
+    searchKeys: ["한스", "디트리히", "젝트", "제크트"],
+    birth: "SE|746.03.08",
+    death: "SE|796.05.14",
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
     brave: "",
     moral: "",
     friend: "",
     // — 능력치
+    /** 4 통솔 72 운영 31 정보 24 기동 61 공격 76 방어 79 육전 48 공전 75 정치공작 2000(+4) 정보공작 1000(+4) 군사공작 3000(+16)
+     *  6 통솔 65 지휘 55 운영 42 정보 12 공격 72 방어 71 기동 67
+     */
     statCmd: 0,
     statCsm: 0,
     statAtt: 0,
@@ -18716,6 +18831,16 @@ export const CHAR_BASE = [
     descKr: ``,
     descEn: ``,
     descJp: ``,
+    /** TODO 아스타데 회전 기준 6함대 사령관으로 이제르론(알테나 성계) 주둔
+     * JOBS에 JB_N005(남작) JB_MR004(중장. 소장이라는 설정오류가 존재하나 중장이 맞음)
+     * TRAITS 추가 필요
+     *  독선(범용) : 함대 사령관인 경우, 해당 함대는 다른 인물의 효과를 받지 않음
+     *  모략의 대가(범용) : 제안, 모략 실행 시, 수락 확률에 보너스
+     *  아른거리는 그림자(범용) : 제안, 모략 실행 시, 보안도에 보너스
+     *  고귀한 혈통(범용) : 매 월의 1일마다 군사경험치 획득
+     *  문벌 귀족(범용) : 동일 트레잇 보유자와의 관계 +20, 동일 트레잇 미보유자와의 관계 -20
+     *  꽃밭을 망치는 해조 : 라인하르트와의 관계 -100
+     * */
   },
   {
     // — 기본

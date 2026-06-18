@@ -27,6 +27,8 @@
 | 108 | [108_data_turns.md](108_data_turns.md) | 턴 시스템 (1턴=1일, 서브턴, 날짜) | ✅ |
 | 109 | [109_data_stores.md](109_data_stores.md) | Pinia 스토어 개요, gameStore 상태/액션 | ✅ |
 | 110 | [110_data_init.md](110_data_init.md) | 게임 초기화 데이터 로드 흐름 | ✅ |
+| 111 | [111_data_auth.md](111_data_auth.md) | 인증 흐름 설계 (tempCode, findByTempCode, AppHeader 폴링) | 🔄 설계 완료, 구현 대기 |
+| 112 | [112_data_users.md](112_data_users.md) | 유저 데이터 모델 (포인트/잠금 해제/언어/업적) | 🔄 설계 완료, 구현 대기 |
 
 ## TODO
 - 각 상세 문서 내 TODO 항목 참조

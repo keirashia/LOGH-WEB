@@ -2,7 +2,7 @@
 > 분류: 화면
 > 경로: `docs/204_screen_lobby.md`
 > 상위: [200_SCREEN.md](200_SCREEN.md)
-> 최종 수정: 2026-06-17
+> 최종 수정: 2026-06-18
 
 ---
 
@@ -19,6 +19,16 @@ LobbyView          ← 이 문서
 ```
 
 ---
+
+## 컴포넌트 구조
+
+`LobbyView.vue`는 카드 데이터 정의만 담당하는 얇은 컴포넌트.
+슬라이더 로직(드래그/RAF/lift/히스토리/별배경) 전체는 `src/components/common/CardSliderLayout.vue`로 추출되어 있음.
+
+```
+LobbyView.vue
+└── CardSliderLayout.vue   (공용 컴포넌트 — 슬라이더/드래그/애니메이션/별배경 전담)
+```
 
 ## 레이아웃 구조
 
@@ -40,15 +50,15 @@ lobby-wrap (전체 화면, 별 배경 캔버스 포함)
 
 ```js
 const CARDS = [
-  { icon: '⚔️', title: '싱글플레이', desc: 'Single Play',  abbr: 'SGL', to: '/lobby/single' },
-  { icon: '🌌', title: '멀티플레이', desc: 'Multi Play',   abbr: 'MLT', multi: true },
-  { icon: '📖', title: '사전',       desc: 'Encyclopedia', abbr: 'ENC', to: '/lobby/encyclopedia' },
-  { icon: '🎓', title: '튜토리얼',   desc: 'Tutorial',     abbr: 'TUT', to: '/tutorial' },
+  { icon: '⚔️', title: '싱글플레이', desc: 'Single Play',  abbr: 'SGL', action: () => router.push('/lobby/single') },
+  { icon: '🌌', title: '멀티플레이', desc: 'Multi Play',   abbr: 'MLT', disabled: true },
+  { icon: '📖', title: '사전',       desc: 'Encyclopedia', abbr: 'ENC', action: () => router.push('/lobby/encyclopedia') },
+  { icon: '🎓', title: '튜토리얼',   desc: 'Tutorial',     abbr: 'TUT', disabled: true },
 ]
 ```
 
-- `to`: 이동 경로 (router.push)
-- `multi: true`: 로그인 필요. 미로그인 시 disabled 처리
+- `action`: 카드 클릭 시 실행할 함수 (router.push 등)
+- `disabled: true`: 해당 카드 비활성. 멀티플레이·튜토리얼은 현재 무조건 비활성 (추후 오픈 예정)
 - `desc`: 영문 설명 (카드 하단 보조 텍스트)
 
 ### 슬라이드 범위
@@ -235,10 +245,13 @@ function onBrowserBack() {
 | 2026-06-02 | 히스토리 처리: 백 버튼 → 타이틀 이동 |
 | 2026-06-02 | 텍스트 가로 전환 (writing-mode 제거) + 영문 설명(desc) 추가 |
 | 2026-06-02 | 텍스트 전체 vh 단위 통일 (모바일 가시성 개선) |
+| 2026-06-18 | 슬라이더/드래그/별배경 로직 → CardSliderLayout.vue 공용 컴포넌트로 추출. LobbyView는 카드 데이터 정의만 담당 |
+| 2026-06-18 | 카드 필드 `to` → `action(함수)` 으로 변경. 멀티플레이 `multi:true` → `disabled:true`, 튜토리얼 `to:'/tutorial'` → `disabled:true` |
 
 ---
 
 ## TODO
 
+- [ ] 멀티플레이/튜토리얼 `disabled: true` 가 의도된 상태인지 확인 후 소스에 주석으로 명시 (현재는 추후 오픈 예정으로 추정)
 - [ ] 멀티플레이 서버 연결 (Phase 3)
 - [ ] 모바일 스와이프 속도 튜닝 (momentum 추가 검토)

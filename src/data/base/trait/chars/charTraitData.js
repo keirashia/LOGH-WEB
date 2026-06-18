@@ -241,117 +241,117 @@ export const CHAR_TRAITS_MASTER = [
   },
 
   {
-    id:        'TRC_U_000006',
-    nameKr:    '제국의 금고',
-    nameEn:    'Imperial Treasury',
-    rarity:    'unique',
-    desc:      '제국 재정을 총괄하는 재무장관. 운영과 정치공작 능력이 향상된다.',
+    id: "TRC_U_000006",
+    nameKr: "제국의 금고",
+    nameEn: "Imperial Treasury",
+    rarity: "unique",
+    desc: "제국 재정을 총괄하는 재무장관. 운영과 정치공작 능력이 향상된다.",
     permanent: true,
     effects: { statMng: 8, statMmp: 6 },
   },
   {
-    id:        'TRC_U_000250',
-    nameKr:    '페잔의 앞잡이',
-    nameEn:    `Fezzan's Pawn`,
-    rarity:    'unique',
-    desc:      '페잔의 사주를 받아 제국 내부를 교란하는 정보 조작 전문가. 정보 능력이 높지만 발각 시 치명적인 페널티를 받는다.',
+    id: "TRC_U_000250",
+    nameKr: "페잔의 앞잡이",
+    nameEn: `Fezzan's Pawn`,
+    rarity: "unique",
+    desc: "페잔의 사주를 받아 제국 내부를 교란하는 정보 조작 전문가. 정보 능력이 높지만 발각 시 치명적인 페널티를 받는다.",
     permanent: true,
     effects: { statInf: 10, statMng: 5 },
     conditionalEffects: [
       {
         // TODO: exposed_as_spy — 첩보 발각 조건 (masterData.js)
-        trigger: 'exposed_as_spy',
+        trigger: "exposed_as_spy",
         effects: { statMmp: -30, statCsm: -20 },
       },
     ],
   },
   {
-    id:        'TRC_U_000306',
-    nameKr:    '최대 문벌',
-    nameEn:    'Greatest Noble House',
-    rarity:    'unique',
-    desc:      '골덴바움 왕조 최대 문벌귀족의 수장. 카리스마와 정치공작이 향상되나 군사적 판단력이 저하된다.',
+    id: "TRC_U_000306",
+    nameKr: "최대 문벌",
+    nameEn: "Greatest Noble House",
+    rarity: "unique",
+    desc: "골덴바움 왕조 최대 문벌귀족의 수장. 카리스마와 정치공작이 향상되나 군사적 판단력이 저하된다.",
     permanent: true,
     effects: { statCsm: 10, statMmp: 8, statCmd: -10 },
   },
   {
-    id:        'TRC_U_000198',
-    nameKr:    '허울뿐인 야망',
-    nameEn:    'Hollow Ambition',
-    rarity:    'unique',
-    desc:      '군사적 재능 없이 야망만 큰 귀족. 정치공작은 높지만 전투 능력 전반이 크게 저하된다.',
+    id: "TRC_U_000198",
+    nameKr: "허울뿐인 야망",
+    nameEn: "Hollow Ambition",
+    rarity: "unique",
+    desc: "군사적 재능 없이 야망만 큰 귀족. 정치공작은 높지만 전투 능력 전반이 크게 저하된다.",
     permanent: true,
     effects: { statMmp: 8, statCmd: -15, statAtt: -10 },
   },
   // 프리드리히 4세 트레잇
   {
-    id:        'TRC_U_000514',
-    nameKr:    '재의 황제',
-    nameEn:    'Kaiser of the Ashes',
-    rarity:    'unique',
-    desc:      '정사에 무관심하고 향락에 빠진 군주. 모든 통치 능력이 크게 저하되지만, 특정 조건에서 잠재된 통찰력이 깨어난다.',
+    id: "TRC_U_000514",
+    nameKr: "재의 황제",
+    nameEn: "Kaiser of the Ashes",
+    rarity: "unique",
+    desc: "정사에 무관심하고 향락에 빠진 군주. 모든 통치 능력이 크게 저하되지만, 특정 조건에서 잠재된 통찰력이 깨어난다.",
     permanent: true,
     effects: { statMng: -20, statInf: -15, statMmp: -15, statCsm: -10 },
     conditionalEffects: [
       {
         // TODO: IF 시나리오 전용 — 이벤트로 TRC_U_000514_B로 교체
-        trigger: 'scenario_if_enlightened',
+        trigger: "scenario_if_enlightened",
         effects: { statMng: 20, statInf: 15, statMmp: 15, statCsm: 10 },
       },
     ],
   },
   {
-    id:        'TRC_U_000514_B',
-    nameKr:    '일명견인',
-    nameEn:    'One Cry That Shakes the World',
-    nameJp:    '一鳴驚人',
-    rarity:    'unique',
-    desc:      '3년간 울지 않은 새가 한 번 울면 천하를 놀라게 한다. 오랜 방관과 침묵 속에 제국의 본질을 통찰한 군주가 마침내 날개를 펼친다. 초장왕이 3년의 무위 끝에 패업을 이루었듯, 잠든 사자의 각성은 주변 모든 것을 뒤흔든다.',
+    id: "TRC_U_000514_B",
+    nameKr: "일명견인",
+    nameEn: "One Cry That Shakes the World",
+    nameJp: "一鳴驚人",
+    rarity: "unique",
+    desc: "3년간 울지 않은 새가 한 번 울면 천하를 놀라게 한다. 오랜 방관과 침묵 속에 제국의 본질을 통찰한 군주가 마침내 날개를 펼친다. 초장왕이 3년의 무위 끝에 패업을 이루었듯, 잠든 사자의 각성은 주변 모든 것을 뒤흔든다.",
     permanent: true,
     effects: { statMng: 25, statInf: 20, statMmp: 20, statCsm: 15 },
   },
   {
-    id:        'TRC_U_000247',
-    nameKr:    '배신의 충의',
-    nameEn:    'Loyal Betrayal',
-    rarity:    'unique',
-    desc:      '주군에 대한 충성과 도덕적 신념 사이에서 갈등하는 무인. 육전 능력이 높으며 주군이 비도덕적 행동을 취할 때 반발 트리거가 발동한다.',
+    id: "TRC_U_000247",
+    nameKr: "배신의 충의",
+    nameEn: "Loyal Betrayal",
+    rarity: "unique",
+    desc: "주군에 대한 충성과 도덕적 신념 사이에서 갈등하는 무인. 육전 능력이 높으며 주군이 비도덕적 행동을 취할 때 반발 트리거가 발동한다.",
     permanent: true,
     effects: { statGfg: 8, statAtt: 5 },
     conditionalEffects: [
       {
         // TODO: lord_immoral_act — 주군의 비도덕적 행동 트리거 (masterData.js)
-        trigger: 'lord_immoral_act',
+        trigger: "lord_immoral_act",
         effects: { statMmp: -20 },
       },
     ],
   },
   {
-    id:        'TRC_U_000093',
-    nameKr:    '독사의 야망',
-    nameEn:    `Viper's Ambition`,
-    rarity:    'unique',
-    desc:      '아버지를 능가하려는 냉혹한 야망. 정보와 정치공작이 극대화되지만 도덕 수치가 낮고 발각 시 치명적 페널티를 받는다.',
+    id: "TRC_U_000093",
+    nameKr: "독사의 야망",
+    nameEn: `Viper's Ambition`,
+    rarity: "unique",
+    desc: "아버지를 능가하려는 냉혹한 야망. 정보와 정치공작이 극대화되지만 도덕 수치가 낮고 발각 시 치명적 페널티를 받는다.",
     permanent: true,
     effects: { statInf: 8, statMmp: 10 },
     conditionalEffects: [
       {
-        trigger: 'exposed_as_spy',
+        trigger: "exposed_as_spy",
         effects: { statMmp: -30, statCsm: -25 },
       },
     ],
   },
   {
-    id:        'TRC_U_000263',
-    nameKr:    '재앙의 기획자',
-    nameEn:    'Architect of Disaster',
-    rarity:    'unique',
-    desc:      '뛰어난 두뇌를 가졌으나 현실을 외면하는 야망가. 운영 능력이 높지만 전황이 불리해질수록 판단력이 급격히 저하된다.',
+    id: "TRC_U_000263",
+    nameKr: "재앙의 기획자",
+    nameEn: "Architect of Disaster",
+    rarity: "unique",
+    desc: "뛰어난 두뇌를 가졌으나 현실을 외면하는 야망가. 운영 능력이 높지만 전황이 불리해질수록 판단력이 급격히 저하된다.",
     permanent: true,
     effects: { statMng: 8 },
     conditionalEffects: [
       {
-        trigger: 'battle_disadvantaged',
+        trigger: "battle_disadvantaged",
         effects: { statMng: -20, statInf: -15 },
       },
     ],
@@ -386,321 +386,8 @@ export const CHAR_TRAITS_MASTER = [
     permanent: true,
     effects: {},
   },
-
-  // 오스카 폰 로이엔탈
-  {
-    charCode: "CH_000301",
-    traitCode: "TRC_U_000301",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 파울 폰 오베르슈타인
-  {
-    charCode: "CH_000481",
-    traitCode: "TRC_U_000481",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 프리츠 요제프 비텐펠트
-  {
-    charCode: "CH_000515",
-    traitCode: "TRC_U_000515",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 나이트하르트 뮐러
-  {
-    charCode: "CH_000032",
-    traitCode: "TRC_U_000032",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 울리히 케슬러
-  {
-    charCode: "CH_000335",
-    traitCode: "TRC_U_000335",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 코르넬리아스 루츠
-  {
-    charCode: "CH_000429",
-    traitCode: "TRC_U_000429",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 알렉산드르 뷰코크
-  {
-    charCode: "CH_000254",
-    traitCode: "TRC_U_000254",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 시드니 시톨레
-  {
-    charCode: "CH_000230",
-    traitCode: "TRC_U_000230",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 에드윈 피셔
-  {
-    charCode: "CH_000270",
-    traitCode: "TRC_U_000270",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 프레데리카 그린힐
-  {
-    charCode: "CH_000506",
-    traitCode: "TRC_U_000506",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 바그다쉬
-  {
-    charCode: "CH_000148",
-    traitCode: "TRC_U_000148",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 아우구스트 자무엘 바렌
-  {
-    charCode: "CH_000241",
-    traitCode: "TRC_U_000241",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 에르네스트 메크링거
-  {
-    charCode: "CH_000272",
-    traitCode: "TRC_U_000272",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 힐데가르트 폰 마린도르프
-  {
-    charCode: "CH_000559",
-    traitCode: "TRC_U_000559",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 더스티 아텐보로
-  { charCode: "CH_000043", traitCode: "TRC_U_000043", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 발터 폰 쇤코프
-  { charCode: "CH_000156", traitCode: "TRC_U_000156", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 알렉스 카젤느
-  { charCode: "CH_000255", traitCode: "TRC_U_000255", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 드와이트 그린힐
-  { charCode: "CH_000055", traitCode: "TRC_U_000055", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 제시카 에드워즈
-  { charCode: "CH_000371", traitCode: "TRC_U_000371", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 볼프강 미터마이어
-  {
-    charCode: "CH_000173",
-    traitCode: "TRC_U_000173",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
 ];
 
 export const CHAR_TRAIT_MAP = Object.fromEntries(
   CHAR_TRAITS_MASTER.map((t) => [t.id, t])
 );
-
-// ================================================================
-//  캐릭터-트레잇 할당 목록 (구 charactersTraits.js)
-//  charCode:     대상 캐릭터 키 (charactersData.js)
-//  traitCode:    대상 트레잇 키 (CHAR_TRAITS_MASTER)
-//  traitStDate:  취득 턴 (0=처음부터)
-//  traitEdDate:  종료 턴 (null=영구)
-// ================================================================
-
-export const CHAR_TRAITS = [
-  // 무어
-  {
-    charCode: "CH_000139",
-    traitCode: "TRC_U_000139",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 빌리바르트 요아힘 폰 메르카츠
-  {
-    charCode: "CH_000195",
-    traitCode: "TRC_U_000195",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 아달베르트 폰 파렌하이트
-  {
-    charCode: "CH_000233",
-    traitCode: "TRC_U_000233",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 양 웬리
-  {
-    charCode: "CH_000266",
-    traitCode: "TRC_U_000266",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  {
-    charCode: "CH_000266",
-    traitCode: "TRC_G_002",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 파에타
-  {
-    charCode: "CH_000479",
-    traitCode: "TRC_U_000479",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  {
-    charCode: "CH_000479",
-    traitCode: "TRC_G_001",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // 슈타덴
-  {
-    charCode: "CH_000223",
-    traitCode: "TRC_U_000223",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  {
-    charCode: "CH_000223",
-    traitCode: "TRC_G_001",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  {
-    charCode: "CH_000223",
-    traitCode: "TRC_S_001",
-    traitLv: 0,
-    traitExp: 0,
-    traitStDate: 0,
-    traitEdDate: null,
-  },
-  // ── 2026-06-15 추가 (CHAR_TRAITS_MASTER 내부에 잘못 배치된 항목 이관) ──
-  // 오스카 폰 로이엔탈
-  { charCode: "CH_000301", traitCode: "TRC_U_000301", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 파울 폰 오베르슈타인
-  { charCode: "CH_000481", traitCode: "TRC_U_000481", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 프리츠 요제프 비텐펠트
-  { charCode: "CH_000515", traitCode: "TRC_U_000515", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 나이트하르트 뮐러
-  { charCode: "CH_000032", traitCode: "TRC_U_000032", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 울리히 케슬러
-  { charCode: "CH_000335", traitCode: "TRC_U_000335", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 코르넬리아스 루츠
-  { charCode: "CH_000429", traitCode: "TRC_U_000429", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 알렉산드르 뷰코크
-  { charCode: "CH_000254", traitCode: "TRC_U_000254", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 시드니 시톨레
-  { charCode: "CH_000230", traitCode: "TRC_U_000230", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 에드윈 피셔
-  { charCode: "CH_000270", traitCode: "TRC_U_000270", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 프레데리카 그린힐
-  { charCode: "CH_000506", traitCode: "TRC_U_000506", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 바그다쉬
-  { charCode: "CH_000148", traitCode: "TRC_U_000148", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 아우구스트 자무엘 바렌
-  { charCode: "CH_000241", traitCode: "TRC_U_000241", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 에르네스트 메크링거
-  { charCode: "CH_000272", traitCode: "TRC_U_000272", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 힐데가르트 폰 마린도르프
-  { charCode: "CH_000559", traitCode: "TRC_U_000559", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 더스티 아텐보로
-  { charCode: "CH_000043", traitCode: "TRC_U_000043", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 발터 폰 쇤코프
-  { charCode: "CH_000156", traitCode: "TRC_U_000156", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 알렉스 카젤느
-  { charCode: "CH_000255", traitCode: "TRC_U_000255", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 드와이트 그린힐
-  { charCode: "CH_000055", traitCode: "TRC_U_000055", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 제시카 에드워즈
-  { charCode: "CH_000371", traitCode: "TRC_U_000371", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 볼프강 미터마이어
-  { charCode: "CH_000173", traitCode: "TRC_U_000173", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-
-  // ── 0615 패치 — 누락 할당 ────────────────────────────────────
-  { charCode: "CH_000017", traitCode: "TRC_U_000199", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },  // 그레고르 폰 뮈켄베르거
-  { charCode: "CH_000065", traitCode: "TRC_U_000065", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },  // 라자르 로보스
-  { charCode: "CH_000082", traitCode: "TRC_U_000082", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },  // 로열 샌포드
-  { charCode: "CH_000224", traitCode: "TRC_U_000224", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },  // 슈타인호프
-  { charCode: "CH_000234", traitCode: "TRC_U_000234", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },  // 아드리안 루빈스키
-  { charCode: "CH_000271", traitCode: "TRC_U_000271", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },  // 에렌베르크
-  { charCode: "CH_000329", traitCode: "TRC_U_000329", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },  // 욥 트류니히트
-  { charCode: "CH_000377", traitCode: "TRC_U_000377", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },  // 조안 레벨로
-  { charCode: "CH_000462", traitCode: "TRC_U_000462", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },  // 클라우스 폰 리히텐라데
-  { charCode: "CH_000505", traitCode: "TRC_U_000505", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },  // 프란츠 폰 마린도르프
-  { charCode: "CH_000554", traitCode: "TRC_U_000554", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },  // 황 루이
-  // 겔라흐 — 0616 추가
-  { charCode: "CH_000006", traitCode: "TRC_U_000006", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 안톤 힐머 폰 샤프트
-  { charCode: "CH_000250", traitCode: "TRC_U_000250", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 오토 폰 브라운슈바이크
-  { charCode: "CH_000306", traitCode: "TRC_U_000306", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 빌헬름 폰 리텐하임
-  { charCode: "CH_000198", traitCode: "TRC_U_000198", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 프리드리히 폰 골덴바움 4세
-  { charCode: "CH_000514", traitCode: "TRC_U_000514", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 안스바흐
-  { charCode: "CH_000247", traitCode: "TRC_U_000247", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 루퍼트 케셀링크
-  { charCode: "CH_000093", traitCode: "TRC_U_000093", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-  // 앤드류 포크
-  { charCode: "CH_000263", traitCode: "TRC_U_000263", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
-];

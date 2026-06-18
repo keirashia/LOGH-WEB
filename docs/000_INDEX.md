@@ -29,7 +29,9 @@ docs/
 ├── 108_data_turns.md      턴 시스템
 ├── 109_data_stores.md     Pinia 스토어
 ├── 110_data_init.md       게임 초기화
-│   111~199 여유
+├── 111_data_auth.md       인증 흐름 설계 (tempCode, findByTempCode, AppHeader 폴링)
+├── 112_data_users.md      유저 데이터 모델 (포인트/잠금 해제/언어/업적)
+│   113~199 여유
 │
 ├── 200_SCREEN.md          화면 총괄
 ├── 201_screen_design.md   디자인 시스템
@@ -150,6 +152,9 @@ docs/
 | 🟢 | 민란 시스템 | morale < 20 → 반란 |
 | 🟢 | AI 개선 | 전략적 함대 건조, 세력별 성격 |
 | 🟢 | LOGH-API schema.sql 재작성 | 새 code 체계 반영 |
+| 🟡 | 인증 흐름 구현 | authStore.findByTempCode + TitleView [시작] 연결 (docs/111_data_auth.md) |
+| 🟡 | 유저 데이터 모델 구현 | langPref/achievements/userUnlocks 구조 추가 (docs/112_data_users.md) |
+| 🟡 | LOGH-API 유저 DB 정리 | UUID 타입 수정/충돌 방지/신규 테이블 (LOGH-API/docs/001_api_user.md) |
 | ✅ | 누락 상세 MD 작성 | 102~106 전체 작성 완료 (2026-06-17) |
 
 ### ⬜ 예정 (Phase 2~3)

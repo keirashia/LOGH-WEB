@@ -307,6 +307,7 @@ router
 ### 진행 중
 - [ ] `ScenarioDetailView.vue` 신규 작성 (전체 화면, route.params.scId 기반)
 - [ ] `ScenarioSelectView.vue` 신규 작성 (Step1 타임라인, legacy/Step1HistoryGraph 이식)
+- [ ] `router/index.js` `scenario-select` 라우트 교체: legacy/ScenarioSelectView.vue → 신규 ScenarioSelectView.vue (나머지 3개 라우트는 이미 신규 경로 참조 중이므로 이 항목만 누락 상태)
 - [ ] `router/index.js` 신규 라우트 4개 추가
 - [ ] `lobbyStore.js` 신규 생성 (options 공유)
 - [ ] `Step2GameOptions.vue` legacy → scenario/ 이동 + emit → router 전환
@@ -318,7 +319,7 @@ router
 - [ ] nameEn 카드 노출 여부 결정
 - [ ] appearances 화면 노출 방안 결정
 - [ ] factions 세력 뱃지 표시 여부 결정
-- [ ] legacy/ 폴더 삭제 (마이그레이션 완료 후)
+- [ ] legacy/ 폴더 삭제 (마이그레이션 완료 후 — 삭제 전 잔존 참조 없는지 grep 확인 필수)
 
 ### 완료
 - [x] `ScenarioDetail.vue` 신규 생성 (desc[] 페이지, libs, 버튼 분기)
