@@ -9,27 +9,58 @@ import {
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { STAR_SYSTEMS } from '@/data/base/stars/starSystemData'
 import { CHAR_JOBS as _BASE_CHAR_JOBS } from '@/data/base/characters/charactersJobs'
-import { CHAR_JOBS as _CHAR_JOBS_SE796_10 } from '@/data/scenario/SE796/10/characters/charactersJobs'
-import { STAR_DETAIL as _DETAIL_SE796_10 } from '@/data/scenario/SE796/10/starDetail'
-import { STAR_DETAIL as _DETAIL_SE745_1  } from '@/data/scenario/SE745/01/starDetail'
-import { STAR_DETAIL as _DETAIL_SE640_1  } from '@/data/scenario/SE640/01/starDetail'
 
-const _SE796_10_MAP = Object.fromEntries(_DETAIL_SE796_10.map(d => [d.code, d]))
-
-const _SCENARIO_CHAR_JOBS = {
-  'SE796_10': _CHAR_JOBS_SE796_10,
-  'SE796_11': _CHAR_JOBS_SE796_10,
-  'SE796_12': _CHAR_JOBS_SE796_10,
-  'SE796_13': _CHAR_JOBS_SE796_10,
+// scId → 폴더 경로 파생: SE796_0211_010 → 'SE796/0211/010'
+function _scPath(scId) {
+  const [y, m, s] = scId.split('_')
+  return `${y}/${m}/${s}`
 }
 
-const _SCENARIO_DETAIL_MAP = {
-  'SE796_10': _SE796_10_MAP,
-  'SE796_11': _SE796_10_MAP,
-  'SE796_12': _SE796_10_MAP,
-  'SE796_13': _SE796_10_MAP,
-  'SE745_1':  Object.fromEntries(_DETAIL_SE745_1.map(d => [d.code, d])),
-  'SE640_1':  Object.fromEntries(_DETAIL_SE640_1.map(d => [d.code, d])),
+async function _loadScenarioFiles(scId) {
+  const [y, m, s] = scId.split('_')
+  const results = await Promise.allSettled([
+    import(/* @vite-ignore */ `@/data/scenario/${y}/${m}/${s}/starDetail.js`),
+    import(/* @vite-ignore */ `@/data/scenario/${y}/${m}/${s}/characters/charactersJobs.js`),
+    import(/* @vite-ignore */ `@/data/scenario/${y}/${m}/${s}/fleet/fleetData.js`),
+    import(/* @vite-ignore */ `@/data/scenario/${y}/${m}/${s}/fleet/fleetCharacterData.js`),
+    import(/* @vite-ignore */ `@/data/scenario/${y}/${m}/${s}/fleet/fleetShipData.js`),
+    import(/* @vite-ignore */ `@/data/scenario/${y}/${m}/${s}/fleet/fleetTraitData.js`),
+  ])
+  const get = i => results[i].status === 'fulfilled' ? results[i].value : null
+  return {
+    starDetail:    get(0)?.STAR_DETAIL             ?? [],
+    charJobs:      get(1)?.CHAR_JOBS               ?? null,
+    fleetData:     get(2)?.FLEET_DATA              ?? [],
+    fleetCharData: get(3)?.FLEET_CHARACTER_DATA    ?? [],
+    fleetShipData: get(4)?.FLEET_SHIP_DATA         ?? [],
+    fleetTraitData:get(5)?.FLEET_TRAIT_DATA        ?? [],
+  }
+}
+
+function _buildFleets(fleetData, fleetCharData, fleetShipData) {
+  const result = { REH: [], FPA: [], PZN: [] }
+  if (!fleetData?.length) return result
+  for (const fleet of fleetData) {
+    if (fleet.parentFlt) continue
+    if (!result[fleet.faction]) continue
+    const baseCode = fleet.fltCode.slice(0, 6)
+    const commander = fleetCharData.find(fc => fc.fltCode === baseCode && fc.type === 'C')
+    const totalShips = fleetShipData
+      .filter(fs => fs.fltCode === baseCode)
+      .reduce((sum, s) => sum + (s.shipAmt || 0), 0)
+    result[fleet.faction].push({
+      id:       fleet.fltCode,
+      name:     fleet.fltName,
+      commander:commander?.charCode ?? null,
+      ships:    totalShips,
+      maxShips: totalShips,
+      location: fleet.fltLoc || null,
+      status:   'standby',
+      target:   null,
+      upkeep:   Math.ceil(totalShips / 500),
+    })
+  }
+  return result
 }
 
 const _DEFAULTS = {
@@ -42,9 +73,10 @@ const _DEFAULTS = {
   neutral:   { population: 50,  industry: 40, defense: 40 },
 }
 
-function buildState(scId, pf) {
+function buildState(scId, pf, extraData = {}) {
   const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]
-  const _detailMap = _SCENARIO_DETAIL_MAP[sc.id] || {}
+  const { starDetail = [], charJobs = null, fleetData = [], fleetCharData = [], fleetShipData = [] } = extraData
+  const _detailMap = Object.fromEntries((starDetail || []).map(d => [d.code, d]))
   const systems = {}
   STAR_SYSTEMS.forEach(s => {
     const d = _detailMap[s.code] || {}
@@ -66,12 +98,11 @@ function buildState(scId, pf) {
     }
   })
   const resources = {
-    REH:   { gold: 5000 },
+    REH: { gold: 5000 },
     FPA: { gold: 4500 },
-    PZN:  { gold: 8000 },
+    PZN: { gold: 8000 },
   }
-  const _scJobs = _SCENARIO_CHAR_JOBS[sc.id] ?? []
-  const _jobSrc = _scJobs.length ? _scJobs : _BASE_CHAR_JOBS
+  const _jobSrc = charJobs?.length ? charJobs : _BASE_CHAR_JOBS
   const _initPostMap = {}
   const _initPostsMap = {}
   _jobSrc.forEach(j => {
@@ -86,18 +117,7 @@ function buildState(scId, pf) {
       currentPosts: _initPostsMap[c.code] ?? [],
     }
   })
-  const fleets = {
-    REH: [
-      { id:'E_1ST',  name:'제1함대',      commander:'CH_000173', ships:15000, maxShips:15000, location:'230058', status:'standby', target:null, upkeep:30 },
-      { id:'E_2ND',  name:'제2함대',      commander:'CH_000301', ships:15000, maxShips:15000, location:'230058', status:'standby', target:null, upkeep:30 },
-      { id:'E_3RD',  name:'흑색창기함대', commander:'CH_000515', ships:13000, maxShips:13000, location:'230002', status:'standby', target:null, upkeep:26 },
-    ],
-    FPA: [
-      { id:'A_1ST',  name:'제1함대',  commander:'CH_000266', ships:15000, maxShips:15000, location:'230006', status:'standby', target:null, upkeep:30 },
-      { id:'A_13TH', name:'제13함대', commander:'CH_000043', ships:12000, maxShips:12000, location:'230055', status:'standby', target:null, upkeep:24 },
-    ],
-    PZN: [],
-  }
+  const fleets = _buildFleets(fleetData, fleetCharData, fleetShipData)
   return {
     sc, playerFaction: pf,
     year: sc.year, impYear: sc.year - 309, month: sc.month ?? 1, day: sc.date ?? 1, turn: 1,
@@ -153,8 +173,9 @@ export const useGameStore = defineStore('game', {
   },
 
   actions: {
-    startGame(scId, pf, charCode = null) {
-      const fresh = buildState(scId, pf)
+    async startGame(scId, pf, charCode = null) {
+      const extraData = await _loadScenarioFiles(scId)
+      const fresh = buildState(scId, pf, extraData)
       Object.assign(this.$state, { initialized: true, ...fresh })
       if (charCode) this.playerCharCode = charCode
       const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]

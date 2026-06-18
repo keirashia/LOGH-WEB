@@ -112,9 +112,9 @@ function openLib(lib) {
   else if (prefix === 'CH_') { enc.open('characters'); enc.searchQuery = label }
 }
 
-function onStart() {
+async function onStart() {
   if (lobby.selectedFaction) {
-    game.startGame(cur.value.id, lobby.selectedFaction, lobby.selectedCharCode)
+    await game.startGame(cur.value.id, lobby.selectedFaction, lobby.selectedCharCode)
     lobby.selectedFaction  = null
     lobby.selectedCharCode = null
     router.push('/game')

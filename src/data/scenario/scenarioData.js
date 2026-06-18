@@ -24,6 +24,8 @@
     desc : [] 형태로 저장. 해당 시나리오 선택 시, 팝업으로 해당 시나리오를 설명한다.
  */
 
+import { SCENARIO_DESC as _DESC_SE796_010 } from './SE796/0211/010/scenarioDesc.js'
+
 export const SCENARIOS = [
   /** @서력 (AD) */
   // A.D 2039 - 13일 전쟁
