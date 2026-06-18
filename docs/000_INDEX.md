@@ -154,8 +154,10 @@ docs/
 | 🟢 | AI 개선 | 전략적 함대 건조, 세력별 성격 |
 | 🟢 | LOGH-API schema.sql 재작성 | 새 code 체계 반영 |
 | 🟡 | 인증 흐름 구현 | authStore.findByTempCode + TitleView [시작] 연결 (docs/111_data_auth.md) |
-| 🟡 | 유저 데이터 모델 구현 | langPref/achievements/userUnlocks 구조 추가 (docs/112_data_users.md) |
+| 🟡 | 유저 데이터 모델 구현 | langPref/achievements 구조 추가 — userUnlocks는 완료 (docs/112_data_users.md) |
 | 🟡 | LOGH-API 유저 DB 정리 | UUID 타입 수정/충돌 방지/신규 테이블 (LOGH-API/docs/001_api_user.md) |
+| 🟡 | 시나리오 저장/불러오기 | 파일 내보내기 방식 구현 (docs/113_data_save.md) |
+| 🟡 | legacy/ 폴더 삭제 | ScenarioSelectView 마이그레이션 완료 — grep 확인 후 삭제 |
 | ✅ | 누락 상세 MD 작성 | 102~106 전체 작성 완료 (2026-06-17) |
 
 ### ⬜ 예정 (Phase 2~3)

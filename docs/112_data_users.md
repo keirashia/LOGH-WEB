@@ -51,41 +51,31 @@ auth.user = {
 3. openPt > 0      → 포인트 구매 필요. 유저별 구매 이력 확인.
 ```
 
-### 데이터 구조 (설계안)
-
-유저별 구매·해금 이력. LOGH-API `TBL_USER_SCENARIO` / `TBL_USER_CHARACTER` 테이블 기반.  
-(테이블 DDL은 `LOGH-API/docs/001_api_user.md` 4-6 참조)
+### 데이터 구조
 
 ```js
-// 프론트 캐시 구조 (lobbyStore 또는 authStore에 추가 예정)
+// lobbyStore.userUnlocks (구현 완료 — 2026-06-18)
 userUnlocks: {
-  scenarios:   ['SE796_1', 'SE640_3', ...],   // 해금된 scenarioId 목록
-  characters:  ['CH_000064', ...],            // 해금된 charCode 목록
+  scenarios:   ['SE796_0211_011', ...],   // 해금된 scenarioId 목록
+  characters:  ['CH_000064', ...],        // 해금된 charCode 목록
 }
 ```
+
+localStorage 키: `logh_unlocks` — 오프라인 영속. API 연동 시 서버 DB와 동기화 예정.
 
 ### 잠금 판정 로직 위치
 
 - `ScenarioDetailView.vue` — openPt > 0 시나리오의 [구매] 버튼 표시 여부 판정
 - `ScenarioOptionsView.vue` — 동일 (진입 시 재확인)
 
-### 구매/해금 액션 흐름 (함수 시그니처 설계)
+### 구매/해금 액션 (lobbyStore — 구현 완료)
 
 ```js
-// authStore.js (또는 lobbyStore.js)
-async purchaseScenario(scenarioId) {
-  // 1. auth.points >= openPt 확인
-  // 2. auth.points 차감
-  // 3. LOGH-API에 TBL_USER_SCENARIO INSERT (UNLOCK_TYPE: 'POINT_PURCHASE')
-  // 4. userUnlocks.scenarios에 scenarioId 추가
-}
-
-async purchaseCharacter(charCode) {
-  // 동일 패턴
-}
+purchaseScenario(scId)          // auth.points 차감 + userUnlocks 추가 + localStorage 저장
+unlockScenarioByAchievement(scId) // 업적 해금 (openPt: "-" 시나리오)
 ```
 
-현재 `[🔒 Npt로 구매]` 버튼은 `ScenarioDetailView.vue`에 있으나 클릭 핸들러 미구현.
+> `[🔒 Npt로 구매]` 버튼 클릭 핸들러 연결은 미완료 — `ScenarioDetailView.vue` TODO 참조.
 
 ---
 
@@ -144,10 +134,11 @@ LOGH-API `TBL_ACHIEVEMENT_MASTER` / `TBL_USER_ACHIEVEMENT` 참조 (`LOGH-API/doc
 - [ ] `auth.user`에 `langPref` 필드 추가 (초기값: `'kr'`)
 - [ ] `auth.user`에 `achievements: []` 필드 추가
 - [ ] `src/utils/i18n.js` 신규 작성 — `getLocalizedName(obj, langPref)` 함수 구현
-- [ ] `authStore.js` 또는 `lobbyStore.js`에 `userUnlocks: { scenarios, characters }` 상태 추가
+- [x] `lobbyStore.js`에 `userUnlocks: { scenarios, characters }` 상태 추가 — 2026-06-18
 
 ### 구매/해금 로직
-- [ ] `purchaseScenario(scenarioId)` 액션 구현 (인증 흐름 완료 후)
+- [x] `purchaseScenario(scId)` 액션 구현 (lobbyStore) — 2026-06-18
+- [x] `unlockScenarioByAchievement(scId)` 액션 구현 (lobbyStore) — 2026-06-18
 - [ ] `purchaseCharacter(charCode)` 액션 구현 (인증 흐름 완료 후)
 - [ ] `ScenarioDetailView.vue` [🔒 Npt로 구매] 버튼 클릭 핸들러 연결
 

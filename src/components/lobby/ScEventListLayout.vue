@@ -95,6 +95,9 @@
 <script setup>
 import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
+import { useLobbyStore } from '@/stores/lobbyStore'
+
+const lobby = useLobbyStore()
 
 const TAG_COLORS = {
   '사실':       '#4488FF',
@@ -131,7 +134,7 @@ const prevPlayable = computed(() => {
   const gIdx = currentScGlobalIdx.value
   if (gIdx === -1) return null
   for (let i = gIdx - 1; i >= 0; i--) {
-    if (SCENARIOS[i].useYn) return SCENARIOS[i]
+    if (SCENARIOS[i].useYn && SCENARIOS[i].showYn !== false) return SCENARIOS[i]
   }
   return null
 })
@@ -140,7 +143,7 @@ const nextPlayable = computed(() => {
   const gIdx = currentScGlobalIdx.value
   if (gIdx === -1) return null
   for (let i = gIdx + 1; i < SCENARIOS.length; i++) {
-    if (SCENARIOS[i].useYn) return SCENARIOS[i]
+    if (SCENARIOS[i].useYn && SCENARIOS[i].showYn !== false) return SCENARIOS[i]
   }
   return null
 })
@@ -237,6 +240,7 @@ function handleCard(sc, i) {
   if (dragDist > 5) return
   if (i !== currentCard.value) { goToCard(i); return }
   if (liftingCard.value !== -1) return
+  if (!lobby.isScenarioUnlocked(sc.id)) return
   liftingCard.value = i
   setTimeout(() => {
     liftingCard.value = -1

@@ -6,36 +6,36 @@
 
 ---
 
-## 화면 Flow (신규 라우팅 구조)
+## 화면 Flow
 
 ```
 LobbyView
   ↓ 싱글플레이
-SingleView
-  ↓ 새 게임
-/lobby/single/new          Step 1.   역사 그래프 + 사건 목록
-/lobby/single/new/:scId    Step 1-1. 시나리오 상세 (전체 화면)
-/lobby/single/new/:scId/options    Step 2.   게임 옵션
-/lobby/single/new/:scId/char       Step 3.   인물 선택
+SingleView  →  lobby.loadUnlocks()  →  router.push('/lobby/single/new')
   ↓
-GameView
+/lobby/single/new                  Step 1.  역사 타임라인 + 사건 카드
+/lobby/single/new/:scId/options    Step 2.  게임 옵션 (variant 선택 포함)
+/lobby/single/new/:scId/char       Step 3.  인물 선택
+  ↓
+GameView  (game.startGame() async 완료 후 이동)
 ```
 
 ### 라우팅 전환 규칙
 ```
-Step1  사건 카드 클릭  → router.push(`/lobby/single/new/${scId}`)
-Step1-1 [▶ 시작]      → router.push(`/lobby/single/new/${scId}/options`)
-Step1-1 [← 뒤로]      → router.back()  (플랫폼 내장 히스토리)
+Step1  사건 카드 클릭  → isScenarioUnlocked 체크 → router.push(`/lobby/single/new/${scId}/options`)
 Step2  [다음]          → router.push(`/lobby/single/new/${scId}/char`)
 Step2  [← 뒤로]       → router.back()
-Step3  [게임 시작]     → game.startGame() + router.push('/game')
+Step3  [게임 시작]     → await game.startGame() + router.push('/game')
 Step3  [← 뒤로]       → router.back()
 ```
 
+> **Step 1-1 (시나리오 상세) 제거**: 선택 → 옵션으로 바로 이동. `ScenarioDetailView.vue`는 `/lobby/single/new/:scId` 라우트로 존재하나 현재 Step1에서 직접 진입하지 않음.
+
 ### 상태 공유
 ```
-scId    : URL 파람으로 전달 (새로고침 복원 가능)
-options : lobbyStore (Pinia) — npcAppearance, npcBehavior
+scId         : URL 파람으로 전달 (새로고침 복원 가능)
+options      : lobbyStore — npcAppearance, npcBehavior
+userUnlocks  : lobbyStore — scenarios[], characters[] (localStorage 연동)
 ```
 
 > **히스토리 관리**: router.push/back 위임으로 AOS/iOS/Web 플랫폼 내장 히스토리가
@@ -47,12 +47,11 @@ options : lobbyStore (Pinia) — npcAppearance, npcBehavior
 
 ```
 src/views/lobby/scenario/
-├── scenarioScreen.md          ← 이 파일 (설계 문서)
-├── ScenarioSelectView.vue     ← Step1 (신규, 예정)
-├── ScenarioDetailView.vue     ← Step1-1 전체 화면 (신규, 예정)
-├── Step2GameOptions.vue       ← Step2 (legacy → 이동 예정)
-├── Step3CharSelect.vue        ← Step3 (legacy → 이동 예정)
-└── legacy/                    ← 기존 파일 보관 (마이그레이션 완료 후 삭제)
+├── ScenarioSelectView.vue     ← Step1 ✅ 완료
+├── ScenarioDetailView.vue     ← Step1-1 전체 화면 ✅ 완료 (현재 직접 진입 안 함)
+├── ScenarioOptionsView.vue    ← Step2 ✅ 완료
+├── ScenarioCharSelectView.vue ← Step3 ✅ 완료
+└── legacy/                    ← 삭제 대상 (grep 확인 후)
     ├── ScenarioSelectView.vue
     ├── ScenarioDetail.vue
     ├── Step1HistoryGraph.vue
@@ -60,20 +59,26 @@ src/views/lobby/scenario/
     ├── Step3CharSelect.vue
     ├── CharSelectGrid.vue
     └── FactionFilter.vue
+
+src/components/lobby/
+├── ScTimelineLayout.vue       ← 타임라인 좌측 패널
+└── ScEventListLayout.vue      ← 사건 카드 우측 패널
+                                  isScenarioUnlocked 체크 내장 (useLobbyStore)
+                                  prevPlayable/nextPlayable: showYn !== false 필터 적용
 ```
 
 ---
 
-## Step 1 — 역사 그래프 ✅ 구현됨 (legacy)
+## Step 1 — 역사 타임라인 ✅ 구현됨 (`ScenarioSelectView.vue`)
 
 ```
-좌: 수직 타임라인 (밀도 기반, 줌/드래그)
-우: 선택 연도의 사건 목록
+좌: 수직 타임라인 (ScTimelineLayout) — 밀도 기반, 줌/드래그
+우: 선택 연도의 사건 카드 슬라이더 (ScEventListLayout)
 
 연대 구분: yearType 기준으로 ERA_ORDER 정렬 (AD → SE → RC)
 연도 표시: {yearType} {year}년  (SE 이면 / 제국력 {year-309}년 병기)
 연도 핀:  클릭 시 우측 사건 목록 갱신
-사건 카드: 태그 + 사건명 + 월 + ★(useYn)
+사건 카드: 태그 + 사건명 + 월
 절단선:   era 전환 또는 연도 공백이 클 때 표시
 ```
 
@@ -85,7 +90,21 @@ ERA_ORDER = { AD: 0, SE: 1, RC: 2 }
 // 복합키: `${yearType}_${year}` 로 연도 구분 (AD2039 ≠ SE2039)
 ```
 
-### 사건 카드 클릭 → router.push(`/lobby/single/new/${scId}`)
+### 시나리오 표시 필터
+```js
+visible = SCENARIOS.filter(s => s.showYn !== false)
+// showYn: false → 타임라인 미노출 (업적 해금 전 숨김 variant)
+// useYn: false  → 타임라인 노출, 카드 표시됨 (연표 전시 전용이라도 보임)
+```
+
+### 사건 카드 클릭 흐름
+```
+클릭 → isScenarioUnlocked(sc.id) 체크
+  잠금: 무시 (애니메이션 없음)
+  해금: 500ms lift 애니메이션 → emit('select') → router.push(`/lobby/single/new/${scId}/options`)
+```
+
+> `useYn`은 카드 클릭 단계에서 체크하지 않는다. `openPt`와 `userUnlocks`만 판정 기준.
 
 ---
 
@@ -299,39 +318,33 @@ router
 | 2026-06-13 | ScenarioOptionsView: subTitle 칩 클릭 → variant 드롭다운으로 시나리오 전환 |
 | 2026-06-13 | ScenarioOptionsView: summary 필드 화면 표시 추가 |
 | 2026-06-13 | Step1HistoryGraph.vue: showYn !== false 필터로 숨김 variant 제외 |
+| 2026-06-18 | ScenarioSelectView.vue 신규 작성 — legacy/Step1HistoryGraph 대체, lobbyStore 연동 |
+| 2026-06-18 | 카드 클릭 잠금: isScenarioUnlocked (openPt/userUnlocks 기준, useYn 미체크) |
+| 2026-06-18 | prevPlayable/nextPlayable: showYn !== false 필터 추가 |
+| 2026-06-18 | SingleView 새 게임 진입 시 lobby.loadUnlocks() 선행 호출 |
 
 ---
 
 ## TODO
 
-### 진행 중
-- [ ] `ScenarioDetailView.vue` 신규 작성 (전체 화면, route.params.scId 기반)
-- [ ] `ScenarioSelectView.vue` 신규 작성 (Step1 타임라인, legacy/Step1HistoryGraph 이식)
-- [ ] `router/index.js` `scenario-select` 라우트 교체: legacy/ScenarioSelectView.vue → 신규 ScenarioSelectView.vue (나머지 3개 라우트는 이미 신규 경로 참조 중이므로 이 항목만 누락 상태)
-- [ ] `router/index.js` 신규 라우트 4개 추가
-- [ ] `lobbyStore.js` 신규 생성 (options 공유)
-- [ ] `Step2GameOptions.vue` legacy → scenario/ 이동 + emit → router 전환
-- [ ] `Step3CharSelect.vue` legacy → scenario/ 이동 + emit → router 전환
-
 ### 미결
 - [ ] `scenario.js` SE640~SE801 이벤트 항목 입력 (사용자 직접 작업)
-- [ ] `ScenarioDetailView.vue` 구매 완료 상태 연동 (TBL_USER_ITEM, Phase 3)
+- [ ] `ScenarioDetailView.vue` 구매 완료 상태 연동 (lobbyStore.purchaseScenario, Phase 3)
 - [ ] nameEn 카드 노출 여부 결정
 - [ ] appearances 화면 노출 방안 결정
 - [ ] factions 세력 뱃지 표시 여부 결정
-- [ ] legacy/ 폴더 삭제 (마이그레이션 완료 후 — 삭제 전 잔존 참조 없는지 grep 확인 필수)
+- [ ] legacy/ 폴더 삭제 — 삭제 전 잔존 참조 grep 확인 필수
 
 ### 완료
+- [x] `ScenarioSelectView.vue` 신규 작성 (Step1 타임라인, lobbyStore 연동) — 2026-06-18
+- [x] `router/index.js` scenario-select 라우트 → 신규 ScenarioSelectView.vue 교체 — 2026-06-18
+- [x] `ScEventListLayout.vue` isScenarioUnlocked 카드 클릭 잠금 체크 — 2026-06-18
+- [x] `ScEventListLayout.vue` prevPlayable/nextPlayable showYn 필터 추가 — 2026-06-18
+- [x] `SingleView.vue` 새 게임 진입 시 lobby.loadUnlocks() 호출 — 2026-06-18
 - [x] `ScenarioDetail.vue` 신규 생성 (desc[] 페이지, libs, 버튼 분기)
-- [x] `Step1HistoryGraph.vue` 사건 카드 클릭 → ScenarioDetail 진입
-- [x] `ScenarioSelectView.vue` Step1-1 레이어 추가
 - [x] `eventData.js` 삭제 — scenario.js 기반으로 통합
-- [x] `Step1HistoryGraph.vue` SCENARIOS 기반으로 변경 (EVENTS 제거)
 - [x] `Step1HistoryGraph.vue` yearType AD/SE/RC 지원 + ERA_ORDER 정렬
-- [x] `Step1HistoryGraph.vue` 태그 색상 초심자/숙련자추천 추가
 - [x] `Step2GameOptions.vue` event.name → event.nameKr
-- [x] `ScenarioSelectView.vue` scenarioId → id
-- [x] `Step3CharSelect.vue` SCENARIOS 조회 제거 (props.event 직접 사용)
 - [x] `Step3CharSelect.vue` charList.js faction 우선 + charactersData.js 폴백
 - [x] `Step3CharSelect.vue` NPC 등장 사실 모드 → birth/death 기준 생존 필터
 - [x] `gameStore.js` startGame FACTIONS[pf] undefined 크래시 수정

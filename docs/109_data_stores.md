@@ -10,6 +10,7 @@
 |---|---|---|
 | `gameStore.js` | 메인 게임 엔진 | ✅ 완성 |
 | `tacticalStore.js` | 전술 전투 엔진 | ✅ 완성 |
+| `lobbyStore.js` | 로비 옵션 + 시나리오 잠금 해제 | ✅ 완성 |
 | `authStore.js` | 로그인/계정/기기이전 | Phase3 연동 예정 |
 | `encyclopediaStore.js` | 사전 캐시 | 껍데기 |
 | `seasonStore.js` | 시즌/역사 관리 | 껍데기 |
@@ -54,22 +55,30 @@
 }
 ```
 
-### 초기화 (buildState)
+### 초기화 (buildState + startGame)
 
-`startGame(scId, pf)` 호출 시 실행.
+`startGame(scId, pf, charCode)` 는 async. 흐름:
 
-```js
-import { STAR_SYSTEMS } from '@/data/stars/starSystemData'
-import { STAR_DETAIL }  from '@/data/scenarios/S01/starDetail'
-
-// STAR_SYSTEMS(불변) + STAR_DETAIL(초기값) 병합
-systems[s.code] = { ...s, ...d, underConstruction: null }
 ```
+1. _loadScenarioFiles(scId) — Promise.allSettled로 시나리오 폴더에서 동적 import
+     starDetail.js / characters/charactersJobs.js / fleet/fleetData.js
+     fleet/fleetCharacterData.js / fleet/fleetShipData.js / fleet/fleetTraitData.js
+     파일 없으면 null → buildState 내에서 base 데이터 폴백
+
+2. buildState(scId, pf, extraData) — 동기
+     STAR_SYSTEMS + starDetail 병합 → systems
+     charJobs 없으면 _BASE_CHAR_JOBS 폴백 → characters
+     _buildFleets(fleetData, fleetCharData, fleetShipData) → fleets
+
+3. Object.assign(this.$state, { initialized: true, ...fresh })
+```
+
+> 폴더 경로: `scId.split('_')` → `[y, m, s]` → `@/data/scenario/${y}/${m}/${s}/`
 
 ### 액션 목록
 
 **기본**
-- `startGame(scId, pf)` — 게임 초기화
+- `startGame(scId, pf, charCode)` — 게임 초기화 (async)
 - `endTurn()` — 턴 종료 (수입/건설/이벤트/AI/날짜)
 - `selectSystem(id)` / `selectFleet(id)`
 - `openModal(name, payload)` / `closeModal()`
@@ -124,6 +133,44 @@ systems[s.code] = { ...s, ...d, underConstruction: null }
 ### 진형 6종
 
 `DOUBLE_COL` / `LINE` / `RING` / `WEDGE` / `CRANE_WING` / `CONE`
+
+---
+
+---
+
+## lobbyStore.js
+
+### 상태
+
+```js
+{
+  options:         { npcAppearance: 'fact', npcBehavior: 'fact' },
+  selectedFaction:  null,
+  selectedCharCode: null,
+  selectedVariant:  null,
+  userUnlocks: {
+    scenarios:  [],   // 해금된 scenarioId 목록 (localStorage 'logh_unlocks' 연동)
+    characters: [],   // 해금된 charCode 목록
+  },
+}
+```
+
+### 게터
+
+```js
+isScenarioUnlocked(scId)
+// openPt: 0   → true (무조건 해금)
+// openPt: N   → userUnlocks.scenarios.includes(scId)
+// openPt: "-" → userUnlocks.scenarios.includes(scId)
+// useYn은 체크하지 않음 (카드 표시/클릭 단계에서 useYn 미적용)
+```
+
+### 액션
+
+- `loadUnlocks()` — localStorage `logh_unlocks` 파싱 → userUnlocks 갱신
+- `_saveUnlocks()` — userUnlocks → localStorage 저장
+- `purchaseScenario(scId)` — auth.points 차감 + userUnlocks.scenarios 추가 + 저장
+- `unlockScenarioByAchievement(scId)` — 업적 해금 (openPt: "-" 시나리오용)
 
 ---
 
