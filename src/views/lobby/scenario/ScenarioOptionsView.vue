@@ -101,13 +101,15 @@ const route  = useRoute()
 const router = useRouter()
 const lobby  = useLobbyStore()
 
+
 const cur = computed(() => SCENARIOS.find(s => s.id === route.params.scId) ?? SCENARIOS[0])
 
 const showVariants = ref(false)
 
 const variantList = computed(() => {
-  if (!cur.value.variants || cur.value.variants.length <= 1) return []
-  return cur.value.variants.map(id => SCENARIOS.find(s => s.id === id)).filter(Boolean)
+  if (!cur.value.variants) return []
+  const group = SCENARIOS.filter(s => s.variants === cur.value.variants)
+  return group.length > 1 ? group : []
 })
 
 function selectVariant(sc) {

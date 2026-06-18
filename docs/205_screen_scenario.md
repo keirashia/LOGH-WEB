@@ -93,8 +93,9 @@ ERA_ORDER = { AD: 0, SE: 1, RC: 2 }
 ### 시나리오 표시 필터
 ```js
 visible = SCENARIOS.filter(s => s.showYn !== false)
-// showYn: false → 타임라인 미노출 (업적 해금 전 숨김 variant)
-// useYn: false  → 타임라인 노출, 카드 표시됨 (연표 전시 전용이라도 보임)
+// showYn: false → 연표 미노출. 같은 variants 그룹의 showYn:true 시나리오
+//                options 화면 variant 드롭다운에서만 접근 가능한 종속 variant.
+// useYn: false  → 연표 노출, 카드 표시됨. 연표 전시 전용 (시작 불가)
 ```
 
 ### 사건 카드 클릭 흐름

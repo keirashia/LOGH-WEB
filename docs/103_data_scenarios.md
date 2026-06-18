@@ -70,15 +70,18 @@ src/data/scenario/
   tags:        ["사실", "초심자추천"], // 사실|가상, 전략|전술|혼합, 초심자추천|숙련자추천
   factions:    ["REH", "FPA", "PZN"], // 등장 세력
   useYn:       true,                  // false = 연표 표시만, 선택 불가
-  showYn:      true,                  // false = 연표 미노출 (조건 달성 후 표시 예정)
+  showYn:      true,                  // false = 연표 미노출. 같은 variants 그룹의
+                                      //   showYn:true 시나리오 options 화면에서만 접근 가능.
+                                      //   (연표에서 직접 선택 불가능한 종속 variant)
   openPt:      0,                     // 활성화 필요 포인트.
                                       //   0   = 상시 무료
                                       //   N   = N포인트 구매 필요
                                       //   "-" = 포인트 아닌 업적 기반 해금
   appearances: ["은하영웅전설 1권 <여명편>"],
   desc:        _DESC_SE796_010,       // 시나리오 소개 슬라이드 (scenarioDesc.js import)
-  variants:    ["SE796_01"],          // 같은 시기·사건 variant들의 그룹 키
-                                      //   형식: {yearType}{year}_{seq2자리} (하위호환 키)
+  variants:    "SE796_01",            // 같은 시기·사건 variant 그룹 키 (문자열)
+                                      //   형식: {yearType}{year}_{seq2자리}
+                                      //   ScenarioOptionsView에서 동일 키를 가진 시나리오를 동적 조회
 }
 ```
 

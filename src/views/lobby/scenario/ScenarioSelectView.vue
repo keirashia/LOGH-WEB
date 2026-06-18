@@ -82,6 +82,8 @@ const selEvents = computed(() =>
 )
 
 function onSelect(sc) {
+  lobby.selectedFaction  = null
+  lobby.selectedCharCode = null
   router.push(`/lobby/single/new/${sc.id}/options`)
 }
 </script>

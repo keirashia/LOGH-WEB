@@ -1158,7 +1158,7 @@ export const SCENARIOS = [
     openPt: 0,
     appearances: ["은하영웅전설 1권 <여명편>"],
     desc: _DESC_SE796_010,
-    variants: ["SE796_01"],
+    variants: "SE796_01",
   },
   {
     yearType: "SE",
@@ -1181,7 +1181,7 @@ export const SCENARIOS = [
     openPt: "-", // 아스타테 성역 회전을 아무 인물로 클리어하여, 업적 획득 후 해금
     appearances: ["은하영웅전설 1권 <여명편>"],
     desc: [],
-    variants: ["SE796_01"],
+    variants: "SE796_01",
   },
   {
     yearType: "SE",
@@ -1205,7 +1205,7 @@ export const SCENARIOS = [
     openPt: "-", // 아스타테 성역 회전을 아무 인물로 클리어하여, 업적 획득 후 해금
     appearances: ["은하영웅전설 1권 <여명편>"],
     desc: [],
-    variants: ["SE796_01"],
+    variants: "SE796_01",
   },
   {
     yearType: "SE",
@@ -1228,7 +1228,7 @@ export const SCENARIOS = [
     openPt: "-", // 아스타테 성역 회전을 아무 인물로 클리어하여, 업적 획득 후 해금
     appearances: ["은하영웅전설 1권 <여명편>"],
     desc: [],
-    variants: ["SE796_01"],
+    variants: "SE796_01",
   },
   // {
   //   yearType: "SE",
