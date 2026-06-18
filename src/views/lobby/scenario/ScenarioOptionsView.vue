@@ -7,29 +7,18 @@
       <!-- 타이틀 (고정) -->
       <div class="title-block">
         <span class="serif gold title-scenario">{{ cur.nameKr }}</span>
-        <div v-if="cur.subTitle" class="subtitle-wrap">
+        <div v-if="cur.subTitle" class="variant-nav">
           <button
-            class="title-sub-chip mono"
-            :class="{ open: showVariants }"
-            @click="showVariants = !showVariants"
-          >
-            {{ cur.subTitle }}
-            <span v-if="variantList.length > 1" class="chip-arrow">{{ showVariants ? '▴' : '▾' }}</span>
-          </button>
-          <Transition name="vpanel">
-            <div v-if="showVariants && variantList.length > 1" class="variant-panel">
-              <button
-                v-for="sc in variantList"
-                :key="sc.id"
-                class="variant-item mono"
-                :class="{ active: sc.id === cur.id }"
-                @click="selectVariant(sc)"
-              >
-                <span class="vi-dot" />
-                {{ sc.subTitle }}
-              </button>
-            </div>
-          </Transition>
+            class="vnav-arrow"
+            :disabled="!prevVariant"
+            @click="prevVariant && selectVariant(prevVariant)"
+          >◁</button>
+          <span class="vnav-label mono" :class="{ 'is-long': isLabelLong }" ref="vnavLabelRef">{{ cur.subTitle }}</span>
+          <button
+            class="vnav-arrow"
+            :disabled="!nextVariant"
+            @click="nextVariant && selectVariant(nextVariant)"
+          >▷</button>
         </div>
         <div v-if="cur.summary" class="summary-block">
           <div class="summary-rule"><span class="summary-gem">◆</span></div>
@@ -87,6 +76,7 @@
       </div>
 
     </div>
+
   </div>
 </template>
 
@@ -104,7 +94,6 @@ const lobby  = useLobbyStore()
 
 const cur = computed(() => SCENARIOS.find(s => s.id === route.params.scId) ?? SCENARIOS[0])
 
-const showVariants = ref(false)
 
 const variantList = computed(() => {
   if (!cur.value.variants) return []
@@ -112,8 +101,23 @@ const variantList = computed(() => {
   return group.length > 1 ? group : []
 })
 
+const curVariantIdx = computed(() => variantList.value.findIndex(s => s.id === cur.value.id))
+const prevVariant   = computed(() => variantList.value[curVariantIdx.value - 1] ?? null)
+const nextVariant   = computed(() => variantList.value[curVariantIdx.value + 1] ?? null)
+
+const vnavLabelRef = ref(null)
+const isLabelLong  = ref(false)
+
+function checkLabelOverflow() {
+  nextTick(() => {
+    if (!vnavLabelRef.value) return
+    isLabelLong.value = vnavLabelRef.value.scrollWidth > vnavLabelRef.value.clientWidth
+  })
+}
+
+watch(cur, checkLabelOverflow)
+
 function selectVariant(sc) {
-  showVariants.value = false
   if (sc.id !== cur.value.id) {
     router.replace(`/lobby/single/new/${sc.id}/options`)
   }
@@ -133,8 +137,8 @@ function checkSummaryOverflow() {
   })
 }
 
-onMounted(checkSummaryOverflow)
-watch(cur, checkSummaryOverflow)
+onMounted(() => { checkSummaryOverflow(); checkLabelOverflow() })
+watch(cur, () => { checkSummaryOverflow(); checkLabelOverflow() })
 
 const optGroups = [
   {
@@ -156,7 +160,7 @@ const optGroups = [
 ]
 
 function onNext() {
-  router.push({ name: 'scenario-char', params: { scId: route.params.scId } })
+  router.push({ name: 'scenario-detail', params: { scId: route.params.scId } })
 }
 </script>
 
@@ -202,75 +206,48 @@ function onNext() {
   letter-spacing: 0.5vw;
   text-shadow: 0 0 20px rgba(212,170,96,.5);
 }
-.subtitle-wrap {
-  position: relative;
-  display: flex; flex-direction: column; align-items: center;
+.variant-nav {
+  display: flex; align-items: center; gap: 1.2vw;
 }
-.title-sub-chip {
-  font-size: 3vh;
+.vnav-arrow {
+  width: 4.2vh; height: 4.2vh;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2.4vh;
+  color: rgba(212,170,96,.6);
+  background: transparent;
+  border: 1px solid rgba(212,170,96,.25);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: color .15s, border-color .15s, background .15s, opacity .15s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.vnav-arrow:hover:not(:disabled) {
+  color: rgba(212,170,96,1);
+  border-color: rgba(212,170,96,.7);
+  background: rgba(212,170,96,.08);
+}
+.vnav-arrow:disabled {
+  opacity: 0.2;
+  cursor: default;
+}
+.vnav-label {
+  font-size: 2.6vh;
   letter-spacing: 0.2vw;
   color: rgba(212,170,96,.85);
-  padding: 0.6vh 2vw;
-  border: 1px solid rgba(212,170,96,.5);
-  border-radius: 999px;
-  background: rgba(212,170,96,.07);
-  box-shadow: 0 0 12px rgba(212,170,96,.12);
-  cursor: pointer;
-  display: flex; align-items: center; gap: 0.6vw;
+  width: 22vw;
+  overflow: hidden;
   white-space: nowrap;
-  transition: background .2s, border-color .2s, box-shadow .2s;
+  text-align: center;
 }
-.title-sub-chip:hover,
-.title-sub-chip.open {
-  background: rgba(212,170,96,.14);
-  border-color: rgba(212,170,96,.8);
-  box-shadow: 0 0 18px rgba(212,170,96,.25);
-}
-.chip-arrow { font-size: 1.4vh; opacity: .7; }
-
-/* variant 드롭다운 */
-.variant-panel {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 50%; transform: translateX(-50%);
-  min-width: max-content;
-  display: flex; flex-direction: column; gap: 2px;
-  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
-  border: 1px solid rgba(212,170,96,.45);
-  border-radius: 12px;
-  padding: 6px;
-  box-shadow: 0 10px 32px rgba(0,0,0,.8), 0 0 16px rgba(212,170,96,.1);
-  z-index: 10;
-}
-.variant-item {
-  display: flex; align-items: center; gap: 10px;
-  padding: 0.9vh 1.2vw;
-  border-radius: 8px;
-  font-size: 2.6vh;
-  letter-spacing: 0.12vw;
-  color: rgba(212,170,96,.65);
-  white-space: nowrap;
-  cursor: pointer;
-  transition: background .15s, color .15s;
+.vnav-label.is-long {
   text-align: left;
+  animation: vnav-scroll 6s ease-in-out infinite alternate;
 }
-.variant-item:hover { background: rgba(212,170,96,.1); color: rgba(212,170,96,.95); }
-.variant-item.active {
-  background: rgba(212,170,96,.15);
-  color: rgba(212,170,96,1);
+@keyframes vnav-scroll {
+  0%, 15%   { transform: translateX(0); }
+  85%, 100% { transform: translateX(calc(-100% + 22vw)); }
 }
-.vi-dot {
-  width: 6px; height: 6px;
-  border-radius: 50%;
-  background: rgba(212,170,96,.4);
-  flex-shrink: 0;
-  transition: background .15s;
-}
-.variant-item.active .vi-dot { background: rgba(212,170,96,.9); }
-
-/* 패널 트랜지션 */
-.vpanel-enter-active, .vpanel-leave-active { transition: opacity .18s, transform .18s; }
-.vpanel-enter-from, .vpanel-leave-to { opacity: 0; transform: translateX(-50%) translateY(-6px); }
 
 .summary-block {
   display: flex;

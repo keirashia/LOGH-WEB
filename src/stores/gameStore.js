@@ -136,7 +136,7 @@ function buildState(scId, pf, extraData = {}) {
 }
 
 export const useGameStore = defineStore('game', {
-  state: () => ({ initialized: false, ...buildState(0, 'REH') }),
+  state: () => ({ initialized: false, _preloadedScId: null, _preloadedData: null, ...buildState(0, 'REH') }),
 
   getters: {
     pRes:      s => s.resources[s.playerFaction],
@@ -173,8 +173,17 @@ export const useGameStore = defineStore('game', {
   },
 
   actions: {
+    async preloadScenario(scId) {
+      if (this._preloadedScId === scId) return
+      const data = await _loadScenarioFiles(scId)
+      this._preloadedScId  = scId
+      this._preloadedData  = data
+    },
+
     async startGame(scId, pf, charCode = null) {
-      const extraData = await _loadScenarioFiles(scId)
+      const extraData = this._preloadedScId === scId && this._preloadedData
+        ? this._preloadedData
+        : await _loadScenarioFiles(scId)
       const fresh = buildState(scId, pf, extraData)
       Object.assign(this.$state, { initialized: true, ...fresh })
       if (charCode) this.playerCharCode = charCode

@@ -54,10 +54,9 @@
     <div class="action-bar">
       <button class="btn" :disabled="pageIdx === 0" @click="pageIdx--">← 이전</button>
 
-      <button v-if="!cur.useYn"                              class="btn dim-action" disabled>진행 불가</button>
-      <button v-else-if="lobby.selectedFaction && cur.openPt === 0" class="btn btn-gold" @click="onStart">⚔ 게임 시작</button>
-      <button v-else-if="cur.openPt === 0"                    class="btn btn-gold" @click="onStart">▶ 시작</button>
-      <button v-else                                          class="btn btn-blue">🔒 {{ cur.openPt }}P로 구매</button>
+      <button v-if="!cur.useYn"                           class="btn dim-action" disabled>진행 불가</button>
+      <button v-else-if="!lobby.isScenarioUnlocked(cur.id)" class="btn btn-blue">🔒 {{ cur.openPt !== '-' ? cur.openPt + 'P로 구매' : '업적 해금 필요' }}</button>
+      <button v-else                                         class="btn btn-gold" @click="onStart">국가 선택</button>
 
       <button class="btn" :disabled="pageIdx >= totalPages - 1" @click="pageIdx++">다음 →</button>
     </div>
@@ -66,7 +65,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
@@ -92,8 +91,8 @@ const totalPages = computed(() => Math.max(pages.value.length, 1))
 const page       = computed(() => pages.value[pageIdx.value] ?? null)
 
 function scenarioImgBase(sc) {
-  const seq = sc.id.split('_')[1].padStart(2, '0')
-  return `/img/scenarios/${sc.yearType}${sc.year}/${seq}`
+  const [y, m, s] = sc.id.split('_')
+  return `/img/scenarios/${y}/${m}/${s}`
 }
 const bgSrc   = computed(() => {
   const f = page.value?.bg || page.value?.image
@@ -112,15 +111,14 @@ function openLib(lib) {
   else if (prefix === 'CH_') { enc.open('characters'); enc.searchQuery = label }
 }
 
-async function onStart() {
-  if (lobby.selectedFaction) {
-    await game.startGame(cur.value.id, lobby.selectedFaction, lobby.selectedCharCode)
-    lobby.selectedFaction  = null
-    lobby.selectedCharCode = null
-    router.push('/game')
-  } else {
-    router.push({ name: 'scenario-options', params: { scId: cur.value.id } })
+onMounted(() => {
+  if (cur.value.useYn && lobby.isScenarioUnlocked(cur.value.id)) {
+    game.preloadScenario(cur.value.id)
   }
+})
+
+function onStart() {
+  router.push({ name: 'scenario-char', params: { scId: cur.value.id } })
 }
 </script>
 
