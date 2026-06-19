@@ -356,6 +356,73 @@ export const CHAR_TRAITS_MASTER = [
       },
     ],
   },
+  {
+    id: "TRC_U_000043",
+    nameKr: "허허실실의 귀재",
+    nameEn: "Master of Feint and Deception",
+    nameJp: "虚々実々の名手",
+    rarity: "unique",
+    desc: "허와 실을 넘나드는 기만전술의 달인. 기동력과 공격력이 향상되며, 수적으로 열세인 상황에서 더욱 날카로운 기습 능력을 발휘한다.",
+    permanent: true,
+    effects: { statFst: 5, statAtt: 5 },
+    conditionalEffects: [
+      {
+        // TODO: fleet_outnumbered — 아군 함대 수 < 적 함대 수 조건 (masterData.js)
+        trigger: "fleet_outnumbered",
+        effects: { statFst: 8, statAtt: 8, zocIgnore: true },
+      },
+    ],
+  },
+  {
+    id: "TRC_U_000527",
+    nameKr: "소수의 지배",
+    nameEn: "Rule of the Minority",
+    nameJp: "少数支配",
+    rarity: "unique",
+    desc: "다수란 결국 소수의 결집으로 좌우된다는 지배 이론을 신봉하는 모략가. 성계 방위사령관·행정관으로 부임할 경우, 매월 시작일에 해당 성계 인구 1을 현 국가 체제와 동일한 idea로 변경시킨다.",
+    permanent: true,
+    effects: { statInf: 5, statMmp: 5 },
+    conditionalEffects: [
+      {
+        // TODO: is_governor_or_defender — 방위사령관/행정관 역할 조건, 매월 1일 트리거 (masterData.js)
+        trigger: "monthly_governor_tick",
+        effects: { ideaConvertPop: 1 },
+      },
+    ],
+  },
+  {
+    id: "TRC_U_000516",
+    nameKr: "꽃밭을 망치는 해조",
+    nameEn: "Blight Upon the Garden",
+    nameJp: "花畑を荒らす害鳥",
+    rarity: "unique",
+    desc: "신생 로엔그람 정권 출범 초기부터 라인하르트에게 강한 악감정을 드러낸 인물. 라인하르트 폰 로엔그람과의 관계가 극단적으로 악화되어 있다.",
+    permanent: true,
+    effects: {},
+    conditionalEffects: [
+      {
+        // TODO: relation_fixed — 특정 인물 간 고정 관계 보정 (masterData.js)
+        trigger: "relation_calc_vs_CH_000064",
+        effects: { friendBonus: -100 },
+      },
+    ],
+  },
+  {
+    id: "TRC_U_000533",
+    nameKr: "꽃밭을 망치는 해조",
+    nameEn: "Blight Upon the Garden",
+    nameJp: "花畑を荒らす害鳥",
+    rarity: "unique",
+    desc: "신생 로엔그람 정권 출범 초기부터 라인하르트에게 강한 악감정을 드러낸 인물. 라인하르트 폰 로엔그람과의 관계가 극단적으로 악화되어 있다.",
+    permanent: true,
+    effects: {},
+    conditionalEffects: [
+      {
+        trigger: "relation_calc_vs_CH_000064",
+        effects: { friendBonus: -100 },
+      },
+    ],
+  },
   // ── 공통 트레잇 (general) ─────────────────────────────────────
   {
     id: "TRC_G_001",
@@ -374,6 +441,154 @@ export const CHAR_TRAITS_MASTER = [
     desc: "전쟁을 인류 최악의 행위로 여기며 승리보다 자국민의 생명을 우선시한다. 불필요한 교전을 피하려 하며, 전투 개시 판단에서 소극적인 반응을 보인다.",
     permanent: true,
     effects: {},
+  },
+  {
+    id: "TRC_G_003",
+    nameKr: "충실한 보좌관",
+    nameEn: "Loyal Aide",
+    rarity: "common",
+    desc: "사령관을 가까이서 보좌하며 지휘 체계를 안정시키는 인물. 부관으로 배속된 함대의 사령관 효과를 증폭시킨다.",
+    permanent: true,
+    effects: { statMng: 5, statInf: 5 },
+    conditionalEffects: [
+      {
+        // TODO: is_adjutant — 부관(O) 역할로 함대 배속 시 조건 (masterData.js)
+        trigger: "is_adjutant",
+        effects: { statCmd: 5 },
+      },
+    ],
+  },
+  {
+    id: "TRC_G_004",
+    nameKr: "독선",
+    nameEn: "Self-Reliant Command",
+    rarity: "uncommon",
+    desc: "다른 이의 의견을 듣지 않고 자신의 판단만을 믿는 사령관. 함대 사령관으로 배속될 경우, 해당 함대는 부관·분함대장 등 다른 인물의 보정 효과를 받지 않는다.",
+    permanent: true,
+    effects: {},
+    conditionalEffects: [
+      {
+        // TODO: is_fleet_commander — 함대 사령관(C) 역할 조건 (masterData.js)
+        trigger: "is_fleet_commander",
+        effects: { fleetIgnoreOtherBonus: true },
+      },
+    ],
+  },
+  {
+    id: "TRC_G_005",
+    nameKr: "엄격한 군율",
+    nameEn: "Strict Discipline",
+    rarity: "uncommon",
+    desc: "엄격한 군율로 부대를 통제하는 지휘관. 함대 사령관으로 배속될 경우, 해당 함대의 방어력과 사기가 향상되지만 병사들과의 친밀도 형성은 어려워진다.",
+    permanent: true,
+    effects: {},
+    conditionalEffects: [
+      {
+        // TODO: is_fleet_commander — 함대 사령관(C) 역할 조건 (masterData.js)
+        trigger: "is_fleet_commander",
+        effects: { statDef: 8, statMmp: 8, statCsm: -10 },
+      },
+    ],
+  },
+  {
+    id: "TRC_G_006",
+    nameKr: "행운",
+    nameEn: "Fortune's Favor",
+    rarity: "rare",
+    desc: "수많은 격전을 거치고도 살아남는 불가사의한 운. 전투 중 사망 판정에서 제외된다 (중상/포로 등으로 대체).",
+    permanent: true,
+    effects: {},
+    conditionalEffects: [
+      {
+        // TODO: battle_death_check — 전투 사망 판정 시점 개입 조건 (masterData.js)
+        trigger: "battle_death_check",
+        effects: { deathImmune: true },
+      },
+    ],
+  },
+  {
+    id: "TRC_G_007",
+    nameKr: "모략의 대가",
+    nameEn: "Master Schemer",
+    rarity: "uncommon",
+    desc: "은밀한 제안과 모략에 능숙한 인물. 제안·모략 실행 시 상대의 수락 확률에 보너스를 받는다.",
+    permanent: true,
+    effects: { statMmp: 6 },
+    conditionalEffects: [
+      {
+        // TODO: agenda_propose — 제안/모략 실행 판정 시점 (masterData.js)
+        trigger: "agenda_propose",
+        effects: { acceptRateBonus: 15 },
+      },
+    ],
+  },
+  {
+    id: "TRC_G_008",
+    nameKr: "아른거리는 그림자",
+    nameEn: "Lurking Shadow",
+    rarity: "uncommon",
+    desc: "배후에서 은밀히 움직이는 자. 제안·모략 실행 시 발각되지 않도록 보안도에 보너스를 받는다.",
+    permanent: true,
+    effects: { statInf: 6 },
+    conditionalEffects: [
+      {
+        // TODO: agenda_propose — 제안/모략 실행 판정 시점 (masterData.js)
+        trigger: "agenda_propose",
+        effects: { securityBonus: 15 },
+      },
+    ],
+  },
+  {
+    id: "TRC_G_009",
+    nameKr: "고귀한 혈통",
+    nameEn: "Noble Lineage",
+    rarity: "common",
+    desc: "명문 귀족가의 혈통을 이어받은 자. 매월 1일마다 군사 경험치를 획득한다.",
+    permanent: true,
+    effects: {},
+    conditionalEffects: [
+      {
+        // TODO: monthly_tick — 매월 1일 트리거 (masterData.js)
+        trigger: "monthly_tick",
+        effects: { milExpGain: 5 },
+      },
+    ],
+  },
+  {
+    id: "TRC_G_010",
+    nameKr: "문벌 귀족",
+    nameEn: "House of Old Nobility",
+    rarity: "common",
+    desc: "문벌귀족으로서의 동류의식이 강하다. 동일 트레잇 보유자와의 관계는 우호적이나, 미보유자에게는 배타적인 태도를 보인다.",
+    permanent: true,
+    effects: {},
+    conditionalEffects: [
+      {
+        // TODO: relation_calc — 두 인물 간 관계치 계산 시점 (masterData.js)
+        trigger: "relation_calc_same_trait",
+        effects: { friendBonus: 20 },
+      },
+      {
+        trigger: "relation_calc_diff_trait",
+        effects: { friendBonus: -20 },
+      },
+    ],
+  },
+  {
+    id: "TRC_G_011",
+    nameKr: "청렴함",
+    nameEn: "Incorruptible",
+    rarity: "uncommon",
+    desc: "뇌물과 회유에 흔들리지 않는 강직한 성품. 모략의 대상이 되었을 때 상대의 성공 확률이 감소한다.",
+    permanent: true,
+    effects: { statMmp: -5 },
+    conditionalEffects: [
+      {
+        // TODO: agenda_target — 모략의 대상이 되는 시점 (masterData.js)
+        trigger: "agenda_target",
+        effects: { successRatePenalty: -15 },
+      },
+    ],
   },
 
   // ── 상태 트레잇 (status) ──────────────────────────────────────

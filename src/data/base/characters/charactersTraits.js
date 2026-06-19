@@ -99,4 +99,36 @@ export const CHAR_TRAITS = [
     traitStDate: 0,
     traitEdDate: null,
   },
+  // ── 0617 패치 — TODO 처리 ────────────────────────────────────
+  // 더스티 아텐보로
+  { charCode: "CH_000043", traitCode: "TRC_U_000043", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 라오
+  { charCode: "CH_000060", traitCode: "TRC_G_003", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 무어
+  { charCode: "CH_000139", traitCode: "TRC_G_004", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000139", traitCode: "TRC_G_005", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 파에타
+  { charCode: "CH_000479", traitCode: "TRC_G_004", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000479", traitCode: "TRC_G_006", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 포겔
+  { charCode: "CH_000494", traitCode: "TRC_G_004", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 플레겔
+  { charCode: "CH_000516", traitCode: "TRC_G_004", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000516", traitCode: "TRC_G_007", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000516", traitCode: "TRC_G_008", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000516", traitCode: "TRC_G_009", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000516", traitCode: "TRC_G_010", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000516", traitCode: "TRC_U_000516", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 한스 디트리히 폰 젝트
+  { charCode: "CH_000533", traitCode: "TRC_G_004", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000533", traitCode: "TRC_G_007", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000533", traitCode: "TRC_G_008", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000533", traitCode: "TRC_G_009", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000533", traitCode: "TRC_G_010", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000533", traitCode: "TRC_U_000533", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 하이드리히 랑
+  { charCode: "CH_000527", traitCode: "TRC_U_000527", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000527", traitCode: "TRC_G_007", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000527", traitCode: "TRC_G_008", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  { charCode: "CH_000527", traitCode: "TRC_G_011", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
 ]

@@ -211,15 +211,15 @@ export const CHAR_JOBS = [
     jobCode: "JB_MR004",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
-  // 장 로베르 랍
+  // 장 로베르 랍 (아스타테 회전 기준 6함대 참모, 당시 소령)
   {
     charCode: "CH_000368",
-    jobCode: "JB_M002",
+    jobCode: "JB_M003",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
   {
     charCode: "CH_000368",
-    jobCode: "JB_MR005",
+    jobCode: "JB_MR009",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
   // 지크프리트 키르히아이스
