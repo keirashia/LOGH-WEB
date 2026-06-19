@@ -77,67 +77,55 @@
           <span class="mono dim title-sub">인물 선택 · {{ cur.nameKr }}</span>
         </div>
 
-        <div class="char-body">
-
-          <!-- 추천 인물 -->
-          <div v-if="leadChars.length" class="char-section">
-            <div class="section-label mono">추천 인물</div>
-            <div class="rec-list">
-              <button v-for="ch in leadChars" :key="ch.code"
-                      class="rec-card"
-                      :class="{ active: selChar?.code === ch.code }"
-                      @click="selChar = ch">
-                <div class="rec-avatar serif"
-                     :style="{
-                       color: fcolor(ch.faction),
-                       borderColor: selChar?.code === ch.code ? fcolor(ch.faction) : 'rgba(212,170,96,.25)'
-                     }">
-                  {{ namesMap[ch.code]?.name?.[0] ?? '?' }}
-                </div>
-                <div class="rec-info">
-                  <span class="rec-name serif">{{ namesMap[ch.code]?.name ?? ch.code }}</span>
-                  <span class="rec-faction mono" :style="{ color: fcolor(ch.faction) }">
-                    {{ factionNamesMap[ch.faction]?.name ?? ch.faction }}
-                  </span>
-                </div>
-                <div v-if="selChar?.code === ch.code" class="rec-check">✓</div>
-              </button>
-            </div>
-          </div>
-
-          <!-- 전체 인물 -->
-          <div class="char-section">
-            <div class="section-label mono">전체 인물</div>
-            <div class="search-wrap">
-              <span class="search-icon">🔍</span>
-              <input class="search-input mono" v-model="q" placeholder="이름으로 검색...">
-            </div>
-            <div class="chip-grid">
-              <button v-for="ch in filteredChars" :key="ch.code"
-                      class="char-chip"
-                      :class="{ active: selChar?.code === ch.code }"
-                      :style="selChar?.code === ch.code
-                        ? { borderColor: fcolor(ch.faction), color: fcolor(ch.faction) }
-                        : {}"
-                      @click="selChar = ch">
-                {{ namesMap[ch.code]?.name ?? ch.code }}
-              </button>
-            </div>
-          </div>
-
+        <!-- 검색 -->
+        <div class="search-row">
+          <input class="search-input mono" v-model="q" placeholder="이름 검색..." />
+          <span class="search-count dim mono">{{ sortedFilteredChars.length }}명</span>
         </div>
 
-        <!-- 선택된 인물 바 -->
-        <Transition name="sel-bar-fade">
-          <div v-if="selChar" class="sel-bar">
-            <div class="sel-avatar serif" :style="{ borderColor: fcolor(selChar.faction) }">
-              {{ namesMap[selChar.code]?.name?.[0] ?? '?' }}
+        <!-- 테이블 헤더 -->
+        <div class="cl-header">
+          <div />
+          <div class="cl-th mono">이름</div>
+          <div class="cl-th mono">직업</div>
+          <div class="cl-th mono">고유트레잇</div>
+          <div />
+          <div />
+        </div>
+
+        <!-- 인물 리스트 -->
+        <div class="cl-list">
+          <div v-if="!sortedFilteredChars.length" class="cl-empty dim mono">검색 결과 없음</div>
+          <div
+            v-for="ch in sortedFilteredChars" :key="ch.code"
+            class="cl-item"
+            :class="{ active: selChar?.code === ch.code }"
+            @click="selChar = ch"
+          >
+            <div class="cl-img-wrap">
+              <img :src="charImgSrc(ch.code)" class="cl-img"
+                   @error="handleCharImgError($event, ch.code, 'H')" />
             </div>
-            <div class="sel-info">
-              <span class="serif sel-name">{{ namesMap[selChar.code]?.name ?? selChar.code }}</span>
-              <span class="mono sel-faction" :style="{ color: fcolor(selChar.faction) }">
-                {{ factionNamesMap[selChar.faction]?.name ?? selChar.faction }}
-              </span>
+            <div class="cl-info">
+              <div class="serif cl-name">{{ namesMap[ch.code]?.name ?? ch.code }}</div>
+              <div class="mono dim cl-nick">{{ namesMap[ch.code]?.nick ?? '' }}</div>
+            </div>
+            <div class="cl-job mono">{{ charJobMap[ch.code] || '—' }}</div>
+            <div class="cl-trait serif">{{ charUniqueTraitMap[ch.code] || '—' }}</div>
+            <span class="cl-rec mono">{{ ch.recommend > 0 ? '★' : '' }}</span>
+            <span class="cl-dot" :style="{ background: fcolor(ch.faction) }" />
+          </div>
+        </div>
+
+        <!-- 선택된 인물 상세 -->
+        <Transition name="sel-bar-fade">
+          <div v-if="selChar" class="char-detail-panel" :class="{ collapsed: !detailExpanded }">
+            <button class="detail-toggle mono" @click="detailExpanded = !detailExpanded">
+              <span>{{ namesMap[selChar.code]?.name ?? selChar.code }}</span>
+              <span class="toggle-arrow">{{ detailExpanded ? '▼' : '▲' }}</span>
+            </button>
+            <div v-show="detailExpanded" class="detail-body">
+              <CharDetailComp :cha-code="selChar.code" :scenario-id="cur.id" />
             </div>
           </div>
         </Transition>
@@ -147,7 +135,7 @@
             <span class="mono">← 뒤로</span>
           </button>
           <button class="footer-btn gold-btn" :disabled="!selChar" @click="onNext">
-            <span class="mono">다음 →</span>
+            <span class="mono">게임 시작</span>
           </button>
         </div>
 
@@ -163,14 +151,21 @@ import { ref, computed, watchEffect } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useLobbyStore } from '@/stores/lobbyStore'
+import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
 import { CHAR_BASE } from '@/data/base/characters/charactersData.js'
 import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
+import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
+import { CHAR_JOBS } from '@/data/base/characters/charactersJobs.js'
+import { JOBS } from '@/data/base/jobs/jobData.js'
+import { CHAR_TRAITS_MASTER } from '@/data/base/trait/chars/charTraitData.js'
 import StarfieldCanvas from '@/components/common/StarfieldCanvas.vue'
+import CharDetailComp from '@/components/char/CharDetailComp.vue'
 
 const route  = useRoute()
 const router = useRouter()
 const lobby  = useLobbyStore()
+const game   = useGameStore()
 
 const cur     = computed(() => SCENARIOS.find(s => s.id === route.params.scId) ?? SCENARIOS[0])
 const options = computed(() => lobby.options)
@@ -180,6 +175,21 @@ const namesMap = Object.fromEntries(
 )
 const factionNamesMap = Object.fromEntries(
   FACTION_NAMES.filter(n => n.lang === 'Kr').map(n => [n.factionId, n])
+)
+
+const JOB_NAME_MAP = Object.fromEntries(JOBS.map(j => [j.id, j.nameKr]))
+const charJobMap = Object.fromEntries(
+  CHAR_BASE.map(c => {
+    const primary = CHAR_JOBS
+      .filter(j => j.charCode === c.code)
+      .sort((a, b) => a.jobStDate - b.jobStDate)[0]
+    return [c.code, primary ? (JOB_NAME_MAP[primary.jobCode] ?? '') : '']
+  })
+)
+const charUniqueTraitMap = Object.fromEntries(
+  CHAR_TRAITS_MASTER
+    .filter(t => t.id.startsWith('TRC_U_'))
+    .map(t => [`CH_${t.id.slice(6)}`, t.nameKr])
 )
 
 const stage         = ref('faction')
@@ -242,9 +252,11 @@ function fcPick(fid) {
   const idx = fcCards.value.indexOf(fid)
   if (idx !== -1) { fcCurrentIdx.value = idx; fcScrollTo(idx) }
 }
-const selChar       = ref(null)
-const charList      = ref([])
-const q             = ref('')
+
+const selChar        = ref(null)
+const charList       = ref([])
+const q              = ref('')
+const detailExpanded = ref(true)
 
 watchEffect(async () => {
   if (!cur.value?.id) return
@@ -295,12 +307,18 @@ const leadChars = computed(() =>
     .sort((a, b) => a.recommend - b.recommend)
 )
 
-const filteredChars = computed(() => {
+const sortedFilteredChars = computed(() => {
   const kw = q.value.trim().toLowerCase()
-  if (!kw) return scenarioChars.value
-  return scenarioChars.value.filter(c => {
-    const e = namesMap[c.code]
-    return e?.name?.toLowerCase().includes(kw) || e?.nick?.toLowerCase().includes(kw)
+  const list = kw
+    ? scenarioChars.value.filter(c => {
+        const e = namesMap[c.code]
+        return e?.name?.toLowerCase().includes(kw) || e?.nick?.toLowerCase().includes(kw)
+      })
+    : scenarioChars.value
+  return [...list].sort((a, b) => {
+    const ra = a.recommend > 0 ? a.recommend : Infinity
+    const rb = b.recommend > 0 ? b.recommend : Infinity
+    return ra - rb
   })
 })
 
@@ -312,8 +330,8 @@ function goToChar() {
   factionFilter.value = pickedFaction.value
   transDir.value = 'slide-forward'
   stage.value = 'char'
-  selChar.value = null
   q.value = ''
+  selChar.value = leadChars.value[0] ?? scenarioChars.value[0] ?? null
 }
 
 function goBackToFaction() {
@@ -322,11 +340,10 @@ function goBackToFaction() {
   selChar.value = null
 }
 
-function onNext() {
+async function onNext() {
   if (!selChar.value) return
-  lobby.selectedFaction  = selChar.value.faction
-  lobby.selectedCharCode = selChar.value.code
-  router.push({ name: 'scenario-detail', params: { scId: cur.value.id } })
+  await game.startGame(cur.value.id, selChar.value.faction, selChar.value.code)
+  router.push({ name: 'game' })
 }
 </script>
 
@@ -347,7 +364,7 @@ function onNext() {
   padding: 4vh 24px 2vh;
   overflow: hidden;
 }
-.layout-char { gap: 1.6vh; }
+.layout-char { gap: 1.4vh; }
 
 /* ── 타이틀 ────────────────────────────────────────────────── */
 .title-block {
@@ -406,12 +423,10 @@ function onNext() {
     0 20px 56px rgba(212,170,96,.3);
 }
 
-/* 전체 카드 분할 이미지 */
 .fc-all { background: none; }
 .fc-slices { position: absolute; inset: 0; display: flex; z-index: 0; }
 .fc-slice  { flex: 1; height: 100%; background-size: cover; background-position: center; }
 
-/* 카드 오버레이 + 정보 */
 .fc-overlay {
   position: absolute; inset: 0; z-index: 2;
   background: linear-gradient(to top, rgba(2,5,8,.92) 0%, rgba(2,5,8,.3) 50%, rgba(2,5,8,.15) 100%);
@@ -419,14 +434,12 @@ function onNext() {
 .fc-info {
   position: absolute; bottom: 0; left: 0; right: 0; z-index: 3;
   display: flex; flex-direction: column; align-items: center;
-  padding: 12px 8px 14px;
-  gap: 6px;
+  padding: 12px 8px 14px; gap: 6px;
 }
 .fc-faction-tag {
   font-size: 1.1vh; letter-spacing: 2px;
   padding: 2px 8px; border-radius: 3px;
-  border: 1px solid;
-  background: rgba(0,0,0,.4);
+  border: 1px solid; background: rgba(0,0,0,.4);
 }
 .fc-name {
   font-size: 2.8vh; color: var(--tg);
@@ -434,115 +447,212 @@ function onNext() {
   letter-spacing: 0.15vw;
 }
 
-/* ── 인물 선택 body ─────────────────────────────────────────── */
-.char-body {
-  flex: 1; min-height: 0;
-  width: 100%; max-width: 640px;
-  overflow-y: auto; scrollbar-width: thin;
-  scrollbar-color: rgba(212,170,96,.2) transparent;
-  display: flex; flex-direction: column; gap: 2vh;
-  padding-right: 4px;
-}
-
-.char-section { display: flex; flex-direction: column; gap: 1vh; }
-.section-label {
-  font-size: 1.2vh; letter-spacing: 1.5px;
-  color: rgba(212,170,96,.5);
-  text-transform: uppercase;
-}
-
-/* 추천 인물 */
-.rec-list { display: flex; flex-direction: column; gap: 8px; }
-.rec-card {
-  display: flex; align-items: center; gap: 14px;
-  padding: 10px 14px;
-  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
-  border: 1px solid rgba(212,170,96,.25);
-  border-radius: 12px;
-  box-shadow: inset 0 0 0 3px #0d1520, inset 0 0 0 4px rgba(212,170,96,.06);
-  cursor: pointer; transition: all .15s; text-align: left; width: 100%;
-  position: relative; overflow: hidden;
-}
-.rec-card::before {
-  content: ''; position: absolute; inset: 0; pointer-events: none;
-  background-image:
-    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.012) 10px, rgba(212,170,96,.012) 11px),
-    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.012) 10px, rgba(212,170,96,.012) 11px);
-}
-.rec-card:hover  { border-color: rgba(212,170,96,.5); transform: translateX(4px); }
-.rec-card.active {
-  border-color: rgba(212,170,96,.8);
-  box-shadow: inset 0 0 0 3px #0d1520, inset 0 0 0 4px rgba(212,170,96,.2), 0 4px 16px rgba(212,170,96,.12);
-}
-.rec-avatar {
+/* ── 검색 ────────────────────────────────────────────────── */
+.search-row {
   flex-shrink: 0;
-  width: 4.2vh; height: 4.2vh; border-radius: 50%;
-  background: rgba(212,170,96,.06);
-  border: 1px solid rgba(212,170,96,.25);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2vh; transition: border-color .15s;
-  position: relative; z-index: 1;
-}
-.rec-info { flex: 1; display: flex; flex-direction: column; gap: 3px; position: relative; z-index: 1; }
-.rec-name    { font-size: 1.8vh; color: var(--t1); }
-.rec-faction { font-size: 1.2vh; }
-.rec-check {
-  flex-shrink: 0; font-size: 1.8vh; color: var(--tg);
-  position: relative; z-index: 1;
-}
-
-/* 검색 */
-.search-wrap {
-  position: relative;
-}
-.search-icon {
-  position: absolute; left: 10px; top: 50%; transform: translateY(-50%);
-  font-size: 1.4vh; pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+  width: 100%;
 }
 .search-input {
-  width: 100%; padding: 8px 10px 8px 32px; font-size: 1.3vh;
-  background: rgba(13,27,42,.8);
-  border: 1px solid rgba(212,170,96,.2); border-radius: 8px;
-  color: var(--t1); outline: none; transition: border-color .13s;
+  flex: 1;
+  padding: 0.8vh 1.2vw;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(212,170,96,.25);
+  border-radius: var(--r);
+  color: var(--t1);
+  font-size: 1.6vh;
+  outline: none;
+  transition: border-color .15s;
+  box-sizing: border-box;
 }
-.search-input:focus { border-color: rgba(212,170,96,.6); }
-.search-input::placeholder { color: var(--t3); }
-
-/* 인물 칩 */
-.chip-grid { display: flex; flex-wrap: wrap; gap: 6px; }
-.char-chip {
-  padding: 5px 12px; font-size: 1.2vh;
-  background: rgba(13,27,42,.7);
-  border: 1px solid rgba(212,170,96,.2); border-radius: 6px;
-  cursor: pointer; transition: all .13s; color: var(--t2);
-}
-.char-chip:hover  { border-color: rgba(212,170,96,.5); color: var(--t1); }
-.char-chip.active {
-  background: rgba(212,170,96,.08);
-  font-weight: bold;
+.search-input:focus { border-color: rgba(212,170,96,.7); }
+.search-input::placeholder { color: rgba(212,170,96,.3); }
+.search-count {
+  font-size: 1.3vh;
+  color: rgba(212,170,96,.4);
+  flex-shrink: 0;
 }
 
-/* ── 선택된 인물 바 ───────────────────────────────────────── */
-.sel-bar {
-  flex-shrink: 0;
-  width: 100%; max-width: 640px;
-  display: flex; align-items: center; gap: 12px;
-  padding: 10px 16px;
-  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
-  border: 1px solid rgba(212,170,96,.4);
-  border-radius: 10px;
-  box-shadow: inset 0 0 0 3px #0d1520, inset 0 0 0 4px rgba(212,170,96,.12);
+/* ── 인물 리스트 ──────────────────────────────────────────── */
+/* 헤더·아이템 공통 그리드: img | 이름 | 직업 | 고유트레잇 | star | dot */
+.cl-header,
+.cl-item {
+  display: grid;
+  grid-template-columns: 5.5vh 1.1fr 1fr 1.3fr 2.4vw 1vh;
+  column-gap: 1.2vw;
+  align-items: center;
+  padding: 0 1.6vw;
+  width: 100%;
+  box-sizing: border-box;
 }
-.sel-avatar {
+
+/* 헤더 */
+.cl-header {
   flex-shrink: 0;
-  width: 3.8vh; height: 3.8vh; border-radius: 50%;
-  background: rgba(212,170,96,.06); border: 1px solid var(--bd);
+  padding-top: 0.5vh;
+  padding-bottom: 0.5vh;
+  background: rgba(2,5,8,.6);
+  border-bottom: 1px solid rgba(212,170,96,.22);
+}
+.cl-th {
+  font-size: 1.1vh;
+  letter-spacing: 0.5px;
+  color: rgba(212,170,96,.5);
+}
+.cl-th-r { text-align: right; }
+
+/* 리스트 */
+.cl-list {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212,170,96,.2) transparent;
+}
+.cl-list::-webkit-scrollbar { width: 3px; }
+.cl-list::-webkit-scrollbar-thumb { background: rgba(212,170,96,.25); border-radius: 2px; }
+
+.cl-empty {
+  padding: 3vh;
+  text-align: center;
+  font-size: 1.4vh;
+  opacity: .5;
+}
+
+.cl-item {
+  height: 9vh;
+  flex-shrink: 0;
+  border-bottom: 1px solid rgba(212,170,96,.08);
+  cursor: pointer;
+  transition: background .12s;
+  color: var(--t1);
+}
+.cl-item:last-child { border-bottom: none; }
+.cl-item:hover { background: rgba(212,170,96,.05); }
+.cl-item.active {
+  background: rgba(212,170,96,.1);
+  border-bottom-color: rgba(212,170,96,.15);
+}
+
+.cl-img-wrap {
+  height: 7vh;
+  aspect-ratio: 3 / 4;
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(212,170,96,.15);
+  border-radius: 0.4vh;
+  overflow: hidden;
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.8vh; transition: border-color .15s;
 }
-.sel-info { display: flex; align-items: center; gap: 10px; }
-.sel-name    { font-size: 1.8vh; color: var(--t1); }
-.sel-faction { font-size: 1.2vh; }
+.cl-img { width: 100%; height: 100%; object-fit: contain; }
+
+.cl-info {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3vh;
+}
+.cl-name {
+  font-size: 1.6vh;
+  color: var(--t1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cl-nick {
+  font-size: 1.2vh;
+  color: rgba(212,170,96,.45);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cl-job {
+  font-size: 1.3vh;
+  color: var(--t2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cl-trait {
+  font-size: 1.3vh;
+  color: rgba(212,170,96,.6);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cl-rec {
+  font-size: 1.3vh;
+  color: rgba(212,170,96,.8);
+  text-align: center;
+}
+
+.cl-dot {
+  width: 0.7vh;
+  height: 0.7vh;
+  border-radius: 50%;
+  justify-self: center;
+}
+
+/* ── 선택된 인물 상세 ─────────────────────────────────────── */
+.char-detail-panel {
+  flex-shrink: 0;
+  width: 100%;
+  position: relative;
+  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
+  border: 2px solid rgba(212,170,96,.55);
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 5px #0d1520,
+    inset 0 0 0 7px rgba(212,170,96,.14),
+    0 8px 32px rgba(0,0,0,.7);
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.char-detail-panel.collapsed { border-color: rgba(212,170,96,.3); }
+.char-detail-panel::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px),
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px);
+  pointer-events: none;
+  z-index: 0;
+  border-radius: 12px;
+}
+.detail-toggle {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1vh 1.6vw;
+  background: none;
+  border: none;
+  border-bottom: 1px solid rgba(212,170,96,.15);
+  color: rgba(212,170,96,.8);
+  font-size: 1.5vh;
+  letter-spacing: 0.15vw;
+  cursor: pointer;
+  transition: color .15s, background .15s;
+}
+.detail-toggle:hover { color: var(--tg); background: rgba(212,170,96,.04); }
+.collapsed .detail-toggle { border-bottom: none; }
+.toggle-arrow { font-size: 1.2vh; color: rgba(212,170,96,.5); }
+.detail-body {
+  position: relative;
+  z-index: 1;
+  height: 36vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212,170,96,.2) transparent;
+}
 
 /* ── 푸터 ─────────────────────────────────────────────────── */
 .footer {

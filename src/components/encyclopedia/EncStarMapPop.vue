@@ -144,7 +144,7 @@ import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
 import { useGameStore }         from '@/stores/gameStore'
 import { STAR_SYSTEMS, OBSTACLES } from '@/data/base/stars/starSystemData'
 import { LANES }                   from '@/data/base/stars/laneData'
-import { STAR_DETAIL }  from '@/data/scenario/SE796/01/starDetail'
+import { STAR_DETAIL }  from '@/data/scenario/SE796/0211/010/starDetail'
 import { FACTIONS }     from '@/data/masterData'
 
 const enc  = useEncyclopediaStore()

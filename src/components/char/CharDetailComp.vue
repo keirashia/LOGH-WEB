@@ -4,7 +4,8 @@
     <!-- 프로필 (고정) -->
     <div class="cdc-profile">
       <div class="cdc-img-wrap">
-        <img :src="charImgSrc(chaCode)"
+        <img :key="chaCode"
+             :src="charImgSrc(chaCode)"
              class="cdc-img" @error="handleCharImgError($event, chaCode, 'H')" />
       </div>
       <div class="cdc-info">
@@ -23,46 +24,36 @@
       </div>
     </div>
 
-    <!-- 직업 아코디언 -->
-    <div class="acc-section">
-      <button class="acc-head" :class="{ 'acc-disabled': !jobList.length }" @click="toggle('job')">
-        <span class="acc-label">직업</span>
-        <span class="acc-sep">|</span>
-        <span class="acc-count" v-if="jobList.length">{{ jobList.length }}개</span>
-        <span class="acc-empty" v-else>없음</span>
-        <span class="acc-arrow" :class="{ 'arr-empty': !jobList.length }">{{ open.job ? '▲' : '▼' }}</span>
-      </button>
-      <div v-if="open.job" class="acc-body">
-        <div v-if="!jobList.length" class="dim" style="font-size:11px;padding:4px 0">없음</div>
-        <div v-else v-for="j in jobList" :key="j.jobCode" class="job-item">
-          <div>
-            <span class="serif" style="font-size:12px">{{ JOB_MAP[j.jobCode]?.nameKr ?? j.jobCode }}</span>
-            <span class="mono dim" style="font-size:10px;margin-left:6px">{{ JOB_MAP[j.jobCode]?.nameEn }}</span>
-          </div>
-          <span class="mono dim" style="font-size:10px">exp {{ j.jobExp }}</span>
-        </div>
+    <!-- 직업 -->
+    <div class="job-list">
+      <div v-if="jobList.length >= 2"
+           class="job-toggle-bar mono"
+           @click="jobsExpanded = !jobsExpanded">
+        <span>직책 {{ jobList.length }}개</span>
+        <span class="job-arrow">{{ jobsExpanded ? '▲' : '▼' }}</span>
       </div>
+      <div v-if="!jobList.length" class="job-row mono dim">직책 없음</div>
+      <template v-else-if="jobsExpanded || jobList.length === 1">
+        <div v-for="j in jobList" :key="j.jobCode" class="job-row">
+          <span class="job-label serif">{{ JOB_MAP[j.jobCode]?.nameKr ?? j.jobCode }}</span>
+          <div class="job-right mono">
+            <span class="job-lv">Lv.{{ j.jobLevel ?? 0 }}</span>
+            <div class="job-exp-bar">
+              <div class="job-exp-fill" :style="{ width: `${j.jobExp ?? 0}%` }" />
+            </div>
+          </div>
+        </div>
+      </template>
     </div>
 
-    <!-- 트레잇 아코디언 -->
-    <div class="acc-section">
-      <button class="acc-head" :class="{ 'acc-disabled': !traitList.length }" @click="toggle('trait')">
-        <span class="acc-label">트레잇</span>
-        <span class="acc-sep">|</span>
-        <span class="acc-count" v-if="traitList.length">{{ traitList.length }}개</span>
-        <span class="acc-empty" v-else>없음</span>
-        <span class="acc-arrow" :class="{ 'arr-empty': !traitList.length }">{{ open.trait ? '▲' : '▼' }}</span>
-      </button>
-      <div v-if="open.trait" class="acc-body">
-        <div v-if="!traitList.length" class="dim" style="font-size:11px;padding:4px 0">없음</div>
-        <template v-else>
-          <TraitBadge
-            v-for="t in traitList" :key="t.traitCode"
-            :trait="CHAR_TRAIT_MAP[t.traitCode]"
-            :char-trait="t"
-          />
-        </template>
-      </div>
+    <!-- 트레잇 -->
+    <div class="trait-section">
+      <TraitBadge
+        v-if="uniqueTrait"
+        :trait="uniqueTrait"
+        :char-trait="{ traitLv: 0, traitExp: 0 }"
+      />
+      <div v-else class="no-trait mono dim">트레잇 없음</div>
     </div>
 
     <!-- 능력치 아코디언 -->
@@ -111,13 +102,12 @@
 </template>
 
 <script setup>
-import { reactive, computed } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import TraitBadge from '@/components/char/TraitBadge.vue'
 import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
 import { CHAR_BASE }  from '@/data/base/characters/charactersData.js'
 import { CHAR_JOBS }  from '@/data/base/characters/charactersJobs.js'
-import { CHAR_TRAITS }      from '@/data/base/trait/chars/charTraitData.js'
-import { CHAR_TRAIT_MAP }   from '@/data/base/trait/chars/charTraitData.js'
+import { CHAR_TRAITS_MASTER as CHAR_TRAITS, CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
 import { JOBS } from '@/data/base/jobs/jobData.js'
 
 const props = defineProps({
@@ -164,8 +154,9 @@ const IDEA_LABELS = [
 ]
 
 // ── 아코디언 상태 ────────────────────────────────────────────
-const open = reactive({ stat: false, tend: false, trait: false, job: false })
+const open = reactive({ stat: false, tend: false })
 function toggle(key) { open[key] = !open[key] }
+const jobsExpanded = ref(true)
 
 // ── 데이터 ───────────────────────────────────────────────────
 const charData  = computed(() => CHAR_DATA_MAP[props.chaCode] ?? null)
@@ -181,8 +172,12 @@ const jobList = computed(() =>
     .filter(j => j.charCode === props.chaCode)
     .sort((a, b) => a.jobStDate - b.jobStDate)
 )
-const topJobs   = computed(() => jobList.value.slice(0, 3))
-const traitList = computed(() => traitListRaw.value)
+const topJobs = computed(() => jobList.value.slice(0, 3))
+
+const uniqueTrait = computed(() => {
+  const code = props.chaCode.replace('CH_', '')
+  return CHAR_TRAITS.find(t => t.id === `TRC_U_${code}`) ?? null
+})
 
 // ── 이념 라벨 ────────────────────────────────────────────────
 const ideaLabel = computed(() => {
@@ -211,6 +206,8 @@ const nationBorder = computed(() => NATION_COLORS[charData.value?.faction]?.bord
   flex-direction: column;
   gap: 0;
   width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 /* ── 프로필 ──────────────────────────────────────────────── */
@@ -347,12 +344,42 @@ const nationBorder = computed(() => NATION_COLORS[charData.value?.faction]?.bord
 }
 
 /* ── 직업 ────────────────────────────────────────────── */
-.job-item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 0;
+.job-list { border-bottom: 1px solid var(--bd); }
+.job-toggle-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 5px 14px;
+  font-size: 1.3vh; letter-spacing: .5px; color: var(--td);
+  background: var(--bg3);
   border-bottom: 1px solid var(--bd);
+  cursor: pointer; transition: color .13s;
 }
-.job-item:last-child { border-bottom: none; }
+.job-toggle-bar:hover { color: var(--t1); }
+.job-arrow { font-size: 1.1vh; }
+.job-row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1vh 14px;
+  font-size: 1.4vh; letter-spacing: .5px; color: var(--t1);
+  border-bottom: 1px solid rgba(255,255,255,.04);
+}
+.job-row.dim { color: var(--td); }
+.job-row:last-child { border-bottom: none; }
+.job-label { flex: 1; }
+.job-right {
+  display: flex; flex-direction: column; align-items: flex-end;
+  gap: 3px; flex-shrink: 0;
+}
+.job-lv { font-size: 1.1vh; color: var(--t2); }
+.job-exp-bar {
+  width: 40px; height: 3px;
+  background: var(--bd); border-radius: 2px; overflow: hidden;
+}
+.job-exp-fill { height: 100%; background: var(--tg); border-radius: 2px; }
+
+/* ── 트레잇 ────────────────────────────────────────── */
+.trait-section {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--bd);
+  display: flex; flex-direction: column; gap: 4px;
+}
+.no-trait { font-size: 1.2vh; padding: 2px 4px; }
 </style>

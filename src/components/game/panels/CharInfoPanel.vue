@@ -107,7 +107,7 @@
 import { computed, ref, watch } from 'vue'
 import { charImgSrc, handleCharImgError, CHAR_PLACEHOLDER } from '@/utils/charImg'
 import TraitBadge from '@/components/char/TraitBadge.vue'
-import { CHAR_TRAITS, CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
+import { CHAR_TRAITS_MASTER as CHAR_TRAITS, CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
 import { useGameStore } from '@/stores/gameStore'
 import { JOB_MAP } from '@/data/base/jobs/jobData'
 import { CHAR_JOBS } from '@/data/base/characters/charactersJobs.js'
