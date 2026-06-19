@@ -5,12 +5,8 @@
     <div class="top-nav">
       <div class="nav-title">
         <span class="serif">{{ cur.nameKr }}</span>
-        <span class="mono dim nav-year">
-          {{ cur.yearType }} {{ cur.year }}
-          <template v-if="cur.yearType === 'SE'"> / 제국력 {{ cur.year - 309 }}년</template>
-        </span>
+        <span v-if="cur.subTitle" class="mono dim nav-subtitle">{{ cur.subTitle }}</span>
       </div>
-      <button class="close-btn mono" @click="router.back()">✕</button>
     </div>
 
     <!-- 히어로 이미지 -->
@@ -52,13 +48,16 @@
 
     <!-- 하단 액션 바 -->
     <div class="action-bar">
-      <button class="btn" :disabled="pageIdx === 0" @click="pageIdx--">← 이전</button>
-
-      <button v-if="!cur.useYn"                           class="btn dim-action" disabled>진행 불가</button>
-      <button v-else-if="!lobby.isScenarioUnlocked(cur.id)" class="btn btn-blue">🔒 {{ cur.openPt !== '-' ? cur.openPt + 'P로 구매' : '업적 해금 필요' }}</button>
-      <button v-else                                         class="btn btn-gold" @click="onStart">국가 선택</button>
-
-      <button class="btn" :disabled="pageIdx >= totalPages - 1" @click="pageIdx++">다음 →</button>
+      <div class="action-row">
+        <button class="btn" :disabled="pageIdx === 0" @click="pageIdx--">← 이전</button>
+        <button class="btn" :disabled="pageIdx >= totalPages - 1" @click="pageIdx++">다음 →</button>
+      </div>
+      <div class="action-row">
+        <button class="btn btn-cancel" @click="router.back()">◁ 설정</button>
+        <button v-if="!cur.useYn"                              class="btn dim-action" disabled>진행 불가</button>
+        <button v-else-if="!lobby.isScenarioUnlocked(cur.id)" class="btn btn-blue">🔒 {{ cur.openPt !== '-' ? cur.openPt + 'P로 구매' : '업적 해금 필요' }}</button>
+        <button v-else                                         class="btn btn-gold" @click="onStart">국가 선택</button>
+      </div>
     </div>
 
   </div>
@@ -91,6 +90,10 @@ const totalPages = computed(() => Math.max(pages.value.length, 1))
 const page       = computed(() => pages.value[pageIdx.value] ?? null)
 
 function scenarioImgBase(sc) {
+  if (sc.variants) {
+    const [yt, seq] = sc.variants.split('_')
+    return `/img/scenarios/${yt}/${seq}`
+  }
   const [y, m, s] = sc.id.split('_')
   return `/img/scenarios/${y}/${m}/${s}`
 }
@@ -151,23 +154,7 @@ function onStart() {
   gap: 2px;
 }
 .nav-title .serif { font-size: 3.0vh; color: var(--t1); }
-.nav-year { font-size: 1.8vh; }
-.close-btn {
-  flex-shrink: 0;
-  width: 3.5vh;
-  height: 3.5vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.6vh;
-  background: rgba(255,255,255,.05);
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 50%;
-  color: var(--t2);
-  cursor: pointer;
-  transition: all .13s;
-}
-.close-btn:hover { color: var(--t1); border-color: rgba(255,255,255,.3); }
+.nav-subtitle { font-size: 1.6vh; color: rgba(212,170,96,.6); letter-spacing: 0.1vw; }
 
 /* 히어로 이미지 */
 .hero {
@@ -219,7 +206,7 @@ function onStart() {
 /* 본문 */
 .body {
   position: absolute;
-  bottom: 7vh; left: 0; right: 0;
+  bottom: 14vh; left: 0; right: 0;
   z-index: 10;
   padding: 32px 20px 14px;
   background: linear-gradient(to bottom, transparent, rgba(2,5,8,.92) 28%);
@@ -258,30 +245,85 @@ function onStart() {
   bottom: 0; left: 0; right: 0;
   z-index: 10;
   display: flex;
-  align-items: stretch;
-  padding: 0.1vh 2vw;
-  height: 7vh;
+  flex-direction: column;
+  padding: 1vh 2vw;
+  height: 14vh;
   background: rgba(2,5,8,.85);
   border-top: 1px solid rgba(212,170,96,.15);
-  gap: 1.5vw;
+  gap: 1vh;
   backdrop-filter: blur(8px);
 }
-.action-bar > button {
+.action-row {
   flex: 1;
-  font-size: 1.8vh;
-  padding: 0;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  gap: 1.2vw;
 }
-.action-bar > button:nth-child(2) {
-  flex: 3;
+.action-row > button {
+  flex: 1;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.7vh;
+  letter-spacing: 0.15vw;
+  padding: 0;
+  overflow: hidden;
+  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
+  border: 0.2vh solid rgba(212,170,96,.45);
+  border-radius: 1.2vh;
+  box-shadow:
+    inset 0 0 0 0.4vh #0d1520,
+    inset 0 0 0 0.6vh rgba(212,170,96,.12),
+    0 0.6vh 2.4vh rgba(0,0,0,.6);
+  color: rgba(212,170,96,.7);
+  cursor: pointer;
+  transition: all .2s;
+}
+.action-row > button::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px),
+    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px);
+  pointer-events: none;
+}
+.action-row > button > * { position: relative; z-index: 1; }
+.action-row > button:hover:not(:disabled) {
+  border-color: rgba(212,170,96,.8);
+  color: var(--tg);
+  transform: translateY(-0.3vh);
+  box-shadow:
+    inset 0 0 0 0.4vh #0d1520,
+    inset 0 0 0 0.6vh rgba(212,170,96,.3),
+    0 1.2vh 4vh rgba(212,170,96,.18);
+}
+.action-row > button:disabled {
+  opacity: 0.35;
+  cursor: default;
+  transform: none;
+}
+.btn-cancel { flex: 1 !important; }
+.btn-gold, .btn-blue, .dim-action { flex: 3 !important; }
+.btn-gold {
+  border-color: rgba(212,170,96,.85) !important;
+  color: var(--tg) !important;
+  box-shadow:
+    inset 0 0 0 0.4vh #0d1520,
+    inset 0 0 0 0.6vh rgba(212,170,96,.25),
+    0 0.6vh 2.4vh rgba(212,170,96,.15) !important;
+}
+.btn-gold:hover:not(:disabled) {
+  box-shadow:
+    inset 0 0 0 0.4vh #0d1520,
+    inset 0 0 0 0.6vh rgba(212,170,96,.45),
+    0 1.4vh 4.4vh rgba(212,170,96,.28) !important;
+}
+.btn-blue {
+  border-color: rgba(68,136,255,.6) !important;
+  color: #6aabff !important;
 }
 .dim-action {
-  color: var(--t2);
-  border-color: rgba(212,170,96,.2);
-  background: rgba(212,170,96,.05);
-  font-size: 12px;
+  color: var(--t2) !important;
+  border-color: rgba(212,170,96,.2) !important;
+  font-size: 1.4vh;
 }
 
 /* 페이지 전환 */

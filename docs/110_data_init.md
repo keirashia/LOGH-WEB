@@ -2,7 +2,7 @@
 > 분류: 데이터
 > 경로: `docs/110_data_init.md`
 > 상위: [100_DATA.md](100_DATA.md)
-> 최종 수정: 2026-06-17
+> 최종 수정: 2026-06-19
 
 ---
 
@@ -111,7 +111,62 @@ startGame(scId, playerFaction)
 
 ---
 
-## 4. 시나리오 파일 import 등록 방식
+## 4. preloadScenario — 사전 캐시 패턴
+
+### 목적
+
+`ScenarioDetailView` 진입 시 바로 파일을 로드해 두고, 실제 `startGame` 호출 시 캐시를 재사용한다.  
+로드가 완료되기 전까지 시작 버튼을 비활성화하고 로딩 UI를 표시한다.
+
+### 흐름
+
+```
+ScenarioDetailView onMounted
+  └── game.preloadScenario(scId)
+        ├── _preloadedScId === scId 이면 즉시 반환 (캐시 히트)
+        └── 아니면 _loadScenarioFiles(scId) 실행 → _preloadedScId / _preloadedData 에 저장
+
+startGame(scId, pf, charCode)
+  └── _preloadedScId === scId 이면 _preloadedData 재사용, 아니면 재요청
+```
+
+### 단계별 로드 순서 (설계 목표)
+
+```
+ 1. base/stars/starSystemData.js         (STAR_SYSTEMS) 조회·무결성 검증
+ 2. {scId}/stars/starSystemData.js       시나리오별 성계 오버라이드 조회
+ 3. 실제 성계 상태 완성                   base + 시나리오 병합
+ 4. base/stars/planetsData.js            행성 조회·무결성 검증
+ 5. {scId}/stars/planetsData.js          시나리오별 행성 오버라이드 조회
+ 6. 실제 행성 상태 완성                   base + 시나리오 병합
+ 7. base/characters/charactersData.js    시나리오 YMD 기준 인물 필터링·무결성 검증
+ 8. {scId}/characters/charactersData.js  시나리오 등장 인물 오버라이드 조회
+ 9. 실제 인물 상태 완성                   base + 시나리오 병합
+10. 추가 인물 등장 옵션 Y/N 처리           7~9 결과물에 merge
+11. 이번 시나리오 등장 인물 최종 확정
+12. {scId}/fleet/fleetData.js            함대 데이터 조회·무결성 검증
+13. 인물·성계·함대 3요소 완성 → buildState 준비 완료
+```
+
+> 7~9에서 인물 데이터를 참조할 때 직업(jobData) / 트레잇(charTraitData)도 함께 로드.  
+> 6-1(faction 상태: idea/econ/파벌 등) 생성은 설계 중.
+
+### 로딩 UI
+
+- preload 시작 시 시작 버튼 **비활성화** + 게이지 표시 (좌→우)
+- 단계마다 현재 로드 중인 데이터 명칭 표시
+- 완료 전까지 시나리오 배경 화면을 유저에게 노출
+
+### 검토 항목
+
+- [ ] `charactersData.js` (CHAR_LIST) — `ScenarioCharSelectView`에서 별도 동적 import 중. 프리로드에 포함할지 결정
+- [ ] `scenarioDesc.js` (DESC) — `scenarioData.js` 정적 import로 이미 포함됨. 중복 로드 없음 확인
+- [ ] `planetDetail.js` — 현재 로드 목록 미포함. 필요 여부 확인
+- [ ] variant 전환(◁▷) 시 다른 scId로 이동하면 캐시 초기화 후 재로드 필요
+
+---
+
+## 5. 시나리오 파일 import 등록 방식
 
 현재 `gameStore.js` 내부에 시나리오별 starDetail을 `_SCENARIO_DETAIL_MAP`으로 수동 등록.  
 함대/인물도 동일 패턴으로 확장 예정:
@@ -135,7 +190,7 @@ const _SCENARIO_CHAR_MAP = {
 
 ---
 
-## 5. 저장 방식 ✅ 확정: Pinia persist
+## 6. 저장 방식 ✅ 확정: Pinia persist
 
 | 방식 | 장점 | 단점 |
 |---|---|---|
@@ -157,7 +212,7 @@ const _SCENARIO_CHAR_MAP = {
 
 ---
 
-## 6. TODO
+## 7. TODO
 
 | 우선순위 | 항목 |
 |---|---|

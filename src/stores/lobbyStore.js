@@ -20,7 +20,7 @@ export const useLobbyStore = defineStore('lobby', {
     isScenarioUnlocked: (state) => (scId) => {
       const sc = SCENARIOS.find(s => s.id === scId)
       if (!sc) return false
-      if (sc.openPt === 0) return true
+      if (Number(sc.openPt) === 0) return true
       return state.userUnlocks.scenarios.includes(scId)
     },
   },

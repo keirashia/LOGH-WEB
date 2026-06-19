@@ -24,6 +24,7 @@
           <div class="summary-rule"><span class="summary-gem">◆</span></div>
           <div class="summary-scroll-wrap" ref="summaryWrapRef">
             <p
+              :key="cur.id"
               class="sc-summary serif"
               ref="summaryEl"
               :class="{ 'is-scrolling': isOverflowing }"
@@ -45,7 +46,7 @@
                 :key="opt.val"
                 class="opt-card"
                 :class="{ active: lobby.options[grp.key] === opt.val }"
-                @click="lobby.options[grp.key] = opt.val"
+                disabled
               >
                 <div class="card-corner tl">
                   <span class="cc-icon">{{ opt.icon }}</span>
@@ -351,6 +352,7 @@ function onNext() {
     repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px);
   pointer-events: none;
 }
+.opt-card:disabled { opacity: 0.4; cursor: not-allowed; }
 .opt-card:hover:not(.active) {
   border-color: rgba(212,170,96,.6);
   transform: translateY(-4px);
