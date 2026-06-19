@@ -1,4 +1,4 @@
-// ================================================================
+﻿// ================================================================
 //  charactersData.js
 //  경로: src/data/characters/charactersData.js
 //  작성: 2026-05-29 (TN_CHAR_A_INFO.xlsx 기반)
@@ -36,6 +36,19 @@
 // 아래 주석에 TODO가 있는 항목(인물)은 변동이 있는 항목이니 체크해야함. 수정 완료 후 주석에서 TODO 부분은 삭제
 // 단 다른 시리즈에서의 능력치와 같은 참고형 영역은 유지가 필요함
 
+// ================================================================
+//  연관 데이터 파일 (TODO 처리 시 반드시 함께 참조/수정)
+//  - 직업(JOBS) 마스터    : src/data/base/jobs/jobData.js
+//  - 직업(JOBS) 할당      : src/data/base/characters/charactersJobs.js
+//  - 트레잇(TRAITS) 마스터 : src/data/base/trait/chars/charTraitData.js
+//  - 트레잇(TRAITS) 할당   : src/data/base/characters/charactersTraits.js
+//
+//  인물 항목의 TODO에 JOBS/TRAITS 추가가 명시된 경우,
+//  위 4개 파일 중 해당하는 파일에 마스터 등록 + 할당을 함께 처리해야 함.
+//  (예: JOBS만 적혀있으면 jobData.js 확인 후 charactersJobs.js에 할당,
+//       TRAITS가 적혀있으면 charTraitData.js에 마스터 등록 후 charactersTraits.js에 할당)
+// ================================================================
+
 export const CHAR_BASE = [
   // D. 싱클레어
   {
@@ -69,6 +82,7 @@ export const CHAR_BASE = [
     statAfg: 5,
     statMmp: 75,
     // — 기타
+    loc: "230006P01",
     point: "150",
     descKr: `명망높은 역사가이자 역사 다큐멘터리 해설가. 언변이 좋아 대중들로부터 많은 사랑을 받고 있다.`,
     descEn: ``,
@@ -84,6 +98,7 @@ export const CHAR_BASE = [
     nickKr: "맥켄지",
     nickEn: "Mackenzie",
     nickJp: "マッケンジー",
+    searchKeys: [],
     birth: "SE|749.08.01",
     death: "SE|801.07.26",
     // — 성향
@@ -105,6 +120,7 @@ export const CHAR_BASE = [
     statAfg: 5,
     statMmp: 75,
     // — 기타
+    loc: "230006P01",
     point: "150",
     descKr: ``,
     descEn: ``,
@@ -120,6 +136,7 @@ export const CHAR_BASE = [
     nickKr: "깁슨",
     nickEn: "Gibson",
     nickJp: "ギブソン",
+    searchKeys: [],
     birth: "SE|763.02.13",
     death: "SE|801.07.26",
     // — 성향
@@ -141,6 +158,7 @@ export const CHAR_BASE = [
     statAfg: 5,
     statMmp: 75,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -155,6 +173,7 @@ export const CHAR_BASE = [
     nickKr: "지구교 총대주교",
     nickEn: "Grand Bishop",
     nickJp: "総大主教",
+    searchKeys: [],
     birth: "SE|731.01.01",
     death: "",
     // — 성향
@@ -176,6 +195,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "-",
     descKr: ``,
     descEn: ``,
@@ -190,6 +210,7 @@ export const CHAR_BASE = [
     nickKr: "슈퇴거",
     nickEn: "Staeger",
     nickJp: "シュテーガー",
+    searchKeys: [],
     birth: "SE|740.",
     death: "",
     // — 성향
@@ -211,13 +232,13 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
     descJp: ``,
   },
   // 겔라흐 Gerlach/Gerlache ・ ゲルラッハ
-  // TODO :
   {
     // — 기본
     code: "CH_000006",
@@ -227,6 +248,7 @@ export const CHAR_BASE = [
     nickKr: "겔라흐",
     nickEn: "Gerlache",
     nickJp: "ゲルラッハ",
+    searchKeys: [],
     nickFn: ["Gerlach", "겔라하", "게를라흐"],
     birth: "SE|735.08.14",
     death: "",
@@ -249,6 +271,7 @@ export const CHAR_BASE = [
     statAfg: 2,
     statMmp: 78,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `자작 귀족 출신으로 궁정 내각의 일원.`,
     descEn: `Imperial Minister of Finance under Kaiser Friedrich IV. A Viscount and member of the court cabinet. He was replaced by Eugen Richter following the fall of the Goldenbaum Dynasty.`,
@@ -263,6 +286,7 @@ export const CHAR_BASE = [
     nickKr: "고드윈",
     nickEn: "Godwin",
     nickJp: "ゴドウィン",
+    searchKeys: [],
     birth: "SE|742.07.22",
     // — 성향
     faction: "",
@@ -283,6 +307,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "-",
     descKr: ``,
     descEn: ``,
@@ -297,6 +322,7 @@ export const CHAR_BASE = [
     nickKr: "골트슈미트",
     nickEn: "Goldschmidt",
     nickJp: "ゴルトシュミット",
+    searchKeys: [],
     birth: "SE|757.05.08",
     // — 성향
     faction: "",
@@ -317,6 +343,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "100",
     descKr: ``,
     descEn: ``,
@@ -331,6 +358,7 @@ export const CHAR_BASE = [
     nickKr: "폴터마이스터",
     nickEn: "Foltermeister",
     nickJp: "",
+    searchKeys: [],
     birth: "SE|757.01.01",
     // — 성향
     faction: "",
@@ -351,6 +379,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "X",
     descKr: ``,
     descEn: ``,
@@ -365,6 +394,7 @@ export const CHAR_BASE = [
     nickKr: "잉골슈타트",
     nickEn: "",
     nickJp: "インゴルシュタット",
+    searchKeys: [],
     birth: "SE|590.07.11",
     // — 성향
     faction: "",
@@ -385,6 +415,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -399,6 +430,7 @@ export const CHAR_BASE = [
     nickKr: "구스타프",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "SE|617.08.03",
     death: "SE|646.08.01",
     // — 성향
@@ -420,6 +452,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "X",
     descKr: ``,
     descEn: ``,
@@ -434,6 +467,7 @@ export const CHAR_BASE = [
     nickKr: "구즈만",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "SE|757.05.08",
     // — 성향
     faction: "",
@@ -454,6 +488,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -468,6 +503,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "SE|757.03.12",
     // — 성향
     faction: "",
@@ -488,6 +524,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -502,6 +539,7 @@ export const CHAR_BASE = [
     nickKr: "굿윈",
     nickEn: "Goodwin",
     nickJp: "",
+    searchKeys: [],
     birth: "SE|752.07.19",
     // — 성향
     faction: "",
@@ -522,6 +560,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -536,6 +575,7 @@ export const CHAR_BASE = [
     nickKr: "키슬링",
     nickEn: "Kißling",
     nickJp: "キスリング",
+    searchKeys: [],
     birth: "SE|770.05.11",
     // — 성향
     faction: "",
@@ -556,6 +596,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -570,6 +611,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -591,6 +633,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -605,6 +648,7 @@ export const CHAR_BASE = [
     nickKr: "뮈켄베르거",
     nickEn: "Mückenberger",
     nickJp: "ミュッケンベルガー",
+    searchKeys: [],
     birth: "SE|738.11.19",
     death: "",
     // — 성향
@@ -626,6 +670,7 @@ export const CHAR_BASE = [
     statAfg: 83,
     statMmp: 88,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `프리드리히 4세 치하 제국 우주함대사령장관. 3장관 중 실질적 군사 지휘권을 보유한 최고위직. 라인하르트 폰 뮤젤의 급속한 성장을 경계했으나 막을 수 없었다. 립슈타트 반란 이후 강제 퇴역하였다.`,
     descEn: `Space Fleet Commander in Chief under Kaiser Friedrich IV, the most senior of the three Imperial military chiefs with actual field command authority. He viewed Reinhard von Lohengramm's rise with wariness but was powerless to stop it. Forced into retirement following the Lippstadt Rebellion.`,
@@ -640,6 +685,7 @@ export const CHAR_BASE = [
     nickKr: "크룸바흐",
     nickEn: "Krumbach",
     nickJp: "クルムバッハ",
+    searchKeys: [],
     birth: "SE|760.02.08",
     // — 성향
     faction: "",
@@ -660,6 +706,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -674,6 +721,7 @@ export const CHAR_BASE = [
     nickKr: "스코트",
     nickEn: "",
     nickJp: "スコット",
+    searchKeys: [],
     birth: "SE|746.03.08",
     // — 성향
     faction: "",
@@ -694,6 +742,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -708,6 +757,7 @@ export const CHAR_BASE = [
     nickKr: "그레브너",
     nickEn: "Gräbner",
     nickJp: "グレーブナー",
+    searchKeys: [],
     birth: "SE|754.06.17",
     // — 성향
     faction: "",
@@ -728,6 +778,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -741,6 +792,7 @@ export const CHAR_BASE = [
     nameJp: "",
     nickKr: "",
     nickEn: "",
+    searchKeys: [],
     nickJp: "",
     birth: "",
     death: "",
@@ -763,6 +815,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -777,6 +830,7 @@ export const CHAR_BASE = [
     nickKr: "그레첸",
     nickEn: "",
     nickJp: "グレーチェン",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -798,6 +852,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -812,6 +867,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -833,6 +889,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -847,6 +904,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "Grohtewal",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -868,6 +926,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -882,6 +941,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -903,6 +963,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -917,6 +978,7 @@ export const CHAR_BASE = [
     nickKr: "그뤼네만",
     nickEn: "Grunemann",
     nickJp: "グリューネマン",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -938,6 +1000,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -952,6 +1015,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -973,6 +1037,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -987,6 +1052,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1008,6 +1074,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1022,6 +1089,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1043,6 +1111,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1057,6 +1126,7 @@ export const CHAR_BASE = [
     nickKr: "글룩",
     nickEn: "Gruck",
     nickJp: "グルック",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1078,6 +1148,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1092,6 +1163,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "Neisebach",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1113,6 +1185,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1127,6 +1200,7 @@ export const CHAR_BASE = [
     nickKr: "뮐러",
     nickEn: "Müller",
     nickJp: "ミュラー",
+    searchKeys: [],
     birth: "SE|771.05.22",
     death: "",
     // — 성향
@@ -1148,6 +1222,7 @@ export const CHAR_BASE = [
     statAfg: 82,
     statMmp: 75,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `로엔그람 제독단 최연소 제독. '철벽 뮐러'라는 별명처럼 뛰어난 방어 능력과 냉정한 판단력을 겸비한 균형형 지휘관. 베르밀리온 성전에서 라인하르트를 위기에서 구해낸 것으로 유명하며, 양 웬리 진영과의 교섭 역할도 자주 맡았다.`,
     descEn: `The youngest admiral in Lohengramm's admiralty. True to his nickname "Iron Wall Müller," he is a well-rounded commander with outstanding defensive ability and calm judgment. Renowned for saving Reinhard from destruction at the Battle of Vermilion, he also frequently served as Reinhard's envoy to Yang Wen-li's faction.`,
@@ -1162,6 +1237,7 @@ export const CHAR_BASE = [
     nickKr: "오르테르",
     nickEn: "Hautetaire",
     nickJp: "オットテール",
+    searchKeys: [],
     birth: "SE|771.07.28",
     // — 성향
     faction: "",
@@ -1182,6 +1258,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1196,6 +1273,7 @@ export const CHAR_BASE = [
     nickKr: "네그로폰테",
     nickEn: "Negroponte",
     nickJp: "ネグロポンティ",
+    searchKeys: [],
     birth: "SE|747.05.10",
     // — 성향
     faction: "",
@@ -1216,6 +1294,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1230,6 +1309,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1251,6 +1331,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1265,6 +1346,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1286,6 +1368,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1300,6 +1383,7 @@ export const CHAR_BASE = [
     nickKr: "놀덴",
     nickEn: "Norden",
     nickJp: "ノルデン",
+    searchKeys: [],
     birth: "SE|763.08.08",
     // — 성향
     faction: "",
@@ -1320,6 +1404,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1334,6 +1419,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1355,6 +1441,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1369,6 +1456,7 @@ export const CHAR_BASE = [
     nickKr: "볼텍",
     nickEn: "Boltik",
     nickJp: "ボルテック",
+    searchKeys: [],
     birth: "SE|756.05.11",
     // — 성향
     faction: "",
@@ -1389,6 +1477,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1403,6 +1492,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1424,6 +1514,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1438,6 +1529,7 @@ export const CHAR_BASE = [
     nickKr: "닐슨",
     nickEn: "Nilsson",
     nickJp: "ニルソン",
+    searchKeys: [],
     birth: "SE|744.09.30",
     // — 성향
     faction: "",
@@ -1458,6 +1550,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1472,6 +1565,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1493,6 +1587,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1530,36 +1625,13 @@ export const CHAR_BASE = [
     statAfg: 81,
     statMmp: 75,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 소속의 군인. 
     재치와 과단성을 자랑하는 명장으로 빠른 기동력을 앞세운 허를 찌르는 날카로운 공격이 주특기.
     사회에 대한 불평불만이 많고 독설가이며 전쟁을 싫어하지만 뛰어난 재능을 가지고 있다.`,
     descEn: ``,
     descJp: ``,
-    /** TODO 아스타데 회전 기준 2함대 소속의 부관으로 참전했음.
-     * JOBS에 JB_C001(자유행성동맹의 시민임) JB_MR008(당시 중령이었음)
-     * TRAITS
-     * src/data/base/trait/chars/charTraitData.js
-     * TRC_U_000043 등록 필요함. 명칭은 고민이 필요
-     * {
-        id: "TRC_U_000043",
-        nameKr: "",
-        nameEn: "",
-        nameJp: "",
-        rarity: "unique",
-        desc: "",
-        permanent: true,
-        effects: { statFst : +5 , statAtt: +5 },
-        conditionalEffects: [
-          {
-            trigger: "fleet_outnumbered",
-            effects: { statFst: +8, statAtt: +8, zocIgnore : true },
-          },
-        ],
-      },
-     * 
-     *
-     * */
   },
   {
     // — 기본
@@ -1570,6 +1642,7 @@ export const CHAR_BASE = [
     nickKr: "데그스비",
     nickEn: "Degsby",
     nickJp: "デグスビイ",
+    searchKeys: [],
     birth: "SE|777.01.07",
     // — 성향
     faction: "",
@@ -1590,6 +1663,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1604,6 +1678,7 @@ export const CHAR_BASE = [
     nickKr: "데슈",
     nickEn: "Desch",
     nickJp: "デッシュ",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1625,6 +1700,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1639,6 +1715,7 @@ export const CHAR_BASE = [
     nickKr: "도로테아",
     nickEn: "Dorothea von Schaffhausen",
     nickJp: "ドロテーア",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1660,6 +1737,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1674,6 +1752,7 @@ export const CHAR_BASE = [
     nickKr: "도미니크",
     nickEn: "Dominique",
     nickJp: "ドミニク",
+    searchKeys: [],
     birth: "SE|768.03.24",
     death: "",
     // — 성향
@@ -1695,6 +1774,7 @@ export const CHAR_BASE = [
     statAfg: 3,
     statMmp: 82,
     // — 기타
+    loc: "230042P01",
     point: "0",
     descKr: `페잔의 가수이자 댄서. 아드리안 루빈스키의 오랜 연인. 루빈스키의 야망과 계략을 가까이서 지켜본 인물로, 페잔의 몰락과 함께 공범으로 체포됐다.`,
     descEn: `A Fezzani singer and dancer and the long-time companion of Adrian Rubinsky. She witnessed his ambitions and schemes at close range, and was arrested as an accomplice following the fall of Fezzan.`,
@@ -1709,6 +1789,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "Dawson",
     nickJp: "ドーソン",
+    searchKeys: [],
     birth: "SE|740.11.29",
     // — 성향
     faction: "",
@@ -1729,6 +1810,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1743,6 +1825,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1764,6 +1847,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1778,6 +1862,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1799,6 +1884,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1813,6 +1899,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1834,6 +1921,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1848,6 +1936,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1869,6 +1958,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1883,6 +1973,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1904,6 +1995,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1918,6 +2010,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -1939,6 +2032,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -1954,6 +2048,7 @@ export const CHAR_BASE = [
     nickKr: "D.그린힐",
     nickEn: "D.Greenhill",
     nickJp: "D.グリーンヒル",
+    searchKeys: [],
     birth: "SE|745.04.03",
     death: "SE|797.08.30",
     // — 성향
@@ -1975,6 +2070,7 @@ export const CHAR_BASE = [
     statAfg: 73,
     statMmp: 95,
     // — 기타
+    loc: "230006P01",
     point: "150",
     descKr: `자유행성동맹 통합작전본부 부본부장. 프레데리카 그린힐의 부친. 뛰어난 운영·정보 능력을 지닌 행정형 제독으로, 정치공작에도 발군의 재능을 보인다.`,
     descEn: `Deputy Chief of the Free Planets Alliance Joint Operations Headquarters and father of Frederica Greenhill. An administrative admiral with outstanding operational and intelligence abilities, and exceptional aptitude for political maneuvering.`,
@@ -1989,6 +2085,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2010,6 +2107,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2024,6 +2122,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2045,6 +2144,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2059,6 +2159,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2080,6 +2181,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2094,6 +2196,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2115,6 +2218,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2130,6 +2234,7 @@ export const CHAR_BASE = [
     nickKr: "라오",
     nickEn: "Lao",
     nickJp: "ラオ",
+    searchKeys: [],
     birth: "SE|765.04.09",
     death: "",
     // — 성향
@@ -2151,16 +2256,11 @@ export const CHAR_BASE = [
     statAfg: 65,
     statMmp: 68,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 소속의 군인`,
     descEn: ``,
     descJp: ``,
-    /** TODO 아스타데 회전 기준 2함대 소속의 부관으로 참전했음.
-     * JOBS에 JB_C001(자유행성동맹의 시민임) JB_MR008(당시 중령이었음)
-     * TRAITS
-     *
-     *
-     * */
   },
   {
     // — 기본
@@ -2171,6 +2271,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2192,6 +2293,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2206,6 +2308,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2227,6 +2330,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2241,6 +2345,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2262,6 +2367,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2277,6 +2383,7 @@ export const CHAR_BASE = [
     nickKr: "라인하르트",
     nickEn: "Reinhard",
     nickJp: "ラインハルト",
+    searchKeys: [],
     birth: "SE|776.03.14",
     death: "SE|801.07.26",
     // — 성향
@@ -2298,6 +2405,7 @@ export const CHAR_BASE = [
     statAfg: 91,
     statMmp: 72,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `은하제국의 군사 천재. 누나 안네로제가 황제의 후궁으로 끌려간 것에 분노하여 제국의 정점을 향한 야망을 품는다.`,
     descEn: `Military genius of the Galactic Empire. Driven by rage over his sister Annerose being taken as the Emperor's concubine, he harbors ambitions to reach the pinnacle of the empire.`,
@@ -2312,6 +2420,7 @@ export const CHAR_BASE = [
     nickKr: "로보스",
     nickEn: "Lobos",
     nickJp: "ロボス",
+    searchKeys: [],
     birth: "SE|740.09.14",
     death: "SE|796.",
     // — 성향
@@ -2333,6 +2442,7 @@ export const CHAR_BASE = [
     statAfg: 79,
     statMmp: 68,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 우주함대 총사령관. 앤드류 포크의 제국 침공 계획을 승인하고 원정군 최고사령관을 맡았으나, 보급 위기 속에서도 후퇴 명령을 거부하는 무능함을 드러냈다. 아무리트사 성전 참패의 최고 책임자.`,
     descEn: `Supreme Commander of the Free Planets Star Fleet. He approved Andrew Falk's invasion plan and assumed command of the expeditionary force, but proved incapable by refusing retreat orders even as the supply crisis deepened. He bears ultimate responsibility for the catastrophic defeat at the Battle of Amritsar.`,
@@ -2347,6 +2457,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2368,6 +2479,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2382,6 +2494,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2403,6 +2516,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2417,6 +2531,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2438,6 +2553,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2452,6 +2568,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2473,6 +2590,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2487,6 +2605,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2508,6 +2627,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2522,6 +2642,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2543,6 +2664,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2557,6 +2679,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2578,6 +2701,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2592,6 +2716,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2613,6 +2738,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2627,6 +2753,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2648,6 +2775,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2662,6 +2790,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2683,6 +2812,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2697,6 +2827,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2718,6 +2849,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2732,6 +2864,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2753,6 +2886,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2767,6 +2901,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2788,6 +2923,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2802,6 +2938,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2823,6 +2960,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2837,6 +2975,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2858,6 +2997,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2872,6 +3012,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2893,6 +3034,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2907,6 +3049,7 @@ export const CHAR_BASE = [
     nickKr: "샌포드",
     nickEn: "Sanford",
     nickJp: "サンフォード",
+    searchKeys: [],
     birth: "SE|738.04.22",
     death: "SE|796.",
     // — 성향
@@ -2928,6 +3071,7 @@ export const CHAR_BASE = [
     statAfg: 3,
     statMmp: 85,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 최고평의회 의장. 지지율 만회를 위해 제국령 침공 작전을 승인한 인물. 참담한 패전의 책임을 지고 내각 전원과 함께 사퇴했다.`,
     descEn: `Supreme Chairman of the Free Planets Alliance High Council. He approved the invasion of Imperial territory in a bid to reverse flagging approval ratings, and resigned along with the entire cabinet following the catastrophic defeat.`,
@@ -2942,6 +3086,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2963,6 +3108,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -2977,6 +3123,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -2998,6 +3145,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3012,6 +3160,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3033,6 +3182,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3047,6 +3197,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3068,6 +3219,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3082,6 +3234,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3103,6 +3256,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3117,6 +3271,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3138,6 +3293,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3152,6 +3308,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3173,6 +3330,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3187,6 +3345,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3208,6 +3367,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3222,6 +3382,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3243,6 +3404,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3257,6 +3419,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3278,6 +3441,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3292,6 +3456,7 @@ export const CHAR_BASE = [
     nickKr: "케셀링크",
     nickEn: "Kesserling",
     nickJp: "ケッセルリンク",
+    searchKeys: [],
     birth: "SE|774.09.18",
     death: "SE|799.",
     // — 성향
@@ -3313,6 +3478,7 @@ export const CHAR_BASE = [
     statAfg: 3,
     statMmp: 88,
     // — 기타
+    loc: "230042P01",
     point: "0",
     descKr: `아드리안 루빈스키의 서자이자 비서. 아버지의 정치 음모를 실행하는 야심 찬 마키아벨리스트. 속으로는 루빈스키를 몰아내고 자치령주 자리를 차지하려 했으나, 루빈스키에게 발각되어 제국의 페잔 침공 당일 밤 살해당했다.`,
     descEn: `Illegitimate son and secretary of Adrian Rubinsky. A highly ambitious Machiavellian who executed his father's political schemes while secretly plotting to overthrow him and seize the position of Landesherr. His ambitions were fully known to Rubinsky, who had him killed on the night of the Imperial invasion of Fezzan.`,
@@ -3327,6 +3493,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3348,6 +3515,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3362,6 +3530,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3383,6 +3552,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3397,6 +3567,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3418,6 +3589,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3432,6 +3604,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3453,6 +3626,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3467,6 +3641,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3488,6 +3663,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3502,6 +3678,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3523,6 +3700,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3537,6 +3715,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3558,6 +3737,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3572,6 +3752,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3593,6 +3774,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3607,6 +3789,7 @@ export const CHAR_BASE = [
     nickKr: "리처",
     nickEn: "Richter",
     nickJp: "リヒター",
+    searchKeys: [],
     birth: "SE|750.04.22",
     death: "",
     // — 성향
@@ -3628,6 +3811,7 @@ export const CHAR_BASE = [
     statAfg: 2,
     statMmp: 72,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `겔라흐의 후임 제국 재무장관. 골덴바움 왕조 붕괴 후 로엔그람 체제에서 재무장관직을 이어받았다.`,
     descEn: `Imperial Minister of Finance, succeeding Gerlach after the fall of the Goldenbaum Dynasty under the Lohengramm administration.`,
@@ -3642,6 +3826,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3663,6 +3848,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3677,6 +3863,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3698,6 +3885,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3712,6 +3900,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3733,6 +3922,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3747,6 +3937,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3768,6 +3959,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3782,6 +3974,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3803,6 +3996,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3817,6 +4011,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3838,6 +4033,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3852,6 +4048,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3873,6 +4070,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3887,6 +4085,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3908,6 +4107,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3922,6 +4122,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3943,6 +4144,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3957,6 +4159,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -3978,6 +4181,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -3992,6 +4196,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4013,6 +4218,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4027,6 +4233,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4048,6 +4255,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4062,6 +4270,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4083,6 +4292,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4097,6 +4307,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4118,6 +4329,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4132,6 +4344,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4153,6 +4366,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4167,6 +4381,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4188,6 +4403,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4202,6 +4418,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4223,6 +4440,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4237,6 +4455,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4258,6 +4477,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4272,6 +4492,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4293,6 +4514,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4307,6 +4529,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4328,6 +4551,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4342,6 +4566,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4363,6 +4588,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4377,6 +4603,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4398,6 +4625,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4412,6 +4640,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4433,6 +4662,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4447,6 +4677,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4468,6 +4699,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4482,6 +4714,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4503,6 +4736,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4517,6 +4751,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4538,6 +4773,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4552,6 +4788,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4573,6 +4810,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4587,6 +4825,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4608,6 +4847,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4622,6 +4862,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4643,6 +4884,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4657,6 +4899,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4678,6 +4921,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4692,6 +4936,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4713,6 +4958,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4727,6 +4973,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4748,6 +4995,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4762,6 +5010,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4783,6 +5032,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4797,6 +5047,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4818,6 +5069,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4832,6 +5084,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4853,6 +5106,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4867,6 +5121,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4888,6 +5143,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4903,9 +5159,10 @@ export const CHAR_BASE = [
     nickKr: "무어",
     nickEn: "Moore",
     nickJp: "ムーア",
+    searchKeys: [],
     birth: "",
     death: "SE|796.02.11",
-    // — 성향 (TODO 주석 참조하여 확인하고 수정 필요하면 수정)
+    // — 성향
     faction: "FPA",
     idea: "100", // 통제 자유경제 선호하는 것으로
     econ: "140", // 살아있었으면 아마 구국군사회의 참가했을 것으로 보임
@@ -4924,18 +5181,12 @@ export const CHAR_BASE = [
     statAfg: 75,
     statMmp: 30,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 소속의 사령관. 호탕하고 거친 성격으로 유명하다.
     참모의 조언을 무시하는 독단적 성격도 있지만, 엄격한 군율을 세우는데 능해 뛰어난 사령관 중 하나로 평가받고 있다.`,
     descEn: ``,
     descJp: ``,
-    /** TODO 아스타데 회전 기준 4함대 소속의 사령관
-     * JOBS에 JB_C001(자유행성동맹의 시민임) JB_MR008(당시 중장이었음)
-     * TRAITS 추가 필요
-     *  독선(범용) : 함대 사령관인 경우, 해당 함대는 다른 인물의 효과를 받지 않음
-     *  엄격한 군율(범용) : 함대 사령관인 경우, 해당 함대는
-     *
-     * */
   },
   {
     // — 기본
@@ -4946,6 +5197,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -4967,6 +5219,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -4981,6 +5234,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5002,6 +5256,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5016,6 +5271,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5037,6 +5293,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5051,6 +5308,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5072,6 +5330,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5086,6 +5345,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5107,6 +5367,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5121,6 +5382,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5142,6 +5404,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5156,6 +5419,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5177,6 +5441,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5191,6 +5456,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5212,6 +5478,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5226,6 +5493,7 @@ export const CHAR_BASE = [
     nickKr: "바그다쉬",
     nickEn: "Baghdash",
     nickJp: "バグダッシュ",
+    searchKeys: [],
     birth: "SE|762.08.17",
     death: "",
     // — 성향
@@ -5247,6 +5515,7 @@ export const CHAR_BASE = [
     statAfg: 50,
     statMmp: 68,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `동맹 정보부 출신 장교. 국가구제군 쿠데타에 가담했다가 양 웬리의 설득으로 귀순하여 쿠데타의 제국 배후를 폭로하는 방송을 감행했다. 이후 양 함대의 정보장교로 활동하며 이젤론 탈환 작전에도 참여했다.`,
     descEn: `A former Alliance intelligence officer who participated in the National Salvation Military Council coup, then defected to Yang Wen-li's side and made a public broadcast exposing the Empire's covert involvement behind the coup. He subsequently served as an intelligence officer for Yang's fleet, including the operation to retake Iserlohn.`,
@@ -5261,6 +5530,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5282,6 +5552,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5296,6 +5567,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5317,6 +5589,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5331,6 +5604,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5352,6 +5626,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5366,6 +5641,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5387,6 +5663,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5401,6 +5678,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5422,6 +5700,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5436,6 +5715,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5457,6 +5737,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5471,6 +5752,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5492,6 +5774,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5506,6 +5789,7 @@ export const CHAR_BASE = [
     nickKr: "쇤코프",
     nickEn: "Schönkopf",
     nickJp: "シェーンコップ",
+    searchKeys: [],
     birth: "SE|765.07.28",
     death: "SE|801.06.01",
     // — 성향
@@ -5527,6 +5811,7 @@ export const CHAR_BASE = [
     statAfg: 60,
     statMmp: 20,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `로젠리터 연대장. 제국 귀족 출신 망명자 집단인 로젠리터를 이끄는 동맹 최강의 육전 전문가. 뛰어난 검술과 육탄전 능력으로 이젤론 요새 점령을 비롯한 수많은 작전의 핵심을 담당했다. 바람둥이로 유명하며 카테로제 폰 크로이처의 생부다.`,
     descEn: `Commander of the Rosen Ritter. The Alliance's foremost ground warfare specialist, leading a regiment of Imperial exile descendants. His exceptional swordsmanship and close-combat ability made him the linchpin of numerous operations including the capture of Iserlohn Fortress. Notorious as a womaniser, he is the biological father of Katerose von Kreutzer.`,
@@ -5541,6 +5826,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5562,6 +5848,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5576,6 +5863,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5597,6 +5885,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5611,6 +5900,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5632,6 +5922,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5646,6 +5937,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5667,6 +5959,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5681,6 +5974,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5702,6 +5996,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5716,6 +6011,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5737,6 +6033,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5751,6 +6048,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5772,6 +6070,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5786,6 +6085,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5807,6 +6107,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5821,6 +6122,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5842,6 +6144,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5856,6 +6159,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5877,6 +6181,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5891,6 +6196,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5912,6 +6218,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5926,6 +6233,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5947,6 +6255,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5961,6 +6270,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -5982,6 +6292,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -5996,6 +6307,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6017,6 +6329,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6031,6 +6344,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6052,6 +6366,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6066,6 +6381,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6087,6 +6403,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6101,6 +6418,7 @@ export const CHAR_BASE = [
     nickKr: "미터마이어",
     nickEn: "Mittermeyer",
     nickJp: "ミッターマイヤー",
+    searchKeys: [],
     birth: "SE|768.08.30",
     // — 성향
     faction: "REH",
@@ -6121,6 +6439,7 @@ export const CHAR_BASE = [
     statAfg: 85,
     statMmp: 70,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `라인하르트 폰 뮤젤 휘하 제국군 최강의 제독 중 한 명. '질풍 늑대'라는 별명처럼 압도적인 기동력으로 전장을 누비며, 로이엔탈과 함께 '쌍벽'으로 불린다. 평민 출신으로 귀족 사회의 부조리에 맞서는 강직한 도덕관념을 지녔다.`,
     descEn: `One of the most formidable admirals under Reinhard von Lohengramm. Known as the "Gale Wolf" for his overwhelming speed and mobility in battle, he forms the "Twin Pillars" together with Reuenthal. A man of strong moral conviction, he stands firm against the corruption of the Imperial aristocracy despite his commoner birth.`,
@@ -6135,6 +6454,7 @@ export const CHAR_BASE = [
     nickKr: "아둘라",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6156,6 +6476,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6170,6 +6491,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6191,6 +6513,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6205,6 +6528,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6226,6 +6550,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6240,6 +6565,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6261,6 +6587,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6275,6 +6602,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6296,6 +6624,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6310,6 +6639,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6331,6 +6661,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6345,6 +6676,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6366,6 +6698,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6380,6 +6713,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6401,6 +6735,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6415,6 +6750,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6436,6 +6772,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6450,6 +6787,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6471,6 +6809,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6485,6 +6824,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6506,6 +6846,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6520,6 +6861,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6541,6 +6883,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6555,6 +6898,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6576,6 +6920,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6590,6 +6935,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6611,6 +6957,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6625,6 +6972,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6646,6 +6994,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6660,6 +7009,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6681,6 +7031,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6695,6 +7046,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6716,6 +7068,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6730,6 +7083,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6751,6 +7105,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6765,6 +7120,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6786,6 +7142,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6800,6 +7157,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6821,6 +7179,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6835,6 +7194,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6856,6 +7216,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6871,6 +7232,7 @@ export const CHAR_BASE = [
     nickKr: "메르카츠",
     nickEn: "Merkatz",
     nickJp: "メルカッツ",
+    searchKeys: [],
     birth: "SE|738.04.28",
     death: "SE|801.06.01",
     // — 성향
@@ -6892,6 +7254,7 @@ export const CHAR_BASE = [
     statAfg: 85,
     statMmp: 55,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `은하제국이 자랑하는 노련한 명장.
     말단 하급 귀족 출신이지만, 수십 년의 실전 경험을 보유한 뛰어난 지휘관으로, 견실하고 허점없이 합리적인 군사운용으로 유명하다.
@@ -6908,6 +7271,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6929,6 +7293,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6943,6 +7308,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -6964,6 +7330,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -6978,6 +7345,7 @@ export const CHAR_BASE = [
     nickKr: "리텐하임",
     nickEn: "Littenheim",
     nickJp: "リッテンハイム",
+    searchKeys: [],
     birth: "SE|747.11.08",
     death: "SE|797.08.",
     // — 성향
@@ -6999,6 +7367,7 @@ export const CHAR_BASE = [
     statAfg: 22,
     statMmp: 78,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `골덴바움 왕조 최대 문벌귀족 후작. 황제 프리드리히 4세의 사위로 딸 사비네의 황위 계승을 획책하며 브라운슈바이크와 함께 립슈타트 동맹을 이끌었다. 실질적인 군사적 재능이 없어 키르히아이스에게 패배하고 부하의 자폭 테러로 사망했다.`,
     descEn: `An Imperial Marquis and son-in-law of Kaiser Friedrich IV, he co-led the Lippstadt Alliance alongside Duke Braunschweig in an attempt to place his daughter Sabine on the throne. Lacking any real martial talent, he was defeated by Siegfried Kircheis and was killed by a suicide attack from one of his own resentful subordinates.`,
@@ -7013,6 +7382,7 @@ export const CHAR_BASE = [
     nickKr: "W.뮈켄베르거",
     nickEn: "W.Muckenburger",
     nickJp: "W.ミュッケンベルガー",
+    searchKeys: [],
     birth: "SE|705.04.12",
     death: "SE|770.",
     // — 성향
@@ -7034,6 +7404,7 @@ export const CHAR_BASE = [
     statAfg: 38,
     statMmp: 62,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `그레고르 폰 뮈켄베르거의 부친. 작중 이미 사망한 인물로 직접 등장하지 않는다.`,
     descEn: `Father of Gregor von Mückenberger. Deceased prior to the events of the story and does not appear directly.`,
@@ -7048,6 +7419,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7069,6 +7441,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7083,6 +7456,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7104,6 +7478,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7118,6 +7493,7 @@ export const CHAR_BASE = [
     nickKr: "사비네",
     nickEn: "Sabine",
     nickJp: "ザービネ",
+    searchKeys: [],
     birth: "SE|782.04.08",
     death: "",
     // — 성향
@@ -7139,6 +7515,7 @@ export const CHAR_BASE = [
     statAfg: 2,
     statMmp: 42,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `빌헬름 폰 리텐하임의 딸. 796년 황위 계승 후보로 내세워졌으나 에르빈 요제프 2세에게 황위를 빼앗겼다. 립슈타트 내전 이후 행방 불명.`,
     descEn: `Daughter of Marquis Wilhelm von Littenheim. Put forward as a claimant to the throne after Kaiser Friedrich IV's death but passed over in favour of Erwin Josef II. Her fate following the Lippstadt Rebellion is unknown.`,
@@ -7153,6 +7530,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7174,6 +7552,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7188,6 +7567,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7209,6 +7589,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7223,6 +7604,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7244,6 +7626,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7258,6 +7641,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7279,6 +7663,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7293,6 +7678,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7314,6 +7700,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7328,6 +7715,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7349,6 +7737,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7363,6 +7752,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7384,6 +7774,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7398,6 +7789,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7419,6 +7811,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7433,6 +7826,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7454,6 +7848,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7468,6 +7863,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7489,6 +7885,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7503,6 +7900,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7524,6 +7922,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7538,6 +7937,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7559,6 +7959,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7573,6 +7974,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7594,6 +7996,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7608,6 +8011,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7629,6 +8033,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7643,6 +8048,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7664,6 +8070,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7678,6 +8085,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7699,6 +8107,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7713,6 +8122,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7734,6 +8144,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7748,6 +8159,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7769,6 +8181,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7783,6 +8196,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7804,6 +8218,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7818,6 +8233,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7839,6 +8255,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7854,6 +8271,7 @@ export const CHAR_BASE = [
     nickKr: "슈타덴",
     nickEn: "Staden",
     nickJp: "シュターデン",
+    searchKeys: [],
     birth: "SE|751.03.18",
     death: "SE|802.05.29",
     // — 성향
@@ -7875,6 +8293,7 @@ export const CHAR_BASE = [
     statAfg: 68,
     statMmp: 28,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7889,6 +8308,7 @@ export const CHAR_BASE = [
     nickKr: "슈타인호프",
     nickEn: "Steinhof",
     nickJp: "シュタインホフ",
+    searchKeys: [],
     birth: "SE|728.09.24",
     death: "",
     // — 성향
@@ -7910,6 +8330,7 @@ export const CHAR_BASE = [
     statAfg: 42,
     statMmp: 85,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `프리드리히 4세 치하 제국군 3장관 중 통수본부총장. 군사 행정에 특화된 관료형 장성으로, 립슈타트 반란 이후 강제 퇴역하였다.`,
     descEn: `Chief of the Supreme Command Headquarters and one of the three Imperial military chiefs of staff under Kaiser Friedrich IV. A bureaucratic general specialising in military administration, he was forced into retirement following the Lippstadt Rebellion.`,
@@ -7924,6 +8345,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7945,6 +8367,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7959,6 +8382,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -7980,6 +8404,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -7994,6 +8419,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8015,6 +8441,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8029,6 +8456,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8050,6 +8478,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8064,6 +8493,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8085,6 +8515,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8099,6 +8530,7 @@ export const CHAR_BASE = [
     nickKr: "시톨레",
     nickEn: "Sithole",
     nickJp: "シトレ",
+    searchKeys: [],
     birth: "SE|740.07.23",
     death: "",
     // — 성향
@@ -8120,6 +8552,7 @@ export const CHAR_BASE = [
     statAfg: 72,
     statMmp: 82,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 통합작전본부장. 제5차 이젤론 공방전에서 '평행추격' 전술로 이젤론 요새에 가장 근접했던 제독이자 양 웬리의 후원자. 정치적 압력과 군 내부의 모순 속에서도 원칙을 지키며 양 웬리를 지원했다.`,
     descEn: `Chief of the Free Planets Alliance Joint Operations Headquarters. The admiral who came closest to taking Iserlohn Fortress by force with his "parallel pursuit" tactic in the Fifth Battle of Iserlohn, and the mentor figure who supported Yang Wen-li throughout his career despite political pressures and institutional contradictions.`,
@@ -8134,6 +8567,7 @@ export const CHAR_BASE = [
     nickKr: "셀레브레제",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8155,6 +8589,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8169,6 +8604,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8190,6 +8626,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8205,6 +8642,7 @@ export const CHAR_BASE = [
     nickKr: "파렌하이트",
     nickEn: "Fahrenheit",
     nickJp: "ファーレンハイト",
+    searchKeys: [],
     birth: "SE|765",
     death: "SE|800.04.30",
     // — 성향
@@ -8226,6 +8664,7 @@ export const CHAR_BASE = [
     statAfg: 88,
     statMmp: 42,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `가난한 하급 귀족 출신이나 무수한 실전에서 화려한 공적을 쌓아 31세에 소장이 된 장성.`,
     descEn: ``,
@@ -8240,6 +8679,7 @@ export const CHAR_BASE = [
     nickKr: "루빈스키",
     nickEn: "Rubinsky",
     nickJp: "ルビンスキー",
+    searchKeys: [],
     birth: "SE|745.07.19",
     death: "SE|800.",
     // — 성향
@@ -8261,6 +8701,7 @@ export const CHAR_BASE = [
     statAfg: 5,
     statMmp: 98,
     // — 기타
+    loc: "230042P01",
     point: "0",
     descKr: `페잔 자치령의 제5대 자치령주. '페잔의 흑여우'라 불리는 책략가로 제국과 동맹 양쪽을 조종하며 페잔의 금융 지배를 꿈꿨다. 지구교와도 깊이 연루되어 있으며 은하 정치의 막후 실력자.`,
     descEn: `The fifth Landesherr of the Dominion of Fezzan, nicknamed the "Black Fox of Fezzan." A consummate schemer who manipulated both the Empire and the Alliance while dreaming of Fezzan's financial domination of the galaxy. Deeply entangled with the Terraist Church, he was the shadow power behind galactic politics.`,
@@ -8275,6 +8716,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8296,6 +8738,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8310,6 +8753,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8331,6 +8775,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8345,6 +8790,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8366,6 +8812,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8380,6 +8827,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8401,6 +8849,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8415,6 +8864,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8436,6 +8886,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8450,6 +8901,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8471,6 +8923,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8485,6 +8938,7 @@ export const CHAR_BASE = [
     nickKr: "바렌",
     nickEn: "Wahlen",
     nickJp: "ワーレン",
+    searchKeys: [],
     birth: "SE|767.06.14",
     death: "",
     // — 성향
@@ -8506,6 +8960,7 @@ export const CHAR_BASE = [
     statAfg: 80,
     statMmp: 72,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `라인하르트 폰 뮤젤 제독단의 균형형 제독. 테라 공략 중 테러리스트에게 독침을 맞아 왼팔을 잃고 의수를 달았다. 충직하고 안정적인 지휘로 제국군 내에서 신뢰받는 중견 제독이다.`,
     descEn: `A well-rounded admiral in Reinhard's admiralty. He lost his left arm to a poisoned knife during the assault on Terra and replaced it with a prosthetic. Known for his loyal and steady command, he is a trusted senior officer within the Imperial Fleet.`,
@@ -8520,6 +8975,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8541,6 +8997,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8555,6 +9012,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8576,6 +9034,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8590,6 +9049,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8611,6 +9071,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8625,6 +9086,7 @@ export const CHAR_BASE = [
     nickKr: "안네로제",
     nickEn: "Annerose",
     nickJp: "アンネローゼ",
+    searchKeys: [],
     birth: "SE|771.06.26",
     death: "",
     // — 성향
@@ -8646,6 +9108,7 @@ export const CHAR_BASE = [
     statAfg: 5,
     statMmp: 80,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `라인하르트 폰 뮤젤의 누나. 황제 프리드리히 4세의 후궁으로 끌려가 동생의 야망을 촉발시킨 인물. 정치나 전쟁과는 거리를 두고 조용히 살아가지만, 라인하르트에게 있어 가장 소중한 존재다.`,
     descEn: `The elder sister of Reinhard von Lohengramm. Taken as a consort by Kaiser Friedrich IV, her fate became the catalyst for Reinhard's ambitions. She lives quietly apart from politics and war, yet remains the most precious person in Reinhard's life.`,
@@ -8660,6 +9123,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8681,6 +9145,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8695,6 +9160,7 @@ export const CHAR_BASE = [
     nickKr: "안스바흐",
     nickEn: "Ansbach",
     nickJp: "アンスバッハ",
+    searchKeys: [],
     birth: "SE|758.06.22",
     death: "SE|797.",
     // — 성향
@@ -8716,6 +9182,7 @@ export const CHAR_BASE = [
     statAfg: 45,
     statMmp: 60,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `오토 폰 브라운슈바이크 공작의 부관. 주군에 대한 충성심이 강하나 웨스터란트 핵폭격 결정에 강하게 반대하다 투옥됐다. 결국 주군의 비겁한 행동에 환멸을 느끼고 직접 독을 먹여 브라운슈바이크를 살해했다.`,
     descEn: `Aide to Duke Otto von Braunschweig. A man of strong loyalty to his lord, he was imprisoned after vocally opposing Braunschweig's decision to use nuclear weapons on Westerland. Ultimately disillusioned by his lord's cowardice, he personally administered the poison that killed Braunschweig.`,
@@ -8731,6 +9198,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8752,6 +9220,7 @@ export const CHAR_BASE = [
     statAfg: 10,
     statMmp: 20,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `워프 기술을 발견·개발한 전설적인 과학자. 우주항행부 소속 연구팀을 이끌며 항성간 워프 항법을 실용화했고, 그 업적은 이후 인류의 은하 진출을 가능하게 한 초석이 됐다.`,
     descEn: `Legendary scientist who discovered and developed Warp technology. Leading the Ministry of Space research team, he made interstellar warp navigation practical — an achievement that laid the foundation for all of humanity's expansion into the galaxy.`,
@@ -8766,6 +9235,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8787,6 +9257,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8801,6 +9272,7 @@ export const CHAR_BASE = [
     nickKr: "샤프트",
     nickEn: "Schaft",
     nickJp: "シャフト",
+    searchKeys: [],
     birth: "SE|748.09.15",
     death: "",
     // — 성향
@@ -8822,6 +9294,7 @@ export const CHAR_BASE = [
     statAfg: 3,
     statMmp: 75,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `공학·철학 박사 학위를 보유한 제국 과학기술감찰총감. 페잔의 사주를 받아 가이에스부르크 요새 기동화 계획을 추진하여 제8차 이젤론 공방전을 일으켰으나, 패전 후 루빈스키의 명으로 증거가 제공되어 부패·횡령·군사기밀 누설 혐의로 체포됐다.`,
     descEn: `Inspector General of the Imperial Science and Technology Division, holding doctoral degrees in both engineering and philosophy. Acting under covert direction from Fezzan, he devised and implemented the plan to mobilise Geiersburg Fortress, triggering the Eighth Battle of Iserlohn. After the Imperial defeat, Rubinsky had evidence of his crimes handed over to the Empire and he was arrested on charges of corruption, embezzlement, and betrayal of military secrets.`,
@@ -8836,6 +9309,7 @@ export const CHAR_BASE = [
     nickKr: "알 살렘",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8857,6 +9331,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8872,6 +9347,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8893,6 +9369,7 @@ export const CHAR_BASE = [
     statAfg: 15,
     statMmp: 25,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹의 정신적 시조. 은하제국의 혹성 알타이르 VII에서 농노로 태어나, 스스로 설계한 거대 드라이아이스 우주선으로 40만 명의 동포를 이끌고 이젤론 회랑을 돌파해 은하계 끝자락에 자유로운 공화국의 씨앗을 뿌렸다. 이젤론 통과 도중 사망했지만 그의 이름은 행성 '하이네센'과 동맹 그 자체에 영원히 새겨졌다.`,
     descEn: `The spiritual forefather of the Free Planets Alliance. Born a serf on the Imperial planet Altair VII, he engineered a fleet of massive dry-ice ships, led 400,000 people through the Iserlohn Corridor, and planted the seeds of a free republic at the galaxy's edge. He died during the passage, but his name lives on in the planet Heinessen and the Alliance itself.`,
@@ -8907,6 +9384,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -8928,6 +9406,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -8942,6 +9421,7 @@ export const CHAR_BASE = [
     nickKr: "뷰코크",
     nickEn: "Bewcock",
     nickJp: "ビュコック",
+    searchKeys: [],
     birth: "SE|726.12.08",
     death: "SE|800.06.19",
     // — 성향
@@ -8963,6 +9443,7 @@ export const CHAR_BASE = [
     statAfg: 80,
     statMmp: 82,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 최고의 노장. 사병으로 입대하여 원수까지 오른 입지전적 인물로, 수십 년의 전장 경험과 강직한 인품으로 양 웬리를 비롯한 동맹 장교들의 존경을 받았다. 란테마리오 성전에서 패배 후 최후의 저항을 이끌다 전사했다.`,
     descEn: `The Alliance's greatest veteran admiral. Enlisting as a common soldier and rising to Fleet Admiral through decades of combat, he earned the respect of Yang Wen-li and all Alliance officers through his battlefield experience and uncompromising integrity. He died leading a last stand after defeat at the Battle of Rantemario.`,
@@ -8977,6 +9458,7 @@ export const CHAR_BASE = [
     nickKr: "카젤느",
     nickEn: "Cazerne",
     nickJp: "キャゼルヌ",
+    searchKeys: [],
     birth: "SE|761.05.01",
     death: "",
     // — 성향
@@ -8998,6 +9480,7 @@ export const CHAR_BASE = [
     statAfg: 55,
     statMmp: 65,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 최고의 보급/행정 전문가. 양 웬리의 절친한 친구이자 13함대의 후방을 책임진 핵심 참모. 전투보다 물자 조달과 병참 운영에 천재적인 재능을 발휘하며, 율리안 민츠를 양 웬리에게 배정한 인물이기도 하다.`,
     descEn: `The Free Planets Alliance's foremost logistics and administrative specialist. A close friend of Yang Wen-li and the key staff officer responsible for the 13th Fleet's rear operations. A genius in supply and logistics rather than combat, he was also the one who assigned Julian Mintz to Yang Wen-li.`,
@@ -9012,6 +9495,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9033,6 +9517,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9047,6 +9532,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9068,6 +9554,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9082,6 +9569,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9103,6 +9591,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9117,6 +9606,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9138,6 +9628,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9152,6 +9643,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9173,6 +9665,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9187,6 +9680,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9208,6 +9702,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9222,6 +9717,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9243,6 +9739,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9257,6 +9754,7 @@ export const CHAR_BASE = [
     nickKr: "포크",
     nickEn: "Falk",
     nickJp: "フォーク",
+    searchKeys: [],
     birth: "SE|768.11.30",
     death: "SE|800.04.15",
     // — 성향
@@ -9278,6 +9776,7 @@ export const CHAR_BASE = [
     statAfg: 22,
     statMmp: 55,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 통합작전본부 참모. 사관학교 수석 졸업의 수재로 제국령 침공 작전을 입안했다. 야망과 허영심이 강해 양 웬리와 우란푸의 경고를 무시하고 침공을 밀어붙였다. 아무리트사 패전 후 정신이상자가 되었다가 지구교의 음모에 휘말려 사망했다.`,
     descEn: `Staff officer at the Free Planets Alliance Joint Operations Headquarters. A brilliant graduate who topped his Academy class, he devised and pushed for the Imperial invasion despite warnings from Yang Wen-li and Ulanhu. After the catastrophic defeat at Amritsar he suffered a mental breakdown, and was later killed when caught up in a Terraist Church conspiracy.`,
@@ -9292,6 +9791,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9313,6 +9813,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9327,6 +9828,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9348,6 +9850,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9363,6 +9866,7 @@ export const CHAR_BASE = [
     nickKr: "양",
     nickEn: "Yang",
     nickJp: "ヤン",
+    searchKeys: [],
     birth: "SE|767.04.04", // 확실
     death: "SE|800.06.01", // 확실
     // — 성향
@@ -9384,6 +9888,7 @@ export const CHAR_BASE = [
     statAfg: 77,
     statMmp: 70,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `은하역사상 손꼽히는 전략가. 역사학자를 꿈꿨으나 생활고로 사관학교에 입학한 이후 군인의 삶을 걷는다. 전쟁을 혐오하면서도 부하들의 생명을 지키기 위해 전장에서 불패의 전술을 구사하며 '마법사 양'이라는 명성을 얻는다.`,
     descEn: `One of the greatest strategists in galactic history. Though he dreamed of becoming a historian, financial hardship led him to the officer academy and a life in the military. Despising war yet fighting to protect his soldiers, he employs undefeated tactics and earns the name "Yang the Magician."`,
@@ -9398,6 +9903,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9419,6 +9925,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9433,6 +9940,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9454,6 +9962,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9468,6 +9977,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9489,6 +9999,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9504,6 +10015,7 @@ export const CHAR_BASE = [
     nickKr: "피셔",
     nickEn: "Fischer",
     nickJp: "フィッシャー",
+    searchKeys: [],
     birth: "SE|762.04.11",
     death: "SE|800.05.15", // 확실
     // — 성향
@@ -9529,6 +10041,7 @@ export const CHAR_BASE = [
     statAfg: 75,
     statMmp: 75,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 소속의 군인.
     함대운용을 실전에서 완벽하게 구현하는 달인으로, 다소 과묵하고 침착한 성격이다.`,
@@ -9544,6 +10057,7 @@ export const CHAR_BASE = [
     nickKr: "에렌베르크",
     nickEn: "Ehrenberg",
     nickJp: "エーレンベルク",
+    searchKeys: [],
     birth: "SE|730.05.12",
     death: "",
     // — 성향
@@ -9565,6 +10079,7 @@ export const CHAR_BASE = [
     statAfg: 21,
     statMmp: 88,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `프리드리히 4세 치하 제국군 3장관 중 군무상서. 라인하르트 폰 뮤젤의 세력 확장에 반발한 구체제 귀족 세력의 일원으로, 립슈타트 반란 당시 비텐펠트에게 체포되어 강제 퇴역당했다.`,
     descEn: `Minister of Military Affairs and one of the three Imperial military chiefs of staff under Kaiser Friedrich IV. A member of the old guard who resisted Reinhard von Lohengramm's rise, he was captured by Bittenfeld during the Lippstadt Rebellion and forced into retirement.`,
@@ -9579,6 +10094,7 @@ export const CHAR_BASE = [
     nickKr: "메크링거",
     nickEn: "Mecklinger",
     nickJp: "メックリンガー",
+    searchKeys: [],
     birth: "SE|766.10.05",
     death: "",
     // — 성향
@@ -9600,6 +10116,7 @@ export const CHAR_BASE = [
     statAfg: 75,
     statMmp: 85,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `'예술가 제독'이라 불리는 제국군 후방 사령관. 
     군사적 능력과 예술적 소양을 겸비한 지휘관으로 평가받고 있다.`,
@@ -9615,6 +10132,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9636,6 +10154,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9650,6 +10169,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9671,6 +10191,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9685,6 +10206,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9706,6 +10228,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9720,6 +10243,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9741,6 +10265,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9755,6 +10280,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9776,6 +10302,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9790,6 +10317,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9811,6 +10339,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9825,6 +10354,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9846,6 +10376,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9860,6 +10391,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9881,6 +10413,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9895,6 +10428,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9916,6 +10450,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9930,6 +10465,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9951,6 +10487,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -9965,6 +10502,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -9986,6 +10524,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10000,6 +10539,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10021,6 +10561,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10035,6 +10576,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10056,6 +10598,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10070,6 +10613,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10091,6 +10635,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10105,6 +10650,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10126,6 +10672,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10140,6 +10687,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10161,6 +10709,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10175,6 +10724,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10196,6 +10746,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10211,6 +10762,7 @@ export const CHAR_BASE = [
     nickKr: "엘라흐",
     nickEn: "Elrach",
     nickJp: "エルラッハ",
+    searchKeys: [],
     birth: "",
     death: "SE|796.02.11",
     // — 성향
@@ -10232,6 +10784,7 @@ export const CHAR_BASE = [
     statAfg: 65,
     statMmp: 35,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `은하제국의 함대 지휘관. 아스타테 회전에서 라인하르트 함대의 분함대 사령관으로 참전했으나 전투 중 전사했다.`,
     descEn: `A fleet commander of the Galactic Empire. He participated in the Battle of Astarte as a sub-fleet commander under Reinhard's fleet, but was killed in action during the engagement.`,
@@ -10246,6 +10799,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10267,6 +10821,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10281,6 +10836,7 @@ export const CHAR_BASE = [
     nickKr: "엘리자베트",
     nickEn: "Elisabeth",
     nickJp: "エリザベート",
+    searchKeys: [],
     birth: "SE|780.06.12",
     death: "",
     // — 성향
@@ -10302,6 +10858,7 @@ export const CHAR_BASE = [
     statAfg: 2,
     statMmp: 48,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `오토 폰 브라운슈바이크의 딸. 796년 프리드리히 4세 붕어 후 황위 계승 후보로 내세워졌으나 에르빈 요제프 2세에게 황위를 빼앗겼다. 립슈타트 내전 이후 행방 불명.`,
     descEn: `Daughter of Duke Otto von Braunschweig. Put forward as a claimant to the throne after Kaiser Friedrich IV's death in 796 UC, but the throne went to Erwin Josef II instead. Her fate following the Lippstadt Rebellion is unknown.`,
@@ -10317,6 +10874,7 @@ export const CHAR_BASE = [
     nickKr: "E. 카스트로프",
     nickEn: "E. Castrop",
     nickJp: "E. カストロプ",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10338,6 +10896,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10352,6 +10911,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10373,6 +10933,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10387,6 +10948,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10408,6 +10970,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10422,6 +10985,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10443,6 +11007,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10457,6 +11022,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10478,6 +11044,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10492,6 +11059,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10513,6 +11081,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10527,6 +11096,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10548,6 +11118,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10562,6 +11133,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10583,6 +11155,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10597,6 +11170,7 @@ export const CHAR_BASE = [
     nickKr: "로이엔탈",
     nickEn: "Reuenthal",
     nickJp: "ロイエンタール",
+    searchKeys: [],
     birth: "SE|767.10.26",
     death: "SE|800.12.16",
     // — 성향
@@ -10618,6 +11192,7 @@ export const CHAR_BASE = [
     statAfg: 88,
     statMmp: 80,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `라인하르트 다음가는 전략 능력을 지닌 제국군 최고의 제독. 이색동공을 가졌으며, 미터마이어와 함께 '쌍벽'으로 불린다. 야망과 반골 기질을 내면에 품고 있으며, 결국 라인하르트에게 반란을 일으켰다가 전사한다.`,
     descEn: `The finest Imperial admiral second only to Reinhard in strategic ability. Known for his heterochromia, he forms the "Twin Pillars" with Mittermeyer. Harbouring deep ambition and a rebellious spirit within, he ultimately rises in insurrection against Kaiser Reinhard, only to fall in battle.`,
@@ -10632,6 +11207,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10653,6 +11229,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10667,6 +11244,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10688,6 +11266,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10703,6 +11282,7 @@ export const CHAR_BASE = [
     nickKr: "Eug. 카스트로프",
     nickEn: "Eug. Castrop",
     nickJp: "Eug. カストロプ",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10724,6 +11304,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10738,6 +11319,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10759,6 +11341,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10773,6 +11356,7 @@ export const CHAR_BASE = [
     nickKr: "브라운슈바이크",
     nickEn: "Braunschweig",
     nickJp: "ブラウンシュヴァイク",
+    searchKeys: [],
     birth: "SE|745.03.18",
     death: "SE|797.09.",
     // — 성향
@@ -10794,6 +11378,7 @@ export const CHAR_BASE = [
     statAfg: 35,
     statMmp: 82,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `골덴바움 왕조 최대 문벌귀족 공작. 황제 프리드리히 4세의 사위로 딸 엘리자베트의 황위 계승을 획책하며 립슈타트 동맹을 주도했다. 리텐하임과 대립하면서도 연합하여 라인하르트에 맞섰으나 패배하고 측근 안스바흐에게 독살당했다.`,
     descEn: `The most powerful high noble Duke of the Goldenbaum Dynasty and son-in-law of Kaiser Friedrich IV. He led the Lippstadt Alliance in an attempt to place his daughter Elisabeth on the throne, forming a fragile coalition with his rival Marquis Littenheim against Reinhard von Lohengramm. Defeated in the civil war, he was poisoned by his own aide Ansbach.`,
@@ -10808,6 +11393,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10829,6 +11415,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10843,6 +11430,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10864,6 +11452,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10878,6 +11467,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10899,6 +11489,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10913,6 +11504,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10934,6 +11526,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10948,6 +11541,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -10969,6 +11563,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -10983,6 +11578,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11004,6 +11600,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11018,6 +11615,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11039,6 +11637,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11053,6 +11652,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11074,6 +11674,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11088,6 +11689,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11109,6 +11711,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11123,6 +11726,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11144,6 +11748,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11158,6 +11763,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11179,6 +11785,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11193,6 +11800,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11214,6 +11822,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11228,6 +11837,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11249,6 +11859,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11263,6 +11874,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11284,6 +11896,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11298,6 +11911,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11319,6 +11933,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11333,6 +11948,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11354,6 +11970,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11368,6 +11985,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11389,6 +12007,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11403,6 +12022,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11424,6 +12044,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11438,6 +12059,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11459,6 +12081,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11473,6 +12096,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11494,6 +12118,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11508,6 +12133,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11529,6 +12155,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11543,6 +12170,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11564,6 +12192,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11578,6 +12207,7 @@ export const CHAR_BASE = [
     nickKr: "트류니히트",
     nickEn: "Trunicht",
     nickJp: "トリューニヒト",
+    searchKeys: [],
     birth: "SE|748.06.12",
     death: "SE|800.12.16",
     // — 성향
@@ -11599,6 +12229,7 @@ export const CHAR_BASE = [
     statAfg: 2,
     statMmp: 98,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹의 정치가. 부패하고 무능한 행정으로 동맹 몰락의 한 원인이 된 최고평의회 의장. 공포 정치와 선동으로 권력을 유지했으며 제국에 항복 후에도 생존을 위해 지구교, 제국과 거래하는 등 철저한 기회주의자다.`,
     descEn: `An Alliance politician and penultimate head of state whose corrupt and incompetent administration was one of the contributing factors to the fall of the Alliance. He maintained power through fear and demagoguery, and after surrendering to the Empire continued to survive through dealings with the Church of Terra and the New Galactic Empire — a consummate opportunist to the last.`,
@@ -11613,6 +12244,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11634,6 +12266,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11648,6 +12281,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11669,6 +12303,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11683,6 +12318,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11704,6 +12340,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11718,6 +12355,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11739,6 +12377,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11753,6 +12392,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11774,6 +12414,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11788,6 +12429,7 @@ export const CHAR_BASE = [
     nickKr: "케슬러",
     nickEn: "Kesler",
     nickJp: "ケスラー",
+    searchKeys: [],
     birth: "SE|765.11.08",
     death: "",
     // — 성향
@@ -11809,6 +12451,7 @@ export const CHAR_BASE = [
     statAfg: 58,
     statMmp: 80,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `법무 장교 출신으로 제국군 헌병총감을 역임한 행정형 제독. 전장보다 치안 유지와 사법 개혁에서 두각을 나타낸다. 로엔그람 제독단 중 함대를 직접 지휘한 횟수가 가장 적지만, 제국 내부 질서 유지의 핵심 역할을 담당했다.`,
     descEn: `An administrative admiral who rose from a legal advocate background to serve as Chief of the Imperial Military Police. More distinguished for his law enforcement and judicial reforms than battlefield command, he was the least active fleet commander among Lohengramm's admirals, yet played a crucial role in maintaining internal order within the Empire.`,
@@ -11823,6 +12466,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11844,6 +12488,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11858,6 +12503,7 @@ export const CHAR_BASE = [
     nickKr: "원수",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11879,6 +12525,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11893,6 +12540,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11914,6 +12562,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11928,6 +12577,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11949,6 +12599,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11963,6 +12614,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -11984,6 +12636,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -11998,6 +12651,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12019,6 +12673,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12034,6 +12689,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12055,6 +12711,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12069,6 +12726,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12090,6 +12748,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12104,6 +12763,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12125,6 +12785,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12139,6 +12800,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12160,6 +12822,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12174,6 +12837,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12195,6 +12859,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12209,6 +12874,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12230,6 +12896,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12244,6 +12911,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12265,6 +12933,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12279,6 +12948,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12300,6 +12970,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12314,6 +12985,7 @@ export const CHAR_BASE = [
     nickKr: "율리안",
     nickEn: "Julian",
     nickJp: "ユリアン",
+    searchKeys: [],
     birth: "SE|782.03.25",
     death: "",
     // — 성향
@@ -12335,6 +13007,7 @@ export const CHAR_BASE = [
     statAfg: 55,
     statMmp: 8,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `양 웬리의 양자. 트래버스법에 따라 양 웬리의 보호 아래 성장하며 뛰어난 전술 감각과 외교적 수완을 익혔다. 스파르타니안 조종사로도 두각을 나타내며 양 함대의 차세대 기대주로 여겨진다.`,
     descEn: `The adopted ward of Yang Wen-li. Raised under Yang's guardianship through the Travers Act, he developed exceptional tactical instincts and diplomatic skill. A gifted Spartanian pilot, he is regarded as the most promising of the next generation in Yang's fleet.`,
@@ -12349,6 +13022,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12370,6 +13044,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12384,6 +13059,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12405,6 +13081,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12419,6 +13096,7 @@ export const CHAR_BASE = [
     nickKr: "응웬 반 티우",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12440,6 +13118,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12454,6 +13133,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12475,6 +13155,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12489,6 +13170,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12510,6 +13192,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12524,6 +13207,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12545,6 +13229,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12559,6 +13244,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12580,6 +13266,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12595,6 +13282,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12616,6 +13304,7 @@ export const CHAR_BASE = [
     statAfg: 5,
     statMmp: 10,
     // — 기타
+    loc: "",
     point: "0",
     descKr: `알타이르 VII의 아이. 얼음을 깎아 장난감 보트를 만들어 놀던 모습이 알레 하이네센의 눈에 띄어, 드라이아이스로 우주선을 건조한다는 착상의 계기가 됐다. 그의 이름은 하이네센이 최초로 완성한 거대 우주선에 붙여져 역사에 남았다.`,
     descEn: `A child on Altair VII. His habit of carving ice boats caught the eye of Arle Heinessen, inspiring the idea of building spacecraft from dry ice. His name was bestowed on the first massive vessel Heinessen completed, earning him a place in history.`,
@@ -12630,6 +13319,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12651,6 +13341,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12665,6 +13356,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12686,6 +13378,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12700,6 +13393,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12721,6 +13415,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12735,6 +13430,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12756,6 +13452,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12770,6 +13467,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12791,6 +13489,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12805,6 +13504,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12826,6 +13526,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12840,6 +13541,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12861,6 +13563,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12875,6 +13578,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12896,6 +13600,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12910,6 +13615,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -12931,6 +13637,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -12960,40 +13667,31 @@ export const CHAR_BASE = [
     birth: "SE|767.03.29",
     death: "SE|796.02.11",
     // — 성향
-    /** TODO 양웬리와 비슷한 성향으로 brave의 경우 당시 양웬리와의 차이가 좀 있음. 조금 더 용맹 */
     faction: "FPA",
-    idea: "30",
+    idea: "145",
     econ: "100",
-    brave: "65",
+    brave: "55",
     moral: "72",
     friend: "100",
     // — 능력치
-    /** TODO 전면 재설계 필요. 양 웬리보다 조금 낮지만, 어텐보로 말콤와이드본 보다는 조금 높음
-     *    전체적으로 육각형 */
-    statCmd: 45,
-    statCsm: 40,
-    statAtt: 52,
-    statDef: 48,
-    statFst: 50,
-    statMng: 55,
-    statInf: 58,
-    statGfg: 38,
-    statAfg: 42,
-    statMmp: 40,
+    statCmd: 80,
+    statCsm: 78,
+    statAtt: 80,
+    statDef: 80,
+    statFst: 78,
+    statMng: 75,
+    statInf: 78,
+    statGfg: 76,
+    statAfg: 78,
+    statMmp: 77,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 소속의 군인. 집단을 지도하는 역량과 인격을 갖추어 훌륭한 지휘관이 될 것이라는 평가를 받고 있다.
     높은 군사적 식견과 능력도 가지고 있어, 그와 사관학교 동기인 양 웬리는 동기 중 가장 출세할 사람이라고 생각했다.`,
     // 사망 이후 시나리오에선 desc에 추가 '아스타테 회전에서 전사. 이후 양 웬리는 그의 이른 죽음을 두고두고 안타까워했다.'
     descEn: ``,
     descJp: ``,
-    /** TODO 아스타데 회전 기준 6함대 소속의 참모
-     * JOBS에 JB_C001(자유행성동맹의 시민임) JB_MR009(당시 소령이었음)
-     * TRAITS 추가 필요
-     * 그 역시 군인이 될 생각은 없었지만 양과 비슷한 사정으로 입대를 하게 되었고, 집단을 지도하는 역량과 아랫사람의 신뢰감을 사는 인격을 갖추어 지휘관으로서 제격인 인물이었다. 양도 외전 나선미궁에서 동기 중 가장 출세할 사람은 수석 말콤 와이드본이 아니라 랍이라고 생각했다.
-     *
-     *
-     * */
   },
   {
     // — 기본
@@ -13004,6 +13702,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13025,6 +13724,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13039,6 +13739,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13060,6 +13761,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13074,6 +13776,7 @@ export const CHAR_BASE = [
     nickKr: "제시카",
     nickEn: "Jessica",
     nickJp: "ジェシカ",
+    searchKeys: [],
     birth: "SE|768.04.15",
     death: "SE|797.06.22",
     // — 성향
@@ -13095,6 +13798,7 @@ export const CHAR_BASE = [
     statAfg: 4,
     statMmp: 60,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹의 반전운동가. 양 웬리의 사관학교 동창이자 절친한 친구인 진 로베르 랍의 연인. 전쟁으로 연인을 잃은 뒤 반전 평화운동에 헌신하며 욥 트류니히트의 선동 정치에 정면으로 맞섰다.`,
     descEn: `A pacifist activist of the Free Planets Alliance and the partner of Jean Robert Lapp, a close friend of Yang Wen-li. After losing her lover to war, she devoted herself to the anti-war peace movement and openly confronted the demagogic politics of Job Trunicht.`,
@@ -13109,6 +13813,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13130,6 +13835,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13144,6 +13850,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13165,6 +13872,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13179,6 +13887,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13200,6 +13909,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13214,6 +13924,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13235,6 +13946,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13249,6 +13961,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13270,6 +13983,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13284,6 +13998,7 @@ export const CHAR_BASE = [
     nickKr: "레벨로",
     nickEn: "Rebelo",
     nickJp: "レベロ",
+    searchKeys: [],
     birth: "SE|741.09.14",
     death: "SE|800.",
     // — 성향
@@ -13305,6 +14020,7 @@ export const CHAR_BASE = [
     statAfg: 3,
     statMmp: 82,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 최고평의회 재정위원장. 양식 있는 화평파 정치인으로 제국령 침공 작전에 반대했다. 이후 최고평의회 의장까지 올랐으나 제국의 침공 앞에 속수무책으로 동맹을 잃었다.`,
     descEn: `Secretary of the Treasury of the Free Planets Alliance High Council. A principled peace-faction politician who opposed the Imperial invasion. He later rose to Supreme Chairman but was powerless to prevent the Alliance's fall to the Empire.`,
@@ -13319,6 +14035,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13340,6 +14057,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13354,6 +14072,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13375,6 +14094,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13389,6 +14109,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13410,6 +14131,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13425,6 +14147,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13446,6 +14169,7 @@ export const CHAR_BASE = [
     statAfg: 88,
     statMmp: 55,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `시리우스 공화국의 군사 천재. 지구교를 상징하는 지구연방에 맞선 흑색함대의 공동 창설자이자 국방장관. 6,000척으로 2만 척의 적 함대를 격파한 베가 성계 전투 등 수많은 전공을 쌓았으나, 권력욕으로 쿠데타를 일으켰다가 실패해 처형됐다.`,
     descEn: `Military genius of the Sirius Republic and co-founder of the Black Fleet. As Minister of Defense, he crushed a 20,000-strong enemy fleet with only 6,000 ships at the Second Battle of Vega. He later attempted a military coup against Prime Minister Townshent but was executed for his failure.`,
@@ -13460,6 +14184,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13481,6 +14206,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13495,6 +14221,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13516,6 +14243,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13530,6 +14258,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13551,6 +14280,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13565,6 +14295,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13586,6 +14317,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13600,6 +14332,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13621,6 +14354,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13635,6 +14369,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13656,6 +14391,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13671,6 +14407,7 @@ export const CHAR_BASE = [
     nickKr: "키르히아이스",
     nickEn: "",
     nickJp: "キルヒアイス",
+    searchKeys: [],
     birth: "SE|776.03.18",
     death: "SE|796.12.05",
     // — 성향
@@ -13692,6 +14429,7 @@ export const CHAR_BASE = [
     statAfg: 85,
     statMmp: 70,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `라인하르트 폰 뮤젤의 절친한 친구이자 가장 신뢰하는 부관. 탁월한 전술 능력과 높은 도덕성을 겸비한 인물로, 라인하르트의 야망을 함께 지지하며 제국 최강의 함대를 이끌었다. SE796년 말, 쿠데타 음모에 맞서다 총격을 받고 전사했다.`,
     descEn: `Reinhard's closest friend and most trusted adjutant. Possessing both exceptional tactical ability and high moral character, he stood by Reinhard's ambitions and commanded a powerful fleet. He was shot and killed late in SE796 while opposing a coup attempt.`,
@@ -13707,6 +14445,7 @@ export const CHAR_BASE = [
     nickKr: "차오 유이룽",
     nickEn: "Chao",
     nickJp: "チャオ・ユイロン",
+    searchKeys: [],
     birth: "AD|2672",
     death: "AD|2706",
     // — 성향
@@ -13728,6 +14467,7 @@ export const CHAR_BASE = [
     statAfg: 22,
     statMmp: 30,
     // — 기타
+    loc: "",
     point: "2000",
     descKr: `시리우스 공화국의 비밀공작국장. 음악 작곡을 전공하던 청년이 가족을 지구연방군에게 잃은 후 반지구 운동에 합류해 탁월한 정보 조작과 선전 공작으로 흑색함대의 승리를 음지에서 지지했다. 전후 고향에 음악학교를 세웠으나, 독재자로 변한 동료에게 처형됐다.`,
     descEn: `Director of Covert Affairs for the Sirius Republic. A music composition student who lost his family to the UEG military and joined the Anti-Earth Movement, he supported the Black Fleet's victories through brilliant intelligence manipulation and propaganda. After the war he founded a music conservatory on his home planet but was executed by a former ally turned dictator.`,
@@ -13742,6 +14482,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13763,6 +14504,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13777,6 +14519,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13798,6 +14541,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13812,6 +14556,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13833,6 +14578,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13847,6 +14593,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13868,6 +14615,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13882,6 +14630,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13903,6 +14652,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13917,6 +14667,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13938,6 +14689,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13952,6 +14704,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -13973,6 +14726,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -13987,6 +14741,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14008,6 +14763,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14022,6 +14778,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14043,6 +14800,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14057,6 +14815,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14078,6 +14837,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14092,6 +14852,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14113,6 +14874,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14127,6 +14889,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14148,6 +14911,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14162,6 +14926,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14183,6 +14948,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14197,6 +14963,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14218,6 +14985,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14232,6 +15000,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14253,6 +15022,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14267,6 +15037,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14288,6 +15059,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14302,6 +15074,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14323,6 +15096,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14337,6 +15111,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14358,6 +15133,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14372,6 +15148,7 @@ export const CHAR_BASE = [
     nickKr: "카플랑",
     nickEn: "Kaplan",
     nickJp: "カプラン",
+    searchKeys: [],
     birth: "SE|750.11.03",
     death: "",
     // — 성향
@@ -14393,6 +15170,7 @@ export const CHAR_BASE = [
     statAfg: 2,
     statMmp: 65,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 최고평의회 서기. 평의회 행정 및 의사록 관리를 담당하는 실무형 관료.`,
     descEn: `Chief Clerk of the Free Planets Alliance High Council. A practical bureaucrat responsible for council administration and the management of minutes.`,
@@ -14407,6 +15185,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14428,6 +15207,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14442,6 +15222,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14463,6 +15244,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14477,6 +15259,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14498,6 +15281,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14512,6 +15296,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14533,6 +15318,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14547,6 +15333,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14568,6 +15355,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14582,6 +15370,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14603,6 +15392,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14617,6 +15407,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14638,6 +15429,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14652,6 +15444,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14673,6 +15466,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14687,6 +15481,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14708,6 +15503,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14722,6 +15518,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14743,6 +15540,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14757,6 +15555,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14778,6 +15577,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14793,6 +15593,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14814,6 +15615,7 @@ export const CHAR_BASE = [
     statAfg: 35,
     statMmp: 35,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `시리우스 공화국 초대 수상이자 지구-시리우스 전쟁의 영웅. 카리스마 넘치는 지도자로 식민지 세계를 규합해 지구연방에 맞선 반지구 운동을 이끌었다. 안정적인 민주 정부를 꿈꿨으나 "앞으로 5년만 더"를 바라던 중 심장마비로 급서해, 그 죽음이 이후 3세기에 걸친 혼란의 씨앗이 됐다.`,
     descEn: `First Premier of the Sirius Republic and hero of the Earth–Sirius War. A charismatic visionary who united the colony worlds against the Earth United Government, he dreamed of building a stable democracy but died of a sudden heart attack while lamenting he needed "five more years" — a death whose consequences echoed across three centuries.`,
@@ -14828,6 +15630,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14849,6 +15652,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14863,6 +15667,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14884,6 +15689,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14898,6 +15704,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14919,6 +15726,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14933,6 +15741,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14954,6 +15763,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -14968,6 +15778,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -14989,6 +15800,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15003,6 +15815,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15024,6 +15837,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15038,6 +15852,7 @@ export const CHAR_BASE = [
     nickKr: "윈저",
     nickEn: "Windsor",
     nickJp: "ウィンザー",
+    searchKeys: [],
     birth: "SE|745.02.17",
     death: "",
     // — 성향
@@ -15059,6 +15874,7 @@ export const CHAR_BASE = [
     statAfg: 3,
     statMmp: 72,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 최고평의회 정보교통위원장. 뇌물수수 혐의로 실각했다. 샌포드 내각의 부패를 상징하는 인물 중 하나.`,
     descEn: `Secretary of Transportation of the Free Planets Alliance High Council. She was forced out of office on bribery charges, becoming one of the symbols of the Sanford Administration's corruption.`,
@@ -15073,6 +15889,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15094,6 +15911,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15108,6 +15926,7 @@ export const CHAR_BASE = [
     nickKr: "루츠",
     nickEn: "Lutz",
     nickJp: "ルッツ",
+    searchKeys: [],
     birth: "SE|764.03.19",
     death: "SE|800.07.14",
     // — 성향
@@ -15129,6 +15948,7 @@ export const CHAR_BASE = [
     statAfg: 78,
     statMmp: 72,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `라인하르트 폰 뮤젤 제독단의 균형형 제독. 이젤론 요새 사령관을 역임하며 요새 방어의 핵심을 맡았으나, 양 웬리의 책략에 속아 요새를 내주는 실책을 범했다. 우루바시에서 라인하르트를 노린 암살 기도 현장에서 전사했다.`,
     descEn: `A well-rounded admiral in Reinhard's admiralty who served as commander of Iserlohn Fortress. Despite being a capable commander, he was deceived by Yang Wen-li's stratagem and lost the fortress. He died at Uruvasi during a large-scale assassination attempt targeting Reinhard.`,
@@ -15143,6 +15963,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15164,6 +15985,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15178,6 +16000,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15199,6 +16022,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15213,6 +16037,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15234,6 +16059,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15248,6 +16074,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15269,6 +16096,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15283,6 +16111,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15304,6 +16133,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15318,6 +16148,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15339,6 +16170,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15353,6 +16185,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15374,6 +16207,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15388,6 +16222,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15409,6 +16244,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15423,6 +16259,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15444,6 +16281,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15458,6 +16296,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15479,6 +16318,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15493,6 +16333,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15514,6 +16355,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15528,6 +16370,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15549,6 +16392,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15563,6 +16407,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15584,6 +16429,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15598,6 +16444,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15619,6 +16466,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15633,6 +16481,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15654,6 +16503,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15668,6 +16518,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15689,6 +16540,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15703,6 +16555,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15724,6 +16577,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15738,6 +16592,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15759,6 +16614,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15773,6 +16629,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15794,6 +16651,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15808,6 +16666,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15829,6 +16688,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15843,6 +16703,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15864,6 +16725,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15878,6 +16740,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15899,6 +16762,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15913,6 +16777,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15934,6 +16799,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15948,6 +16814,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -15969,6 +16836,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -15984,6 +16852,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16005,6 +16874,7 @@ export const CHAR_BASE = [
     statAfg: 78,
     statMmp: 48,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `은하연방 함대 제독. 미쉘 퀴프렌과 함께 특수 해적 토벌 부대를 지휘하여 은하계를 어지럽히던 해적 세력을 대부분 소탕했다. "유능한 적과 무능한 아군을 동시에 상대하며 싸웠다"는 말을 남긴 것으로 유명하며, 전역 후 의원이 되어 반부패 운동에 앞장섰다. 훗날 루돌프 폰 골덴바움이 해적을 소탕했을 때 그의 환생으로 불릴 만큼 영웅으로 칭송받는다.`,
     descEn: `Admiral of the Galactic Federation. Together with Michel Cuffren, he commanded a special anti-piracy task force that eliminated most of the pirate threat destabilizing the galaxy. Famous for his remark "I had competent enemies in front of me and incompetent allies behind me, and had to fight both at once," he later entered parliament as an anti-corruption advocate and became so legendary that Rudolf von Goldenbaum was called his reincarnation.`,
@@ -16019,6 +16889,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16040,6 +16911,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16054,6 +16926,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16075,6 +16948,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16089,6 +16963,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16110,6 +16985,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16124,6 +17000,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16145,6 +17022,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16159,6 +17037,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16180,6 +17059,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16194,6 +17074,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16215,6 +17096,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16229,6 +17111,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16250,6 +17133,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16264,6 +17148,7 @@ export const CHAR_BASE = [
     nickKr: "리히텐라데",
     nickEn: "Lichtenlade",
     nickJp: "リヒテンラーデ",
+    searchKeys: [],
     birth: "SE|725.11.18",
     death: "SE|797.",
     // — 성향
@@ -16285,6 +17170,7 @@ export const CHAR_BASE = [
     statAfg: 9,
     statMmp: 90,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `프리드리히 4세 치하 제국재상. 궁정 귀족 출신으로 군사력 없이 정치력만으로 권세를 유지했다. 프리드리히 4세 붕어 후 라인하르트와 손잡고 에르빈 요제프 2세를 옹립했으나, 립슈타트 전역 종전 후 라인하르트에게 체포되어 자결했다.`,
     descEn: `Imperial Prime Minister under Kaiser Friedrich IV. A court noble who maintained power through political acumen alone, with no military force of his own. After Friedrich IV's death he allied with Reinhard to place Erwin Josef II on the throne, but was arrested by Reinhard's forces after the Lippstadt Rebellion and forced to commit suicide.`,
@@ -16299,6 +17185,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16320,6 +17207,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16334,6 +17222,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16355,6 +17244,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16369,6 +17259,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16390,6 +17281,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16404,6 +17296,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16425,6 +17318,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16439,6 +17333,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16460,6 +17355,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16474,6 +17370,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16495,6 +17392,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16509,6 +17407,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16530,6 +17429,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16544,6 +17444,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16565,6 +17466,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16579,6 +17481,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16600,6 +17503,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16614,6 +17518,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16635,6 +17540,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16649,6 +17555,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16670,6 +17577,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16684,6 +17592,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16705,6 +17614,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16719,6 +17629,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16740,6 +17651,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16754,6 +17666,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16775,6 +17688,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16789,6 +17703,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16810,6 +17725,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16836,19 +17752,20 @@ export const CHAR_BASE = [
     moral: "68",
     friend: "110",
     // — 능력치
-    /** TODO 파스톨레 / 무어 / 파에타는 비슷한 능력치로 표기하되, 파스톨레가 가장 높은 능력치를 보유하도록
-     */
-    statCmd: 58,
-    statCsm: 52,
-    statAtt: 60,
-    statDef: 55,
-    statFst: 56,
+    // 무어(통솔68/공격78)·파에타(통솔65/공격60)와 동급의 맹장군이되,
+    // "국지전 돌파에 가장 능숙"하다는 평가를 반영해 셋 중 가장 높은 수치로 책정
+    statCmd: 70,
+    statCsm: 55,
+    statAtt: 80,
+    statDef: 66,
+    statFst: 62,
     statMng: 45,
     statInf: 48,
-    statGfg: 52,
-    statAfg: 60,
-    statMmp: 32,
+    statGfg: 56,
+    statAfg: 78,
+    statMmp: 35,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 제4함대 사령관. 광범위한 영역에서의 전략을 생각하고 읽는 능력은 부족하나, 국지적 단위에서의 공방과 돌파에는 매우 능숙한 전술가이다.
     무수한 전역에서 선봉을 맡아 많은 성과를 거둔 맹장으로 동맹군 내에서도 많은 신뢰를 받고 있다.`,
@@ -16865,6 +17782,7 @@ export const CHAR_BASE = [
     nickKr: "파에타",
     nickEn: "Paeta",
     nickJp: "パエッタ",
+    searchKeys: [],
     birth: "",
     death: "SE|801.04.16", // 라그풀 교도소 폭동사건에 사망 확실
     // — 성향
@@ -16889,18 +17807,12 @@ export const CHAR_BASE = [
     statAfg: 62,
     statMmp: 45,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 소속의 사령관. 
     역전의 용장이자 유능한 전술가라는 평을 들었지만 다소 독선적이고 성급한 성격을 가지고 있다.`,
     descEn: ``,
     descJp: ``,
-    /** TODO 아스타데 회전 기준 2함대 소속의 사령관
-     * JOBS에 JB_C001(자유행성동맹의 시민임) JB_MR008(당시 중장이었음)
-     * TRAITS 추가 필요
-     *  독선(범용) : 함대 사령관인 경우, 해당 함대는 다른 인물의 효과를 받지 않음
-     *  행운(범용) : 전투에서 사망하지 않음
-     *
-     * */
   },
   {
     // — 기본
@@ -16911,6 +17823,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -16932,6 +17845,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -16946,6 +17860,7 @@ export const CHAR_BASE = [
     nickKr: "오베르슈타인",
     nickEn: "Oberstein",
     nickJp: "オーベルシュタイン",
+    searchKeys: [],
     birth: "SE|761.03.17",
     death: "SE|801.07.26",
     // — 성향
@@ -16967,6 +17882,7 @@ export const CHAR_BASE = [
     statAfg: 35,
     statMmp: 90,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `라인하르트 폰 뮤젤의 핵심 참모. 의안을 가진 냉혹한 전략가로, 목적을 위해서라면 수단을 가리지 않는 철저한 합리주의자다. 골덴바움 왕조 타도와 로엔그람 체제 확립을 위해 암약하며, 제국군 내에서도 기피 대상이지만 라인하르트에게는 없어서는 안 될 존재다.`,
     descEn: `The core strategist of Reinhard von Lohengramm. A ruthless rationalist with artificial eyes who stops at nothing to achieve his ends. He works in the shadows to bring down the Goldenbaum Dynasty and establish the Lohengramm regime — feared and despised within the Imperial military, yet indispensable to Reinhard.`,
@@ -16981,6 +17897,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17002,6 +17919,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17016,6 +17934,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17037,6 +17956,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17051,6 +17971,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17072,6 +17993,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17086,6 +18008,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17107,6 +18030,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17121,6 +18045,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17142,6 +18067,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17156,6 +18082,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17177,6 +18104,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17191,6 +18119,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17212,6 +18141,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17226,6 +18156,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17247,6 +18178,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17261,6 +18193,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17282,6 +18215,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17296,6 +18230,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17317,6 +18252,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17331,6 +18267,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17352,6 +18289,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17366,6 +18304,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17387,6 +18326,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17406,17 +18346,14 @@ export const CHAR_BASE = [
     death: "",
     searchKeys: ["포겔"],
     // — 성향
-    /** TODO 슈타덴과 마찬가지로 라인하르트 폰 로엔그람에 대한 각개격파 작전을 비웃었고,
-     * 전투에선 소극적으로 행동하였으므로 아스타테 회전에선 별 활약도 하지 못해 진급되지 못했다.
-     * 처음 배속되었을 때부터 라인하르트에게 악감정을 가진 것을 보니 립슈타트 전역 때 립슈타트 귀족연합으로 갔을 것으로 보임
-     * 이를 반영하여 성향 재설계
-     *  */
+    // 라인하르트의 각개격파 작전을 비웃고 소극적으로 행동해 아스타테에서 진급하지 못함.
+    // 배속 초기부터 악감정을 보인 점에 근거해 립슈타트 전역 당시 귀족연합 가담으로 설계 (idea/econ 상향, friend 하향)
     faction: "REH",
-    idea: "250",
-    econ: "180",
-    brave: "70",
-    moral: "65",
-    friend: "110",
+    idea: "280",
+    econ: "190",
+    brave: "55",
+    moral: "48",
+    friend: "150",
     // — 능력치
     statCmd: 62,
     statCsm: 55,
@@ -17429,16 +18366,11 @@ export const CHAR_BASE = [
     statAfg: 65,
     statMmp: 38,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `은하제국의 함대 지휘관. 아스타테 회전에서 라인하르트 함대의 분함대 사령관으로 참전했다.`,
     descEn: `A fleet commander of the Galactic Empire. Participated in the Battle of Astarte as a sub-fleet commander under Reinhard's fleet.`,
     descJp: `銀河帝国の艦隊指揮官。アスターテ会戦ではラインハルト艦隊の分艦隊司令官として参戦した。`,
-    /** TODO 아스타데 회전 기준 소장
-     * JOBS에 JB_MR005(당시 소장이었음)
-     * TRAITS 추가 필요
-     *  독선(범용) : 함대 사령관인 경우, 해당 함대는 다른 인물의 효과를 받지 않음
-     *
-     * */
   },
   {
     // — 기본
@@ -17449,6 +18381,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17470,6 +18403,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17484,6 +18418,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17505,6 +18440,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17519,6 +18455,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17540,6 +18477,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17554,6 +18492,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17575,6 +18514,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17589,6 +18529,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17610,6 +18551,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17624,6 +18566,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17645,6 +18588,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17659,6 +18603,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17680,6 +18625,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17694,6 +18640,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17715,6 +18662,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17729,6 +18677,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17750,6 +18699,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17764,6 +18714,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17785,6 +18736,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17799,6 +18751,7 @@ export const CHAR_BASE = [
     nickKr: "마린도르프",
     nickEn: "Mariendorf",
     nickJp: "マリーンドルフ",
+    searchKeys: [],
     birth: "SE|742.08.11",
     death: "",
     // — 성향
@@ -17820,6 +18773,7 @@ export const CHAR_BASE = [
     statAfg: 3,
     statMmp: 78,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `마린도르프 백작가의 당주이자 힐데가르트 폰 마린도르프의 부친. 딸의 판단을 신뢰하여 라인하르트 폰 뮤젤을 지지하는 결단을 내렸으며, 제국 내 온건한 귀족 세력의 대표적 인물이다.`,
     descEn: `Count of the Mariendorf family and father of Hildegard von Mariendorf. Trusting his daughter's judgment, he made the pivotal decision to support Reinhard von Lohengramm, making him a representative figure of the moderate noble faction within the Empire.`,
@@ -17834,6 +18788,7 @@ export const CHAR_BASE = [
     nickKr: "프레데리카",
     nickEn: "Frederica",
     nickJp: "フレデリカ",
+    searchKeys: [],
     birth: "SE|774.09.03",
     death: "",
     // — 성향
@@ -17855,6 +18810,7 @@ export const CHAR_BASE = [
     statAfg: 40,
     statMmp: 85,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `양 웬리의 부관이자 아내. 사관학교 차석 졸업의 수재로 완전 기억력을 지녀 양 함대 운영의 핵심 역할을 담당했다. 양의 전략을 누구보다 깊이 이해하며 후에 이젤론 공화국의 정신적 지주가 된다.`,
     descEn: `Yang Wen-li's adjutant and wife. A brilliant officer who graduated second from the Alliance Academy, she possesses eidetic memory and served as a cornerstone of the 13th Fleet's operations. Understanding Yang's strategies more deeply than anyone, she later became a spiritual pillar of the Iserlohn Republic.`,
@@ -17869,6 +18825,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17890,6 +18847,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17904,6 +18862,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17925,6 +18884,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17939,6 +18899,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17960,6 +18921,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -17974,6 +18936,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -17995,6 +18958,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18009,6 +18973,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18030,6 +18995,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18044,6 +19010,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18065,6 +19032,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18079,6 +19047,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18100,6 +19069,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18114,6 +19084,7 @@ export const CHAR_BASE = [
     nickKr: "프리드리히 4세",
     nickEn: "Friedrich IV",
     nickJp: "フリードリヒ4世",
+    searchKeys: [],
     birth: "SE|733.06.18",
     death: "SE|796.10.12",
     // — 성향
@@ -18135,6 +19106,7 @@ export const CHAR_BASE = [
     statAfg: 2,
     statMmp: 65,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `골덴바움 왕조 제36대 황제. '재의 황제'로 불리는 무능한 군주로 정치에 무관심하고 향락에 빠진 채 제국을 방치했다. 안네로제 폰 그뤼네발트를 후궁으로 들이며 라인하르트의 야망에 불을 지폈다. 796년 심장마비로 붕어하며 골덴바움 왕조 몰락의 도화선이 됐다.`,
     descEn: `The 36th Kaiser of the Goldenbaum Dynasty, known as the "Kaiser of the Ashes." An indolent ruler who showed little interest in governance and allowed the Empire to drift while pursuing personal pleasure. By taking Annerose von Grünewald as his concubine, he ignited Reinhard von Lohengramm's ambitions. His death from a heart attack in 796 UC set off the chain of events that led to the dynasty's collapse.`,
@@ -18149,6 +19121,7 @@ export const CHAR_BASE = [
     nickKr: "비텐펠트",
     nickEn: "Bittenfeld",
     nickJp: "ビッテンフェルト",
+    searchKeys: [],
     birth: "SE|767.09.11",
     death: "",
     // — 성향
@@ -18170,6 +19143,7 @@ export const CHAR_BASE = [
     statAfg: 88,
     statMmp: 52,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `흑색창기병대를 이끄는 제국군 최강의 공격형 제독. 불 같은 성격과 압도적인 돌격전술로 유명하며, 사령관으로서의 신중함보다는 전장의 기세를 중시한다. 무모함으로 인해 수차례 위기를 자초하기도 하지만, 그 화력과 돌진력은 제국군 내에서도 독보적이다.`,
     descEn: `Commander of the Black Lancers, the most powerful offensive fleet in the Imperial Navy. Renowned for his fiery temperament and overwhelming assault tactics, he values battlefield momentum over the caution expected of a commander. His recklessness has brought him close to court-martial more than once, yet his firepower and charge are unmatched in the Empire.`,
@@ -18189,38 +19163,32 @@ export const CHAR_BASE = [
     birth: "SE|771.01.07",
     death: "SE|797.09.23",
     // — 성향
+    // 문벌귀족 출신 정치군인. 군사공작(원작자료 8000) 비중이 매우 높은 모략형 캐릭터로 설계
     faction: "REH",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    idea: "270",
+    econ: "150",
+    brave: "30",
+    moral: "35",
+    friend: "120",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    // 4EX(통솔19/운영8/정보36/공전39)·6(통솔37/지휘41/공격33/방어50)·5(통솔34/돌진성향) 자료를 종합해
+    // "지휘 전반은 평범~저조하나 정보/내정공작에 특화"된 수치로 환산
+    statCmd: 35,
+    statCsm: 30,
+    statAtt: 33,
+    statDef: 48,
+    statFst: 38,
+    statMng: 42,
+    statInf: 70,
+    statGfg: 28,
+    statAfg: 36,
+    statMmp: 65,
     // — 기타
+    loc: "230058P01",
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
-    /** TODO 아스타데 회전 기준 오딘에 있음.
-     * JOBS에 JB_N005(남작) JB_MR004(중장. 소장이라는 설정오류가 존재하나 중장이 맞음)
-     * TRAITS 추가 필요
-     *  독선(범용) : 함대 사령관인 경우, 해당 함대는 다른 인물의 효과를 받지 않음
-     *  모략의 대가(범용) : 제안, 모략 실행 시, 수락 확률에 보너스
-     *  아른거리는 그림자(범용) : 제안, 모략 실행 시, 보안도에 보너스
-     *  고귀한 혈통(범용) : 매 월의 1일마다 군사경험치 획득
-     *  문벌 귀족(범용) : 동일 트레잇 보유자와의 관계 +20, 동일 트레잇 미보유자와의 관계 -20
-     *  꽃밭을 망치는 해조 : 라인하르트와의 관계 -100
-     * */
+    descKr: `은하제국의 함대 지휘관. 남작가 출신으로 아스타테 회전 당시 오딘에 머물렀다. 문벌귀족 특유의 혈통의식이 강하고 모략과 정치공작에 능하다.`,
+    descEn: `A fleet officer of the Galactic Empire. Born into a Baron's house, he remained on Odin during the Battle of Astarte. Strongly conscious of his noble lineage, he is skilled in political intrigue and scheming.`,
+    descJp: `銀河帝国の艦隊指揮官。男爵家出身でアスターテ会戦当時はオーディンに留まっていた。門閥貴族特有の血統意識が強く、謀略と政治工作に長けている。`,
   },
   {
     // — 기본
@@ -18231,6 +19199,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18252,6 +19221,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18266,6 +19236,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18287,6 +19258,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18301,6 +19273,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18322,6 +19295,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18336,6 +19310,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18357,6 +19332,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18371,6 +19347,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18392,6 +19369,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18406,6 +19384,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18427,6 +19406,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18441,6 +19421,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18462,6 +19443,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18476,6 +19458,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18497,6 +19480,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18511,6 +19495,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18532,6 +19517,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18546,6 +19532,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18567,6 +19554,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18586,36 +19574,31 @@ export const CHAR_BASE = [
     birth: "SE|754.05.24",
     death: "SE|801.05.18",
     // — 성향
+    // 정치경찰(사회질서유지국/내무안전부) 수장. "51 중 26을 잡으면 51을, 나아가 100을 지배한다"는
+    // 소수지배론을 신봉하는 모략가로, 정보/정치공작 특화 수치로 설계
     faction: "REH",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    idea: "260",
+    econ: "160",
+    brave: "20",
+    moral: "32",
+    friend: "125",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    statCmd: 8,
+    statCsm: 45,
+    statAtt: 5,
+    statDef: 10,
+    statFst: 8,
+    statMng: 62,
+    statInf: 85,
+    statGfg: 5,
+    statAfg: 5,
+    statMmp: 88,
     // — 기타
+    loc: "230058P01",
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
-    /** TODO
-     * JOBS에 JB_N007(은하제국 귀족 작위 없음)
-     * TRAITS 추가 필요
-     *  소수의 지배(고유) : 성계 방위사령관, 행정관일 때, 매 월의 시작일에 해당 성계의 인구 1을 현재 국가 체제와 동일한 idea로 변경
-     *  모략의 대가(범용) : 제안, 모략 실행 시, 수락 확률에 보너스
-     *  아른거리는 그림자(범용) : 제안, 모략 실행 시, 보안도에 보너스
-     *  청렴함(범용) : 모략의 대상이 되었을 때, 성공확률에 -15%
-     * */
+    descKr: `골덴바움 왕조 사회질서유지국(이후 내무안전부) 국장. 비밀경찰 조직의 수장으로 "51 중 26을 확보하면 51을, 나아가 100을 지배할 수 있다"는 소수지배론을 신봉하는 모략가다. 온화한 외모와 어울리지 않게 음험한 정치공작에 능하며, 로엔그람 왕조 출범 이후에도 자리를 보전한 몇 안 되는 구체제 관료다.`,
+    descEn: `Director of the Department of Social Discipline (later the Internal Security Department) under the Goldenbaum Dynasty. As chief of the Empire's secret police, he is a calculating schemer who subscribes to the theory that control of a minority within a majority secures control of the whole. Despite his disarmingly gentle appearance, he is highly skilled in covert political manoeuvring, and was one of the few officials of the old regime to retain his post after the rise of the Lohengramm Dynasty.`,
+    descJp: `ゴールデンバウム王朝社会秩序維持局（後の内務安全部）局長。秘密警察組織の長として「51のうち26を確保すれば51を、さらに100を支配できる」という少数支配論を信奉する策謀家である。穏やかな外見に似合わず陰険な政治工作に長け、ローエングラム王朝成立後も地位を保った数少ない旧体制官僚の一人。`,
   },
   {
     // — 기본
@@ -18626,6 +19609,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18647,6 +19631,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18661,6 +19646,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18682,6 +19668,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18696,6 +19683,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18717,6 +19705,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18731,6 +19720,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18752,6 +19742,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18766,6 +19757,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18787,6 +19779,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18806,41 +19799,32 @@ export const CHAR_BASE = [
     birth: "SE|746.03.08",
     death: "SE|796.05.14",
     // — 성향
+    // 남작가 출신. 가문의 격을 중시하는 독선적 지휘관으로, 부하를 가볍게 여겨 희생시키는
+    // 평가(나무위키: "자존심 때문에 부하를 개죽음시킨 졸장")를 moral/friend 페널티로 반영
     faction: "REH",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    idea: "270",
+    econ: "150",
+    brave: "55",
+    moral: "30",
+    friend: "135",
     // — 능력치
-    /** 4 통솔 72 운영 31 정보 24 기동 61 공격 76 방어 79 육전 48 공전 75 정치공작 2000(+4) 정보공작 1000(+4) 군사공작 3000(+16)
-     *  6 통솔 65 지휘 55 운영 42 정보 12 공격 72 방어 71 기동 67
-     */
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statMmp: 0,
+    // 4(통솔72/공격76/방어79/공전75)·6(통솔65/지휘55/공격72/방어71) 자료를 종합한 평균치
+    statCmd: 68,
+    statCsm: 50,
+    statAtt: 74,
+    statDef: 75,
+    statFst: 64,
+    statMng: 36,
+    statInf: 18,
+    statGfg: 48,
+    statAfg: 75,
+    statMmp: 40,
     // — 기타
+    loc: "230058P01",
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
-    /** TODO 아스타데 회전 기준 6함대 사령관으로 이제르론(알테나 성계) 주둔
-     * JOBS에 JB_N005(남작) JB_MR004(중장. 소장이라는 설정오류가 존재하나 중장이 맞음)
-     * TRAITS 추가 필요
-     *  독선(범용) : 함대 사령관인 경우, 해당 함대는 다른 인물의 효과를 받지 않음
-     *  모략의 대가(범용) : 제안, 모략 실행 시, 수락 확률에 보너스
-     *  아른거리는 그림자(범용) : 제안, 모략 실행 시, 보안도에 보너스
-     *  고귀한 혈통(범용) : 매 월의 1일마다 군사경험치 획득
-     *  문벌 귀족(범용) : 동일 트레잇 보유자와의 관계 +20, 동일 트레잇 미보유자와의 관계 -20
-     *  꽃밭을 망치는 해조 : 라인하르트와의 관계 -100
-     * */
+    descKr: `은하제국의 함대 지휘관. 남작가 출신으로 아스타테 회전 당시 이젤론 요새 주둔함대 사령관을 맡았다. 토마 폰 슈토크하우젠과 함께 이젤론을 양분하여 지휘했다. 가문의 격을 중시하는 독선적인 성격으로, 자존심을 앞세워 부하를 희생시키는 졸장으로도 평가받는다.`,
+    descEn: `A fleet officer of the Galactic Empire. Born into a Baron's house, he commanded the garrisoned fleet of Iserlohn Fortress during the Battle of Astarte, splitting command of the fortress with Thoma von Stockhausen. A self-important commander who prized his noble status, he is also remembered as a mediocre officer who sacrificed his subordinates out of wounded pride.`,
+    descJp: `銀河帝国の艦隊指揮官。男爵家出身でアスターテ会戦当時はイゼルローン要塞駐留艦隊司令官を務めた。トーマ・フォン・シュトックハウゼンとともにイゼルローンの指揮を二分した。家門の格を重んじる独善的な性格で、自尊心のために部下を犠牲にした凡将としても評される。`,
   },
   {
     // — 기본
@@ -18851,6 +19835,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18872,6 +19857,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18886,6 +19872,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18907,6 +19894,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18921,6 +19909,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18942,6 +19931,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18956,6 +19946,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -18977,6 +19968,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -18991,6 +19983,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19012,6 +20005,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19026,6 +20020,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19047,6 +20042,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19061,6 +20057,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19082,6 +20079,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19096,6 +20094,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19117,6 +20116,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19131,6 +20131,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19152,6 +20153,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19166,6 +20168,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19187,6 +20190,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19201,6 +20205,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19222,6 +20227,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19236,6 +20242,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19257,6 +20264,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19271,6 +20279,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19292,6 +20301,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19306,6 +20316,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19327,6 +20338,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19341,6 +20353,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19362,6 +20375,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19376,6 +20390,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19397,6 +20412,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19411,6 +20427,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19432,6 +20449,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19446,6 +20464,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19467,6 +20486,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19481,6 +20501,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19502,6 +20523,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19516,6 +20538,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19537,6 +20560,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19551,6 +20575,7 @@ export const CHAR_BASE = [
     nickKr: "황 루이",
     nickEn: "Huang Rui",
     nickJp: "ファン・ルイ",
+    searchKeys: [],
     birth: "SE|743.06.08",
     death: "",
     // — 성향
@@ -19572,6 +20597,7 @@ export const CHAR_BASE = [
     statAfg: 3,
     statMmp: 78,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 최고평의회 인적자원위원장. 레벨로와 함께 제국령 침공 작전에 반대한 화평파. 전쟁이 사회 구조를 무너뜨릴 것이라 경고했으나 받아들여지지 않았다.`,
     descEn: `Secretary of Human Resources of the Free Planets Alliance High Council. A peace-faction member alongside Rebelo who opposed the Imperial invasion, warning that continued war would unravel the social fabric of the Alliance — a warning that went unheeded.`,
@@ -19586,6 +20612,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19607,6 +20634,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19621,6 +20649,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19642,6 +20671,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19656,6 +20686,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19677,6 +20708,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19691,6 +20723,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19712,6 +20745,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19726,6 +20760,7 @@ export const CHAR_BASE = [
     nickKr: "힐데",
     nickEn: "Hilde",
     nickJp: "ヒルデ",
+    searchKeys: [],
     birth: "SE|777.03.28",
     death: "",
     // — 성향
@@ -19747,6 +20782,7 @@ export const CHAR_BASE = [
     statAfg: 15,
     statMmp: 90,
     // — 기타
+    loc: "230058P01",
     point: "0",
     descKr: `마린도르프 백작가의 외동딸. 라인하르트 폰 뮤젤의 야망을 일찍이 간파하고 자진하여 그의 책사가 된 탁월한 정치 전략가. 라인하르트 사후 신은하제국의 섭정 황후로서 제국을 이끌었다.`,
     descEn: `The sole daughter of Count Franz von Mariendorf. A brilliant political strategist who recognized Reinhard's ambitions early and voluntarily became his advisor. After Reinhard's death, she served as regent Kaiserin of the New Galactic Empire.`,
@@ -19761,6 +20797,7 @@ export const CHAR_BASE = [
     nickKr: "",
     nickEn: "",
     nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19782,6 +20819,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statMmp: 0,
     // — 기타
+    loc: "",
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -19797,6 +20835,7 @@ export const CHAR_BASE = [
     nickKr: "호프만",
     nickEn: "Hoffmann",
     nickJp: "ホフマン",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19818,6 +20857,7 @@ export const CHAR_BASE = [
     statAfg: 5,
     statMmp: 80,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 최고평의회 부의장. 행정 경험이 풍부한 노련한 정치인으로, 의장 부재 시 평의회를 주재한다.`,
     descEn: `Vice Chairman of the Free Planets Alliance Supreme Council. A seasoned politician with extensive administrative experience, who presides over the Council in the Chairman's absence.`,
@@ -19832,6 +20872,7 @@ export const CHAR_BASE = [
     nickKr: "발렌타인",
     nickEn: "Valentine",
     nickJp: "バレンタイン",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19853,6 +20894,7 @@ export const CHAR_BASE = [
     statAfg: 5,
     statMmp: 72,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 최고평의회 천연자원위원장. 자원 배분 및 환경 정책을 총괄한다.`,
     descEn: `Chairman of the Natural Resources Committee of the Free Planets Alliance Supreme Council. Oversees resource allocation and environmental policy.`,
@@ -19867,6 +20909,7 @@ export const CHAR_BASE = [
     nickKr: "모리스",
     nickEn: "Morris",
     nickJp: "モリス",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19888,6 +20931,7 @@ export const CHAR_BASE = [
     statAfg: 5,
     statMmp: 70,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 최고평의회 경제개발위원장. 동맹 경제 성장 및 산업 육성 정책을 담당한다.`,
     descEn: `Chairman of the Economic Development Committee of the Free Planets Alliance Supreme Council. Responsible for economic growth and industrial development policy.`,
@@ -19902,6 +20946,7 @@ export const CHAR_BASE = [
     nickKr: "버클리",
     nickEn: "Berkley",
     nickJp: "バークリー",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19923,6 +20968,7 @@ export const CHAR_BASE = [
     statAfg: 5,
     statMmp: 65,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 최고평의회 지역사회개발위원장. 각 성계의 도시 개발 및 복지 정책을 담당한다.`,
     descEn: `Chairman of the Community Development Committee of the Free Planets Alliance Supreme Council. Responsible for urban development and welfare policy across star systems.`,
@@ -19937,6 +20983,7 @@ export const CHAR_BASE = [
     nickKr: "크라우스",
     nickEn: "Kraus",
     nickJp: "クラウス",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
@@ -19958,6 +21005,7 @@ export const CHAR_BASE = [
     statAfg: 5,
     statMmp: 68,
     // — 기타
+    loc: "230006P01",
     point: "0",
     descKr: `자유행성동맹 최고평의회 법질서위원장. 동맹 내 사법 및 치안 관련 정책을 총괄한다.`,
     descEn: `Chairman of the Law and Order Committee of the Free Planets Alliance Supreme Council. Oversees judicial and public security policy within the Alliance.`,
