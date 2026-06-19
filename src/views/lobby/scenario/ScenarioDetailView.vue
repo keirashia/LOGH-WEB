@@ -90,10 +90,6 @@ const totalPages = computed(() => Math.max(pages.value.length, 1))
 const page       = computed(() => pages.value[pageIdx.value] ?? null)
 
 function scenarioImgBase(sc) {
-  if (sc.variants) {
-    const [yt, seq] = sc.variants.split('_')
-    return `/img/scenarios/${yt}/${seq}`
-  }
   const [y, m, s] = sc.id.split('_')
   return `/img/scenarios/${y}/${m}/${s}`
 }
@@ -213,8 +209,8 @@ function onStart() {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  max-height: 48%;
-  overflow-y: auto;
+  height: 38vh;
+  overflow: hidden;
 }
 .body-text {
   font-size: 13px;
