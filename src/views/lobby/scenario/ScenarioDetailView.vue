@@ -137,7 +137,7 @@ function onStart() {
   display: flex;
   align-items: center;
   padding: 0 1.5vw;
-  height: 7vh;
+  height: 9vh;
   background: rgba(2,5,8,.7);
   border-bottom: 1px solid rgba(212,170,96,.15);
   backdrop-filter: blur(8px);
@@ -147,10 +147,10 @@ function onStart() {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
 }
-.nav-title .serif { font-size: 3.0vh; color: var(--t1); }
-.nav-subtitle { font-size: 1.6vh; color: rgba(212,170,96,.6); letter-spacing: 0.1vw; }
+.nav-title .serif { font-size: 4.0vh; color: var(--t1); letter-spacing: 0.15vw; }
+.nav-subtitle { font-size: 2.0vh; color: rgba(212,170,96,.6); letter-spacing: 0.12vw; }
 
 /* 히어로 이미지 */
 .hero {
@@ -213,6 +213,7 @@ function onStart() {
   overflow: hidden;
 }
 .body-text {
+  flex: 1;
   font-size: 13px;
   line-height: 1.9;
   color: var(--t1);
