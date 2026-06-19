@@ -12,11 +12,24 @@
           <span class="mono dim title-sub">{{ cur.nameKr }}</span>
         </div>
 
-        <div class="faction-row">
+        <div
+          class="faction-row"
+          :class="{ grabbing: fcDragging }"
+          ref="factionRowRef"
+          @mousedown="fcDragStart"
+          @mousemove="fcDragMove"
+          @mouseup="fcDragEnd"
+          @mouseleave="fcDragEnd"
+          @touchstart.passive="fcDragStart"
+          @touchmove.prevent="fcDragMove"
+          @touchend="fcDragEnd"
+          @wheel.prevent="fcWheel"
+        >
           <!-- 전체 -->
           <button class="fc-card fc-all"
                   :class="{ active: pickedFaction === null }"
-                  @click="pickedFaction = null">
+                  draggable="false"
+                  @click="fcPick(null)">
             <div class="fc-slices">
               <div v-for="fid in cur.factions" :key="fid"
                    class="fc-slice"
@@ -30,7 +43,8 @@
                   class="fc-card"
                   :class="{ active: pickedFaction === fid }"
                   :style="{ backgroundImage: `url(/img/factions/${fid}.png)` }"
-                  @click="pickedFaction = fid">
+                  draggable="false"
+                  @click="fcPick(fid)">
             <div class="fc-overlay" />
             <div class="fc-info">
               <span class="fc-faction-tag mono"
@@ -46,7 +60,7 @@
           <button class="footer-btn" @click="router.back()">
             <span class="mono">← 뒤로</span>
           </button>
-          <button class="footer-btn gold-btn" :disabled="pickedFaction === undefined" @click="goToChar">
+          <button class="footer-btn gold-btn" @click="goToChar">
             <span class="mono">다음 →</span>
           </button>
         </div>
@@ -145,6 +159,7 @@
 
 <script setup>
 import { ref, computed, watchEffect } from 'vue'
+
 import { useRoute, useRouter } from 'vue-router'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useLobbyStore } from '@/stores/lobbyStore'
@@ -169,8 +184,64 @@ const factionNamesMap = Object.fromEntries(
 
 const stage         = ref('faction')
 const transDir      = ref('slide-forward')
-const pickedFaction = ref(undefined)
+const pickedFaction = ref(null)
 const factionFilter = ref(null)
+
+// 국가 카드 드래그/스와이프/휠
+const factionRowRef = ref(null)
+const fcDragging    = ref(false)
+let fcStartX = 0, fcScrollLeft = 0, fcDist = 0
+let fcWheelLocked = false
+
+const fcCards = computed(() => [null, ...(cur.value?.factions ?? [])])
+const fcCurrentIdx = ref(0)
+
+function fcScrollTo(idx) {
+  const el = factionRowRef.value
+  if (!el) return
+  const cards = el.querySelectorAll('.fc-card')
+  if (!cards[idx]) return
+  const card    = cards[idx]
+  const rowRect = el.getBoundingClientRect()
+  const cardRect = card.getBoundingClientRect()
+  const offset  = cardRect.left - rowRect.left + el.scrollLeft - (rowRect.width - cardRect.width) / 2
+  el.scrollTo({ left: offset, behavior: 'smooth' })
+}
+
+function fcPx(e) { return e.touches ? e.touches[0].clientX : e.clientX }
+
+function fcDragStart(e) {
+  fcDragging.value = true
+  fcDist = 0
+  fcStartX = fcPx(e)
+  fcScrollLeft = factionRowRef.value?.scrollLeft ?? 0
+}
+function fcDragMove(e) {
+  if (!fcDragging.value) return
+  const x = fcPx(e)
+  const dx = fcStartX - x
+  fcDist = Math.abs(dx)
+  if (factionRowRef.value) factionRowRef.value.scrollLeft = fcScrollLeft + dx
+}
+function fcDragEnd() { fcDragging.value = false }
+
+function fcWheel(e) {
+  if (fcWheelLocked) return
+  const next = fcCurrentIdx.value + (e.deltaY > 0 ? 1 : -1)
+  if (next < 0 || next >= fcCards.value.length) return
+  fcCurrentIdx.value = next
+  pickedFaction.value = fcCards.value[next]
+  fcScrollTo(next)
+  fcWheelLocked = true
+  setTimeout(() => { fcWheelLocked = false }, 400)
+}
+
+function fcPick(fid) {
+  if (fcDist >= 5) return
+  pickedFaction.value = fid
+  const idx = fcCards.value.indexOf(fid)
+  if (idx !== -1) { fcCurrentIdx.value = idx; fcScrollTo(idx) }
+}
 const selChar       = ref(null)
 const charList      = ref([])
 const q             = ref('')
@@ -293,17 +364,22 @@ function onNext() {
 /* ── 국가 카드 ─────────────────────────────────────────────── */
 .faction-row {
   flex: 1; min-height: 0;
-  display: flex; gap: 16px; align-items: center; justify-content: center;
+  display: flex; gap: 16px; align-items: center;
   width: 100%; overflow-x: auto;
-  scrollbar-width: none; padding: 8px 4px;
+  scrollbar-width: none;
+  padding: 8px 5vw;
+  cursor: grab; user-select: none;
+  scroll-snap-type: x mandatory;
 }
 .faction-row::-webkit-scrollbar { display: none; }
+.faction-row.grabbing { cursor: grabbing; }
 
 .fc-card {
   flex-shrink: 0;
   position: relative;
   height: 32vh;
   aspect-ratio: 5 / 7;
+  scroll-snap-align: center;
   background: #0d1520 center / cover no-repeat;
   border: 2px solid rgba(212,170,96,.7);
   border-radius: 14px;
@@ -320,14 +396,6 @@ function onNext() {
   background-image:
     repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.02) 10px, rgba(212,170,96,.02) 11px),
     repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.02) 10px, rgba(212,170,96,.02) 11px);
-}
-.fc-card:hover {
-  border-color: rgba(212,170,96,.95);
-  transform: translateY(-8px) scale(1.03);
-  box-shadow:
-    inset 0 0 0 5px #0d1520,
-    inset 0 0 0 7px rgba(212,170,96,.45),
-    0 20px 56px rgba(212,170,96,.2);
 }
 .fc-card.active {
   border-color: rgba(212,170,96,1);
