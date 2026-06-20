@@ -24,7 +24,7 @@ export const STAR_SYSTEMS = [
   /** 230001_ALMENTFUBEEL
    *  위치 : 70 45
    *  연결 : 230048_SCHACHEN(7)
-   *        230028_KIPOIZER(4)
+   *        230028_KIFOISER(4)
    *  행성 : 바텐-도라흐 */
   {
     code: "230001",
@@ -307,6 +307,7 @@ export const STAR_SYSTEMS = [
    *  위치 : 35 30
    *  연결 : 230010_DAGON(11)
    *        230005_ASTARTE(2)
+   *        230016_ELGON(10)
    *  행성 : 엘-파실
    *        에스트레마도라
    */
@@ -761,6 +762,7 @@ export const STAR_SYSTEMS = [
    *        230056_TRABACH(2)
    *        230032_LITTENHEIM(6)
    *        230028_KIFOISER(7)
+   *        230019_FREYA(4)
    *  행성 : 에스링그
    *        크네스도르프
    *        폰트노이
@@ -778,7 +780,7 @@ export const STAR_SYSTEMS = [
 
   /** 230051_SYVA
    *  위치 : 30 30
-   *  연결 : 엘곤(12)
+   *  연결 : 230016_ELGON(12)
    *        230023_JYAMSEED(잠시드)(8)
    *  행성 : 미트라
    *        지비에
