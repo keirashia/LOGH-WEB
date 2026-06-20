@@ -13,6 +13,12 @@
         <clipPath id="map-clip" clipPathUnits="userSpaceOnUse">
           <rect x="0" y="0" :width="VW" :height="VH"/>
         </clipPath>
+        <!-- 사르갓소 해저드 스트라이프 -->
+        <pattern id="sargasso-hazard" x="0" y="0" width="20" height="20"
+                 patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+          <rect width="10" height="20" fill="#0d0d0d"/>
+          <rect x="10" width="10" height="20" fill="#ffc200"/>
+        </pattern>
         <!-- 국경선 warp (비활성화용 보존) -->
         <filter id="bt-warp" x="-10%" y="-100%" width="120%" height="300%">
           <feTurbulence type="fractalNoise" baseFrequency="0.007 0.003" numOctaves="2" result="noise">
@@ -51,10 +57,9 @@
         <g style="pointer-events:none">
           <polygon v-for="obs in OBSTACLES" :key="obs.id"
                    :points="obs.points.map(p => p.join(',')).join(' ')"
-                   :fill="obs.color.fill"
-                   :stroke="obs.color.outline"
-                   stroke-width="1.5"
-                   opacity="0.88"/>
+                   :fill="obs.type==='SARGASSO' ? 'url(#sargasso-hazard)' : obs.color.fill"
+                   :stroke="obs.type==='SARGASSO' ? '#d4a000' : obs.color.outline"
+                   stroke-width="1.5"/>
         </g>
 
         <!-- 항로 (비경계) -->
@@ -448,19 +453,6 @@ function toggleLane(a, b) {
 // ── 보로노이 영역 ─────────────────────────────────────────────
 // 팬텀 포인트 간격 — 값이 작을수록 끄트머리 셀이 타이트해짐
 const GHOST_STEP = 80
-// 사르갓소 내부 팬텀 밀도 — 값이 작을수록 회랑 경계가 정밀해짐
-const SARGASSO_STEP = 25
-
-function pointInPolygon(x, y, pts) {
-  let inside = false
-  for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
-    const xi = pts[i][0], yi = pts[i][1]
-    const xj = pts[j][0], yj = pts[j][1]
-    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi)
-      inside = !inside
-  }
-  return inside
-}
 
 const voronoiData = computed(() => {
   const sysList = Object.values(game.systems)
@@ -470,19 +462,7 @@ const voronoiData = computed(() => {
   const ghosts = []
   for (let gx = 0; gx <= VW; gx += GHOST_STEP)
     for (let gy = 0; gy <= VH; gy += GHOST_STEP)
-      ghosts.push({ x: gx, y: gy, faction: null, _grid: true })
-
-  // 사르갓소 폴리곤 내부 팬텀 (보로노이가 회랑을 침범하지 못하게)
-  for (const obs of OBSTACLES) {
-    const xs = obs.points.map(p => p[0])
-    const ys = obs.points.map(p => p[1])
-    const x0 = Math.min(...xs), x1 = Math.max(...xs)
-    const y0 = Math.min(...ys), y1 = Math.max(...ys)
-    for (let gx = x0; gx <= x1; gx += SARGASSO_STEP)
-      for (let gy = y0; gy <= y1; gy += SARGASSO_STEP)
-        if (pointInPolygon(gx, gy, obs.points))
-          ghosts.push({ x: gx, y: gy, faction: null, _grid: false })
-  }
+      ghosts.push({ x: gx, y: gy, faction: null })
 
   const nReal  = sysList.length
   const allPts = [...sysList, ...ghosts]
@@ -491,7 +471,7 @@ const voronoiData = computed(() => {
   const voronoi  = delaunay.voronoi([0, 0, VW, VH])
   const OFFSET   = 2.5
 
-  // 모든 팬텀: 가장 가까운 실제 성계의 세력 상속 (동일 국가 사이 빈 틈 제거)
+  // 팬텀: 가장 가까운 실제 성계의 세력 상속 (동일 국가 사이 빈 틈 제거)
   for (let g = nReal; g < allPts.length; g++) {
     let minD = Infinity, nf = null
     for (let r = 0; r < nReal; r++) {
@@ -605,6 +585,7 @@ const lanesComp = computed(() => {
 // ── 기존 헬퍼 ────────────────────────────────────────────────
 const fclr    = computed(() => game.fColors)
 const systems = computed(() => Object.values(game.systems))
+
 
 function nr(s) {
   if (s.type === 'capital')  return 16
