@@ -171,17 +171,22 @@ function closeAll() {
 
 <style scoped>
 .mp-backdrop {
-  position: fixed; inset: 0; z-index: 1800;
-  background: rgba(0,0,0,.5);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  bottom: var(--bar-h);
+  z-index: 1800;
+  background: rgba(0,0,0,.45);
   backdrop-filter: blur(2px);
 }
 
 .mp-panel {
   position: fixed; left: 0; right: 0; bottom: var(--bar-h); z-index: 1900;
-  max-height: 62vh; overflow-y: auto;
+  max-height: 55vh; overflow-y: auto;
   background: linear-gradient(180deg, #101828 0%, #0b1220 100%);
-  border-top: 1px solid var(--bdg);
-  box-shadow: 0 -4px 32px rgba(0,0,0,.8), 0 -1px 0 rgba(212,170,96,.1);
+  border: 1px solid rgba(212,170,96,.35);
+  border-bottom: none;
+  border-radius: 14px 14px 0 0;
+  box-shadow: 0 -4px 32px rgba(0,0,0,.8), 0 -1px 0 rgba(212,170,96,.15);
   display: flex; flex-direction: column;
 }
 

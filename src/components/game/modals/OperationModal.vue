@@ -23,8 +23,7 @@
         <div class="op-row">
           <span class="op-lbl dim">
             승인자
-            <span class="hint-q" @mousedown="startHint('approver')" @mouseup="stopHint" @mouseleave="stopHint"
-                  @touchstart.prevent="startHint('approver')" @touchend="stopHint">?</span>
+            <span class="hint-q" @click.stop="startHint('approver')">?</span>
           </span>
           <div class="op-char-card" :class="{ empty: !autoApprover }">
             <template v-if="autoApprover">
@@ -47,8 +46,7 @@
         <div class="op-row">
           <span class="op-lbl dim">
             발의자
-            <span class="hint-q" @mousedown="startHint('proposer')" @mouseup="stopHint" @mouseleave="stopHint"
-                  @touchstart.prevent="startHint('proposer')" @touchend="stopHint">?</span>
+            <span class="hint-q" @click.stop="startHint('proposer')">?</span>
           </span>
           <div class="op-char-card" :class="{ self: proposer?.code === game.playerCharCode }">
             <template v-if="proposer">
@@ -84,8 +82,7 @@
         <div class="op-row">
           <span class="op-lbl dim">
             출격함대
-            <span class="hint-q" @mousedown="startHint('fleet')" @mouseup="stopHint" @mouseleave="stopHint"
-                  @touchstart.prevent="startHint('fleet')" @touchend="stopHint">?</span>
+            <span class="hint-q" @click.stop="startHint('fleet')">?</span>
           </span>
           <div class="slider-wrap">
             <input type="range" :min="1" :max="maxFleets" v-model.number="fleetCount" class="op-slider" />
@@ -98,8 +95,7 @@
         <div class="op-row">
           <span class="op-lbl dim">
             작전기간
-            <span class="hint-q" @mousedown="startHint('period')" @mouseup="stopHint" @mouseleave="stopHint"
-                  @touchstart.prevent="startHint('period')" @touchend="stopHint">?</span>
+            <span class="hint-q" @click.stop="startHint('period')">?</span>
           </span>
           <div class="slider-wrap">
             <input type="range" min="1" max="30" v-model.number="period" class="op-slider" />
@@ -114,8 +110,7 @@
         <div class="op-row info">
           <span class="op-lbl dim">
             작전예산
-            <span class="hint-q" @mousedown="startHint('budget')" @mouseup="stopHint" @mouseleave="stopHint"
-                  @touchstart.prevent="startHint('budget')" @touchend="stopHint">?</span>
+            <span class="hint-q" @click.stop="startHint('budget')">?</span>
           </span>
           <span class="op-val mono">
             {{ budgetAmount.toLocaleString() }}
@@ -127,8 +122,7 @@
         <div class="op-row info">
           <span class="op-lbl dim">
             보안도
-            <span class="hint-q" @mousedown="startHint('security')" @mouseup="stopHint" @mouseleave="stopHint"
-                  @touchstart.prevent="startHint('security')" @touchend="stopHint">?</span>
+            <span class="hint-q" @click.stop="startHint('security')">?</span>
           </span>
           <div class="op-val security-bar-wrap">
             <div class="security-bar">
@@ -290,7 +284,7 @@
     <!-- ── 힌트 오버레이 ──────────────────────────────────────────── -->
     <Teleport to="body">
       <div v-if="activeHint" class="hint-overlay" @click="activeHint = null">
-        <div class="hint-box">
+        <div class="hint-box" @click.stop>
           <div class="hint-text serif">{{ HINTS[activeHint] }}</div>
           <button class="btn" style="margin-top:14px" @click="activeHint = null">확인</button>
         </div>
@@ -301,7 +295,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { JOB_MAP } from '@/data/base/jobs/jobData'
 
@@ -349,17 +343,8 @@ const activeHint        = ref(null)
 const isModify          = ref(false)
 let   existingAgendaId  = null
 
-// 힌트 타이머
-let hintTimer = null
-function startHint(field) {
-  stopHint()
-  hintTimer = setTimeout(() => { activeHint.value = field }, 1500)
-}
-function stopHint() {
-  clearTimeout(hintTimer)
-  hintTimer = null
-}
-onUnmounted(() => stopHint())
+// 힌트 표시
+function startHint(field) { activeHint.value = field }
 
 // ── 마운트: 이력 복원 ─────────────────────────────────────────────
 onMounted(() => {
@@ -645,8 +630,9 @@ function doSubmit() {
 .op-row.info { opacity: .7; }
 .op-row.notes-row { align-items: flex-start; }
 .op-lbl {
-  font-size: 11px; width: 58px; flex-shrink: 0;
+  font-size: 11px; min-width: 68px; flex-shrink: 0;
   text-align: right; letter-spacing: .3px; line-height: 1.6;
+  white-space: nowrap;
 }
 .op-val { flex: 1; font-size: 13px; }
 .op-divider { height: 1px; background: var(--bd); margin: 2px 0; }
