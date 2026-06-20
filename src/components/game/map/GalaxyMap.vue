@@ -28,7 +28,7 @@
           <!-- 셀 채움 -->
           <path v-for="cell in voronoiCells" :key="'vc_'+cell.id"
                 :d="cell.path"
-                :fill="cell.faction ? fclr[cell.faction] : '#0a0f1a'"
+                :fill="cell.faction ? fclr[cell.faction] : 'none'"
                 fill-opacity="0.18"/>
           <!-- 동일 세력 내부 경계 (얇은 선) -->
           <line v-for="(e,i) in voronoiInternalEdges" :key="'vi_'+i"
@@ -97,17 +97,17 @@
                   style="pointer-events:none"/>
           <circle v-if="game.selectedSystem===s.id && !editMode"
                   :r="vr(s)+6" fill="none"
-                  :stroke="fclr[s.faction]||'#555'"
+                  :stroke="fclr[s.faction]||'rgba(255,255,255,0.25)'"
                   stroke-width="1.5" opacity=".8" class="sel-ring"/>
           <circle v-if="editMode && laneFrom===s.id"
                   :r="vr(s)+8" fill="none" stroke="gold" stroke-width="2" opacity=".85"/>
-          <circle :r="vr(s)+2" :fill="fclr[s.faction]||'#334'" opacity="0.25"/>
+          <circle :r="vr(s)+2" :fill="fclr[s.faction]||'none'" opacity="0.25"/>
           <circle :r="vr(s)" fill="white" opacity="0.9"/>
           <circle v-if="s.underConstruction"
                   :r="vr(s)+3" fill="none" stroke="#f0b030"
                   stroke-width="0.8" stroke-dasharray="2 2" opacity=".7"/>
           <text class="sys-lbl" text-anchor="middle" :dy="vr(s)+10"
-                font-size="9" :fill="fclr[s.faction]||'#6a8aaa'">{{ s.name }}</text>
+                font-size="9" :fill="fclr[s.faction]||'rgba(255,255,255,0.35)'">{{ s.name }}</text>
         </g>
 
         <!-- 추가 미리보기 -->
@@ -168,7 +168,7 @@
         <span class="dim" style="font-size:10px">{{ FACTION_NAME_MAP[fid] }}</span>
       </div>
       <div class="leg-row">
-        <span class="leg-dot" style="background:#555"/>
+        <span class="leg-dot" style="background:transparent;border:1px solid rgba(255,255,255,0.25)"/>
         <span class="dim" style="font-size:10px">중립</span>
       </div>
     </div>

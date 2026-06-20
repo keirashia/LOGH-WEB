@@ -71,7 +71,7 @@ export default [
     id: "REH",
     periodType: "RC",
     period: ["", "799"],
-    color: "#c0392b",
+    color: "#8a8a9a",
     flag: "⚔️",
     currency: "제국 마르크",
     ideology: byCode[240],

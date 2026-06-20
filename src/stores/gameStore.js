@@ -10,30 +10,35 @@ import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { STAR_SYSTEMS } from '@/data/base/stars/starSystemData'
 import { CHAR_JOBS as _BASE_CHAR_JOBS } from '@/data/base/characters/charactersJobs'
 
-// scId → 폴더 경로 파생: SE796_0211_010 → 'SE796/0211/010'
-function _scPath(scId) {
-  const [y, m, s] = scId.split('_')
-  return `${y}/${m}/${s}`
-}
+const _GLOB_STAR_DETAIL   = import.meta.glob('/src/data/scenario/*/*/*/stars/starDetail.js')
+const _GLOB_PLANET_DETAIL = import.meta.glob('/src/data/scenario/*/*/*/stars/planetDetail.js')
+const _GLOB_CHAR_JOBS     = import.meta.glob('/src/data/scenario/*/*/*/characters/charactersJobs.js')
+const _GLOB_FLEET_DATA    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetData.js')
+const _GLOB_FLEET_CHAR    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetCharacterData.js')
+const _GLOB_FLEET_SHIP    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetShipData.js')
+const _GLOB_FLEET_TRAIT   = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetTraitData.js')
 
 async function _loadScenarioFiles(scId) {
   const [y, m, s] = scId.split('_')
-  const results = await Promise.allSettled([
-    import(/* @vite-ignore */ `@/data/scenario/${y}/${m}/${s}/starDetail.js`),
-    import(/* @vite-ignore */ `@/data/scenario/${y}/${m}/${s}/characters/charactersJobs.js`),
-    import(/* @vite-ignore */ `@/data/scenario/${y}/${m}/${s}/fleet/fleetData.js`),
-    import(/* @vite-ignore */ `@/data/scenario/${y}/${m}/${s}/fleet/fleetCharacterData.js`),
-    import(/* @vite-ignore */ `@/data/scenario/${y}/${m}/${s}/fleet/fleetShipData.js`),
-    import(/* @vite-ignore */ `@/data/scenario/${y}/${m}/${s}/fleet/fleetTraitData.js`),
+  const base = `/src/data/scenario/${y}/${m}/${s}`
+  const load = (glob, suf) => (glob[`${base}/${suf}`] ?? (() => Promise.resolve(null)))()
+  const [sd, pd, cj, fd, fcd, fsd, ftd] = await Promise.all([
+    load(_GLOB_STAR_DETAIL,   'stars/starDetail.js'),
+    load(_GLOB_PLANET_DETAIL, 'stars/planetDetail.js'),
+    load(_GLOB_CHAR_JOBS,     'characters/charactersJobs.js'),
+    load(_GLOB_FLEET_DATA,    'fleet/fleetData.js'),
+    load(_GLOB_FLEET_CHAR,    'fleet/fleetCharacterData.js'),
+    load(_GLOB_FLEET_SHIP,    'fleet/fleetShipData.js'),
+    load(_GLOB_FLEET_TRAIT,   'fleet/fleetTraitData.js'),
   ])
-  const get = i => results[i].status === 'fulfilled' ? results[i].value : null
   return {
-    starDetail:    get(0)?.STAR_DETAIL             ?? [],
-    charJobs:      get(1)?.CHAR_JOBS               ?? null,
-    fleetData:     get(2)?.FLEET_DATA              ?? [],
-    fleetCharData: get(3)?.FLEET_CHARACTER_DATA    ?? [],
-    fleetShipData: get(4)?.FLEET_SHIP_DATA         ?? [],
-    fleetTraitData:get(5)?.FLEET_TRAIT_DATA        ?? [],
+    starDetail:    sd?.STAR_DETAIL             ?? [],
+    planetDetail:  pd?.PLANET_DETAIL           ?? [],
+    charJobs:      cj?.CHAR_JOBS               ?? null,
+    fleetData:     fd?.FLEET_DATA              ?? [],
+    fleetCharData: fcd?.FLEET_CHARACTER_DATA   ?? [],
+    fleetShipData: fsd?.FLEET_SHIP_DATA        ?? [],
+    fleetTraitData:ftd?.FLEET_TRAIT_DATA       ?? [],
   }
 }
 
@@ -75,11 +80,24 @@ const _DEFAULTS = {
 
 function buildState(scId, pf, extraData = {}) {
   const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]
-  const { starDetail = [], charJobs = null, fleetData = [], fleetCharData = [], fleetShipData = [] } = extraData
+  const { starDetail = [], planetDetail = [], charJobs = null, fleetData = [], fleetCharData = [], fleetShipData = [] } = extraData
   const _detailMap = Object.fromEntries((starDetail || []).map(d => [d.code, d]))
+  const _planetMap = {}
+  for (const p of (planetDetail || [])) {
+    if (!_planetMap[p.starCode]) _planetMap[p.starCode] = []
+    _planetMap[p.starCode].push(p)
+  }
   const systems = {}
   STAR_SYSTEMS.forEach(s => {
     const d = _detailMap[s.code] || {}
+    const planets = _planetMap[s.code] || []
+    let faction = null
+    if (planets.length > 0) {
+      const cnt = {}
+      for (const p of planets) { if (p.faction) cnt[p.faction] = (cnt[p.faction] || 0) + 1 }
+      const sorted = Object.entries(cnt).sort((a, b) => b[1] - a[1])
+      if (sorted.length && sorted[0][1] > (sorted[1]?.[1] ?? 0)) faction = sorted[0][0]
+    }
     systems[s.code] = {
       id:               s.code,
       code:             s.code,
@@ -89,7 +107,8 @@ function buildState(scId, pf, extraData = {}) {
       x:                s.x,
       y:                s.y,
       desc:             s.desc,
-      faction:          d.faction ?? null,
+      faction,
+      planets:          planets,
       morale:           d.morale  ?? 60,
       tax:              d.tax     ?? 0,
       traits:           d.traits  ?? [],
