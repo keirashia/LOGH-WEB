@@ -185,6 +185,7 @@ export const STAR_SYSTEMS = [
    *  연결 : 230016_ELGON(8)
    *        230005_ASTARTE(6)
    *        230055_TIAMAT(4)
+   *        230017_EL-PACIL(7)
    *  행성 : 카프튜랑카
    */
   {
@@ -218,6 +219,7 @@ export const STAR_SYSTEMS = [
    *  위치 : 64 75
    *  연결 : 230048_SCHACHEN(1)
    *        230014_EISENHERZ(7)
+   *        230015_EISENHUT(4)
    *  행성 : 자크스-코프르크
    */
   {
