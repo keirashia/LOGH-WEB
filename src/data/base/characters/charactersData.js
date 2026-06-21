@@ -80,7 +80,7 @@ export const CHAR_BASE = [
     statInf: 74,
     statGfg: 5,
     statAfg: 5,
-    statMmp: 75,
+    statPlt: 75,
     // — 기타
     loc: "230006P01",
     point: "150",
@@ -118,7 +118,7 @@ export const CHAR_BASE = [
     statInf: 88,
     statGfg: 5,
     statAfg: 5,
-    statMmp: 75,
+    statPlt: 75,
     // — 기타
     loc: "230006P01",
     point: "150",
@@ -156,7 +156,7 @@ export const CHAR_BASE = [
     statInf: 88,
     statGfg: 5,
     statAfg: 5,
-    statMmp: 75,
+    statPlt: 75,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -193,7 +193,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "-",
@@ -230,7 +230,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -269,7 +269,7 @@ export const CHAR_BASE = [
     statInf: 65,
     statGfg: 2,
     statAfg: 2,
-    statMmp: 78,
+    statPlt: 78,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -305,7 +305,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "-",
@@ -341,7 +341,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "100",
@@ -377,7 +377,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "X",
@@ -413,7 +413,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -450,7 +450,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "X",
@@ -486,7 +486,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -522,7 +522,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -558,7 +558,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -594,7 +594,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -631,7 +631,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -668,7 +668,7 @@ export const CHAR_BASE = [
     statInf: 35,
     statGfg: 71,
     statAfg: 83,
-    statMmp: 88,
+    statPlt: 88,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -704,7 +704,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -740,7 +740,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -776,7 +776,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -813,7 +813,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -850,7 +850,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -887,7 +887,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -924,7 +924,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -961,7 +961,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -998,7 +998,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1035,7 +1035,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1072,7 +1072,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1109,7 +1109,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1146,7 +1146,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1183,7 +1183,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1220,7 +1220,7 @@ export const CHAR_BASE = [
     statInf: 72,
     statGfg: 80,
     statAfg: 82,
-    statMmp: 75,
+    statPlt: 75,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -1256,7 +1256,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1292,7 +1292,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1329,7 +1329,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1366,7 +1366,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1402,7 +1402,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1439,7 +1439,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1475,7 +1475,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1512,7 +1512,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1548,7 +1548,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1585,7 +1585,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1623,7 +1623,7 @@ export const CHAR_BASE = [
     statInf: 59,
     statGfg: 50,
     statAfg: 81,
-    statMmp: 75,
+    statPlt: 75,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -1661,7 +1661,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1698,7 +1698,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1735,7 +1735,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1772,7 +1772,7 @@ export const CHAR_BASE = [
     statInf: 78,
     statGfg: 3,
     statAfg: 3,
-    statMmp: 82,
+    statPlt: 82,
     // — 기타
     loc: "230042P01",
     point: "0",
@@ -1808,7 +1808,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1845,7 +1845,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1882,7 +1882,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1919,7 +1919,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1956,7 +1956,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -1993,7 +1993,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2030,7 +2030,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2068,7 +2068,7 @@ export const CHAR_BASE = [
     statInf: 88,
     statGfg: 71,
     statAfg: 73,
-    statMmp: 95,
+    statPlt: 95,
     // — 기타
     loc: "230006P01",
     point: "150",
@@ -2105,7 +2105,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2142,7 +2142,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2179,7 +2179,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2216,7 +2216,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2254,7 +2254,7 @@ export const CHAR_BASE = [
     statInf: 72,
     statGfg: 62,
     statAfg: 65,
-    statMmp: 68,
+    statPlt: 68,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -2291,7 +2291,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2328,7 +2328,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2365,7 +2365,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2403,7 +2403,7 @@ export const CHAR_BASE = [
     statInf: 74,
     statGfg: 75,
     statAfg: 91,
-    statMmp: 72,
+    statPlt: 72,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -2440,7 +2440,7 @@ export const CHAR_BASE = [
     statInf: 52,
     statGfg: 60,
     statAfg: 79,
-    statMmp: 68,
+    statPlt: 68,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -2477,7 +2477,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2514,7 +2514,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2551,7 +2551,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2588,7 +2588,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2625,7 +2625,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2662,7 +2662,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2699,7 +2699,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2736,7 +2736,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2773,7 +2773,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2810,7 +2810,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2847,7 +2847,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2884,7 +2884,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2921,7 +2921,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2958,7 +2958,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -2995,7 +2995,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3032,7 +3032,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3069,7 +3069,7 @@ export const CHAR_BASE = [
     statInf: 58,
     statGfg: 3,
     statAfg: 3,
-    statMmp: 85,
+    statPlt: 85,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -3106,7 +3106,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3143,7 +3143,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3180,7 +3180,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3217,7 +3217,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3254,7 +3254,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3291,7 +3291,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3328,7 +3328,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3365,7 +3365,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3402,7 +3402,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3439,7 +3439,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3476,7 +3476,7 @@ export const CHAR_BASE = [
     statInf: 85,
     statGfg: 3,
     statAfg: 3,
-    statMmp: 88,
+    statPlt: 88,
     // — 기타
     loc: "230042P01",
     point: "0",
@@ -3513,7 +3513,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3550,7 +3550,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3587,7 +3587,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3624,7 +3624,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3661,7 +3661,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3698,7 +3698,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3735,7 +3735,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3772,7 +3772,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3809,7 +3809,7 @@ export const CHAR_BASE = [
     statInf: 68,
     statGfg: 2,
     statAfg: 2,
-    statMmp: 72,
+    statPlt: 72,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -3846,7 +3846,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3883,7 +3883,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3920,7 +3920,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3957,7 +3957,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -3994,7 +3994,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4031,7 +4031,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4068,7 +4068,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4105,7 +4105,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4142,7 +4142,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4179,7 +4179,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4216,7 +4216,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4253,7 +4253,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4290,7 +4290,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4327,7 +4327,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4364,7 +4364,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4401,7 +4401,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4438,7 +4438,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4475,7 +4475,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4512,7 +4512,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4549,7 +4549,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4586,7 +4586,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4623,7 +4623,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4660,7 +4660,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4697,7 +4697,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4734,7 +4734,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4771,7 +4771,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4808,7 +4808,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4845,7 +4845,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4882,7 +4882,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4919,7 +4919,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4956,7 +4956,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -4993,7 +4993,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5030,7 +5030,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5067,7 +5067,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5104,7 +5104,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5141,7 +5141,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5179,7 +5179,7 @@ export const CHAR_BASE = [
     statInf: 42,
     statGfg: 65,
     statAfg: 75,
-    statMmp: 30,
+    statPlt: 30,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -5217,7 +5217,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5254,7 +5254,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5291,7 +5291,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5328,7 +5328,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5365,7 +5365,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5402,7 +5402,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5439,7 +5439,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5476,7 +5476,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5513,7 +5513,7 @@ export const CHAR_BASE = [
     statInf: 90,
     statGfg: 45,
     statAfg: 50,
-    statMmp: 68,
+    statPlt: 68,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -5550,7 +5550,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5587,7 +5587,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5624,7 +5624,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5661,7 +5661,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5698,7 +5698,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5735,7 +5735,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5772,7 +5772,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5809,7 +5809,7 @@ export const CHAR_BASE = [
     statInf: 50,
     statGfg: 100,
     statAfg: 60,
-    statMmp: 20,
+    statPlt: 20,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -5846,7 +5846,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5883,7 +5883,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5920,7 +5920,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5957,7 +5957,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -5994,7 +5994,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6031,7 +6031,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6068,7 +6068,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6105,7 +6105,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6142,7 +6142,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6179,7 +6179,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6216,7 +6216,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6253,7 +6253,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6290,7 +6290,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6327,7 +6327,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6364,7 +6364,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6401,7 +6401,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6437,7 +6437,7 @@ export const CHAR_BASE = [
     statInf: 65,
     statGfg: 78,
     statAfg: 85,
-    statMmp: 70,
+    statPlt: 70,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -6474,7 +6474,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6511,7 +6511,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6548,7 +6548,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6585,7 +6585,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6622,7 +6622,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6659,7 +6659,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6696,7 +6696,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6733,7 +6733,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6770,7 +6770,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6807,7 +6807,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6844,7 +6844,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6881,7 +6881,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6918,7 +6918,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6955,7 +6955,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -6992,7 +6992,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7029,7 +7029,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7066,7 +7066,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7103,7 +7103,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7140,7 +7140,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7177,7 +7177,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7214,7 +7214,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7252,7 +7252,7 @@ export const CHAR_BASE = [
     statInf: 72,
     statGfg: 78,
     statAfg: 85,
-    statMmp: 55,
+    statPlt: 55,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -7291,7 +7291,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7328,7 +7328,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7365,7 +7365,7 @@ export const CHAR_BASE = [
     statInf: 42,
     statGfg: 18,
     statAfg: 22,
-    statMmp: 78,
+    statPlt: 78,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -7402,7 +7402,7 @@ export const CHAR_BASE = [
     statInf: 40,
     statGfg: 35,
     statAfg: 38,
-    statMmp: 62,
+    statPlt: 62,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -7439,7 +7439,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7476,7 +7476,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7513,7 +7513,7 @@ export const CHAR_BASE = [
     statInf: 38,
     statGfg: 2,
     statAfg: 2,
-    statMmp: 42,
+    statPlt: 42,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -7550,7 +7550,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7587,7 +7587,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7624,7 +7624,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7661,7 +7661,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7698,7 +7698,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7735,7 +7735,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7772,7 +7772,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7809,7 +7809,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7846,7 +7846,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7883,7 +7883,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7920,7 +7920,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7957,7 +7957,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -7994,7 +7994,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8031,7 +8031,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8068,7 +8068,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8105,7 +8105,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8142,7 +8142,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8179,7 +8179,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8216,7 +8216,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8253,7 +8253,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8291,7 +8291,7 @@ export const CHAR_BASE = [
     statInf: 51,
     statGfg: 52,
     statAfg: 68,
-    statMmp: 28,
+    statPlt: 28,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -8328,7 +8328,7 @@ export const CHAR_BASE = [
     statInf: 90,
     statGfg: 38,
     statAfg: 42,
-    statMmp: 85,
+    statPlt: 85,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -8365,7 +8365,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8402,7 +8402,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8439,7 +8439,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8476,7 +8476,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8513,7 +8513,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8550,7 +8550,7 @@ export const CHAR_BASE = [
     statInf: 85,
     statGfg: 68,
     statAfg: 72,
-    statMmp: 82,
+    statPlt: 82,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -8587,7 +8587,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8624,7 +8624,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8662,7 +8662,7 @@ export const CHAR_BASE = [
     statInf: 60,
     statGfg: 72,
     statAfg: 88,
-    statMmp: 42,
+    statPlt: 42,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -8699,7 +8699,7 @@ export const CHAR_BASE = [
     statInf: 92,
     statGfg: 5,
     statAfg: 5,
-    statMmp: 98,
+    statPlt: 98,
     // — 기타
     loc: "230042P01",
     point: "0",
@@ -8736,7 +8736,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8773,7 +8773,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8810,7 +8810,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8847,7 +8847,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8884,7 +8884,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8921,7 +8921,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -8958,7 +8958,7 @@ export const CHAR_BASE = [
     statInf: 68,
     statGfg: 78,
     statAfg: 80,
-    statMmp: 72,
+    statPlt: 72,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -8995,7 +8995,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9032,7 +9032,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9069,7 +9069,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9106,7 +9106,7 @@ export const CHAR_BASE = [
     statInf: 60,
     statGfg: 5,
     statAfg: 5,
-    statMmp: 80,
+    statPlt: 80,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -9143,7 +9143,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9180,7 +9180,7 @@ export const CHAR_BASE = [
     statInf: 65,
     statGfg: 70,
     statAfg: 45,
-    statMmp: 60,
+    statPlt: 60,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -9218,7 +9218,7 @@ export const CHAR_BASE = [
     statInf: 90,
     statGfg: 5,
     statAfg: 10,
-    statMmp: 20,
+    statPlt: 20,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -9255,7 +9255,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9292,7 +9292,7 @@ export const CHAR_BASE = [
     statInf: 88,
     statGfg: 3,
     statAfg: 3,
-    statMmp: 75,
+    statPlt: 75,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -9329,7 +9329,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9367,7 +9367,7 @@ export const CHAR_BASE = [
     statInf: 85,
     statGfg: 10,
     statAfg: 15,
-    statMmp: 25,
+    statPlt: 25,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -9404,7 +9404,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9441,7 +9441,7 @@ export const CHAR_BASE = [
     statInf: 78,
     statGfg: 72,
     statAfg: 80,
-    statMmp: 82,
+    statPlt: 82,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -9478,7 +9478,7 @@ export const CHAR_BASE = [
     statInf: 50,
     statGfg: 40,
     statAfg: 55,
-    statMmp: 65,
+    statPlt: 65,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -9515,7 +9515,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9552,7 +9552,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9589,7 +9589,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9626,7 +9626,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9663,7 +9663,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9700,7 +9700,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9737,7 +9737,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9774,7 +9774,7 @@ export const CHAR_BASE = [
     statInf: 58,
     statGfg: 18,
     statAfg: 22,
-    statMmp: 55,
+    statPlt: 55,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -9811,7 +9811,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9848,7 +9848,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9886,7 +9886,7 @@ export const CHAR_BASE = [
     statInf: 80,
     statGfg: 49,
     statAfg: 77,
-    statMmp: 70,
+    statPlt: 70,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -9923,7 +9923,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9960,7 +9960,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -9997,7 +9997,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10039,7 +10039,7 @@ export const CHAR_BASE = [
     statInf: 70,
     statGfg: 72,
     statAfg: 75,
-    statMmp: 75,
+    statPlt: 75,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -10077,7 +10077,7 @@ export const CHAR_BASE = [
     statInf: 52,
     statGfg: 45,
     statAfg: 21,
-    statMmp: 88,
+    statPlt: 88,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -10114,7 +10114,7 @@ export const CHAR_BASE = [
     statInf: 78,
     statGfg: 70,
     statAfg: 75,
-    statMmp: 85,
+    statPlt: 85,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -10152,7 +10152,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10189,7 +10189,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10226,7 +10226,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10263,7 +10263,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10300,7 +10300,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10337,7 +10337,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10374,7 +10374,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10411,7 +10411,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10448,7 +10448,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10485,7 +10485,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10522,7 +10522,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10559,7 +10559,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10596,7 +10596,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10633,7 +10633,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10670,7 +10670,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10707,7 +10707,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10744,7 +10744,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10782,7 +10782,7 @@ export const CHAR_BASE = [
     statInf: 48,
     statGfg: 55,
     statAfg: 65,
-    statMmp: 35,
+    statPlt: 35,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -10819,7 +10819,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10856,7 +10856,7 @@ export const CHAR_BASE = [
     statInf: 42,
     statGfg: 2,
     statAfg: 2,
-    statMmp: 48,
+    statPlt: 48,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -10894,7 +10894,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10931,7 +10931,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -10968,7 +10968,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11005,7 +11005,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11042,7 +11042,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11079,7 +11079,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11116,7 +11116,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11153,7 +11153,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11190,7 +11190,7 @@ export const CHAR_BASE = [
     statInf: 78,
     statGfg: 82,
     statAfg: 88,
-    statMmp: 80,
+    statPlt: 80,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -11227,7 +11227,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11264,7 +11264,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11302,7 +11302,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11339,7 +11339,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11376,7 +11376,7 @@ export const CHAR_BASE = [
     statInf: 48,
     statGfg: 32,
     statAfg: 35,
-    statMmp: 82,
+    statPlt: 82,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -11413,7 +11413,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11450,7 +11450,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11487,7 +11487,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11524,7 +11524,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11561,7 +11561,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11598,7 +11598,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11635,7 +11635,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11672,7 +11672,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11709,7 +11709,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11746,7 +11746,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11783,7 +11783,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11820,7 +11820,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11857,7 +11857,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11894,7 +11894,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11931,7 +11931,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -11968,7 +11968,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12005,7 +12005,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12042,7 +12042,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12079,7 +12079,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12116,7 +12116,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12153,7 +12153,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12190,7 +12190,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12227,7 +12227,7 @@ export const CHAR_BASE = [
     statInf: 10,
     statGfg: 2,
     statAfg: 2,
-    statMmp: 98,
+    statPlt: 98,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -12264,7 +12264,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12301,7 +12301,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12338,7 +12338,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12375,7 +12375,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12412,7 +12412,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12449,7 +12449,7 @@ export const CHAR_BASE = [
     statInf: 85,
     statGfg: 55,
     statAfg: 58,
-    statMmp: 80,
+    statPlt: 80,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -12486,7 +12486,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12523,7 +12523,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12560,7 +12560,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12597,7 +12597,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12634,7 +12634,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12671,7 +12671,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12709,7 +12709,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12746,7 +12746,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12783,7 +12783,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12820,7 +12820,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12857,7 +12857,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12894,7 +12894,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12931,7 +12931,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -12968,7 +12968,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13005,7 +13005,7 @@ export const CHAR_BASE = [
     statInf: 8,
     statGfg: 72,
     statAfg: 55,
-    statMmp: 8,
+    statPlt: 8,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -13042,7 +13042,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13079,7 +13079,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13116,7 +13116,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13153,7 +13153,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13190,7 +13190,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13227,7 +13227,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13264,7 +13264,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13302,7 +13302,7 @@ export const CHAR_BASE = [
     statInf: 25,
     statGfg: 5,
     statAfg: 5,
-    statMmp: 10,
+    statPlt: 10,
     // — 기타
     loc: "",
     point: "0",
@@ -13339,7 +13339,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13376,7 +13376,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13413,7 +13413,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13450,7 +13450,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13487,7 +13487,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13524,7 +13524,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13561,7 +13561,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13598,7 +13598,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13635,7 +13635,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13683,7 +13683,7 @@ export const CHAR_BASE = [
     statInf: 78,
     statGfg: 76,
     statAfg: 78,
-    statMmp: 77,
+    statPlt: 77,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -13722,7 +13722,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13759,7 +13759,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13796,7 +13796,7 @@ export const CHAR_BASE = [
     statInf: 63,
     statGfg: 3,
     statAfg: 4,
-    statMmp: 60,
+    statPlt: 60,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -13833,7 +13833,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13870,7 +13870,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13907,7 +13907,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13944,7 +13944,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -13981,7 +13981,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14018,7 +14018,7 @@ export const CHAR_BASE = [
     statInf: 72,
     statGfg: 3,
     statAfg: 3,
-    statMmp: 82,
+    statPlt: 82,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -14055,7 +14055,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14092,7 +14092,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14129,7 +14129,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14167,7 +14167,7 @@ export const CHAR_BASE = [
     statInf: 80,
     statGfg: 62,
     statAfg: 88,
-    statMmp: 55,
+    statPlt: 55,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -14204,7 +14204,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14241,7 +14241,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14278,7 +14278,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14315,7 +14315,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14352,7 +14352,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14389,7 +14389,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14427,7 +14427,7 @@ export const CHAR_BASE = [
     statInf: 82,
     statGfg: 78,
     statAfg: 85,
-    statMmp: 70,
+    statPlt: 70,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -14465,7 +14465,7 @@ export const CHAR_BASE = [
     statInf: 95,
     statGfg: 18,
     statAfg: 22,
-    statMmp: 30,
+    statPlt: 30,
     // — 기타
     loc: "",
     point: "2000",
@@ -14502,7 +14502,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14539,7 +14539,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14576,7 +14576,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14613,7 +14613,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14650,7 +14650,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14687,7 +14687,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14724,7 +14724,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14761,7 +14761,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14798,7 +14798,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14835,7 +14835,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14872,7 +14872,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14909,7 +14909,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14946,7 +14946,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -14983,7 +14983,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15020,7 +15020,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15057,7 +15057,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15094,7 +15094,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15131,7 +15131,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15168,7 +15168,7 @@ export const CHAR_BASE = [
     statInf: 62,
     statGfg: 2,
     statAfg: 2,
-    statMmp: 65,
+    statPlt: 65,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -15205,7 +15205,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15242,7 +15242,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15279,7 +15279,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15316,7 +15316,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15353,7 +15353,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15390,7 +15390,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15427,7 +15427,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15464,7 +15464,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15501,7 +15501,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15538,7 +15538,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15575,7 +15575,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15613,7 +15613,7 @@ export const CHAR_BASE = [
     statInf: 80,
     statGfg: 20,
     statAfg: 35,
-    statMmp: 35,
+    statPlt: 35,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -15650,7 +15650,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15687,7 +15687,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15724,7 +15724,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15761,7 +15761,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15798,7 +15798,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15835,7 +15835,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15872,7 +15872,7 @@ export const CHAR_BASE = [
     statInf: 65,
     statGfg: 3,
     statAfg: 3,
-    statMmp: 72,
+    statPlt: 72,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -15909,7 +15909,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -15946,7 +15946,7 @@ export const CHAR_BASE = [
     statInf: 70,
     statGfg: 72,
     statAfg: 78,
-    statMmp: 72,
+    statPlt: 72,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -15983,7 +15983,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16020,7 +16020,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16057,7 +16057,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16094,7 +16094,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16131,7 +16131,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16168,7 +16168,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16205,7 +16205,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16242,7 +16242,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16279,7 +16279,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16316,7 +16316,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16353,7 +16353,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16390,7 +16390,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16427,7 +16427,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16464,7 +16464,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16501,7 +16501,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16538,7 +16538,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16575,7 +16575,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16612,7 +16612,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16649,7 +16649,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16686,7 +16686,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16723,7 +16723,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16760,7 +16760,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16797,7 +16797,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16834,7 +16834,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16872,7 +16872,7 @@ export const CHAR_BASE = [
     statInf: 70,
     statGfg: 58,
     statAfg: 78,
-    statMmp: 48,
+    statPlt: 48,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -16909,7 +16909,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16946,7 +16946,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -16983,7 +16983,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17020,7 +17020,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17057,7 +17057,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17094,7 +17094,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17131,7 +17131,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17168,7 +17168,7 @@ export const CHAR_BASE = [
     statInf: 82,
     statGfg: 17,
     statAfg: 9,
-    statMmp: 90,
+    statPlt: 90,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -17205,7 +17205,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17242,7 +17242,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17279,7 +17279,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17316,7 +17316,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17353,7 +17353,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17390,7 +17390,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17427,7 +17427,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17464,7 +17464,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17501,7 +17501,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17538,7 +17538,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17575,7 +17575,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17612,7 +17612,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17649,7 +17649,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17686,7 +17686,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17723,7 +17723,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17763,7 +17763,7 @@ export const CHAR_BASE = [
     statInf: 48,
     statGfg: 56,
     statAfg: 78,
-    statMmp: 35,
+    statPlt: 35,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -17805,7 +17805,7 @@ export const CHAR_BASE = [
     statInf: 55,
     statGfg: 58,
     statAfg: 62,
-    statMmp: 45,
+    statPlt: 45,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -17843,7 +17843,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17880,7 +17880,7 @@ export const CHAR_BASE = [
     statInf: 95,
     statGfg: 30,
     statAfg: 35,
-    statMmp: 90,
+    statPlt: 90,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -17917,7 +17917,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17954,7 +17954,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -17991,7 +17991,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18028,7 +18028,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18065,7 +18065,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18102,7 +18102,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18139,7 +18139,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18176,7 +18176,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18213,7 +18213,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18250,7 +18250,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18287,7 +18287,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18324,7 +18324,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18364,7 +18364,7 @@ export const CHAR_BASE = [
     statInf: 50,
     statGfg: 55,
     statAfg: 65,
-    statMmp: 38,
+    statPlt: 38,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -18401,7 +18401,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18438,7 +18438,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18475,7 +18475,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18512,7 +18512,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18549,7 +18549,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18586,7 +18586,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18623,7 +18623,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18660,7 +18660,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18697,7 +18697,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18734,7 +18734,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18771,7 +18771,7 @@ export const CHAR_BASE = [
     statInf: 72,
     statGfg: 3,
     statAfg: 3,
-    statMmp: 78,
+    statPlt: 78,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -18808,7 +18808,7 @@ export const CHAR_BASE = [
     statInf: 95,
     statGfg: 35,
     statAfg: 40,
-    statMmp: 85,
+    statPlt: 85,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -18845,7 +18845,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18882,7 +18882,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18919,7 +18919,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18956,7 +18956,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -18993,7 +18993,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19030,7 +19030,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19067,7 +19067,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19104,7 +19104,7 @@ export const CHAR_BASE = [
     statInf: 48,
     statGfg: 2,
     statAfg: 2,
-    statMmp: 65,
+    statPlt: 65,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -19141,7 +19141,7 @@ export const CHAR_BASE = [
     statInf: 45,
     statGfg: 85,
     statAfg: 88,
-    statMmp: 52,
+    statPlt: 52,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -19182,7 +19182,7 @@ export const CHAR_BASE = [
     statInf: 70,
     statGfg: 28,
     statAfg: 36,
-    statMmp: 65,
+    statPlt: 65,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -19219,7 +19219,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19256,7 +19256,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19293,7 +19293,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19330,7 +19330,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19367,7 +19367,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19404,7 +19404,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19441,7 +19441,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19478,7 +19478,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19515,7 +19515,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19552,7 +19552,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19592,7 +19592,7 @@ export const CHAR_BASE = [
     statInf: 85,
     statGfg: 5,
     statAfg: 5,
-    statMmp: 88,
+    statPlt: 88,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -19629,7 +19629,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19666,7 +19666,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19703,7 +19703,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19740,7 +19740,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19777,7 +19777,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19818,7 +19818,7 @@ export const CHAR_BASE = [
     statInf: 18,
     statGfg: 48,
     statAfg: 75,
-    statMmp: 40,
+    statPlt: 40,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -19855,7 +19855,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19892,7 +19892,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19929,7 +19929,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -19966,7 +19966,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20003,7 +20003,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20040,7 +20040,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20077,7 +20077,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20114,7 +20114,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20151,7 +20151,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20188,7 +20188,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20225,7 +20225,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20262,7 +20262,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20299,7 +20299,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20336,7 +20336,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20373,7 +20373,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20410,7 +20410,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20447,7 +20447,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20484,7 +20484,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20521,7 +20521,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20558,7 +20558,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20595,7 +20595,7 @@ export const CHAR_BASE = [
     statInf: 70,
     statGfg: 3,
     statAfg: 3,
-    statMmp: 78,
+    statPlt: 78,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -20632,7 +20632,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20669,7 +20669,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20706,7 +20706,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20743,7 +20743,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20780,7 +20780,7 @@ export const CHAR_BASE = [
     statInf: 92,
     statGfg: 15,
     statAfg: 15,
-    statMmp: 90,
+    statPlt: 90,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -20817,7 +20817,7 @@ export const CHAR_BASE = [
     statInf: 0,
     statGfg: 0,
     statAfg: 0,
-    statMmp: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
@@ -20855,7 +20855,7 @@ export const CHAR_BASE = [
     statInf: 78,
     statGfg: 5,
     statAfg: 5,
-    statMmp: 80,
+    statPlt: 80,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -20892,7 +20892,7 @@ export const CHAR_BASE = [
     statInf: 65,
     statGfg: 5,
     statAfg: 5,
-    statMmp: 72,
+    statPlt: 72,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -20929,7 +20929,7 @@ export const CHAR_BASE = [
     statInf: 68,
     statGfg: 5,
     statAfg: 5,
-    statMmp: 70,
+    statPlt: 70,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -20966,7 +20966,7 @@ export const CHAR_BASE = [
     statInf: 62,
     statGfg: 5,
     statAfg: 5,
-    statMmp: 65,
+    statPlt: 65,
     // — 기타
     loc: "230006P01",
     point: "0",
@@ -21003,7 +21003,7 @@ export const CHAR_BASE = [
     statInf: 70,
     statGfg: 5,
     statAfg: 5,
-    statMmp: 68,
+    statPlt: 68,
     // — 기타
     loc: "230006P01",
     point: "0",

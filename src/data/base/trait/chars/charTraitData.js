@@ -13,7 +13,7 @@
 //
 //  effects 키 (능력치 보정, 절대값):
 //    statCmd, statCsm, statAtt, statDef, statFst,
-//    statMng, statInf, statGfg, statAfg, statMmp
+//    statMng, statInf, statGfg, statAfg, statPlt
 //
 //  permanent: true = 영구 / false = 임시 (traitEdDate로 소멸)
 // ================================================================
@@ -115,7 +115,7 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "unique",
     desc: "의안으로 감정을 드러내지 않는 냉철한 시선. 어떤 상황에서도 흔들리지 않는 분석력과 정보 판단력을 발휘한다.",
     permanent: true,
-    effects: { statInf: 8, statMng: 6, statMmp: 5 },
+    effects: { statInf: 8, statMng: 6, statPlt: 5 },
   },
   {
     id: "TRC_U_000515",
@@ -160,7 +160,7 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "unique",
     desc: "수십 년의 전장 경험에서 우러나오는 불굴의 의지. 지휘와 사기 능력이 극대화되지만 기동성은 떨어진다.",
     permanent: true,
-    effects: { statCmd: 5, statMmp: 8, statFst: -5 },
+    effects: { statCmd: 5, statPlt: 8, statFst: -5 },
   },
   {
     id: "TRC_U_000230",
@@ -196,7 +196,7 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "unique",
     desc: "양쪽 진영을 넘나든 경력에서 비롯된 탁월한 정보 수집 능력. 정보력이 극대화되지만 신뢰도에 페널티가 있다.",
     permanent: true,
-    effects: { statInf: 10, statMmp: 5 },
+    effects: { statInf: 10, statPlt: 5 },
   },
   {
     id: "TRC_U_000241",
@@ -214,7 +214,7 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "unique",
     desc: "예술적 감성으로 전장을 바라보는 독창적 지휘관. 사기와 정보 능력이 향상된다.",
     permanent: true,
-    effects: { statMmp: 8, statInf: 5 },
+    effects: { statPlt: 8, statInf: 5 },
   },
   {
     id: "TRC_U_000559",
@@ -247,7 +247,7 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "unique",
     desc: "제국 재정을 총괄하는 재무장관. 운영과 정치공작 능력이 향상된다.",
     permanent: true,
-    effects: { statMng: 8, statMmp: 6 },
+    effects: { statMng: 8, statPlt: 6 },
   },
   {
     id: "TRC_U_000250",
@@ -261,7 +261,7 @@ export const CHAR_TRAITS_MASTER = [
       {
         // TODO: exposed_as_spy — 첩보 발각 조건 (masterData.js)
         trigger: "exposed_as_spy",
-        effects: { statMmp: -30, statCsm: -20 },
+        effects: { statPlt: -30, statCsm: -20 },
       },
     ],
   },
@@ -272,7 +272,7 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "unique",
     desc: "골덴바움 왕조 최대 문벌귀족의 수장. 카리스마와 정치공작이 향상되나 군사적 판단력이 저하된다.",
     permanent: true,
-    effects: { statCsm: 10, statMmp: 8, statCmd: -10 },
+    effects: { statCsm: 10, statPlt: 8, statCmd: -10 },
   },
   {
     id: "TRC_U_000198",
@@ -281,7 +281,7 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "unique",
     desc: "군사적 재능 없이 야망만 큰 귀족. 정치공작은 높지만 전투 능력 전반이 크게 저하된다.",
     permanent: true,
-    effects: { statMmp: 8, statCmd: -15, statAtt: -10 },
+    effects: { statPlt: 8, statCmd: -15, statAtt: -10 },
   },
   // 프리드리히 4세 트레잇
   {
@@ -291,12 +291,12 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "unique",
     desc: "정사에 무관심하고 향락에 빠진 군주. 모든 통치 능력이 크게 저하되지만, 특정 조건에서 잠재된 통찰력이 깨어난다.",
     permanent: true,
-    effects: { statMng: -20, statInf: -15, statMmp: -15, statCsm: -10 },
+    effects: { statMng: -20, statInf: -15, statPlt: -15, statCsm: -10 },
     conditionalEffects: [
       {
         // TODO: IF 시나리오 전용 — 이벤트로 TRC_U_000514_B로 교체
         trigger: "scenario_if_enlightened",
-        effects: { statMng: 20, statInf: 15, statMmp: 15, statCsm: 10 },
+        effects: { statMng: 20, statInf: 15, statPlt: 15, statCsm: 10 },
       },
     ],
   },
@@ -308,7 +308,7 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "unique",
     desc: "3년간 울지 않은 새가 한 번 울면 천하를 놀라게 한다. 오랜 방관과 침묵 속에 제국의 본질을 통찰한 군주가 마침내 날개를 펼친다. 초장왕이 3년의 무위 끝에 패업을 이루었듯, 잠든 사자의 각성은 주변 모든 것을 뒤흔든다.",
     permanent: true,
-    effects: { statMng: 25, statInf: 20, statMmp: 20, statCsm: 15 },
+    effects: { statMng: 25, statInf: 20, statPlt: 20, statCsm: 15 },
   },
   {
     id: "TRC_U_000247",
@@ -322,7 +322,7 @@ export const CHAR_TRAITS_MASTER = [
       {
         // TODO: lord_immoral_act — 주군의 비도덕적 행동 트리거 (masterData.js)
         trigger: "lord_immoral_act",
-        effects: { statMmp: -20 },
+        effects: { statPlt: -20 },
       },
     ],
   },
@@ -333,11 +333,11 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "unique",
     desc: "아버지를 능가하려는 냉혹한 야망. 정보와 정치공작이 극대화되지만 도덕 수치가 낮고 발각 시 치명적 페널티를 받는다.",
     permanent: true,
-    effects: { statInf: 8, statMmp: 10 },
+    effects: { statInf: 8, statPlt: 10 },
     conditionalEffects: [
       {
         trigger: "exposed_as_spy",
-        effects: { statMmp: -30, statCsm: -25 },
+        effects: { statPlt: -30, statCsm: -25 },
       },
     ],
   },
@@ -381,7 +381,7 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "unique",
     desc: "다수란 결국 소수의 결집으로 좌우된다는 지배 이론을 신봉하는 모략가. 성계 방위사령관·행정관으로 부임할 경우, 매월 시작일에 해당 성계 인구 1을 현 국가 체제와 동일한 idea로 변경시킨다.",
     permanent: true,
-    effects: { statInf: 5, statMmp: 5 },
+    effects: { statInf: 5, statPlt: 5 },
     conditionalEffects: [
       {
         // TODO: is_governor_or_defender — 방위사령관/행정관 역할 조건, 매월 1일 트리거 (masterData.js)
@@ -486,7 +486,7 @@ export const CHAR_TRAITS_MASTER = [
       {
         // TODO: is_fleet_commander — 함대 사령관(C) 역할 조건 (masterData.js)
         trigger: "is_fleet_commander",
-        effects: { statDef: 8, statMmp: 8, statCsm: -10 },
+        effects: { statDef: 8, statPlt: 8, statCsm: -10 },
       },
     ],
   },
@@ -513,7 +513,7 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "uncommon",
     desc: "은밀한 제안과 모략에 능숙한 인물. 제안·모략 실행 시 상대의 수락 확률에 보너스를 받는다.",
     permanent: true,
-    effects: { statMmp: 6 },
+    effects: { statPlt: 6 },
     conditionalEffects: [
       {
         // TODO: agenda_propose — 제안/모략 실행 판정 시점 (masterData.js)
@@ -581,7 +581,7 @@ export const CHAR_TRAITS_MASTER = [
     rarity: "uncommon",
     desc: "뇌물과 회유에 흔들리지 않는 강직한 성품. 모략의 대상이 되었을 때 상대의 성공 확률이 감소한다.",
     permanent: true,
-    effects: { statMmp: -5 },
+    effects: { statPlt: -5 },
     conditionalEffects: [
       {
         // TODO: agenda_target — 모략의 대상이 되는 시점 (masterData.js)
