@@ -106,6 +106,7 @@ function buildState(scId, pf, extraData = {}) {
       const sorted = Object.entries(cnt).sort((a, b) => b[1] - a[1])
       if (sorted.length && sorted[0][1] > (sorted[1]?.[1] ?? 0)) faction = sorted[0][0]
     }
+    const fortress = planets.find(p => p.fortress)?.fortress ?? null
     systems[s.code] = {
       id:               s.code,
       code:             s.code,
@@ -116,6 +117,7 @@ function buildState(scId, pf, extraData = {}) {
       y:                s.y,
       desc:             s.desc,
       faction,
+      fortress,
       planets:          planets,
       morale:           d.morale  ?? 60,
       tax:              d.tax     ?? 0,

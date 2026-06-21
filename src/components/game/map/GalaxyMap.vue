@@ -171,6 +171,7 @@
       <div v-for="fid in scenarioFactions" :key="fid" class="leg-row">
         <span class="leg-dot" :style="`background:${FACTIONS[fid]?.color}`"/>
         <span class="dim" style="font-size:10px">{{ FACTION_NAME_MAP[fid] }}</span>
+        <span class="mono dim" style="font-size:10px;margin-left:auto">{{ factionSystemCounts[fid] ?? 0 }}</span>
       </div>
       <div class="leg-row">
         <span class="leg-dot" style="background:transparent;border:1px solid rgba(255,255,255,0.25)"/>
@@ -206,6 +207,14 @@ const scenarioFactions = computed(() => game.sc?.factions ?? [])
 const FACTION_NAME_MAP = Object.fromEntries(
   FACTION_NAMES.filter(n => n.lang === 'Kr').map(n => [n.factionId, n.shortName])
 )
+
+const factionSystemCounts = computed(() => {
+  const cnt = {}
+  for (const sys of Object.values(game.systems)) {
+    if (sys.faction) cnt[sys.faction] = (cnt[sys.faction] || 0) + 1
+  }
+  return cnt
+})
 
 // ── 줌 / 팬 상태 ─────────────────────────────────────────────
 const scale = ref(1)

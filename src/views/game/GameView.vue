@@ -7,11 +7,15 @@
       <!-- CharInfoPanel: PC(landscape)에서 좌측 고정 -->
       <CharInfoPanel v-if="!isPortrait" />
 
+      <!-- InfoPanel: 성계 선택 시 CharInfoPanel 위를 덮는 overlay -->
+      <Transition name="slide-info">
+        <InfoPanel v-if="!isPortrait && game.selectedSystem" class="info-panel-overlay" />
+      </Transition>
+
       <!-- GalaxyMap 영역 -->
       <div class="galaxy-area">
         <SidePanel v-show="false" :class="{ 'is-open': showSide }" />
         <GalaxyMap />
-        <InfoPanel v-show="false" :class="{ 'is-open': showInfo }" />
 
         <!-- CharInfoPanel: 모바일(portrait) 오버레이 -->
         <Transition name="slide-char">
@@ -34,19 +38,19 @@
         </button>
 
         <Transition name="bd-fade">
-          <div v-if="isMobileLs && (showSide || showInfo)"
+          <div v-if="isMobileLs && (showSide || !!game.selectedSystem)"
                class="panel-backdrop"
-               @click="showSide = false; showInfo = false" />
+               @click="showSide = false; game.selectSystem(null)" />
         </Transition>
 
         <template v-if="isMobileLs">
           <button class="panel-tab panel-tab-l" :class="{ on: showSide }"
-                  @click="showSide = !showSide; showInfo = false">
+                  @click="showSide = !showSide; game.selectSystem(null)">
             {{ showSide ? '✕' : '🚀' }}
           </button>
-          <button class="panel-tab panel-tab-r" :class="{ on: showInfo }"
-                  @click="showInfo = !showInfo; showSide = false">
-            {{ showInfo ? '✕' : 'ℹ' }}
+          <button v-if="game.selectedSystem" class="panel-tab panel-tab-r" :class="{ on: true }"
+                  @click="game.selectSystem(null)">
+            ✕
           </button>
         </template>
       </div>
@@ -113,8 +117,7 @@ import OperationModal  from '@/components/game/modals/OperationModal.vue'
 const router = useRouter()
 const game = useGameStore()
 
-const showSide     = ref(false)
-const showInfo     = ref(false)
+const showSide      = ref(false)
 const showCharPanel = ref(false)
 const isMobileLs   = ref(false)
 const isPortrait   = ref(false)
@@ -154,6 +157,14 @@ const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.
 .theme-PZN{--fc:var(--PZN)}
 .game-main{display:flex;flex:1;overflow:hidden;position:relative}
 .galaxy-area{position:relative;flex:1;display:flex;overflow:hidden}
+
+.info-panel-overlay{
+  position:absolute; left:0; top:0; bottom:0;
+  width:clamp(200px,22vw,280px);
+  z-index:50;
+}
+.slide-info-enter-active,.slide-info-leave-active{transition:transform .22s ease}
+.slide-info-enter-from,.slide-info-leave-to{transform:translateX(-100%)}
 
 .go-overlay{position:fixed;inset:0;z-index:2000;background:rgba(2,5,8,.93);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
 .go-box{display:flex;flex-direction:column;align-items:center;gap:14px;padding:44px 52px;text-align:center}
