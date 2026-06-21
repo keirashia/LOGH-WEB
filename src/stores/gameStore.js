@@ -131,7 +131,10 @@ function buildState(scId, pf, extraData = {}) {
     FPA: { gold: 4500 },
     PZN: { gold: 8000 },
   }
-  const _jobSrc = charJobs?.length ? charJobs : _BASE_CHAR_JOBS
+  const _overriddenChars = charJobs?.length ? new Set(charJobs.map(j => j.charCode)) : null
+  const _jobSrc = _overriddenChars
+    ? [...charJobs, ..._BASE_CHAR_JOBS.filter(j => !_overriddenChars.has(j.charCode))]
+    : _BASE_CHAR_JOBS
   const _initPostMap = {}
   const _initPostsMap = {}
   _jobSrc.forEach(j => {

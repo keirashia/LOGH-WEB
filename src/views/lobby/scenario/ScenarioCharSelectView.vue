@@ -178,14 +178,22 @@ const factionNamesMap = Object.fromEntries(
 )
 
 const JOB_NAME_MAP = Object.fromEntries(JOBS.map(j => [j.id, j.nameKr]))
-const charJobMap = Object.fromEntries(
+
+const effectiveCharJobs = computed(() => {
+  const scJobs = game._preloadedData?.charJobs
+  if (!scJobs?.length) return CHAR_JOBS
+  const overridden = new Set(scJobs.map(j => j.charCode))
+  return [...scJobs, ...CHAR_JOBS.filter(j => !overridden.has(j.charCode))]
+})
+
+const charJobMap = computed(() => Object.fromEntries(
   CHAR_BASE.map(c => {
-    const primary = CHAR_JOBS
+    const primary = effectiveCharJobs.value
       .filter(j => j.charCode === c.code)
       .sort((a, b) => a.jobStDate - b.jobStDate)[0]
     return [c.code, primary ? (JOB_NAME_MAP[primary.jobCode] ?? '') : '']
   })
-)
+))
 const charUniqueTraitMap = Object.fromEntries(
   CHAR_TRAITS_MASTER
     .filter(t => t.id.startsWith('TRC_U_'))
