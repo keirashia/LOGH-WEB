@@ -48,7 +48,7 @@
 
             <!-- 사르갓소 / 장애물 폴리곤 -->
             <g style="pointer-events:none">
-              <polygon v-for="obs in OBSTACLES" :key="obs.id"
+              <polygon v-for="obs in game.obstacles" :key="obs.id"
                        :points="obs.points.map(p => p.join(',')).join(' ')"
                        :fill="obs.color.fill"
                        :stroke="obs.color.outline"
@@ -142,9 +142,6 @@ import { ref, computed } from 'vue'
 import { Delaunay } from 'd3-delaunay'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
 import { useGameStore }         from '@/stores/gameStore'
-import { STAR_SYSTEMS, OBSTACLES } from '@/data/base/stars/starSystemData'
-import { LANES }                   from '@/data/base/stars/laneData'
-import { STAR_DETAIL }  from '@/data/scenario/SE796/0211/010/starDetail'
 import { FACTIONS }     from '@/data/masterData'
 
 const enc  = useEncyclopediaStore()
@@ -167,29 +164,21 @@ const LANE_STROKE = {
 }
 
 // ── 데이터 ────────────────────────────────────────────────────
-const gameActive = computed(() => Object.keys(game.systems).length > 0)
-
 const mapTitle = computed(() =>
-  gameActive.value ? `우주력 ${game.year}년 ${game.month}월` : '우주력 796년 2월'
+  game.initialized ? `우주력 ${game.year}년 ${game.month}월` : '우주력 796년 2월'
 )
 
-const systems = computed(() => {
-  if (gameActive.value) {
-    return Object.values(game.systems)
-      .filter(s => s.x > 0 && s.y > 0)
-      .map(s => ({ ...s, nameKr: s.name }))
-  }
-  const factionMap = Object.fromEntries(STAR_DETAIL.map(d => [d.code, d.faction]))
-  return STAR_SYSTEMS
+const systems = computed(() =>
+  Object.values(game.systems)
     .filter(s => s.x > 0 && s.y > 0)
-    .map(s => ({ ...s, faction: factionMap[s.code] ?? null }))
-})
+    .map(s => ({ ...s, nameKr: s.name }))
+)
 
 // ── 항로 ──────────────────────────────────────────────────────
 const sysMap = computed(() => Object.fromEntries(systems.value.map(s => [s.code, s])))
 
 const lanesComp = computed(() =>
-  LANES.map(l => {
+  game.lanes.map(l => {
     const sa = sysMap.value[l.stars[0]], sb = sysMap.value[l.stars[1]]
     if (!sa || !sb) return null
     return { id: l.id, type: l.type, x1: sa.x, y1: sa.y, x2: sb.x, y2: sb.y }
@@ -220,7 +209,7 @@ const voronoiData = computed(() => {
     for (let gy = 0; gy <= VH; gy += GHOST_STEP)
       ghosts.push({ x: gx, y: gy, faction: null })
 
-  for (const obs of OBSTACLES) {
+  for (const obs of game.obstacles) {
     const xs = obs.points.map(p => p[0])
     const ys = obs.points.map(p => p[1])
     const x0 = Math.min(...xs), x1 = Math.max(...xs)

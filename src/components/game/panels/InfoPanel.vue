@@ -254,8 +254,6 @@
 import { ref, computed, watch } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS, CHARACTERS, CONSTRUCTION_TYPES } from '@/data/masterData'
-import { PLANETS } from '@/data/base/stars/planetsData.js'
-import { LANES as RAW_LANES } from '@/data/base/stars/laneData.js'
 import { getStarMapByCode } from '@/data/base/stars/maps/index.js'
 import StatRow from '@/components/ui/StatRow.vue'
 
@@ -300,13 +298,11 @@ function onTitleClick() {
 // ── 파생 데이터 ────────────────────────────────────────────────
 const starMapData = computed(() => sys.value ? getStarMapByCode(sys.value.code ?? sys.value.id) : null)
 
-const sysPlanets = computed(() =>
-  PLANETS.filter(p => p.starCode === sys.value?.id)
-)
+const sysPlanets = computed(() => sys.value?.planets ?? [])
 
 const sysLanes = computed(() => {
   if (!sys.value) return []
-  return RAW_LANES
+  return game.lanes
     .filter(l => l.stars.includes(sys.value.id))
     .map(l => ({ ...l, other: l.stars[0] === sys.value.id ? l.stars[1] : l.stars[0] }))
 })

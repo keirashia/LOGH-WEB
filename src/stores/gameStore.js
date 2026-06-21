@@ -7,8 +7,15 @@ import {
   AGENDA_ACTIONS, APPROVAL_CHAINS, AGENDA_EXPIRE_TURNS
 } from '@/data/base/agenda/agendaData'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
-import { STAR_SYSTEMS } from '@/data/base/stars/starSystemData'
+import { STAR_SYSTEMS, OBSTACLES } from '@/data/base/stars/starSystemData'
+import { PLANETS } from '@/data/base/stars/planetsData.js'
+import { LANES } from '@/data/base/stars/laneData.js'
 import { CHAR_JOBS as _BASE_CHAR_JOBS } from '@/data/base/characters/charactersJobs'
+
+const _BASE_PLANET_MAP = {}
+for (const p of PLANETS) {
+  ;(_BASE_PLANET_MAP[p.starCode] ??= []).push(p)
+}
 
 const _GLOB_STAR_DETAIL   = import.meta.glob('/src/data/scenario/*/*/*/stars/starDetail.js')
 const _GLOB_PLANET_DETAIL = import.meta.glob('/src/data/scenario/*/*/*/stars/planetDetail.js')
@@ -82,15 +89,16 @@ function buildState(scId, pf, extraData = {}) {
   const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]
   const { starDetail = [], planetDetail = [], charJobs = null, fleetData = [], fleetCharData = [], fleetShipData = [] } = extraData
   const _detailMap = Object.fromEntries((starDetail || []).map(d => [d.code, d]))
-  const _planetMap = {}
+  const _detailFactionMap = {}
   for (const p of (planetDetail || [])) {
-    if (!_planetMap[p.starCode]) _planetMap[p.starCode] = []
-    _planetMap[p.starCode].push(p)
+    _detailFactionMap[p.code] = p.faction
   }
   const systems = {}
   STAR_SYSTEMS.forEach(s => {
     const d = _detailMap[s.code] || {}
-    const planets = _planetMap[s.code] || []
+    const planets = (_BASE_PLANET_MAP[s.code] || []).map(p => ({
+      ...p, faction: _detailFactionMap[p.code] ?? null,
+    }))
     let faction = null
     if (planets.length > 0) {
       const cnt = {}
@@ -155,7 +163,7 @@ function buildState(scId, pf, extraData = {}) {
 }
 
 export const useGameStore = defineStore('game', {
-  state: () => ({ initialized: false, _preloadedScId: null, _preloadedData: null, ...buildState(0, 'REH') }),
+  state: () => ({ initialized: false, _preloadedScId: null, _preloadedData: null, lanes: LANES, obstacles: OBSTACLES, ...buildState(0, 'REH') }),
 
   getters: {
     pRes:      s => s.resources[s.playerFaction],

@@ -55,7 +55,7 @@
 
         <!-- 사르갓소 / 장애물 폴리곤 -->
         <g style="pointer-events:none">
-          <polygon v-for="obs in OBSTACLES" :key="obs.id"
+          <polygon v-for="obs in game.obstacles" :key="obs.id"
                    :points="obs.points.map(p => p.join(',')).join(' ')"
                    :fill="obs.type==='SARGASSO' ? 'url(#sargasso-hazard)' : obs.color.fill"
                    :stroke="obs.type==='SARGASSO' ? '#d4a000' : obs.color.outline"
@@ -186,8 +186,6 @@ import { Delaunay } from 'd3-delaunay'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
 import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
-import { LANES as LANE_DEF } from '@/data/base/stars/laneData'
-import { OBSTACLES } from '@/data/base/stars/starSystemData.js'
 import GameDateDisplay from '@/components/game/GameDateDisplay.vue'
 
 const game  = useGameStore()
@@ -434,8 +432,8 @@ function cancelAdd() {
 // ── 라인 관리 ────────────────────────────────────────────────
 function laneKey(a, b) { return [a, b].sort().join('|') }
 
-const laneTypeMap = Object.fromEntries(LANE_DEF.map(l => [laneKey(l.stars[0], l.stars[1]), l.type]))
-const laneKeySet  = ref(new Set(LANE_DEF.map(l => laneKey(l.stars[0], l.stars[1]))))
+const laneTypeMap = Object.fromEntries(game.lanes.map(l => [laneKey(l.stars[0], l.stars[1]), l.type]))
+const laneKeySet  = ref(new Set(game.lanes.map(l => laneKey(l.stars[0], l.stars[1]))))
 
 const LANE_STROKE = {
   corridor: 'rgba(100,200,255,0.55)',
