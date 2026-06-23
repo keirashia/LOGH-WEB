@@ -26,15 +26,20 @@ import { JOB_DATA }                 from '@/data/base/jobs/jobData'
 const FRIEND_RANGE = 300 // 0~299, 총 300개의 좌표
 
 // ── 친밀도 등급 기준 (원형 거리 기준, 0~150 범위) ─────────────────
-// 라인하르트(150)-브라운슈바이크(50), 라인하르트(150)-리텐하임(250),
-// 양웬리(145)-트류니히트(245) → 모두 순환거리 100, 모두 '상극'이어야 하므로
-// hostile 구간이 100부터 시작하도록 설계.
+// 2026-06-23 6단계 체계로 재정의.
+//   0~20   친밀
+//   21~40  우호
+//   41~60  보통
+//   61~80  소원함
+//   81~100 상극
+//   101+   혐오
 const FRIENDSHIP_GRADES = [
-  { max:  30, grade: 'close',        labelKr: '절친',   labelEn: 'Close'        },
-  { max:  60, grade: 'friendly',     labelKr: '친함',   labelEn: 'Friendly'     },
-  { max:  90, grade: 'neutral',      labelKr: '보통',   labelEn: 'Neutral'      },
-  { max:  99, grade: 'uncomfortable',labelKr: '불편함', labelEn: 'Uncomfortable'},
-  { max: Infinity, grade: 'hostile', labelKr: '상극',   labelEn: 'Hostile'      },
+  { max:  20, grade: 'close',     labelKr: '친밀', labelEn: 'Close'    },
+  { max:  40, grade: 'friendly',  labelKr: '우호', labelEn: 'Friendly' },
+  { max:  60, grade: 'neutral',   labelKr: '보통', labelEn: 'Neutral'  },
+  { max:  80, grade: 'distant',   labelKr: '소원함', labelEn: 'Distant' },
+  { max: 100, grade: 'hostile',   labelKr: '상극', labelEn: 'Hostile'  },
+  { max: Infinity, grade: 'disgust', labelKr: '혐오', labelEn: 'Disgust' },
 ]
 
 /**
@@ -294,4 +299,61 @@ export function fncGetFriendship(charCodeA, charCodeB) {
       labelEn: grade.labelEn,
     },
   }
+}
+
+// ================================================================
+//  클리크(파벌) 조회
+// ================================================================
+
+/**
+ * fncGetCharClique(charCode, cliqueData)
+ * 인물이 소속된 클리크(국가 내부 파벌) 정보를 반환.
+ * 한 인물은 최대 1개 클리크에만 소속된다고 가정.
+ *
+ * @param {string}   charCode    인물 코드
+ * @param {object[]} cliqueData  시나리오별 CLIQUE_DATA (예: src/data/scenario/SE796/0211/010/cliqueData.js)
+ * @returns {{ data: object }|{ error: string }}
+ *
+ * TODO: cliqueData는 현재 시나리오별 파일에서 직접 import해 인자로 넘겨야 함.
+ *       base 레이어에 통합 CLIQUE_MAP이 생기면 인자 없이 바로 조회하도록 변경 검토.
+ *
+ * @example
+ * fncGetCharClique('CH_000064', CLIQUE_DATA)
+ * // → { data: { id: 'CLQ_REH_004', name: '로엔그람 지지파', isLeader: true, ... } }
+ */
+export function fncGetCharClique(charCode, cliqueData = []) {
+  if (!charCode) return { error: '인물 코드 없음' }
+
+  const clique = cliqueData.find(c => c.members.includes(charCode))
+  if (!clique) return { error: `소속 클리크 없음: ${charCode}` }
+
+  return {
+    data: {
+      ...clique,
+      isLeader:  clique.leader === charCode,
+      isFounder: clique.founder === charCode,
+    },
+  }
+}
+
+/**
+ * fncGetCliqueMembers(cliqueId, cliqueData)
+ * 클리크 ID로 소속 인물 전체 목록(인물 기본정보 포함) 반환.
+ *
+ * @param {string}   cliqueId    클리크 코드 (예: 'CLQ_REH_004')
+ * @param {object[]} cliqueData  시나리오별 CLIQUE_DATA
+ * @returns {{ data: object[] }|{ error: string }}
+ */
+export function fncGetCliqueMembers(cliqueId, cliqueData = []) {
+  const clique = cliqueData.find(c => c.id === cliqueId)
+  if (!clique) return { error: `클리크 코드 없음: ${cliqueId}` }
+
+  const data = clique.members.map(charCode => ({
+    charCode,
+    charInfo: CHAR_BASE_MAP[charCode] ?? null,
+    isLeader: clique.leader === charCode,
+    isFounder: clique.founder === charCode,
+  }))
+
+  return { data }
 }

@@ -24,7 +24,7 @@
     desc : [] 형태로 저장. 해당 시나리오 선택 시, 팝업으로 해당 시나리오를 설명한다.
  */
 
-import { SCENARIO_DESC as _DESC_SE796_010 } from './SE796/0211/010/scenarioDesc.js'
+import { SCENARIO_DESC as _DESC_SE796_010 } from "./SE796/0211/010/scenarioDesc.js";
 
 export const SCENARIOS = [
   /** @서력 (AD) */
@@ -1160,10 +1160,8 @@ export const SCENARIOS = [
     variants: "",
   },
 
-  // SE 796
-  /** SE796 02 11
-   *  아스타테 성역 회전
-   */
+  /** @SE796 */
+  /** @아스타테_성역_회전 */
   {
     yearType: "SE",
     year: 796,
@@ -1386,8 +1384,7 @@ export const SCENARIOS = [
   //   appearances: [],
   //   desc: [],
   // },
-
-  // // SE 797
+  /** @SE797 */
   // {
   //   yearType: "SE",
   //   year: 797,
@@ -1403,21 +1400,26 @@ export const SCENARIOS = [
   //   appearances: [],
   //   desc: [],
   // },
-  // {
-  //   yearType: "SE",
-  //   year: 797,
-  //   month: 1,
-  //   id: "SE797_2",
-  //   nameKr: "동맹·제국 포로교환",
-  //   nameEn: "",
-  //   nameJp: "",
-  //   tags: ["사실"],
-  //   factions: ["REH", "FPA", "PZN"],
-  //   useYn: false,
-  //   openPt: 0,
-  //   appearances: [],
-  //   desc: [],
-  // },
+  {
+    yearType: "SE",
+    year: 797,
+    month: 2,
+    date: 19, // 시작일자 (797년 2월 19일)
+    id: "SE797_0219_010", // 01번째 시나리오의 0번째
+    nameKr: "동맹·제국 포로교환", // 시나리오명
+    nameEn: "",
+    nameJp: "",
+    subTitle: "", // 시나리오_상세명
+    summary: ``,
+    tags: ["사실"],
+    factions: ["REH", "FPA", "PZN"],
+    useYn: true,
+    showYn: true,
+    openPt: "0",
+    appearances: ["은하영웅전설 2권 <야망편>"],
+    desc: [],
+    variants: "SE797_02",
+  },
   // {
   //   yearType: "SE",
   //   year: 797,
@@ -1437,6 +1439,71 @@ export const SCENARIOS = [
   //   yearType: "SE",
   //   year: 797,
   //   month: 1,
+  //   id: "SE797_15",
+  //   nameKr: "쿠브르슬리 암살미수",
+  //   nameEn: "",
+  //   nameJp: "",
+  //   tags: ["사실"],
+  //   factions: ["FPA"],
+  //   useYn: false,
+  //   openPt: 0,
+  //   appearances: [],
+  //   desc: [],
+  // },
+  /** @구국군사회의_쿠데타 */
+  {
+    yearType: "SE",
+    year: 797,
+    month: 4,
+    date: 13, // 시작일자 (797년 4월 13일)
+    id: "SE797_0413_010",
+    nameKr: "구국군사회의 쿠데타", // 시나리오명
+    nameEn: "Coup d'état of the National Salvation Military Council",
+    nameJp: "救国軍事会議のクーデター",
+    subTitle: "폭풍전야", // 시나리오_상세명
+    summary: `우주력 797년 4월 13일. 자유행성동맹의 수도에서 쿠데타가 발생하고.
+    반군 토벌을 명받은 양 웬리의 13함대.
+    구국군사회의에 참여하여 13함대의 제압을 명받은 루글랑주의 11함대.
+    동맹 내에서 함대전이 코 앞으로 다가왔다.`,
+    tags: ["사실"],
+    factions: ["REH", "FPA", "PZN"],
+    useYn: true,
+    showYn: true,
+    openPt: "0",
+    appearances: ["은하영웅전설 2권 <야망편>"],
+    desc: [],
+    variants: "SE797_04",
+  },
+  {
+    yearType: "SE",
+    year: 797,
+    month: 4,
+    date: 13, // 시작일자 (797년 4월 13일)
+    id: "SE797_0413_011",
+    nameKr: "구국군사회의 쿠데타", // 시나리오명
+    nameEn: "",
+    nameJp: "救国軍事会議のクーデター",
+    subTitle: "", // 시나리오_상세명
+    summary: `우주력 797년 4월 13일. 자유행성동맹의 수도에서 군사 쿠데타가 발생하고,
+    순조롭게 수도를 장악한 '구국군사회의'는 의장으로 드와이트 그린힐을 소개한다.
+    시민들이 경악을 가라앉히기도 전, 더 큰 충격이 다가온다.
+    바로 그린힐을 보좌하는 위치에 선 마술사 양 웬리의 모습이 그것이었다.
+    루글랑주의 11함대와 양의 13함대가 구국군사회의에 참여한 가운데.
+    늙은 노장 뷰코크가 민주주의의 마지막 등불로 일어선다.`,
+    tags: ["사실"],
+    factions: ["REH", "FPA", "PZN"],
+    useYn: true,
+    showYn: true,
+    openPt: "0",
+    appearances: ["은하영웅전설 2권 <야망편>"],
+    desc: [],
+    variants: "SE797_04",
+  },
+  /** @립슈타트_전역 */
+  // {
+  //   yearType: "SE",
+  //   year: 797,
+  //   month: 4,
   //   id: "SE797_4",
   //   nameKr: "립슈타트 전역",
   //   nameEn: "Lippstadt War",
@@ -1583,36 +1650,7 @@ export const SCENARIOS = [
   //   appearances: ["은하영웅전설 3권 <자복편>"],
   //   desc: [],
   // },
-  // {
-  //   yearType: "SE",
-  //   year: 797,
-  //   month: 1,
-  //   id: "SE797_14",
-  //   nameKr: "구국군사회의 쿠데타",
-  //   nameEn: "Coup d'état of the National Salvation Military Council",
-  //   nameJp: "",
-  //   tags: ["사실"],
-  //   factions: ["FPA"],
-  //   useYn: false,
-  //   openPt: 0,
-  //   appearances: ["은하영웅전설 3권 <자복편>"],
-  //   desc: [],
-  // },
-  // {
-  //   yearType: "SE",
-  //   year: 797,
-  //   month: 1,
-  //   id: "SE797_15",
-  //   nameKr: "쿠브르슬리 암살미수",
-  //   nameEn: "",
-  //   nameJp: "",
-  //   tags: ["사실"],
-  //   factions: ["FPA"],
-  //   useYn: false,
-  //   openPt: 0,
-  //   appearances: [],
-  //   desc: [],
-  // },
+
   // {
   //   yearType: "SE",
   //   year: 797,

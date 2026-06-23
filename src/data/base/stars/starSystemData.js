@@ -31,9 +31,10 @@ export const STAR_SYSTEMS = [
     nameKr: "알멘트푸벨",
     nameEn: "ALMENTFUBEEL",
     nameJp: "",
-    alias:    ["알멘트푸벨", "Almentfubeel", "ALMENTFUBEEL"],
-    x: 1120,
+    alias: ["알멘트푸벨", "Almentfubeel", "ALMENTFUBEEL"],
+    x: 984,
     y: 450,
+    // map : {}, 20260622 성계 내부의 맵 정보. 맵의 크기, 각종 고정 오브젝트 정보가 세팅되어야함.
     desc: "제국 서북부 성계.",
   },
   /** 230002_ALTENER
@@ -48,8 +49,15 @@ export const STAR_SYSTEMS = [
     nameKr: "알테너",
     nameEn: "ALTENER",
     nameJp: "",
-    alias:    ["알테너", "Altener", "ALTENER", "알테나", "Altena", "가이에스부르크"],
-    x: 1360,
+    alias: [
+      "알테너",
+      "Altener",
+      "ALTENER",
+      "알테나",
+      "Altena",
+      "가이에스부르크",
+    ],
+    x: 1176,
     y: 850,
     desc: "가이에스부르크 요새가 위치한 성계.",
   },
@@ -66,10 +74,10 @@ export const STAR_SYSTEMS = [
     nameKr: "암릿처",
     nameEn: "AMRITZER",
     nameJp: "",
-    alias:    ["암릿처", "Amritsar", "AMRITSAR", "암릿자", "Amlitzer"],
-    x: 992,
-    y: 230,
-    desc: `이제르론 회랑의 제국측 입구에 위치한 성계. 이제르론 요새 건설 전까지는 주요 분쟁 지역 중 하나였으나 요새 건설 이후 안정기를 겪고 있다.`,
+    alias: ["암릿처", "Amritsar", "AMRITSAR", "암릿자", "Amlitzer"],
+    x: 838,
+    y: 228,
+    desc: `이제르론 회랑의 제국측 입구에 위치한 성계. 이제르론 요새 건설 전까지는 주요 분쟁 지역 중 하나였으나 요새 건설 이후 안정기를 겪고 있다. (2026-06-22: 알테나-보덴-포르겐과의 거리가 균등하도록 좌표 산출하여 재배치)`,
   },
   /** 230004_ARLESHEIM
    *  위치 : 48 34
@@ -82,8 +90,14 @@ export const STAR_SYSTEMS = [
     nameKr: "아레스하임",
     nameEn: "ARLESHEIM",
     nameJp: "",
-    alias:    ["아레스하임", "Arlesheim", "ARLESHEIM", "알레스하임", "알레스하임 성역"],
-    x: 768,
+    alias: [
+      "아레스하임",
+      "Arlesheim",
+      "ARLESHEIM",
+      "알레스하임",
+      "알레스하임 성역",
+    ],
+    x: 596,
     y: 340,
     desc: "이제르론 회랑 인근 동맹령 성계",
   },
@@ -103,8 +117,15 @@ export const STAR_SYSTEMS = [
     nameKr: "아스타테",
     nameEn: "ASTARTE",
     nameJp: "",
-    alias:    ["아스타테", "Astarte", "ASTARTE", "아스타데", "Astate", "아스타테 성역"],
-    x: 688,
+    alias: [
+      "아스타테",
+      "Astarte",
+      "ASTARTE",
+      "아스타데",
+      "Astate",
+      "아스타테 성역",
+    ],
+    x: 536,
     y: 200,
     desc: `자유행성동맹의 북동부 성계군의 중심 성계. 지리적 위치로 인해 수많은 격전이 벌어진 장소이다.`,
   },
@@ -120,7 +141,7 @@ export const STAR_SYSTEMS = [
     nameKr: "바라트",
     nameEn: "BA'ALAT",
     nameJp: "",
-    alias:    ["바라트", "Ballat", "BALLAT", "BA'ALAT", "바알라트", "바라트 성계"],
+    alias: ["바라트", "Ballat", "BALLAT", "BA'ALAT", "바알라트", "바라트 성계"],
     x: 80,
     y: 330,
     desc: "자유행성동맹의 수도 성계. 하이네센을 중심으로 세 개의 행성이 있다.",
@@ -136,8 +157,8 @@ export const STAR_SYSTEMS = [
     nameKr: "바라투르프",
     nameEn: "BALATROOP",
     nameJp: "",
-    alias:    ["바라투르프", "Balatroop", "BALATROOP", "바라트루프"],
-    x: 620,
+    alias: ["바라투르프", "Balatroop", "BALATROOP", "바라트루프"],
+    x: 485,
     y: 810,
     desc: "동맹 남방의 거점 성계. 페잔회랑으로 진입하기 위한 주요 길목 중 하나이다.",
   },
@@ -156,8 +177,8 @@ export const STAR_SYSTEMS = [
     nameKr: "보덴",
     nameEn: "BODEN",
     nameJp: "",
-    alias:    ["보덴", "Boden", "BODEN"],
-    x: 1088,
+    alias: ["보덴", "Boden", "BODEN"],
+    x: 957,
     y: 130,
     desc: `이제르른 회랑으로 진입하기 위한 주요 성계 중 하나`,
   },
@@ -175,8 +196,8 @@ export const STAR_SYSTEMS = [
     nameKr: "브라운슈바이크",
     nameEn: "BRUNSCHWEIG",
     nameJp: "",
-    alias:    ["브라운슈바이크", "Brunschweig", "BRUNSCHWEIG", "Braunschweig"],
-    x: 1328,
+    alias: ["브라운슈바이크", "Brunschweig", "BRUNSCHWEIG", "Braunschweig"],
+    x: 1150,
     y: 660,
     desc: "브라운슈바이크 공작령의 중심 성계",
   },
@@ -193,8 +214,15 @@ export const STAR_SYSTEMS = [
     nameKr: "다곤",
     nameEn: "DAGON",
     nameJp: "",
-    alias:    ["다곤", "Dagon", "DAGON", "다곤 성역", "다곤 성계", "Dagon Starfield"],
-    x: 656,
+    alias: [
+      "다곤",
+      "Dagon",
+      "DAGON",
+      "다곤 성역",
+      "다곤 성계",
+      "Dagon Starfield",
+    ],
+    x: 512,
     y: 60,
     desc: "아스타테 성계 주변의 외곽 성계.",
   },
@@ -210,8 +238,8 @@ export const STAR_SYSTEMS = [
     nameKr: "도리아",
     nameEn: "DORIA",
     nameJp: "",
-    alias:    ["도리아", "Doria", "DORIA", "도리아 성역"],
-    x: 608,
+    alias: ["도리아", "Doria", "DORIA", "도리아 성역"],
+    x: 476,
     y: 130,
     desc: "아스타테 성계에서 본격적인 동맹령으로 진입하기 위한 주요 기점",
   },
@@ -227,8 +255,8 @@ export const STAR_SYSTEMS = [
     nameKr: "에크하르트",
     nameEn: "ECKHART",
     nameJp: "",
-    alias:    ["에크하르트", "Eckhart", "ECKHART"],
-    x: 1025,
+    alias: ["에크하르트", "Eckhart", "ECKHART"],
+    x: 907,
     y: 800,
     desc: "자크스-코프르크의 단일 행성 성계. 페잔과의 통로 인근에 위치하고 있다.",
   },
@@ -243,8 +271,8 @@ export const STAR_SYSTEMS = [
     nameKr: "엘류세라",
     nameEn: "ELUCERA",
     nameJp: "",
-    alias:    ["엘류세라", "Elucera", "ELUCERA", "엘류셀러", "엘류셀러 성역"],
-    x: 48,
+    alias: ["엘류세라", "Elucera", "ELUCERA", "엘류셀러", "엘류셀러 성역"],
+    x: 56,
     y: 720,
     desc: "동맹 서부 성계.",
   },
@@ -261,10 +289,10 @@ export const STAR_SYSTEMS = [
     nameKr: "아이젠헤르츠",
     nameEn: "EISENHERZ",
     nameJp: "",
-    alias:    ["아이젠헤르츠", "Eisenherz", "EISENHERZ"],
-    x: 960,
-    y: 900,
-    desc: "페잔 회랑의 은하제국 쪽 출구에 위치한 성계.",
+    alias: ["아이젠헤르츠", "Eisenherz", "EISENHERZ"],
+    x: 708,
+    y: 850,
+    desc: "페잔 회랑의 은하제국 쪽 출구에 위치한 성계. (2026-06-22: 페잔과의 거리 보정)",
   },
   /** 230015_EISENHUT
    *  위치 : 68 85
@@ -278,8 +306,8 @@ export const STAR_SYSTEMS = [
     nameKr: "아이젠후트",
     nameEn: "EISENHUT",
     nameJp: "",
-    alias:    ["아이젠후트", "Eisenhut", "EISENHUT", "Eishnhut"],
-    x: 1088,
+    alias: ["아이젠후트", "Eisenhut", "EISENHUT", "Eishnhut"],
+    x: 957,
     y: 850,
     desc: "제국 남방에 위치한 성계.",
   },
@@ -298,8 +326,8 @@ export const STAR_SYSTEMS = [
     nameKr: "엘곤",
     nameEn: "ELGON",
     nameJp: "",
-    alias:    ["엘곤", "Elgon", "ELGON"],
-    x: 512,
+    alias: ["엘곤", "Elgon", "ELGON"],
+    x: 404,
     y: 130,
     desc: `동맹의 북부와 중앙을 잇는 중요한 거점 성계. 다수의 번영한 행성들이 존재하고 있다.`,
   },
@@ -315,8 +343,16 @@ export const STAR_SYSTEMS = [
     nameKr: "엘-파실",
     nameEn: "EL-PACIL",
     nameJp: "",
-    alias:    ["엘-파실", "El Facil", "ELFACIL", "El-Facil", "엘 파실", "엘파실", "엘 파실 성역"],
-    x: 560,
+    alias: [
+      "엘-파실",
+      "El Facil",
+      "ELFACIL",
+      "El-Facil",
+      "엘 파실",
+      "엘파실",
+      "엘 파실 성역",
+    ],
+    x: 440,
     y: 300,
     desc: "동맹의 북부에 위치한 성계",
   },
@@ -332,8 +368,8 @@ export const STAR_SYSTEMS = [
     nameKr: "파이어자드",
     nameEn: "FIREZARD",
     nameJp: "",
-    alias:    ["파이어져드", "Firezard", "FIREZARD", "파이어자드"],
-    x: 672,
+    alias: ["파이어져드", "Firezard", "FIREZARD", "파이어자드"],
+    x: 524,
     y: 500,
     desc: "동맹의 북부와 남부를 이어주는 주요 거점 행성.",
   },
@@ -350,8 +386,8 @@ export const STAR_SYSTEMS = [
     nameKr: "프레이아",
     nameEn: "FREYA",
     nameJp: "",
-    alias:    ["프레야", "Freya", "FREYA", "Freva"],
-    x: 1408,
+    alias: ["프레야", "Freya", "FREYA", "Freva"],
+    x: 1214,
     y: 400,
     desc: "발할라 성계로 가는 입구. 렌텐베르크 요새가 존재한다.",
   },
@@ -369,8 +405,15 @@ export const STAR_SYSTEMS = [
     nameKr: "간다르바",
     nameEn: "GANDHALVA",
     nameJp: "",
-    alias:    ["간다르바", "Gandhalva", "GANDHALVA", "간달바", "Gandharva", "간다르바 성계"],
-    x: 352,
+    alias: [
+      "간다르바",
+      "Gandhalva",
+      "GANDHALVA",
+      "간달바",
+      "Gandharva",
+      "간다르바 성계",
+    ],
+    x: 284,
     y: 700,
     desc: "동맹 남부 성계의 주요 거점 성계.",
   },
@@ -385,8 +428,8 @@ export const STAR_SYSTEMS = [
     nameKr: "하안",
     nameEn: "HACHN",
     nameJp: "",
-    alias:    ["하안", "Hachn", "HACHN"],
-    x: 960,
+    alias: ["하안", "Hachn", "HACHN"],
+    x: 854,
     y: 470,
     desc: "이제르론 회랑 인근 외곽 성계",
   },
@@ -403,11 +446,21 @@ export const STAR_SYSTEMS = [
     nameKr: "알테나",
     nameEn: "ALTENA",
     nameJp: "",
-    alias:    ["알테나", "Altena", "ALTENA", "이제르론", "이젤론", "Iserlohn", "ISERLOHN", "이제르론 요새", "알테나 성계"],
-    x: 880,
+    alias: [
+      "알테나",
+      "Altena",
+      "ALTENA",
+      "이제르론",
+      "이젤론",
+      "Iserlohn",
+      "ISERLOHN",
+      "이제르론 요새",
+      "알테나 성계",
+    ],
+    x: 700,
     y: 300,
     desc: `은하제국과 자유행성동맹간 거대한 항행불가 지역인 사르갓소 지역의 틈새에 존재하는 성역
-    인공천체인 이제르론 요새가 유명하여 이제르론 성계라고도 불린다.`,
+    인공천체인 이제르론 요새가 유명하여 이제르론 성계라고도 불린다. (2026-06-22: 알테나/페잔은 고정점, x=700으로 복원)`,
   },
   /** 230023_JYAMSEED
    *  위치 : 23 40
@@ -422,8 +475,15 @@ export const STAR_SYSTEMS = [
     nameKr: "잠시드",
     nameEn: "JYAMSEED",
     nameJp: "",
-    alias:    ["잠시드", "Jyamseed", "JYAMSEED", "잠지드", "잠시드 성역", "Jamsid"],
-    x: 368,
+    alias: [
+      "잠시드",
+      "Jyamseed",
+      "JYAMSEED",
+      "잠지드",
+      "잠시드 성역",
+      "Jamsid",
+    ],
+    x: 296,
     y: 400,
     desc: ``,
   },
@@ -438,8 +498,8 @@ export const STAR_SYSTEMS = [
     nameKr: "요툰하임",
     nameEn: "JOTUNHEIM",
     nameJp: "",
-    alias:    ["요툰하임", "Jotunheim", "JOTUNHEIM"],
-    x: 1248,
+    alias: ["요툰하임", "Jotunheim", "JOTUNHEIM"],
+    x: 1087,
     y: 900,
     desc: `은하제국의 최남단에 위치한 성계`,
   },
@@ -455,9 +515,9 @@ export const STAR_SYSTEMS = [
     nameKr: "카스트로프",
     nameEn: "KASTOROP",
     nameJp: "",
-    alias:    ["카스트로프", "Kastorop", "KASTOROP", "Castrop", "카스트로프 성계"],
-    x: 1568,
-    y: 650,
+    alias: ["카스트로프", "Kastorop", "KASTOROP", "Castrop", "카스트로프 성계"],
+    x: 1378,
+    y: 700,
     desc: "카스트로프 공작령.",
   },
   /** 230028_KIFOISER
@@ -474,8 +534,15 @@ export const STAR_SYSTEMS = [
     nameKr: "키포이져",
     nameEn: "KIFOISER",
     nameJp: "",
-    alias:    ["키포이져", "Kifoiser", "KIFOISER", "키포이저", "Kifoizer", "Kythhäuser"],
-    x: 1232,
+    alias: [
+      "키포이져",
+      "Kifoiser",
+      "KIFOISER",
+      "키포이저",
+      "Kifoizer",
+      "Kythhäuser",
+    ],
+    x: 1073,
     y: 550,
     desc: "브리운슈바이크 공작령의 영향권에 있는 성계이다.",
   },
@@ -489,9 +556,9 @@ export const STAR_SYSTEMS = [
     nameKr: "리히텐라데",
     nameEn: "LICHTENLADE",
     nameJp: "",
-    alias:    ["리히텐라데", "Lichtenlade", "LICHTENLADE", "리히텐라드"],
-    x: 1504,
-    y: 280,
+    alias: ["리히텐라데", "Lichtenlade", "LICHTENLADE", "리히텐라드"],
+    x: 1317,
+    y: 220,
     desc: "",
   },
   /** 230032_LITTENHEIM
@@ -505,8 +572,8 @@ export const STAR_SYSTEMS = [
     nameKr: "리텐하임",
     nameEn: "LITTENHEIM",
     nameJp: "",
-    alias:    ["리텐하임", "Littenheim", "LITTENHEIM"],
-    x: 1328,
+    alias: ["리텐하임", "Littenheim", "LITTENHEIM"],
+    x: 1150,
     y: 450,
     desc: "",
   },
@@ -522,8 +589,8 @@ export const STAR_SYSTEMS = [
     nameKr: "로포덴",
     nameEn: "ROFORTEN",
     nameJp: "",
-    alias:    ["로포덴", "Roforten", "ROFORTEN", "로포턴"],
-    x: 176,
+    alias: ["로포덴", "Roforten", "ROFORTEN", "로포턴"],
+    x: 152,
     y: 500,
     desc: "동맹 중부 성계.",
   },
@@ -538,8 +605,8 @@ export const STAR_SYSTEMS = [
     nameKr: "룬비니",
     nameEn: "LUNBINI",
     nameJp: "",
-    alias:    ["룬비니", "Lunbini", "LUNBINI", "룸비니", "Lumbini"],
-    x: 560,
+    alias: ["룬비니", "Lunbini", "LUNBINI", "룸비니", "Lumbini"],
+    x: 440,
     y: 650,
     desc: "동맹 남부 성계.",
   },
@@ -553,8 +620,8 @@ export const STAR_SYSTEMS = [
     nameKr: "뤼카스",
     nameEn: "LYUCAS",
     nameJp: "",
-    alias:    ["뤼카스", "Lyucas", "LYUCAS", "류카스", "Luykas", "뤼카스 성계"],
-    x: 320,
+    alias: ["뤼카스", "Lyucas", "LYUCAS", "류카스", "Luykas", "뤼카스 성계"],
+    x: 260,
     y: 550,
     desc: "",
   },
@@ -568,8 +635,16 @@ export const STAR_SYSTEMS = [
     nameKr: "마르-아데타",
     nameEn: "MARR-ADETTA",
     nameJp: "",
-    alias:    ["마르-아데타", "Marr-Adetta", "MARR-ADETTA", "마르 아데타", "마르아데타", "Mal Adetta", "마르 아데타 성역"],
-    x: 480,
+    alias: [
+      "마르-아데타",
+      "Marr-Adetta",
+      "MARR-ADETTA",
+      "마르 아데타",
+      "마르아데타",
+      "Mal Adetta",
+      "마르 아데타 성역",
+    ],
+    x: 380,
     y: 650,
     desc: ``,
   },
@@ -584,8 +659,8 @@ export const STAR_SYSTEMS = [
     nameKr: "마르바흐",
     nameEn: "MARBACH",
     nameJp: "",
-    alias:    ["마르바흐", "Marbach", "MARBACH"],
-    x: 1440,
+    alias: ["마르바흐", "Marbach", "MARBACH"],
+    x: 1218,
     y: 700,
     desc: "",
   },
@@ -599,9 +674,9 @@ export const STAR_SYSTEMS = [
     nameKr: "마린도르프",
     nameEn: "MARIENDORF",
     nameJp: "",
-    alias:    ["마린도르프", "Mariendorf", "MARIENDORF"],
-    x: 1504,
-    y: 800,
+    alias: ["마린도르프", "Mariendorf", "MARIENDORF"],
+    x: 1317,
+    y: 880,
     desc: "마린도르프 백작령",
   },
   /** 230041_PALANTIA
@@ -615,8 +690,8 @@ export const STAR_SYSTEMS = [
     nameKr: "팔란티아",
     nameEn: "PALANTIA",
     nameJp: "",
-    alias:    ["팔란티아", "Palantia", "PALANTIA", "Palntia"],
-    x: 688,
+    alias: ["팔란티아", "Palantia", "PALANTIA", "Palntia"],
+    x: 536,
     y: 350,
     desc: `자유행성동맹의 북부지역과 남부지역을 연결하는 위치에 존재하는 성계.`,
   },
@@ -630,8 +705,8 @@ export const STAR_SYSTEMS = [
     nameKr: "페잔",
     nameEn: "PHEZZAN",
     nameJp: "フェザーン",
-    alias:    ["페잔", "Phezzan", "PHEZZAN", "페샨", "Phessan", "페잔 자치령"],
-    x: 848,
+    alias: ["페잔", "Phezzan", "PHEZZAN", "페샨", "Phessan", "페잔 자치령"],
+    x: 700,
     y: 740,
     desc: "페잔 자치령 수도. 제국과 동맹 사이의 무역 중심지. 페잔 회랑의 열쇠.",
   },
@@ -645,8 +720,8 @@ export const STAR_SYSTEMS = [
     nameKr: "포레비트",
     nameEn: "POLEVIT",
     nameJp: "",
-    alias:    ["포레비트", "Polevit", "POLEVIT", "Porevit", "포레비토 성역"],
-    x: 608,
+    alias: ["포레비트", "Polevit", "POLEVIT", "Porevit", "포레비토 성역"],
+    x: 476,
     y: 950,
     desc: "페잔 남방 중립 성계.",
   },
@@ -660,8 +735,8 @@ export const STAR_SYSTEMS = [
     nameKr: "포르겐",
     nameEn: "FORGEN",
     nameJp: "",
-    alias:    ["포르겐", "Forgen", "FORGEN"],
-    x: 1056,
+    alias: ["포르겐", "Forgen", "FORGEN"],
+    x: 932,
     y: 350,
     desc: "제국 북방 성계.",
   },
@@ -676,8 +751,8 @@ export const STAR_SYSTEMS = [
     nameKr: "라이갈",
     nameEn: "LYGALL",
     nameJp: "",
-    alias:    ["라이갈", "Lygall", "LYGALL", "라이갈 성역"],
-    x: 224,
+    alias: ["라이갈", "Lygall", "LYGALL", "라이갈 성역"],
+    x: 188,
     y: 750,
     desc: "동맹 남서부 성계.",
   },
@@ -698,8 +773,8 @@ export const STAR_SYSTEMS = [
     nameKr: "란테마리오",
     nameEn: "RANTEMARIO",
     nameJp: "",
-    alias:    ["란테마리오", "Rantemario", "RANTEMARIO", "란테마리오 성역"],
-    x: 448,
+    alias: ["란테마리오", "Rantemario", "RANTEMARIO", "란테마리오 성역"],
+    x: 356,
     y: 780,
     desc: "동맹 남서부 성계. 란테마리오 회전의 격전지.",
   },
@@ -717,8 +792,15 @@ export const STAR_SYSTEMS = [
     nameKr: "리오-베르데",
     nameEn: "RIO-VERDE",
     nameJp: "",
-    alias:    ["리오-베르데", "Rio Verde", "RIO-VERDE", "리오베르데", "Rio-Verde", "리오 베르데 성역"],
-    x: 128,
+    alias: [
+      "리오-베르데",
+      "Rio Verde",
+      "RIO-VERDE",
+      "리오베르데",
+      "Rio-Verde",
+      "리오 베르데 성역",
+    ],
+    x: 116,
     y: 610,
     desc: "동맹 남부 성계.",
   },
@@ -734,9 +816,9 @@ export const STAR_SYSTEMS = [
     nameKr: "샤헨",
     nameEn: "SCHACHEN",
     nameJp: "",
-    alias:    ["샤헨", "Schachen", "SCHACHEN"],
-    x: 1056,
-    y: 600,
+    alias: ["샤헨", "Schachen", "SCHACHEN"],
+    x: 905,
+    y: 630,
     desc: "제국 서북부 성계.",
   },
   /** 230049_SHANDALUA
@@ -750,8 +832,15 @@ export const STAR_SYSTEMS = [
     nameKr: "샨다르아",
     nameEn: "SHANDALUA",
     nameJp: "",
-    alias:    ["샨다르아", "Shandaula", "SHANDAULA", "샨달루아", "Shandalua", "샨달루아 성역"],
-    x: 704,
+    alias: [
+      "샨다르아",
+      "Shandaula",
+      "SHANDAULA",
+      "샨달루아",
+      "Shandalua",
+      "샨달루아 성역",
+    ],
+    x: 548,
     y: 650,
     desc: "동맹 남부 성계.",
   },
@@ -770,8 +859,8 @@ export const STAR_SYSTEMS = [
     nameKr: "샨타우",
     nameEn: "SHANTAU",
     nameJp: "",
-    alias:    ["샨타우", "Shantau", "SHANTAU", "샨다우"],
-    x: 1296,
+    alias: ["샨타우", "Shantau", "SHANTAU", "샨다우"],
+    x: 1124,
     y: 300,
     desc: "제국 중부 성계.",
   },
@@ -788,8 +877,8 @@ export const STAR_SYSTEMS = [
     nameKr: "시바",
     nameEn: "SYVA",
     nameJp: "",
-    alias:    ["시바", "Syva", "SYVA", "시바 성계", "Shiva", "희바"],
-    x: 480,
+    alias: ["시바", "Syva", "SYVA", "시바 성계", "Shiva", "희바"],
+    x: 380,
     y: 300,
     desc: "회랑 남방 성계.",
   },
@@ -804,8 +893,8 @@ export const STAR_SYSTEMS = [
     nameKr: "슈팔라",
     nameEn: "SHUPALA",
     nameJp: "",
-    alias:    ["슈팔라", "Shupala", "SHUPALA", "슈파라"],
-    x: 560,
+    alias: ["슈팔라", "Shupala", "SHUPALA", "슈파라"],
+    x: 440,
     y: 550,
     desc: `자유행성동맹의 남부에 위치한 성계`,
   },
@@ -822,8 +911,15 @@ export const STAR_SYSTEMS = [
     nameKr: "타나투스",
     nameEn: "TANATUS",
     nameJp: "",
-    alias:    ["타나투스", "Tanatus", "TANATUS", "타나토스", "Thanatos", "타나토스 성계"],
-    x: 160,
+    alias: [
+      "타나투스",
+      "Tanatus",
+      "TANATUS",
+      "타나토스",
+      "Thanatos",
+      "타나토스 성계",
+    ],
+    x: 140,
     y: 850,
     desc: "동맹 포로수용소 에코니아가 있는 성계.",
   },
@@ -838,8 +934,8 @@ export const STAR_SYSTEMS = [
     nameKr: "타실리",
     nameEn: "TASSILI",
     nameJp: "",
-    alias:    ["타시리", "Tassili", "TASSILI", "탓시리", "탓시리 성역"],
-    x: 240,
+    alias: ["타시리", "Tassili", "TASSILI", "탓시리", "탓시리 성역"],
+    x: 200,
     y: 600,
     desc: "동맹 남서부 성계.",
   },
@@ -857,8 +953,15 @@ export const STAR_SYSTEMS = [
     nameKr: "티아메트",
     nameEn: "TIAMAT",
     nameJp: "",
-    alias:    ["티아메트", "Tiamat", "TIAMAT", "티아마트", "티아매트", "티아마트 성역"],
-    x: 768,
+    alias: [
+      "티아메트",
+      "Tiamat",
+      "TIAMAT",
+      "티아마트",
+      "티아매트",
+      "티아마트 성역",
+    ],
+    x: 596,
     y: 130,
     desc: "티아메트 성역",
   },
@@ -875,8 +978,8 @@ export const STAR_SYSTEMS = [
     nameKr: "트라바흐",
     nameEn: "TRABACH",
     nameJp: "",
-    alias:    ["트라바흐", "Trabach", "TRABACH"],
-    x: 1408,
+    alias: ["트라바흐", "Trabach", "TRABACH"],
+    x: 1214,
     y: 140,
     desc: "제국 북방 외곽에 존재하는 성계.",
   },
@@ -892,8 +995,15 @@ export const STAR_SYSTEMS = [
     nameKr: "트리플라",
     nameEn: "TRIPLA",
     nameJp: "",
-    alias:    ["트리폴라", "Tripla", "TRIPLA", "트리플러", "Tripler", "트리플러 성역"],
-    x: 320,
+    alias: [
+      "트리폴라",
+      "Tripla",
+      "TRIPLA",
+      "트리플러",
+      "Tripler",
+      "트리플러 성역",
+    ],
+    x: 260,
     y: 850,
     desc: "동맹 남방 성계.",
   },
@@ -910,8 +1020,15 @@ export const STAR_SYSTEMS = [
     nameKr: "발할라",
     nameEn: "VALHALLA",
     nameJp: "ヴァルハラ",
-    alias:    ["발할라", "Valhalla", "VALHALLA", "왈할라", "Walhalla", "발할라 성계"],
-    x: 1504,
+    alias: [
+      "발할라",
+      "Valhalla",
+      "VALHALLA",
+      "왈할라",
+      "Walhalla",
+      "발할라 성계",
+    ],
+    x: 1304,
     y: 580,
     desc: "은하제국의 수도 성계. 오딘을 중심으로 세 개의 행성이 있다.",
   },
@@ -927,8 +1044,8 @@ export const STAR_SYSTEMS = [
     nameKr: "바르텐베르크",
     nameEn: "WARTENBERG",
     nameJp: "",
-    alias:    ["바르텐베르크", "Wartenberg", "WARTENBERG"],
-    x: 1200,
+    alias: ["바르텐베르크", "Wartenberg", "WARTENBERG"],
+    x: 1047,
     y: 800,
     desc: "제국 남부 성계.",
   },
@@ -942,8 +1059,15 @@ export const STAR_SYSTEMS = [
     nameKr: "밴플리트",
     nameEn: "VANFLEET",
     nameJp: "",
-    alias:    ["밴플리트", "Vanfleet", "VANFLEET", "반플리트", "Van-Fleet", "반플리트 4-2"],
-    x: 768,
+    alias: [
+      "밴플리트",
+      "Vanfleet",
+      "VANFLEET",
+      "반플리트",
+      "Van-Fleet",
+      "반플리트 4-2",
+    ],
+    x: 596,
     y: 250,
     desc: "제국·동맹 양측의 쟁탈전이 벌어진 분쟁 성계.",
   },
@@ -958,8 +1082,8 @@ export const STAR_SYSTEMS = [
     nameKr: "버밀리온",
     nameEn: "VERMILION",
     nameJp: "",
-    alias:    ["버밀리온", "Vermilion", "VERMILION", "바미리온", "버밀리온 성역"],
-    x: 240,
+    alias: ["버밀리온", "Vermilion", "VERMILION", "바미리온", "버밀리온 성역"],
+    x: 200,
     y: 400,
     desc: "버밀리온 성역.",
   },
@@ -975,8 +1099,14 @@ export const STAR_SYSTEMS = [
     nameKr: "빌렌슈타인",
     nameEn: "VILLENSTEIN",
     nameJp: "",
-    alias:    ["빌렌슈타인", "Villenstein", "VILLENSTEIN", "빌렌스타인", "Vilenstein"],
-    x: 1200,
+    alias: [
+      "빌렌슈타인",
+      "Villenstein",
+      "VILLENSTEIN",
+      "빌렌스타인",
+      "Vilenstein",
+    ],
+    x: 1047,
     y: 200,
     desc: "제국 동부 성계.",
   },
@@ -992,45 +1122,58 @@ export const STAR_SYSTEMS = [
     nameKr: "케림",
     nameEn: "KERIM",
     nameJp: "",
-    alias:    ["케림", "Kerim", "KERIM", "케륨", "케리므", "케림 성역"],
-    x: 240,
+    alias: ["케림", "Kerim", "KERIM", "케륨", "케리므", "케림 성역"],
+    x: 200,
     y: 200,
     desc: "",
   },
-  /** 230065_SCHATTENBURG
-   *  위치 : 50 75
-   *  연결 : 230007_BALATROOP(9)
-   *        230043_POLEVIT(7)
-   *        230042_PHEZZAN(3)
-   *  행성 : ''
+  // ⚠️ 230065(SCHATTENBURG/샤텐부르크), 230066(LICHTENBERG/리히텐부르크) 삭제됨 (2026-06-22)
+  // 원작 검토 결과 이 두 곳은 독자적 성계가 아니라 "페잔 회랑"의 두 출구 그 자체를 가리키는
+  // 지명으로 판단됨 (행성이 없는 빈 성계였던 것이 그 근거). 따라서 성계가 아니라
+  // laneData.js의 LANE_005(페잔↔바라투르프, name:'샤텐부르크')와
+  // LANE_006(페잔↔아이젠헤르츠, name:'리히텐부르크')로 전환함.
+  // desc에 있던 "후일 샤텐부르크 요새/삼원수의 성이 지어진다"는 서술은 laneData.js 해당 lane의
+  // 주석으로 이전함.
+
+  // ⚠️ 신규 추가 (2026-06-22): 230064 BYLOST(빌로스트), 230070 YAVANHAR(야반하르)
+  // 원작 게임 데이터(IV EX)에서 "빌로스트"와 "야반하르"가 각각 보덴(230008)/빌렌슈타인(230062)
+  // 성계의 "행성"으로 잘못 편입되어 있었음. 그러나 원작 게임 시나리오 목록에 "빌로스트-야반하르
+  // 성역 회전"이라는 독립된 전역명이 존재하는 것으로 보아, 실제로는 두 개의 별도 성계이며 그
+  // 사이 항로(lane)에서 벌어진 조우전으로 추정됨. 또한 설정상 제국의 성계 수가 동맹보다 많아야
+  // 하나 게임 원본 데이터에 충분히 반영되지 못한 문제를 보완하는 차원에서 신설.
+  // 위치는 암릿처(230003) 인근(전선)으로 배치.
+  /** 230064_BYLOST
+   *  위치 : 신규 추가
+   *  연결 : 230003_AMRITZER, 230008_BODEN, 230070_YAVANHAR (laneData.js 참조)
+   *  행성 : 빌로스트 (동명 행성으로 추정, 별도 데이터 없음)
    */
   {
-    code: "230065",
-    nameKr: "샤텐부르크",
-    nameEn: "SCHATTENBURG",
+    code: "230064",
+    nameKr: "빌로스트",
+    nameEn: "BYLOST",
     nameJp: "",
-    alias:    ["샤텐부르크", "Schattenburg", "SCHATTENBURG"],
-    x: 718,
-    y: 750,
-    desc: `페잔 회랑의 자유행성동맹쪽 출구. 후일 샤텐부르크 요새가 건설된다.`,
+    alias: ["빌로스트", "Bylost", "BYLOST", "빌로슈트"],
+    x: 927,
+    y: 230,
+    desc: `보덴 성계의 최동부에 위치한 성계. 야반하르 성계와 인접하여 "빌로스트-야반하르 성역 회전"의 무대가 되었다.`,
   },
 
-  /** 230066_LICHTENBERG
-   *  위치 : 55 75
-   *  연결 : 230014_EISENHERZ(5)
-   *        230042_PHEZZAN(9)
-   *  행성 : ''
+  /** 230070_YAVANHAR
+   *  위치 : 신규 추가
+   *  연결 : 230062_VILLENSTEIN, 230064_BYLOST (laneData.js 참조)
+   *  행성 : 야반하르 (동명 행성으로 추정, 별도 데이터 없음)
    */
   {
-    code: "230066",
-    nameKr: "리히텐부르크",
-    nameEn: "LICHTENBERG",
+    code: "230070",
+    nameKr: "야반하르",
+    nameEn: "YAVANHAR",
     nameJp: "",
-    alias:    ["리히텐부르크", "Lichtenberg", "LICHTENBERG"],
-    x: 960,
-    y: 750,
-    desc: `페잔 회랑의 은하제국쪽 출구. 후일 삼원수의 성이 지어지게 된다.`,
+    alias: ["야반하르", "Yavanhar", "YAVANHAR"],
+    x: 951,
+    y: 290,
+    desc: `빌렌슈타인 성계 인근에 위치한 성계. 빌로스트 성계와 인접하여 "빌로스트-야반하르 성역 회전"의 무대가 되었다.`,
   },
+
   /** 230069_TERRA
    *  위치 : 75 37
    *  연결 : 연결행성 없음 (추후 구현 예정)
@@ -1041,11 +1184,240 @@ export const STAR_SYSTEMS = [
     nameKr: "테라",
     nameEn: "TERRA",
     nameJp: "",
-    alias:    ["테라", "Terra", "TERRA", "지구", "Earth"],
-    x: 1408,
-    y: 250,
-    desc: `인류의 요람.`,
+    alias: ["테라", "Terra", "TERRA", "지구", "Earth"],
+    x: 820,
+    y: 660,
+    desc: `인류의 요람. 지구 출신 거상 레오폴트 라프가 페잔 자치령을 설립한 서사를 고려해 페잔 인근으로 위치 설정. (2026-06-22 재배치: 하안-아이젠헤르츠 사이 공간, 외전 성계군 중심점. 다른 제국령 lane과는 비연결 — 별도 고립 클러스터)`,
   },
+
+  // ⚠️ 신규 추가 (2026-06-22): 230071 LANSBERG(란즈베르크)
+  // 알프레트 폰 란즈베르크 백작가의 영지. 골덴바움 왕조 문벌귀족(구귀족), 립슈타트 귀족연합
+  // 가담 가문. "란즈베르크 백작가의 5대 전 선조가 황제 게오르그 2세의 명을 받아 황궁 비밀통로를
+  // 공사했다"는 원작 서술로 보아 오래된 명문 귀족가임을 알 수 있음. 마린도르프(230039)/
+  // 카스트로프(230026)/에크하르트(230012)처럼 백작위 가문이 자기 성계를 보유하는 기존 패턴을
+  // 따라 신설. 위치는 카스트로프-마린도르프 귀족 영지 클러스터 인근으로 배치.
+  /** 230071_LANSBERG
+   *  위치 : 신규 추가
+   *  연결 : 230026_KASTOROP, 230039_MARIENDORF (laneData.js 참조)
+   *  행성 : 란즈베르크 (동명 행성으로 추정, 별도 데이터 없음)
+   */
+  {
+    code: "230071",
+    nameKr: "란즈베르크",
+    nameEn: "LANSBERG",
+    nameJp: "",
+    alias: ["란즈베르크", "Lansberg", "LANSBERG"],
+    x: 1346,
+    y: 760,
+    desc: `알프레트 폰 란즈베르크 백작가의 영지.`,
+  },
+
+  // ⚠️ 신규 추가 (2026-06-22): 230072 OPPENHEIMER(오펜하이머), 230073 HILDESHEIM(히르데스하임)
+  // 둘 다 백작위를 가진 립슈타트 귀족연합 관련 인물(오펜하이머 백작/대장, 히르데스하임 백작)의
+  // 영지. 마린도르프/카스트로프/에크하르트/란즈베르크와 동일한 "백작위 가문 영지" 패턴으로 신설.
+  // 제국 성계 수 보강 목적도 겸함.
+  /** 230072_OPPENHEIMER
+   *  위치 : 신규 추가
+   *  연결 : 230058_VALHALLA, 230032_LITTENHEIM (laneData.js 참조)
+   *  행성 : 오펜하이머 (동명 행성으로 추정, 별도 데이터 없음)
+   */
+  {
+    code: "230072",
+    nameKr: "오펜하이머",
+    nameEn: "OPPENHEIMER",
+    nameJp: "",
+    alias: ["오펜하이머", "Oppenheimer", "OPPENHEIMER"],
+    x: 1223,
+    y: 460,
+    desc: `오펜하이머 백작가의 영지.`,
+  },
+
+  /** 230073_HILDESHEIM
+   *  위치 : 신규 추가
+   *  연결 : 230058_VALHALLA, 230026_KASTOROP (laneData.js 참조)
+   *  행성 : 히르데스하임 (동명 행성으로 추정, 별도 데이터 없음)
+   */
+  {
+    code: "230073",
+    nameKr: "히르데스하임",
+    nameEn: "HILDESHEIM",
+    nameJp: "",
+    alias: ["히르데스하임", "Hildesheim", "HILDESHEIM", "힐데스하임"],
+    x: 1378,
+    y: 420,
+    desc: `히르데스하임 백작가의 영지.`,
+  },
+
+  // ⚠️ 신규 추가 (2026-06-22): 230074 LÜNEBURG(뤼네부르크), 230075 HARTENBERG(하르텐베르크)
+  // 뤼네부르크: 제국 오등작 중 높은 작위(공작/후작급)를 받은 명문 귀족 가문. 자유행성동맹으로
+  // 망명했다가 우주력 791년 다시 제국으로 역망명한 서사가 있는 인물의 가문. 작위가 높은 만큼
+  // 다른 백작급 영지보다 규모가 큰 것으로 추정(size 상향).
+  // 하르텐베르크: 백작가. 뤼네부르크와 혼인으로 연결된 가문(엘리자베트 폰 하르텐베르크).
+  // 제국 성계 수 보강 목적 겸함.
+  /** 230074_LUNEBURG
+   *  위치 : 신규 추가
+   *  연결 : 230058_VALHALLA, 230038_MARBACH (laneData.js 참조)
+   *  행성 : 뤼네부르크 (동명 행성으로 추정, 별도 데이터 없음)
+   */
+  {
+    code: "230074",
+    nameKr: "뤼네부르크",
+    nameEn: "LÜNEBURG",
+    nameJp: "",
+    alias: ["뤼네부르크", "Luneburg", "LUNEBURG", "Lüneburg"],
+    x: 1255,
+    y: 745,
+    desc: `오등작 중 높은 작위를 받은 뤼네부르크 가문의 영지.`,
+  },
+
+  /** 230075_HARTENBERG
+   *  위치 : 신규 추가
+   *  연결 : 230026_KASTOROP, 230073_HILDESHEIM (laneData.js 참조)
+   *  행성 : 하르텐베르크 (동명 행성으로 추정, 별도 데이터 없음)
+   */
+  {
+    code: "230075",
+    nameKr: "하르텐베르크",
+    nameEn: "HARTENBERG",
+    nameJp: "",
+    alias: ["하르텐베르크", "Hartenberg", "HARTENBERG"],
+    x: 1411,
+    y: 600,
+    desc: `하르텐베르크 백작가의 영지.`,
+  },
+
+  // ⚠️ 신규 추가 (2026-06-22): 오등작(공작~백작) 확인된 귀족 가문 영지 8곳.
+  // 자작/남작은 성계가 아닌 행성 단위로만 취급(사용자 원칙). 위치는 각 인물의 서사/직책 근거로 배치.
+  /** 230076_LOHENGRAMM
+   *  위치 : 신규 추가 (발할라 인근)
+   *  연결 : 230058_VALHALLA (laneData.js 참조)
+   *  행성 : 로엔그람 (동명 행성으로 추정, 별도 데이터 없음)
+   *  설정 : 콘라트 하인츠 폰 로엔그람 백작의 영지였으나 후사가 끊겨 황제 직할령으로 환수됨.
+   *        훗날 라인하르트가 이 백작위와 영지를 새로 하사받는다.
+   */
+  {
+    code: "230076",
+    nameKr: "로엔그람",
+    nameEn: "LOHENGRAMM",
+    nameJp: "",
+    alias: ["로엔그람", "Lohengramm", "LOHENGRAMM"],
+    x: 1354,
+    y: 480,
+    desc: `콘라트 하인츠 폰 로엔그람 백작가의 영지였으나 후사가 끊겨 황제 직할령으로 환수되었다. 훗날 라인하르트가 이 백작위를 하사받는다.`,
+  },
+
+  /** 230077_KLOPSTOCK
+   *  위치 : 신규 추가 (발할라 인근, 클롭슈톡 사건 당시 황제 친정 거리 고려)
+   *  연결 : 230058_VALHALLA (laneData.js 참조)
+   *  행성 : 클롭슈톡 (동명 행성으로 추정, 별도 데이터 없음)
+   */
+  {
+    code: "230077",
+    nameKr: "클롭슈톡",
+    nameEn: "KLOPSTOCK",
+    nameJp: "",
+    alias: ["클롭슈톡", "Klopstock", "KLOPSTOCK"],
+    x: 1290,
+    y: 410,
+    desc: `빌헬름 폰 클롭슈톡 후작가의 영지. 클롭슈톡 사건 당시 황제가 친정한 것으로 보아 오딘(발할라)에서 가까운 거리로 추정.`,
+  },
+
+  /** 230078_BENEMUNDE
+   *  위치 : 신규 추가 (제국 외곽, 후작가라 과도하게 외지지는 않음)
+   *  연결 : 230032_LITTENHEIM (laneData.js 참조)
+   *  행성 : 베네뮌데 (동명 행성으로 추정, 별도 데이터 없음)
+   */
+  {
+    code: "230078",
+    nameKr: "베네뮌데",
+    nameEn: "BENEMÜNDE",
+    nameJp: "",
+    alias: ["베네뮌데", "Benemunde", "BENEMUNDE", "Benemünde"],
+    x: 995,
+    y: 375,
+    desc: `주산나 폰 베네뮌데 후작부인의 영지. 작중 구체적 위치 묘사가 없어 제국 외곽으로 추정하나, 후작가이므로 과도하게 외지지는 않은 위치로 설정.`,
+  },
+
+  /** 230079_GRUNEWALD
+   *  위치 : 신규 추가 (마린도르프 인근, 시골 느낌)
+   *  연결 : 230039_MARIENDORF (laneData.js 참조)
+   *  행성 : 그뤼네발트 (동명 행성으로 추정, 별도 데이터 없음)
+   */
+  {
+    code: "230079",
+    nameKr: "그뤼네발트",
+    nameEn: "GRÜNEWALD",
+    nameJp: "",
+    alias: ["그뤼네발트", "Grunewald", "GRUNEWALD", "Grünewald"],
+    x: 1275,
+    y: 830,
+    desc: `안네로제 폰 그뤼네발트 백작부인(라인하르트의 누나)의 영지. 마린도르프와 어느 정도 가까운 거리이나 한적한 시골 영지로 설정.`,
+  },
+
+  /** 230080_FALSTRONG
+   *  위치 : 신규 추가 (발할라 인근, 루돌프 시기 심복)
+   *  연결 : 230058_VALHALLA (laneData.js 참조)
+   *  행성 : 팔스트롱 (동명 행성으로 추정, 별도 데이터 없음)
+   */
+  {
+    code: "230080",
+    nameKr: "팔스트롱",
+    nameEn: "FALSTRONG",
+    nameJp: "",
+    alias: ["팔스트롱", "Falstrong", "FALSTRONG"],
+    x: 1378,
+    y: 350,
+    desc: `에른스트 팔스트롱 백작의 영지. 루돌프 폰 골덴바움 시기의 심복 가문으로, 수도 오딘(발할라) 인근에 위치.`,
+  },
+
+  /** 230081_REMSCHEID
+   *  위치 : 신규 추가 (아이젠헤르츠 11시 방향, 에크하르트 4시 방향)
+   *  연결 : 230014_EISENHERZ, 230012_ECKHART, 230042_PHEZZAN (laneData.js 참조)
+   *  행성 : 렘샤이트 (동명 행성으로 추정, 별도 데이터 없음)
+   */
+  {
+    code: "230081",
+    nameKr: "렘샤이트",
+    nameEn: "REMSCHEID",
+    nameJp: "",
+    alias: ["렘샤이트", "Remscheid", "REMSCHEID"],
+    x: 803,
+    y: 830,
+    desc: `요펜 폰 렘샤이트 백작(은하제국 정통정부 수상)의 영지. 아이젠헤르츠와 에크하르트 사이, 페잔 회랑과도 연결되는 위치로 설정. (2026-06-22: 아이젠헤르츠 좌표 보정에 맞춰 재조정)`,
+  },
+
+  /** 230082_HERXHEIMER
+   *  위치 : 신규 추가 (리텐하임 인근)
+   *  연결 : 230032_LITTENHEIM (laneData.js 참조)
+   *  행성 : 헤르크스하이머 (동명 행성으로 추정, 별도 데이터 없음)
+   */
+  {
+    code: "230082",
+    nameKr: "헤르크스하이머",
+    nameEn: "HERXHEIMER",
+    nameJp: "",
+    alias: ["헤르크스하이머", "Herxheimer", "HERXHEIMER"],
+    x: 1155,
+    y: 380,
+    desc: `마르가르테 폰 헤르크스하이머 백작가의 영지. 리텐하임 성계 인근에 위치.`,
+  },
+
+  /** 230083_EHRENBERG
+   *  위치 : 신규 추가 (제국 내 적당한 빈 공간)
+   *  연결 : 230001_ALMENTPUVEL (laneData.js 참조)
+   *  행성 : 에렌베르크 (동명 행성으로 추정, 별도 데이터 없음)
+   */
+  {
+    code: "230083",
+    nameKr: "에렌베르크",
+    nameEn: "EHRENBERG",
+    nameJp: "",
+    alias: ["에렌베르크", "Ehrenberg", "EHRENBERG"],
+    x: 897,
+    y: 565,
+    desc: `에렌베르크 백작(원수, 군무상서 역임)의 영지.`,
+  },
+
   /** 230067_MUKKENBERGER
    *  위치 : 68 20
    *  연결 : 230008_BODEN(12)
@@ -1056,9 +1428,9 @@ export const STAR_SYSTEMS = [
     nameKr: "뮈켄베르거",
     nameEn: "MÜKKENBERGER",
     nameJp: "",
-    alias:    ["뮈켄베르거", "Muckenberger", "MUCKENBERGER", "Mükkenberger"],
-    x: 1100,
-    y: 215,
+    alias: ["뮈켄베르거", "Muckenberger", "MUCKENBERGER", "Mükkenberger"],
+    x: 995,
+    y: 195,
     desc: "제국 북동부 지역에서 가장 거대한 성계.",
   },
   // */
@@ -1075,8 +1447,8 @@ export const STAR_SYSTEMS = [
     nameKr: "포르세티",
     nameEn: "FORSETI",
     nameJp: "",
-    alias:    ["포르세티", "Forseti", "FORSETI", "Folseti"],
-    x: 762,
+    alias: ["포르세티", "Forseti", "FORSETI", "Folseti"],
+    x: 592,
     y: 565,
     desc: "동맹 남부의 변방성계",
   },
@@ -1105,24 +1477,137 @@ export const STAR_SYSTEMS = [
   // // },
   // */
   // ================================================================
+  // ================================================================
+  //  외전/과거 시점 성계 (2026-06-22 정식 등록)
+  //  우주력 790년대 본편(REH/FPA 영토)과는 시간적으로 분리된 인류사 초기~과거 지역.
+  //  본편 갤럭시맵 영역과 좌표 충돌을 피해 별도 구역(화면 좌하단 바깥)에 배치.
+  //  faction: 시점상 의미 없음(과거/외전 전용) → null로 표기
+  // ================================================================
+
+  // 제국 영역 — 테라(지구) 중심 인류사 초기 이민지 클러스터
+  // ※ 2026-06-22 재배치: 하안(230021,1207,470)-아이젠헤르츠(230014,850,850) 사이 공간에
+  //   테라(230069,1030,660)를 중심으로 배치. 실제 태양으로부터의 거리 비율을 참고하여
+  //   상대 거리를 추론함 (단위는 임의 축척, 실제 광년 수치는 아님):
+  //     프록시마 켄타우리 ≈ 4.2광년(가장 가까움) → 시리우스 ≈ 8.6광년 → 알타이르 ≈ 16.7광년
+  //     → 카노프스 ≈ 310광년 → 베텔기우스 ≈ 640광년(가장 멀음)
+  //   다른 제국령 lane과는 연결하지 않음(고립 클러스터, laneData.js 참조).
+  {
+    code: "230087",
+    nameKr: "프록시마",
+    nameEn: "PROXIMA",
+    nameJp: "",
+    alias: ["프록시마", "Proxima", "PROXIMA"],
+    x: 810,
+    y: 630,
+    desc: "프록시마 성계. 제5행성 프로세르피나에서 라그랑 그룹이 창설되었다. 태양(테라)에서 가장 가까운 거리(약 4.2광년)를 반영해 테라 바로 인접 배치.",
+  },
+  {
+    code: "230088",
+    nameKr: "시리우스",
+    nameEn: "SIRIUS",
+    nameJp: "",
+    alias: ["시리우스", "Sirius", "SIRIUS"],
+    x: 837,
+    y: 690,
+    desc: "시리우스 성계. 제6행성 론드리나가 주성. 라그랑 그룹의 본거지이자 시리우스 전역의 무대. 태양(테라)에서 두 번째로 가까운 거리(약 8.6광년)를 반영해 테라 인접 배치.",
+  },
+  {
+    code: "230084",
+    nameKr: "알타이르",
+    nameEn: "ALTAIR",
+    nameJp: "",
+    alias: ["알타이르", "Altair", "ALTAIR"],
+    x: 789,
+    y: 700,
+    desc: "알타이르 성계. 제7행성에 공화주의자들이 유배되었던 곳(알레 하이네센 등). 자유행성동맹 건국 신화의 출발점. 태양(테라)에서 약 16.7광년 거리를 반영해 테라보다 약간 외곽 배치.",
+  },
+  {
+    code: "230086",
+    nameKr: "카노프스",
+    nameEn: "CANOPUS",
+    nameJp: "",
+    alias: ["카노프스", "Canopus", "CANOPUS"],
+    x: 852,
+    y: 600,
+    desc: "카노프스 성계. 은하연방 시대 인류의 첫 항성이민지. 태양(테라)에서 약 310광년의 먼 거리를 반영해 클러스터 외곽에 배치.",
+  },
+  {
+    code: "230085",
+    nameKr: "베텔기우스",
+    nameEn: "BETELGEUSE",
+    nameJp: "",
+    alias: ["베텔기우스", "Betelgeuse", "BETELGEUSE"],
+    x: 779,
+    y: 600,
+    desc: "베텔기우스 성계. 루돌프 폰 골덴바움이 우주해적을 소탕한 지역. 태양(테라)에서 약 640광년의 가장 먼 거리를 반영해 클러스터 최외곽에 배치.",
+  },
+
+  // 동맹 영역(현재 동맹 영토에 해당하는 과거 지역)
+  // ※ 2026-06-22 재배치: 나무위키 지명 문서 근거로 동맹 영역 인근에 배치.
+  //   포리슨: "버밀리온 성역 회전 직후 메르카츠가 도주해 거점으로 쓴 다얀 칸 기지"
+  //     → 버밀리온(230061, x:200,y:400) 인근으로 배치.
+  //   레자빅: "양 웬리 원수 모살미수사건의 전조곡, 함선 탈취 사건" 무대. 구체적 위치 단서는
+  //     약하나 동맹 영역 사건이므로 동맹 외곽에 배치.
+  //   파라파라/프레뷔도/닛슈우히더스: 원작에 구체적 위치 묘사가 거의 없어("제1행성 외 언급
+  //     없음" 등) 동맹 영역 외곽에 분산 배치. (재조정: 버밀리온/뤼카스/로포덴/바라트 주변으로
+  //     좀 더 자연스럽게 분산)
+  {
+    code: "230089",
+    nameKr: "레자빅",
+    nameEn: "REZAVIK",
+    nameJp: "",
+    alias: ["레자빅", "Rezavik", "REZAVIK", "레사비크"],
+    x: 130,
+    y: 280,
+    desc: "레자빅(레사비크) 성계. 양 웬리 원수 모살미수사건의 전조곡이 울린 장소. 여기서 벌어진 함선 탈취 사건으로 메르카츠 생존설이 떠돌았다. 버밀리온 회전 이후 노이에란트로 편입된 구동맹령과 잔여 동맹령 사이로 추정되나 정확한 위치 판단이 어려워 일단 동맹 외곽에 배치.",
+  },
+  {
+    code: "230090",
+    nameKr: "포리슨",
+    nameEn: "FORISON",
+    nameJp: "",
+    alias: ["포리슨", "Forison", "FORISON"],
+    x: 250,
+    y: 320,
+    desc: "포리슨 성역. 버밀리온 성역 회전이 마무리될 무렵 빌리바르트 요아힘 폰 메르카츠 제독이 도피하여 거점으로 사용한 다얀 칸 기지가 있던 곳. TODO: 정확한 위치는 추후 지정 예정, 현재는 동맹 영역 내 임시 배치(버밀리온 인근).",
+  },
+  {
+    code: "230091",
+    nameKr: "파라파라",
+    nameEn: "PARAFARA",
+    nameJp: "",
+    alias: ["파라파라", "Parafara", "PARAFARA"],
+    x: 145,
+    y: 690,
+    desc: "파라파라 성역. 타실리(230054) 인근 빈 공간에 위치, 타실리와 연결.",
+  },
+  {
+    code: "230092",
+    nameKr: "프레뷔도",
+    nameEn: "PREVDO",
+    nameJp: "",
+    alias: ["프레뷔도", "Prevdo", "PREVDO"],
+    x: 340,
+    y: 600,
+    desc: "프레뷔도 성역. 가스행성 4개로 구성, 슬라브 군신 이름을 딴 천체들이 많다. 행성 슈바라에 JL-77 기지가 설치되었다. TODO: 정확한 위치는 추후 지정 예정, 현재는 동맹 영역 내 임시 배치.",
+  },
+  {
+    code: "230093",
+    nameKr: "닛슈우히더스",
+    nameEn: "NISHUHIDERS",
+    nameJp: "",
+    alias: ["닛슈우히더스", "Nishuhiders", "NISHUHIDERS"],
+    x: 580,
+    y: 200,
+    desc: "닛슈우히더스 성역. 제1행성 외에는 구체적으로 언급되지 않았다. 자유행성동맹과 은하제국의 국경 부근에 위치. 다곤(230010) 3시 방향, 다곤-티아메트(230055) 사이로 배치 및 연결.",
+  },
+
   // 미등록 성계 (나무위키 세계관 문서 참조, 추후 추가 검토)
   // ================================================================
 
-  // 제국 영역
-  // { code: "230???", nameKr: "알타이르 성계",    nameEn: "ALTAIR",      desc: "알타이르 제7행성 존재" },
-  // { code: "230???", nameKr: "베텔기우스 성계",   nameEn: "BETELGEUSE",  desc: "루돌프 폰 골덴바움 우주해적 소탕 지역" },
-  // { code: "230???", nameKr: "카노프스 성계",     nameEn: "CANOPUS",     desc: "소설 6권 언급" },
-  // { code: "230???", nameKr: "프록시마 성계",     nameEn: "PROXIMA",     desc: "제5행성 프로세르피 존재" },
-  // { code: "230???", nameKr: "시리우스 성계",     nameEn: "SIRIUS",      desc: "라그랑 그룹 본거지, 제6행성 론드리나" },
-
-  // 동맹 영역
-  // { code: "230???", nameKr: "레자빅 성계",      nameEn: "REZAVIK",     desc: "동맹 성계" },
-  // { code: "230???", nameKr: "슈바라 성계",      nameEn: "SCHWARA",     desc: "JL-77 기지 설치" },
-  // { code: "230???", nameKr: "포리슨 성역",      nameEn: "FORISON",     desc: "다얀 칸 기지 소재지" },
-  // { code: "230???", nameKr: "파라파라 성역",     nameEn: "PARAFARA",    desc: "동맹 성역" },
-  // { code: "230???", nameKr: "프레뷔도 성역",     nameEn: "PREVDO",      desc: "가스행성 4개, 슬라브 군신명" },
-  // { code: "230???", nameKr: "닛슈우히더스 성역",  nameEn: "NISHUHIDERS", desc: "제1행성만 언급" },
-
+  // 미등록 성계 (나무위키 세계관 문서 참조, 추후 추가 검토 - 위 정식 등록분 외 잔여 없음)
+  // ※ 슈바라(SCHWARA)는 별도 성계가 아니라 프레뷔도(230092) 성계 소속 행성으로 확인되어
+  //   행성 데이터(planetsData.js)에 프레뷔도 소속으로 등록함.
 ];
 
 // ================================================================
@@ -1134,49 +1619,65 @@ export const STAR_SYSTEMS = [
 // ================================================================
 
 export const OBSTACLES = [
-
   // ── 사르갓소 지대 ─────────────────────────────────────────────
   // 이제르론 회랑(y:220~380)과 페잔 회랑(y:680~820) 두 통로만 개방
   // 3개 구역으로 분리 렌더링 (SVG path hole 대신 분리 폴리곤 사용)
 
   {
-    id:       'SARGASSO_TOP',
-    type:     'SARGASSO',
+    id: "SARGASSO_TOP",
+    type: "SARGASSO",
     starCode: null,
-    desc:     '사르갓소 지대 상단 (이제르론 회랑 위)',
-    // 이제르론 회랑 상단 ~ y:0  (좌+30, 우-30)
+    desc: "사르갓소 지대 상단 (이제르론 회랑 위)",
+    // 이제르론 회랑 상단 ~ y:0  (좌+30, 우-30) ※ 2026-06-22: 이제르론/페잔 x좌표 880→700 이동에 맞춰 -180 보정
     points: [
-      [810,0],[830,80],[820,160],[840,220],
-      [915,220],[925,160],[910,80],[930,0],
+      [630, 0],
+      [650, 80],
+      [640, 160],
+      [660, 220],
+      [735, 220],
+      [745, 160],
+      [730, 80],
+      [750, 0],
     ],
-    color: { fill:'#230f0a', outline:'#5a2819' },
+    color: { fill: "#230f0a", outline: "#5a2819" },
   },
   {
-    id:       'SARGASSO_MID',
-    type:     'SARGASSO',
+    id: "SARGASSO_MID",
+    type: "SARGASSO",
     starCode: null,
-    desc:     '사르갓소 지대 중단 (이제르론~페잔 회랑 사이)',
-    // 이제르론 회랑 하단 ~ 페잔 회랑 상단  (좌+30, 우-30)
+    desc: "사르갓소 지대 중단 (이제르론~페잔 회랑 사이)",
+    // 이제르론 회랑 하단 ~ 페잔 회랑 상단  (좌+30, 우-30) ※ 2026-06-22: -180 보정
     points: [
-      [840,380],[825,460],[815,540],[830,620],[845,680],
-      [925,680],[910,620],[920,540],[930,460],[915,380],
+      [660, 380],
+      [645, 460],
+      [635, 540],
+      [650, 620],
+      [665, 680],
+      [745, 680],
+      [730, 620],
+      [740, 540],
+      [750, 460],
+      [735, 380],
     ],
-    color: { fill:'#230f0a', outline:'#5a2819' },
+    color: { fill: "#230f0a", outline: "#5a2819" },
   },
   {
-    id:       'SARGASSO_BOT',
-    type:     'SARGASSO',
+    id: "SARGASSO_BOT",
+    type: "SARGASSO",
     starCode: null,
-    desc:     '사르갓소 지대 하단 (페잔 회랑 아래)',
-    // 페잔 회랑 하단 ~ y:1000  (좌+30, 우-30)
+    desc: "사르갓소 지대 하단 (페잔 회랑 아래)",
+    // 페잔 회랑 하단 ~ y:1000  (좌+30, 우-30) ※ 2026-06-22: -180 보정
     points: [
-      [845,820],[830,900],[820,1000],
-      [930,1000],[915,900],[925,820],
+      [665, 820],
+      [650, 900],
+      [640, 1000],
+      [750, 1000],
+      [735, 900],
+      [745, 820],
     ],
-    color: { fill:'#230f0a', outline:'#5a2819' },
+    color: { fill: "#230f0a", outline: "#5a2819" },
   },
-
-]
+];
 
 // ── starDetail.js에서 추가할 시나리오별 장애물 ──────────────────
 // OBSTACLE_DETAIL = [

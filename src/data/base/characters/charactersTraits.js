@@ -143,4 +143,18 @@ export const CHAR_TRAITS = [
   { charCode: "CH_000338", traitCode: "TRC_U_000338", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
   // 로크웰
   { charCode: "CH_000086", traitCode: "TRC_U_000086", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 가짜 총대주교
+  { charCode: "CH_000004", traitCode: "TRC_U_000004", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 알프레드 로자스 — 730마피아
+  { charCode: "CH_000256", traitCode: "TRC_G_012", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null }, // 은퇴(군) — 746~770 사이 전역
+  { charCode: "CH_000256", traitCode: "TRC_G_013", traitLv: 5, traitExp: 0, traitStDate: 0, traitEdDate: null }, // 조율자 LV5
+  { charCode: "CH_000256", traitCode: "TRC_G_014", traitLv: 5, traitExp: 0, traitStDate: 0, traitEdDate: null }, // 참모 LV5
+  // 알프레트 폰 란즈베르크
+  { charCode: "CH_000257", traitCode: "TRC_U_000257", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null }, // 감탄의 극치
+  { charCode: "CH_000257", traitCode: "TRC_G_016", traitLv: 4, traitExp: 0, traitStDate: 0, traitEdDate: null }, // 기사도 LV4
+  { charCode: "CH_000257", traitCode: "TRC_G_017", traitLv: 3, traitExp: 0, traitStDate: 0, traitEdDate: null }, // 선량함 LV3
+  // 앤드류 포크
+  { charCode: "CH_000263", traitCode: "TRC_U_000263", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null }, // 재앙을 기획하는 자
+  { charCode: "CH_000263", traitCode: "TRC_G_018", traitLv: 4, traitExp: 0, traitStDate: 0, traitEdDate: null },    // 전환장애 LV4
+  { charCode: "CH_000263", traitCode: "TRC_G_014", traitLv: 1, traitExp: 0, traitStDate: 0, traitEdDate: null },    // 참모 LV1
 ]

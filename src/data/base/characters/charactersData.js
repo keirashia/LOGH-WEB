@@ -1,4 +1,3 @@
-﻿// 경로: src/data/base/characters/charactersData.js
 ﻿// ================================================================
 //  charactersData.js
 //  경로: src/data/characters/charactersData.js
@@ -1282,7 +1281,7 @@ export const CHAR_BASE = [
     econ: "",
     brave: "",
     moral: "",
-    friend: "260",
+    friend: "",
     // — 능력치
     statCmd: 0,
     statCsm: 0,
@@ -1798,7 +1797,7 @@ export const CHAR_BASE = [
     econ: "",
     brave: "",
     moral: "",
-    friend: "252",
+    friend: "",
     // — 능력치
     statCmd: 0,
     statCsm: 0,
@@ -2971,38 +2970,38 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000080",
     nameKr: "레이몬도 토리아티",
-    nameEn: "Raymond Tolliarty",
-    nameJp: "レイモンド・トリアッティ",
-    nickKr: "토리아티",
-    nickEn: "Tolliarty",
-    nickJp: "トリアッティ",
-    searchKeys: ["레이먼드", "레이몬도", "톨리아티", "토리아티", "Tolliarty", "Tolliati", "トリアッティ"],
+    nameEn: "",
+    nameJp: "",
+    nickKr: "",
+    nickEn: "",
+    nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
-    faction: "FPA", // 자유행성동맹
-    idea: "100", // 자유민주공화국
-    econ: "100", // 자본주의
-    brave: "45",
-    moral: "30",
-    // friend: 트류니히트(245) 파벌 정치가 — 가까운 거리(80%)
-    friend: "215",
+    faction: "",
+    idea: "",
+    econ: "",
+    brave: "",
+    moral: "",
+    friend: "",
     // — 능력치
-    statCmd: 8,
-    statCsm: 42,
-    statAtt: 3,
-    statDef: 5,
-    statFst: 5,
-    statMng: 35,
-    statInf: 55,
-    statGfg: 2,
-    statAfg: 3,
-    statPlt: 50,
+    statCmd: 0,
+    statCsm: 0,
+    statAtt: 0,
+    statDef: 0,
+    statFst: 0,
+    statMng: 0,
+    statInf: 0,
+    statGfg: 0,
+    statAfg: 0,
+    statPlt: 0,
     // — 기타
+    loc: "",
     point: "0",
-    descKr: `（OVA 오리지널 등장인물) 트류니히트 파벌의 정치가. 테르누젠 보궐선거에 출마했다. 반전시민연합 선거본부 폭탄 테러로 상대 후보 제임스 손다이크가 사망하자, 뒤를 이어 출마한 제시카 에드워즈에게 밀려 낙선했다.`,
-    descEn: `(OVA-original character) A politician of the Trünicht faction who ran in the Terneuzen by-election. After his original opponent James Sondheik was killed in a bombing of the anti-war citizens' coalition campaign office, he lost the race to Sondheik's replacement, Jessica Edwards.`,
-    descJp: `（OVAオリジナルキャラクター）トリューニヒト派の政治家。テルヌーゼン補欠選挙に出馬した。反戦市民連合選挙事務所爆破テロで対立候補のジェームズ・ソーンダイクが死亡すると、その後を継いで出馬したジェシカ・エドワーズに敗れた。`,
+    descKr: ``,
+    descEn: ``,
+    descJp: ``,
   },
   {
     // — 기본
@@ -3193,38 +3192,38 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000086",
     nameKr: "로크웰",
-    nameEn: "Rockwell",
-    nameJp: "ロックウェル",
-    nickKr: "로크웰",
-    nickEn: "Rockwell",
-    nickJp: "ロックウェル",
-    searchKeys: ["록웰", "로크웰", "Rockwell", "ロックウェル"],
+    nameEn: "",
+    nameJp: "",
+    nickKr: "",
+    nickEn: "",
+    nickJp: "",
+    searchKeys: [],
     birth: "",
-    death: "SE|799.",
+    death: "",
     // — 성향
-    faction: "FPA", // 자유행성동맹
-    idea: "100", // 자유민주공화국
-    econ: "100", // 자본주의
-    brave: "40",
-    moral: "15",
-    // friend: 트류니히트(245) 파벌 일원, 사문회 참여 — 가까운 거리(85%)
-    friend: "268",
+    faction: "",
+    idea: "",
+    econ: "",
+    brave: "",
+    moral: "",
+    friend: "",
     // — 능력치
-    statCmd: 5,
-    statCsm: 35,
-    statAtt: 2,
-    statDef: 3,
-    statFst: 2,
-    statMng: 32,
-    statInf: 58,
-    statGfg: 2,
-    statAfg: 2,
-    statPlt: 48,
+    statCmd: 0,
+    statCsm: 0,
+    statAtt: 0,
+    statDef: 0,
+    statFst: 0,
+    statMng: 0,
+    statInf: 0,
+    statGfg: 0,
+    statAfg: 0,
+    statPlt: 0,
     // — 기타
+    loc: "",
     point: "0",
-    descKr: `트류니히트 파벌의 일원으로 사문회에 사문위원 자격으로 참여했다. 마르 아데타 성역 회전 이후 자기보신을 위해 조안 레벨로를 살해하고 라인하르트를 찾아갔으나, "수치도 모르는 이족보행 하이에나" 취급을 받으며 처형당했다.`,
-    descEn: `A member of the Trünicht faction who participated in the inquiry committee as an examiner. Following the Battle of Mar-Adetta, he murdered João Rebelo for his own self-preservation and sought out Reinhard von Lohengramm, but was branded a "shameless, two-legged hyena" and executed.`,
-    descJp: `トリューニヒト派の一員として査問会に査問委員として参加した。マル・アデッタ星域会戦後、自己保身のためジョアン・レベロを殺害してラインハルトのもとを訪ねたが、「恥知らずな二足歩行のハイエナ」と一蹴され処刑された。`,
+    descKr: ``,
+    descEn: ``,
+    descJp: ``,
   },
   {
     // — 기본
@@ -6021,7 +6020,7 @@ export const CHAR_BASE = [
     econ: "",
     brave: "",
     moral: "",
-    friend: "290",
+    friend: "",
     // — 능력치
     statCmd: 0,
     statCsm: 0,
@@ -6132,7 +6131,7 @@ export const CHAR_BASE = [
     econ: "",
     brave: "",
     moral: "",
-    friend: "268",
+    friend: "",
     // — 능력치
     statCmd: 0,
     statCsm: 0,
@@ -7355,8 +7354,7 @@ export const CHAR_BASE = [
     econ: "180", // 국가자본주의
     brave: "25", // 신중
     moral: "38",
-    // friend: 라인하르트(150)와 원형(0~299) 순환거리 100차로 배치 — 개인적 혐오 관계 반영
-    friend: "250",
+    friend: "80",
     // — 능력치
     statCmd: 25,
     statCsm: 72,
@@ -9082,30 +9080,25 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000245",
-    nameKr: "안네로제 폰 그뤼네발트",
+    nameKr: "안네로제 폰 뮤젤",
     nameEn: "Annerose von Grünewald",
     nameJp: "アンネローゼ・フォン・グリューネワルト",
     nickKr: "안네로제",
     nickEn: "Annerose",
     nickJp: "アンネローゼ",
-    // 그뤼네발트는 황제로부터 작위(백작가)를 하사받은 이후의 성. 결혼 전 본성 "뮤젤"은 검색용 키로만 등록
-    searchKeys: ["안네로제", "안네로제 폰 뮤젤", "뮤젤", "그뤼네발트", "Annerose", "Mussel", "Gruenewald", "アンネローゼ"],
+    searchKeys: [],
     birth: "SE|771.06.26",
     death: "",
     // — 성향
-    // brave: 전투/정치와 무관한 은둔형 인물 → 신중~냉정 구간으로 하향
-    // friend: 프리드리히4세(95)~라인하르트(150) 사이, 라인하르트와 절친이 되도록 책정
     faction: "REH", // 은하제국
     idea: "270", // 신성군주제
     econ: "140", // 혼합경제
-    brave: "35",
+    brave: "72",
     moral: "92",
-    friend: "135",
+    friend: "180",
     // — 능력치
-    // statCsm: 주변 인물(라인하르트·키르히아이스 등)에게 강한 정서적 영향력을 미치는 점을 반영해 상향
-    // statPlt: 정치에 전혀 관여하지 않는 은둔형 캐릭터라 대폭 하향
     statCmd: 5,
-    statCsm: 55,
+    statCsm: 30,
     statAtt: 5,
     statDef: 10,
     statFst: 5,
@@ -9113,7 +9106,7 @@ export const CHAR_BASE = [
     statInf: 60,
     statGfg: 5,
     statAfg: 5,
-    statPlt: 15,
+    statPlt: 80,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -10740,7 +10733,7 @@ export const CHAR_BASE = [
     econ: "",
     brave: "",
     moral: "",
-    friend: "298",
+    friend: "",
     // — 능력치
     statCmd: 0,
     statCsm: 0,
@@ -11372,8 +11365,7 @@ export const CHAR_BASE = [
     econ: "180", // 국가자본주의
     brave: "72", // 용맹
     moral: "42",
-    // friend: 라인하르트(150)와 원형(0~299) 순환거리 100차로 배치 — 개인적 혐오 관계 반영
-    friend: "50",
+    friend: "85",
     // — 능력치
     statCmd: 42,
     statCsm: 78,
@@ -12224,8 +12216,7 @@ export const CHAR_BASE = [
     econ: "100", // 자본주의
     brave: "60", // 일반
     moral: "8",
-    // friend: 양 웬리(145)와 순환거리 100(상극) / 라인하르트(150)와 순환거리 95(매우 혐오하지만 극상은 아님)
-    friend: "245",
+    friend: "20",
     // — 능력치
     statCmd: 3,
     statCsm: 90,
@@ -12544,42 +12535,38 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000338",
     nameKr: "월터 아이랜즈",
-    nameEn: "Walter Islands",
-    nameJp: "ウォルター・アイランズ",
-    nickKr: "아이랜즈",
-    nickEn: "Islands",
-    nickJp: "アイランズ",
-    searchKeys: ["윌터", "아이랜즈", "아일랜즈", "아이란즈", "Islands", "アイランズ"],
+    nameEn: "",
+    nameJp: "",
+    nickKr: "",
+    nickEn: "",
+    nickJp: "",
+    searchKeys: [],
     birth: "",
     death: "",
     // — 성향
-    faction: "FPA", // 자유행성동맹
-    idea: "100", // 자유민주공화국
-    econ: "100", // 자본주의
-    brave: "45",
-    moral: "30",
-    // friend: 트류니히트(245)에게 뇌물로 국방위원장직을 얻은 초기엔 충성파였으나,
-    // 위기 상황에서 트류니히트와 결별하고 항전을 주장하다 부패 폭로당함 — 친함 정도로 다소 거리를 둠
-    friend: "275",
+    faction: "",
+    idea: "",
+    econ: "",
+    brave: "",
+    moral: "",
+    friend: "",
     // — 능력치
-    // 초기엔 사리사욕에 몰두한 3류 정치인이었으나, 페잔 강점 이후 위기 상황에서 각성하여
-    // 통합작전본부에 전폭적 지지를 보내고 양 웬리의 작전을 승인하는 등 유능한 지도자로 거듭남을 반영
-    statCmd: 25,
-    statCsm: 60,
-    statAtt: 10,
-    statDef: 20,
-    statFst: 15,
-    statMng: 58,
-    statInf: 52,
-    statGfg: 12,
-    statAfg: 15,
-    statPlt: 45,
+    statCmd: 0,
+    statCsm: 0,
+    statAtt: 0,
+    statDef: 0,
+    statFst: 0,
+    statMng: 0,
+    statInf: 0,
+    statGfg: 0,
+    statAfg: 0,
+    statPlt: 0,
     // — 기타
     loc: "",
     point: "0",
-    descKr: `자유행성동맹 국방위원장. 네그로폰테의 사임 이후 트류니히트에게 은제 화병을 뇌물로 바쳐 자리를 차지했다. 초기엔 사리사욕에 몰두한 3류 정치인이었으나, 페잔 강점으로 제국군의 본격 침공이 시작되자 돌변하여 통합작전본부에 전폭적인 지지를 보내고 양 웬리의 작전을 승인했다. 베르밀리온 전투 패배 후 항전을 주장하다 트류니히트에게 부패 사실을 폭로당하며 정치 인생을 마쳤다.`,
-    descEn: `Alliance Secretary of Defence who bribed Trünicht with a silver vase to obtain the post after Negroponte's resignation. Initially a self-admitted third-rate politician focused on personal enrichment, he transformed during the Imperial invasion following the annexation of Fezzan, throwing his full political support behind the Joint Operations Headquarters and approving Yang Wen-li's strategy. After the defeat at Vermillion, he argued for continued resistance but was exposed by Trünicht for his earlier corruption, ending his political career.`,
-    descJp: `自由惑星同盟国防委員長。ネグロポンテの辞任後、トリューニヒトに銀の花瓶を賄賂として贈り地位を得た。当初は私利私欲にまみれた三流政治家であったが、ペザン強占により帝国軍の本格侵攻が始まると一変し、統合作戦本部を全面的に支持しヤン・ウェンリーの作戦を承認した。ヴァーミリオン会戦の敗北後は抗戦を主張したが、トリューニヒトに過去の腐敗を暴露され政治生命を終えた。`,
+    descKr: ``,
+    descEn: ``,
+    descJp: ``,
   },
   {
     // — 기본
@@ -12859,7 +12846,7 @@ export const CHAR_BASE = [
     econ: "",
     brave: "",
     moral: "",
-    friend: "275",
+    friend: "",
     // — 능력치
     statCmd: 0,
     statCsm: 0,
@@ -15170,7 +15157,7 @@ export const CHAR_BASE = [
     econ: "100", // 자본주의
     brave: "58", // 일반
     moral: "65",
-    friend: "268",
+    friend: "115",
     // — 능력치
     statCmd: 3,
     statCsm: 55,
