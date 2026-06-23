@@ -1,3 +1,4 @@
+// 경로: src/data/base/characters/charactersJobs.js
 // ================================================================
 //  charJobs.js — 인물 직업 기본값
 //  경로: src/data/characters/charJobs.js
@@ -270,6 +271,20 @@ export const CHAR_JOBS = [
   { charCode: "CH_000564", jobCode: "JB_F008", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 리처드 호프만 — 부의장 → 각료 코드 사용 (부의장 JB 코드 미정의)
   { charCode: "CH_000561", jobCode: "JB_F003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // ── 0617 패치 — 하이드리히 랑 직업 등록 ──────────────────────
+  // 평민 출신 사회질서유지국(내무안전부) 국장
+  { charCode: "CH_000527", jobCode: "JB_N007", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+
+  // ── 0617 패치 — 안네로제 직업 등록 ────────────────────────────
+  // 안네로제 폰 그뤼네발트 (그뤼네발트 백작가)
+  { charCode: "CH_000245", jobCode: "JB_N003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+
+  // ── 0617 패치 — 뮐러 직업 등록 ────────────────────────────────
+  // 나이트하르트 뮐러 (평민 출신 — 미터마이어/로이엔탈과 같은 "평민 및 하급귀족 신진세력"으로 명시됨, 제국 신분체계상 JB_N007 평민)
+  { charCode: "CH_000032", jobCode: "JB_N007", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 게임 원작 3SP 데이터 기준 준장. 작중 798년 제독, 792년 페잔무관 소위였으나
+  // 아스타테 시점 정확한 행적 불명이라 게임 원작 데이터를 채택
+  { charCode: "CH_000032", jobCode: "JB_MR006", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
 ];
 
 export const CHAR_JOBS_MAP = Object.fromEntries(

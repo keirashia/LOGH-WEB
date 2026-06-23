@@ -1,3 +1,4 @@
+// 경로: src/data/base/characters/charactersTraits.js
 // ================================================================
 //  charactersTraits.js — 인물 트레잇 목록
 //  경로: src/data/characters/charactersTraits.js
@@ -131,4 +132,15 @@ export const CHAR_TRAITS = [
   { charCode: "CH_000527", traitCode: "TRC_G_007", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
   { charCode: "CH_000527", traitCode: "TRC_G_008", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
   { charCode: "CH_000527", traitCode: "TRC_G_011", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 나이트하르트 뮐러
+  { charCode: "CH_000032", traitCode: "TRC_U_000032", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 안네로제 폰 그뤼네발트
+  { charCode: "CH_000245", traitCode: "TRC_U_000245", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // ── 0622 패치 — 트류니히트 파벌 트레잇 ────────────────────────
+  // 욥 트류니히트
+  { charCode: "CH_000329", traitCode: "TRC_U_000329", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 월터 아이랜즈
+  { charCode: "CH_000338", traitCode: "TRC_U_000338", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
+  // 로크웰
+  { charCode: "CH_000086", traitCode: "TRC_U_000086", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
 ]

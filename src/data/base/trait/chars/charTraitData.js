@@ -1,3 +1,4 @@
+// 경로: src/data/base/trait/chars/charTraitData.js
 // ================================================================
 //  charTraitData.js — 인물 트레잇 마스터
 //  경로: src/data/base/trait/chars/charTraitData.js
@@ -130,10 +131,18 @@ export const CHAR_TRAITS_MASTER = [
     id: "TRC_U_000032",
     nameKr: "철벽",
     nameEn: "Iron Wall",
+    nameJp: "鉄壁",
     rarity: "unique",
-    desc: "철저한 방어 태세와 냉정한 판단력으로 전선을 지키는 수비형 지휘관. 방어 능력이 극대화된다.",
+    desc: "철저한 방어 태세와 냉정한 판단력으로 전선을 지키는 수비형 지휘관. 방어 능력이 극대화되며, 전황이 불리한 상황에서도 쉽게 무너지지 않는다.",
     permanent: true,
     effects: { statDef: 10, statCsm: 5 },
+    conditionalEffects: [
+      {
+        // TODO: battle_disadvantaged — 전황 불리 조건 (masterData.js)
+        trigger: "battle_disadvantaged",
+        effects: { statDef: 15, statFst: 5 },
+      },
+    ],
   },
   {
     id: "TRC_U_000335",
@@ -422,6 +431,60 @@ export const CHAR_TRAITS_MASTER = [
         effects: { friendBonus: -100 },
       },
     ],
+  },
+  {
+    id: "TRC_U_000245",
+    nameKr: "영원한 안식처",
+    nameEn: "Eternal Sanctuary",
+    nameJp: "永遠の安らぎ",
+    rarity: "unique",
+    desc: "가장 가까운 이에게 평온과 위로를 주는 존재. 라인하르트 폰 로엔그람의 정신적 지주로서, 그와 관련된 인물의 사기와 안정에 긍정적인 영향을 미친다.",
+    permanent: true,
+    effects: { statCsm: 5 },
+    conditionalEffects: [
+      {
+        // TODO: reinhard_morale_support — 라인하르트(CH_000064) 사기/멘탈 관련 체크 시점 (masterData.js)
+        trigger: "reinhard_morale_support",
+        effects: { reinhardMmpBonus: 10 },
+      },
+    ],
+  },
+  {
+    id: "TRC_U_000329",
+    nameKr: "민주주의의 어둠",
+    nameEn: "Darkness of Democracy",
+    nameJp: "民主主義の闇",
+    rarity: "unique",
+    desc: "공포로 권력을 유지하는 노회한 정치가. 비밀경찰(애국기사단)을 통해 정적을 탄압하며, 위기 상황에서도 권력 보전을 최우선으로 행동한다. 정치공작과 정보 능력이 크게 향상되나, 군사적 위기 대응력은 떨어진다.",
+    permanent: true,
+    effects: { statInf: 12, statPlt: 15, statCmd: -10 },
+  },
+  {
+    id: "TRC_U_000338",
+    nameKr: "각성한 책임감",
+    nameEn: "Awakened Sense of Duty",
+    nameJp: "覚醒した責任感",
+    rarity: "unique",
+    desc: "평소엔 사리사욕에 충실하나, 진짜 위기가 닥치면 숨겨진 능력이 발휘되는 인물. 국가 위기 시 통솔력과 운영 능력이 크게 향상된다.",
+    permanent: true,
+    effects: {},
+    conditionalEffects: [
+      {
+        // TODO: nation_crisis — 국가 위기(수도 위협/대규모 패전 등) 조건 (masterData.js)
+        trigger: "nation_crisis",
+        effects: { statCmd: 20, statMng: 15, statPlt: -10 },
+      },
+    ],
+  },
+  {
+    id: "TRC_U_000086",
+    nameKr: "이족보행 하이에나",
+    nameEn: "Two-Legged Hyena",
+    nameJp: "二足歩行のハイエナ",
+    rarity: "unique",
+    desc: "자신의 안위를 위해 동료마저 배신하는 자. 위기 상황에서 배신 행동의 성공률이 높아지지만, 발각 시 평판이 극단적으로 추락한다.",
+    permanent: true,
+    effects: { statPlt: 10, moral: -20 },
   },
   // ── 공통 트레잇 (general) ─────────────────────────────────────
   {
