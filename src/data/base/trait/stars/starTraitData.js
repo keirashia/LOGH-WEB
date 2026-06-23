@@ -1,6 +1,6 @@
 // ================================================================
-//  traitData.js — 성계/행성 트레잇 마스터 (불변)
-//  경로: src/data/trait/stars/traitData.js
+//  starTraitData.js — 성계/행성 트레잇 마스터 (불변)
+//  경로: src/data/base/trait/stars/starTraitData.js
 //
 //  category:
 //    environment — 지형/자연환경 (주로 영구)

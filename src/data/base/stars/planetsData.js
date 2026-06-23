@@ -19,10 +19,8 @@
 //      슈바라(SCHWARA)는 별도 성계가 아니라 프레뷔도(230092) 소속 행성으로 등록.
 //
 //  faction: base 디폴트값. 시나리오 stars/planetData.js(구 planetDetail.js)가 있으면 그쪽 우선.
-// 참조 필요 planetDetailTrait.js > 추가해야함. 행성별로 보유한 트레잇코드를 담는다.
-// > 트레잇의 상세 내용은 base/trait/stars/traitData.js의 파일명을 starTraitData.js로 변경 후, 사용
-// 참조 필요 planetDetailBuilding.js > 추가해야함. 행성별로 보유한 건물코드를 담는다.
-// > 건물의 상세 내용은 base/buildingData.js 의 데이터를 참조
+//  행성 트레잇: planetDetailTrait.js (트레잇 마스터: base/trait/stars/starTraitData.js)
+//  행성 건물:   planetDetailBuilding.js > 추가해야함. (건물 마스터: base/buildingData.js)
 // ================================================================
 
 export const PLANETS = [
