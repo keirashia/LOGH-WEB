@@ -1597,8 +1597,8 @@ export const STAR_SYSTEMS = [
     nameEn: "NISHUHIDERS",
     nameJp: "",
     alias: ["닛슈우히더스", "Nishuhiders", "NISHUHIDERS"],
-    x: 630,
-    y: 190,
+    x: 650,
+    y: 40,
     desc: "닛슈우히더스 성역. 제1행성 외에는 구체적으로 언급되지 않았다. 자유행성동맹과 은하제국의 국경 부근에 위치. 다곤(230010) 3시 방향, 다곤-티아메트(230055) 사이로 배치 및 연결.",
   },
 

@@ -2692,11 +2692,11 @@ export const PLANETS = [
     x: 500,
     y: 500,
     size: 42,
-    faction: null,
+    faction: "FPA",
     corruption: 0,
     treasury: 0,
     pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=게임DB없음_외전과거시점_faction의미없음
+    // _raw: 원본데이터 없음
   },
 ];
 
