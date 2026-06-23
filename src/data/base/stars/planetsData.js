@@ -2632,7 +2632,7 @@ export const PLANETS = [
     x: 500,
     y: 500,
     size: 42,
-    faction: null,
+    faction: "FPA",
     corruption: 0,
     treasury: 0,
     pops: { unit: 0, econ: [], idea: [] },

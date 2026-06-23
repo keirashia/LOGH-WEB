@@ -902,4 +902,11 @@ export const LANES = [
     period: 1,
     stability: 45,
   }, // TASIRI↔PARAFARA
+  {
+    id: "LANE_117",
+    stars: ["230061", "230090"],
+    type: "normal",
+    period: 2,
+    stability: 45,
+  }, // VERMILION↔FORISON
 ];
