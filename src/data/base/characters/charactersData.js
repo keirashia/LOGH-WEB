@@ -1,37 +1,11 @@
-﻿// ================================================================
+// 경로: src/data/base/characters/charactersData.js
+// ================================================================
 //  charactersData.js
 //  경로: src/data/characters/charactersData.js
 //  작성: 2026-05-29 (TN_CHAR_A_INFO.xlsx 기반)
 //  수정: 2026-06-12 데이터 1차 마이그레이션 완료.
+//  수정: 2026-06-23 데이터 추가
 // ================================================================
-
-/**
- * fncGetCharInfo(charCode, scenarioCode?)
- *
- * 인물 데이터 조회 함수.
- * 시나리오 코드가 있으면 시나리오별 오버라이드 값을 우선 적용하고,
- * 없는 필드는 CHAR_BASE 기본값으로 fallback.
- *
-//  * @param {string} charCode     - 인물 코드 (예: 'CH_000064')
-//  * @param {string} [scenarioCode] - 시나리오 코드 (예: 'SE796_01'), 생략 시 기본값 반환
-//  * @returns {object|null}       - 인물 데이터 객체, 없으면 null
-//  *
- * 사용 예:
- *   fncGetCharInfo('CH_000064')              // 라인하르트 기본값
- *   fncGetCharInfo('CH_000064', 'SE796_01')  // 아스타테 시나리오 오버라이드 적용
- *
- * TODO: 시나리오 오버라이드 로직 구현 필요
- *   - src/data/scenario/{scenarioCode}/charOverride.js 에서 오버라이드 데이터 로드
- *   - 이름(라인하르트→로엔그람), 파벌 변경 등 시나리오별 분기 처리
- */
-// export function fncGetCharInfo(charCode, scenarioCode = null) {
-//   const base = CHAR_BASE_MAP[charCode] ?? null;
-//   if (!base) return null;
-//   // TODO: scenarioCode가 있으면 오버라이드 데이터 merge
-//   // const override = getScenarioCharOverride(scenarioCode, charCode);
-//   // return override ? { ...base, ...override } : base;
-//   return base;
-// }
 
 // 아래 주석에 TODO가 있는 항목(인물)은 변동이 있는 항목이니 체크해야함. 수정 완료 후 주석에서 TODO 부분은 삭제
 // 단 다른 시리즈에서의 능력치와 같은 참고형 영역은 유지가 필요함
@@ -60,13 +34,13 @@ export const CHAR_BASE = [
     nickKr: "싱클레어",
     nickEn: "Sinclair",
     nickJp: "シンクレア",
-    searchKeys: [], // TODO 다른 캐릭터에도 적용 필요
+    searchKeys: [],
     birth: "SE|743.05.14",
     death: "SE|801.07.26",
     // — 성향
     faction: "FPA", // 자유행성동맹
-    idea: "35", // 인민공화국
-    econ: "100", // 시장경제
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
     brave: "25",
     moral: "88",
     friend: "120",
@@ -169,37 +143,44 @@ export const CHAR_BASE = [
     code: "CH_000004",
     nameKr: "가짜 총대주교",
     nameEn: "Fake Grand Bishop",
-    nameJp: "総大主教",
-    nickKr: "지구교 총대주교",
+    nameJp: "偽総大主教",
+    nickKr: "총대주교",
     nickEn: "Grand Bishop",
     nickJp: "総大主教",
-    searchKeys: [],
+    searchKeys: [
+      "가짜 대주교",
+      "가짜 총대주교",
+      "대역",
+      "꼭두각시 대주교",
+      "Fake Grand Bishop",
+      "偽総大主教",
+    ],
     birth: "SE|731.01.01",
-    death: "",
+    death: "SE|801.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
-    // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    faction: "EAT", // 지구교
+    idea: "300", // 신정정치(테라이즘)
+    econ: "160", // 통제경제
+    brave: "10", // 세뇌된 정신이상자, 자의식 없음
+    moral: "30",
+    friend: "10",
+    // — 능력치 (세뇌된 대역 — 실권은 드 빌리에가 행사, 본인 능력치는 매우 낮게 책정)
+    statCmd: 1,
+    statCsm: 35,
+    statAtt: 1,
+    statDef: 1,
+    statFst: 1,
+    statMng: 5,
+    statInf: 50, // 종교적 상징성으로 인한 영향력만 유지
+    statGfg: 1,
+    statAfg: 1,
+    statPlt: 5,
     // — 기타
-    loc: "",
     point: "-",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `진짜 총대주교가 사망한 뒤, 부주교 드 빌리에가 그 영향력 손실을 우려해 세뇌시켜 옹립한 대역.
+    망상에 빠진 정신이상자로 자의식이 거의 없으며, 실질적인 교단 운영은 전적으로 드 빌리에가 좌우한다.`,
+    descEn: `After the death of the real Grand Bishop, Archbishop De Villie, fearing the loss of the Church's influence, brainwashed a delusional man to take his place as a figurehead. With virtually no sense of self left, the impostor serves purely as a religious symbol while De Villie wields all real authority over the Church.`,
+    descJp: `本物の総大主教の死後、その影響力の喪失を恐れた副主教ドゥ・ヴィリエが洗脳して立てた替え玉。妄想に取り憑かれた精神異常者で自我はほとんど残っておらず、教団の実質的な運営はすべてドゥ・ヴィリエが握っている。宗教的象徴としてのみ機能する。`,
   },
   {
     // — 기본
@@ -577,8 +558,9 @@ export const CHAR_BASE = [
     nickJp: "キスリング",
     searchKeys: [],
     birth: "SE|770.05.11",
+    death: "",
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
     brave: "",
@@ -596,7 +578,7 @@ export const CHAR_BASE = [
     statAfg: 0,
     statPlt: 0,
     // — 기타
-    loc: "",
+    loc: "230058P01", // 오딘
     point: "0",
     descKr: ``,
     descEn: ``,
@@ -670,7 +652,7 @@ export const CHAR_BASE = [
     statAfg: 83,
     statPlt: 88,
     // — 기타
-    loc: "230058P01",
+    loc: "230058P01", // 오딘
     point: "0",
     descKr: `프리드리히 4세 치하 제국 우주함대사령장관. 3장관 중 실질적 군사 지휘권을 보유한 최고위직. 라인하르트 폰 뮤젤의 급속한 성장을 경계했으나 막을 수 없었다. 립슈타트 반란 이후 강제 퇴역하였다.`,
     descEn: `Space Fleet Commander in Chief under Kaiser Friedrich IV, the most senior of the three Imperial military chiefs with actual field command authority. He viewed Reinhard von Lohengramm's rise with wariness but was powerless to stop it. Forced into retirement following the Lippstadt Rebellion.`,
@@ -1200,7 +1182,16 @@ export const CHAR_BASE = [
     nickKr: "뮐러",
     nickEn: "Müller",
     nickJp: "ミュラー",
-    searchKeys: ["뮐러", "뮬러", "뮈러", "나이트하르트", "나이트할트", "Muller", "Mueller", "ミューラー"],
+    searchKeys: [
+      "뮐러",
+      "뮬러",
+      "뮈러",
+      "나이트하르트",
+      "나이트할트",
+      "Muller",
+      "Mueller",
+      "ミューラー",
+    ],
     birth: "SE|771.05.22",
     death: "",
     // — 성향
@@ -1281,7 +1272,7 @@ export const CHAR_BASE = [
     econ: "",
     brave: "",
     moral: "",
-    friend: "",
+    friend: "260",
     // — 능력치
     statCmd: 0,
     statCsm: 0,
@@ -1603,7 +1594,7 @@ export const CHAR_BASE = [
     nickKr: "아텐보로",
     nickEn: "Attenborough",
     nickJp: "アッテンボロー",
-    searchKeys: ["아텐보로", "어텐보로", "Attemborough", "Attenborough"], // TODO 다른 캐릭터에도 적용 필요
+    searchKeys: ["아텐보로", "어텐보로", "Attemborough", "Attenborough"],
     birth: "SE|769.11.23",
     death: "",
     // — 성향
@@ -1797,7 +1788,7 @@ export const CHAR_BASE = [
     econ: "",
     brave: "",
     moral: "",
-    friend: "",
+    friend: "252",
     // — 능력치
     statCmd: 0,
     statCsm: 0,
@@ -1894,38 +1885,44 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000051",
     nameKr: "드 빌리에",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    searchKeys: [],
+    nameEn: "De Villie",
+    nameJp: "ドゥ・ヴィリエ",
+    nickKr: "드 빌리에",
+    nickEn: "De Villie",
+    nickJp: "ヴィリエ",
+    searchKeys: [
+      "드빌리에",
+      "드 빌리에",
+      "비예",
+      "De Villie",
+      "Devilier",
+      "ヴィリエ",
+    ],
     birth: "",
-    death: "",
+    death: "SE|801.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
-    // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    faction: "EAT", // 지구교
+    idea: "300", // 신정정치(테라이즘)
+    econ: "160", // 통제경제
+    brave: "55",
+    moral: "10", // 신념 없이 권력만을 추구하는 냉혹한 모략가
+    friend: "20",
+    // — 능력치 (지구교의 실권자. 모략·정보·정치공작에 특화된 흑막형 캐릭터)
+    statCmd: 15,
+    statCsm: 55,
+    statAtt: 5,
+    statDef: 8,
+    statFst: 8,
+    statMng: 68,
+    statInf: 92,
+    statGfg: 5,
+    statAfg: 5,
+    statPlt: 90,
     // — 기타
-    loc: "",
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `지구교의 부주교이자 실질적 실권자. 테라이즘의 교리를 믿지 않으며 오직 권력 그 자체를 추구하는 냉혹한 모략가다. 총대주교의 사망을 은폐하고 세뇌시킨 대역을 옹립해 교단을 장악했으며, 제국과 동맹 양국 내부에 깊이 침투해 전쟁을 부추기는 공작을 주도한다.`,
+    descEn: `Archbishop and de facto ruler of the Terraist Church. Unlike the Grand Bishop, he holds no genuine faith in Terraist doctrine and is driven purely by a hunger for power. He concealed the Grand Bishop's death and installed a brainwashed impostor in his place to seize control of the Church, and orchestrates covert operations deeply embedded within both the Empire and the Alliance to keep the war between them burning.`,
+    descJp: `地球教の副主教であり実質的な実権者。テライズムの教義を信じておらず、ただ権力そのものを追い求める冷徹な策謀家である。総大主教の死を隠蔽し洗脳した替え玉を立てて教団を掌握し、帝国・同盟両国内部に深く浸透して戦争を煽る工作を主導する。`,
   },
   {
     // — 기본
@@ -2429,7 +2426,7 @@ export const CHAR_BASE = [
     econ: "100", // 자본주의
     brave: "60", // 일반
     moral: "55",
-    friend: "130",
+    friend: "205",
     // — 능력치
     statCmd: 80,
     statCsm: 75,
@@ -2970,38 +2967,46 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000080",
     nameKr: "레이몬도 토리아티",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    searchKeys: [],
+    nameEn: "Raymond Tolliarty",
+    nameJp: "レイモンド・トリアッティ",
+    nickKr: "토리아티",
+    nickEn: "Tolliarty",
+    nickJp: "トリアッティ",
+    searchKeys: [
+      "레이먼드",
+      "레이몬도",
+      "톨리아티",
+      "토리아티",
+      "Tolliarty",
+      "Tolliati",
+      "トリアッティ",
+    ],
     birth: "",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "45",
+    moral: "30",
+    // friend: 트류니히트(245) 파벌 정치가 — 가까운 거리(80%)
+    friend: "215",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    statCmd: 8,
+    statCsm: 42,
+    statAtt: 3,
+    statDef: 5,
+    statFst: 5,
+    statMng: 35,
+    statInf: 55,
+    statGfg: 2,
+    statAfg: 3,
+    statPlt: 50,
     // — 기타
-    loc: "",
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `（OVA 오리지널 등장인물) 트류니히트 파벌의 정치가. 테르누젠 보궐선거에 출마했다. 반전시민연합 선거본부 폭탄 테러로 상대 후보 제임스 손다이크가 사망하자, 뒤를 이어 출마한 제시카 에드워즈에게 밀려 낙선했다.`,
+    descEn: `(OVA-original character) A politician of the Trünicht faction who ran in the Terneuzen by-election. After his original opponent James Sondheik was killed in a bombing of the anti-war citizens' coalition campaign office, he lost the race to Sondheik's replacement, Jessica Edwards.`,
+    descJp: `（OVAオリジナルキャラクター）トリューニヒト派の政治家。テルヌーゼン補欠選挙に出馬した。反戦市民連合選挙事務所爆破テロで対立候補のジェームズ・ソーンダイクが死亡すると、その後を継いで出馬したジェシカ・エドワーズに敗れた。`,
   },
   {
     // — 기본
@@ -3049,12 +3054,12 @@ export const CHAR_BASE = [
     nickKr: "샌포드",
     nickEn: "Sanford",
     nickJp: "サンフォード",
-    searchKeys: [],
+    searchKeys: ["로열", "로얄", "셴포드", "샌포드", "Sanford", "サンフォード"],
     birth: "SE|738.04.22",
     death: "SE|796.",
     // — 성향
     faction: "FPA", // 자유행성동맹
-    idea: "120", // 입헌군주제
+    idea: "100", // 자유민주공화국
     econ: "100", // 자본주의
     brave: "60", // 일반
     moral: "48",
@@ -3192,38 +3197,38 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000086",
     nameKr: "로크웰",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    searchKeys: [],
+    nameEn: "Rockwell",
+    nameJp: "ロックウェル",
+    nickKr: "로크웰",
+    nickEn: "Rockwell",
+    nickJp: "ロックウェル",
+    searchKeys: ["록웰", "로크웰", "Rockwell", "ロックウェル"],
     birth: "",
-    death: "",
+    death: "SE|799.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "40",
+    moral: "15",
+    // friend: 트류니히트(245) 파벌 일원, 사문회 참여 — 가까운 거리(85%)
+    friend: "268",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    statCmd: 5,
+    statCsm: 35,
+    statAtt: 2,
+    statDef: 3,
+    statFst: 2,
+    statMng: 32,
+    statInf: 58,
+    statGfg: 2,
+    statAfg: 2,
+    statPlt: 48,
     // — 기타
-    loc: "",
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `트류니히트 파벌의 일원으로 사문회에 사문위원 자격으로 참여했다. 마르 아데타 성역 회전 이후 자기보신을 위해 조안 레벨로를 살해하고 라인하르트를 찾아갔으나, "수치도 모르는 이족보행 하이에나" 취급을 받으며 처형당했다.`,
+    descEn: `A member of the Trünicht faction who participated in the inquiry committee as an examiner. Following the Battle of Mar-Adetta, he murdered João Rebelo for his own self-preservation and sought out Reinhard von Lohengramm, but was branded a "shameless, two-legged hyena" and executed.`,
+    descJp: `トリューニヒト派の一員として査問会に査問委員として参加した。マル・アデッタ星域会戦後、自己保身のためジョアン・レベロを殺害してラインハルトのもとを訪ねたが、「恥知らずな二足歩行のハイエナ」と一蹴され処刑された。`,
   },
   {
     // — 기본
@@ -5228,7 +5233,7 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000141",
-    nameKr: "미리암 로저스",
+    nameKr: "미리암 로자스",
     nameEn: "",
     nameJp: "",
     nickKr: "",
@@ -6020,7 +6025,7 @@ export const CHAR_BASE = [
     econ: "",
     brave: "",
     moral: "",
-    friend: "",
+    friend: "290",
     // — 능력치
     statCmd: 0,
     statCsm: 0,
@@ -6131,7 +6136,7 @@ export const CHAR_BASE = [
     econ: "",
     brave: "",
     moral: "",
-    friend: "",
+    friend: "268",
     // — 능력치
     statCmd: 0,
     statCsm: 0,
@@ -7354,7 +7359,8 @@ export const CHAR_BASE = [
     econ: "180", // 국가자본주의
     brave: "25", // 신중
     moral: "38",
-    friend: "80",
+    // friend: 라인하르트(150)와 원형(0~299) 순환거리 110차(상극) / 브라운슈바이크(40)와는 80차(불편함, 같은 진영이라 약간 가깝게)
+    friend: "260",
     // — 능력치
     statCmd: 25,
     statCsm: 72,
@@ -9080,25 +9086,39 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000245",
-    nameKr: "안네로제 폰 뮤젤",
+    nameKr: "안네로제 폰 그뤼네발트",
     nameEn: "Annerose von Grünewald",
     nameJp: "アンネローゼ・フォン・グリューネワルト",
     nickKr: "안네로제",
     nickEn: "Annerose",
     nickJp: "アンネローゼ",
-    searchKeys: [],
+    // 그뤼네발트는 황제로부터 작위(백작가)를 하사받은 이후의 성. 결혼 전 본성 "뮤젤"은 검색용 키로만 등록
+    searchKeys: [
+      "안네로제",
+      "안네로제 폰 뮤젤",
+      "뮤젤",
+      "그뤼네발트",
+      "Annerose",
+      "Mussel",
+      "Gruenewald",
+      "アンネローゼ",
+    ],
     birth: "SE|771.06.26",
     death: "",
     // — 성향
+    // brave: 전투/정치와 무관한 은둔형 인물 → 신중~냉정 구간으로 하향
+    // friend: 프리드리히4세(95)~라인하르트(150) 사이, 라인하르트와 절친이 되도록 책정
     faction: "REH", // 은하제국
     idea: "270", // 신성군주제
     econ: "140", // 혼합경제
-    brave: "72",
+    brave: "35",
     moral: "92",
-    friend: "180",
+    friend: "135",
     // — 능력치
+    // statCsm: 주변 인물(라인하르트·키르히아이스 등)에게 강한 정서적 영향력을 미치는 점을 반영해 상향
+    // statPlt: 정치에 전혀 관여하지 않는 은둔형 캐릭터라 대폭 하향
     statCmd: 5,
-    statCsm: 30,
+    statCsm: 55,
     statAtt: 5,
     statDef: 10,
     statFst: 5,
@@ -9106,7 +9126,7 @@ export const CHAR_BASE = [
     statInf: 60,
     statGfg: 5,
     statAfg: 5,
-    statPlt: 80,
+    statPlt: 15,
     // — 기타
     loc: "230058P01",
     point: "0",
@@ -9486,79 +9506,94 @@ export const CHAR_BASE = [
     descEn: `The Free Planets Alliance's foremost logistics and administrative specialist. A close friend of Yang Wen-li and the key staff officer responsible for the 13th Fleet's rear operations. A genius in supply and logistics rather than combat, he was also the one who assigned Julian Mintz to Yang Wen-li.`,
     descJp: `自由惑星同盟最高の補給・行政の専門家。ヤン・ウェンリーの親友にして第13艦隊の後方を担う中核参謀。戦闘よりも物資調達と兵站運営に天才的な才能を発揮し、ユリアン・ミンツをヤン・ウェンリーに配属した人物でもある。`,
   },
+  // 알프레드 로자스 Alfred Rosas · アルフレッド・ローザス
   {
     // — 기본
     code: "CH_000256",
     nameKr: "알프레드 로자스",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    searchKeys: [],
-    birth: "",
-    death: "",
+    nameEn: "Alfred Rosas",
+    nameJp: "アルフレッド・ローザス",
+    nickKr: "로자스",
+    nickEn: "Rosas",
+    nickJp: "ローザス",
+    searchKeys: ["알프레드", "알프렛", "로자스", "로저스", "Alfred", "Rosas", "ローザス"],
+    birth: "SE|710.06.23", // 710 확실
+    death: "SE|788.10.01", // 788.10 확실 (양 웬리 인터뷰 직후 수면제 과다복용으로 사망, 자살 추정)
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
-    // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "45", // 본인 평가상 "지휘관으로서는 평균보다 조금 나은 수준"
+    moral: "75",
+    friend: "120",
+    // — 능력치 (애시비 함대 참모장 — 조율형 캐릭터, 지휘보다 운영/통솔 보좌에 특화)
+    statCmd: 58,
+    statCsm: 62,
+    statAtt: 45,
+    statDef: 50,
+    statFst: 42,
+    statMng: 80,
+    statInf: 65,
+    statGfg: 38,
+    statAfg: 40,
+    statPlt: 55,
     // — 기타
     loc: "",
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `730년 마피아의 일원. 
+    다른 730마피아의 일원에 비해 뛰어난 인재는 아니었으며, 실제 지휘관으로서는 능력은 평균보다 조금 나은 수준이었다.
+    여러 인재들이 모인 장소에서 의견을 취합하고 갈등을 해소시키는데에 매우 능해 오랜 기간 우주함대 총참모장으로 혁혁한 공을 세웠다.`,
+    descEn: `A member of the Year 730 Mafia. Though not as gifted as his fellow Mafia members, and only slightly above average as a commander in his own right, he excelled at listening to strong personalities and reconciling their differing opinions, allowing him to serve with great distinction as Chief of Staff of the Space Fleet for many years.`,
+    descJp: `730年マフィアの一員。他の730マフィアの仲間に比べ際立った才能の持ち主ではなく、自身が指揮官として見れば平均よりやや上程度の能力であった。しかし様々な人材が集う場で意見を取りまとめ対立を解消することに非常に長け、長年にわたり宇宙艦隊総参謀長として赫々たる功績を残した。`,
   },
+  // 알프레트 폰 란즈베르크 Alfred von Landsberg/Alfred von Lansberg ・ アルフレット・フォン・ランズベルク
+  // TODO
   {
     // — 기본
     code: "CH_000257",
-    nameKr: "알프레드 폰 란즈베르크",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    searchKeys: [],
-    birth: "",
-    death: "",
+    nameKr: "알프레트 폰 란즈베르크",
+    nameEn: "Alfred von Landsberg",
+    nameJp: "アルフレット・フォン・ランズベルク",
+    nickKr: "란즈베르크",
+    nickEn: "Landsberg",
+    nickJp: "ランズベルク",
+    searchKeys: [
+      "알프레트",
+      "란즈베르크",
+      "Alfred",
+      "Landsberg",
+      "Lansberg",
+      "アルフレット",
+      "ランズベルク",
+    ],
+    birth: "SE|772.04.10",
+    death: "", // 798년 슈마허와 함께 어린 황제 유괴 후 동맹 망명, 이후 정신착란으로 체포(사망일 불명)
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
-    // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    // 립슈타트 패전 후 페잔 망명, 798년 페잔의 사주로 황제 유괴극에 가담한 낭만적 귀족.
+    // 자신의 역사 서술(립슈타트 전사)이 너무 주관적이라는 이유로 출판이 거절될 정도로 신념이 확고함
+    faction: "REH",
+    idea: "270",
+    econ: "150",
+    brave: "35",
+    moral: "62",
+    friend: "75",
+    // — 능력치 (귀족 시인 출신, 야전 지휘 경험은 거의 없는 인물)
+    statCmd: 22,
+    statCsm: 58,
+    statAtt: 15,
+    statDef: 18,
+    statFst: 20,
+    statMng: 35,
+    statInf: 65,
+    statGfg: 10,
+    statAfg: 12,
+    statPlt: 40,
     // — 기타
     loc: "",
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `5대째 이어진 제국 명문 귀족가의 백작. 립슈타트 동맹에 가담했으나 슈타덴의 오딘 침공 계획에는 동의만 하고 직접 참전하지는 않았다. 패전 후 페잔으로 망명해 시와 소설을 쓰며 지냈는데, 자신이 쓴 「립슈타트 전사」가 지나치게 주관적이고 낭만적이라는 이유로 출판을 거절당했다. 798년 페잔의 사주를 받아 레오폴트 슈마허와 함께 어린 황제 에르빈 요제프 2세를 유괴해 동맹으로 도주했다.`,
+    descEn: `A Count from a high noble family with five generations of lineage in the Empire. He joined the Lippstadt League but only endorsed Admiral Staaden's plan to invade Odin without personally taking part. After the defeat, he fled into exile on Fezzan, where he spent his time writing poetry and prose, though his own manuscript, "A History of the Lippstadt War," was rejected for publication as being too subjective and romantic. In 798 UC, acting on a Fezzani scheme, he and Leopold Schumacher kidnapped the infant Kaiser Erwin Josef II and fled with him to the Alliance.`,
+    descJp: `5代続く帝国の名門貴族の伯爵。リップシュタット同盟に加わったが、シュターデンのオーディン侵攻計画には賛同するのみで自らは参戦しなかった。敗戦後フェザンに亡命し詩や小説を書いて過ごしたが、自著「リップシュタット戦史」はあまりに主観的かつ浪漫的すぎるとして出版を拒否された。798年、フェザンの策謀によりレオポルト・シューマッハとともに幼帝エルウィン・ヨーゼフ2世を誘拐し、同盟へ逃亡した。`,
   },
   {
     // — 기본
@@ -9745,6 +9780,8 @@ export const CHAR_BASE = [
     descEn: ``,
     descJp: ``,
   },
+  // 앤드류 포크 Andrew Falk · アンドリュー・フォーク
+  // TODO
   {
     // — 기본
     code: "CH_000263",
@@ -9754,33 +9791,43 @@ export const CHAR_BASE = [
     nickKr: "포크",
     nickEn: "Falk",
     nickJp: "フォーク",
-    searchKeys: [],
-    birth: "SE|768.11.30",
-    death: "SE|800.04.15",
+    searchKeys: [
+      "앤드류",
+      "포크",
+      "Andrew",
+      "Falk",
+      "アンドリュー",
+      "フォーク",
+    ],
+    birth: "SE|770.11.30",
+    death: "SE|800.06.01",
     // — 성향
+    // idea: 살아있었으면 아마 구국군사회의(NSMC) 참가했을 것으로 보이는 권위주의적 성향 반영
     faction: "FPA", // 자유행성동맹
-    idea: "100", // 자유민주공화국
-    econ: "100", // 자본주의
-    brave: "72", // 용맹
+    idea: "30",
+    econ: "160", // 통제경제
+    brave: "42", // 용맹치 낮음
     moral: "40",
-    friend: "85",
+    friend: "215",
     // — 능력치
     statCmd: 25,
-    statCsm: 68,
-    statAtt: 22,
-    statDef: 20,
+    statCsm: 54,
+    statAtt: 52,
+    statDef: 55,
     statFst: 25,
-    statMng: 62,
-    statInf: 58,
-    statGfg: 18,
+    statMng: 70,
+    statInf: 89, // 정보 공작 음모에 능함
+    statGfg: 65,
     statAfg: 22,
-    statPlt: 55,
+    statPlt: 87,
     // — 기타
     loc: "230006P01",
     point: "0",
-    descKr: `자유행성동맹 통합작전본부 참모. 사관학교 수석 졸업의 수재로 제국령 침공 작전을 입안했다. 야망과 허영심이 강해 양 웬리와 우란푸의 경고를 무시하고 침공을 밀어붙였다. 아무리트사 패전 후 정신이상자가 되었다가 지구교의 음모에 휘말려 사망했다.`,
-    descEn: `Staff officer at the Free Planets Alliance Joint Operations Headquarters. A brilliant graduate who topped his Academy class, he devised and pushed for the Imperial invasion despite warnings from Yang Wen-li and Ulanhu. After the catastrophic defeat at Amritsar he suffered a mental breakdown, and was later killed when caught up in a Terraist Church conspiracy.`,
-    descJp: `自由惑星同盟統合作戦本部参謀。士官学校首席卒業の秀才で帝国領侵攻作戦を立案した。野望と虚栄心が強くヤン・ウェンリーとウランフの警告を無視して侵攻を押し進めた。アムリッツァ大敗後に精神異常をきたし、後に地球教の陰謀に巻き込まれ死亡した。`,
+    descKr: `자유행성동맹 소속의 군인.
+    국방사관학교를 수석으로 졸업한 인재로, 실전경험이 없으며 보급,훈련 등의 군사작전의 세부사항을 짜는데는 매우 허술하지만
+    전체적인 큰 그림을 입안하고 이를 관철시킬 정치적 모략에 매우 능하다는 평을 받고 있다.`,
+    descEn: ``,
+    descJp: ``,
   },
   {
     // — 기본
@@ -9866,7 +9913,7 @@ export const CHAR_BASE = [
     nickKr: "양",
     nickEn: "Yang",
     nickJp: "ヤン",
-    searchKeys: [],
+    searchKeys: ["양", "얀", "웬리"],
     birth: "SE|767.04.04", // 확실
     death: "SE|800.06.01", // 확실
     // — 성향
@@ -9890,9 +9937,20 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
-    descKr: `은하역사상 손꼽히는 전략가. 역사학자를 꿈꿨으나 생활고로 사관학교에 입학한 이후 군인의 삶을 걷는다. 전쟁을 혐오하면서도 부하들의 생명을 지키기 위해 전장에서 불패의 전술을 구사하며 '마법사 양'이라는 명성을 얻는다.`,
+    descKr: `은하역사상 손꼽히는 전략가.
+    역사학자를 꿈꿨으나 생활고로 사관학교에 입학한 이후 군인의 삶을 걷는다.
+    전쟁을 혐오하면서도 부하들의 생명을 지키기 위해 전장에서 불패의 전술을 구사하며 '마법사 양'이라는 명성을 얻는다.`,
     descEn: `One of the greatest strategists in galactic history. Though he dreamed of becoming a historian, financial hardship led him to the officer academy and a life in the military. Despising war yet fighting to protect his soldiers, he employs undefeated tactics and earns the name "Yang the Magician."`,
     descJp: `銀河史上屈指の戦略家。歴史家を夢見ていたが、生活苦から士官学校へ入学し軍人の道を歩む。戦争を憎みながらも部下の命を守るため戦場で不敗の戦術を駆使し、「魔術師ヤン」の名声を得る。`,
+    // 트레잇
+    // 기적의 양(고유)
+    // 불패의 마술사 (고유)
+    // 역사학자 lv1 :
+    //
+
+    // 직업
+    // 준장
+    // 시민
   },
   {
     // — 기본
@@ -10006,6 +10064,7 @@ export const CHAR_BASE = [
     descJp: ``,
   },
   // 에드윈 피셔 Edwin Fischer · エドウィン・フィッシャー
+  // TODO
   {
     // — 기본
     code: "CH_000270",
@@ -10026,8 +10085,8 @@ export const CHAR_BASE = [
     moral: "80",
     friend: "150",
     /** @능력치
-     *  4 통솔 56 공격 72 방어 59 기동 100 운영 41 정보 45 육전 55 공전 72
-     *  6 통솔 56 지휘 62 공격 66 방어 63 기동 100 운영 37 정보 32
+     *  4| 통솔 56 공격 72 방어 59 기동 100 운영 41 정보 45 육전 55 공전 72
+     *  6| 통솔 56 지휘 62 공격 66 방어 63 기동 100 운영 37 정보 32
      *  > 통솔은 좀 더 높아도 될 것 같음. 기동은 100이 맞다고 생각.
      */
     statCmd: 75,
@@ -10733,7 +10792,7 @@ export const CHAR_BASE = [
     econ: "",
     brave: "",
     moral: "",
-    friend: "",
+    friend: "298",
     // — 능력치
     statCmd: 0,
     statCsm: 0,
@@ -11365,7 +11424,8 @@ export const CHAR_BASE = [
     econ: "180", // 국가자본주의
     brave: "72", // 용맹
     moral: "42",
-    friend: "85",
+    // friend: 라인하르트(150)와 원형(0~299) 순환거리 110차(상극) / 리텐하임(260)과는 80차(불편함, 같은 진영이라 약간 가깝게)
+    friend: "40",
     // — 능력치
     statCmd: 42,
     statCsm: 78,
@@ -12216,7 +12276,8 @@ export const CHAR_BASE = [
     econ: "100", // 자본주의
     brave: "60", // 일반
     moral: "8",
-    friend: "20",
+    // friend: 양 웬리(145)와 순환거리 100(상극) / 라인하르트(150)와 순환거리 95(매우 혐오하지만 극상은 아님)
+    friend: "245",
     // — 능력치
     statCmd: 3,
     statCsm: 90,
@@ -12535,38 +12596,49 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000338",
     nameKr: "월터 아이랜즈",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    searchKeys: [],
+    nameEn: "Walter Islands",
+    nameJp: "ウォルター・アイランズ",
+    nickKr: "아이랜즈",
+    nickEn: "Islands",
+    nickJp: "アイランズ",
+    searchKeys: [
+      "윌터",
+      "아이랜즈",
+      "아일랜즈",
+      "아이란즈",
+      "Islands",
+      "アイランズ",
+    ],
     birth: "",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "45",
+    moral: "30",
+    // friend: 트류니히트(245)에게 뇌물로 국방위원장직을 얻은 초기엔 충성파였으나,
+    // 위기 상황에서 트류니히트와 결별하고 항전을 주장하다 부패 폭로당함 — 친함 정도로 다소 거리를 둠
+    friend: "275",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    // 초기엔 사리사욕에 몰두한 3류 정치인이었으나, 페잔 강점 이후 위기 상황에서 각성하여
+    // 통합작전본부에 전폭적 지지를 보내고 양 웬리의 작전을 승인하는 등 유능한 지도자로 거듭남을 반영
+    statCmd: 25,
+    statCsm: 60,
+    statAtt: 10,
+    statDef: 20,
+    statFst: 15,
+    statMng: 58,
+    statInf: 52,
+    statGfg: 12,
+    statAfg: 15,
+    statPlt: 45,
     // — 기타
     loc: "",
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `자유행성동맹 국방위원장. 네그로폰테의 사임 이후 트류니히트에게 은제 화병을 뇌물로 바쳐 자리를 차지했다. 초기엔 사리사욕에 몰두한 3류 정치인이었으나, 페잔 강점으로 제국군의 본격 침공이 시작되자 돌변하여 통합작전본부에 전폭적인 지지를 보내고 양 웬리의 작전을 승인했다. 베르밀리온 전투 패배 후 항전을 주장하다 트류니히트에게 부패 사실을 폭로당하며 정치 인생을 마쳤다.`,
+    descEn: `Alliance Secretary of Defence who bribed Trünicht with a silver vase to obtain the post after Negroponte's resignation. Initially a self-admitted third-rate politician focused on personal enrichment, he transformed during the Imperial invasion following the annexation of Fezzan, throwing his full political support behind the Joint Operations Headquarters and approving Yang Wen-li's strategy. After the defeat at Vermillion, he argued for continued resistance but was exposed by Trünicht for his earlier corruption, ending his political career.`,
+    descJp: `自由惑星同盟国防委員長。ネグロポンテの辞任後、トリューニヒトに銀の花瓶を賄賂として贈り地位を得た。当初は私利私欲にまみれた三流政治家であったが、ペザン強占により帝国軍の本格侵攻が始まると一変し、統合作戦本部を全面的に支持しヤン・ウェンリーの作戦を承認した。ヴァーミリオン会戦の敗北後は抗戦を主張したが、トリューニヒトに過去の腐敗を暴露され政治生命を終えた。`,
   },
   {
     // — 기본
@@ -12846,7 +12918,7 @@ export const CHAR_BASE = [
     econ: "",
     brave: "",
     moral: "",
-    friend: "",
+    friend: "275",
     // — 능력치
     statCmd: 0,
     statCsm: 0,
@@ -13844,39 +13916,47 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000373",
-    nameKr: "제임스 토른디크",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    searchKeys: [],
+    nameKr: "제임스 손다이크",
+    nameEn: "James Thorndike",
+    nameJp: "ジェイムズ・ソーンダイク",
+    nickKr: "손다이크",
+    nickEn: "Thorndike",
+    nickJp: "ソーンダイク",
+    searchKeys: [
+      "제임스",
+      "손다이크",
+      "토른디크",
+      "토르다이크",
+      "James",
+      "Thorndike",
+      "ソーンダイク",
+    ],
     birth: "",
-    death: "",
+    death: "SE|796.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "55",
+    moral: "88",
+    // friend: 반전시민연합 후보로 평화주의 노선의 상징적 인물. 양 웬리/시톨레 등 양심파와 가까운 위치
+    friend: "148",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    statCmd: 3,
+    statCsm: 65,
+    statAtt: 2,
+    statDef: 3,
+    statFst: 2,
+    statMng: 45,
+    statInf: 60,
+    statGfg: 2,
+    statAfg: 2,
+    statPlt: 38,
     // — 기타
-    loc: "",
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `테르누젠 보궐선거에 출마한 반전시민연합 후보. 친전파 후보 레이몬도 토리아티와 맞섰으나, 선거 직전 반전시민연합 선거본부에서 발생한 폭탄 테러로 살해당했다. 그의 죽음은 오히려 여론을 반전 쪽으로 돌려, 뒤를 이어 출마한 제시카 에드워즈가 압도적인 득표율로 당선되는 계기가 되었다.`,
+    descEn: `Citizens' Anti-War Union candidate in the Terneuzen by-election. He ran against the pro-war candidate Raymond Tolliarty, but was murdered in a bombing of the Citizens' Anti-War Union's campaign office shortly before the election. His death swung public opinion sharply against the war, paving the way for his successor, Jessica Edwards, to win the seat in a landslide.`,
+    descJp: `テルヌーゼン補欠選挙に出馬した反戦市民連合の候補者。親戦派候補のレイモンド・トリアッティと対立したが、選挙直前に反戦市民連合選挙事務所で発生した爆弾テロにより殺害された。その死はむしろ世論を反戦へと大きく動かし、後を継いで出馬したジェシカ・エドワーズが圧倒的な得票率で当選するきっかけとなった。`,
   },
   {
     // — 기본
@@ -13998,12 +14078,21 @@ export const CHAR_BASE = [
     nickKr: "레벨로",
     nickEn: "Rebelo",
     nickJp: "レベロ",
-    searchKeys: [],
+    searchKeys: [
+      "조안",
+      "죠안",
+      "죤",
+      "레벨로",
+      "레베로",
+      "João",
+      "Rebelo",
+      "レベロ",
+    ],
     birth: "SE|741.09.14",
     death: "SE|800.",
     // — 성향
     faction: "FPA", // 자유행성동맹
-    idea: "80", // 자유민주공화국
+    idea: "100", // 자유민주공화국 (기존 80은 오타로 판단되어 수정)
     econ: "100", // 자본주의
     brave: "45", // 냉정
     moral: "82",
@@ -14022,9 +14111,12 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
-    descKr: `자유행성동맹 최고평의회 재정위원장. 양식 있는 화평파 정치인으로 제국령 침공 작전에 반대했다. 이후 최고평의회 의장까지 올랐으나 제국의 침공 앞에 속수무책으로 동맹을 잃었다.`,
-    descEn: `Secretary of the Treasury of the Free Planets Alliance High Council. A principled peace-faction politician who opposed the Imperial invasion. He later rose to Supreme Chairman but was powerless to prevent the Alliance's fall to the Empire.`,
-    descJp: `自由惑星同盟最高評議会財政委員長。良識ある和平派政治家で帝国領侵攻作戦に反対した。後に最高評議会議長にまで昇り詰めたが、帝国の侵攻を前に為す術なく同盟を失った。`,
+    descKr: `자유행성동맹 최고평의회 재정위원장. 양식 있는 화평파 정치인으로 제국령 침공 작전에 반대했다.
+    이후 최고평의회 의장까지 올랐으나 제국의 침공 앞에 속수무책으로 동맹을 잃었다.`,
+    descEn: `Secretary of the Treasury of the Free Planets Alliance High Council. 
+    A principled peace-faction politician who opposed the Imperial invasion. He later rose to Supreme Chairman but was powerless to prevent the Alliance's fall to the Empire.`,
+    descJp: `自由惑星同盟最高評議会財政委員長。良識ある和平派政治家で帝国領侵攻作戦に反対した
+    後に最高評議会議長にまで昇り詰めたが、帝国の侵攻を前に為す術なく同盟を失った。`,
   },
   {
     // — 기본
@@ -14253,38 +14345,37 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000384",
     nameKr: "지구교 총대주교",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    searchKeys: [],
+    nameEn: "Grand Bishop",
+    nameJp: "総大主教",
+    nickKr: "총대주교",
+    nickEn: "Grand Bishop",
+    nickJp: "総大主教",
+    searchKeys: ["총대주교", "대주교", "교주", "Grand Bishop", "総大主教"],
     birth: "",
-    death: "",
+    death: "SE|796.", // 796년 이전 사망(드 빌리에가 사망을 은폐하고 가짜로 대체, CH_000004 참조)
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "EAT", // 지구교
+    idea: "300", // 신정정치(테라이즘)
+    econ: "160", // 통제경제
+    brave: "20",
+    moral: "70", // 광신적이나 본인은 진심으로 신념을 믿는 인물
+    friend: "10",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    statCmd: 2,
+    statCsm: 60,
+    statAtt: 1,
+    statDef: 2,
+    statFst: 1,
+    statMng: 50,
+    statInf: 78,
+    statGfg: 1,
+    statAfg: 1,
+    statPlt: 70,
     // — 기타
-    loc: "",
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
+    descKr: `지구교의 수장이자 테라(지구)의 실질적 통치자. 광신적이지만 진심으로 테라이즘의 교리를 믿는 인물로, 매일 신도들에게 직접 영적 지도를 베풀었다. 796년 죽음을 맞이했으나, 부주교 드 빌리에가 그 영향력을 우려해 사망 사실을 은폐하고 세뇌시킨 대역(가짜 총대주교, CH_000004)으로 교체했다.`,
+    descEn: `Supreme head of the Terraist Church and effective ruler of the planet Terra. Though fanatical, he was a genuine believer in Terraist doctrine and personally provided daily spiritual guidance to devout followers. He died around 796 UC, but Archbishop De Villie, fearing the loss of his influence, concealed his death and replaced him with a brainwashed impostor (the Fake Grand Bishop, CH_000004).`,
+    descJp: `地球教の首長であり、テラ（地球）の実質的な統治者。狂信的だが本人は心からテライズムの教義を信じ、毎日信徒に直接霊的指導を与えていた。796年頃に死去したが、その影響力の喪失を恐れた副主教ドゥ・ヴィリエが死を隠蔽し、洗脳した替え玉（偽総大主教、CH_000004）に置き換えた。`,
   },
   {
     // — 기본
@@ -14695,26 +14786,41 @@ export const CHAR_BASE = [
     descEn: ``,
     descJp: ``,
   },
+  // 춘우 지엔 Chung Wu-Cheng · チュン・ウー・チェン
+  // TODO
   {
     // — 기본
     code: "CH_000396",
-    nameKr: "춘 우 첸",
-    nameEn: "",
-    nameJp: "",
+    nameKr: "춘우 지엔",
+    nameEn: "Chung Wu-Cheng",
+    nameJp: "チュン・ウー・チェン",
     nickKr: "",
     nickEn: "",
     nickJp: "",
-    searchKeys: [],
-    birth: "",
-    death: "",
+    searchKeys: [
+      "춘우",
+      "지엔",
+      "순우건",
+      "춘",
+      "우",
+      "첸",
+      "츙",
+      "쳉",
+      "Chung",
+      "Wu-Cheng",
+    ],
+    // SE 761 ~ SE 800. 1. 16.(39세)
+    birth: "SE|761.08.08", // 761 확실
+    death: "SE|800.01.16", // 800.01 확실
     // — 성향
-    faction: "",
+    faction: "FPA",
     idea: "",
     econ: "",
     brave: "",
     moral: "",
     friend: "",
     // — 능력치
+    // 4 통솔 68/운영 90/정보 84/기동 43/공격 31/방어 80/육전 37/공전 60
     statCmd: 0,
     statCsm: 0,
     statAtt: 0,
@@ -14731,6 +14837,12 @@ export const CHAR_BASE = [
     descKr: ``,
     descEn: ``,
     descJp: ``,
+    // 트레잇
+    // 고유없음
+    // 참모 LV5 : 이 인물이 속한 파벌/함대 내 파벌리더/함대사령관의 지휘,통솔력 +1(x5) 부여 (추가해야함)
+
+    // 직업 (군인아님. 798년 5월경까지는 사관학교 교수로 재직중)
+    // 시민 : 동맹시민
   },
   {
     // — 기본
@@ -15157,7 +15269,7 @@ export const CHAR_BASE = [
     econ: "100", // 자본주의
     brave: "58", // 일반
     moral: "65",
-    friend: "115",
+    friend: "268",
     // — 능력치
     statCmd: 3,
     statCsm: 55,
@@ -15176,26 +15288,41 @@ export const CHAR_BASE = [
     descEn: `Chief Clerk of the Free Planets Alliance High Council. A practical bureaucrat responsible for council administration and the management of minutes.`,
     descJp: `自由惑星同盟最高評議会書記。評議会の行政および議事録管理を担う実務型官僚。`,
   },
+  // 칼 구스타프 켐프 Karl Gustav Kempff ·カール・グスタフ・ケンプ
+  // TODO
   {
     // — 기본
     code: "CH_000409",
     nameKr: "칼 구스타프 켐프",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    searchKeys: [],
-    birth: "",
-    death: "",
+    nameEn: "Karl Gustav Kempff",
+    nameJp: "カール・グスタフ・ケンプ",
+    nickKr: "켐프",
+    nickEn: "Kempff",
+    nickJp: "ケンプ",
+    searchKeys: [
+      "칼",
+      "구스타프",
+      "켐프",
+      "켄프",
+      "Karl",
+      "Gustav",
+      "Kempff",
+      "カール",
+      "グスタフ",
+      "ケンプ",
+    ],
+    // SE 762. 8. 19.~ SE 798. 5. ?? (36세)
+    birth: "SE|762.08.19",
+    death: "SE|798.05.07",
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
     brave: "",
     moral: "",
     friend: "",
     // — 능력치
+    // 4 소장 통솔 90 운영 20 정보 36 기동 84공격 96 방어 78 육전 80 공전 100
     statCmd: 0,
     statCsm: 0,
     statAtt: 0,
@@ -15204,7 +15331,7 @@ export const CHAR_BASE = [
     statMng: 0,
     statInf: 0,
     statGfg: 0,
-    statAfg: 0,
+    statAfg: 100,
     statPlt: 0,
     // — 기타
     loc: "",
@@ -15212,6 +15339,12 @@ export const CHAR_BASE = [
     descKr: ``,
     descEn: ``,
     descJp: ``,
+    // 트레잇
+    // 환상의 격추왕(고유) : 함대기 타입의 공격 시, 피해량 + 15%
+
+    // 직업
+    // 소장 : 군사직
+    // 평민 : 제국 시민
   },
   {
     // — 기본
@@ -17139,6 +17272,7 @@ export const CHAR_BASE = [
     descEn: ``,
     descJp: ``,
   },
+  // 클라우스 폰 리히텐라데 Klaus von Lichtenlade · クラウス・フォン・リヒテンラーデ
   {
     // — 기본
     code: "CH_000462",
@@ -17148,9 +17282,9 @@ export const CHAR_BASE = [
     nickKr: "리히텐라데",
     nickEn: "Lichtenlade",
     nickJp: "リヒテンラーデ",
-    searchKeys: [],
-    birth: "SE|725.11.18",
-    death: "SE|797.",
+    searchKeys: ["클라우스", "리히텐라데"],
+    birth: "SE|721.11.28", // 721 확정
+    death: "SE|797.09.18", // 797 확정 09.09 키르히아이스 사망 이후 근시일내 (76세)
     // — 성향
     faction: "REH", // 은하제국
     idea: "270", // 전제군주제
@@ -17175,6 +17309,11 @@ export const CHAR_BASE = [
     descKr: `프리드리히 4세 치하 제국재상. 궁정 귀족 출신으로 군사력 없이 정치력만으로 권세를 유지했다. 프리드리히 4세 붕어 후 라인하르트와 손잡고 에르빈 요제프 2세를 옹립했으나, 립슈타트 전역 종전 후 라인하르트에게 체포되어 자결했다.`,
     descEn: `Imperial Prime Minister under Kaiser Friedrich IV. A court noble who maintained power through political acumen alone, with no military force of his own. After Friedrich IV's death he allied with Reinhard to place Erwin Josef II on the throne, but was arrested by Reinhard's forces after the Lippstadt Rebellion and forced to commit suicide.`,
     descJp: `フリードリヒ4世治下の帝国宰相。宮廷貴族出身で軍事力なく政治力のみで権勢を保った。フリードリヒ4世崩御後、ラインハルトと組んでエルウィン・ヨーゼフ2世を擁立したが、リップシュタット戦役終結後にラインハルトに逮捕され自決した。`,
+    // 트레잇
+
+    // 직업
+    // 제국재상 대리 : 재상과 동일한 트레잇에 명칭이 약간 다름
+    // 후작
   },
   {
     // — 기본
@@ -20233,26 +20372,36 @@ export const CHAR_BASE = [
     descEn: ``,
     descJp: ``,
   },
+  // 헬무트 렌넨캄프 Helmut Lennenkampf · ヘルムート・レンネンカンプ
+  // TODO
   {
     // — 기본
     code: "CH_000545",
     nameKr: "헬무트 렌넨캄프",
-    nameEn: "",
-    nameJp: "",
-    nickKr: "",
-    nickEn: "",
-    nickJp: "",
-    searchKeys: [],
-    birth: "",
-    death: "",
+    nameEn: "Helmut Lennenkampf",
+    nameJp: "ヘルムート・レンネンカンプ",
+    nickKr: "렌넨캄프",
+    nickEn: "Lennenkampf",
+    nickJp: "レンネンカンプ",
+    searchKeys: [
+      "헬무트",
+      "렌넨캄프",
+      "Helmut",
+      "Lennenkampf",
+      "ヘルムート",
+      "レンネンカンプ",
+    ],
+    birth: "SE|763.06.23", // 763 확실
+    death: "SE|799.07.01", // 799.07 확실 (36세 사망)
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
     brave: "",
     moral: "",
     friend: "",
     // — 능력치
+    // 4|  통솔 85 운영 45 정보 52 기동 62공격 74 방어 84 육전 72 공전 85 정치공작 8000(+12) 정보공작 2000(+8) 군사공작 2000(+28)
     statCmd: 0,
     statCsm: 0,
     statAtt: 0,
