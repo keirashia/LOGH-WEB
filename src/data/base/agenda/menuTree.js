@@ -42,7 +42,6 @@ export const MENU_TREES = {
          *    (c) 방어작전 전용 트리거
          */
         { id: "op_propose",      label: "작전제안",  modal: "operation" },
-        { id: "fleet_deploy",    label: "함대 출격", modal: "military" },
         { id: "fleet_transport", label: "수송",      modal: "fleet" },
       ],
     },
@@ -53,7 +52,16 @@ export const MENU_TREES = {
       items: [
         { id: "fleet_form",    label: "함대편성", modal: "fleet" },
         { id: "fleet_reorg",   label: "함대재편", modal: "fleet" },
+        { id: "fleet_deploy",  label: "함대 출격", modal: "military" },
         { id: "fleet_disband", label: "함대해산", modal: "fleet" },
+      ],
+    },
+    {
+      id: "ship",
+      label: "함선",
+      type: "group",
+      items: [
+        { id: "",    label: "함선설계", modal: "fleet" },
       ],
     },
     {
