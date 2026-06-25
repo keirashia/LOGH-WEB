@@ -97,7 +97,7 @@ function buildState(scId, pf, extraData = {}) {
   STAR_SYSTEMS.forEach(s => {
     const d = _detailMap[s.code] || {}
     const planets = (_BASE_PLANET_MAP[s.code] || []).map(p => ({
-      ...p, faction: _detailFactionMap[p.code] ?? null,
+      ...p, faction: _detailFactionMap[p.code] ?? p.faction ?? null,
     }))
     let faction = null
     if (planets.length > 0) {
@@ -106,7 +106,10 @@ function buildState(scId, pf, extraData = {}) {
       const sorted = Object.entries(cnt).sort((a, b) => b[1] - a[1])
       if (sorted.length && sorted[0][1] > (sorted[1]?.[1] ?? 0)) faction = sorted[0][0]
     }
-    const fortress = planets.find(p => p.fortress)?.fortress ?? null
+    // TODO: planetsData.js의 fortress 필드가 트레잇(FORTIFIED 등)으로 이전되면서
+    //   p.fortress가 항상 undefined가 됨. planetDetailTrait.js에 FORTIFIED 트레잇이
+    //   실제 요새 행성들에 채워진 뒤 트레잇 기반으로 재구현 필요. 그 전까지는 null로 고정.
+    const fortress = null
     systems[s.code] = {
       id:               s.code,
       code:             s.code,
