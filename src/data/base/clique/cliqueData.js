@@ -63,6 +63,7 @@ export const CLIQUE_DATA = [
   // 이벤트(또는 파벌 해체)가 필요할 것으로 보임. TODO.
   {
     id: "CLQ_REH_001",
+    homeworld: "230058P01",
     name: "황제 충성파",
     founder: "CH_000514", // 프리드리히 폰 골덴바움 4세
     leader: "CH_000514",
@@ -79,6 +80,7 @@ export const CLIQUE_DATA = [
   // ── 브라운슈바이크 지지파 ────────────────────────────────────
   {
     id: "CLQ_REH_002",
+    homeworld: "230009P01",
     name: "브라운슈바이크 지지파",
     founder: "CH_000306", // 오토 폰 브라운슈바이크
     leader: "CH_000306",
@@ -96,6 +98,7 @@ export const CLIQUE_DATA = [
   // ── 리텐하임 지지파 ──────────────────────────────────────────
   {
     id: "CLQ_REH_003",
+    homeworld: "230032P01",
     name: "리텐하임 지지파",
     founder: "CH_000198", // 빌헬름 폰 리텐하임
     leader: "CH_000198",
@@ -113,6 +116,7 @@ export const CLIQUE_DATA = [
   // ── 로엔그람 지지파 ──────────────────────────────────────────
   {
     id: "CLQ_REH_004",
+    homeworld: "230076P01",
     name: "로엔그람 지지파",
     founder: "CH_000064", // 라인하르트 폰 로엔그람
     leader: "CH_000064",
@@ -130,6 +134,7 @@ export const CLIQUE_DATA = [
   // 유일하게 FPA(자유행성동맹) 소속 파벌. 다른 4개는 모두 REH(제국) 소속.
   {
     id: "CLQ_FPA_001",
+    homeworld: null,
     name: "트류니히트 파벌",
     founder: "CH_000329", // 욥 트류니히트
     leader: "CH_000329",
@@ -150,6 +155,7 @@ export const CLIQUE_DATA = [
   // 정치적 압력과 군 내부 모순 속에서도 원칙을 지키며 양 웬리 같은 인재를 지원하는 노선.
   {
     id: "CLQ_FPA_002",
+    homeworld: null,
     name: "군부 양심파",
     founder: "CH_000230", // 시드니 시톨레
     leader: "CH_000230",
@@ -169,6 +175,7 @@ export const CLIQUE_DATA = [
   // 지지율 만회를 위해 제국령 침공 작전을 승인한 책임을 지고 있음.
   {
     id: "CLQ_FPA_003",
+    homeworld: null,
     name: "의장파",
     founder: "CH_000082", // 로열 샌포드
     leader: "CH_000082",
@@ -189,6 +196,7 @@ export const CLIQUE_DATA = [
   // 제국령 침공 작전에 반대했던 재정·내정 중심 정치인 그룹.
   {
     id: "CLQ_FPA_004",
+    homeworld: null,
     name: "현실파",
     founder: "CH_000377", // 조안 레벨로
     leader: "CH_000377",
@@ -209,6 +217,7 @@ export const CLIQUE_DATA = [
   // 제시카 에드워즈가 압도적 득표로 당선되며 리더직을 승계한다 (TODO: 승계 이벤트).
   {
     id: "CLQ_FPA_005",
+    homeworld: null,
     name: "반전시민연합",
     founder: "CH_000373", // 제임스 손다이크
     leader: "CH_000373",
@@ -229,6 +238,7 @@ export const CLIQUE_DATA = [
   // 트류니히트 본인의 소속 정당은 공개된 바 없어, 트류니히트 파벌(클리크)과는 별개로 관리.
   {
     id: "CLQ_FPA_006",
+    homeworld: null,
     name: "국민평의회의",
     founder: "CH_000080", // 레이몬도 토리아티
     leader: "CH_000080",
@@ -249,6 +259,7 @@ export const CLIQUE_DATA = [
   // 제국/동맹 양국 내부에 깊이 침투해 있는 비밀결사 성격의 클리크.
   {
     id: "CLQ_EAT_001",
+    homeworld: null,
     name: "지구교",
     founder: "CH_000384", // 지구교 총대주교(원, 사망)
     leader: "CH_000004",  // 가짜 총대주교(명목상 리더)
