@@ -153,12 +153,13 @@ import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useLobbyStore } from '@/stores/lobbyStore'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
-import { CHAR_BASE } from '@/data/base/characters/charactersData.js'
 import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
 import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
-import { CHAR_JOBS } from '@/data/base/characters/charactersJobs.js'
-import { JOBS } from '@/data/base/jobs/jobData.js'
-import { CHAR_TRAITS_MASTER } from '@/data/base/trait/chars/charTraitData.js'
+import {
+  CHAR_BASE, CHAR_JOBS, JOB_MAP,
+  CHAR_NAMES_MAP as namesMap,
+  CHAR_UNIQUE_TRAIT_MAP as charUniqueTraitMap,
+} from '@/utils/charUtils.js'
 import StarfieldCanvas from '@/components/common/StarfieldCanvas.vue'
 import CharDetailComp from '@/components/char/CharDetailComp.vue'
 
@@ -170,15 +171,11 @@ const game   = useGameStore()
 const cur     = computed(() => SCENARIOS.find(s => s.id === route.params.scId) ?? SCENARIOS[0])
 const options = computed(() => lobby.options)
 
-const namesMap = Object.fromEntries(
-  CHAR_BASE.map(c => [c.code, { name: c.nameKr, nick: c.nickKr }])
-)
 const factionNamesMap = Object.fromEntries(
   FACTION_NAMES.filter(n => n.lang === 'Kr').map(n => [n.factionId, n])
 )
 
-const JOB_NAME_MAP = Object.fromEntries(JOBS.map(j => [j.id, j.nameKr]))
-
+// 시나리오 오버라이드 직업 반영 (base + 시나리오 덮어쓰기)
 const effectiveCharJobs = computed(() => {
   const scJobs = game._preloadedData?.charJobs
   if (!scJobs?.length) return CHAR_JOBS
@@ -191,14 +188,9 @@ const charJobMap = computed(() => Object.fromEntries(
     const primary = effectiveCharJobs.value
       .filter(j => j.charCode === c.code)
       .sort((a, b) => a.jobStDate - b.jobStDate)[0]
-    return [c.code, primary ? (JOB_NAME_MAP[primary.jobCode] ?? '') : '']
+    return [c.code, primary ? (JOB_MAP[primary.jobCode]?.nameKr ?? '') : '']
   })
 ))
-const charUniqueTraitMap = Object.fromEntries(
-  CHAR_TRAITS_MASTER
-    .filter(t => t.id.startsWith('TRC_U_'))
-    .map(t => [`CH_${t.id.slice(6)}`, t.nameKr])
-)
 
 const stage         = ref('faction')
 const transDir      = ref('slide-forward')
@@ -320,7 +312,7 @@ const sortedFilteredChars = computed(() => {
   const list = kw
     ? scenarioChars.value.filter(c => {
         const e = namesMap[c.code]
-        return e?.name?.toLowerCase().includes(kw) || e?.nick?.toLowerCase().includes(kw)
+        return e?.searchTokens?.some(t => t.toLowerCase().includes(kw))
       })
     : scenarioChars.value
   return [...list].sort((a, b) => {

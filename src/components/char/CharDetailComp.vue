@@ -105,10 +105,13 @@
 import { reactive, ref, computed } from 'vue'
 import TraitBadge from '@/components/char/TraitBadge.vue'
 import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
-import { CHAR_BASE }  from '@/data/base/characters/charactersData.js'
-import { CHAR_JOBS }  from '@/data/base/characters/charactersJobs.js'
-import { CHAR_TRAITS_MASTER as CHAR_TRAITS, CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
-import { JOBS } from '@/data/base/jobs/jobData.js'
+import {
+  CHAR_BASE, CHAR_JOBS,
+  CHAR_TRAITS as CHAR_TRAIT_ASSIGNMENTS,
+  CHAR_TRAIT_MAP,
+  JOB_MAP,
+  charName, charNick, charDesc,
+} from '@/utils/charUtils.js'
 
 const props = defineProps({
   chaCode:    { type: String, required: true },
@@ -116,8 +119,7 @@ const props = defineProps({
 })
 
 // ── 정적 맵 ────────────────────────────────────────────────────
-const CHAR_DATA_MAP  = Object.fromEntries(CHAR_BASE.map(c => [c.code, c]))
-const JOB_MAP         = Object.fromEntries(JOBS.map(j => [j.id, j]))
+const CHAR_DATA_MAP = Object.fromEntries(CHAR_BASE.map(c => [c.code, c]))
 
 const NATION_LABEL = {
   FPA: '자유행성동맹',
@@ -160,10 +162,15 @@ const jobsExpanded = ref(true)
 
 // ── 데이터 ───────────────────────────────────────────────────
 const charData  = computed(() => CHAR_DATA_MAP[props.chaCode] ?? null)
-const nameData  = computed(() => charData.value ? { name: charData.value.nameKr, nick: charData.value.nickKr } : null)
-const descData  = computed(() => charData.value ? { desc: charData.value.descKr } : null)
+const nameData  = computed(() => charData.value ? {
+  name: charName(charData.value),
+  nick: charNick(charData.value),
+} : null)
+const descData  = computed(() => charData.value ? {
+  desc: charDesc(charData.value),
+} : null)
 const traitListRaw = computed(() =>
-  CHAR_TRAITS.filter(t => t.charCode === props.chaCode)
+  CHAR_TRAIT_ASSIGNMENTS.filter(t => t.charCode === props.chaCode)
     .sort((a, b) => a.traitStDate - b.traitStDate)
 )
 
@@ -175,8 +182,10 @@ const jobList = computed(() =>
 const topJobs = computed(() => jobList.value.slice(0, 3))
 
 const uniqueTrait = computed(() => {
-  const code = props.chaCode.replace('CH_', '')
-  return CHAR_TRAITS.find(t => t.id === `TRC_U_${code}`) ?? null
+  const assignment = CHAR_TRAIT_ASSIGNMENTS.find(
+    t => t.charCode === props.chaCode && t.traitCode.startsWith('TRC_U_')
+  )
+  return assignment ? (CHAR_TRAIT_MAP[assignment.traitCode] ?? null) : null
 })
 
 // ── 이념 라벨 ────────────────────────────────────────────────

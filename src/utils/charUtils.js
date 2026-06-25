@@ -1,144 +1,182 @@
 // 경로: src/utils/charUtils.js
 // ================================================================
-//  charUtils.js — 인물 데이터 유틸리티 함수
-//  경로: src/utils/charUtils.js
-//  작성: 2026-06-16 / 수정: 2026-06-22 (friend 원형 좌표계 반영)
+//  charUtils.js — 인물 데이터 유틸리티
+//  수정: 2026-06-26
 //
-//  의존성:
-//    CHAR_BASE_MAP  ← charactersData.js
-//    CHAR_TRAITS    ← charactersTraits.js
-//    CHAR_JOBS      ← charactersJobs.js
-//    TRAIT_MASTER   ← charTraitData.js
-//    JOB_DATA       ← jobData.js
-//    AGENDA_ACTIONS ← agendaData.js (추후)
+//  ※ 캐릭터 관련 데이터는 반드시 이 파일을 경유할 것.
+//     컴포넌트에서 data 파일을 직접 import 하지 말 것.
+//
+//  의존 데이터 파일 (외부에서 직접 import 금지):
+//    charactersData.js   → CHAR_BASE, CHAR_BASE_MAP
+//    charactersJobs.js   → CHAR_JOBS
+//    charactersTraits.js → CHAR_TRAITS
+//    charTraitData.js    → CHAR_TRAITS_MASTER, CHAR_TRAIT_MAP
+//    jobData.js          → JOBS, JOB_MAP
 // ================================================================
 
-import { CHAR_BASE, CHAR_BASE_MAP } from '@/data/base/characters/charactersData'
-import { CHAR_JOBS }                from '@/data/base/characters/charactersJobs'
-import { CHAR_TRAITS_MASTER }       from '@/data/base/trait/chars/charTraitData'
-import { CHAR_TRAITS }              from '@/data/base/characters/charactersTraits'
-import { JOB_DATA }                 from '@/data/base/jobs/jobData'
+import { CHAR_BASE, CHAR_BASE_MAP }           from '@/data/base/characters/charactersData'
+import { CHAR_JOBS }                           from '@/data/base/characters/charactersJobs'
+import { CHAR_TRAITS }                         from '@/data/base/characters/charactersTraits'
+import { CHAR_TRAITS_MASTER, CHAR_TRAIT_MAP }  from '@/data/base/trait/chars/charTraitData'
+import { JOBS, JOB_MAP }                       from '@/data/base/jobs/jobData'
 
-// ── friend 좌표계 ────────────────────────────────────────────────
-// friend는 0~299의 "원형(순환) 좌표"이다. 299 다음은 다시 0으로 돌아간다.
-// 두 인물 간 거리는 단순 절대값 차이가 아니라, 원을 양 방향으로 돌았을 때
-// 더 짧은 쪽 거리로 계산한다 (예: 10과 295는 거리 15로 매우 가까운 관계).
-const FRIEND_RANGE = 300 // 0~299, 총 300개의 좌표
+// ================================================================
+//  raw 데이터 re-export
+//  컴포넌트에서 배열·맵이 필요하면 여기서 가져갈 것
+// ================================================================
+export { CHAR_BASE, CHAR_BASE_MAP }
+export { CHAR_JOBS }
+export { CHAR_TRAITS }
+export { CHAR_TRAITS_MASTER, CHAR_TRAIT_MAP }
+export { JOBS, JOB_MAP }
 
-// ── 친밀도 등급 기준 (원형 거리 기준, 0~150 범위) ─────────────────
-// 2026-06-23 6단계 체계로 재정의.
-//   0~20   친밀
-//   21~40  우호
-//   41~60  보통
-//   61~80  소원함
-//   81~100 상극
-//   101+   혐오
-const FRIENDSHIP_GRADES = [
-  { max:  20, grade: 'close',     labelKr: '친밀', labelEn: 'Close'    },
-  { max:  40, grade: 'friendly',  labelKr: '우호', labelEn: 'Friendly' },
-  { max:  60, grade: 'neutral',   labelKr: '보통', labelEn: 'Neutral'  },
-  { max:  80, grade: 'distant',   labelKr: '소원함', labelEn: 'Distant' },
-  { max: 100, grade: 'hostile',   labelKr: '상극', labelEn: 'Hostile'  },
-  { max: Infinity, grade: 'disgust', labelKr: '혐오', labelEn: 'Disgust' },
-]
+// ================================================================
+//  다국어 name/nick/desc 접근자
+// ================================================================
 
 /**
- * getCircularDiff(a, b)
- * 0~299 원형 좌표계에서 두 값 사이의 최短(원을 양방향으로 돌았을 때 더 짧은 쪽) 거리를 계산.
- *
- * @param {number} a
- * @param {number} b
- * @returns {number} 0 ~ 150 사이의 거리값
- *
- * @example
- * getCircularDiff(10, 295)  // → 15  (10→0→295 방향이 더 짧음)
- * getCircularDiff(150, 50)  // → 100
+ * charName(char, lang?)
+ * name 배열에서 지정 언어의 context를 반환. 없으면 Kr, 그것도 없으면 code 반환.
+ * @param {object} char  CHAR_BASE 엔트리
+ * @param {'Kr'|'En'|'Jp'} [lang='Kr']
  */
-function getCircularDiff(a, b) {
-  const diff = Math.abs(a - b)
-  return Math.min(diff, FRIEND_RANGE - diff)
+export function charName(char, lang = 'Kr') {
+  return char?.name?.find(e => e.code === lang)?.context
+      ?? char?.name?.find(e => e.code === 'Kr')?.context
+      ?? char?.code
+      ?? ''
+}
+
+/**
+ * charNick(char, lang?)
+ * nick 배열에서 지정 언어의 context를 반환.
+ */
+export function charNick(char, lang = 'Kr') {
+  return char?.nick?.find(e => e.code === lang)?.context
+      ?? char?.nick?.find(e => e.code === 'Kr')?.context
+      ?? ''
+}
+
+/**
+ * charDesc(char, lang?)
+ * desc 배열에서 지정 언어의 context를 반환.
+ */
+export function charDesc(char, lang = 'Kr') {
+  return char?.desc?.find(e => e.code === lang)?.context
+      ?? char?.desc?.find(e => e.code === 'Kr')?.context
+      ?? ''
 }
 
 // ================================================================
-//  캐릭터 조회
+//  pre-built 조회 맵 (컴포넌트 렌더링용)
 // ================================================================
 
 /**
- * fncGetCharInfo(charCode, scCode?)
- * 인물 기본 데이터 반환. 시나리오 코드가 있으면 오버라이드 적용(추후 구현).
- *
- * @param {string} charCode  인물 코드 (예: 'CH_000064')
- * @param {string} [scCode]  시나리오 코드 (예: 'SE796_0211_001')
- * @returns {{ data: object }|{ error: string }}
+ * CHAR_NAMES_MAP
+ * { [charCode]: { name, nick, searchTokens } }
+ * searchTokens: name+nick 전 언어 context + searchKeys, 검색 필터링에 활용
  */
-export function fncGetCharInfo(charCode, scCode = null) {
+export const CHAR_NAMES_MAP = Object.fromEntries(
+  CHAR_BASE.map(c => [c.code, {
+    name:  charName(c),
+    nick:  charNick(c),
+    searchTokens: [
+      ...(c.name      ?? []).map(e => e.context),
+      ...(c.nick      ?? []).map(e => e.context),
+      ...(c.searchKeys ?? []),
+    ].filter(Boolean),
+  }])
+)
+
+/**
+ * CHAR_JOB_LABEL_MAP
+ * { [charCode]: string } — 인물의 첫 번째 직업 한국어 이름 (없으면 '')
+ * jobStDate 기준 오름차순 정렬 후 첫 항목 사용
+ */
+export const CHAR_JOB_LABEL_MAP = (() => {
+  const grouped = {}
+  for (const j of CHAR_JOBS) {
+    if (!grouped[j.charCode]) grouped[j.charCode] = []
+    grouped[j.charCode].push(j)
+  }
+  return Object.fromEntries(
+    CHAR_BASE.map(c => {
+      const jobs = grouped[c.code] ?? []
+      jobs.sort((a, b) => a.jobStDate - b.jobStDate)
+      const primary = jobs[0]
+      return [c.code, primary ? (JOB_MAP[primary.jobCode]?.nameKr ?? '') : '']
+    })
+  )
+})()
+
+/**
+ * CHAR_UNIQUE_TRAIT_MAP
+ * { [charCode]: string } — 인물의 고유(TRC_U_) 트레잇 한국어 이름 (없으면 '')
+ * charactersTraits.js 실제 할당 기반
+ */
+export const CHAR_UNIQUE_TRAIT_MAP = (() => {
+  const map = {}
+  for (const a of CHAR_TRAITS) {
+    if (!a.traitCode.startsWith('TRC_U_') || map[a.charCode]) continue
+    const master = CHAR_TRAIT_MAP[a.traitCode]
+    if (master) map[a.charCode] = master.nameKr
+  }
+  return map
+})()
+
+// ================================================================
+//  캐릭터 조회 함수
+// ================================================================
+
+/**
+ * fncGetCharInfo(charCode)
+ * 인물 기본 데이터 반환.
+ */
+export function fncGetCharInfo(charCode) {
   const base = CHAR_BASE_MAP[charCode] ?? null
   if (!base) return { error: `인물 코드 없음: ${charCode}` }
-
-  // TODO: scCode가 있으면 시나리오 오버라이드 merge
-  // const override = fncGetScenarioCharOverride(scCode, charCode)
-  // const data = override ? { ...base, ...override } : base
-
   return { data: { ...base } }
 }
 
 /**
- * fncGetCharsByFaction(factionCode, scCode?)
+ * fncGetCharsByFaction(factionCode)
  * 세력별 인물 목록 반환.
- *
- * @param {string} factionCode  세력 코드 (예: 'FPA', 'REH', 'PZN')
- * @param {string} [scCode]     시나리오 코드
- * @returns {{ data: object[] }|{ error: string }}
  */
-export function fncGetCharsByFaction(factionCode, scCode = null) {
+export function fncGetCharsByFaction(factionCode) {
   if (!factionCode) return { error: '세력 코드 없음' }
-
   const list = CHAR_BASE.filter(c => c.faction === factionCode)
   if (!list.length) return { error: `세력 인물 없음: ${factionCode}` }
-
   return { data: list.map(c => ({ ...c })) }
 }
 
 /**
  * fncGetCharTraits(charCode)
  * 인물에 할당된 트레잇 목록 반환 (마스터 데이터 포함).
- *
- * @param {string} charCode  인물 코드
- * @returns {{ data: object[] }|{ error: string }}
  */
 export function fncGetCharTraits(charCode) {
   const assigns = CHAR_TRAITS.filter(t => t.charCode === charCode)
   if (!assigns.length) return { data: [] }
-
-  const traitMap = Object.fromEntries(CHAR_TRAITS_MASTER.map(t => [t.id, t]))
-
-  const data = assigns.map(a => ({
-    ...a,
-    master: traitMap[a.traitCode] ?? null,
-  }))
-
-  return { data }
+  return {
+    data: assigns.map(a => ({
+      ...a,
+      master: CHAR_TRAIT_MAP[a.traitCode] ?? null,
+    })),
+  }
 }
 
 /**
  * fncGetCharJobs(charCode)
  * 인물에 할당된 직업 목록 반환 (마스터 데이터 포함).
- *
- * @param {string} charCode  인물 코드
- * @returns {{ data: object[] }|{ error: string }}
  */
 export function fncGetCharJobs(charCode) {
   const assigns = CHAR_JOBS.filter(j => j.charCode === charCode)
   if (!assigns.length) return { data: [] }
-
-  const jobMap = Object.fromEntries(JOB_DATA.map(j => [j.id, j]))
-
-  const data = assigns.map(a => ({
-    ...a,
-    master: jobMap[a.jobCode] ?? null,
-  }))
-
-  return { data }
+  return {
+    data: assigns.map(a => ({
+      ...a,
+      master: JOB_MAP[a.jobCode] ?? null,
+    })),
+  }
 }
 
 // ================================================================
@@ -148,37 +186,26 @@ export function fncGetCharJobs(charCode) {
 /**
  * fncGetFleetChars(fltCode, fleetCharData)
  * 특정 함대 소속 인물 목록 반환 (사령관/부관/분함대장).
- *
- * @param {string}   fltCode        함대 코드 (예: 'FPA0020')
- * @param {object[]} fleetCharData  시나리오별 fleetCharacterData
- * @returns {{ data: object[] }|{ error: string }}
  */
 export function fncGetFleetChars(fltCode, fleetCharData = []) {
   if (!fltCode) return { error: '함대 코드 없음' }
-
   const members = fleetCharData.filter(f => f.fltCode === fltCode)
   if (!members.length) return { data: [] }
-
-  const data = members.map(m => ({
-    ...m,
-    charInfo: CHAR_BASE_MAP[m.charCode] ?? null,
-  }))
-
-  return { data }
+  return {
+    data: members.map(m => ({
+      ...m,
+      charInfo: CHAR_BASE_MAP[m.charCode] ?? null,
+    })),
+  }
 }
 
 /**
  * fncGetCharFleet(charCode, fleetCharData)
  * 인물이 속한 함대 코드 반환.
- *
- * @param {string}   charCode       인물 코드
- * @param {object[]} fleetCharData  시나리오별 fleetCharacterData
- * @returns {{ data: object }|{ error: string }}
  */
 export function fncGetCharFleet(charCode, fleetCharData = []) {
   const entry = fleetCharData.find(f => f.charCode === charCode)
   if (!entry) return { error: `함대 미배속: ${charCode}` }
-
   return { data: { ...entry } }
 }
 
@@ -189,115 +216,62 @@ export function fncGetCharFleet(charCode, fleetCharData = []) {
 /**
  * fncGetJobInfo(jobCode)
  * 직업 마스터 데이터 반환.
- *
- * @param {string} jobCode  직업 코드 (예: 'JB_M001')
- * @returns {{ data: object }|{ error: string }}
  */
 export function fncGetJobInfo(jobCode) {
-  const job = JOB_DATA.find(j => j.id === jobCode)
+  const job = JOB_MAP[jobCode] ?? null
   if (!job) return { error: `직업 코드 없음: ${jobCode}` }
-
   return { data: { ...job } }
 }
 
 /**
  * fncGetTraitInfo(traitCode)
  * 트레잇 마스터 데이터 반환.
- *
- * @param {string} traitCode  트레잇 코드 (예: 'TRC_U_000064')
- * @returns {{ data: object }|{ error: string }}
  */
 export function fncGetTraitInfo(traitCode) {
-  const trait = CHAR_TRAITS_MASTER.find(t => t.id === traitCode)
+  const trait = CHAR_TRAIT_MAP[traitCode] ?? null
   if (!trait) return { error: `트레잇 코드 없음: ${traitCode}` }
-
   return { data: { ...trait } }
-}
-
-// ================================================================
-//  거버넌스
-// ================================================================
-
-/**
- * fncGetDecisionChain(factionCode, actionType)
- * 의사결정 결재 체인 반환.
- * agendaData.js의 APPROVAL_CHAINS 기반.
- *
- * @param {string} factionCode  세력 코드 (예: 'FPA', 'REH', 'PZN')
- * @param {string} actionType   행동 타입 (예: 'war_declare', 'fleet_deploy')
- * @returns {{ data: { chain: string[], jobInfos: object[] } }|{ error: string }}
- *
- * TODO: agendaData.js import 필요
- */
-export function fncGetDecisionChain(factionCode, actionType) {
-  // TODO: import { APPROVAL_CHAINS } from '@/data/base/agenda/agendaData'
-  // const chains = APPROVAL_CHAINS[factionCode]
-  // if (!chains) return { error: `세력 결재 체인 없음: ${factionCode}` }
-  // const chain = chains[actionType] ?? chains['default'] ?? []
-  // const jobInfos = chain.map(jobCode => JOB_DATA.find(j => j.id === jobCode) ?? { id: jobCode })
-  // return { data: { chain, jobInfos } }
-
-  return { error: 'TODO: agendaData import 필요' }
 }
 
 // ================================================================
 //  친밀도 계산
 // ================================================================
 
+// friend는 0~299 원형 좌표계. 299 다음은 0으로 순환.
+const FRIEND_RANGE = 300
+
+const FRIENDSHIP_GRADES = [
+  { max:  20, grade: 'close',   labelKr: '친밀', labelEn: 'Close'    },
+  { max:  40, grade: 'friendly',labelKr: '우호', labelEn: 'Friendly' },
+  { max:  60, grade: 'neutral', labelKr: '보통', labelEn: 'Neutral'  },
+  { max:  80, grade: 'distant', labelKr: '소원함',labelEn: 'Distant' },
+  { max: 100, grade: 'hostile', labelKr: '상극', labelEn: 'Hostile'  },
+  { max: Infinity, grade: 'disgust', labelKr: '혐오', labelEn: 'Disgust' },
+]
+
+function getCircularDiff(a, b) {
+  const diff = Math.abs(a - b)
+  return Math.min(diff, FRIEND_RANGE - diff)
+}
+
 /**
  * fncGetFriendship(charCodeA, charCodeB)
- * 두 인물 간 friend 좌표의 원형(순환) 거리를 계산하고 관계 등급을 반환.
- *
- * friend는 0~299의 원형 좌표계이다 (299 다음은 0으로 순환).
- * 따라서 단순 절대값 차이가 아니라, 원을 양방향으로 돌았을 때 더 짧은 쪽
- * 거리(getCircularDiff)로 관계의 가까움/멈을 판정한다.
- *
- * @param {string} charCodeA  인물 A 코드
- * @param {string} charCodeB  인물 B 코드
- * @returns {{
- *   data: {
- *     charCodeA: string,
- *     charCodeB: string,
- *     friendA:   number,
- *     friendB:   number,
- *     diff:      number,   // 원형 순환거리 (0~150)
- *     grade:     string,
- *     labelKr:   string,
- *     labelEn:   string,
- *   }
- * }|{ error: string }}
- *
- * @example
- * fncGetFriendship('CH_000064', 'CH_000388')
- * // → { data: { diff: 2, grade: 'close', labelKr: '절친', ... } }
- *
- * fncGetFriendship('CH_000064', 'CH_000306')
- * // 라인하르트(150) vs 브라운슈바이크(50) → 순환거리 100 → 상극
+ * 두 인물 간 friend 원형 거리 계산 및 관계 등급 반환.
  */
 export function fncGetFriendship(charCodeA, charCodeB) {
   const charA = CHAR_BASE_MAP[charCodeA]
   const charB = CHAR_BASE_MAP[charCodeB]
-
   if (!charA) return { error: `인물 코드 없음: ${charCodeA}` }
   if (!charB) return { error: `인물 코드 없음: ${charCodeB}` }
 
   const friendA = Number(charA.friend) || 0
   const friendB = Number(charB.friend) || 0
   const diff    = getCircularDiff(friendA, friendB)
-
-  const grade = FRIENDSHIP_GRADES.find(g => diff <= g.max)
+  const grade   = FRIENDSHIP_GRADES.find(g => diff <= g.max)
 
   return {
-    data: {
-      charCodeA,
-      charCodeB,
-      friendA,
-      friendB,
-      diff,
-      grade:   grade.grade,
-      labelKr: grade.labelKr,
-      labelEn: grade.labelEn,
-    },
+    data: { charCodeA, charCodeB, friendA, friendB, diff,
+            grade: grade.grade, labelKr: grade.labelKr, labelEn: grade.labelEn },
   }
 }
 
@@ -307,30 +281,17 @@ export function fncGetFriendship(charCodeA, charCodeB) {
 
 /**
  * fncGetCharClique(charCode, cliqueData)
- * 인물이 소속된 클리크(국가 내부 파벌) 정보를 반환.
- * 한 인물은 최대 1개 클리크에만 소속된다고 가정.
- *
- * @param {string}   charCode    인물 코드
- * @param {object[]} cliqueData  시나리오별 CLIQUE_DATA (예: src/data/scenario/SE796/0211/010/cliqueData.js)
- * @returns {{ data: object }|{ error: string }}
- *
- * TODO: cliqueData는 현재 시나리오별 파일에서 직접 import해 인자로 넘겨야 함.
- *       base 레이어에 통합 CLIQUE_MAP이 생기면 인자 없이 바로 조회하도록 변경 검토.
- *
- * @example
- * fncGetCharClique('CH_000064', CLIQUE_DATA)
- * // → { data: { id: 'CLQ_REH_004', name: '로엔그람 지지파', isLeader: true, ... } }
+ * 인물이 소속된 클리크 정보 반환.
+ * cliqueData는 시나리오별 파일에서 인자로 전달.
  */
 export function fncGetCharClique(charCode, cliqueData = []) {
   if (!charCode) return { error: '인물 코드 없음' }
-
   const clique = cliqueData.find(c => c.members.includes(charCode))
   if (!clique) return { error: `소속 클리크 없음: ${charCode}` }
-
   return {
     data: {
       ...clique,
-      isLeader:  clique.leader === charCode,
+      isLeader:  clique.leader  === charCode,
       isFounder: clique.founder === charCode,
     },
   }
@@ -338,22 +299,30 @@ export function fncGetCharClique(charCode, cliqueData = []) {
 
 /**
  * fncGetCliqueMembers(cliqueId, cliqueData)
- * 클리크 ID로 소속 인물 전체 목록(인물 기본정보 포함) 반환.
- *
- * @param {string}   cliqueId    클리크 코드 (예: 'CLQ_REH_004')
- * @param {object[]} cliqueData  시나리오별 CLIQUE_DATA
- * @returns {{ data: object[] }|{ error: string }}
+ * 클리크 소속 인물 전체 목록(인물 기본정보 포함) 반환.
  */
 export function fncGetCliqueMembers(cliqueId, cliqueData = []) {
   const clique = cliqueData.find(c => c.id === cliqueId)
   if (!clique) return { error: `클리크 코드 없음: ${cliqueId}` }
+  return {
+    data: clique.members.map(charCode => ({
+      charCode,
+      charInfo:  CHAR_BASE_MAP[charCode] ?? null,
+      isLeader:  clique.leader  === charCode,
+      isFounder: clique.founder === charCode,
+    })),
+  }
+}
 
-  const data = clique.members.map(charCode => ({
-    charCode,
-    charInfo: CHAR_BASE_MAP[charCode] ?? null,
-    isLeader: clique.leader === charCode,
-    isFounder: clique.founder === charCode,
-  }))
+// ================================================================
+//  거버넌스
+// ================================================================
 
-  return { data }
+/**
+ * fncGetDecisionChain(factionCode, actionType)
+ * 의사결정 결재 체인 반환.
+ * TODO: agendaData.js import 필요
+ */
+export function fncGetDecisionChain(factionCode, actionType) {
+  return { error: 'TODO: agendaData import 필요' }
 }
