@@ -27,10 +27,6 @@
 // TODO가 붙은 내역은 확인 후 삭제해도 됨.
 
 /**
- * @DONE 2026.06.25
- * name|nick|desc구조 개편 완료
- *  name : [{code : `Kr` context : `D. 싱클레어`}...]
- *  만들 때, context가 빈 값이면 현재 js화면에선 굳이 구현할 필요가 없음.
  * searchKeys 로직 체크
  *  : searchKeys는 개편된 name의 Kr, En, Jp를 merge후, string을 ' ', '・'으로 split하여 처리하는 것이 맞는지? 아니라면 해당 로직으로 수정하는 것이 맞는 것 같음
  */
@@ -76,8 +72,8 @@ export const CHAR_BASE = [
     point: "150",
     desc: [{ code: "Kr", context: "명망높은 역사가이자 역사 다큐멘터리 해설가. 언변이 좋아 대중들로부터 많은 사랑을 받고 있다." }],
     // — 직업
-    // 시민(JB_C001) LV4 (효과 없음. 이후 정치인으로 전직시 LV, EXP에 따라 명성 개념으로 활용됨)
-    // 학자(JB_C003) LV2
+    // 시민(JB_C001) LV0
+    // 학자(JB_C003) LV0
     // — 트레잇
   },
   // E.J. 맥켄지
@@ -119,6 +115,8 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "150",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // J. 깁슨
   {
@@ -159,6 +157,8 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -208,6 +208,9 @@ export const CHAR_BASE = [
       { code: "En", context: "After the death of the real Grand Bishop, Archbishop De Villie, fearing the loss of the Church's influence, brainwashed a delusional man to take his place as a figurehead. With virtually no sense of self left, the impostor serves purely as a religious symbol while De Villie wields all real authority over the Church." },
       { code: "Jp", context: "本物の総大主教の死後、その影響力の喪失を恐れた副主教ドゥ・ヴィリエが洗脳して立てた替え玉。妄想に取り憑かれた精神異常者で自我はほとんど残っておらず、教団の実質的な運営はすべてドゥ・ヴィリエが握っている。宗教的象徴としてのみ機能する。" },
     ],
+    // — 직업
+    // — 트레잇
+    // 우주의 장막(TRC_U_000004) LV0
   },
   {
     // — 기본
@@ -247,6 +250,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 겔라흐 Gerlach/Gerlache ・ ゲルラッハ
   {
@@ -292,6 +297,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Imperial Minister of Finance under Kaiser Friedrich IV. A Viscount and member of the court cabinet. He was replaced by Eugen Richter following the fall of the Goldenbaum Dynasty." },
       { code: "Jp", context: "フリードリヒ4世治下の帝国財務尚書。子爵貴族出身で宮廷内閣の一員。ゴールデンバウム王朝崩壊後にオイゲン・リヒターに交代させられた。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -330,6 +337,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "-",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -368,6 +377,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "100",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -404,6 +415,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "X",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -440,6 +453,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -471,6 +486,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "X",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -501,6 +518,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -531,6 +550,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -567,6 +588,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -606,6 +629,8 @@ export const CHAR_BASE = [
     loc: "230058P01", // 오딘
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -637,6 +662,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -680,6 +707,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Space Fleet Commander in Chief under Kaiser Friedrich IV, the most senior of the three Imperial military chiefs with actual field command authority. He viewed Reinhard von Lohengramm's rise with wariness but was powerless to stop it. Forced into retirement following the Lippstadt Rebellion." },
       { code: "Jp", context: "フリードリヒ4世治下の宇宙艦隊司令長官。三長官の中で実質的な軍事指揮権を持つ最高位職。ラインハルト・フォン・ミューゼルの台頭を警戒したが阻めなかった。リップシュタット叛乱後に強制退役した。" },
     ],
+    // — 직업
+    // 우주함대사령장관(JB_R006) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -718,6 +748,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -754,6 +786,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -792,6 +826,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -823,6 +859,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -860,6 +898,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -891,6 +931,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -925,6 +967,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -956,6 +1000,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -995,6 +1041,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1026,6 +1074,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1057,6 +1107,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1088,6 +1140,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1127,6 +1181,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1161,6 +1217,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1213,6 +1271,11 @@ export const CHAR_BASE = [
       { code: "En", context: "The youngest admiral in Lohengramm's admiralty. True to his nickname \"Iron Wall Müller,\" he is a well-rounded commander with outstanding defensive ability and calm judgment. Renowned for saving Reinhard from destruction at the Battle of Vermilion, he also frequently served as Reinhard's envoy to Yang Wen-li's faction." },
       { code: "Jp", context: "ローエングラム提督団最年少の提督。「鉄壁ミュラー」の異名通り、優れた防御能力と冷静な判断力を兼ね備えたバランス型指揮官。バーミリオン星域会戦でラインハルトを危機から救ったことで知られ、ヤン・ウェンリー陣営との交渉役も度々務めた。" },
     ],
+    // — 직업
+    // 평민(JB_N007) LV0
+    // 준장(JB_MR006) LV0
+    // — 트레잇
+    // 철벽(TRC_U_000032) LV0
   },
   {
     // — 기본
@@ -1251,6 +1314,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1289,6 +1354,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1320,6 +1387,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1351,6 +1420,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1389,6 +1460,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1420,6 +1493,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1458,6 +1533,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1489,6 +1566,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1527,6 +1606,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1558,6 +1639,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 더스티 아텐보로 Dusty Attenborough · ダスティ·アッテンボロー
   {
@@ -1598,6 +1681,9 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [{ code: "Kr", context: "자유행성동맹 소속의 군인. \n    재치와 과단성을 자랑하는 명장으로 빠른 기동력을 앞세운 허를 찌르는 날카로운 공격이 주특기.\n    사회에 대한 불평불만이 많고 독설가이며 전쟁을 싫어하지만 뛰어난 재능을 가지고 있다." }],
+    // — 직업
+    // — 트레잇
+    // 허허실실의 귀재(TRC_U_000043) LV0
   },
   {
     // — 기본
@@ -1636,6 +1722,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1675,6 +1763,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1714,6 +1804,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1757,6 +1849,8 @@ export const CHAR_BASE = [
       { code: "En", context: "A Fezzani singer and dancer and the long-time companion of Adrian Rubinsky. She witnessed his ambitions and schemes at close range, and was arrested as an accomplice following the fall of Fezzan." },
       { code: "Jp", context: "ペザンの歌手兼ダンサー。アドリアン・ルビンスキーの長年の恋人。ルビンスキーの野望と謀略を間近で見届けた人物で、ペザン崩壊とともに共犯者として逮捕された。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1794,6 +1888,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1825,6 +1921,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1856,6 +1954,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1905,6 +2005,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Archbishop and de facto ruler of the Terraist Church. Unlike the Grand Bishop, he holds no genuine faith in Terraist doctrine and is driven purely by a hunger for power. He concealed the Grand Bishop's death and installed a brainwashed impostor in his place to seize control of the Church, and orchestrates covert operations deeply embedded within both the Empire and the Alliance to keep the war between them burning." },
       { code: "Jp", context: "地球教の副主教であり実質的な実権者。テライズムの教義を信じておらず、ただ権力そのものを追い求める冷徹な策謀家である。総大主教の死を隠蔽し洗脳した替え玉を立てて教団を掌握し、帝国・同盟両国内部に深く浸透して戦争を煽る工作を主導する。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1936,6 +2038,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1967,6 +2071,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -1998,6 +2104,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // D.그린힐
   {
@@ -2042,6 +2150,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Deputy Chief of the Free Planets Alliance Joint Operations Headquarters and father of Frederica Greenhill. An administrative admiral with outstanding operational and intelligence abilities, and exceptional aptitude for political maneuvering." },
       { code: "Jp", context: "自由惑星同盟統合作戦本部副本部長。フレデリカ・グリーンヒルの父。優れた運営・情報能力を持つ行政型提督で、政治工作にも卓越した才能を発揮する。" },
     ],
+    // — 직업
+    // 각료(JB_F003) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -2073,6 +2184,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2104,6 +2217,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2135,6 +2250,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2166,6 +2283,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 라오 Lao ラオ
   {
@@ -2206,6 +2325,9 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [{ code: "Kr", context: "자유행성동맹 소속의 군인" }],
+    // — 직업
+    // — 트레잇
+    // 충실한 보좌관(TRC_G_003) LV0
   },
   // 라우디츠 Rauditz · ラウヂィッツ
   {
@@ -2242,6 +2364,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2273,6 +2397,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2304,6 +2430,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // Reinhard von Lohengramm · ラインハルト・フォン・ローエングラム
   {
@@ -2348,6 +2476,11 @@ export const CHAR_BASE = [
       { code: "En", context: "Military genius of the Galactic Empire. Driven by rage over his sister Annerose being taken as the Emperor's concubine, he harbors ambitions to reach the pinnacle of the empire." },
       { code: "Jp", context: "銀河帝国の軍事天才。姉アンネローゼが皇帝の後宮に召し上げられたことへの憤りを胸に、帝国の頂点へと野望を燃やす" },
     ],
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 상급대장(JB_MR002) LV0
+    // 백작(JB_N003) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -2391,6 +2524,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Supreme Commander of the Free Planets Star Fleet. He approved Andrew Falk's invasion plan and assumed command of the expeditionary force, but proved incapable by refusing retreat orders even as the supply crisis deepened. He bears ultimate responsibility for the catastrophic defeat at the Battle of Amritsar." },
       { code: "Jp", context: "自由惑星同盟宇宙艦隊総司令官。アンドリュー・フォークの帝国侵攻計画を承認し遠征軍最高司令官を務めたが、補給危機の中でも撤退命令を拒否する無能さを露呈した。アムリッツァ星域会戦大敗の最高責任者。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2422,6 +2557,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2453,6 +2590,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2484,6 +2623,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2515,6 +2656,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2546,6 +2689,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2577,6 +2722,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2608,6 +2755,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2639,6 +2788,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2670,6 +2821,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2701,6 +2854,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2732,6 +2887,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2763,6 +2920,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2794,6 +2953,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2825,6 +2986,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2876,6 +3039,8 @@ export const CHAR_BASE = [
       { code: "En", context: "(OVA-original character) A politician of the Trünicht faction who ran in the Terneuzen by-election. After his original opponent James Sondheik was killed in a bombing of the anti-war citizens' coalition campaign office, he lost the race to Sondheik's replacement, Jessica Edwards." },
       { code: "Jp", context: "（OVAオリジナルキャラクター）トリューニヒト派の政治家。テルヌーゼン補欠選挙に出馬した。反戦市民連合選挙事務所爆破テロで対立候補のジェームズ・ソーンダイクが死亡すると、その後を継いで出馬したジェシカ・エドワーズに敗れた。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2907,6 +3072,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -2950,6 +3117,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Supreme Chairman of the Free Planets Alliance High Council. He approved the invasion of Imperial territory in a bid to reverse flagging approval ratings, and resigned along with the entire cabinet following the catastrophic defeat." },
       { code: "Jp", context: "自由惑星同盟最高評議会議長。支持率挽回のために帝国領侵攻作戦を承認した人物。惨敗の責任を取り内閣全員とともに辞任した。" },
     ],
+    // — 직업
+    // 최고평의회의장(JB_F001) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -2981,6 +3151,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3012,6 +3184,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3043,6 +3217,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3085,6 +3261,9 @@ export const CHAR_BASE = [
       { code: "En", context: "A member of the Trünicht faction who participated in the inquiry committee as an examiner. Following the Battle of Mar-Adetta, he murdered João Rebelo for his own self-preservation and sought out Reinhard von Lohengramm, but was branded a \"shameless, two-legged hyena\" and executed." },
       { code: "Jp", context: "トリューニヒト派の一員として査問会に査問委員として参加した。マル・アデッタ星域会戦後、自己保身のためジョアン・レベロを殺害してラインハルトのもとを訪ねたが、「恥知らずな二足歩行のハイエナ」と一蹴され処刑された。" },
     ],
+    // — 직업
+    // — 트레잇
+    // 이족보행 하이에나(TRC_U_000086) LV0
   },
   {
     // — 기본
@@ -3116,6 +3295,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3147,6 +3328,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3178,6 +3361,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3209,6 +3394,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3240,6 +3427,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3271,6 +3460,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3314,6 +3505,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Illegitimate son and secretary of Adrian Rubinsky. A highly ambitious Machiavellian who executed his father's political schemes while secretly plotting to overthrow him and seize the position of Landesherr. His ambitions were fully known to Rubinsky, who had him killed on the night of the Imperial invasion of Fezzan." },
       { code: "Jp", context: "アドリアン・ルビンスキーの庶子にして秘書。父の政治的陰謀を実行する野心的なマキャベリスト。内心ではルビンスキーを追い落とし自治領主の座を狙っていたが、ルビンスキーに看破され帝国のペザン侵攻当夜に殺害された。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3345,6 +3538,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3376,6 +3571,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3407,6 +3604,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3438,6 +3637,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3469,6 +3670,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3500,6 +3703,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3531,6 +3736,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3562,6 +3769,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3605,6 +3814,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Imperial Minister of Finance, succeeding Gerlach after the fall of the Goldenbaum Dynasty under the Lohengramm administration." },
       { code: "Jp", context: "ゲルラッハの後任の帝国財務尚書。ゴールデンバウム王朝崩壊後、ローエングラム体制で財務尚書職を引き継いだ。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3636,6 +3847,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3667,6 +3880,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3698,6 +3913,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3729,6 +3946,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3760,6 +3979,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3791,6 +4012,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3822,6 +4045,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3853,6 +4078,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3884,6 +4111,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3915,6 +4144,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3946,6 +4177,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -3977,6 +4210,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4008,6 +4243,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4039,6 +4276,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4070,6 +4309,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4101,6 +4342,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4132,6 +4375,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4163,6 +4408,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4194,6 +4441,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4225,6 +4474,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4256,6 +4507,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4287,6 +4540,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4318,6 +4573,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4349,6 +4606,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4380,6 +4639,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4411,6 +4672,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4442,6 +4705,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4473,6 +4738,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4504,6 +4771,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4535,6 +4804,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4566,6 +4837,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4597,6 +4870,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4628,6 +4903,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4659,6 +4936,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4690,6 +4969,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4721,6 +5002,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 무어 Moore · ムーア
   {
@@ -4761,6 +5044,13 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [{ code: "Kr", context: "자유행성동맹 소속의 사령관. 호탕하고 거친 성격으로 유명하다.\n    참모의 조언을 무시하는 독단적 성격도 있지만, 엄격한 군율을 세우는데 능해 뛰어난 사령관 중 하나로 평가받고 있다." }],
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 중장(JB_MR004) LV0
+    // — 트레잇
+    // 독불장군(TRC_U_000139) LV0
+    // 독선(TRC_G_004) LV0
+    // 엄격한 군율(TRC_G_005) LV0
   },
   {
     // — 기본
@@ -4792,6 +5082,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4823,6 +5115,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4854,6 +5148,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4885,6 +5181,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4916,6 +5214,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4947,6 +5247,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -4978,6 +5280,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5009,6 +5313,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5052,6 +5358,8 @@ export const CHAR_BASE = [
       { code: "En", context: "A former Alliance intelligence officer who participated in the National Salvation Military Council coup, then defected to Yang Wen-li's side and made a public broadcast exposing the Empire's covert involvement behind the coup. He subsequently served as an intelligence officer for Yang's fleet, including the operation to retake Iserlohn." },
       { code: "Jp", context: "同盟情報部出身の将校。国家救済軍クーデターに加担した後、ヤン・ウェンリーの説得で帰順し、クーデターの帝国関与を暴露する放送を敢行した。以後ヤン艦隊の情報将校として活動し、イゼルローン奪還作戦にも参加した。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5083,6 +5391,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5114,6 +5424,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5145,6 +5457,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5176,6 +5490,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5207,6 +5523,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5238,6 +5556,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5269,6 +5589,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5312,6 +5634,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Commander of the Rosen Ritter. The Alliance's foremost ground warfare specialist, leading a regiment of Imperial exile descendants. His exceptional swordsmanship and close-combat ability made him the linchpin of numerous operations including the capture of Iserlohn Fortress. Notorious as a womaniser, he is the biological father of Katerose von Kreutzer." },
       { code: "Jp", context: "ローゼンリッター連隊長。帝国貴族出身の亡命者集団ローゼンリッターを率いる同盟最強の陸戦専門家。優れた剣術と格闘能力でイゼルローン要塞占領をはじめ数多くの作戦の中核を担った。プレイボーイとして有名で、カーテローゼ・フォン・クロイツェルの実父である。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5343,6 +5667,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5374,6 +5700,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5405,6 +5733,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5436,6 +5766,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5467,6 +5799,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5498,6 +5832,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5529,6 +5865,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5560,6 +5898,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5591,6 +5931,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5622,6 +5964,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5653,6 +5997,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5684,6 +6030,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5715,6 +6063,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5746,6 +6096,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5777,6 +6129,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5808,6 +6162,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5850,6 +6206,8 @@ export const CHAR_BASE = [
       { code: "En", context: "One of the most formidable admirals under Reinhard von Lohengramm. Known as the \"Gale Wolf\" for his overwhelming speed and mobility in battle, he forms the \"Twin Pillars\" together with Reuenthal. A man of strong moral conviction, he stands firm against the corruption of the Imperial aristocracy despite his commoner birth." },
       { code: "Jp", context: "ラインハルト・フォン・ミューゼル麾下の帝国軍最強の提督の一人。「疾風ウォルフ」の異名通り、圧倒的な機動力で戦場を席巻し、ロイエンタールとともに「双璧」と称される。平民出身ながら貴族社会の理不尽に真っ向から立ち向かう、強固な道徳観念の持ち主。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5884,6 +6242,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5915,6 +6275,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5946,6 +6308,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -5977,6 +6341,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6008,6 +6374,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6039,6 +6407,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6070,6 +6440,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6101,6 +6473,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6132,6 +6506,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6163,6 +6539,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6194,6 +6572,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6225,6 +6605,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6256,6 +6638,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6287,6 +6671,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6318,6 +6704,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6349,6 +6737,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6380,6 +6770,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6411,6 +6803,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6442,6 +6836,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6473,6 +6869,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6504,6 +6902,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 빌리바르트 요아힘 폰 메르카츠 WilIibard Joachim von Merkatz · ウィリバルト・ヨアヒム・フォン・メルカッツ
   {
@@ -6544,6 +6944,11 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [{ code: "Kr", context: "은하제국이 자랑하는 노련한 명장.\n    말단 하급 귀족 출신이지만, 수십 년의 실전 경험을 보유한 뛰어난 지휘관으로, 견실하고 허점없이 합리적인 군사운용으로 유명하다.\n    다만, 고지식하고 융통성이 없는 성격 탓에 정치나 모략에는 서툰 편." }],
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 상급대장(JB_MR002) LV0
+    // — 트레잇
+    // 노장의 진수(TRC_U_000195) LV0
   },
   {
     // — 기본
@@ -6575,6 +6980,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6606,6 +7013,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6650,6 +7059,8 @@ export const CHAR_BASE = [
       { code: "En", context: "An Imperial Marquis and son-in-law of Kaiser Friedrich IV, he co-led the Lippstadt Alliance alongside Duke Braunschweig in an attempt to place his daughter Sabine on the throne. Lacking any real martial talent, he was defeated by Siegfried Kircheis and was killed by a suicide attack from one of his own resentful subordinates." },
       { code: "Jp", context: "ゴールデンバウム王朝の有力門閥貴族侯爵。皇帝フリードリヒ4世の義息子で、娘ザービネの皇位継承を目指しブラウンシュヴァイクとともにリップシュタット同盟を率いた。実質的な軍事的才能を持たずキルヒアイスに敗北し、部下の自爆テロで死亡した。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6693,6 +7104,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Father of Gregor von Mückenberger. Deceased prior to the events of the story and does not appear directly." },
       { code: "Jp", context: "グレゴール・フォン・ミュッケンベルガーの父。作中ではすでに死亡しており、直接登場しない。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6724,6 +7137,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6755,6 +7170,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6798,6 +7215,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Daughter of Marquis Wilhelm von Littenheim. Put forward as a claimant to the throne after Kaiser Friedrich IV's death but passed over in favour of Erwin Josef II. Her fate following the Lippstadt Rebellion is unknown." },
       { code: "Jp", context: "ヴィルヘルム・フォン・リッテンハイムの娘。フリードリヒ4世崩御後に皇位継承候補として擁立されたがエルウィン・ヨーゼフ2世に皇位を奪われた。リップシュタット内乱後は行方不明。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6829,6 +7248,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6860,6 +7281,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6891,6 +7314,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6922,6 +7347,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6953,6 +7380,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -6984,6 +7413,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7015,6 +7446,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7046,6 +7479,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7077,6 +7512,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7108,6 +7545,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7139,6 +7578,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7170,6 +7611,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7201,6 +7644,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7232,6 +7677,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7263,6 +7710,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7294,6 +7743,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7325,6 +7776,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7356,6 +7809,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7387,6 +7842,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7418,6 +7875,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 슈타덴 Staaden ・ シュターデン
   {
@@ -7458,6 +7917,14 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 중장(JB_MR004) LV0
+    // 남작(JB_N005) LV0
+    // — 트레잇
+    // 이론무쌍(TRC_U_000223) LV0
+    // 현실부정(TRC_G_001) LV0
+    // 위경련(TRC_S_001) LV0
   },
   {
     // — 기본
@@ -7501,6 +7968,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Chief of the Supreme Command Headquarters and one of the three Imperial military chiefs of staff under Kaiser Friedrich IV. A bureaucratic general specialising in military administration, he was forced into retirement following the Lippstadt Rebellion." },
       { code: "Jp", context: "フリードリヒ4世治下の帝国軍三長官の一人、統帥本部総長。軍事行政に特化した官僚型将帥で、リップシュタット叛乱後に強制退役した。" },
     ],
+    // — 직업
+    // 통수본부총장(JB_R007) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -7532,6 +8002,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7563,6 +8035,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7594,6 +8068,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7625,6 +8101,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7656,6 +8134,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7699,6 +8179,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Chief of the Free Planets Alliance Joint Operations Headquarters. The admiral who came closest to taking Iserlohn Fortress by force with his \"parallel pursuit\" tactic in the Fifth Battle of Iserlohn, and the mentor figure who supported Yang Wen-li throughout his career despite political pressures and institutional contradictions." },
       { code: "Jp", context: "自由惑星同盟統合作戦本部長。第5次イゼルローン攻防戦で「平行追撃」戦術によりイゼルローン要塞に最も迫った提督であり、ヤン・ウェンリーの後援者。政治的圧力と軍内部の矛盾の中でも原則を守りヤンを支援し続けた。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7733,6 +8215,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7764,6 +8248,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 아달베르트 폰 파렌하이트 Adalbert von Fahrenheit ·アーダルベルト・フォン・ファーレンハイト
   {
@@ -7804,6 +8290,11 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [{ code: "Kr", context: "가난한 하급 귀족 출신이나 무수한 실전에서 화려한 공적을 쌓아 31세에 소장이 된 장성." }],
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 대장(JB_MR003) LV0
+    // — 트레잇
+    // 돌격본능(TRC_U_000233) LV0
   },
   {
     // — 기본
@@ -7847,6 +8338,8 @@ export const CHAR_BASE = [
       { code: "En", context: "The fifth Landesherr of the Dominion of Fezzan, nicknamed the \"Black Fox of Fezzan.\" A consummate schemer who manipulated both the Empire and the Alliance while dreaming of Fezzan's financial domination of the galaxy. Deeply entangled with the Terraist Church, he was the shadow power behind galactic politics." },
       { code: "Jp", context: "ペザン自治領第5代自治領主。「ペザンの黒狐」と称される策謀家で、帝国と同盟の両方を操りながらペザンの金融支配を夢見た。地球教とも深く関わり、銀河政治の黒幕的存在。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7878,6 +8371,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7909,6 +8404,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7940,6 +8437,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -7971,6 +8470,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8002,6 +8503,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8033,6 +8536,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8076,6 +8581,8 @@ export const CHAR_BASE = [
       { code: "En", context: "A well-rounded admiral in Reinhard's admiralty. He lost his left arm to a poisoned knife during the assault on Terra and replaced it with a prosthetic. Known for his loyal and steady command, he is a trusted senior officer within the Imperial Fleet." },
       { code: "Jp", context: "ラインハルト提督団のバランス型提督。テラ攻略中にテロリストの毒針で左腕を失い義手を装着した。忠実で安定した指揮により帝国軍内で信頼される中堅提督である。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8107,6 +8614,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8138,6 +8647,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8169,6 +8680,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8226,6 +8739,10 @@ export const CHAR_BASE = [
       { code: "En", context: "The elder sister of Reinhard von Lohengramm. Taken as a consort by Kaiser Friedrich IV, her fate became the catalyst for Reinhard's ambitions. She lives quietly apart from politics and war, yet remains the most precious person in Reinhard's life." },
       { code: "Jp", context: "ラインハルト・フォン・ミューゼルの姉。フリードリヒ4世の後宮に召し上げられ、弟の野望を触発した人物。政治や戦争とは距離を置き静かに暮らすが、ラインハルトにとって最も大切な存在である。" },
     ],
+    // — 직업
+    // 백작(JB_N003) LV0
+    // — 트레잇
+    // 영원한 안식처(TRC_U_000245) LV0
   },
   {
     // — 기본
@@ -8257,6 +8774,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8300,6 +8819,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Aide to Duke Otto von Braunschweig. A man of strong loyalty to his lord, he was imprisoned after vocally opposing Braunschweig's decision to use nuclear weapons on Westerland. Ultimately disillusioned by his lord's cowardice, he personally administered the poison that killed Braunschweig." },
       { code: "Jp", context: "オットー・フォン・ブラウンシュヴァイク公爵の副官。主君への忠誠心は強いが、ウェスターランドへの核爆撃決定に強く反対し投獄された。最終的に主君の臆病な行動に幻滅し、自ら毒を盛ってブラウンシュヴァイクを殺害した。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   // https://gineipaedia.com/wiki/Antonel_Yanosher
   {
@@ -8336,6 +8857,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Legendary scientist who discovered and developed Warp technology. Leading the Ministry of Space research team, he made interstellar warp navigation practical — an achievement that laid the foundation for all of humanity's expansion into the galaxy." },
       { code: "Jp", context: "ワープ技術を発見・開発した伝説的な科学者。宇宙省の研究チームを率いて恒星間ワープ航法を実用化し、その功績は後に人類の銀河進出を可能にした礎となった。" },
     ],
+    // — 직업
+    // 학자(JB_C003) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -8367,6 +8891,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8410,6 +8936,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Inspector General of the Imperial Science and Technology Division, holding doctoral degrees in both engineering and philosophy. Acting under covert direction from Fezzan, he devised and implemented the plan to mobilise Geiersburg Fortress, triggering the Eighth Battle of Iserlohn. After the Imperial defeat, Rubinsky had evidence of his crimes handed over to the Empire and he was arrested on charges of corruption, embezzlement, and betrayal of military secrets." },
       { code: "Jp", context: "工学・哲学の博士号を持つ帝国科学技術監察総監。ペザンの指示のもとでガイエスブルク要塞機動化計画を立案・実行し第8次イゼルローン攻防戦を引き起こした。敗戦後、ルビンスキーの命で証拠が帝国に渡され、腐敗・横領・軍事機密漏洩の容疑で逮捕された。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8444,6 +8972,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // https://gineipaedia.com/wiki/Arle_Heinessen
   {
@@ -8480,6 +9010,9 @@ export const CHAR_BASE = [
       { code: "En", context: "The spiritual forefather of the Free Planets Alliance. Born a serf on the Imperial planet Altair VII, he engineered a fleet of massive dry-ice ships, led 400,000 people through the Iserlohn Corridor, and planted the seeds of a free republic at the galaxy's edge. He died during the passage, but his name lives on in the planet Heinessen and the Alliance itself." },
       { code: "Jp", context: "自由惑星同盟の精神的な始祖。銀河帝国の惑星アルタイルⅦで農奴として生まれ、自ら設計した巨大なドライアイス製宇宙船で40万人の同胞を率いてイゼルローン回廊を突破し、銀河の果てに自由な共和国の種をまいた。回廊通過中に死亡したが、その名は惑星ハイネセンと同盟そのものに永遠に刻まれている。" },
     ],
+    // — 직업
+    // 시민(JB_C001) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -8511,6 +9044,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8554,6 +9089,8 @@ export const CHAR_BASE = [
       { code: "En", context: "The Alliance's greatest veteran admiral. Enlisting as a common soldier and rising to Fleet Admiral through decades of combat, he earned the respect of Yang Wen-li and all Alliance officers through his battlefield experience and uncompromising integrity. He died leading a last stand after defeat at the Battle of Rantemario." },
       { code: "Jp", context: "自由惑星同盟最高の老将。一兵卒として入隊し元帥にまで上り詰めた立志伝中の人物で、数十年の実戦経験と剛直な人品によりヤン・ウェンリーをはじめ同盟将校たちから尊敬された。ランテマリオ星域会戦で敗北後、最後の抵抗を率いて戦死した。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8597,6 +9134,8 @@ export const CHAR_BASE = [
       { code: "En", context: "The Free Planets Alliance's foremost logistics and administrative specialist. A close friend of Yang Wen-li and the key staff officer responsible for the 13th Fleet's rear operations. A genius in supply and logistics rather than combat, he was also the one who assigned Julian Mintz to Yang Wen-li." },
       { code: "Jp", context: "自由惑星同盟最高の補給・行政の専門家。ヤン・ウェンリーの親友にして第13艦隊の後方を担う中核参謀。戦闘よりも物資調達と兵站運営に天才的な才能を発揮し、ユリアン・ミンツをヤン・ウェンリーに配属した人物でもある。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   // 알프레드 로자스 Alfred Rosas · アルフレッド・ローザス
   {
@@ -8649,6 +9188,11 @@ export const CHAR_BASE = [
       { code: "En", context: "A member of the Year 730 Mafia. Though not as gifted as his fellow Mafia members, and only slightly above average as a commander in his own right, he excelled at listening to strong personalities and reconciling their differing opinions, allowing him to serve with great distinction as Chief of Staff of the Space Fleet for many years." },
       { code: "Jp", context: "730年マフィアの一員。他の730マフィアの仲間に比べ際立った才能の持ち主ではなく、自身が指揮官として見れば平均よりやや上程度の能力であった。しかし様々な人材が集う場で意見を取りまとめ対立を解消することに非常に長け、長年にわたり宇宙艦隊総参謀長として赫々たる功績を残した。" },
     ],
+    // — 직업
+    // — 트레잇
+    // 은퇴(군)(TRC_G_012) LV0
+    // 조율자(TRC_G_013) LV5
+    // 참모(TRC_G_014) LV5
   },
   // 알프레트 폰 란즈베르크 Alfred von Landsberg/Alfred von Lansberg ・ アルフレット・フォン・ランズベルク
   // TODO
@@ -8704,6 +9248,11 @@ export const CHAR_BASE = [
       { code: "En", context: "A Count from a high noble family with five generations of lineage in the Empire. He joined the Lippstadt League but only endorsed Admiral Staaden's plan to invade Odin without personally taking part. After the defeat, he fled into exile on Fezzan, where he spent his time writing poetry and prose, though his own manuscript, \"A History of the Lippstadt War,\" was rejected for publication as being too subjective and romantic. In 798 UC, acting on a Fezzani scheme, he and Leopold Schumacher kidnapped the infant Kaiser Erwin Josef II and fled with him to the Alliance." },
       { code: "Jp", context: "5代続く帝国の名門貴族の伯爵。リップシュタット同盟に加わったが、シュターデンのオーディン侵攻計画には賛同するのみで自らは参戦しなかった。敗戦後フェザンに亡命し詩や小説を書いて過ごしたが、自著「リップシュタット戦史」はあまりに主観的かつ浪漫的すぎるとして出版を拒否された。798年、フェザンの策謀によりレオポルト・シューマッハとともに幼帝エルウィン・ヨーゼフ2世を誘拐し、同盟へ逃亡した。" },
     ],
+    // — 직업
+    // — 트레잇
+    // 감탄의 극치(TRC_U_000257) LV0
+    // 기사도(TRC_G_016) LV4
+    // 선량함(TRC_G_017) LV3
   },
   {
     // — 기본
@@ -8735,6 +9284,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8766,6 +9317,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8797,6 +9350,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8828,6 +9383,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8859,6 +9416,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 앤드류 포크 Andrew Falk · アンドリュー・フォーク
   // TODO
@@ -8908,6 +9467,11 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [{ code: "Kr", context: "자유행성동맹 소속의 군인.\n    국방사관학교를 수석으로 졸업한 인재로, 실전경험이 없으며 보급,훈련 등의 군사작전의 세부사항을 짜는데는 매우 허술하지만\n    전체적인 큰 그림을 입안하고 이를 관철시킬 정치적 모략에 매우 능하다는 평을 받고 있다." }],
+    // — 직업
+    // — 트레잇
+    // 재앙을 기획하는 자(TRC_U_000263) LV0
+    // 전환장애(TRC_G_018) LV4
+    // 참모(TRC_G_014) LV1
   },
   {
     // — 기본
@@ -8939,6 +9503,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -8970,6 +9536,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 양 웬리 Yang Wen-li · ヤン・ウェンリー
   {
@@ -9023,6 +9591,12 @@ export const CHAR_BASE = [
     // 직업
     // 준장
     // 시민
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 소장(JB_MR005) LV0
+    // — 트레잇
+    // 마법사(TRC_U_000266) LV0
+    // 전쟁 혐오(TRC_G_002) LV0
   },
   {
     // — 기본
@@ -9054,6 +9628,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9085,6 +9661,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9116,6 +9694,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 에드윈 피셔 Edwin Fischer · エドウィン・フィッシャー
   // TODO
@@ -9161,6 +9741,8 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [{ code: "Kr", context: "자유행성동맹 소속의 군인.\n    함대운용을 실전에서 완벽하게 구현하는 달인으로, 다소 과묵하고 침착한 성격이다." }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9204,6 +9786,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Minister of Military Affairs and one of the three Imperial military chiefs of staff under Kaiser Friedrich IV. A member of the old guard who resisted Reinhard von Lohengramm's rise, he was captured by Bittenfeld during the Lippstadt Rebellion and forced into retirement." },
       { code: "Jp", context: "フリードリヒ4世治下の帝国軍三長官の一人、軍務尚書。ラインハルト・フォン・ミューゼルの台頭に反発した旧体制貴族勢力の一員で、リップシュタット叛乱時にビッテンフェルトに捕縛され強制退役させられた。" },
     ],
+    // — 직업
+    // 군무상서(JB_R004) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -9247,6 +9832,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Known as the \"Artistic Admiral,\" Mecklinger served as rear forces commander and former chief of staff under Reinhard. A commander who combined military skill with genuine artistic sensibility, he was recommended for promotion to Fleet Admiral by Reinhard on his deathbed." },
       { code: "Jp", context: "「芸術家提督」と称される帝国軍後方司令官。軍事的能力と芸術的素養を兼ね備えた指揮官で、ラインハルトの参謀長を歴任。ラインハルトの臨終の際に元帥への昇進を推薦された。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9278,6 +9865,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9309,6 +9898,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9340,6 +9931,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9371,6 +9964,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9402,6 +9997,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9433,6 +10030,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9464,6 +10063,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9495,6 +10096,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9526,6 +10129,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9557,6 +10162,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9588,6 +10195,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9619,6 +10228,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],  // 에멜리히
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9650,6 +10261,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9681,6 +10294,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9712,6 +10327,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9743,6 +10360,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9774,6 +10393,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 엘라흐 Elrach ・ エルラッハ
   {
@@ -9818,6 +10439,10 @@ export const CHAR_BASE = [
       { code: "En", context: "A fleet commander of the Galactic Empire. He participated in the Battle of Astarte as a sub-fleet commander under Reinhard's fleet, but was killed in action during the engagement." },
       { code: "Jp", context: "銀河帝国の艦隊指揮官。アスターテ会戦ではラインハルト艦隊の分艦隊司令官として参戦したが、戦闘中に戦死した。" },
     ],
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 중장(JB_MR004) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -9849,6 +10474,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9892,6 +10519,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Daughter of Duke Otto von Braunschweig. Put forward as a claimant to the throne after Kaiser Friedrich IV's death in 796 UC, but the throne went to Erwin Josef II instead. Her fate following the Lippstadt Rebellion is unknown." },
       { code: "Jp", context: "オットー・フォン・ブラウンシュヴァイクの娘。796年フリードリヒ4世崩御後に皇位継承候補として擁立されたが、エルウィン・ヨーゼフ2世に皇位を奪われた。リップシュタット内乱後は行方不明。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   // 엘리자베트 폰 카스트로프 Elisabeth von Castrop ・ オイゲン・フォン・カストロプ
   {
@@ -9932,6 +10561,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9963,6 +10594,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -9994,6 +10627,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10025,6 +10660,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10056,6 +10693,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10087,6 +10726,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10118,6 +10759,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10149,6 +10792,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10192,6 +10837,8 @@ export const CHAR_BASE = [
       { code: "En", context: "The finest Imperial admiral second only to Reinhard in strategic ability. Known for his heterochromia, he forms the \"Twin Pillars\" with Mittermeyer. Harbouring deep ambition and a rebellious spirit within, he ultimately rises in insurrection against Kaiser Reinhard, only to fall in battle." },
       { code: "Jp", context: "ラインハルトに次ぐ戦略能力を持つ帝国最高の提督。左右色の異なる瞳を持ち、ミッターマイヤーとともに「双璧」と呼ばれる。内に野望と反骨心を秘め、最終的にラインハルトへの叛乱を起こして戦死する。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10223,6 +10870,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10254,6 +10903,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 오이겐 폰 카스트로프 Eugen von Castrop ・ オイゲン・フォン・カストロプ
   {
@@ -10294,6 +10945,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10325,6 +10978,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10369,6 +11024,8 @@ export const CHAR_BASE = [
       { code: "En", context: "The most powerful high noble Duke of the Goldenbaum Dynasty and son-in-law of Kaiser Friedrich IV. He led the Lippstadt Alliance in an attempt to place his daughter Elisabeth on the throne, forming a fragile coalition with his rival Marquis Littenheim against Reinhard von Lohengramm. Defeated in the civil war, he was poisoned by his own aide Ansbach." },
       { code: "Jp", context: "ゴールデンバウム王朝最大の門閥貴族公爵。皇帝フリードリヒ4世の義息子で、娘エリザベートの皇位継承を画策しリップシュタット同盟を主導した。宿敵リッテンハイムと連合してラインハルトに対抗したが敗北し、側近アンスバッハに毒殺された。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10400,6 +11057,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10431,6 +11090,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10462,6 +11123,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10493,6 +11156,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10524,6 +11189,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10555,6 +11222,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10586,6 +11255,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10617,6 +11288,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10648,6 +11321,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10679,6 +11354,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10710,6 +11387,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10741,6 +11420,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10772,6 +11453,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10803,6 +11486,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10834,6 +11519,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10865,6 +11552,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10896,6 +11585,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10927,6 +11618,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10958,6 +11651,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -10989,6 +11684,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11020,6 +11717,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11051,6 +11750,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11095,6 +11796,10 @@ export const CHAR_BASE = [
       { code: "En", context: "An Alliance politician and penultimate head of state whose corrupt and incompetent administration was one of the contributing factors to the fall of the Alliance. He maintained power through fear and demagoguery, and after surrendering to the Empire continued to survive through dealings with the Church of Terra and the New Galactic Empire — a consummate opportunist to the last." },
       { code: "Jp", context: "自由惑星同盟の政治家。腐敗した無能な行政で同盟崩壊の一因となった最高評議会議長。恐怖政治と扇動で権力を維持し、帝国への降伏後も地球教・帝国と取引するなど徹底した機会主義者。" },
     ],
+    // — 직업
+    // 국방위원장(JB_F002) LV0
+    // — 트레잇
+    // 민주주의의 어둠(TRC_U_000329) LV0
   },
   {
     // — 기본
@@ -11126,6 +11831,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11157,6 +11864,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11188,6 +11897,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11219,6 +11930,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11250,6 +11963,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11293,6 +12008,8 @@ export const CHAR_BASE = [
       { code: "En", context: "An administrative admiral who rose from a legal advocate background to serve as Chief of the Imperial Military Police. More distinguished for his law enforcement and judicial reforms than battlefield command, he was the least active fleet commander among Lohengramm's admirals, yet played a crucial role in maintaining internal order within the Empire." },
       { code: "Jp", context: "法務将校出身で帝国軍憲兵総監を務めた行政型提督。戦場よりも治安維持と司法改革において頭角を現す。ローエングラム提督団の中で艦隊を直接指揮した回数は最も少ないが、帝国内部秩序維持の中核を担った。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11324,6 +12041,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11358,6 +12077,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11412,6 +12133,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Alliance Secretary of Defence who bribed Trünicht with a silver vase to obtain the post after Negroponte's resignation. Initially a self-admitted third-rate politician focused on personal enrichment, he transformed during the Imperial invasion following the annexation of Fezzan, throwing his full political support behind the Joint Operations Headquarters and approving Yang Wen-li's strategy. After the defeat at Vermillion, he argued for continued resistance but was exposed by Trünicht for his earlier corruption, ending his political career." },
       { code: "Jp", context: "自由惑星同盟国防委員長。ネグロポンテの辞任後、トリューニヒトに銀の花瓶を賄賂として贈り地位を得た。当初は私利私欲にまみれた三流政治家であったが、ペザン強占により帝国軍の本格侵攻が始まると一変し、統合作戦本部を全面的に支持しヤン・ウェンリーの作戦を承認した。ヴァーミリオン会戦の敗北後は抗戦を主張したが、トリューニヒトに過去の腐敗を暴露され政治生命を終えた。" },
     ],
+    // — 직업
+    // — 트레잇
+    // 각성한 책임감(TRC_U_000338) LV0
   },
   {
     // — 기본
@@ -11443,6 +12167,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11474,6 +12200,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11505,6 +12233,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // https://gineipaedia.com/wiki/Winslow_Kennes_Townshent
   {
@@ -11537,6 +12267,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11568,6 +12300,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11599,6 +12333,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11630,6 +12366,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11661,6 +12399,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11692,6 +12432,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11723,6 +12465,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11754,6 +12498,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11797,6 +12543,8 @@ export const CHAR_BASE = [
       { code: "En", context: "The adopted ward of Yang Wen-li. Raised under Yang's guardianship through the Travers Act, he developed exceptional tactical instincts and diplomatic skill. A gifted Spartanian pilot, he is regarded as the most promising of the next generation in Yang's fleet." },
       { code: "Jp", context: "ヤン・ウェンリーの養子。トラバース法によりヤンの保護のもとで成長し、優れた戦術センスと外交的手腕を身につけた。スパルタニアンパイロットとしても頭角を現し、ヤン艦隊の次世代の期待の星と見なされている。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11828,6 +12576,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11859,6 +12609,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11893,6 +12645,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11924,6 +12678,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11955,6 +12711,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -11986,6 +12744,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],  // 이븐 샤마
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12017,6 +12777,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // https://gineipaedia.com/wiki/Ion_Fazekath_(person)
   {
@@ -12053,6 +12815,9 @@ export const CHAR_BASE = [
       { code: "En", context: "A child on Altair VII. His habit of carving ice boats caught the eye of Arle Heinessen, inspiring the idea of building spacecraft from dry ice. His name was bestowed on the first massive vessel Heinessen completed, earning him a place in history." },
       { code: "Jp", context: "アルタイルⅦの子供。氷を削って手製のボートを作って遊ぶ姿がアーレ・ハイネセンの目に留まり、ドライアイスで宇宙船を建造するという発想のきっかけとなった。その名はハイネセンが完成させた最初の巨大宇宙船に冠され、歴史に刻まれた。" },
     ],
+    // — 직업
+    // 시민(JB_C001) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -12084,6 +12849,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12115,6 +12882,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12146,6 +12915,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12177,6 +12948,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12208,6 +12981,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12239,6 +13014,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12270,6 +13047,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12301,6 +13080,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12332,6 +13113,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 장 로베르 랍 Jean Robert Lapp · ジャン・ロベール・ラップ
   {
@@ -12383,6 +13166,10 @@ export const CHAR_BASE = [
     point: "0",
     desc: [{ code: "Kr", context: "자유행성동맹 소속의 군인. 집단을 지도하는 역량과 인격을 갖추어 훌륭한 지휘관이 될 것이라는 평가를 받고 있다.\n    높은 군사적 식견과 능력도 가지고 있어, 그와 사관학교 동기인 양 웬리는 동기 중 가장 출세할 사람이라고 생각했다." }],
     // 사망 이후 시나리오에선 desc에 추가 '아스타테 회전에서 전사. 이후 양 웬리는 그의 이른 죽음을 두고두고 안타까워했다.'
+    // — 직업
+    // 참모(JB_M003) LV0
+    // 소령(JB_MR009) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -12414,6 +13201,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12445,6 +13234,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12488,6 +13279,8 @@ export const CHAR_BASE = [
       { code: "En", context: "A pacifist activist of the Free Planets Alliance and the partner of Jean Robert Lapp, a close friend of Yang Wen-li. After losing her lover to war, she devoted herself to the anti-war peace movement and openly confronted the demagogic politics of Job Trunicht." },
       { code: "Jp", context: "自由惑星同盟の反戦運動家。ヤン・ウェンリーの士官学校同窓で親友のジャン・ロベール・ラップの恋人。戦争で恋人を失った後、反戦平和運動に身を捧げ、ヨブ・トリューニヒトの扇動政治に真っ向から立ち向かった。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12519,6 +13312,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12570,6 +13365,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Citizens' Anti-War Union candidate in the Terneuzen by-election. He ran against the pro-war candidate Raymond Tolliarty, but was murdered in a bombing of the Citizens' Anti-War Union's campaign office shortly before the election. His death swung public opinion sharply against the war, paving the way for his successor, Jessica Edwards, to win the seat in a landslide." },
       { code: "Jp", context: "テルヌーゼン補欠選挙に出馬した反戦市民連合の候補者。親戦派候補のレイモンド・トリアッティと対立したが、選挙直前に反戦市民連合選挙事務所で発生した爆弾テロにより殺害された。その死はむしろ世論を反戦へと大きく動かし、後を継いで出馬したジェシカ・エドワーズが圧倒的な得票率で当選するきっかけとなった。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12601,6 +13398,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12632,6 +13431,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12663,6 +13464,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12715,6 +13518,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Secretary of the Treasury of the Free Planets Alliance High Council. \n    A principled peace-faction politician who opposed the Imperial invasion. He later rose to Supreme Chairman but was powerless to prevent the Alliance's fall to the Empire." },
       { code: "Jp", context: "自由惑星同盟最高評議会財政委員長。良識ある和平派政治家で帝国領侵攻作戦に反対した\n    後に最高評議会議長にまで昇り詰めたが、帝国の侵攻を前に為す術なく同盟を失った。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12746,6 +13551,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12777,6 +13584,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12808,6 +13617,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // https://gineipaedia.com/wiki/Joliot_Frankul
   {
@@ -12844,6 +13655,10 @@ export const CHAR_BASE = [
       { code: "En", context: "Military genius of the Sirius Republic and co-founder of the Black Fleet. As Minister of Defense, he crushed a 20,000-strong enemy fleet with only 6,000 ships at the Second Battle of Vega. He later attempted a military coup against Prime Minister Townshent but was executed for his failure." },
       { code: "Jp", context: "シリウス共和国の軍事天才。黒色艦隊の共同創設者にして国防大臣。第二次ベガ星域会戦では6,000隻で2万隻の敵艦隊を撃破するなど多くの戦功を挙げた。しかし権力欲からタウンシェント首相にクーデターを起こし、失敗して処刑された。" },
     ],
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 원수(JB_MR001) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -12875,6 +13690,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12906,6 +13723,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12948,6 +13767,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Supreme head of the Terraist Church and effective ruler of the planet Terra. Though fanatical, he was a genuine believer in Terraist doctrine and personally provided daily spiritual guidance to devout followers. He died around 796 UC, but Archbishop De Villie, fearing the loss of his influence, concealed his death and replaced him with a brainwashed impostor (the Fake Grand Bishop, CH_000004)." },
       { code: "Jp", context: "地球教の首長であり、テラ（地球）の実質的な統治者。狂信的だが本人は心からテライズムの教義を信じ、毎日信徒に直接霊的指導を与えていた。796年頃に死去したが、その影響力の喪失を恐れた副主教ドゥ・ヴィリエが死を隠蔽し、洗脳した替え玉（偽総大主教、CH_000004）に置き換えた。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -12979,6 +13800,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13010,6 +13833,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13041,6 +13866,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 지크프리트 키르히아이스
   {
@@ -13084,6 +13911,10 @@ export const CHAR_BASE = [
       { code: "En", context: "Reinhard's closest friend and most trusted adjutant. Possessing both exceptional tactical ability and high moral character, he stood by Reinhard's ambitions and commanded a powerful fleet. He was shot and killed late in SE796 while opposing a coup attempt." },
       { code: "Jp", context: "ラインハルト・フォン・ミューゼルの親友で最も信頼する副官。卓越した戦術能力と高い道徳性を兼ね備え、ラインハルトの野望を支えながら帝国最強の艦隊を率いた。SE796年末、クーデター陰謀に抗して銃撃を受け戦死した。" },
     ],
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 중장(JB_MR004) LV0
+    // — 트레잇
   },
   // https://gineipaedia.com/wiki/Chao_Yuiling
   {
@@ -13128,6 +13959,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Director of Covert Affairs for the Sirius Republic. A music composition student who lost his family to the UEG military and joined the Anti-Earth Movement, he supported the Black Fleet's victories through brilliant intelligence manipulation and propaganda. After the war he founded a music conservatory on his home planet but was executed by a former ally turned dictator." },
       { code: "Jp", context: "シリウス共和国の秘密工作局長。音楽作曲を専攻していた青年が地球連邦軍に家族を奪われ反地球運動に加わり、卓越した情報操作と宣伝工作で黒色艦隊の勝利を陰から支えた。戦後は故郷に音楽学校を設立したが、独裁者へと変貌した元同志によって処刑された。" },
     ],
+    // — 직업
+    // 참모(JB_M003) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -13159,6 +13993,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13190,6 +14026,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13221,6 +14059,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13252,6 +14092,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13283,6 +14125,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13314,6 +14158,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 춘우 지엔 Chung Wu-Cheng · チュン・ウー・チェン
   // TODO
@@ -13368,6 +14214,12 @@ export const CHAR_BASE = [
       { code: "En", context: "An officer of the Free Planets Alliance. He served as a professor at the Officers' Academy until around May 798 UC. He later returned to military service as Chief of Staff under Admiral Bewcock during the Battle of Rantemario, and when defeat became inevitable, he prevented Bewcock from taking his own life by having removed the clip from his weapon beforehand. After the Treaty of Ba'alat, when Bewcock retired, Chung served as interim Space Fleet Commander, and was later asked by Chairman Rebelo to take official command, leading the Alliance's last fleet." },
       { code: "Jp", context: "自由惑星同盟の軍人。798年5月頃まで士官学校教授として在職した。後に軍に復帰しビュコック提督の下で参謀長としてランテマリオ会戦に参戦、敗戦が確実となるとビュコックが自決しようとするのを事前に銃の弾倉を抜いておくことで阻止した。バーラト条約締結後にビュコックが退役すると臨時で宇宙艦隊司令長官代理を務め、後にレベロ議長の要請で正式な司令長官となり同盟軍最後の艦隊を指揮した。" },
     ],
+    // — 직업
+    // 시민(JB_C001) LV0
+    // 중령(JB_MR008) LV0
+    // — 트레잇
+    // 은퇴(군)(TRC_G_012) LV0
+    // 참모(TRC_G_014) LV5
   },
   {
     // — 기본
@@ -13399,6 +14251,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13434,6 +14288,8 @@ export const CHAR_BASE = [
     point: "0",
     desc: [{ code: "Kr", context: "" }],
      //은하제국의 군인으로, 최종 계급은 중장.
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13466,6 +14322,8 @@ export const CHAR_BASE = [
     point: "0",
     desc: [{ code: "Kr", context: "" }],
      // 정통정부의 내각서기관장. 남작. OVA 성우는 후쿠다 노부야키. 제국군이 침공하자 내각회의에 출석하여 라트부르흐, 렘샤이트와 정통정부의 미래를 논했으나 답을 얻지 못하고 도망쳤다. 은하제국군의 제독 카르나프와는 동명이인.
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13497,6 +14355,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }], // 카르테너: 자작. 시종차장으로 베네뮌데 후작부인 사건 궁정재판에 참석하였다.
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13528,6 +14388,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13559,6 +14421,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13590,6 +14454,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13621,6 +14487,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13652,6 +14520,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13683,6 +14553,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13714,6 +14586,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13757,6 +14631,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Chief Clerk of the Free Planets Alliance High Council. A practical bureaucrat responsible for council administration and the management of minutes." },
       { code: "Jp", context: "自由惑星同盟最高評議会書記。評議会の行政および議事録管理を担う実務型官僚。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   // 칼 구스타프 켐프 Karl Gustav Kempff ·カール・グスタフ・ケンプ
   // TODO
@@ -13817,6 +14693,8 @@ export const CHAR_BASE = [
     // 직업
     // 소장 : 군사직
     // 평민 : 제국 시민
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13848,6 +14726,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13879,6 +14759,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13910,6 +14792,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13941,6 +14825,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -13972,6 +14858,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14003,6 +14891,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14034,6 +14924,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14065,6 +14957,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14096,6 +14990,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14127,6 +15023,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // https://gineipaedia.com/wiki/Carle_Palmgren
   {
@@ -14163,6 +15061,9 @@ export const CHAR_BASE = [
       { code: "En", context: "First Premier of the Sirius Republic and hero of the Earth–Sirius War. A charismatic visionary who united the colony worlds against the Earth United Government, he dreamed of building a stable democracy but died of a sudden heart attack while lamenting he needed \"five more years\" — a death whose consequences echoed across three centuries." },
       { code: "Jp", context: "シリウス共和国初代首相にして地球・シリウス戦争の英雄。カリスマ的な指導者として植民地世界をまとめ地球連邦に抗する反地球運動を牽引した。安定した民主政府を夢見たが、「あと5年の命があれば」と嘆きながら心臓発作で急死し、その死が以後3世紀にわたる混乱の種となった。" },
     ],
+    // — 직업
+    // 최고평의회의장(JB_F001) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -14194,6 +15095,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14225,6 +15128,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14256,6 +15161,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14287,6 +15194,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14318,6 +15227,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14349,6 +15260,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14392,6 +15305,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Secretary of Transportation of the Free Planets Alliance High Council. She was forced out of office on bribery charges, becoming one of the symbols of the Sanford Administration's corruption." },
       { code: "Jp", context: "自由惑星同盟最高評議会情報交通委員長。収賄容疑で失脚した。サンフォード内閣の腐敗を象徴する人物の一人。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14423,6 +15338,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14466,6 +15383,8 @@ export const CHAR_BASE = [
       { code: "En", context: "A well-rounded admiral in Reinhard's admiralty who served as commander of Iserlohn Fortress. Despite being a capable commander, he was deceived by Yang Wen-li's stratagem and lost the fortress. He died at Uruvasi during a large-scale assassination attempt targeting Reinhard." },
       { code: "Jp", context: "ラインハルト提督団のバランス型提督。イゼルローン要塞司令官を歴任し要塞防衛の中核を担ったが、ヤン・ウェンリーの策略に嵌まり要塞を奪われる失態を犯した。ウルヴァシーでラインハルトを狙った暗殺計画の現場で戦死した。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14497,6 +15416,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14528,6 +15449,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14559,6 +15482,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14590,6 +15515,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14621,6 +15548,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14652,6 +15581,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14683,6 +15614,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14714,6 +15647,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14745,6 +15680,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14776,6 +15713,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14807,6 +15746,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14838,6 +15779,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14869,6 +15812,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14900,6 +15845,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14931,6 +15878,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14962,6 +15911,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -14993,6 +15944,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15024,6 +15977,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15055,6 +16010,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15086,6 +16043,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15117,6 +16076,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15148,6 +16109,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15179,6 +16142,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15210,6 +16175,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // https://gineipaedia.com/wiki/Christpher_Wood
   {
@@ -15246,6 +16213,10 @@ export const CHAR_BASE = [
       { code: "En", context: "Admiral of the Galactic Federation. Together with Michel Cuffren, he commanded a special anti-piracy task force that eliminated most of the pirate threat destabilizing the galaxy. Famous for his remark \"I had competent enemies in front of me and incompetent allies behind me, and had to fight both at once,\" he later entered parliament as an anti-corruption advocate and became so legendary that Rudolf von Goldenbaum was called his reincarnation." },
       { code: "Jp", context: "銀河連邦の艦隊提督。ミシェル・キュフランとともに特別海賊討伐艦隊を指揮し、銀河系を乱す海賊勢力のほとんどを掃討した。「有能な敵と無能な味方の双方と戦わねばならなかった」という言葉で知られ、退役後は議会に転身して反腐敗運動を率いた。後にルドルフ・フォン・ゴールデンバウムが海賊を討伐した際、彼の生まれ変わりと称されるほどの英雄として語り継がれている。" },
     ],
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 원수(JB_MR001) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -15277,6 +16248,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15308,6 +16281,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15339,6 +16314,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15370,6 +16347,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15401,6 +16380,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15432,6 +16413,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15463,6 +16446,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 클라우스 폰 리히텐라데 Klaus von Lichtenlade · クラウス・フォン・リヒテンラーデ
   {
@@ -15512,6 +16497,9 @@ export const CHAR_BASE = [
     // 직업
     // 제국재상 대리 : 재상과 동일한 트레잇에 명칭이 약간 다름
     // 후작
+    // — 직업
+    // 제국재상(JB_R002) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -15543,6 +16531,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15574,6 +16564,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15605,6 +16597,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15636,6 +16630,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15667,6 +16663,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15698,6 +16696,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15729,6 +16729,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15760,6 +16762,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15791,6 +16795,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15822,6 +16828,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15853,6 +16861,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15884,6 +16894,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15915,6 +16927,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15946,6 +16960,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -15977,6 +16993,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 파스톨레 Pastolle · パストーレ
   {
@@ -16019,6 +17037,10 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [{ code: "Kr", context: "자유행성동맹 제4함대 사령관. 광범위한 영역에서의 전략을 생각하고 읽는 능력은 부족하나, 국지적 단위에서의 공방과 돌파에는 매우 능숙한 전술가이다.\n    무수한 전역에서 선봉을 맡아 많은 성과를 거둔 맹장으로 동맹군 내에서도 많은 신뢰를 받고 있다." }],
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 중장(JB_MR004) LV0
+    // — 트레잇
   },
   // 파에타 Paeta · パエッタ
   {
@@ -16062,6 +17084,14 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [{ code: "Kr", context: "자유행성동맹 소속의 사령관. \n    역전의 용장이자 유능한 전술가라는 평을 들었지만 다소 독선적이고 성급한 성격을 가지고 있다." }],
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 중장(JB_MR004) LV0
+    // — 트레잇
+    // 원칙고수(TRC_U_000479) LV0
+    // 현실부정(TRC_G_001) LV0
+    // 독선(TRC_G_004) LV0
+    // 행운(TRC_G_006) LV0
   },
   {
     // — 기본
@@ -16093,6 +17123,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16144,6 +17176,8 @@ export const CHAR_BASE = [
       { code: "En", context: "The core strategist of Reinhard von Lohengramm. A ruthless rationalist with artificial eyes who stops at nothing to achieve his ends. He works in the shadows to bring down the Goldenbaum Dynasty and establish the Lohengramm regime — feared and despised within the Imperial military, yet indispensable to Reinhard." },
       { code: "Jp", context: "ラインハルト・フォン・ミューゼルの中枢参謀。義眼を持つ冷酷な戦略家で、目的のためには手段を選ばない徹底した合理主義者。ゴールデンバウム王朝打倒とローエングラム体制確立のために暗躍し、帝国軍内でも忌避される存在だが、ラインハルトには欠かせない人物である。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16175,6 +17209,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16206,6 +17242,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16237,6 +17275,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16268,6 +17308,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16299,6 +17341,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16330,6 +17374,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16361,6 +17407,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16392,6 +17440,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16423,6 +17473,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16454,6 +17506,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16485,6 +17539,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16516,6 +17572,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 포겔 Fogel ・ フォーゲル
   {
@@ -16562,6 +17620,11 @@ export const CHAR_BASE = [
       { code: "En", context: "A fleet commander of the Galactic Empire. Participated in the Battle of Astarte as a sub-fleet commander under Reinhard's fleet." },
       { code: "Jp", context: "銀河帝国の艦隊指揮官。アスターテ会戦ではラインハルト艦隊の分艦隊司令官として参戦した。" },
     ],
+    // — 직업
+    // 함대사령관(JB_M001) LV0
+    // 소장(JB_MR005) LV0
+    // — 트레잇
+    // 독선(TRC_G_004) LV0
   },
   {
     // — 기본
@@ -16593,6 +17656,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16624,6 +17689,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16655,6 +17722,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16686,6 +17755,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16717,6 +17788,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16748,6 +17821,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16779,6 +17854,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16810,6 +17887,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16841,6 +17920,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16872,6 +17953,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16915,6 +17998,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Count of the Mariendorf family and father of Hildegard von Mariendorf. Trusting his daughter's judgment, he made the pivotal decision to support Reinhard von Lohengramm, making him a representative figure of the moderate noble faction within the Empire." },
       { code: "Jp", context: "マリーンドルフ伯爵家の当主にしてヒルデガルド・フォン・マリーンドルフの父。娘の判断を信頼してラインハルト・フォン・ミューゼルを支持する決断を下し、帝国内の穏健貴族勢力を代表する人物。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16958,6 +18043,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Yang Wen-li's adjutant and wife. A brilliant officer who graduated second from the Alliance Academy, she possesses eidetic memory and served as a cornerstone of the 13th Fleet's operations. Understanding Yang's strategies more deeply than anyone, she later became a spiritual pillar of the Iserlohn Republic." },
       { code: "Jp", context: "ヤン・ウェンリーの副官にして妻。士官学校次席卒業の秀才で完全記憶力を持ち、ヤン艦隊運営の中核を担った。ヤンの戦略を誰よりも深く理解し、後にイゼルローン共和国の精神的支柱となる。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -16989,6 +18076,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17020,6 +18109,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17051,6 +18142,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17082,6 +18175,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17113,6 +18208,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17144,6 +18241,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17175,6 +18274,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17218,6 +18319,8 @@ export const CHAR_BASE = [
       { code: "En", context: "The 36th Kaiser of the Goldenbaum Dynasty, known as the \"Kaiser of the Ashes.\" An indolent ruler who showed little interest in governance and allowed the Empire to drift while pursuing personal pleasure. By taking Annerose von Grünewald as his concubine, he ignited Reinhard von Lohengramm's ambitions. His death from a heart attack in 796 UC set off the chain of events that led to the dynasty's collapse." },
       { code: "Jp", context: "ゴールデンバウム王朝第36代皇帝。「灰燼の皇帝」と呼ばれる無能な君主で、政治に無関心のまま享楽に耽り帝国を放置した。アンネローゼ・フォン・グリューネワルトを後宮に迎えることでラインハルトの野望に火を付けた。796年の心臓発作による崩御がゴールデンバウム王朝崩壊の導火線となった。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17261,6 +18364,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Commander of the Black Lancers, the most powerful offensive fleet in the Imperial Navy. Renowned for his fiery temperament and overwhelming assault tactics, he values battlefield momentum over the caution expected of a commander. His recklessness has brought him close to court-martial more than once, yet his firepower and charge are unmatched in the Empire." },
       { code: "Jp", context: "黒色槍騎兵隊を率いる帝国軍最強の攻撃型提督。激しい気性と圧倒的な突撃戦術で知られ、指揮官としての慎重さより戦場の勢いを重んじる。無謀さから幾度も危機を招くが、その火力と突進力は帝国軍内でも独歩の存在である。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   // 플레겔 Flegel · フレーゲル
   {
@@ -17308,6 +18413,14 @@ export const CHAR_BASE = [
       { code: "En", context: "A fleet officer of the Galactic Empire. Born into a Baron's house, he remained on Odin during the Battle of Astarte. Strongly conscious of his noble lineage, he is skilled in political intrigue and scheming." },
       { code: "Jp", context: "銀河帝国の艦隊指揮官。男爵家出身でアスターテ会戦当時はオーディンに留まっていた。門閥貴族特有の血統意識が強く、謀略と政治工作に長けている。" },
     ],
+    // — 직업
+    // — 트레잇
+    // 독선(TRC_G_004) LV0
+    // 모략의 대가(TRC_G_007) LV0
+    // 아른거리는 그림자(TRC_G_008) LV0
+    // 고귀한 혈통(TRC_G_009) LV0
+    // 문벌 귀족(TRC_G_010) LV0
+    // 꽃밭을 망치는 해조(TRC_U_000516) LV0
   },
   {
     // — 기본
@@ -17339,6 +18452,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17370,6 +18485,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17401,6 +18518,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17432,6 +18551,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17463,6 +18584,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17494,6 +18617,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17525,6 +18650,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17556,6 +18683,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17587,6 +18716,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17618,6 +18749,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 하이드리히 랑 Heydrich Lang · ハイドリッヒ・ラング
   {
@@ -17664,6 +18797,13 @@ export const CHAR_BASE = [
       { code: "En", context: "Director of the Department of Social Discipline (later the Internal Security Department) under the Goldenbaum Dynasty. As chief of the Empire's secret police, he is a calculating schemer who subscribes to the theory that control of a minority within a majority secures control of the whole. Despite his disarmingly gentle appearance, he is highly skilled in covert political manoeuvring, and was one of the few officials of the old regime to retain his post after the rise of the Lohengramm Dynasty." },
       { code: "Jp", context: "ゴールデンバウム王朝社会秩序維持局（後の内務安全部）局長。秘密警察組織の長として「51のうち26を確保すれば51を、さらに100を支配できる」という少数支配論を信奉する策謀家である。穏やかな外見に似合わず陰険な政治工作に長け、ローエングラム王朝成立後も地位を保った数少ない旧体制官僚の一人。" },
     ],
+    // — 직업
+    // 평민(JB_N007) LV0
+    // — 트레잇
+    // 소수의 지배(TRC_U_000527) LV0
+    // 모략의 대가(TRC_G_007) LV0
+    // 아른거리는 그림자(TRC_G_008) LV0
+    // 청렴함(TRC_G_011) LV0
   },
   {
     // — 기본
@@ -17695,6 +18835,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17726,6 +18868,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17757,6 +18901,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17788,6 +18934,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17819,6 +18967,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 한스 디트리히 폰 젝트 Hans Dietrich Von Seeckt ・ ハンス・ディートリッヒ・フォン・ゼークト
   {
@@ -17866,6 +19016,14 @@ export const CHAR_BASE = [
       { code: "En", context: "A fleet officer of the Galactic Empire. Born into a Baron's house, he commanded the garrisoned fleet of Iserlohn Fortress during the Battle of Astarte, splitting command of the fortress with Thoma von Stockhausen. A self-important commander who prized his noble status, he is also remembered as a mediocre officer who sacrificed his subordinates out of wounded pride." },
       { code: "Jp", context: "銀河帝国の艦隊指揮官。男爵家出身でアスターテ会戦当時はイゼルローン要塞駐留艦隊司令官を務めた。トーマ・フォン・シュトックハウゼンとともにイゼルローンの指揮を二分した。家門の格を重んじる独善的な性格で、自尊心のために部下を犠牲にした凡将としても評される。" },
     ],
+    // — 직업
+    // — 트레잇
+    // 독선(TRC_G_004) LV0
+    // 모략의 대가(TRC_G_007) LV0
+    // 아른거리는 그림자(TRC_G_008) LV0
+    // 고귀한 혈통(TRC_G_009) LV0
+    // 문벌 귀족(TRC_G_010) LV0
+    // 꽃밭을 망치는 해조(TRC_U_000533) LV0
   },
   {
     // — 기본
@@ -17897,6 +19055,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17928,6 +19088,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17959,6 +19121,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -17990,6 +19154,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18021,6 +19187,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18052,6 +19220,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18083,6 +19253,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18114,6 +19286,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18145,6 +19319,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18176,6 +19352,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18208,6 +19386,8 @@ export const CHAR_BASE = [
     point: "0",
     desc: [{ code: "Kr", context: "" }],
      // 카프체란카 주둔기지의 대령.
+    // — 직업
+    // — 트레잇
   },
   // 헬무트 렌넨캄프 Helmut Lennenkampf · ヘルムート・レンネンカンプ
   // TODO
@@ -18257,6 +19437,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18288,6 +19470,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18319,6 +19503,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18350,6 +19536,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18381,6 +19569,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18412,6 +19602,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18443,6 +19635,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18474,6 +19668,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18505,6 +19701,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18548,6 +19746,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Secretary of Human Resources of the Free Planets Alliance High Council. A peace-faction member alongside Rebelo who opposed the Imperial invasion, warning that continued war would unravel the social fabric of the Alliance — a warning that went unheeded." },
       { code: "Jp", context: "自由惑星同盟最高評議会人的資源委員長。レベロとともに帝国領侵攻作戦に反対した和平派。戦争が社会構造を崩壊させると警告したが受け入れられなかった。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18579,6 +19779,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18610,6 +19812,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18641,6 +19845,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18672,6 +19878,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18715,6 +19923,8 @@ export const CHAR_BASE = [
       { code: "En", context: "The sole daughter of Count Franz von Mariendorf. A brilliant political strategist who recognized Reinhard's ambitions early and voluntarily became his advisor. After Reinhard's death, she served as regent Kaiserin of the New Galactic Empire." },
       { code: "Jp", context: "マリーンドルフ伯爵家の一人娘。ラインハルトの野望をいち早く見抜き、自ら彼の策士となった卓越した政治戦略家。ラインハルト没後は新銀河帝国の摂政皇后として帝国を率いた。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -18746,6 +19956,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // ── 창작 인물: 최고평의회 미공개 평의원 ─────────────────────────
   {
@@ -18790,6 +20002,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Vice Chairman of the Free Planets Alliance Supreme Council. A seasoned politician with extensive administrative experience, who presides over the Council in the Chairman's absence." },
       { code: "Jp", context: "自由惑星同盟最高評議会副議長。豊富な行政経験を持つ老練な政治家で、議長不在時に評議会を主宰する。" },
     ],
+    // — 직업
+    // 각료(JB_F003) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -18833,6 +20048,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Chairman of the Natural Resources Committee of the Free Planets Alliance Supreme Council. Oversees resource allocation and environmental policy." },
       { code: "Jp", context: "自由惑星同盟最高評議会天然資源委員長。資源配分と環境政策を統括する。" },
     ],
+    // — 직업
+    // 천연자원위원장(JB_F005) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -18876,6 +20094,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Chairman of the Economic Development Committee of the Free Planets Alliance Supreme Council. Responsible for economic growth and industrial development policy." },
       { code: "Jp", context: "自由惑星同盟最高評議会経済開発委員長。同盟の経済成長と産業育成政策を担当する。" },
     ],
+    // — 직업
+    // 경제개발위원장(JB_F007) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -18919,6 +20140,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Chairman of the Community Development Committee of the Free Planets Alliance Supreme Council. Responsible for urban development and welfare policy across star systems." },
       { code: "Jp", context: "自由惑星同盟最高評議会地域社会開発委員長。各星系の都市開発と福祉政策を担当する。" },
     ],
+    // — 직업
+    // 지역사회개발위원장(JB_F008) LV0
+    // — 트레잇
   },
   {
     // — 기본
@@ -18962,6 +20186,9 @@ export const CHAR_BASE = [
       { code: "En", context: "Chairman of the Law and Order Committee of the Free Planets Alliance Supreme Council. Oversees judicial and public security policy within the Alliance." },
       { code: "Jp", context: "自由惑星同盟最高評議会法秩序委員長。同盟内の司法と治安関連政策を統括する。" },
     ],
+    // — 직업
+    // 법질서위원장(JB_F004) LV0
+    // — 트레잇
   },
   // 리버모어 Livermore
   {
@@ -19006,6 +20233,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Director of the Personnel Bureau of the Free Planets Alliance Armed Forces. According to Admiral Bucock's assessment, he is regarded as roughly 70% aligned with the Trünicht faction." },
       { code: "Jp", context: "自由惑星同盟軍人事局長。ビュコック提督の評によれば、トリューニヒト派閥に約70%加担していると見られている。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   // 에이런 두멕 Aulnay Doumec
   {
@@ -19050,6 +20279,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Originally a novelist, he entered politics after a stint as a political commentator. As a close associate of Job Trünicht, he was tasked with attacking Trünicht's political rivals and hostile media outlets." },
       { code: "Jp", context: "元は小説家であったが、政治評論家を経て政界に入った。ヨブ・トリューニヒトの側近として、トリューニヒトの政敵やマスコミを攻撃する役割を担った。" },
     ],
+    // — 직업
+    // — 트레잇
   },
   // 라트부르흐 Radbruch
   {
@@ -19088,6 +20319,8 @@ export const CHAR_BASE = [
     point: "0",
     desc: [{ code: "Kr", context: "골덴바움조 은하제국 남작." }],
      // 후일 정통정부의 내부상서로 취임. 제국군이 침공하자 도주
+    // — 직업
+    // — 트레잇
   },
   // 셰츨러
   {
@@ -19120,6 +20353,8 @@ export const CHAR_BASE = [
     point: "0",
     desc: [{ code: "Kr", context: "골덴바움조 은하제국 자작." }],
      // 정통정부의 재무상서. 제국군이 침공하자 헬더와 함께 도주
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -19152,6 +20387,8 @@ export const CHAR_BASE = [
     point: "0",
     desc: [{ code: "Kr", context: "" }],
     //정통정부의 사법상서. 자작. 제국군이 침공하자 셰츨러와 함께 가장 먼저 도망쳤다.
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -19184,6 +20421,8 @@ export const CHAR_BASE = [
     point: "0",
     desc: [{ code: "Kr", context: "" }],
      //정통정부의 궁내상서. 남작. OVA 성우는 나토리 유키마사. 제국군이 침공하자 술에 취한 채로 내각회의에 출석하여 참석자들에게 독설을 퍼부었다. 마찬가지로 다음 날 도망쳤다.
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -19216,6 +20455,8 @@ export const CHAR_BASE = [
     point: "0",
     desc: [{ code: "Kr", context: "" }],
      //후작. 궁내성 고등참사관으로 베네뮌데 후작부인 사건 궁정재판에 참석하였다.
+    // — 직업
+    // — 트레잇
   },
   {
     // — 기본
@@ -19247,6 +20488,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
   // 플레겔 (내무상서)
   {
@@ -19279,6 +20522,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
   },
 ];
 
