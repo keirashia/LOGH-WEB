@@ -1500,21 +1500,53 @@ export const SCENARIOS = [
     variants: "SE797_04",
   },
   /** @립슈타트_전역 */
-  // {
-  //   yearType: "SE",
-  //   year: 797,
-  //   month: 4,
-  //   id: "SE797_4",
-  //   nameKr: "립슈타트 전역",
-  //   nameEn: "Lippstadt War",
-  //   nameJp: "リップシュタット戦役",
-  //   tags: ["사실"],
-  //   factions: ["REH"],
-  //   useYn: false,
-  //   openPt: 0,
-  //   appearances: ["은하영웅전설 3권 <자복편>"],
-  //   desc: [],
-  // },
+  {
+    yearType: "SE",
+    year: 797,
+    month: 4,
+    date: 19, // 시작일자 (797년 4월 19일)
+    id: "SE797_0419_011",
+    nameKr: "립슈타트 전역", // 시나리오명
+    nameEn: "Lippstadt War",
+    nameJp: "リップシュタット戦役",
+    subTitle: "", // 시나리오_상세명
+    summary: `황제 프리드리히 4세의 급작스러운 사망.
+    에르빈 요제프 2세의 즉위를 놓고, 이를 지지하는 리히텐라데 공작과 로엔그람 후작의 추축파.
+    그리고 이를 반대하는 브라운슈바이크 공작과 리텐하임 후작의 연합파.
+    은하제국은 제위계승을 둔 필연적인 전쟁을 맞이하고 있었다.`,
+    tags: ["사실"],
+    factions: ["REH", "FPA", "PZN"],
+    useYn: true,
+    showYn: true,
+    openPt: "0",
+    appearances: ["은하영웅전설 2권 <야망편>"],
+    desc: [],
+    variants: "SE797_05",
+  },
+  {
+    yearType: "SE",
+    year: 797,
+    month: 4,
+    date: 19, // 시작일자 (797년 4월 19일)
+    id: "SE797_0419_011",
+    nameKr: "립슈타트 내전", // 시나리오명
+    nameEn: "",
+    nameJp: "",
+    subTitle: "", // 시나리오_상세명
+    summary: `황제 프리드리히 4세의 급작스러운 사망.
+    에르빈 요제프 2세의 즉위를 놓고, 분쟁하던 중.
+    안톤 페르너 대령에 의해 로엔그람 후작이 갑작스러운 암살을 당한다.
+    이에 립슈타트 숲에서 하나로 뭉쳤던 브라운슈바이크 공작과 리텐하임 후작은 불과 며칠만에
+    제국의 패권을 둔 적으로 돌아서게 된다.`,
+    tags: ["사실"],
+    factions: ["REH", "FPA", "PZN"],
+    useYn: true,
+    showYn: true,
+    openPt: "0",
+    appearances: [""],
+    desc: [],
+    variants: "SE797_05",
+  },
   // {
   //   yearType: "SE",
   //   year: 797,

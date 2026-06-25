@@ -1,2700 +1,5185 @@
 // ================================================================
 //  planetsData.js — 행성 마스터 데이터
 //  경로: src/data/base/stars/planetsData.js
-//  작성/통합: 2026-06-22
+//  작성: 2026-06-25 (스키마 2차 개편 — governor/commander/jobs/buildings 구조 변경,
+//        name/desc 다국어 배열화)
 //
-//  ⚠️ 핵심 변경 요약 (2026-06-22 일괄 작업):
-//    - 아래 변경 내용은 planet뿐 아니라 starSystem의 값이 섞여있으니 확인하며 진행해야함.
-//    - maps/starMaps.js 흡수, faction/corruption/treasury/pops 필드 신설
-//    - pops.unit: 1unit=10만명, econMax 값을 그대로 사용(스케일링 없음). 지구는 나무위키 명시값 직접입력
-//    - 샤텐부르크/리히텐부르크 삭제 → laneData.js의 lane 이름으로 전환
-//    - 빌로스트/야반하르 독립 성계로 분리신설
-//    - 오등작(공작~백작) 귀족 가문 영지 다수 신설(자작/남작은 행성 단위만, 이번 작업 범위 아님)
-//    - 뮈켄베르거/케림/포르세티 빈 성계에 행성 보강
-//    - REH/FPA 좌표 재배치: FPA 압축(x 56~596), REH 확장(x 700~2050)
-//      → VW 1600에서 2100 이상으로 확장 필요 (GalaxyMap.vue 하드코딩값 별도 수정 필요)
-//    - 외전/과거시점 성계 10곳 신설(230084~230093): 알타이르/베텔기우스/카노프스/프록시마/시리우스/
-//      레자빅/포리슨/파라파라/프레뷔도/닛슈우히더스. 본편(우주력790년대) 시점과 무관, faction=null.
-//      좌표는 본편 영역과 겹치지 않는 우하단 별도 구역(x:2150~2350, y:920~970)에 배치.
-//      슈바라(SCHWARA)는 별도 성계가 아니라 프레뷔도(230092) 소속 행성으로 등록.
-//
-//  faction: base 디폴트값. 시나리오 stars/planetData.js(구 planetDetail.js)가 있으면 그쪽 우선.
-//  행성 트레잇: planetDetailTrait.js (트레잇 마스터: base/trait/stars/starTraitData.js)
-//  행성 건물:   planetDetailBuilding.js > 추가해야함. (건물 마스터: base/buildingData.js)
+/**
+ * @typedef {Object} PlanetPopsEntry
+ * @property {number|string} code - economyData.js/ideologyData.js 코드(number) 또는 cliqueData.js id(string)
+ * @property {number} unit - 해당 코드에 속하는 인구 단위(1unit=10만명)
+ */
+/**
+ * @typedef {Object} PlanetBuildingDetail
+ * @property {string}  b_id      - buildingData.js 참조 코드
+ * @property {number}  count     - 보유 개수
+ * @property {boolean} active    - 가동 중 여부 (false=자금부족 또는 수동정지)
+ * @property {number}  construct - 이미 진행된 건설 턴수 (0=완성)
+ */
+/**
+ * @typedef {Object} PlanetBuildings
+ * @property {number} maxSize - 건설 가능 슬롯 총량 (구 행성 직속 size)
+ * @property {number} [size]  - ⚠️ computed 전용. details의 count 합계. 데이터에 직접 넣지 말 것.
+ * @property {PlanetBuildingDetail[]} details
+ */
+/**
+ * @typedef {Object} PlanetPops
+ * @property {number} unit - 행성 총 인구 (1unit=10만명)
+ * @property {PlanetPopsEntry[]} econ   - economyData.js 코드 기준 분포
+ * @property {PlanetPopsEntry[]} idea   - ideologyData.js 코드 기준 분포
+ * @property {PlanetPopsEntry[]} clique - cliqueData.js id 기준 분포
+ * @property {PlanetPopsEntry[]} jobs   - planetPopsJob.js code 기준 분포.
+ *   buildings.details의 count와 1:1 연동. (unit - jobs합계 = 가용/미배치 인구)
+ */
+/**
+ * @typedef {Object} PlanetAssets
+ * @property {number} credit     - 행성 자체 금고 (구 treasury)
+ * @property {number} tax        - TODO: 용도 확정 필요
+ * @property {number} complain   - 구 vice/corruption(부패도)
+ * @property {number} mil_supply - 군사 보급품 (조병창 생산, 함대 유지보수 소모)
+ */
+/**
+ * @typedef {Object} PlanetNameDescEntry
+ * @property {"Kr"|"En"|"Jp"} code
+ * @property {string} context
+ */
+/**
+ * @typedef {Object} Planet
+ * @property {string} code
+ * @property {string} starCode
+ * @property {PlanetNameDescEntry[]} name
+ * @property {{x:number, y:number}} pos
+ * @property {string} planetType - terrestrial|gas|ocean|desert|ice|volcanic|artificial
+ * @property {string} faction
+ * @property {string} governor  - 내정 담당관 캐릭터 코드(charactersData.js 참조)
+ * @property {string} commander - 군사 담당관 캐릭터 코드(charactersData.js 참조)
+ * @property {PlanetPops} pops
+ * @property {PlanetAssets} assets
+ * @property {PlanetBuildings} buildings
+ * @property {string[]} traits - starTraitData.js 코드 배열
+ * @property {PlanetNameDescEntry[]} desc
+ * @property {number} [support] - ⚠️ computed 전용. pops.econ/idea/clique 중 faction
+ *   지향 코드와 일치하는 비율을 매 턴 계산. 데이터에 직접 추가하지 말 것.
+ */
 // ================================================================
-
+// 본문의 TODO 부분은 참조 후 삭제, 그 외의 주석은 참조용 문구이니 삭제금지
+// ================================================================
 export const PLANETS = [
-  // ── 230001 알멘트푸벨 ──────────────────────────────
   {
     code: "230001P01",
     starCode: "230001",
-    nameKr: "바텐-도라흐",
-    nameEn: "",
-    nameJp: "",
-    // type: "terrestrial", 삭제. 트레잇으로 이동
-    // main: true, 삭제 트레잇으로 이동
-    // fortress: null, // 삭제. 트레잇으로 이동
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "바텐・도라흐" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
     pops: {
-      unit: 2100, //인구수
-      econ: [], //위 인구의 econ비율
-      idea: [
-        {
-          code: 240,
-          unit: 1638,
-        },
+      unit: 2100,
+      econ: [{ code: 60, unit: 1638 }],
+      idea: [{ code: 240, unit: 1638 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 925 },
+        { code: "CLQ_REH_001", unit: 566 },
+        { code: "CLQ_REH_002", unit: 122 },
+        { code: "CLQ_REH_004", unit: 25 },
       ],
-      friend: [], //해당 성계의 친밀도. 국가의 요직 담당자, 성계의 행정관과 가깝지 않을 경우 좋지 않은 이벤트가 발생할 수 있다.
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 2000 }],
     },
-    // _raw: econMax=2100 defCur=3500 defBase=5 garrison=0 support=78
-    // [최신시나리오:일치] starCode=230001 name='바텐-도라흐' faction=REH
+    /** @자원_건설 */
+    assets: {
+      credit: 400,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 42,
+      details: [{ b_id: "FARM_000", count: 400, active: true, construct: 0 }],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
+  },
+  {
+    code: "230001P02",
+    starCode: "230001",
+    name: [{ code: "Kr", context: "뮤렌" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 700, y: 200 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
+    faction: "REH",
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 800,
+      econ: [{ code: 60, unit: 787 }],
+      idea: [{ code: 240, unit: 642 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 541 },
+        { code: "CLQ_REH_001", unit: 173 },
+      ],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 100,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 16,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "조산활동과 대륙이동이 활발한 알멘트푸벨의 제 2행성.\n    최근 행성이 어느 정도 안정되기 시작하며 탐험가들이 개척을 시도하고 있다.",
+      },
+    ],
   },
 
-  // ── 230002 가이에스부르크 ──────────────────────────────
+  // ── 230002_Geiersburg ──
   {
     code: "230002P01",
     starCode: "230002",
-    nameKr: "가이에스부르크",
-    nameEn: "",
-    nameJp: "",
-    type: "fortress",
-    main: true,
-    fortress: "GAISHBURG",
-    x: 317,
-    y: 572,
-    size: 50,
+    name: [
+      { code: "Kr", context: "가이에스부르크" },
+      { code: "En", context: "Geiersburg" },
+      { code: "Jp", context: "はげたかのしろ" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 317, y: 572 },
+    planetType: "artificial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 defCur=-15536 defBase=90 garrison=5 support=93 note=FORTRESS_실제econMax0
-    // [최신시나리오:일치] starCode=230002 name='가이에스부르크' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 20,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [
+      {
+        code: "Kr",
+        context: "직경 45km에 질량 40조 톤을 자랑하는 거대한 인공요새",
+      },
+    ],
   },
   {
     code: "230002P02",
     starCode: "230002",
-    nameKr: "헷세 카셀",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 682,
-    y: 427,
-    size: 30,
+    name: [{ code: "Kr", context: "헷세·카셀" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 682, y: 427 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230002 name='헤세-카셀' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230003 클라잉겔트 ──────────────────────────────
+  // ── 230003_Klenigeld ──
   {
     code: "230003P01",
     starCode: "230003",
-    nameKr: "클라잉겔트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 787,
-    y: 376,
-    size: 42,
+    name: [
+      { code: "Kr", context: "클라인겔트" },
+      { code: "En", context: "Klenigeld" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 787, y: 376 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 750, econ: [], idea: [] },
-    // _raw: econMax=750 defCur=3500 defBase=5 garrison=0 support=68
-    // [최신시나리오:일치] starCode=230003 name='클라인겔트' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 750,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 15,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230003P02",
     starCode: "230003",
-    nameKr: "도벨그",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 480,
-    y: 755,
-    size: 26,
+    name: [{ code: "Kr", context: "도벨그" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 480, y: 755 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 600, econ: [], idea: [] },
-    // _raw: econMax=600 defCur=3500 support=68
-    // [최신시나리오:일치] starCode=230003 name='도벨그' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 600,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 12,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230003P03",
     starCode: "230003",
-    nameKr: "모르겐",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 241,
-    y: 318,
-    size: 32,
+    name: [{ code: "Kr", context: "모르겐" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 241, y: 318 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 750, econ: [], idea: [] },
-    // _raw: econMax=750 defCur=3500 support=68
-    // [최신시나리오:일치] starCode=230003 name='모르겐' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 750,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 15,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230004 탄므즈 ──────────────────────────────
+  // ── 230004_탄므즈 ──
   {
     code: "230004P01",
     starCode: "230004",
-    nameKr: "탄므즈",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "탄므즈" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=1000 defBase=0 garrison=0 support=95
-    // [최신시나리오:일치] starCode=230004 name='탄므즈' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230005 아트라 하시스 ──────────────────────────────
+  // ── 230005_아트라 하시스 ──
   {
     code: "230005P01",
     starCode: "230005",
-    nameKr: "아트라 하시스",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 398,
-    y: 228,
-    size: 42,
+    name: [{ code: "Kr", context: "아트라 하시스" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 398, y: 228 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 45, econ: [], idea: [] },
-    // _raw: econMax=45 defCur=1000 defBase=0 garrison=0 support=62
-    // [최신시나리오:일치] starCode=230005 name='아트라-하시스' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 45,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230005P02",
     starCode: "230005",
-    nameKr: "아스페륀",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 758,
-    y: 544,
-    size: 25,
+    name: [{ code: "Kr", context: "아스페륀" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 758, y: 544 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230005 name='아스페륀' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230005P03",
     starCode: "230005",
-    nameKr: "우가리트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 316,
-    y: 728,
-    size: 25,
+    name: [{ code: "Kr", context: "우가리트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 316, y: 728 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230005 name='우가리트' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230006 하이네센 ──────────────────────────────
+  // ── 230006_하이네센 ──
   {
     code: "230006P01",
     starCode: "230006",
-    nameKr: "하이네센",
-    nameEn: "",
-    nameJp: "",
-    type: "capital",
-    main: true,
-    fortress: null,
-    x: 527,
-    y: 775,
-    size: 55,
+    name: [{ code: "Kr", context: "하이네센" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 527, y: 775 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 9750, econ: [], idea: [] },
-    // _raw: econMax=9750 defCur=11000 defBase=20 garrison=18 support=98
-    // [최신시나리오:일치] starCode=230006 name='하이네센' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 9750,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 195,
+      details: [],
+    },
+    /** @특성 */
+    traits: ["MAIN_PLANET", "CAPITAL"],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230006P02",
     starCode: "230006",
-    nameKr: "시뤼나갈",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 255,
-    y: 376,
-    size: 25,
+    name: [{ code: "Kr", context: "시뤼나갈" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 255, y: 376 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230006 name='테르누젠' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230006P03",
     starCode: "230006",
-    nameKr: "테르누젠",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 724,
-    y: 318,
-    size: 32,
+    name: [{ code: "Kr", context: "테르누젠" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 724, y: 318 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230006 name='스리나가르' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230007 프르샤 스쿠타 ──────────────────────────────
+  // ── 230007_프르샤・스쿠타 ──
   {
     code: "230007P01",
     starCode: "230007",
-    nameKr: "프르샤 스쿠타",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "프르샤・스쿠타" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=1000 defBase=0 garrison=0 support=96
-    // [최신시나리오:일치] starCode=230007 name='프르샤-스쿠타' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230008 보르소른 ──────────────────────────────
+  // ── 230008_보르소른 ──
   {
     code: "230008P01",
     starCode: "230008",
-    nameKr: "보르소른",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 467,
-    y: 785,
-    size: 42,
+    name: [{ code: "Kr", context: "보르소른" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 467, y: 785 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 900, econ: [], idea: [] },
-    // _raw: econMax=900 defCur=3500 support=75
-    // [최신시나리오:일치] starCode=230008 name='보르소른' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 900,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 18,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230008P02",
     starCode: "230008",
-    nameKr: "빌로스트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 265,
-    y: 349,
-    size: 26,
+    name: [{ code: "Kr", context: "빌로스트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 265, y: 349 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 900, econ: [], idea: [] },
-    // _raw: econMax=900 defCur=3500 support=75
-    // [최신시나리오:일치] starCode=230008 name='빌로스트' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 900,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 18,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230008P03",
     starCode: "230008",
-    nameKr: "알비스",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 728,
-    y: 376,
-    size: 24,
+    name: [{ code: "Kr", context: "알비스" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 728, y: 376 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 900, econ: [], idea: [] },
-    // _raw: econMax=900 defCur=3500 support=75
-    // [최신시나리오:일치] starCode=230008 name='알비스' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 900,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 18,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230009 톤도르프 ──────────────────────────────
+  // ── 230009_톤도르프 ──
   {
     code: "230009P01",
     starCode: "230009",
-    nameKr: "톤도르프",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 674,
-    y: 588,
-    size: 42,
+    name: [{ code: "Kr", context: "톤도르프" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 674, y: 588 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1800, econ: [], idea: [] },
-    // _raw: econMax=1800 defCur=3500 defBase=5 garrison=1 support=83
-    // [최신시나리오:일치] starCode=230009 name='톤도르프' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1800,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 36,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230009P02",
     starCode: "230009",
-    nameKr: "베스타란트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 325,
-    y: 411,
-    size: 24,
+    name: [
+      { code: "Kr", context: "베스터란트" },
+      { code: "En", context: "Westerland" },
+      { code: "Jp", context: "ヴェスターラント" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 325, y: 411 },
+    planetType: "desert",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230009 name='베스타란트' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 20,
+      econ: [{ code: 60, unit: 15 }],
+      idea: [{ code: 240, unit: 1 }],
+      clique: [
+        { code: "CLQ_REH_001", unit: 5 },
+        { code: "CLQ_REH_002", unit: 4 },
+        { code: "CLQ_REH_004", unit: 1 },
+      ],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 60,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "베스터란트는\n    극도로 건조한 사막행성으로, 바위산과 황회색 사막으로 뒤덮여 있어 사람이 거주하기가 대단히 힘든 환경을 지니고 있다.\n    다만 하얀 염호(鹽湖)로 펼쳐진 표면에 크고 작은 50개의 오아시스가 있고, 이 곳을 중심으로 나름 비옥한 토지가 위치해 있어 무려 200만 명의 주민들이 행성에 거주하고 있다.\n        브라운슈바이크 공작이 가지고 있는 수많은 영지 중 하나이고, 인구도 적고 산업은 없다시피 하며 식량 생산은 자급자족 정도 이루어지는 별 볼일 없는 변경 행성이지만 희귀금속 희토류(希土類) 원소가 다량 매장되어 있어 전략적 가치가 전무하다고 볼 수는 없다.",
+      },
+    ],
   },
 
-  // ── 230010 카프튜랑카 ──────────────────────────────
+  // ── 230010_카프튜랑카 ──
   {
     code: "230010P01",
     starCode: "230010",
-    nameKr: "카프튜랑카",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "카프튜랑카" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=1500 defBase=1 garrison=1 support=95
-    // [최신시나리오:일치] starCode=230010 name='카프튜랑카' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230011 델모퓌라이 ──────────────────────────────
+  // ── 230011_델모퓌라이 ──
   {
     code: "230011P01",
     starCode: "230011",
-    nameKr: "델모퓌라이",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 635,
-    y: 641,
-    size: 42,
+    name: [{ code: "Kr", context: "델모퓌라이" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 635, y: 641 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 600, econ: [], idea: [] },
-    // _raw: econMax=600 defCur=11000 support=65
-    // [최신시나리오:일치] starCode=230011 name='델모퓌라이' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 600,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 12,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230011P02",
     starCode: "230011",
-    nameKr: "보이오이아",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 364,
-    y: 358,
-    size: 26,
+    name: [{ code: "Kr", context: "보이오이아" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 364, y: 358 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 600, econ: [], idea: [] },
-    // _raw: econMax=600 defCur=3500 defBase=5 garrison=0 support=65
-    // [최신시나리오:일치] starCode=230011 name='보이오이아' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 600,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 12,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230012 자크스 코프르크 ──────────────────────────────
+  // ── 230012_자크스・코프르크 ──
   {
     code: "230012P01",
     starCode: "230012",
-    nameKr: "자크스 코프르크",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "자크스・코프르크" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1200, econ: [], idea: [] },
-    // _raw: econMax=1200 defCur=3500 defBase=5 garrison=0 support=63
-    // [최신시나리오:일치] starCode=230012 name='자크스-코프르크' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1200,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 24,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230013 악타이온 ──────────────────────────────
+  // ── 230013_악타이온 ──
   {
     code: "230013P01",
     starCode: "230013",
-    nameKr: "악타이온",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "악타이온" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 2250, econ: [], idea: [] },
-    // _raw: econMax=2250 defCur=3500 defBase=5 garrison=0 support=83
-    // [최신시나리오:일치] starCode=230013 name='악타이온' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 2250,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 45,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230014 베스트파리아 ──────────────────────────────
+  // ── 230014_베스트파리아 ──
   {
     code: "230014P01",
     starCode: "230014",
-    nameKr: "베스트파리아",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 506,
-    y: 695,
-    size: 42,
+    name: [{ code: "Kr", context: "베스트파리아" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 506, y: 695 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 750, econ: [], idea: [] },
-    // _raw: econMax=750 defCur=3500 defBase=5 garrison=0 support=68
-    // [최신시나리오:일치] starCode=230014 name='베스트파리아' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 750,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 15,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230014P02",
     starCode: "230014",
-    nameKr: "디사우",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 493,
-    y: 304,
-    size: 29,
+    name: [{ code: "Kr", context: "디사우" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 493, y: 304 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 750, econ: [], idea: [] },
-    // _raw: econMax=750 defCur=3500 support=68
-    // [최신시나리오:일치] starCode=230014 name='디사우' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 750,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 15,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230015 다룸슈타트 ──────────────────────────────
+  // ── 230015_다룸슈타트 ──
   {
     code: "230015P01",
     starCode: "230015",
-    nameKr: "다룸슈타트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "다룸슈타트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 2400, econ: [], idea: [] },
-    // _raw: econMax=2400 defCur=3500 defBase=5 garrison=0 support=74
-    // [최신시나리오:일치] starCode=230015 name='다룸슈타트' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 2400,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 48,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230016 샴프르 ──────────────────────────────
+  // ── 230016_샴프르 ──
   {
     code: "230016P01",
     starCode: "230016",
-    nameKr: "샴프르",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 756,
-    y: 584,
-    size: 42,
+    name: [{ code: "Kr", context: "샴프르" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 756, y: 584 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1500, econ: [], idea: [] },
-    // _raw: econMax=1500 defCur=3500 defBase=5 garrison=0 support=76
-    // [최신시나리오:일치] starCode=230016 name='샴프르' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1500,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 30,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230016P02",
     starCode: "230016",
-    nameKr: "보프 마나프",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 284,
-    y: 675,
-    size: 22,
+    name: [{ code: "Kr", context: "보프・마나프" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 284, y: 675 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 900, econ: [], idea: [] },
-    // _raw: econMax=900 defCur=3500 support=76
-    // [최신시나리오:일치] starCode=230016 name='보프-마나프' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 900,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 18,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230016P03",
     starCode: "230016",
-    nameKr: "메헤라브",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 455,
-    y: 259,
-    size: 25,
+    name: [{ code: "Kr", context: "메헤라브" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 455, y: 259 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1200, econ: [], idea: [] },
-    // _raw: econMax=1200 defCur=3500 support=76
-    // [최신시나리오:일치] starCode=230016 name='메헤라브' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1200,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 24,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230017 엘 파실 ──────────────────────────────
+  // ── 230017_엘・파실 ──
   {
     code: "230017P01",
     starCode: "230017",
-    nameKr: "엘 파실",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 660,
-    y: 612,
-    size: 42,
+    name: [{ code: "Kr", context: "엘・파실" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 660, y: 612 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 900, econ: [], idea: [] },
-    // _raw: econMax=900 defCur=3500 defBase=5 garrison=1 support=73
-    // [최신시나리오:일치] starCode=230017 name='엘-파실' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 900,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 18,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230017P02",
     starCode: "230017",
-    nameKr: "에스트레마도라",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 339,
-    y: 387,
-    size: 25,
+    name: [{ code: "Kr", context: "에스트레마도라" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 339, y: 387 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230017 name='에스트레마도라' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230018 우가리트 ──────────────────────────────
+  // ── 230018_우가리트 ──
   {
     code: "230018P01",
     starCode: "230018",
-    nameKr: "우가리트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 357,
-    y: 634,
-    size: 42,
+    name: [{ code: "Kr", context: "우가리트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 357, y: 634 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=1500 defBase=1 garrison=0 support=97
-    // [최신시나리오:일치] starCode=230018 name='우가리트' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230018P02",
     starCode: "230018",
-    nameKr: "라트보트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 642,
-    y: 365,
-    size: 30,
+    name: [{ code: "Kr", context: "라트보트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 642, y: 365 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=1500 support=97
-    // [최신시나리오:일치] starCode=230018 name='라트보트' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230019 렌텐베르크 ──────────────────────────────
+  // ── 230019_렌텐베르크 ──
   {
     code: "230019P01",
     starCode: "230019",
-    nameKr: "렌텐베르크",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 677,
-    y: 582,
-    size: 42,
+    name: [{ code: "Kr", context: "렌텐베르크" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 677, y: 582 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 defCur=30000 support=91 note=FORTRESS_실제econMax0
-    // [최신시나리오:일치] starCode=230019 name='렌텐베르크' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230019P02",
     starCode: "230019",
-    nameKr: "니플헤임",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 322,
-    y: 417,
-    size: 24,
+    name: [{ code: "Kr", context: "니플헤임" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 322, y: 417 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 2250, econ: [], idea: [] },
-    // _raw: econMax=2250 defCur=6000 defBase=10 garrison=0 support=91
-    // [최신시나리오:일치] starCode=230019 name='니플헤임' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 2250,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 45,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230020 우르바시 ──────────────────────────────
+  // ── 230020_Urvashi ──
   {
     code: "230020P01",
     starCode: "230020",
-    nameKr: "우르바시",
-    nameEn: "Urvashi",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 319,
-    y: 686,
-    size: 42,
+    name: [
+      { code: "Kr", context: "우르바시" },
+      { code: "En", context: "Urvashi" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 319, y: 686 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1350, econ: [], idea: [] },
-    // _raw: econMax=1350 defCur=3500 defBase=5 garrison=0 support=73
-    // [최신시나리오:일치] starCode=230020 name='우르바시' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1350,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 27,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230020P02",
     starCode: "230020",
-    nameKr: "리시",
-    nameEn: "Rishi",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 436,
-    y: 262,
-    size: 28,
+    name: [
+      { code: "Kr", context: "리시" },
+      { code: "En", context: "Rishi" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 436, y: 262 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1350, econ: [], idea: [] },
-    // _raw: econMax=1350 defCur=3500 support=73
-    // [최신시나리오:일치] starCode=230020 name='프라바스' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1350,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 27,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230020P03",
     starCode: "230020",
-    nameKr: "푸르나바스",
-    nameEn: "Pururavas",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 790,
-    y: 586,
-    size: 23,
+    name: [
+      { code: "Kr", context: "푸르나바스" },
+      { code: "En", context: "Pururavas" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 790, y: 586 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_faction은같은성계행성기준추정
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230021 자르펠트 ──────────────────────────────
+  // ── 230021_자르펠트 ──
   {
     code: "230021P01",
     starCode: "230021",
-    nameKr: "자르펠트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "자르펠트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1500, econ: [], idea: [] },
-    // _raw: econMax=1500 defCur=3500 defBase=5 garrison=0 support=62
-    // [최신시나리오:일치] starCode=230021 name='자르펠트' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1500,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 30,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230022 이제르론 ──────────────────────────────
+  // ── 230022_이제르론 ──
   {
     code: "230022P01",
     starCode: "230022",
-    nameKr: "이제르론",
-    nameEn: "",
-    nameJp: "",
-    type: "fortress",
-    main: true,
-    fortress: "ISERLOHN",
-    x: 500,
-    y: 500,
-    size: 50,
+    name: [{ code: "Kr", context: "이제르론" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 defCur=-10536 defBase=100 garrison=5 support=93 note=FORTRESS_실제econMax0
-    // [최신시나리오:일치] starCode=230022 name='이제르론' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230023 다프테 잠시드 ──────────────────────────────
+  // ── 230023_다프테 잠시드 ──
   {
     code: "230023P01",
     starCode: "230023",
-    nameKr: "다프테 잠시드",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 518,
-    y: 695,
-    size: 42,
+    name: [{ code: "Kr", context: "다프테 잠시드" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 518, y: 695 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 2250, econ: [], idea: [] },
-    // _raw: econMax=2250 defCur=3500 defBase=5 garrison=0 support=88
-    // [최신시나리오:일치] starCode=230023 name='다프테-잠시드' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 2250,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 45,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230023P02",
     starCode: "230023",
-    nameKr: "카퍼",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 481,
-    y: 304,
-    size: 29,
+    name: [{ code: "Kr", context: "카퍼" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 481, y: 304 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230023 name='카퍼' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230024 로스바흐 ──────────────────────────────
+  // ── 230024_로스바흐 ──
   {
     code: "230024P01",
     starCode: "230024",
-    nameKr: "로스바흐",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "로스바흐" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1800, econ: [], idea: [] },
-    // _raw: econMax=1800 defCur=3500 defBase=5 garrison=0 support=73
-    // [최신시나리오:일치] starCode=230024 name='로스바흐' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1800,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 36,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230025 카프체란카 ──────────────────────────────
+  // ── 230025_카프체란카 ──
   {
     code: "230025P01",
     starCode: "230025",
-    nameKr: "카프체란카",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "카프체란카" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=게임DB없음_원작소설기준
-    // [최신시나리오:일치] starCode=230025 name='' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230026 케니히그라흐 ──────────────────────────────
+  // ── 230026_케니히그라흐 ──
   {
     code: "230026P01",
     starCode: "230026",
-    nameKr: "케니히그라흐",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 340,
-    y: 614,
-    size: 42,
+    name: [{ code: "Kr", context: "케니히그라흐" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 340, y: 614 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=게임DB없음_원작소설기준
-    // [최신시나리오:일치] starCode=230026 name='카스트로프' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230026P02",
     starCode: "230026",
-    nameKr: "라파트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 659,
-    y: 385,
-    size: 26,
+    name: [{ code: "Kr", context: "라파트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 659, y: 385 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=게임DB없음_원작소설기준
-    // [최신시나리오:일치] starCode=230026 name='라파트' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230027 네프티스 ──────────────────────────────
+  // ── 230027_네프티스 ──
   {
     code: "230027P01",
     starCode: "230027",
-    nameKr: "네프티스",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 375,
-    y: 651,
-    size: 42,
+    name: [{ code: "Kr", context: "네프티스" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 375, y: 651 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=게임DB없음_원작소설기준
-    // [최신시나리오:일치] starCode=230027 name='' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230027P02",
     starCode: "230027",
-    nameKr: "이제크온",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 624,
-    y: 348,
-    size: 23,
+    name: [{ code: "Kr", context: "이제크온" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 624, y: 348 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_faction은같은성계행성기준추정
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230028 가르미슈 ──────────────────────────────
+  // ── 230028_가르미슈 ──
   {
     code: "230028P01",
     starCode: "230028",
-    nameKr: "가르미슈",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 555,
-    y: 215,
-    size: 42,
+    name: [{ code: "Kr", context: "가르미슈" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 555, y: 215 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 defCur=30000 support=81 note=FORTRESS_실제econMax0
-    // [최신시나리오:일치] starCode=230028 name='가르미슈' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230028P02",
     starCode: "230028",
-    nameKr: "스루즈헤임",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 725,
-    y: 689,
-    size: 31,
+    name: [{ code: "Kr", context: "스루즈헤임" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 725, y: 689 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1500, econ: [], idea: [] },
-    // _raw: econMax=1500 defCur=6000 defBase=10 garrison=0 support=81
-    // [최신시나리오:일치] starCode=230028 name='스루즈헤임' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1500,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 30,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230028P03",
     starCode: "230028",
-    nameKr: "가랴르호른",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 206,
-    y: 585,
-    size: 26,
+    name: [{ code: "Kr", context: "가랴르호른" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 206, y: 585 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1350, econ: [], idea: [] },
-    // _raw: econMax=1350 defCur=6000 support=81
-    // [최신시나리오:일치] starCode=230028 name='가랴르호른' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1350,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 27,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230029 레그니처 ──────────────────────────────
+  // ── 230029_레그니처 ──
   {
     code: "230029P01",
     starCode: "230029",
-    nameKr: "레그니처",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "레그니처" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=게임DB없음_원작소설기준
-    // [최신시나리오:일치] starCode=230029 name='' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230030 에르힌겐 ──────────────────────────────
+  // ── 230030_에르힌겐 ──
   {
     code: "230030P01",
     starCode: "230030",
-    nameKr: "에르힌겐",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "에르힌겐" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 4800, econ: [], idea: [] },
-    // _raw: econMax=4800 defCur=3500 defBase=5 garrison=0 support=88
-    // [최신시나리오:일치] starCode=230030 name='에르힌겐' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 4800,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 96,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230031 립슈타트 ──────────────────────────────
+  // ── 230031_립슈타트 ──
   {
     code: "230031P01",
     starCode: "230031",
-    nameKr: "립슈타트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "립슈타트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=게임DB없음_원작소설기준
-    // [최신시나리오:일치] starCode=230031 name='' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230032 퀴스트린 ──────────────────────────────
+  // ── 230032_퀴스트린 ──
   {
     code: "230032P01",
     starCode: "230032",
-    nameKr: "퀴스트린",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 694,
-    y: 521,
-    size: 42,
+    name: [{ code: "Kr", context: "퀴스트린" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 694, y: 521 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1800, econ: [], idea: [] },
-    // _raw: econMax=1800 defCur=6000 defBase=10 garrison=1 support=78
-    // [최신시나리오:일치] starCode=230032 name='퀴스트린' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1800,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 36,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230032P02",
     starCode: "230032",
-    nameKr: "에르뮐",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 305,
-    y: 478,
-    size: 22,
+    name: [{ code: "Kr", context: "에르뮐" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 305, y: 478 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230032 name='에르뮐' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230033 키베론 ──────────────────────────────
+  // ── 230033_키베론 ──
   {
     code: "230033P01",
     starCode: "230033",
-    nameKr: "키베론",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 482,
-    y: 695,
-    size: 42,
+    name: [{ code: "Kr", context: "키베론" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 482, y: 695 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 450, econ: [], idea: [] },
-    // _raw: econMax=450 defCur=6000 defBase=10 garrison=0 support=86
-    // [최신시나리오:일치] starCode=230033 name='키베론' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 450,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 9,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230033P02",
     starCode: "230033",
-    nameKr: "루드밀라",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 517,
-    y: 304,
-    size: 30,
+    name: [{ code: "Kr", context: "루드밀라" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 517, y: 304 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230033 name='루드밀라' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230034 카스티리오네 ──────────────────────────────
+  // ── 230034_카스티리오네 ──
   {
     code: "230034P01",
     starCode: "230034",
-    nameKr: "카스티리오네",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "카스티리오네" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=1500 defBase=1 garrison=0 support=98
-    // [최신시나리오:일치] starCode=230034 name='카스티리오네' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230035  ──────────────────────────────
+  // ── 230035_ ──
   {
     code: "230035P01",
     starCode: "230035",
-    nameKr: "",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 2250, econ: [], idea: [] },
-    // _raw: econMax=2250 defCur=3500 defBase=5 garrison=0 support=78
-    // [최신시나리오:일치] starCode=230035 name='비트리아' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 2250,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 45,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230036 비트리아 ──────────────────────────────
+  // ── 230036_비트리아 ──
   {
     code: "230036P01",
     starCode: "230036",
-    nameKr: "비트리아",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "비트리아" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=게임DB없음_원작소설기준
-    // [최신시나리오:일치] starCode=230036 name='' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230037 파프라비 ──────────────────────────────
+  // ── 230037_파프라비 ──
   {
     code: "230037P01",
     starCode: "230037",
-    nameKr: "파프라비",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "파프라비" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=1500 defBase=1 garrison=0 support=97
-    // [최신시나리오:일치] starCode=230037 name='파프라비' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230038 민덴 ──────────────────────────────
+  // ── 230038_민덴 ──
   {
     code: "230038P01",
     starCode: "230038",
-    nameKr: "민덴",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "민덴" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 3300, econ: [], idea: [] },
-    // _raw: econMax=3300 defCur=3500 defBase=5 garrison=0 support=81
-    // [최신시나리오:일치] starCode=230038 name='민덴' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 3300,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 66,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230039 테레젠슈타트 ──────────────────────────────
+  // ── 230039_테레젠슈타트 ──
   {
     code: "230039P01",
     starCode: "230039",
-    nameKr: "테레젠슈타트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "테레젠슈타트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 2700, econ: [], idea: [] },
-    // _raw: econMax=2700 defCur=3500 defBase=5 garrison=0 support=86
-    // [최신시나리오:일치] starCode=230039 name='테레젠슈타트' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 2700,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 54,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230040 노이에란트 ──────────────────────────────
+  // ── 230040_노이에란트 ──
   {
     code: "230040P01",
     starCode: "230040",
-    nameKr: "노이에란트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "노이에란트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=게임DB없음_원작소설기준
-    // [최신시나리오:일치] starCode=230040 name='' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230041 케르코포르타 ──────────────────────────────
+  // ── 230041_케르코포르타 ──
   {
     code: "230041P01",
     starCode: "230041",
-    nameKr: "케르코포르타",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "케르코포르타" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=1500 defBase=1 garrison=0 support=97
-    // [최신시나리오:일치] starCode=230041 name='케르코포르타' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230042 페잔 ──────────────────────────────
+  // ── 230042_페잔 ──
   {
     code: "230042P01",
     starCode: "230042",
-    nameKr: "페잔",
-    nameEn: "",
-    nameJp: "",
-    type: "capital",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 55,
+    name: [{ code: "Kr", context: "페잔" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "PZN",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 18000, econ: [], idea: [] },
-    // _raw: econMax=18000 defCur=1000 defBase=0 garrison=12 support=100
-    // [최신시나리오:일치] starCode=230042 name='페잔' faction=PZN
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 18000,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 360,
+      details: [],
+    },
+    /** @특성 */
+    traits: ["MAIN_PLANET", "CAPITAL"],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230043 루지아나 ──────────────────────────────
+  // ── 230043_루지아나 ──
   {
     code: "230043P01",
     starCode: "230043",
-    nameKr: "루지아나",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "루지아나" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=6000 defBase=10 garrison=0 support=73
-    // [최신시나리오:일치] starCode=230043 name='루지아나' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230044 루지아나 ──────────────────────────────
+  // ── 230044_루지아나 ──
   {
     code: "230044P01",
     starCode: "230044",
-    nameKr: "루지아나",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "루지아나" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 600, econ: [], idea: [] },
-    // _raw: econMax=600 defCur=3500 defBase=5 garrison=0 support=70
-    // [최신시나리오:일치] starCode=230044 name='하펜' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 600,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 12,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230045 마그 토레드 ──────────────────────────────
+  // ── 230045_마그 토레드 ──
   {
     code: "230045P01",
     starCode: "230045",
-    nameKr: "마그 토레드",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "마그 토레드" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 2400, econ: [], idea: [] },
-    // _raw: econMax=2400 defCur=3500 defBase=5 garrison=0 support=72
-    // [최신시나리오:일치] starCode=230045 name='마그-토레드' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 2400,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 48,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230046 라티고스트 ──────────────────────────────
+  // ── 230046_라티고스트 ──
   {
     code: "230046P01",
     starCode: "230046",
-    nameKr: "라티고스트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 282,
-    y: 616,
-    size: 42,
+    name: [{ code: "Kr", context: "라티고스트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 282, y: 616 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=3500 defBase=5 garrison=0 support=84
-    // [최신시나리오:일치] starCode=230046 name='라티고스트' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230046P02",
     starCode: "230046",
-    nameKr: "스벤트비트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 505,
-    y: 199,
-    size: 28,
+    name: [{ code: "Kr", context: "스벤트비트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 505, y: 199 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=6000 support=84
-    // [최신시나리오:일치] starCode=230046 name='스벤트비트' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230046P03",
     starCode: "230046",
-    nameKr: "야로비트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 745,
-    y: 623,
-    size: 22,
+    name: [{ code: "Kr", context: "야로비트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 745, y: 623 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=3500 support=84
-    // [최신시나리오:일치] starCode=230046 name='야로비트' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230047 아로요 드 모리노 ──────────────────────────────
+  // ── 230047_아로요 드 모리노 ──
   {
     code: "230047P01",
     starCode: "230047",
-    nameKr: "아로요 드 모리노",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 330,
-    y: 599,
-    size: 42,
+    name: [{ code: "Kr", context: "아로요 드 모리노" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 330, y: 599 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 2550, econ: [], idea: [] },
-    // _raw: econMax=2550 defCur=3500 support=92
-    // [최신시나리오:일치] starCode=230047 name='아로요-드-모리노' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 2550,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 51,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230047P02",
     starCode: "230047",
-    nameKr: "카시나",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 669,
-    y: 400,
-    size: 22,
+    name: [{ code: "Kr", context: "카시나" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 669, y: 400 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 2550, econ: [], idea: [] },
-    // _raw: econMax=2550 defCur=3500 defBase=5 garrison=0 support=92
-    // [최신시나리오:일치] starCode=230047 name='카시나' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 2550,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 51,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230048 슈바르츠부르크 ──────────────────────────────
+  // ── 230048_슈바르츠부르크 ──
   {
     code: "230048P01",
     starCode: "230048",
-    nameKr: "슈바르츠부르크",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "슈바르츠부르크" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1800, econ: [], idea: [] },
-    // _raw: econMax=1800 defCur=3500 defBase=5 garrison=0 support=68
-    // [최신시나리오:일치] starCode=230048 name='슈바르츠부르크' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1800,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 36,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230049 알에리스 ──────────────────────────────
+  // ── 230049_알에리스 ──
   {
     code: "230049P01",
     starCode: "230049",
-    nameKr: "알에리스",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "알에리스" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=1500 defBase=1 garrison=0 support=95
-    // [최신시나리오:일치] starCode=230049 name='알에리스' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230050 에스링그 ──────────────────────────────
+  // ── 230050_에스링그 ──
   {
     code: "230050P01",
     starCode: "230050",
-    nameKr: "에스링그",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 734,
-    y: 427,
-    size: 42,
+    name: [{ code: "Kr", context: "에스링그" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 734, y: 427 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230050 name='에스링그' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230050P02",
     starCode: "230050",
-    nameKr: "크네스도르프",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 423,
-    y: 734,
-    size: 32,
+    name: [{ code: "Kr", context: "크네스도르프" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 423, y: 734 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230050 name='크네스도르프' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230050P03",
     starCode: "230050",
-    nameKr: "폰트노이",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 330,
-    y: 306,
-    size: 30,
+    name: [{ code: "Kr", context: "폰트노이" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 330, y: 306 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1500, econ: [], idea: [] },
-    // _raw: econMax=1500 defCur=3500 defBase=5 garrison=0 support=98
-    // [최신시나리오:일치] starCode=230050 name='폰트노이' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1500,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 30,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230051 미트라 ──────────────────────────────
+  // ── 230051_미트라 ──
   {
     code: "230051P01",
     starCode: "230051",
-    nameKr: "미트라",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 483,
-    y: 695,
-    size: 42,
+    name: [{ code: "Kr", context: "미트라" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 483, y: 695 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230051 name='미트라' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230051P02",
     starCode: "230051",
-    nameKr: "지비에",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 516,
-    y: 304,
-    size: 30,
+    name: [{ code: "Kr", context: "지비에" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 516, y: 304 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1800, econ: [], idea: [] },
-    // _raw: econMax=1800 defCur=3500 defBase=5 garrison=0 support=79
-    // [최신시나리오:일치] starCode=230051 name='지비에' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1800,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 36,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230052 에레키슈갈 ──────────────────────────────
+  // ── 230052_에레키슈갈 ──
   {
     code: "230052P01",
     starCode: "230052",
-    nameKr: "에레키슈갈",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "에레키슈갈" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=1500 defBase=1 garrison=0 support=99
-    // [최신시나리오:일치] starCode=230052 name='에레키슈갈' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230053 에코니아 ──────────────────────────────
+  // ── 230053_에코니아 ──
   {
     code: "230053P01",
     starCode: "230053",
-    nameKr: "에코니아",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 526,
-    y: 694,
-    size: 42,
+    name: [{ code: "Kr", context: "에코니아" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 526, y: 694 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 2400, econ: [], idea: [] },
-    // _raw: econMax=2400 defCur=3500 defBase=5 garrison=0 support=84
-    // [최신시나리오:일치] starCode=230053 name='에코니아' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 2400,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 48,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230053P02",
     starCode: "230053",
-    nameKr: "마스지드",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 473,
-    y: 305,
-    size: 29,
+    name: [{ code: "Kr", context: "마스지드" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 473, y: 305 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 2400, econ: [], idea: [] },
-    // _raw: econMax=2400 defCur=3500 support=84
-    // [최신시나리오:일치] starCode=230053 name='마스지드' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 2400,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 48,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230054 파라스 ──────────────────────────────
+  // ── 230054_파라스 ──
   {
     code: "230054P01",
     starCode: "230054",
-    nameKr: "파라스",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "파라스" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 900, econ: [], idea: [] },
-    // _raw: econMax=900 defCur=11000 defBase=20 garrison=0 support=78
-    // [최신시나리오:일치] starCode=230054 name='파라스' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 900,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 18,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230055 라므 ──────────────────────────────
+  // ── 230055_라므 ──
   {
     code: "230055P01",
     starCode: "230055",
-    nameKr: "라므",
-    nameEn: "",
-    nameJp: "",
-    type: "fortress",
-    main: true,
-    fortress: "TIAMAT",
-    x: 693,
-    y: 331,
-    size: 50,
+    name: [{ code: "Kr", context: "라므" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 693, y: 331 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 75, econ: [], idea: [] },
-    // _raw: econMax=75 defCur=1000 defBase=0 garrison=0 support=65
-    // [최신시나리오:일치] starCode=230055 name='라므' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 75,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 2,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230055P02",
     starCode: "230055",
-    nameKr: "안샤르",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 563,
-    y: 764,
-    size: 29,
+    name: [{ code: "Kr", context: "안샤르" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 563, y: 764 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230055 name='안샤르' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230055P03",
     starCode: "230055",
-    nameKr: "레그니처",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 256,
-    y: 411,
-    size: 25,
+    name: [{ code: "Kr", context: "레그니처" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 256, y: 411 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=게임DB없음_원작소설기준
-    // [최신시나리오:일치] starCode=230055 name='레그니처' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230056 호포키르히 ──────────────────────────────
+  // ── 230056_호포키르히 ──
   {
     code: "230056P01",
     starCode: "230056",
-    nameKr: "호포키르히",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 368,
-    y: 645,
-    size: 42,
+    name: [{ code: "Kr", context: "호포키르히" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 368, y: 645 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1950, econ: [], idea: [] },
-    // _raw: econMax=1950 defCur=3500 defBase=5 garrison=0 support=88
-    // [최신시나리오:일치] starCode=230056 name='호포키르히' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1950,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 39,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230056P02",
     starCode: "230056",
-    nameKr: "비텐베르크",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 631,
-    y: 354,
-    size: 25,
+    name: [{ code: "Kr", context: "비텐베르크" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 631, y: 354 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230056 name='비텐베르크' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230057 팔머랜드 ──────────────────────────────
+  // ── 230057_팔머랜드 ──
   {
     code: "230057P01",
     starCode: "230057",
-    nameKr: "팔머랜드",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "팔머랜드" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1800, econ: [], idea: [] },
-    // _raw: econMax=1800 defCur=3500 defBase=5 garrison=0 support=81
-    // [최신시나리오:일치] starCode=230057 name='팔머랜드' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1800,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 36,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230058 오딘 ──────────────────────────────
+  // ── 230058_Odin ──
   {
     code: "230058P01",
     starCode: "230058",
-    nameKr: "오딘",
-    nameEn: "",
-    nameJp: "",
-    type: "capital",
-    main: true,
-    fortress: null,
-    x: 654,
-    y: 731,
-    size: 55,
+    name: [
+      { code: "Kr", context: "오딘" },
+      { code: "En", context: "Odin" },
+      { code: "Jp", context: "オーディン" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 654, y: 731 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 4950, econ: [], idea: [] },
-    // _raw: econMax=4950 defCur=3500 defBase=5 garrison=18 support=93
-    // [최신시나리오:일치] starCode=230058 name='오딘' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 4950,
+      econ: [{ code: 60, unit: 4554 }],
+      idea: [{ code: 240, unit: 4500 }],
+      clique: [
+        { code: "CLQ_REH_001", unit: 4000 },
+        { code: "CLQ_REH_002", unit: 300 },
+        { code: "CLQ_REH_003", unit: 200 },
+        { code: "CLQ_REH_004", unit: 100 },
+      ],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 50,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 99,
+      details: [],
+    },
+    /** @특성 */
+    traits: ["MAIN_PLANET", "CAPITAL", "IMPERIAL_DEMESNE"],
+    /** @설명 */
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "발할라 성계에 위치한 제 3행성. 골덴바움 왕조 은하제국의 수도\n    제국의 영토로 봤을 때, 중심에 속하진 않았으나, 성계의 이름과 행성이 루돌프의 취향에 맞아 수도로 결정되었다.",
+      },
+    ],
   },
   {
     code: "230058P02",
     starCode: "230058",
-    nameKr: "아스가르즈",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 258,
-    y: 550,
-    size: 24,
+    name: [{ code: "Kr", context: "아스가르즈" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 258, y: 550 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1800, econ: [], idea: [] },
-    // _raw: econMax=1800 defCur=6000 support=93
-    // [최신시나리오:일치] starCode=230058 name='아스가르즈' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1800,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 36,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230058P03",
     starCode: "230058",
-    nameKr: "유그드라실",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 592,
-    y: 215,
-    size: 31,
+    name: [{ code: "Kr", context: "유그드라실" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 592, y: 215 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: econMax=0 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230058 name='유그드라실' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230059 브렌하임 ──────────────────────────────
+  // ── 230059_브렌하임 ──
   {
     code: "230059P01",
     starCode: "230059",
-    nameKr: "브렌하임",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 429,
-    y: 682,
-    size: 42,
+    name: [{ code: "Kr", context: "브렌하임" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 429, y: 682 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1200, econ: [], idea: [] },
-    // _raw: econMax=1200 defCur=3500 defBase=5 garrison=0 support=72
-    // [최신시나리오:일치] starCode=230059 name='브렌하임' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1200,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 24,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230059P02",
     starCode: "230059",
-    nameKr: "카르슈타트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 570,
-    y: 317,
-    size: 31,
+    name: [{ code: "Kr", context: "카르슈타트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 570, y: 317 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1200, econ: [], idea: [] },
-    // _raw: econMax=1200 defCur=3500 support=72
-    // [최신시나리오:일치] starCode=230059 name='카르슈타트' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1200,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 24,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230060 카토르브러 ──────────────────────────────
+  // ── 230060_카토르브러 ──
   {
     code: "230060P01",
     starCode: "230060",
-    nameKr: "카토르브러",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "카토르브러" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=1000 defBase=0 garrison=0 support=93
-    // [최신시나리오:일치] starCode=230060 name='카토르브러' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230061 몽마라유 ──────────────────────────────
+  // ── 230061_몽마라유 ──
   {
     code: "230061P01",
     starCode: "230061",
-    nameKr: "몽마라유",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "몽마라유" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1200, econ: [], idea: [] },
-    // _raw: econMax=1200 defCur=3500 defBase=5 garrison=0 support=79
-    // [최신시나리오:일치] starCode=230061 name='몽마라유' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1200,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 24,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230062 레오폴트슈타트 ──────────────────────────────
+  // ── 230062_레오폴트슈타트 ──
   {
     code: "230062P01",
     starCode: "230062",
-    nameKr: "레오폴트슈타트",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 352,
-    y: 629,
-    size: 42,
+    name: [{ code: "Kr", context: "레오폴트슈타트" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 352, y: 629 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1800, econ: [], idea: [] },
-    // _raw: econMax=1800 defCur=3500 defBase=5 garrison=0 support=81
-    // [최신시나리오:일치] starCode=230062 name='레오폴트슈타트' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1800,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 36,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230062P02",
     starCode: "230062",
-    nameKr: "그라츠",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 647,
-    y: 370,
-    size: 30,
+    name: [{ code: "Kr", context: "그라츠" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 647, y: 370 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 1500, econ: [], idea: [] },
-    // _raw: econMax=1500 defCur=3500 support=81
-    // [최신시나리오:일치] starCode=230062 name='그라츠' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 1500,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 30,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230063 네프티스 ──────────────────────────────
+  // ── 230063_NEPHTHYS ──
   {
     code: "230063P01",
     starCode: "230063",
-    nameKr: "네프티스",
-    nameEn: "NEPHTHYS",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "네프티스" },
+      { code: "En", context: "NEPHTHYS" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 2700, econ: [], idea: [] },
-    // _raw: econMax=2700 defCur=6000 defBase=10 garrison=0 support=87
-    // [최신시나리오:일치] starCode=230063 name='네프티스' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 2700,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 54,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
   {
     code: "230063P02",
     starCode: "230063",
-    nameKr: "이제크온",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: false,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 28,
+    name: [{ code: "Kr", context: "이제크온" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집
-    // [최신시나리오:일치] starCode=230063 name='이제크온' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230064 빌로스트 ──────────────────────────────
+  // ── 230064_BYLOST ──
   {
     code: "230064P01",
     starCode: "230064",
-    nameKr: "빌로스트",
-    nameEn: "BYLOST",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "빌로스트" },
+      { code: "En", context: "BYLOST" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(빌로스트-야반하르성역분리)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230067 뮈켄베르거 ──────────────────────────────
+  // ── 230067_MÜKKENBERGER ──
   {
     code: "230067P01",
     starCode: "230067",
-    nameKr: "뮈켄베르거",
-    nameEn: "MÜKKENBERGER",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "뮈켄베르거" },
+      { code: "En", context: "MÜKKENBERGER" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(뮈켄베르거변경백가문영지)
-    // [최신시나리오:일치] starCode=230067 name='' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230068 네페르카프타흐 ──────────────────────────────
+  // ── 230068_네페르카프타흐 ──
   {
     code: "230068P01",
     starCode: "230068",
-    nameKr: "네페르카프타흐",
-    nameEn: "",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [{ code: "Kr", context: "네페르카프타흐" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 150, econ: [], idea: [] },
-    // _raw: econMax=150 defCur=1500 defBase=1 garrison=0 support=96
-    // [최신시나리오:일치] starCode=230068 name='' faction=FPA
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 3,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230069 지구 ──────────────────────────────
+  // ── 230069_Terra/Earth ──
   {
     code: "230069P01",
     starCode: "230069",
-    nameKr: "지구",
-    nameEn: "Terra/Earth",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 30,
+    name: [
+      { code: "Kr", context: "지구" },
+      { code: "En", context: "Terra/Earth" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 100, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=게임DB없음_원작소설기준_인구는나무위키검증(1000만명,우주력8세기말)
-    // [최신시나리오:일치] starCode=230069 name='지구' faction=REH
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 100,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 2,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230070 야반하르 ──────────────────────────────
+  // ── 230070_YAVANHAR ──
   {
     code: "230070P01",
     starCode: "230070",
-    nameKr: "야반하르",
-    nameEn: "YAVANHAR",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "야반하르" },
+      { code: "En", context: "YAVANHAR" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(빌로스트-야반하르성역분리)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230071 란즈베르크 ──────────────────────────────
+  // ── 230071_LANSBERG ──
   {
     code: "230071P01",
     starCode: "230071",
-    nameKr: "란즈베르크",
-    nameEn: "LANSBERG",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "란즈베르크" },
+      { code: "En", context: "LANSBERG" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(란즈베르크백작가영지)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230072 오펜하이머 ──────────────────────────────
+  // ── 230072_OPPENHEIMER ──
   {
     code: "230072P01",
     starCode: "230072",
-    nameKr: "오펜하이머",
-    nameEn: "OPPENHEIMER",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "오펜하이머" },
+      { code: "En", context: "OPPENHEIMER" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(오펜하이머백작가영지)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230073 히르데스하임 ──────────────────────────────
+  // ── 230073_HILDESHEIM ──
   {
     code: "230073P01",
     starCode: "230073",
-    nameKr: "히르데스하임",
-    nameEn: "HILDESHEIM",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "히르데스하임" },
+      { code: "En", context: "HILDESHEIM" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(히르데스하임백작가영지)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230074 뤼네부르크 ──────────────────────────────
+  // ── 230074_LÜNEBURG ──
   {
     code: "230074P01",
     starCode: "230074",
-    nameKr: "뤼네부르크",
-    nameEn: "LÜNEBURG",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 48,
+    name: [
+      { code: "Kr", context: "뤼네부르크" },
+      { code: "En", context: "LÜNEBURG" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(뤼네부르크가문영지,오등작중높은작위)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230075 하르텐베르크 ──────────────────────────────
+  // ── 230075_HARTENBERG ──
   {
     code: "230075P01",
     starCode: "230075",
-    nameKr: "하르텐베르크",
-    nameEn: "HARTENBERG",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "하르텐베르크" },
+      { code: "En", context: "HARTENBERG" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(하르텐베르크백작가영지)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230076 로엔그람 ──────────────────────────────
+  // ── 230076_LOHENGRAMM ──
   {
     code: "230076P01",
     starCode: "230076",
-    nameKr: "로엔그람",
-    nameEn: "LOHENGRAMM",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "로엔그람" },
+      { code: "En", context: "LOHENGRAMM" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(로엔그람가문영지,오등작확인)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230077 클롭슈톡 ──────────────────────────────
+  // ── 230077_KLOPSTOCK ──
   {
     code: "230077P01",
     starCode: "230077",
-    nameKr: "클롭슈톡",
-    nameEn: "KLOPSTOCK",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "클롭슈톡" },
+      { code: "En", context: "KLOPSTOCK" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(클롭슈톡가문영지,오등작확인)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230078 베네뮌데 ──────────────────────────────
+  // ── 230078_BENEMÜNDE ──
   {
     code: "230078P01",
     starCode: "230078",
-    nameKr: "베네뮌데",
-    nameEn: "BENEMÜNDE",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "베네뮌데" },
+      { code: "En", context: "BENEMÜNDE" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(베네뮌데가문영지,오등작확인)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230079 그뤼네발트 ──────────────────────────────
+  // ── 230079_GRÜNEWALD ──
   {
     code: "230079P01",
     starCode: "230079",
-    nameKr: "그뤼네발트",
-    nameEn: "GRÜNEWALD",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "그뤼네발트" },
+      { code: "En", context: "GRÜNEWALD" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(그뤼네발트가문영지,오등작확인)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230080 팔스트롱 ──────────────────────────────
+  // ── 230080_FALSTRONG ──
   {
     code: "230080P01",
     starCode: "230080",
-    nameKr: "팔스트롱",
-    nameEn: "FALSTRONG",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "팔스트롱" },
+      { code: "En", context: "FALSTRONG" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(팔스트롱가문영지,오등작확인)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230081 렘샤이트 ──────────────────────────────
+  // ── 230081_REMSCHEID ──
   {
     code: "230081P01",
     starCode: "230081",
-    nameKr: "렘샤이트",
-    nameEn: "REMSCHEID",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "렘샤이트" },
+      { code: "En", context: "REMSCHEID" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(렘샤이트가문영지,오등작확인)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230082 헤르크스하이머 ──────────────────────────────
+  // ── 230082_HERXHEIMER ──
   {
     code: "230082P01",
     starCode: "230082",
-    nameKr: "헤르크스하이머",
-    nameEn: "HERXHEIMER",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "헤르크스하이머" },
+      { code: "En", context: "HERXHEIMER" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(헤르크스하이머가문영지,오등작확인)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230083 에렌베르크 ──────────────────────────────
+  // ── 230083_EHRENBERG ──
   {
     code: "230083P01",
     starCode: "230083",
-    nameKr: "에렌베르크",
-    nameEn: "EHRENBERG",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "에렌베르크" },
+      { code: "En", context: "EHRENBERG" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: "REH",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=TODO_미수집_신규성계(에렌베르크가문영지,오등작확인)
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230084 알타이르 ──────────────────────────────
+  // ── 230084_ALTAIR ──
   {
     code: "230084P01",
     starCode: "230084",
-    nameKr: "알타이르",
-    nameEn: "ALTAIR",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "알타이르" },
+      { code: "En", context: "ALTAIR" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: null,
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=게임DB없음_외전과거시점_faction의미없음
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230085 베텔기우스 ──────────────────────────────
+  // ── 230085_BETELGEUSE ──
   {
     code: "230085P01",
     starCode: "230085",
-    nameKr: "베텔기우스",
-    nameEn: "BETELGEUSE",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "베텔기우스" },
+      { code: "En", context: "BETELGEUSE" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: null,
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=게임DB없음_외전과거시점_faction의미없음
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230086 카노프스 ──────────────────────────────
+  // ── 230086_CANOPUS ──
   {
     code: "230086P01",
     starCode: "230086",
-    nameKr: "카노프스",
-    nameEn: "CANOPUS",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "카노프스" },
+      { code: "En", context: "CANOPUS" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: null,
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=게임DB없음_외전과거시점_faction의미없음
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230087 프록시마 ──────────────────────────────
+  // ── 230087_PROXIMA ──
   {
     code: "230087P01",
     starCode: "230087",
-    nameKr: "프록시마",
-    nameEn: "PROXIMA",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "프록시마" },
+      { code: "En", context: "PROXIMA" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: null,
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=게임DB없음_외전과거시점_faction의미없음
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230088 론드리나 ──────────────────────────────
+  // ── 230088_LONDRINA ──
   {
     code: "230088P01",
     starCode: "230088",
-    nameKr: "론드리나",
-    nameEn: "LONDRINA",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "론드리나" },
+      { code: "En", context: "LONDRINA" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: null,
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=게임DB없음_외전과거시점_faction의미없음
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230089 레자빅 ──────────────────────────────
+  // ── 230089_REZAVIK ──
   {
     code: "230089P01",
     starCode: "230089",
-    nameKr: "레자빅",
-    nameEn: "REZAVIK",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "레자빅" },
+      { code: "En", context: "REZAVIK" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: null,
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=게임DB없음_외전과거시점_faction의미없음
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230090 포리슨 ──────────────────────────────
+  // ── 230090_FORISON ──
   {
     code: "230090P01",
     starCode: "230090",
-    nameKr: "포리슨",
-    nameEn: "FORISON",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
-    faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=게임DB없음_외전과거시점_faction의미없음
+    name: [
+      { code: "Kr", context: "포리슨" },
+      { code: "En", context: "FORISON" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
+    faction: null,
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230091 파라파라 ──────────────────────────────
+  // ── 230091_PARAFARA ──
   {
     code: "230091P01",
     starCode: "230091",
-    nameKr: "파라파라",
-    nameEn: "PARAFARA",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "파라파라" },
+      { code: "En", context: "PARAFARA" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: null,
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=게임DB없음_외전과거시점_faction의미없음
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230092 슈바라 ──────────────────────────────
+  // ── 230092_SCHWARA ──
   {
     code: "230092P01",
     starCode: "230092",
-    nameKr: "슈바라",
-    nameEn: "SCHWARA",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
+    name: [
+      { code: "Kr", context: "슈바라" },
+      { code: "En", context: "SCHWARA" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
     faction: null,
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음 note=게임DB없음_외전과거시점_faction의미없음
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 
-  // ── 230093 닛슈우히더스 ──────────────────────────────
+  // ── 230093_NISHUHIDERS ──
   {
     code: "230093P01",
     starCode: "230093",
-    nameKr: "닛슈우히더스",
-    nameEn: "NISHUHIDERS",
-    nameJp: "",
-    type: "terrestrial",
-    main: true,
-    fortress: null,
-    x: 500,
-    y: 500,
-    size: 42,
-    faction: "FPA",
-    corruption: 0,
-    treasury: 0,
-    pops: { unit: 0, econ: [], idea: [] },
-    // _raw: 원본데이터 없음
+    name: [
+      { code: "Kr", context: "닛슈우히더스" },
+      { code: "En", context: "NISHUHIDERS" },
+    ],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
+    faction: null,
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 0,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 0,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 1,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
   },
 ];
 

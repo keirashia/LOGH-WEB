@@ -23,6 +23,18 @@
 //       TRAITS가 적혀있으면 charTraitData.js에 마스터 등록 후 charactersTraits.js에 할당)
 // ================================================================
 
+// 주석 부분은 확인 후 삭제할것 (참조용임)
+// TODO가 붙은 내역은 확인 후 삭제해도 됨.
+
+/**
+ * @TODO 2026.06.25
+ * name|nick|desc구조 개편
+ *  name : [{code : `Kr` context : `D. 싱클레어`}...]
+ *  만들 때, context가 빈 값이면 현재 js화면에선 굳이 구현할 필요가 없음.
+ * searchKeys 로직 체크
+ *  : searchKeys는 개편된 name의 Kr, En, Jp를 merge후, string을 ' ', '・'으로 split하여 처리하는 것이 맞는지? 아니라면 해당 로직으로 수정하는 것이 맞는 것 같음
+ */
+
 export const CHAR_BASE = [
   // D. 싱클레어
   {
@@ -61,6 +73,10 @@ export const CHAR_BASE = [
     descKr: `명망높은 역사가이자 역사 다큐멘터리 해설가. 언변이 좋아 대중들로부터 많은 사랑을 받고 있다.`,
     descEn: ``,
     descJp: ``,
+    // — 직업
+    // 시민(JB_C001) LV4 (효과 없음. 이후 정치인으로 전직시 LV, EXP에 따라 명성 개념으로 활용됨)
+    // 학자(JB_C003) LV2
+    // — 트레잇
   },
   // E.J. 맥켄지
   {
@@ -77,11 +93,11 @@ export const CHAR_BASE = [
     death: "SE|801.07.26",
     // — 성향
     faction: "FPA",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    idea: "100", // 자유민주공화국
+    econ: "100", // 자본주의
+    brave: "25",
+    moral: "88",
+    friend: "120",
     // — 능력치
     statCmd: 10,
     statCsm: 65,
@@ -2259,18 +2275,19 @@ export const CHAR_BASE = [
     descEn: ``,
     descJp: ``,
   },
+  // 라우디츠 Rauditz · ラウヂィッツ
   {
     // — 기본
     code: "CH_000061",
     nameKr: "라우디츠",
-    nameEn: "",
-    nameJp: "",
+    nameEn: "Rauditz",
+    nameJp: "ラウヂィッツ",
     nickKr: "",
     nickEn: "",
     nickJp: "",
-    searchKeys: [],
+    searchKeys: ["하우디츠"],
     birth: "",
-    death: "",
+    death: "SE|797.07.26", // 리텐하임과 동시 사망
     // — 성향
     faction: "",
     idea: "",
@@ -3211,8 +3228,7 @@ export const CHAR_BASE = [
     econ: "100", // 자본주의
     brave: "40",
     moral: "15",
-    // friend: 트류니히트(245) 파벌 일원, 사문회 참여 — 가까운 거리(85%)
-    friend: "268",
+    friend: "268", // 트류니히트(245) 파벌 일원, 사문회 참여 — 가까운 거리(85%)
     // — 능력치
     statCmd: 5,
     statCsm: 35,
@@ -6779,7 +6795,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
-    descKr: ``,
+    descKr: ``, //자유행성동맹 주재 페잔 고등판무관
     descEn: ``,
     descJp: ``,
   },
@@ -7352,7 +7368,7 @@ export const CHAR_BASE = [
     nickJp: "リッテンハイム",
     searchKeys: [],
     birth: "SE|747.11.08",
-    death: "SE|797.08.",
+    death: "SE|797.07.",
     // — 성향
     faction: "REH", // 은하제국
     idea: "290", // 신성군주제
@@ -7893,7 +7909,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
-    descKr: ``,
+    descKr: ``, // 백작. 황궁경찰본부장으로 베네뮌데 후작부인 사건 궁정재판에 참석하였다. 그런데 후작부인이 난동을 부리자 멍때리고 있다가 한참 뒤에야 겨우 자신의 직무를 떠올리고 부하를 시켜 강제로 베네뮌데 후작부인의 입에 독주를 들이부었다.
     descEn: ``,
     descJp: ``,
   },
@@ -8827,7 +8843,7 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000238",
-    nameKr: "아벤트 폰 클라인게르트",
+    nameKr: "아벤트 폰 클라인겔트",
     nameEn: "",
     nameJp: "",
     nickKr: "",
@@ -9516,7 +9532,15 @@ export const CHAR_BASE = [
     nickKr: "로자스",
     nickEn: "Rosas",
     nickJp: "ローザス",
-    searchKeys: ["알프레드", "알프렛", "로자스", "로저스", "Alfred", "Rosas", "ローザス"],
+    searchKeys: [
+      "알프레드",
+      "알프렛",
+      "로자스",
+      "로저스",
+      "Alfred",
+      "Rosas",
+      "ローザス",
+    ],
     birth: "SE|710.06.23", // 710 확실
     death: "SE|788.10.01", // 788.10 확실 (양 웬리 인터뷰 직후 수면제 과다복용으로 사망, 자살 추정)
     // — 성향
@@ -9567,7 +9591,7 @@ export const CHAR_BASE = [
       "ランズベルク",
     ],
     birth: "SE|772.04.10",
-    death: "", // 798년 슈마허와 함께 어린 황제 유괴 후 동맹 망명, 이후 정신착란으로 체포(사망일 불명)
+    death: "SE|804.07.22", // 798년 슈마허와 함께 어린 황제 유괴 후 동맹 망명, 이후 정신착란으로 체포(사망일 불명)
     // — 성향
     // 립슈타트 패전 후 페잔 망명, 798년 페잔의 사주로 황제 유괴극에 가담한 낭만적 귀족.
     // 자신의 역사 서술(립슈타트 전사)이 너무 주관적이라는 이유로 출판이 거절될 정도로 신념이 확고함
@@ -10592,7 +10616,7 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000284",
-    nameKr: "에밀리히",
+    nameKr: "에밀리히", // 에멜리히
     nameEn: "",
     nameJp: "",
     nickKr: "",
@@ -13273,7 +13297,7 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000356",
-    nameKr: "이븐 셸머",
+    nameKr: "이븐 셸머", // 이븐 샤마
     nameEn: "",
     nameJp: "",
     nickKr: "",
@@ -14813,36 +14837,30 @@ export const CHAR_BASE = [
     birth: "SE|761.08.08", // 761 확실
     death: "SE|800.01.16", // 800.01 확실
     // — 성향
+    // 796년 2월(아스타테 시점) 사관학교 교수로 재직 중 — 군 복귀(798.5)는 시나리오 오버라이드로 처리
     faction: "FPA",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
-    // — 능력치
-    // 4 통솔 68/운영 90/정보 84/기동 43/공격 31/방어 80/육전 37/공전 60
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    idea: "100",
+    econ: "100",
+    brave: "40",
+    moral: "78",
+    friend: "165",
+    // — 능력치 (4시트: 통솔68/운영90/정보84/기동43/공격31/방어80/육전37/공전60 기준 환산)
+    statCmd: 68,
+    statCsm: 60,
+    statAtt: 31,
+    statDef: 80,
+    statFst: 43,
+    statMng: 90,
+    statInf: 84,
+    statGfg: 37,
+    statAfg: 60,
+    statPlt: 45,
     // — 기타
     loc: "",
     point: "0",
-    descKr: ``,
-    descEn: ``,
-    descJp: ``,
-    // 트레잇
-    // 고유없음
-    // 참모 LV5 : 이 인물이 속한 파벌/함대 내 파벌리더/함대사령관의 지휘,통솔력 +1(x5) 부여 (추가해야함)
-
-    // 직업 (군인아님. 798년 5월경까지는 사관학교 교수로 재직중)
-    // 시민 : 동맹시민
+    descKr: `자유행성동맹의 군인. 798년 5월경까지 사관학교 교수로 재직했다. 이후 군에 복귀해 뷰코크 휘하 참모장으로 란테마리오 회전에 참전했으며, 패전이 확실해지자 뷰코크가 자결하려는 것을 권총의 탄창을 미리 제거해 막았다. 바알라트 조약 체결 후 뷰코크가 퇴역하자 임시로 우주함대사령장관 직을 대행했으며, 이후 레벨로 의장의 요청으로 정식 사령장관이 되어 동맹군 최후의 함대를 지휘했다.`,
+    descEn: `An officer of the Free Planets Alliance. He served as a professor at the Officers' Academy until around May 798 UC. He later returned to military service as Chief of Staff under Admiral Bewcock during the Battle of Rantemario, and when defeat became inevitable, he prevented Bewcock from taking his own life by having removed the clip from his weapon beforehand. After the Treaty of Ba'alat, when Bewcock retired, Chung served as interim Space Fleet Commander, and was later asked by Chairman Rebelo to take official command, leading the Alliance's last fleet.`,
+    descJp: `自由惑星同盟の軍人。798年5月頃まで士官学校教授として在職した。後に軍に復帰しビュコック提督の下で参謀長としてランテマリオ会戦に参戦、敗戦が確実となるとビュコックが自決しようとするのを事前に銃の弾倉を抜いておくことで阻止した。バーラト条約締結後にビュコックが退役すると臨時で宇宙艦隊司令長官代理を務め、後にレベロ議長の要請で正式な司令長官となり同盟軍最後の艦隊を指揮した。`,
   },
   {
     // — 기본
@@ -14885,7 +14903,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000398",
     nameKr: "카르나프",
-    nameEn: "",
+    nameEn: "Carnap",
     nameJp: "",
     nickKr: "",
     nickEn: "",
@@ -14914,14 +14932,14 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
-    descKr: ``,
+    descKr: ``, //은하제국의 군인으로, 최종 계급은 중장.
     descEn: ``,
     descJp: ``,
   },
   {
     // — 기본
     code: "CH_000399",
-    nameKr: "카르납프",
+    nameKr: "카르나프",
     nameEn: "",
     nameJp: "",
     nickKr: "",
@@ -14931,7 +14949,7 @@ export const CHAR_BASE = [
     birth: "",
     death: "",
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
     brave: "",
@@ -14951,14 +14969,14 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
-    descKr: ``,
+    descKr: ``, // 정통정부의 내각서기관장. 남작. OVA 성우는 후쿠다 노부야키. 제국군이 침공하자 내각회의에 출석하여 라트부르흐, 렘샤이트와 정통정부의 미래를 논했으나 답을 얻지 못하고 도망쳤다. 은하제국군의 제독 카르나프와는 동명이인.
     descEn: ``,
     descJp: ``,
   },
   {
     // — 기본
     code: "CH_000400",
-    nameKr: "카르테나",
+    nameKr: "카르테나", // 카르테너: 자작. 시종차장으로 베네뮌데 후작부인 사건 궁정재판에 참석하였다.
     nameEn: "",
     nameJp: "",
     nickKr: "",
@@ -15571,7 +15589,7 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000416",
-    nameKr: "칼 폰 클라인게르트",
+    nameKr: "칼 폰 클라인겔트",
     nameEn: "",
     nameJp: "",
     nickKr: "",
@@ -17355,7 +17373,7 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000464",
-    nameKr: "클라인게르트",
+    nameKr: "클라인겔트",
     nameEn: "",
     nameJp: "",
     nickKr: "",
@@ -17999,7 +18017,15 @@ export const CHAR_BASE = [
     nickKr: "오베르슈타인",
     nickEn: "Oberstein",
     nickJp: "オーベルシュタイン",
-    searchKeys: [],
+    searchKeys: [
+      "파울",
+      "오베르슈타인",
+      "오버슈타인",
+      "Paul",
+      "Oberstein",
+      "パウル",
+      "オーベルシュタイン",
+    ],
     birth: "SE|761.03.17",
     death: "SE|801.07.26",
     // — 성향
@@ -19332,7 +19358,7 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000517",
-    nameKr: "피아 폰 클라인게르트",
+    nameKr: "피아 폰 클라인겔트",
     nameEn: "",
     nameJp: "",
     nickKr: "",
@@ -20348,7 +20374,7 @@ export const CHAR_BASE = [
     birth: "",
     death: "",
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
     brave: "",
@@ -20368,7 +20394,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
-    descKr: ``,
+    descKr: ``, // 카프체란카 주둔기지의 대령.
     descEn: ``,
     descJp: ``,
   },
@@ -21235,6 +21261,266 @@ export const CHAR_BASE = [
     descKr: `본래 소설가였으나 정치평론가를 거쳐 정계에 입문했다. 욥 트류니히트의 측근으로서 트류니히트의 정적과 언론기관을 공격하는 역할을 맡았다.`,
     descEn: `Originally a novelist, he entered politics after a stint as a political commentator. As a close associate of Job Trünicht, he was tasked with attacking Trünicht's political rivals and hostile media outlets.`,
     descJp: `元は小説家であったが、政治評論家を経て政界に入った。ヨブ・トリューニヒトの側近として、トリューニヒトの政敵やマスコミを攻撃する役割を担った。`,
+  },
+  // 라트부르흐 Radbruch
+  {
+    // — 기본
+    code: "CH_000568",
+    nameKr: "라트부르흐",
+    nameEn: "Radbruch",
+    nameJp: "",
+    nickKr: "라트부르흐",
+    nickEn: "Radbruch",
+    nickJp: "",
+    searchKeys: [],
+    birth: "",
+    death: "",
+    // — 성향
+    faction: "REH",
+    idea: "",
+    econ: "",
+    brave: "",
+    moral: "",
+    friend: "",
+    // — 능력치
+    statCmd: 0,
+    statCsm: 0,
+    statAtt: 0,
+    statDef: 0,
+    statFst: 0,
+    statMng: 0,
+    statInf: 0,
+    statGfg: 0,
+    statAfg: 0,
+    statPlt: 0,
+    // — 기타
+    point: "0",
+    descKr: `골덴바움조 은하제국 남작.`, // 후일 정통정부의 내부상서로 취임. 제국군이 침공하자 도주
+    descEn: ``,
+    descJp: ``,
+  },
+  // 셰츨러
+  {
+    // — 기본
+    code: "CH_000568",
+    nameKr: "셰츨러",
+    nameEn: "",
+    nameJp: "",
+    nickKr: "셰츨러",
+    nickEn: "",
+    nickJp: "",
+    searchKeys: [],
+    birth: "",
+    death: "",
+    // — 성향
+    faction: "REH",
+    idea: "",
+    econ: "",
+    brave: "",
+    moral: "",
+    friend: "",
+    // — 능력치
+    statCmd: 0,
+    statCsm: 0,
+    statAtt: 0,
+    statDef: 0,
+    statFst: 0,
+    statMng: 0,
+    statInf: 0,
+    statGfg: 0,
+    statAfg: 0,
+    statPlt: 0,
+    // — 기타
+    point: "0",
+    descKr: `골덴바움조 은하제국 자작.`, // 정통정부의 재무상서. 제국군이 침공하자 헬더와 함께 도주
+    descEn: ``,
+    descJp: ``,
+  },
+  {
+    // — 기본
+    code: "CH_000569",
+    nameKr: "헬더",
+    nameEn: "",
+    nameJp: "",
+    nickKr: "",
+    nickEn: "",
+    nickJp: "",
+    searchKeys: [],
+    birth: "",
+    death: "",
+    // — 성향
+    faction: "REH",
+    idea: "",
+    econ: "",
+    brave: "",
+    moral: "",
+    friend: "",
+    // — 능력치
+    statCmd: 0,
+    statCsm: 0,
+    statAtt: 0,
+    statDef: 0,
+    statFst: 0,
+    statMng: 0,
+    statInf: 0,
+    statGfg: 0,
+    statAfg: 0,
+    statPlt: 0,
+    // — 기타
+    loc: "",
+    point: "0",
+    descKr: ``, //정통정부의 사법상서. 자작. 제국군이 침공하자 셰츨러와 함께 가장 먼저 도망쳤다.
+    descEn: ``,
+    descJp: ``,
+  },
+  {
+    // — 기본
+    code: "CH_000570",
+    nameKr: "호징거",
+    nameEn: "",
+    nameJp: "",
+    nickKr: "",
+    nickEn: "",
+    nickJp: "",
+    searchKeys: [],
+    birth: "",
+    death: "",
+    // — 성향
+    faction: "REH",
+    idea: "",
+    econ: "",
+    brave: "",
+    moral: "",
+    friend: "",
+    // — 능력치
+    statCmd: 0,
+    statCsm: 0,
+    statAtt: 0,
+    statDef: 0,
+    statFst: 0,
+    statMng: 0,
+    statInf: 0,
+    statGfg: 0,
+    statAfg: 0,
+    statPlt: 0,
+    // — 기타
+    loc: "",
+    point: "0",
+    descKr: ``, //정통정부의 궁내상서. 남작. OVA 성우는 나토리 유키마사. 제국군이 침공하자 술에 취한 채로 내각회의에 출석하여 참석자들에게 독설을 퍼부었다. 마찬가지로 다음 날 도망쳤다.
+    descEn: ``,
+    descJp: ``,
+  },
+  {
+    // — 기본
+    code: "CH_000571",
+    nameKr: "호덴",
+    nameEn: "",
+    nameJp: "",
+    nickKr: "",
+    nickEn: "",
+    nickJp: "",
+    searchKeys: [],
+    birth: "",
+    death: "",
+    // — 성향
+    faction: "REH",
+    idea: "",
+    econ: "",
+    brave: "",
+    moral: "",
+    friend: "",
+    // — 능력치
+    statCmd: 0,
+    statCsm: 0,
+    statAtt: 0,
+    statDef: 0,
+    statFst: 0,
+    statMng: 0,
+    statInf: 0,
+    statGfg: 0,
+    statAfg: 0,
+    statPlt: 0,
+    // — 기타
+    loc: "",
+    point: "0",
+    descKr: ``, //후작. 궁내성 고등참사관으로 베네뮌데 후작부인 사건 궁정재판에 참석하였다.
+    descEn: ``,
+    descJp: ``,
+  },
+  {
+    // — 기본
+    code: "CH_000572",
+    nameKr: "올렌부르크",
+    nameEn: "",
+    nameJp: "",
+    nickKr: "",
+    nickEn: "",
+    nickJp: "",
+    searchKeys: [],
+    birth: "",
+    death: "",
+    // — 성향
+    faction: "REH",
+    idea: "",
+    econ: "",
+    brave: "",
+    moral: "",
+    friend: "",
+    // — 능력치
+    statCmd: 0,
+    statCsm: 0,
+    statAtt: 0,
+    statDef: 0,
+    statFst: 0,
+    statMng: 0,
+    statInf: 0,
+    statGfg: 0,
+    statAfg: 0,
+    statPlt: 0,
+    // — 기타
+    loc: "",
+    point: "0",
+    descKr: ``, //의학박사 학위를 가진 궁정의사. 독주를 마시고 죽은 베네뮌데 후작부인에게 사망선고를 내렸다.
+    descEn: ``,
+    descJp: ``,
+  },
+  // 플레겔 (내무상서)
+  {
+    // — 기본
+    code: "CH_000573",
+    nameKr: "플레겔",
+    nameEn: "",
+    nameJp: "",
+    nickKr: "",
+    nickEn: "",
+    nickJp: "",
+    searchKeys: [],
+    birth: "",
+    death: "",
+    // — 성향
+    faction: "REH",
+    idea: "",
+    econ: "",
+    brave: "",
+    moral: "",
+    friend: "",
+    // — 능력치
+    statCmd: 0,
+    statCsm: 0,
+    statAtt: 0,
+    statDef: 0,
+    statFst: 0,
+    statMng: 0,
+    statInf: 0,
+    statGfg: 0,
+    statAfg: 0,
+    statPlt: 0,
+    // — 기타
+    loc: "",
+    point: "0",
+    descKr: ``, //프리드리히 4세 당시의 내무상서 브라운슈바이크 일파의 플레겔과는 동명이인
+    descEn: ``,
+    descJp: ``,
   },
 ];
 

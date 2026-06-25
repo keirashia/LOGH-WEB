@@ -285,6 +285,12 @@ export const CHAR_JOBS = [
   // 게임 원작 3SP 데이터 기준 준장. 작중 798년 제독, 792년 페잔무관 소위였으나
   // 아스타테 시점 정확한 행적 불명이라 게임 원작 데이터를 채택
   { charCode: "CH_000032", jobCode: "JB_MR006", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+
+  // ── 캐릭터팀 패치 — 춘우 지엔 직업 등록 ───────────────────────
+  // 796년 2월(아스타테) 시점 — 사관학교 교수, 예편 상태로 중령 계급 보유.
+  // 798.5 군 복귀 이벤트 발생 시 중령부터 재시작 (시나리오 오버라이드로 처리)
+  { charCode: "CH_000396", jobCode: "JB_C001", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  { charCode: "CH_000396", jobCode: "JB_MR008", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 }, // 중령(예편)
 ];
 
 export const CHAR_JOBS_MAP = Object.fromEntries(

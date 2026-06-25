@@ -157,4 +157,7 @@ export const CHAR_TRAITS = [
   { charCode: "CH_000263", traitCode: "TRC_U_000263", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null }, // 재앙을 기획하는 자
   { charCode: "CH_000263", traitCode: "TRC_G_018", traitLv: 4, traitExp: 0, traitStDate: 0, traitEdDate: null },    // 전환장애 LV4
   { charCode: "CH_000263", traitCode: "TRC_G_014", traitLv: 1, traitExp: 0, traitStDate: 0, traitEdDate: null },    // 참모 LV1
+  // 춘우 지엔
+  { charCode: "CH_000396", traitCode: "TRC_G_012", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null }, // 은퇴(군) — 798.5 복귀 이벤트로 해제 예정
+  { charCode: "CH_000396", traitCode: "TRC_G_014", traitLv: 5, traitExp: 0, traitStDate: 0, traitEdDate: null }, // 참모 LV5
 ]

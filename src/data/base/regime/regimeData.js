@@ -246,7 +246,7 @@ export const REGIMES = [
     ideologyRange: [85, 85],     // 신권정치
     economyRange:  [20, 300],    // 전 범위
     factionTitle:  { kr: '신정국가', en: 'Theocracy', jp: '神政国家' },
-    leaderTitle:   { kr: '총대주교', en: 'Patriarch', jp: '総大主교' },
+    leaderTitle:   { kr: '총대주교', en: 'Patriarch', jp: '総大主教' },
     taxRate:       { min: 30, max: 70 },
     taxType:       'centralized',
     growth:        0,
