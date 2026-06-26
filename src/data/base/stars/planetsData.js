@@ -98,11 +98,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 42,
+      maxSize: 420,
       details: [{ b_id: "FARM_000", count: 400, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["MARQUISATE"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -127,7 +127,7 @@ export const PLANETS = [
         { code: "CLQ_REH_003", unit: 541 },
         { code: "CLQ_REH_001", unit: 173 },
       ],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 760 }],
     },
     /** @자원_건설 */
     assets: {
@@ -137,11 +137,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 16,
-      details: [],
+      maxSize: 160,
+      details: [{ b_id: "FARM_000", count: 152, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["MARQUISATE"],
     /** @설명 */
     desc: [
       {
@@ -175,7 +175,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 20 }],
     },
     /** @자원_건설 */
     assets: {
@@ -185,11 +185,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 4,
+      details: [{ b_id: "FARM_000", count: 4, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [
       {
@@ -230,7 +230,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -257,7 +257,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 715 }],
     },
     /** @자원_건설 */
     assets: {
@@ -267,8 +267,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 15,
-      details: [],
+      maxSize: 150,
+      details: [{ b_id: "FARM_000", count: 143, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -293,7 +293,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 570 }],
     },
     /** @자원_건설 */
     assets: {
@@ -303,8 +303,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 12,
-      details: [],
+      maxSize: 120,
+      details: [{ b_id: "FARM_000", count: 114, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -329,7 +329,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 715 }],
     },
     /** @자원_건설 */
     assets: {
@@ -339,8 +339,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 15,
-      details: [],
+      maxSize: 150,
+      details: [{ b_id: "FARM_000", count: 143, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -377,7 +377,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -415,7 +415,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 9,
       details: [],
     },
     /** @특성 */
@@ -525,7 +525,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 195,
+      maxSize: 1950,
       details: [],
     },
     /** @특성 */
@@ -635,7 +635,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -663,7 +663,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 855 }],
     },
     /** @자원_건설 */
     assets: {
@@ -673,8 +673,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 18,
-      details: [],
+      maxSize: 180,
+      details: [{ b_id: "FARM_000", count: 171, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -699,7 +699,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 855 }],
     },
     /** @자원_건설 */
     assets: {
@@ -709,8 +709,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 18,
-      details: [],
+      maxSize: 180,
+      details: [{ b_id: "FARM_000", count: 171, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -735,7 +735,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 855 }],
     },
     /** @자원_건설 */
     assets: {
@@ -745,8 +745,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 18,
-      details: [],
+      maxSize: 180,
+      details: [{ b_id: "FARM_000", count: 171, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -773,7 +773,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1715 }],
     },
     /** @자원_건설 */
     assets: {
@@ -783,11 +783,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 36,
-      details: [],
+      maxSize: 360,
+      details: [{ b_id: "FARM_000", count: 343, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -817,7 +817,7 @@ export const PLANETS = [
         { code: "CLQ_REH_002", unit: 4 },
         { code: "CLQ_REH_004", unit: 1 },
       ],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 20 }],
     },
     /** @자원_건설 */
     assets: {
@@ -827,11 +827,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 4,
+      details: [{ b_id: "FARM_000", count: 4, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [
       {
@@ -871,7 +871,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -909,7 +909,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 12,
+      maxSize: 120,
       details: [],
     },
     /** @특성 */
@@ -945,7 +945,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 12,
+      maxSize: 120,
       details: [],
     },
     /** @특성 */
@@ -973,7 +973,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1145 }],
     },
     /** @자원_건설 */
     assets: {
@@ -983,8 +983,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 24,
-      details: [],
+      maxSize: 240,
+      details: [{ b_id: "FARM_000", count: 229, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -1021,7 +1021,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 45,
+      maxSize: 450,
       details: [],
     },
     /** @특성 */
@@ -1049,7 +1049,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 715 }],
     },
     /** @자원_건설 */
     assets: {
@@ -1059,8 +1059,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 15,
-      details: [],
+      maxSize: 150,
+      details: [{ b_id: "FARM_000", count: 143, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -1085,7 +1085,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 715 }],
     },
     /** @자원_건설 */
     assets: {
@@ -1095,8 +1095,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 15,
-      details: [],
+      maxSize: 150,
+      details: [{ b_id: "FARM_000", count: 143, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -1123,7 +1123,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 2285 }],
     },
     /** @자원_건설 */
     assets: {
@@ -1133,8 +1133,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 48,
-      details: [],
+      maxSize: 480,
+      details: [{ b_id: "FARM_000", count: 457, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -1171,7 +1171,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 300,
       details: [],
     },
     /** @특성 */
@@ -1207,7 +1207,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 18,
+      maxSize: 180,
       details: [],
     },
     /** @특성 */
@@ -1243,7 +1243,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 24,
+      maxSize: 240,
       details: [],
     },
     /** @특성 */
@@ -1281,7 +1281,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 18,
+      maxSize: 180,
       details: [],
     },
     /** @특성 */
@@ -1355,7 +1355,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -1391,7 +1391,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -1433,7 +1433,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["MARQUISATE"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -1455,7 +1455,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 2145 }],
     },
     /** @자원_건설 */
     assets: {
@@ -1465,11 +1465,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 45,
-      details: [],
+      maxSize: 450,
+      details: [{ b_id: "FARM_000", count: 429, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["MARQUISATE"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -1506,7 +1506,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 27,
+      maxSize: 270,
       details: [],
     },
     /** @특성 */
@@ -1545,7 +1545,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 27,
+      maxSize: 270,
       details: [],
     },
     /** @특성 */
@@ -1612,7 +1612,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1430 }],
     },
     /** @자원_건설 */
     assets: {
@@ -1622,8 +1622,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
-      details: [],
+      maxSize: 300,
+      details: [{ b_id: "FARM_000", count: 286, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -1698,7 +1698,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 45,
+      maxSize: 450,
       details: [],
     },
     /** @특성 */
@@ -1762,7 +1762,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1715 }],
     },
     /** @자원_건설 */
     assets: {
@@ -1772,8 +1772,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 36,
-      details: [],
+      maxSize: 360,
+      details: [{ b_id: "FARM_000", count: 343, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -1852,7 +1852,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -1888,7 +1888,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -2000,7 +2000,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -2022,7 +2022,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1430 }],
     },
     /** @자원_건설 */
     assets: {
@@ -2032,11 +2032,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
-      details: [],
+      maxSize: 300,
+      details: [{ b_id: "FARM_000", count: 286, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -2058,7 +2058,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1285 }],
     },
     /** @자원_건설 */
     assets: {
@@ -2068,11 +2068,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 27,
-      details: [],
+      maxSize: 270,
+      details: [{ b_id: "FARM_000", count: 257, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -2134,7 +2134,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 4570 }],
     },
     /** @자원_건설 */
     assets: {
@@ -2144,11 +2144,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 96,
-      details: [],
+      maxSize: 960,
+      details: [{ b_id: "FARM_000", count: 914, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -2210,7 +2210,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1715 }],
     },
     /** @자원_건설 */
     assets: {
@@ -2220,11 +2220,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 36,
-      details: [],
+      maxSize: 360,
+      details: [{ b_id: "FARM_000", count: 343, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["MARQUISATE"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -2260,7 +2260,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["MARQUISATE"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -2294,7 +2294,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 9,
+      maxSize: 90,
       details: [],
     },
     /** @특성 */
@@ -2368,7 +2368,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -2406,7 +2406,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 45,
+      maxSize: 450,
       details: [],
     },
     /** @특성 */
@@ -2482,7 +2482,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -2510,7 +2510,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 3145 }],
     },
     /** @자원_건설 */
     assets: {
@@ -2520,11 +2520,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 66,
-      details: [],
+      maxSize: 660,
+      details: [{ b_id: "FARM_000", count: 629, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -2548,7 +2548,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 2570 }],
     },
     /** @자원_건설 */
     assets: {
@@ -2558,11 +2558,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 54,
-      details: [],
+      maxSize: 540,
+      details: [{ b_id: "FARM_000", count: 514, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -2634,7 +2634,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -2672,7 +2672,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 360,
+      maxSize: 3600,
       details: [],
     },
     /** @특성 */
@@ -2710,7 +2710,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -2738,7 +2738,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 570 }],
     },
     /** @자원_건설 */
     assets: {
@@ -2748,8 +2748,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 12,
-      details: [],
+      maxSize: 120,
+      details: [{ b_id: "FARM_000", count: 114, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -2786,7 +2786,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 48,
+      maxSize: 480,
       details: [],
     },
     /** @특성 */
@@ -2824,7 +2824,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -2860,7 +2860,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -2896,7 +2896,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -2934,7 +2934,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 51,
+      maxSize: 510,
       details: [],
     },
     /** @특성 */
@@ -2970,7 +2970,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 51,
+      maxSize: 510,
       details: [],
     },
     /** @특성 */
@@ -2998,7 +2998,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1715 }],
     },
     /** @자원_건설 */
     assets: {
@@ -3008,8 +3008,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 36,
-      details: [],
+      maxSize: 360,
+      details: [{ b_id: "FARM_000", count: 343, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -3046,7 +3046,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -3146,7 +3146,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1430 }],
     },
     /** @자원_건설 */
     assets: {
@@ -3156,8 +3156,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
-      details: [],
+      maxSize: 300,
+      details: [{ b_id: "FARM_000", count: 286, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -3230,7 +3230,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 36,
+      maxSize: 360,
       details: [],
     },
     /** @특성 */
@@ -3268,7 +3268,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -3306,7 +3306,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 48,
+      maxSize: 480,
       details: [],
     },
     /** @특성 */
@@ -3342,7 +3342,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 48,
+      maxSize: 480,
       details: [],
     },
     /** @특성 */
@@ -3380,7 +3380,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 18,
+      maxSize: 180,
       details: [],
     },
     /** @특성 */
@@ -3418,7 +3418,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 2,
+      maxSize: 15,
       details: [],
     },
     /** @특성 */
@@ -3518,7 +3518,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1855 }],
     },
     /** @자원_건설 */
     assets: {
@@ -3528,11 +3528,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 39,
-      details: [],
+      maxSize: 390,
+      details: [{ b_id: "FARM_000", count: 371, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -3568,7 +3568,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -3602,7 +3602,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 36,
+      maxSize: 360,
       details: [],
     },
     /** @특성 */
@@ -3639,7 +3639,7 @@ export const PLANETS = [
         { code: "CLQ_REH_003", unit: 200 },
         { code: "CLQ_REH_004", unit: 100 },
       ],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 4715 }],
     },
     /** @자원_건설 */
     assets: {
@@ -3649,8 +3649,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 99,
-      details: [],
+      maxSize: 990,
+      details: [{ b_id: "FARM_000", count: 943, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["MAIN_PLANET", "CAPITAL", "IMPERIAL_DEMESNE"],
@@ -3681,7 +3681,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1715 }],
     },
     /** @자원_건설 */
     assets: {
@@ -3691,8 +3691,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 36,
-      details: [],
+      maxSize: 360,
+      details: [{ b_id: "FARM_000", count: 343, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -3755,7 +3755,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1145 }],
     },
     /** @자원_건설 */
     assets: {
@@ -3765,11 +3765,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 24,
-      details: [],
+      maxSize: 240,
+      details: [{ b_id: "FARM_000", count: 229, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -3791,7 +3791,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1145 }],
     },
     /** @자원_건설 */
     assets: {
@@ -3801,11 +3801,11 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 24,
-      details: [],
+      maxSize: 240,
+      details: [{ b_id: "FARM_000", count: 229, active: true, construct: 0 }],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -3839,7 +3839,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -3877,7 +3877,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 24,
+      maxSize: 240,
       details: [],
     },
     /** @특성 */
@@ -3905,7 +3905,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1715 }],
     },
     /** @자원_건설 */
     assets: {
@@ -3915,8 +3915,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 36,
-      details: [],
+      maxSize: 360,
+      details: [{ b_id: "FARM_000", count: 343, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -3941,7 +3941,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 1430 }],
     },
     /** @자원_건설 */
     assets: {
@@ -3951,8 +3951,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
-      details: [],
+      maxSize: 300,
+      details: [{ b_id: "FARM_000", count: 286, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -3992,7 +3992,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 54,
+      maxSize: 540,
       details: [],
     },
     /** @특성 */
@@ -4148,7 +4148,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -4179,7 +4179,7 @@ export const PLANETS = [
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 95 }],
     },
     /** @자원_건설 */
     assets: {
@@ -4189,8 +4189,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 2,
-      details: [],
+      maxSize: 20,
+      details: [{ b_id: "FARM_000", count: 19, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -4275,7 +4275,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -4316,7 +4316,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["MARQUISATE"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -4398,7 +4398,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -4439,7 +4439,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -4480,7 +4480,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -4521,7 +4521,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["MARQUISATE"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -4603,7 +4603,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -4644,7 +4644,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["DUCHY"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
@@ -4726,7 +4726,7 @@ export const PLANETS = [
       details: [],
     },
     /** @특성 */
-    traits: [],
+    traits: ["MARQUISATE"],
     /** @설명 */
     desc: [{ code: "Kr", context: "" }],
   },
