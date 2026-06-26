@@ -28,16 +28,16 @@ const activecat = ref(null)
 const endBtnCls = computed(() => ({ REH:'btn-red', FPA:'btn-blue', PZN:'btn-green' }[game.playerFaction]))
 
 const ROW1 = [
-  { id: 'military',  label: '군사' },
-  { id: 'domestic',  label: '내정' },
-  { id: 'personnel', label: '인사' },
-  { id: 'intel',     label: '첩보' },
+  { id: 'nation',   label: '국가' },
+  { id: 'military', label: '군사' },
+  { id: 'domestic', label: '내정' },
+  { id: 'faction',  label: '파벌' },
 ]
 const ROW2 = [
-  { id: 'research',  label: '연구' },
-  { id: 'finance',   label: '재정' },
-  { id: 'personal',  label: '개인' },
-  { id: 'info',      label: '정보' },
+  { id: 'intel',    label: '모략' },
+  { id: 'personal', label: '인물' },
+  { id: 'social',   label: '사교' },
+  { id: 'info',     label: '뉴스' },
 ]
 
 function toggle(id) {
