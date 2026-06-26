@@ -909,4 +909,11 @@ export const LANES = [
     period: 2,
     stability: 45,
   }, // VERMILION↔FORISON
+  {
+    id: "LANE_118",
+    stars: ["230061", "230089"],
+    type: "normal",
+    period: 3,
+    stability: 45,
+  }, // VERMILION↔REZAVIK
 ];

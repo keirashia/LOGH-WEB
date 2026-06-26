@@ -298,16 +298,12 @@
 import { ref, computed, onMounted } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { JOB_MAP } from '@/data/base/jobs/jobData'
+import { APPROVAL_CHAINS } from '@/data/base/agenda/agendaData'
 
 const emit = defineEmits(['close'])
 const game = useGameStore()
 
 // ── 상수 ──────────────────────────────────────────────────────────
-const MILITARY_DM_JOBS = {
-  REH: ['JB_R006', 'JB_R007', 'JB_R004', 'JB_R002'],
-  FPA: ['JB_F002', 'JB_F001'],
-  PZN: ['JB_P001'],
-}
 const GENERAL_RANK_JOBS = new Set(['JB_MR001', 'JB_MR002', 'JB_MR003', 'JB_MR004'])
 
 const TARGET_TABS = [
@@ -385,8 +381,8 @@ onMounted(() => {
 // ── 행동력 체크 ───────────────────────────────────────────────────
 const actionsFull = computed(() => game._opActionsUsed >= 3)
 
-// ── 승인자 자동 결정 ──────────────────────────────────────────────
-const dmJobs = computed(() => MILITARY_DM_JOBS[game.playerFaction] || [])
+// ── 승인자 자동 결정 (APPROVAL_CHAINS military_op 체인 사용) ──────
+const dmJobs = computed(() => APPROVAL_CHAINS[game.playerFaction]?.military_op ?? [])
 
 const autoApprover = computed(() => {
   const chars = Object.values(game.characters)

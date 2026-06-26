@@ -251,7 +251,7 @@ export const CHAR_JOBS = [
   // 슈타인호프 — 통수본부총장
   { charCode: "CH_000224", jobCode: "JB_R007", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 에렌베르크 — 군무상서
-  { charCode: "CH_000271", jobCode: "JB_R004", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  { charCode: "CH_000271", jobCode: "JB_R008", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 클라우스 폰 리히텐라데 — 제국재상
   { charCode: "CH_000462", jobCode: "JB_R002", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // ── FPA 최고평의회 ─────────────────────────────────────────────
@@ -259,8 +259,8 @@ export const CHAR_JOBS = [
   { charCode: "CH_000082", jobCode: "JB_F001", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 욥 트류니히트 — 국방위원장
   { charCode: "CH_000329", jobCode: "JB_F002", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
-  // 드와이트 그린힐 — 각료
-  { charCode: "CH_000055", jobCode: "JB_F003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 드와이트 그린힐 — (공석, JB_F003 삭제)
+  { charCode: "CH_000055", jobCode: "JB_C001", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 헤르만 크라우스 — 법질서위원장 (CH_000565)
   { charCode: "CH_000565", jobCode: "JB_F004", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 에릭 발렌타인 — 천연자원위원장 (CH_000562)
@@ -269,8 +269,8 @@ export const CHAR_JOBS = [
   { charCode: "CH_000563", jobCode: "JB_F007", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 앤서니 버클리 — 지역사회개발위원장 (CH_000564)
   { charCode: "CH_000564", jobCode: "JB_F008", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
-  // 리처드 호프만 — 부의장 → 각료 코드 사용 (부의장 JB 코드 미정의)
-  { charCode: "CH_000561", jobCode: "JB_F003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 리처드 호프만 — 최고평의회부의장
+  { charCode: "CH_000561", jobCode: "JB_F013", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // ── 0617 패치 — 하이드리히 랑 직업 등록 ──────────────────────
   // 평민 출신 사회질서유지국(내무안전부) 국장
   { charCode: "CH_000527", jobCode: "JB_N007", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },

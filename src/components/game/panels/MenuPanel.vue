@@ -93,12 +93,13 @@ const game = useGameStore()
 const navStack = ref([])
 watch(() => props.category, () => { navStack.value = [] })
 
-const AGENDA_CATS = new Set(['domestic', 'personnel', 'intel', 'research'])
+const AGENDA_CATS = new Set(['military', 'domestic', 'personnel', 'intel', 'research', 'finance'])
 const isAgendaCat = computed(() => AGENDA_CATS.has(props.category))
 
 const CAT_LABEL = {
-  military: '군사', domestic: '내정', personnel: '인사',
-  intel: '첩보', research: '연구', finance: '재정', personal: '개인', info: '정보',
+  nation: '국가', military: '군사', domestic: '내정', faction: '파벌',
+  intel: '모략', personal: '인물', social: '사교', info: '뉴스',
+  personnel: '인사', research: '연구', finance: '재정',
 }
 
 // 현재 보여줄 항목 (navStack 기반 drill-down)

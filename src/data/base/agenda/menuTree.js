@@ -1,10 +1,69 @@
 // ================================================================
 //  menuTree.js — BottomBar 카테고리별 메뉴 트리 정의
 //  leaf 항목: { id, label, modal?, action? }
-//  parent 항목: { id, label, children: [...] }
 //  group 항목: { id, label, type: "group", items: [...] }
+//
+//  1ROW (제안 영역): nation | military | domestic | faction
+//  2ROW (직접 실행): intel  | personal | social   | info
 // ================================================================
 export const MENU_TREES = {
+
+  // ── 1ROW ────────────────────────────────────────────────────────
+
+  nation: [
+    { id: "nation_overview", label: "개요", disabled: true },
+    {
+      id: "focus",
+      label: "국가중점",
+      type: "group",
+      items: [
+        { id: "focus_mil",   label: "군사개혁",  disabled: true },
+        { id: "focus_dev",   label: "행성개발",  disabled: true },
+        { id: "focus_noble", label: "귀족우대",  disabled: true },
+        { id: "focus_trade", label: "자유무역",  disabled: true },
+      ],
+    },
+    {
+      id: "policy",
+      label: "정책",
+      type: "group",
+      items: [
+        { id: "policy_econ",  label: "경제정책",  disabled: true },
+        { id: "policy_draft", label: "징병정책",  disabled: true },
+        { id: "policy_admin", label: "행정정책",  disabled: true },
+      ],
+    },
+    {
+      id: "appoint",
+      label: "인사",
+      type: "group",
+      items: [
+        { id: "appoint_admin", label: "내정 인사", modal: "char" },
+        { id: "appoint_mil",   label: "군사 인사", modal: "char" },
+      ],
+    },
+    {
+      id: "diplomacy",
+      label: "외교",
+      type: "group",
+      items: [
+        { id: "diplomacy_treaty",   label: "조약 제안",    disabled: true },
+        { id: "diplomacy_support",  label: "지원 요청",    disabled: true },
+        { id: "diplomacy_war",      label: "선전포고 건의", disabled: true },
+      ],
+    },
+    {
+      id: "project",
+      label: "프로젝트",
+      type: "group",
+      items: [
+        { id: "project_national", label: "국가 프로젝트",  disabled: true },
+        { id: "project_build",    label: "대규모 건설사업", disabled: true },
+        { id: "project_event",    label: "국가 행사",      disabled: true },
+      ],
+    },
+  ],
+
   military: [
     {
       id: "op",
@@ -18,28 +77,6 @@ export const MENU_TREES = {
          *           (제국) 통수본부총장 → 재상 → 황제
          *  제안 가능 계급: 중장 이상.
          *  실행 가능 계급: 전 계급
-         *  효과: 특정 성계에 공격/방어 작전을 수립한다.
-         *
-         *  승인자 : [이름] 친밀도 근사치 수락확률 표시 버튼
-         *           클릭 시 결정권자 + 중장 이상 인물 리스트 팝업 노출
-         *           결정권자 → 직접 결재 / 중장급 → 결정권자에게 제안
-         *  작전명 : ${성계명} ${공격 혹은 방어}작전
-         *  출격함대: n함대 (1 ~ 해당 국가 최대 함대수)
-         *  작전기간: n개월 (1 ~ 12)
-         *  작전종료: n년 n월 n일 (자동 계산)
-         *  작전예산: 0 (추후 구현)
-         *  보안도  : 0 (이벤트 트리거 a 발생 확률)
-         *
-         *  [결정/제안] 버튼: 승인자 == 결정권자 → "결정", 그 외 → "제안"
-         *
-         *  제출 시 → operationData.js에 적재
-         *  턴 종료 시 공통 이벤트로 친밀도 기반 수락/거절 처리
-         *    - 공격작전: 수락률 기본 -10%
-         *    - 방어작전: 수락률 기본 +10%
-         *  완료 시 이벤트 트리거:
-         *    (a) 적국 누설 50% 체크 (정보관 inf 보정)
-         *    (b) 자국 해당 성계에 ㅁ 표시 n개월 + 함대 출격 가능
-         *    (c) 방어작전 전용 트리거
          */
         { id: "op_propose",      label: "작전제안",  modal: "operation" },
         { id: "fleet_transport", label: "수송",      modal: "fleet" },
@@ -57,11 +94,41 @@ export const MENU_TREES = {
       ],
     },
     {
-      id: "ship",
-      label: "함선",
+      id: "mil_production",
+      label: "생산",
       type: "group",
       items: [
-        { id: "",    label: "함선설계", modal: "fleet" },
+        { id: "ship_build",    label: "함선 생산",   modal: "military" },
+        { id: "mil_facility",  label: "시설 건설",   disabled: true },
+      ],
+    },
+    {
+      id: "mil_personnel",
+      label: "인사",
+      type: "group",
+      items: [
+        { id: "appoint_commander", label: "지휘관 추천", disabled: true },
+        { id: "appoint_staff",     label: "참모 추천",   disabled: true },
+      ],
+    },
+    {
+      id: "doctrine",
+      label: "교리",
+      type: "group",
+      items: [
+        { id: "doctrine_maneuver",  label: "기동전",   disabled: true },
+        { id: "doctrine_attrition", label: "소모전",   disabled: true },
+        { id: "doctrine_strike",    label: "집중타격", disabled: true },
+      ],
+    },
+    {
+      id: "mil_admin",
+      label: "군정",
+      type: "group",
+      items: [
+        { id: "mil_conscript", label: "징병안",    disabled: true },
+        { id: "mil_reform",    label: "군제 개혁", disabled: true },
+        { id: "budget_alloc",  label: "예산 요청", modal: "finance" },
       ],
     },
     {
@@ -76,48 +143,353 @@ export const MENU_TREES = {
   ],
 
   domestic: [
-    { id: "budget_alloc",   label: "예산 배분", modal: "finance" },
-    { id: "planet_develop", label: "행성 개발", modal: "build" },
-    { id: "ship_design",    label: "함선 설계", disabled: true },
-    { id: "ship_build",     label: "함선 제작", modal: "military" },
+    {
+      id: "planet_group",
+      label: "행성",
+      type: "group",
+      items: [
+        { id: "planet_status",   label: "행성 현황", disabled: true },
+        { id: "planet_governor", label: "총독 현황", disabled: true },
+      ],
+    },
+    {
+      id: "build_group",
+      label: "건설",
+      type: "group",
+      items: [
+        { id: "planet_develop", label: "시설 건설",  modal: "build" },
+        { id: "ship_design",    label: "함선 설계",  disabled: true },
+        { id: "infra",          label: "인프라 확충", disabled: true },
+      ],
+    },
+    {
+      id: "economy_group",
+      label: "경제",
+      type: "group",
+      items: [
+        { id: "econ_industry", label: "산업 육성", disabled: true },
+        { id: "econ_trade",    label: "무역 확대", disabled: true },
+      ],
+    },
+    {
+      id: "population_group",
+      label: "인구",
+      type: "group",
+      items: [
+        { id: "pop_migrate", label: "이민 정책", disabled: true },
+        { id: "pop_edu",     label: "교육 정책", disabled: true },
+      ],
+    },
+    {
+      id: "security_group",
+      label: "치안",
+      type: "group",
+      items: [
+        { id: "sec_policy", label: "치안 정책",  disabled: true },
+        { id: "sec_police", label: "경찰력 증강", disabled: true },
+      ],
+    },
+    {
+      id: "research_group",
+      label: "연구",
+      type: "group",
+      items: [
+        { id: "research_regime",   label: "체제",     disabled: true },
+        { id: "research_idea",     label: "사상",     disabled: true },
+        { id: "research_domestic", label: "내정설비", disabled: true },
+        { id: "research_mil",      label: "군사설비", disabled: true },
+        { id: "research_tactics",  label: "전술연구", disabled: true },
+      ],
+    },
+    {
+      id: "finance_group",
+      label: "재정",
+      type: "group",
+      items: [
+        { id: "finance_status", label: "재정 현황", modal: "finance" },
+        { id: "tax_adjust",     label: "세율 조정", modal: "tax" },
+      ],
+    },
   ],
 
-  personnel: [
-    { id: "appoint_admin", label: "내정 인사", modal: "char" },
-    { id: "appoint_mil",   label: "군사 인사", modal: "char" },
+  faction: [
+    {
+      id: "clique_group",
+      label: "세력",
+      type: "group",
+      items: [
+        { id: "faction_military",   label: "군부",   disabled: true },
+        { id: "faction_bureaucrat", label: "관료",   disabled: true },
+        { id: "faction_noble",      label: "귀족",   disabled: true },
+        { id: "faction_merchant",   label: "상인",   disabled: true },
+        { id: "faction_religion",   label: "종교",   disabled: true },
+        { id: "faction_eat",        label: "지구교", disabled: true },
+      ],
+    },
+    {
+      id: "support_group",
+      label: "지지",
+      type: "group",
+      items: [
+        { id: "faction_influence", label: "영향력 현황", disabled: true },
+        { id: "faction_approval",  label: "지지율",      disabled: true },
+      ],
+    },
+    {
+      id: "agenda_group",
+      label: "의제",
+      type: "group",
+      items: [
+        { id: "faction_demand", label: "현재 요구사항", disabled: true },
+        { id: "faction_policy", label: "정책 요구",     disabled: true },
+      ],
+    },
+    {
+      id: "vote_group",
+      label: "투표",
+      type: "group",
+      items: [
+        { id: "vote_bill",  label: "법안",   disabled: true },
+        { id: "vote_op",    label: "작전안", disabled: true },
+        { id: "vote_appt",  label: "인사안", disabled: true },
+      ],
+    },
+    {
+      id: "politics_group",
+      label: "정치",
+      type: "group",
+      items: [
+        { id: "politics_coalition",  label: "연합",  disabled: true },
+        { id: "politics_split",      label: "분열",  disabled: true },
+        { id: "politics_negotiate",  label: "협상",  disabled: true },
+      ],
+    },
   ],
+
+  // ── 2ROW ────────────────────────────────────────────────────────
 
   intel: [
-    { id: "intel_spy",     label: "첩보", modal: "intel" },
-    { id: "intel_counter", label: "방첩", modal: "intel" },
-    { id: "intel_special", label: "특수", modal: "intel" },
-  ],
-
-  research: [
-    { id: "research_regime",   label: "체제",     disabled: true },
-    { id: "research_idea",     label: "사상",     disabled: true },
-    { id: "research_domestic", label: "내정설비", disabled: true },
-    { id: "research_mil",      label: "군사설비", disabled: true },
-    { id: "research_tactics",  label: "전술연구", disabled: true },
-  ],
-
-  finance: [
-    { id: "finance_status", label: "재정 현황", modal: "finance" },
-    { id: "tax_adjust",     label: "세율 조정", modal: "tax" },
+    {
+      id: "info_gather",
+      label: "정보",
+      type: "group",
+      items: [
+        { id: "intel_spy",     label: "정보수집",   modal: "intel" },
+        { id: "intel_counter", label: "방첩망 구축", modal: "intel" },
+      ],
+    },
+    {
+      id: "recruit_group",
+      label: "포섭",
+      type: "group",
+      items: [
+        { id: "recruit_officer",    label: "장교 포섭",   disabled: true },
+        { id: "recruit_politician", label: "정치인 포섭", disabled: true },
+      ],
+    },
+    {
+      id: "covert_group",
+      label: "공작",
+      type: "group",
+      items: [
+        { id: "intel_special",  label: "특수작전", modal: "intel" },
+        { id: "covert_divide",  label: "이간질",   disabled: true },
+        { id: "covert_fake",    label: "위장공작", disabled: true },
+      ],
+    },
+    {
+      id: "assassin_group",
+      label: "암살",
+      type: "group",
+      items: [
+        { id: "assassin_plan", label: "암살 계획", disabled: true },
+        { id: "assassin_exec", label: "암살 실행", disabled: true },
+      ],
+    },
+    {
+      id: "propaganda_group",
+      label: "선전",
+      type: "group",
+      items: [
+        { id: "prop_opinion", label: "여론 조작",   disabled: true },
+        { id: "prop_fake",    label: "허위 정보 유포", disabled: true },
+      ],
+    },
   ],
 
   personal: [
-    { id: "news",       label: "뉴스",       disabled: true },
-    { id: "commission", label: "임관 / 퇴역", disabled: true },
-    { id: "party",      label: "입당 / 탈당", disabled: true },
-    { id: "self_train", label: "개인 훈련",   disabled: true },
-    { id: "education",  label: "교육",        disabled: true },
+    {
+      id: "profile_group",
+      label: "프로필",
+      type: "group",
+      items: [
+        { id: "info_char",  label: "능력치·직책",   modal: "char" },
+        { id: "self_train", label: "개인 훈련",      disabled: true },
+        { id: "education",  label: "교육",           disabled: true },
+      ],
+    },
+    {
+      id: "relation_group",
+      label: "관계",
+      type: "group",
+      items: [
+        { id: "relation_friend", label: "친구", disabled: true },
+        { id: "relation_enemy",  label: "적대", disabled: true },
+        { id: "relation_patron", label: "은인", disabled: true },
+      ],
+    },
+    {
+      id: "trait_group",
+      label: "특성",
+      type: "group",
+      items: [
+        { id: "trait_view",   label: "트레잇", disabled: true },
+        { id: "trait_stance", label: "성향",   disabled: true },
+      ],
+    },
+    {
+      id: "career_group",
+      label: "경력",
+      type: "group",
+      items: [
+        { id: "career_history",  label: "이력",   disabled: true },
+        { id: "career_achieve",  label: "업적",   disabled: true },
+      ],
+    },
+    {
+      id: "assets_group",
+      label: "자산",
+      type: "group",
+      items: [
+        { id: "assets_money",    label: "재산",   disabled: true },
+        { id: "assets_items",    label: "소유물", disabled: true },
+      ],
+    },
+    {
+      id: "family_group",
+      label: "가문",
+      type: "group",
+      items: [
+        { id: "family_tree",  label: "가계도",    disabled: true },
+        { id: "family_blood", label: "혈연관계",  disabled: true },
+      ],
+    },
+    {
+      id: "status_group",
+      label: "신분",
+      type: "group",
+      items: [
+        { id: "commission", label: "임관 / 퇴역", disabled: true },
+        { id: "party",      label: "입당 / 탈당", disabled: true },
+      ],
+    },
+  ],
+
+  social: [
+    {
+      id: "visit_group",
+      label: "방문",
+      type: "group",
+      items: [
+        { id: "social_request", label: "면담 요청", disabled: true },
+        { id: "social_visit",   label: "방문",      disabled: true },
+      ],
+    },
+    {
+      id: "talk_group",
+      label: "대화",
+      type: "group",
+      items: [
+        { id: "social_exchange", label: "의견 교환", disabled: true },
+        { id: "social_persuade", label: "설득",      disabled: true },
+      ],
+    },
+    {
+      id: "gift_group",
+      label: "선물",
+      type: "group",
+      items: [
+        { id: "social_money", label: "자금",  disabled: true },
+        { id: "social_item",  label: "물품",  disabled: true },
+      ],
+    },
+    {
+      id: "sponsor_group",
+      label: "후원",
+      type: "group",
+      items: [
+        { id: "social_polit_sponsor", label: "정치 후원", disabled: true },
+        { id: "social_fin_sponsor",   label: "재정 지원", disabled: true },
+      ],
+    },
+    {
+      id: "party_group",
+      label: "연회",
+      type: "group",
+      items: [
+        { id: "social_party_host",   label: "연회 개최", disabled: true },
+        { id: "social_party_invite", label: "초청",      disabled: true },
+      ],
+    },
+    {
+      id: "introduce_group",
+      label: "소개",
+      type: "group",
+      items: [
+        { id: "social_connect",   label: "인맥 연결", disabled: true },
+        { id: "social_recommend", label: "추천",      disabled: true },
+      ],
+    },
   ],
 
   info: [
-    { id: "info_char",  label: "👤 인물", modal: "char" },
-    { id: "info_fleet", label: "🚀 함대", modal: "fleet" },
-    { id: "info_intel", label: "🔍 세력", modal: "intel" },
-    { id: "info_star",  label: "🌌 성계", disabled: true },
+    { id: "news_latest", label: "속보", disabled: true },
+    {
+      id: "news_politics",
+      label: "정치",
+      type: "group",
+      items: [
+        { id: "info_intel",  label: "파벌 동향", modal: "intel" },
+        { id: "news_pol",    label: "정치 뉴스", disabled: true },
+      ],
+    },
+    {
+      id: "news_military",
+      label: "군사",
+      type: "group",
+      items: [
+        { id: "info_fleet",  label: "함대 정보",  modal: "fleet" },
+        { id: "news_battle", label: "전투 결과",  disabled: true },
+      ],
+    },
+    {
+      id: "news_economy",
+      label: "경제",
+      type: "group",
+      items: [
+        { id: "news_econ",   label: "경제 뉴스",  disabled: true },
+        { id: "news_market", label: "시장 변화",  disabled: true },
+      ],
+    },
+    {
+      id: "news_rumor",
+      label: "소문",
+      type: "group",
+      items: [
+        { id: "news_rumor_item",  label: "루머",      disabled: true },
+        { id: "news_intel_report", label: "첩보 보고", disabled: true },
+      ],
+    },
+    {
+      id: "records_group",
+      label: "기록",
+      type: "group",
+      items: [
+        { id: "news_timeline", label: "연표",   disabled: true },
+        { id: "news_events",   label: "사건",   disabled: true },
+        { id: "info_char",     label: "인물전", modal: "char" },
+        { id: "info_star",     label: "성계",   disabled: true },
+      ],
+    },
   ],
 };

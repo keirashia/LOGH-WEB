@@ -10,6 +10,7 @@ export const AGENDA_CATEGORIES = {
   personnel: { label: "인사", icon: "👤" },
   intel: { label: "첩보", icon: "🔍" },
   research: { label: "연구", icon: "🔬" },
+  finance: { label: "재정", icon: "💰" },
   diplomacy: { label: "외교", icon: "🤝" },
 };
 
@@ -55,33 +56,42 @@ export const AGENDA_ACTIONS = {
 
 // ── 세력별 카테고리별 결재 체인 ────────────────────────────────────
 // 앞에서부터 결재 순서. 공석이면 다음 직위로 올라감.
-// REH 군사: 3장관 협의(군무상서+통수본부총장+우주함대사령장관) → 재상 → 황제
+// military_op  = 작전 발의 (통수본부총장/통합작전본부장 라인)
+// military_fleet = 함대 투입·편성 (우주함대사령장관 라인)
+// military     = 위 둘의 공통 fallback (menuTree의 군사 카테고리 의안 판정용)
 export const APPROVAL_CHAINS = {
   REH: {
-    military: ["JB_R008", "JB_R007", "JB_R006", "JB_R002", "JB_R001"], // 군무상서→통수본부총장→우주함대사령장관→재상→황제
-    domestic: ["JB_R003", "JB_R002", "JB_R001"],
-    personnel: ["JB_R002", "JB_R001"],
-    intel: ["JB_R005", "JB_R002"],
-    research: ["JB_R003", "JB_R002"],
-    diplomacy: ["JB_R002", "JB_R001"], // 재상 → 황제
+    military_op:    ["JB_R007", "JB_R002", "JB_R001"], // 통수본부총장→재상→황제
+    military_fleet: ["JB_R006", "JB_R002", "JB_R001"], // 우주함대사령장관→재상→황제
+    military:       ["JB_R007", "JB_R002", "JB_R001"], // fallback
+    domestic:       ["JB_R008", "JB_R002", "JB_R001"], // 군무상서→재상→황제
+    personnel:      ["JB_R008", "JB_R002", "JB_R001"],
+    finance:        ["JB_R009", "JB_R002", "JB_R001"], // 재무상서→재상→황제
+    research:       ["JB_R002", "JB_R001"],             // 장관 없음, 재상 직결
+    intel:          ["JB_R011"],                        // 첩보관 단독
+    diplomacy:      ["JB_R002", "JB_R001"],
   },
   FPA: {
-    // 동맹: 관련 위원장 → 의장 (투표는 추후 구현)
-    military: ["JB_F002", "JB_F001"],
-    domestic: ["JB_F007", "JB_F001"],
-    personnel: ["JB_F006", "JB_F001"],
-    intel: ["JB_F004", "JB_F001"],
-    research: ["JB_F009", "JB_F001"],
-    diplomacy: ["JB_F010", "JB_F001"], // 외교위원장 → 의장 (평의회 투표)
+    military_op:    ["JB_F016", "JB_F013", "JB_F001"], // 통합작전본부장→부의장→의장
+    military_fleet: ["JB_F017", "JB_F013", "JB_F001"], // 우주함대사령장관→부의장→의장
+    military:       ["JB_F016", "JB_F013", "JB_F001"], // fallback
+    domestic:       ["JB_F002", "JB_F013", "JB_F001"], // 국방위원장→부의장→의장
+    personnel:      ["JB_F002", "JB_F013", "JB_F001"],
+    finance:        ["JB_F015", "JB_F013", "JB_F001"], // 재정위원장→부의장→의장
+    research:       ["JB_F013", "JB_F001"],             // 장관 없음, 부의장 직결
+    intel:          ["JB_F018"],                        // 첩보관 단독
+    diplomacy:      ["JB_F013", "JB_F001"],
   },
   PZN: {
-    // 페잔: 자치령총독 단독 즉시 결정
-    military: ["JB_P001"],
-    domestic: ["JB_P001"],
-    personnel: ["JB_P001"],
-    intel: ["JB_P001"],
-    research: ["JB_P001"],
-    diplomacy: ["JB_P001"], // 자치령주 단독
+    military_op:    ["JB_P001"],
+    military_fleet: ["JB_P001"],
+    military:       ["JB_P001"],
+    domestic:       ["JB_P001"],
+    personnel:      ["JB_P001"],
+    finance:        ["JB_P001"],
+    research:       ["JB_P001"],
+    intel:          ["JB_P001"],
+    diplomacy:      ["JB_P001"],
   },
 };
 
