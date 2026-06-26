@@ -34,8 +34,8 @@ const ROW1 = [
   { id: 'faction',  label: '파벌' },
 ]
 const ROW2 = [
-  { id: 'intel',    label: '모략' },
   { id: 'personal', label: '인물' },
+  { id: 'intel',    label: '모략' },
   { id: 'social',   label: '사교' },
   { id: 'info',     label: '뉴스' },
 ]

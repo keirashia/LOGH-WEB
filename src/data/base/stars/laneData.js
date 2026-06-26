@@ -913,7 +913,7 @@ export const LANES = [
     id: "LANE_118",
     stars: ["230061", "230089"],
     type: "normal",
-    period: 3,
+    period: 1,
     stability: 45,
   }, // VERMILION↔REZAVIK
 ];

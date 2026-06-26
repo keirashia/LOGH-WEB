@@ -4989,7 +4989,7 @@ export const PLANETS = [
     pos: { x: 500, y: 500 },
     planetType: "terrestrial",
     /** @소속_상태 */
-    faction: null,
+    faction: "FPA",
     /** @소속_담당관 */
     governor: "",
     commander: "",
@@ -5153,7 +5153,7 @@ export const PLANETS = [
     pos: { x: 500, y: 500 },
     planetType: "terrestrial",
     /** @소속_상태 */
-    faction: null,
+    faction: "FPA",
     /** @소속_담당관 */
     governor: "",
     commander: "",

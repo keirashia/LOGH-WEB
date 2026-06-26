@@ -96,9 +96,15 @@ function buildState(scId, pf, extraData = {}) {
   const systems = {}
   STAR_SYSTEMS.forEach(s => {
     const d = _detailMap[s.code] || {}
-    const planets = (_BASE_PLANET_MAP[s.code] || []).map(p => ({
-      ...p, faction: _detailFactionMap[p.code] ?? p.faction ?? null,
-    }))
+    const planets = (_BASE_PLANET_MAP[s.code] || []).map(p => {
+      const nameKr = Array.isArray(p.name)
+        ? (p.name.find(n => n.code === 'Kr')?.context ?? '')
+        : (p.nameKr ?? '')
+      const nameEn = Array.isArray(p.name)
+        ? (p.name.find(n => n.code === 'En')?.context ?? '')
+        : (p.nameEn ?? '')
+      return { ...p, nameKr, nameEn, faction: _detailFactionMap[p.code] ?? p.faction ?? null }
+    })
     let faction = null
     if (planets.length > 0) {
       const cnt = {}
