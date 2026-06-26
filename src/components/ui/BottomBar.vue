@@ -74,8 +74,8 @@ function toggle(id) {
   position: relative; overflow: hidden;
   background: none; border: none;
   border-right: 1px solid rgba(212,170,96,.08);
-  color: var(--td);
-  font-size: clamp(12px, 2vh, 20px); font-family: var(--font-serif);
+  color: rgba(255,255,255,.75);
+  font-size: clamp(14px, 2.4vh, 22px); font-family: var(--font-serif);
   letter-spacing: .6px;
   cursor: pointer;
   transition: color .18s, background .18s, box-shadow .18s;
@@ -95,7 +95,7 @@ function toggle(id) {
 .cat-btn.on::before { opacity: 1; }
 
 .cat-btn:hover {
-  color: var(--t2);
+  color: rgba(255,255,255,.95);
   background: rgba(212,170,96,.04);
 }
 .cat-btn.on {

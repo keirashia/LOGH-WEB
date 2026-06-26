@@ -11,7 +11,6 @@ export const MENU_TREES = {
   // ── 1ROW ────────────────────────────────────────────────────────
 
   nation: [
-    { id: "nation_overview", label: "개요", disabled: true },
     {
       id: "focus",
       label: "국가중점",
