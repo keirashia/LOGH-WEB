@@ -2,7 +2,7 @@
 > 분류: 데이터
 > 경로: `docs/109_data_stores.md`
 > 상위: [100_DATA.md](100_DATA.md)
-> 최종 수정: 2026-06-17
+> 최종 수정: 2026-06-27
 
 ## 개요
 
@@ -67,6 +67,7 @@
 
 2. buildState(scId, pf, extraData) — 동기
      STAR_SYSTEMS + starDetail 병합 → systems
+     planetsData name 배열 자동 변환: [{code:"Kr", context:"..."}] → nameKr/nameEn 플랫 필드
      charJobs 없으면 _BASE_CHAR_JOBS 폴백 → characters
      _buildFleets(fleetData, fleetCharData, fleetShipData) → fleets
 

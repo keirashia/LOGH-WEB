@@ -2,7 +2,7 @@
 > 분류: 화면
 > 경로: `docs/209_screen_bottombar.md`
 > 상위: [200_SCREEN.md](200_SCREEN.md)
-> 최종 수정: 2026-06-17
+> 최종 수정: 2026-06-27
 
 ---
 
@@ -38,16 +38,19 @@ BottomBar 버튼 클릭 (toggle)
 
 ### 버튼 배치 (2×4 그리드)
 
-| ROW1 | 군사 | 내정 | 인사 | 첩보 |
+| ROW1 | 국가 | 군사 | 내정 | 파벌 |
 |---|---|---|---|---|
-| **ROW2** | **연구** | **재정** | **개인** | **정보** |
+| **ROW2** | **인물** | **모략** | **사교** | **뉴스** |
 
 - 우측 고정: **턴 종료** 버튼 (세력 색상 — REH=red / FPA=blue / PZN=green)
 - `toggle(id)`: 같은 버튼 재클릭 시 `activecat = null` → MenuPanel 닫힘
+- ROW1 = 국가 영역 (제안 중심) / ROW2 = 개인 영역 (직접 실행)
 
 ### CSS 핵심
 - `height: var(--bar-h)` (`clamp(88px, 11vh, 112px)`)
 - 활성 버튼(`.cat-btn.on`): 금색 상단 인셋 글로우 + 격자 패턴 오버레이
+- 비활성 색상: `rgba(255,255,255,.75)`, 호버: `rgba(255,255,255,.95)`
+- 글자 크기: `clamp(14px, 2.4vh, 22px)`
 - landscape 저해상도: `--bar-h: 52px`
 
 ---
@@ -66,8 +69,8 @@ BottomBar 버튼 클릭 (toggle)
 
 ### 의안 카테고리 판정
 ```js
-const AGENDA_CATS = new Set(['domestic', 'personnel', 'intel', 'research'])
-// military, finance, personal, info 는 의안 카테고리 아님
+const AGENDA_CATS = new Set(['military', 'domestic', 'personnel', 'intel', 'research', 'finance'])
+// nation, faction, personal, social, info 는 의안 카테고리 아님 (결재권자 패널 미표시)
 ```
 
 ### 결재권자 계산
@@ -96,18 +99,28 @@ const AGENDA_CATS = new Set(['domestic', 'personnel', 'intel', 'research'])
 { id, label, type: 'group', items: [...] }
 ```
 
-### 카테고리별 현황
+### CAT_LABEL
 
-| 카테고리 | 구현 항목 | 미구현(disabled) |
-|---|---|---|
-| military | 작전제안, 함대출격, 수송, 편성, 재편, 해산 | 훈련, 모의전 |
-| domestic | 예산배분, 행성개발, 함선제작 | 함선설계 |
-| personnel | 내정인사, 군사인사 | — |
-| intel | 첩보, 방첩, 특수 | — |
-| research | — | 체제, 사상, 내정설비, 군사설비, 전술연구 |
-| finance | 재정현황, 세율조정 | — |
-| personal | — | 뉴스, 임관/퇴역, 입당/탈당, 개인훈련, 교육 |
-| info | 인물, 함대, 세력 | 성계 |
+```js
+{
+  nation: '국가', military: '군사', domestic: '내정', faction: '파벌',
+  intel: '모략', personal: '인물', social: '사교', info: '뉴스',
+  personnel: '인사', research: '연구', finance: '재정',  // 레거시/내부용
+}
+```
+
+### 카테고리별 현황 (2026-06-27 기준)
+
+| 카테고리 | 그룹 | 모달 연결 항목 | disabled |
+|---|---|---|---|
+| `nation` (국가) | 국가중점/정책/인사/외교/프로젝트 | 내정인사(char), 군사인사(char) | 나머지 전부 |
+| `military` (군사) | 작전/함대/생산/인사/교리/군정/훈련 | 작전제안(operation), 수송(fleet), 함대편성~해산(fleet), 함선생산(military), 예산요청(finance) | 인사/교리/훈련 |
+| `domestic` (내정) | 행성/건설/경제/인구/치안/연구/재정 | 행성개발(build), 재정현황(finance), 세율조정(tax) | 경제/인구/치안/연구 |
+| `faction` (파벌) | 세력/지지/의제/투표/정치 | — | 전부 |
+| `intel` (모략) | 정보/포섭/공작/암살/선전 | 정보수집·방첩·특수작전(intel) | 포섭/암살/선전 |
+| `personal` (인물) | 프로필/관계/특성/경력/자산/가문/신분 | 능력치·직책(char) | 나머지 전부 |
+| `social` (사교) | 방문/대화/선물/후원/연회/소개 | — | 전부 |
+| `info` (뉴스) | 정치/군사/경제/소문/기록 | 파벌동향(intel), 함대정보(fleet), 인물전(char) | 나머지 |
 
 ---
 

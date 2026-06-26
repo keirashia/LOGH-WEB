@@ -2,7 +2,7 @@
 > 분류: 데이터
 > 경로: `docs/102_data_stars.md`
 > 상위: [100_DATA.md](100_DATA.md)
-> 최종 수정: 2026-06-17
+> 최종 수정: 2026-06-27
 
 ---
 
@@ -10,8 +10,8 @@
 
 ```
 src/data/base/stars/
-├── starSystemData.js    성계 마스터 (62개)
-├── laneData.js          항로 마스터 (85개)
+├── starSystemData.js    성계 마스터 (93개+, 230001~230093)
+├── laneData.js          항로 마스터 (118개+)
 ├── planetsData.js       행성 마스터 (코드 체계 정의, 좌표 미완성)
 ├── code_map.json        구 id → 새 code 변환 대조표
 └── maps/
@@ -108,23 +108,49 @@ LANE_005  PHEZZAN  ↔ SCHATTENBURG  phezzan   ← 230065 (미등록 성계)
 LANE_006  PHEZZAN  ↔ LICHTENBERG   phezzan   ← 230066 (미등록 성계)
 ```
 
-### 미등록 성계 코드 (laneData 참조만 존재)
+### 추가 성계 (230063~, 2026-06-25~27 등록)
 
-laneData.js가 참조하나 starSystemData.js에 없는 코드:
+원작 나무위키 지명 문서 근거로 동맹 외곽 등 위치 비정하여 추가:
 
-| code | 이름 | 참조 항로 |
-|---|---|---|
-| 230063 | KERIM | LANE_021, LANE_056 |
-| 230065 | SCHATTENBURG | LANE_005(phezzan), LANE_023, LANE_076 |
-| 230066 | LICHTENBERG | LANE_006(phezzan), LANE_040 |
-| 230067 | MÜKKENBERGER | LANE_025 |
-| 230068 | FORSETI | LANE_045, LANE_081 |
+| code | nameEn | nameKr | 좌표 | 비고 |
+|---|---|---|---|---|
+| 230063 | KERIM | 케림 | x:200, y:190 | 기존 laneData 참조 성계 |
+| 230065 | SCHATTENBURG | 샤텐부르크 | — | 페잔 회랑 LANE_005 참조 |
+| 230066 | LICHTENBERG | 리히텐베르크 | — | 페잔 회랑 LANE_006 참조 |
+| 230067 | MÜKKENBERGER | 뮈켄베르거 | — | LANE_025 참조 |
+| 230068 | FORSETI | 포르세티 | x:640, y:560 | 기존 laneData 참조 성계 |
+| 230089 | REZAVIK | 레자빅 | x:200, y:290 | 케림↔버밀리온 사이 수직선상 |
+| 230093 | NISHUHIDERS | 닛슈우히더스 | — | 동맹 외곽 |
 
-> 이 성계들은 추후 starSystemData에 추가 필요. 추가 시 code는 230063~ 연번 부여.
+> 230065~230067은 starSystemData.js 미등록 상태 (laneData 참조만 존재).
+
+### 레자빅 (230089) 좌표 배치 근거
+
+```
+케림     (230063)  x:200, y:190
+레자빅   (230089)  x:200, y:290  ← 케림 6시 / 버밀리온 12시 방향, 각 100px
+버밀리온 (230061)  x:200, y:390
+```
+
+- LANE_118 (버밀리온↔레자빅): period:1 (100px < 200px 기준)
 
 ---
 
 ## planetsData.js — 행성 마스터
+
+### 스키마 주의 (2026-06-25 2차 개편)
+
+`name` 필드가 다국어 배열로 변경됨:
+```js
+// 변경 후 (현행)
+name: [ { code: "Kr", context: "하이네센" }, { code: "En", context: "HEINESSEN" } ]
+
+// 변경 전 (구형)
+nameKr: "하이네센", nameEn: "HEINESSEN"
+```
+
+`gameStore.js`의 planets 빌드 로직이 배열 → `nameKr`/`nameEn` 플랫 필드로 자동 변환하므로,  
+컴포넌트는 기존대로 `p.nameKr` 사용 가능.
 
 ### code 체계
 
@@ -203,8 +229,8 @@ export const STAR_MAP_BY_CODE = { '230022': {...} } // code 기준 Map
 
 ## TODO
 
-- [ ] `nameJp` 62개 입력 (현재 전체 빈 문자열)
-- [ ] 미등록 성계 5개(230063/065/066/067/068) starSystemData.js에 추가
+- [ ] `nameJp` 전체 미입력
+- [ ] 미등록 성계 3개(230065/066/067) starSystemData.js에 추가
 - [ ] code 중복 의심 3건 원작 확인: 230002(ALTENER)/230035(LUYKAS)/230037(MARADEITA)
 - [ ] planetsData.js 좌표/size/type starMaps.js 기준으로 동기화
 - [ ] starsData.js (LEGACY) 삭제 — encyclopediaStore 참조 여부 확인 후
