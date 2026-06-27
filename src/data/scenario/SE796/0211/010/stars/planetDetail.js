@@ -22,6 +22,9 @@ export const PLANET_DETAIL = [
   { code: '230003P02', starCode: '230003', name: '도벨그',           faction: 'REH' },
   { code: '230003P03', starCode: '230003', name: '모르겐',           faction: 'REH' },
 
+  // 230004 아레스하임
+  { code: '230004P01', starCode: '230004', name: '탄므즈',           faction: 'REH' },
+
   // 230008 보덴
   { code: '230008P01', starCode: '230008', name: '보르소른',         faction: 'REH' },
   { code: '230008P02', starCode: '230008', name: '빌로스트',         faction: 'REH' },
@@ -129,9 +132,6 @@ export const PLANET_DETAIL = [
   { code: '230069P01', starCode: '230069', name: '지구',             faction: 'REH' },
 
   // ── FPA 자유행성동맹 ───────────────────────────────────────────
-
-  // 230004 아레스하임
-  { code: '230004P01', starCode: '230004', name: '탄므즈',           faction: 'FPA' },
 
   // 230005 아스타테
   { code: '230005P01', starCode: '230005', name: '아트라-하시스',    faction: 'FPA' },
@@ -255,6 +255,15 @@ export const PLANET_DETAIL = [
 
   // 230068 포르세티
   { code: '230068P01', starCode: '230068', name: '',                 faction: 'FPA' },
+
+  // 230090 포리슨
+  { code: '230090P01', starCode: '230090', name: '포리슨',           faction: 'FPA' },
+
+  // 230091 파라파라
+  { code: '230091P01', starCode: '230091', name: '파라파라',         faction: 'FPA' },
+
+  // 230092 프레뷔도
+  { code: '230092P01', starCode: '230092', name: '슈바라',           faction: 'FPA' },
 
   // ── PZN 페잔 자치령 ────────────────────────────────────────────
 
