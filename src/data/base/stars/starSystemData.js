@@ -126,6 +126,13 @@ export const STAR_SYSTEMS = [
     x: 580,
     y: 190,
     desc: `자유행성동맹의 북동부 성계군의 중심 성계. 지리적 위치로 인해 수많은 격전이 벌어진 장소이다.`,
+    map: {
+      terrain: [
+        { type: 'planet', label: '아트라-하시스', x: 32, y: 48, r: 4 },
+        { type: 'planet', label: '아스페륀',      x: 80, y: 24, r: 3 },
+        { type: 'planet', label: '우가리트',      x: 58, y: 90, r: 4 },
+      ],
+    },
   },
   /** 230006_BAALAT
    *  위치 : 33 05
