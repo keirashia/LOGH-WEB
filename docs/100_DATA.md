@@ -30,6 +30,7 @@
 | 111 | [111_data_auth.md](111_data_auth.md) | 인증 흐름 설계 (tempCode, findByTempCode, AppHeader 폴링) | 🔄 설계 완료, 구현 대기 |
 | 112 | [112_data_users.md](112_data_users.md) | 유저 데이터 모델 (포인트/잠금 해제/언어/업적) | 🔄 설계 완료, 구현 대기 |
 | 113 | [113_data_save.md](113_data_save.md) | 게임 저장/불러오기 — 파일 내보내기 방식 | 🔄 설계 완료, 구현 대기 |
+| 114 | [114_data_battle.md](114_data_battle.md) | 전투 시스템 — 함대 전투력 계산, 진형 통합, 전략/전술 전투 로직 | 🔄 설계 중 |
 
 ## TODO
 - 각 상세 문서 내 TODO 항목 참조
