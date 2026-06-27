@@ -257,13 +257,6 @@ export const LANES = [
     stability: 45,
   }, // DAGON↔ELGON
   {
-    id: "LANE_031",
-    stars: ["230010", "230017"],
-    type: "normal",
-    period: 2,
-    stability: 45,
-  }, // DAGON↔EL-PACIL
-  {
     id: "LANE_032",
     stars: ["230010", "230055"],
     type: "normal",
@@ -916,4 +909,5 @@ export const LANES = [
     period: 1,
     stability: 45,
   }, // VERMILION↔REZAVIK
+
 ];

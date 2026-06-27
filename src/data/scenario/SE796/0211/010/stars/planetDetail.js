@@ -241,7 +241,7 @@ export const PLANET_DETAIL = [
   { code: '230057P01', starCode: '230057', name: '팔머랜드',         faction: 'FPA' },
 
   // 230060 밴플리트
-  { code: '230060P01', starCode: '230060', name: '카토르브러',       faction: 'FPA' },
+  { code: '230060P01', starCode: '230060', name: '카토르브러',       faction: 'REH' },
 
   // 230061 버밀리온
   { code: '230061P01', starCode: '230061', name: '몽마라유',         faction: 'FPA' },
