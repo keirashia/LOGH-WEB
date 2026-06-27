@@ -1,7 +1,7 @@
 # LOGH-WEB — 문서 관리 가이드 (총괄)
 > 분류: 총괄
 > 경로: `docs/000_INDEX.md`
-> 최종 수정: 2026-06-17
+> 최종 수정: 2026-06-27
 
 ## 프로젝트 개요
 
@@ -131,17 +131,19 @@ docs/
 - **데이터 구조 개편**: starSystemData.js (62개) + laneData.js + starDetail.js (시나리오별)
 - **GalaxyMap**: VW=1600/VH=1000, 항로 type별 색상 구분 (corridor/phezzan/normal)
 - **세부맵**: src/data/base/stars/maps/ 62개 성계 개별 파일
-- **BottomBar v2**: 8개 카테고리 2×4 그리드 + 로비 카드 다크 골드 CSS, --bar-h CSS 변수 도입
+- **BottomBar v3**: ROW1=국가/군사/내정/파벌, ROW2=인물/모략/사교/뉴스 (8개 카테고리 2×4)
 - **MenuPanel**: 카테고리별 drill-down 메뉴 패널 (navStack, menuTree.js)
-- **의안 시스템**: agendaData.js + menuTree.js + gameStore 통합 (registerAgenda / _processAgendas)
-- **MD 개편**: docs/ 폴더 중앙화 (102~106 신규 작성, src/ 분산 MD 전체 삭제)
+- **menuTree.js 전체 재작성**: 8개 카테고리 × 그룹 구조 완성 (2026-06-27)
+- **의안 시스템**: agendaData.js APPROVAL_CHAINS 재설계 — 제국/동맹 직위 개편, finance·intel 카테고리 추가 (2026-06-26~27)
+- **요직 개편**: REH JB_R004 삭제·JB_R011 추가 / FPA JB_F003/010/011 삭제·JB_F013~018 추가
+- **planetsData.js name 배열 버그 수정**: gameStore buildState에서 [{code:"Kr"}] → nameKr 자동 변환
+- **MD 개편**: docs/ 폴더 중앙화 (102~113 작성)
 
 ### ⬜ 진행 중 / 다음 작업
 
 | 우선순위 | 항목 | 비고 |
 |---|---|---|
-| 🔴 | 성계 좌표 수정 미반영 문제 | starSystemData.js 수정 후 게임에 반영 안 됨 — 원인 조사 |
-| 🟡 | lane.js 고립 성계 7개 항로 추가 | ARESHYUM/BARATULF/FIREZIERD/HAN/LUYKAS_FPA/MARBACH/PORGEN |
+| 🟡 | lane.js 고립 성계 항로 추가 | ARESHYUM/BARATULF/FIREZIERD/HAN/LUYKAS_FPA/MARBACH/PORGEN |
 | 🟡 | starSystemData.js nameJp 62개 입력 | 현재 빈 문자열 |
 | 🟡 | code 중복 3건 원작 확인 | ALTENER/LUYKAS/MARADEITA |
 | 🟡 | starsData.js LEGACY 파일 삭제 확인 | 현재 미참조 |
@@ -158,7 +160,9 @@ docs/
 | 🟡 | LOGH-API 유저 DB 정리 | UUID 타입 수정/충돌 방지/신규 테이블 (LOGH-API/docs/001_api_user.md) |
 | 🟡 | 시나리오 저장/불러오기 | 파일 내보내기 방식 구현 (docs/113_data_save.md) |
 | ✅ | legacy/ 폴더 삭제 | 참조 없음 확인 후 전체 삭제 완료 (2026-06-18) |
-| ✅ | 누락 상세 MD 작성 | 102~106 전체 작성 완료 (2026-06-17) |
+| ✅ | 누락 상세 MD 작성 | 102~113 전체 작성 완료 |
+| ✅ | 성계 좌표 수정 미반영 문제 | 레자빅 등 신규 성계 좌표 반영 완료 (2026-06-27) |
+| ✅ | menuTree.js 재작성 | 8개 카테고리 전체 구현 완료 (2026-06-27) |
 
 ### ⬜ 예정 (Phase 2~3)
 

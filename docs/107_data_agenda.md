@@ -2,7 +2,7 @@
 > 분류: 데이터
 > 경로: `docs/107_data_agenda.md`
 > 상위: [100_DATA.md](100_DATA.md)
-> 최종 수정: 2026-06-17
+> 최종 수정: 2026-06-27
 
 ## 개요
 
@@ -38,7 +38,7 @@
 ```js
 {
   id:             'AGD_0001',          // 자동 채번
-  category:       'military',          // military|domestic|personnel|intel|research
+  category:       'military',          // military|domestic|personnel|intel|research|finance
   action:         'fleet_deploy',      // AGENDA_ACTIONS 키
   title:          '제13함대 출격',      // UI 표시용
   payload:        { fleetId, targetStar, ... },
@@ -52,30 +52,40 @@
 
 ## 카테고리별 결재 체인
 
+`APPROVAL_CHAINS` in `agendaData.js`. 체인 앞쪽 직위가 공석이면 뒤쪽으로 대행.
+
 ### 은하제국 (REH)
 
-| 카테고리 | 결재 순서 |
-|----------|-----------|
-| 군사     | 군무상서 JB_R004 + 통수본부총장 JB_R007 + 우주함대사령장관 JB_R006 → 재상 JB_R002 → 황제 JB_R001 |
-| 내정     | 내무상서 JB_R003 → 재상 JB_R002 → 황제 JB_R001 |
-| 인사     | 재상 JB_R002 → 황제 JB_R001 |
-| 첩보     | 헌병총감 JB_R005 → 재상 JB_R002 |
-| 연구     | 내무상서 JB_R003 → 재상 JB_R002 |
+| 카테고리 | 결재 체인 (앞→뒤) | 비고 |
+|---|---|---|
+| `military` (작전) | 통수본부총장 JB_R007 → 재상 JB_R002 → 황제 JB_R001 | |
+| `military_fleet` (함대) | 우주함대사령장관 JB_R006 → 재상 JB_R002 → 황제 JB_R001 | |
+| `domestic` (내정) | 군무상서 JB_R008 → 재상 JB_R002 → 황제 JB_R001 | |
+| `personnel` (인사) | 군무상서 JB_R008 → 재상 JB_R002 → 황제 JB_R001 | |
+| `finance` (재정) | 재무상서 JB_R009 → 재상 JB_R002 → 황제 JB_R001 | |
+| `research` (연구) | 재상 JB_R002 → 황제 JB_R001 | |
+| `intel` (모략) | 첩보관 JB_R011 | 독립 행사, 결재 없음 |
+| `diplomacy` (외교) | 재상 JB_R002 → 황제 JB_R001 | |
 
-> 로엔그람 체제: 재상 = 라인하르트 → 사실상 재상 단독 처리  
-> 골덴바움 왕조: 3단계 풀 적용
+> JB_R004(구 군무상서 중복)는 삭제됨. JB_R008이 현 군무상서.  
+> JB_R011(첩보관): 임명권자 군무상서. 결재 체인 없이 독립 행사.
 
 ### 자유행성동맹 (FPA)
 
-| 카테고리 | 결재 순서 |
-|----------|-----------|
-| 군사     | 국방위원장 JB_F002 → 의장 JB_F001 |
-| 내정     | 경제개발위원장 JB_F007 → 의장 JB_F001 |
-| 인사     | 인적자원위원장 JB_F006 → 의장 JB_F001 |
-| 첩보     | 법질서위원장 JB_F004 → 의장 JB_F001 |
-| 연구     | 정보교통위원장 JB_F009 → 의장 JB_F001 |
+| 카테고리 | 결재 체인 (앞→뒤) | 비고 |
+|---|---|---|
+| `military` (작전) | 통합작전본부장 JB_F016 → 부의장 JB_F013 → 의장 JB_F001 | |
+| `military_fleet` (함대) | 우주함대사령장관 JB_F017 → 부의장 JB_F013 → 의장 JB_F001 | |
+| `domestic` (내정) | 국방위원장 JB_F002 → 부의장 JB_F013 → 의장 JB_F001 | |
+| `personnel` (인사) | 국방위원장 JB_F002 → 부의장 JB_F013 → 의장 JB_F001 | |
+| `finance` (재정) | 재정위원장 JB_F015 → 부의장 JB_F013 → 의장 JB_F001 | |
+| `research` (연구) | 부의장 JB_F013 → 의장 JB_F001 | |
+| `intel` (모략) | 첩보관 JB_F018 | 독립 행사, 임명권자 국방위원장 |
+| `diplomacy` (외교) | 부의장 JB_F013 → 의장 JB_F001 | |
 
-> TODO: 평의원 투표 시스템 (11명 AI 투표) 구현 예정
+> JB_F003(각료)/JB_F010(외교위원장)/JB_F011(교육위원장) 삭제됨.  
+> JB_F013(부의장): 의안 투표 시 2표 효율.  
+> TODO: 평의원 11명 AI 투표 로직 구현 예정.
 
 ### 페잔 자치령 (PZN)
 
