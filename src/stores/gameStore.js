@@ -1,21 +1,16 @@
 import { defineStore } from 'pinia'
 import {
-  FACTIONS, CHARACTERS,
+  FINANCE, MILITARY, INTEL,
   OPERATION_TYPES, CONSTRUCTION_TYPES, FORTRESS_WEAPONS, DIALOGS
 } from '@/data/masterData'
 import {
   AGENDA_ACTIONS, APPROVAL_CHAINS, AGENDA_EXPIRE_TURNS
 } from '@/data/base/agenda/agendaData'
-import { SCENARIOS } from '@/data/scenario/scenarioData.js'
-import { STAR_SYSTEMS, OBSTACLES } from '@/data/base/stars/starSystemData'
-import { PLANETS } from '@/data/base/stars/planetsData.js'
-import { LANES } from '@/data/base/stars/laneData.js'
-import { CHAR_JOBS as _BASE_CHAR_JOBS } from '@/data/base/characters/charactersJobs'
-
-const _BASE_PLANET_MAP = {}
-for (const p of PLANETS) {
-  ;(_BASE_PLANET_MAP[p.starCode] ??= []).push(p)
-}
+import { SCENARIOS }           from '@/data/scenario/scenarioData.js'
+import { buildSystemsMap, OBSTACLES, LANES } from '@/utils/starUtils'
+import { buildCharactersMap }  from '@/utils/charUtils'
+import { buildFleetsMap }      from '@/utils/fleetUtils'
+import { buildFactionsMap }    from '@/utils/factionUtils'
 
 const _GLOB_STAR_DETAIL   = import.meta.glob('/src/data/scenario/*/*/*/stars/starDetail.js')
 const _GLOB_PLANET_DETAIL = import.meta.glob('/src/data/scenario/*/*/*/stars/planetDetail.js')
@@ -24,15 +19,19 @@ const _GLOB_FLEET_DATA    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fle
 const _GLOB_FLEET_CHAR    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetCharacterData.js')
 const _GLOB_FLEET_SHIP    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetShipData.js')
 const _GLOB_FLEET_TRAIT   = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetTraitData.js')
+const _GLOB_CHAR_LIST     = import.meta.glob('/src/data/scenario/*/*/*/characters/charactersData.js')
+const _GLOB_CLIQUE_DATA   = import.meta.glob('/src/data/scenario/*/*/*/cliqueData.js')
 
 async function _loadScenarioFiles(scId) {
   const [y, m, s] = scId.split('_')
   const base = `/src/data/scenario/${y}/${m}/${s}`
   const load = (glob, suf) => (glob[`${base}/${suf}`] ?? (() => Promise.resolve(null)))()
-  const [sd, pd, cj, fd, fcd, fsd, ftd] = await Promise.all([
+  const [sd, pd, cj, cl, cld, fd, fcd, fsd, ftd] = await Promise.all([
     load(_GLOB_STAR_DETAIL,   'stars/starDetail.js'),
     load(_GLOB_PLANET_DETAIL, 'stars/planetDetail.js'),
     load(_GLOB_CHAR_JOBS,     'characters/charactersJobs.js'),
+    load(_GLOB_CHAR_LIST,     'characters/charactersData.js'),
+    load(_GLOB_CLIQUE_DATA,   'cliqueData.js'),
     load(_GLOB_FLEET_DATA,    'fleet/fleetData.js'),
     load(_GLOB_FLEET_CHAR,    'fleet/fleetCharacterData.js'),
     load(_GLOB_FLEET_SHIP,    'fleet/fleetShipData.js'),
@@ -42,6 +41,8 @@ async function _loadScenarioFiles(scId) {
     starDetail:    sd?.STAR_DETAIL             ?? [],
     planetDetail:  pd?.PLANET_DETAIL           ?? [],
     charJobs:      cj?.CHAR_JOBS               ?? null,
+    charList:      cl?.CHAR_LIST               ?? null,
+    cliqueData:    cld?.CLIQUE_DATA            ?? [],
     fleetData:     fd?.FLEET_DATA              ?? [],
     fleetCharData: fcd?.FLEET_CHARACTER_DATA   ?? [],
     fleetShipData: fsd?.FLEET_SHIP_DATA        ?? [],
@@ -49,120 +50,28 @@ async function _loadScenarioFiles(scId) {
   }
 }
 
-function _buildFleets(fleetData, fleetCharData, fleetShipData) {
-  const result = { REH: [], FPA: [], PZN: [] }
-  if (!fleetData?.length) return result
-  for (const fleet of fleetData) {
-    if (fleet.parentFlt) continue
-    if (!result[fleet.faction]) continue
-    const baseCode = fleet.fltCode.slice(0, 6)
-    const commander = fleetCharData.find(fc => fc.fltCode === baseCode && fc.type === 'C')
-    const totalShips = fleetShipData
-      .filter(fs => fs.fltCode === baseCode)
-      .reduce((sum, s) => sum + (s.shipAmt || 0), 0)
-    result[fleet.faction].push({
-      id:       fleet.fltCode,
-      name:     fleet.fltName,
-      commander:commander?.charCode ?? null,
-      ships:    totalShips,
-      maxShips: totalShips,
-      location: fleet.fltLoc || null,
-      status:   'standby',
-      target:   null,
-      upkeep:   Math.ceil(totalShips / 500),
-    })
-  }
-  return result
-}
-
-const _DEFAULTS = {
-  capital:   { population: 200, industry: 90, defense: 80 },
-  fortress:  { population: 30,  industry: 60, defense: 95 },
-  frontier:  { population: 40,  industry: 40, defense: 55 },
-  contested: { population: 10,  industry: 20, defense: 25 },
-  noble:     { population: 70,  industry: 55, defense: 50 },
-  normal:    { population: 60,  industry: 50, defense: 45 },
-  neutral:   { population: 50,  industry: 40, defense: 40 },
-}
-
 function buildState(scId, pf, extraData = {}) {
   const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]
-  const { starDetail = [], planetDetail = [], charJobs = null, fleetData = [], fleetCharData = [], fleetShipData = [] } = extraData
-  const _detailMap = Object.fromEntries((starDetail || []).map(d => [d.code, d]))
-  const _detailFactionMap = {}
-  for (const p of (planetDetail || [])) {
-    _detailFactionMap[p.code] = p.faction
+  const {
+    starDetail = [], planetDetail = [],
+    charJobs = null, charList = null, cliqueData = [],
+    fleetData = [], fleetCharData = [], fleetShipData = [],
+  } = extraData
+
+  const factions   = buildFactionsMap(sc.factions ?? ['REH', 'FPA', 'PZN'])
+  const systems    = buildSystemsMap(starDetail, planetDetail)
+  const characters = buildCharactersMap({ charList, scenarioCharJobs: charJobs, fleetCharData, cliqueData })
+  const fleets     = buildFleetsMap(fleetData, fleetCharData, fleetShipData)
+
+  const resources = {}
+  for (const [id, f] of Object.entries(factions)) {
+    resources[id] = { gold: f.gold }
   }
-  const systems = {}
-  STAR_SYSTEMS.forEach(s => {
-    const d = _detailMap[s.code] || {}
-    const planets = (_BASE_PLANET_MAP[s.code] || []).map(p => {
-      const nameKr = Array.isArray(p.name)
-        ? (p.name.find(n => n.code === 'Kr')?.context ?? '')
-        : (p.nameKr ?? '')
-      const nameEn = Array.isArray(p.name)
-        ? (p.name.find(n => n.code === 'En')?.context ?? '')
-        : (p.nameEn ?? '')
-      return { ...p, nameKr, nameEn, faction: _detailFactionMap[p.code] ?? p.faction ?? null }
-    })
-    let faction = null
-    if (planets.length > 0) {
-      const cnt = {}
-      for (const p of planets) { if (p.faction) cnt[p.faction] = (cnt[p.faction] || 0) + 1 }
-      const sorted = Object.entries(cnt).sort((a, b) => b[1] - a[1])
-      if (sorted.length && sorted[0][1] > (sorted[1]?.[1] ?? 0)) faction = sorted[0][0]
-    }
-    // TODO: planetsData.js의 fortress 필드가 트레잇(FORTIFIED 등)으로 이전되면서
-    //   p.fortress가 항상 undefined가 됨. planetDetailTrait.js에 FORTIFIED 트레잇이
-    //   실제 요새 행성들에 채워진 뒤 트레잇 기반으로 재구현 필요. 그 전까지는 null로 고정.
-    const fortress = null
-    systems[s.code] = {
-      id:               s.code,
-      code:             s.code,
-      name:             s.nameKr,
-      nameEn:           s.nameEn,
-      type:             s.type,
-      x:                s.x,
-      y:                s.y,
-      desc:             s.desc,
-      faction,
-      fortress,
-      planets:          planets,
-      morale:           d.morale  ?? 60,
-      tax:              d.tax     ?? 0,
-      traits:           d.traits  ?? [],
-      underConstruction: null,
-      ...(_DEFAULTS[s.type] ?? _DEFAULTS.normal),
-    }
-  })
-  const resources = {
-    REH: { gold: 5000 },
-    FPA: { gold: 4500 },
-    PZN: { gold: 8000 },
-  }
-  const _overriddenChars = charJobs?.length ? new Set(charJobs.map(j => j.charCode)) : null
-  const _jobSrc = _overriddenChars
-    ? [...charJobs, ..._BASE_CHAR_JOBS.filter(j => !_overriddenChars.has(j.charCode))]
-    : _BASE_CHAR_JOBS
-  const _initPostMap = {}
-  const _initPostsMap = {}
-  _jobSrc.forEach(j => {
-    if (!_initPostMap[j.charCode]) _initPostMap[j.charCode] = j.jobCode
-    ;(_initPostsMap[j.charCode] ??= []).push(j.jobCode)
-  })
-  const characters = {}
-  Object.values(CHARACTERS).forEach(c => {
-    characters[c.code] = {
-      ...c,
-      currentPost:  _initPostMap[c.code]  ?? null,
-      currentPosts: _initPostsMap[c.code] ?? [],
-    }
-  })
-  const fleets = _buildFleets(fleetData, fleetCharData, fleetShipData)
+
   return {
     sc, playerFaction: pf,
     year: sc.year, impYear: sc.year - 309, month: sc.month ?? 1, day: sc.date ?? 1, turn: 1,
-    systems, resources, characters, fleets,
+    factions, systems, resources, characters, fleets,
     log: [], selectedSystem: null, selectedFleet: null,
     _levyCooldown: 0, _loanBalance: 0, _loanDueTurn: null, _fleetSeq: 10, _truce: {}, _tradeBonus: 0,
     _reserve: 0, _intelligenceFund: 0, _budgetAllocation: null,
@@ -189,8 +98,8 @@ export const useGameStore = defineStore('game', {
       return c
     },
     dateStr:   s => `우주력 ${s.year}년 ${s.month}월 / 제국력 ${s.impYear}년`,
-    pFaction:  s => FACTIONS[s.playerFaction],
-    fColors:   () => { const m = {}; Object.values(FACTIONS).forEach(f => { m[f.id] = f.color }); return m },
+    pFaction:  s => s.factions[s.playerFaction] ?? null,
+    fColors:   s => Object.fromEntries(Object.values(s.factions).map(f => [f.id, f.color])),
     allFleets: s => {
       const r = []
       Object.entries(s.fleets).forEach(([faction, fl]) => {
@@ -228,8 +137,7 @@ export const useGameStore = defineStore('game', {
       const fresh = buildState(scId, pf, extraData)
       Object.assign(this.$state, { initialized: true, ...fresh })
       if (charCode) this.playerCharCode = charCode
-      const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]
-      this.addLog(`[${FACTIONS[pf]?.name ?? pf}] ${sc.nameKr} 시작.`)
+      this.addLog(`[${this.factions[pf]?.nameKr ?? pf}] ${fresh.sc.nameKr} 시작.`)
     },
 
     endTurn() {
@@ -401,7 +309,6 @@ export const useGameStore = defineStore('game', {
     // ── 임시 징세 ─────────────────────────────────────────────────
     emergencyLevy() {
       const res = this.pRes
-      const { FINANCE } = require('@/data/masterData')
       const terms = FINANCE.LEVY_TERMS
 
       if (this._levyCooldown > 0) {
@@ -437,7 +344,6 @@ export const useGameStore = defineStore('game', {
 
     // ── 페잔 차관 ─────────────────────────────────────────────────
     takeLoan(amount) {
-      const { FINANCE } = require('@/data/masterData')
       const terms = FINANCE.LOAN_TERMS
 
       if (amount < terms.MIN_AMOUNT || amount > terms.MAX_AMOUNT) {
@@ -467,7 +373,6 @@ export const useGameStore = defineStore('game', {
 
     // ── 차관 상환 ─────────────────────────────────────────────────
     repayLoan() {
-      const { FINANCE } = require('@/data/masterData')
       if (this._loanBalance <= 0) {
         this.addLog('⚠ [상환] 상환할 차관이 없습니다.')
         return false
@@ -488,7 +393,6 @@ export const useGameStore = defineStore('game', {
     // ── 예산 배분 ─────────────────────────────────────────────────
     allocateBudget(allocations) {
       // allocations: { MILITARY: n, CONSTRUCTION: n, INTELLIGENCE: n, WELFARE: n, RESERVE: n }
-      const { FINANCE } = require('@/data/masterData')
       const total = Object.values(allocations).reduce((s, v) => s + v, 0)
       if (total > this.pRes.gold) {
         this.addLog(`⚠ [예산] 배분 합계(${total.toLocaleString()})가 보유 자금(${this.pRes.gold.toLocaleString()})을 초과합니다.`)
@@ -536,7 +440,6 @@ export const useGameStore = defineStore('game', {
 
     // ── 함대 편성 (비용 차감) ─────────────────────────────────────
     formFleet(name, commanderId, sizeKey, locationId) {
-      const { MILITARY } = require('@/data/masterData')
       const size = MILITARY.FLEET_SIZES[sizeKey]
       if (!size) return false
       if (this.pRes.gold < size.cost) {
@@ -567,7 +470,6 @@ export const useGameStore = defineStore('game', {
 
     // ── 함대 재편성 (척수 변경) ───────────────────────────────────
     reorganizeFleet(fleetId, newShips) {
-      const { MILITARY } = require('@/data/masterData')
       const fleet = this.pFleets.find(f => f.id === fleetId)
       if (!fleet || fleet.status !== 'standby') {
         this.addLog('⚠ [재편성] 대기 중인 함대만 재편성 가능합니다.')
@@ -590,7 +492,6 @@ export const useGameStore = defineStore('game', {
 
     // ── 함대 해산 ─────────────────────────────────────────────────
     disbandFleet(fleetId) {
-      const { MILITARY } = require('@/data/masterData')
       const idx = this.fleets[this.playerFaction].findIndex(f => f.id === fleetId)
       if (idx === -1) return false
       const fleet = this.fleets[this.playerFaction][idx]
@@ -628,7 +529,6 @@ export const useGameStore = defineStore('game', {
 
     // ── 함대 철수 (출격 중 또는 적 성계에서 철수) ─────────────────
     retreatFleet(fleetId) {
-      const { MILITARY } = require('@/data/masterData')
       const fleet = this.pFleets.find(f => f.id === fleetId)
       if (!fleet) return false
 
@@ -652,7 +552,6 @@ export const useGameStore = defineStore('game', {
 
     // ── 자원 수송 (아군 성계 간 이동) ─────────────────────────────
     transportResources(fromSystemId, toSystemId, itemType, amount) {
-      const { MILITARY } = require('@/data/masterData')
       const from = this.systems[fromSystemId]
       const to   = this.systems[toSystemId]
       if (!from || !to) return false
@@ -700,7 +599,6 @@ export const useGameStore = defineStore('game', {
 
     // ── 첩보 작전 ─────────────────────────────────────────────────
     launchIntelOp(targetSystemId, opType, officerId) {
-      const { INTEL } = require('@/data/masterData')
       const op  = INTEL.OPERATIONS[opType]
       const sys = this.systems[targetSystemId]
       if (!op || !sys) return false
@@ -746,7 +644,9 @@ export const useGameStore = defineStore('game', {
               .filter(f => f.location === targetSystemId && f.faction !== this.playerFaction)
             if (enemyFleets.length > 0) {
               const target = enemyFleets[0]
-              this.addLog(`🗡️ [암살] ${sys.name}의 ${CHARACTERS?.[target.commander]?.name || target.commander} 암살 성공!`)
+              const victim = this.characters[target.commander]
+              const victimName = victim?.name?.find(e => e.code === 'Kr')?.context ?? victim?.code ?? target.commander
+              this.addLog(`🗡️ [암살] ${sys.name}의 ${victimName} 암살 성공!`)
               target.commander = null
             } else {
               this.addLog(`🗡️ [암살] ${sys.name}에서 대상을 찾지 못했습니다.`)
@@ -763,7 +663,6 @@ export const useGameStore = defineStore('game', {
 
     // ── 치안 회복 ─────────────────────────────────────────────────
     restoreSecurity(systemId, level, officerId) {
-      const { INTEL } = require('@/data/masterData')
       const lvl = INTEL.SECURITY_LEVELS[level]
       const sys = this.systems[systemId]
       if (!lvl || !sys) return false
@@ -793,7 +692,6 @@ export const useGameStore = defineStore('game', {
 
     // ── 제안 공작 ─────────────────────────────────────────────────
     launchProposal(targetFaction, propType) {
-      const { INTEL, FACTIONS } = require('@/data/masterData')
       const prop = INTEL.PROPOSALS[propType]
       if (!prop) return false
       if (this.pRes.gold < prop.cost) {
@@ -802,7 +700,7 @@ export const useGameStore = defineStore('game', {
       }
       this.pRes.gold -= prop.cost
       const dlg  = INTEL.DIALOGS.PROPOSAL
-      const tName = FACTIONS[targetFaction]?.name || targetFaction
+      const tName = this.factions[targetFaction]?.nameKr ?? targetFaction
 
       this.addLog(`[재상] ${dlg.prime_suggest}`)
       this.addLog(`[고문] ${dlg.advisor_reply}`)
@@ -873,7 +771,7 @@ export const useGameStore = defineStore('game', {
     },
 
     _income() {
-      ['REH','FPA','PZN'].forEach(f => {
+      Object.keys(this.resources).forEach(f => {
         let inc = 0
         Object.values(this.systems).forEach(s => {
           if (s.faction === f) inc += Math.floor(s.population * (s.tax / 100) * (s.industry / 100) * 10)
@@ -963,7 +861,7 @@ export const useGameStore = defineStore('game', {
     },
 
     _ai() {
-      ['REH','FPA','PZN'].filter(f => f !== this.playerFaction).forEach(f => {
+      Object.keys(this.factions).filter(f => f !== this.playerFaction).forEach(f => {
         let inc = 0
         Object.values(this.systems).forEach(s => {
           if (s.faction === f) inc += Math.floor(s.population * 0.3 * (s.industry / 100) * 10)
@@ -977,7 +875,7 @@ export const useGameStore = defineStore('game', {
           if (Math.random() < 0.5) {
             const prev = t.faction
             t.faction = f
-            this.addLog(`⚔️ [AI] ${FACTIONS[f].name} ${fleet.name}이 ${t.name} 공략! (${prev || '무소속'} → ${f})`)
+            this.addLog(`⚔️ [AI] ${this.factions[f]?.nameKr ?? f} ${fleet.name}이 ${t.name} 공략! (${prev || '무소속'} → ${f})`)
           }
         })
       })
@@ -986,11 +884,11 @@ export const useGameStore = defineStore('game', {
     _victory() {
       const counts = this.sysCounts
       const total = Object.values(this.systems).length
-      Object.keys(FACTIONS).forEach(f => {
+      Object.keys(this.factions).forEach(f => {
         if ((counts[f] || 0) >= Math.ceil(total * 0.7)) {
           this.gameOver = true
           this.winner = f
-          this.addLog(`🏆 [승리] ${FACTIONS[f].name} 우주 통일!`)
+          this.addLog(`🏆 [승리] ${this.factions[f]?.nameKr ?? f} 우주 통일!`)
         }
       })
     },
@@ -1002,12 +900,12 @@ export const useGameStore = defineStore('game', {
       const from = c.faction
       c.faction = targetFaction
       c.currentPost = null
-      this.addLog(`🔴 [쿠데타] ${c.name}이(가) ${FACTIONS[from]?.name || from}에서 ${FACTIONS[targetFaction]?.name || targetFaction}으로 이적.`)
+      this.addLog(`🔴 [쿠데타] ${c.name}이(가) ${this.factions[from]?.nameKr ?? from}에서 ${this.factions[targetFaction]?.nameKr ?? targetFaction}으로 이적.`)
       this.openModal('event', {
         title: '쿠데타',
         portrait: c.portrait || '⚔️',
         speaker: c.name,
-        desc: `${c.name}이(가) 수수께끼의 세력과 함께 ${FACTIONS[targetFaction]?.name || targetFaction} 측에 합류했습니다.`,
+        desc: `${c.name}이(가) 수수께끼의 세력과 함께 ${this.factions[targetFaction]?.nameKr ?? targetFaction} 측에 합류했습니다.`,
         effect: { morale: -10 },
       })
     },
@@ -1018,12 +916,12 @@ export const useGameStore = defineStore('game', {
       const from = c.faction
       c.faction = targetFaction
       c.currentPost = null
-      this.addLog(`💫 [이탈] ${c.name}이(가) ${FACTIONS[targetFaction]?.name || targetFaction}으로 이탈.`)
+      this.addLog(`💫 [이탈] ${c.name}이(가) ${this.factions[targetFaction]?.nameKr ?? targetFaction}으로 이탈.`)
       this.openModal('event', {
         title: '이탈',
         portrait: c.portrait || '🌟',
         speaker: c.name,
-        desc: `${c.name}이(가) ${FACTIONS[from]?.name || from}을 떠나 ${FACTIONS[targetFaction]?.name || targetFaction}으로 귀순했습니다.`,
+        desc: `${c.name}이(가) ${this.factions[from]?.nameKr ?? from}을 떠나 ${this.factions[targetFaction]?.nameKr ?? targetFaction}으로 귀순했습니다.`,
       })
     },
 

@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router/index.js'
 import './assets/global.css'
 import { useAuthStore } from '@/stores/authStore'
+import { useLobbyStore } from '@/stores/lobbyStore'
 
 const pinia = createPinia()
 const app = createApp(App)
@@ -11,3 +12,4 @@ const app = createApp(App)
 app.use(pinia).use(router).mount('#app')
 
 useAuthStore().initTempCode()
+useLobbyStore().loadUnlocks()

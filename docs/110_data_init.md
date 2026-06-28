@@ -51,25 +51,26 @@ startGame(scId, pf, charCode)
 
 ## 3. 데이터 소스 맵
 
-### 3-1. 국가 (Faction)
+### 3-1. 국가 (Faction) ✅ 완료
 
 | 항목 | 소스 | 상태 |
 |---|---|---|
-| 세력 목록 | `masterData.js → FACTIONS` | ✅ 사용 중 |
-| 초기 자금 | `gameStore.js` 하드코딩 (REH:5000, FPA:4500, PZN:8000) | ⚠️ 하드코딩 |
-| 초기 자원 | 동일 | TODO: scenarioDesc 연동 |
+| 세력 목록 | `factionUtils.buildFactionsMap(sc.factions)` | ✅ 완료 |
+| 초기 자금 | `factionUtils._DEFAULT_GOLD` (REH:5000, FPA:4500, PZN:8000) | ⚠️ 기본값 |
+| 초기 자원 | `resources[id] = { gold: factions[id].gold }` | TODO: scenarioDesc 연동 |
+| 국가 메타(색상·이름 등) | `gameStore.factions[id]` | ✅ 완료 |
 
 ---
 
-### 3-2. 성계 + 행성 (Star Systems)
+### 3-2. 성계 + 행성 (Star Systems) ✅ 완료
 
 | 항목 | 소스 | 상태 |
 |---|---|---|
-| 성계 기본 정보 | `base/stars/starSystemData.js → STAR_SYSTEMS` | ✅ 사용 중 |
-| 행성 기본 정보 | `base/stars/planetsData.js → PLANETS` | ✅ 사용 중 |
-| 시나리오 성계 오버라이드 | `scenario/{y}/{m}/{s}/stars/starDetail.js` | ✅ 사용 중 |
-| 시나리오 행성 파벌 | `scenario/{y}/{m}/{s}/stars/planetDetail.js` | ✅ 사용 중 |
-| 레인 / 장애물 | `base/stars/laneData.js`, starSystemData | ✅ 사용 중 |
+| 성계 기본 정보 | `starUtils.buildSystemsMap(starDetail, planetDetail)` | ✅ 완료 |
+| 행성 기본 정보 | `starUtils.PLANET_MAP` 내부 처리 | ✅ 완료 |
+| 시나리오 성계 오버라이드 | `scenario/{y}/{m}/{s}/stars/starDetail.js` | ✅ 완료 |
+| 시나리오 행성 파벌 | `scenario/{y}/{m}/{s}/stars/planetDetail.js` | ✅ 완료 |
+| 레인 / 장애물 | `starUtils.LANES`, `starUtils.OBSTACLES` | ✅ 완료 |
 
 **성계 faction 결정 로직:** 해당 성계 행성들의 faction 다수결. 동률이면 `null`.
 
@@ -107,28 +108,22 @@ gameStore.fleets[faction][] = {
 }
 ```
 
-**미구현:** `officers` 필드 (type=O 부관 목록) — 현재 사령관만 포함.
+**officers 필드:** `fleetUtils.buildFleetsMap`에서 type=O 부관 목록 추가 완료.
 
 ---
 
-### 3-4. 인물 (Character)
+### 3-4. 인물 (Character) ✅ 완료
 
 | 항목 | 소스 | 상태 |
 |---|---|---|
-| 전체 인물 마스터 | `masterData.js → CHARACTERS` | ✅ 전체 로드 중 |
-| 시나리오 등장 인물 | `scenario/{y}/{m}/{s}/characters/charactersData.js` | ⚠️ CharSelectView 전용, buildState 미연동 |
-| 직업 기본값 | `base/characters/charactersJobs.js` | ✅ 사용 중 |
-| 시나리오별 직업 오버라이드 | `scenario/{y}/{m}/{s}/characters/charactersJobs.js` | ✅ 사용 중 |
-
-**현재 동작:** `CHARACTERS` 전체를 `characters[c.code]`에 로드. 시나리오별 charList 필터링 미적용.
-
-**직업 오버라이드 패턴 (구현됨):**
-```
-charJobs (시나리오 직업) + BASE_CHAR_JOBS (기본 직업)
-  → 시나리오 직업이 있는 charCode는 시나리오 값 우선
-  → _initPostMap[charCode] = 첫 번째 jobCode
-  → _initPostsMap[charCode] = 직업 코드 배열
-```
+| 인물 마스터 | `charUtils.buildCharactersMap({ charList, ... })` | ✅ 완료 |
+| 시나리오 등장 인물 필터 | `scenario/{y}/{m}/{s}/characters/charactersData.js → CHAR_LIST` | ✅ 완료 |
+| 직업 기본값 | `charUtils` 내부 `CHAR_JOBS` | ✅ 완료 |
+| 시나리오별 직업 오버라이드 | `scenario/{y}/{m}/{s}/characters/charactersJobs.js` | ✅ 완료 |
+| 소속 함대 | `fleetCharData` 연계 → `fleetCode` 필드 | ✅ 완료 |
+| 소속 파벌 | `cliqueData` 연계 → `cliqueId` 필드 | ✅ 완료 |
+| 직업 배열 | `jobs[]` 전체 포함 | ✅ 완료 |
+| 트레잇 배열 | `traits[]` 전체 포함 | ✅ 완료 |
 
 ---
 
@@ -140,17 +135,15 @@ charJobs (시나리오 직업) + BASE_CHAR_JOBS (기본 직업)
 const _GLOB_STAR_DETAIL   = import.meta.glob('/src/data/scenario/*/*/*/stars/starDetail.js')
 const _GLOB_PLANET_DETAIL = import.meta.glob('/src/data/scenario/*/*/*/stars/planetDetail.js')
 const _GLOB_CHAR_JOBS     = import.meta.glob('/src/data/scenario/*/*/*/characters/charactersJobs.js')
+const _GLOB_CHAR_LIST     = import.meta.glob('/src/data/scenario/*/*/*/characters/charactersData.js')
+const _GLOB_CLIQUE_DATA   = import.meta.glob('/src/data/scenario/*/*/*/cliqueData.js')
 const _GLOB_FLEET_DATA    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetData.js')
 const _GLOB_FLEET_CHAR    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetCharacterData.js')
 const _GLOB_FLEET_SHIP    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetShipData.js')
 const _GLOB_FLEET_TRAIT   = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetTraitData.js')
 
 // scId 'SE796_01_ASTARTE' → [y,m,s] 분리 → base 경로 조립
-async function _loadScenarioFiles(scId) {
-  const [y, m, s] = scId.split('_')
-  const base = `/src/data/scenario/${y}/${m}/${s}`
-  // 7개 파일 Promise.all 병렬 로드
-}
+// 9개 파일 Promise.all 병렬 로드 → charList, cliqueData 추가
 ```
 
 파일이 없으면 `null`을 반환하며 `buildState`에서 기본값으로 대체.
@@ -199,12 +192,12 @@ startGame(scId, pf, charCode)
 
 ## 7. 알려진 버그
 
-| 항목 | 위치 | 내용 |
+| 항목 | 위치 | 상태 |
 |---|---|---|
-| `require()` 사용 | `gameStore.js` 다수 action | Vite ESM 환경에서 `require` 미지원 → 런타임 오류. `FINANCE` / `MILITARY` / `INTEL` 을 최상단 import로 전환 필요 |
-| `lobbyStore.loadUnlocks()` 미호출 | `main.js` | 앱 시작 시 unlock 데이터 복원 안 됨 → 구매한 시나리오가 잠금 상태로 표시될 수 있음 |
-| `ScenarioOptionsView.onNext()` 라우트 오류 | `ScenarioOptionsView.vue` | "다음" 버튼이 `scenario-char` 대신 `scenario-detail`로 이동 (역방향) |
-| `fleetTraitData` 미사용 | `gameStore.js buildState` | 파일은 로드하나 `buildState` destructuring에서 누락 |
+| `require()` 사용 | `gameStore.js` 다수 action | ✅ 수정 완료 (2026-06-28) |
+| `lobbyStore.loadUnlocks()` 미호출 | `main.js` | ✅ 수정 완료 (2026-06-28) |
+| `ScenarioOptionsView.onNext()` 라우트 오류 | `ScenarioOptionsView.vue` | ✅ 수정 완료 (2026-06-28) |
+| `fleetTraitData` 미사용 | `gameStore.js buildState` | ⚠️ 파일 로드는 유지. 트레잇 시스템 구현 후 연동 |
 
 ---
 
@@ -212,12 +205,7 @@ startGame(scId, pf, charCode)
 
 | 우선순위 | 항목 |
 |---|---|
-| 🔴 | `require()` → 최상단 `import` 전환 (`FINANCE`, `MILITARY`, `INTEL`) |
-| 🔴 | `main.js`에 `lobbyStore.loadUnlocks()` 추가 |
-| 🔴 | `ScenarioOptionsView.onNext()` 라우트 수정 (`scenario-char`로) |
-| 🟡 | `buildState()` 내 characters → charList 필터링 적용 |
-| 🟡 | `fleetTraitData` buildState에 연동 |
-| 🟡 | `officers` 필드 추가 (type=O 부관 목록) |
+| 🟡 | `fleetTraitData` buildState에 연동 (트레잇 시스템 구현 후) |
 | 🟡 | `resources` 초기값 → scenarioDesc 파일에서 로드 |
 | 🟡 | `fltLoc` 빈 값 → 시나리오별 기본 성계 코드 입력 |
 | 🟢 | Pinia persist 저장/불러오기 구현 |

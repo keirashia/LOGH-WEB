@@ -161,7 +161,7 @@ const optGroups = [
 ]
 
 function onNext() {
-  router.push({ name: 'scenario-detail', params: { scId: route.params.scId } })
+  router.push({ name: 'scenario-char', params: { scId: route.params.scId } })
 }
 </script>
 
