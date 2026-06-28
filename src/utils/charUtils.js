@@ -1,10 +1,18 @@
 // 경로: src/utils/charUtils.js
 // ================================================================
 //  charUtils.js — 인물 데이터 유틸리티
-//  수정: 2026-06-26
+//  수정: 2026-06-28
 //
-//  ※ 캐릭터 관련 데이터는 반드시 이 파일을 경유할 것.
-//     컴포넌트에서 data 파일을 직접 import 하지 말 것.
+//  ■ 사용 범위
+//    게임 전 (로비·백과사전·인물선택·초기화):
+//      buildCharactersMap(), fncGet*(), 맵·상수 사용 가능.
+//    게임 중:
+//      gameStore.state(characters, fleets, systems 등)만 사용.
+//      이 파일의 함수·맵을 인게임 로직에서 호출하지 말 것.
+//      → 게임 중 인물 정보는 gameStore.characters[charCode]로 접근.
+//
+//  ※ 함대 관련 함수는 fleetUtils.js로 분리됨.
+//  ※ 컴포넌트에서 data 파일을 직접 import 하지 말 것.
 //
 //  의존 데이터 파일 (외부에서 직접 import 금지):
 //    charactersData.js   → CHAR_BASE, CHAR_BASE_MAP
@@ -125,6 +133,92 @@ export const CHAR_UNIQUE_TRAIT_MAP = (() => {
 })()
 
 // ================================================================
+//  초기화 빌더
+// ================================================================
+
+/**
+ * buildCharactersMap(options)
+ * 게임 시작 시 characters{} 초기값을 생성한다.
+ *
+ * @param {object}   [options]
+ * @param {object[]|null} [options.charList]        시나리오 CHAR_LIST (null이면 전체 CHAR_BASE 사용)
+ * @param {object[]|null} [options.scenarioCharJobs] 시나리오별 직업 오버라이드 (null이면 base CHAR_JOBS만 사용)
+ * @param {object[]}      [options.fleetCharData]   시나리오 FLEET_CHARACTER_DATA (소속 함대 연계)
+ * @param {object[]}      [options.cliqueData]      시나리오 CLIQUE_DATA (소속 파벌 연계)
+ *
+ * @returns {{ [charCode: string]: object }}
+ */
+export function buildCharactersMap({
+  charList        = null,
+  scenarioCharJobs = null,
+  fleetCharData   = [],
+  cliqueData      = [],
+} = {}) {
+  // 1. 직업 소스: 시나리오 override → base CHAR_JOBS 보완
+  const overriddenCodes = scenarioCharJobs?.length
+    ? new Set(scenarioCharJobs.map(j => j.charCode))
+    : null
+  const jobSrc = overriddenCodes
+    ? [...scenarioCharJobs, ...CHAR_JOBS.filter(j => !overriddenCodes.has(j.charCode))]
+    : CHAR_JOBS
+
+  // 2. 직업 맵: { [charCode]: jobEntry[] }  (jobStDate 오름차순 유지)
+  const jobsByChar = {}
+  for (const j of jobSrc) {
+    ;(jobsByChar[j.charCode] ??= []).push(j)
+  }
+
+  // 3. 트레잇 맵: { [charCode]: traitEntry[] }
+  const traitsByChar = {}
+  for (const t of CHAR_TRAITS) {
+    ;(traitsByChar[t.charCode] ??= []).push(t)
+  }
+
+  // 4. 소속 함대 맵: { [charCode]: fltCode(6자리) }
+  const fleetByChar = {}
+  for (const fc of fleetCharData) {
+    if (!fleetByChar[fc.charCode]) fleetByChar[fc.charCode] = fc.fltCode
+  }
+
+  // 5. 소속 파벌 맵: { [charCode]: cliqueId }
+  const cliqueByChar = {}
+  for (const cl of cliqueData) {
+    for (const charCode of (cl.members ?? [])) {
+      if (!cliqueByChar[charCode]) cliqueByChar[charCode] = cl.id
+    }
+  }
+
+  // 6. 인물 필터링 (charList 지정 시 해당 코드만)
+  const charListSet = charList?.length
+    ? new Set(charList.map(c => c.charCode))
+    : null
+  const source = charListSet
+    ? CHAR_BASE.filter(c => charListSet.has(c.code))
+    : CHAR_BASE
+
+  // 7. 인물별 초기 상태 구성
+  const characters = {}
+  for (const c of source) {
+    const jobs         = jobsByChar[c.code]   ?? []
+    const traits       = traitsByChar[c.code] ?? []
+    const currentPost  = jobs[0]?.jobCode ?? null
+    const currentPosts = jobs.map(j => j.jobCode)
+
+    characters[c.code] = {
+      ...c,
+      currentPost,
+      currentPosts,
+      jobs,
+      traits,
+      fleetCode: fleetByChar[c.code]  ?? null,
+      cliqueId:  cliqueByChar[c.code] ?? null,
+      isDead:    false,
+    }
+  }
+  return characters
+}
+
+// ================================================================
 //  캐릭터 조회 함수
 // ================================================================
 
@@ -177,36 +271,6 @@ export function fncGetCharJobs(charCode) {
       master: JOB_MAP[a.jobCode] ?? null,
     })),
   }
-}
-
-// ================================================================
-//  함대 조회
-// ================================================================
-
-/**
- * fncGetFleetChars(fltCode, fleetCharData)
- * 특정 함대 소속 인물 목록 반환 (사령관/부관/분함대장).
- */
-export function fncGetFleetChars(fltCode, fleetCharData = []) {
-  if (!fltCode) return { error: '함대 코드 없음' }
-  const members = fleetCharData.filter(f => f.fltCode === fltCode)
-  if (!members.length) return { data: [] }
-  return {
-    data: members.map(m => ({
-      ...m,
-      charInfo: CHAR_BASE_MAP[m.charCode] ?? null,
-    })),
-  }
-}
-
-/**
- * fncGetCharFleet(charCode, fleetCharData)
- * 인물이 속한 함대 코드 반환.
- */
-export function fncGetCharFleet(charCode, fleetCharData = []) {
-  const entry = fleetCharData.find(f => f.charCode === charCode)
-  if (!entry) return { error: `함대 미배속: ${charCode}` }
-  return { data: { ...entry } }
 }
 
 // ================================================================
