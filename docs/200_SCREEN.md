@@ -13,6 +13,7 @@
 | 번호 | 문서 | 담당 | 상태 |
 |---|---|---|---|
 | 201 | [201_screen_design.md](201_screen_design.md) | 디자인 시스템 — 색상·타이포·레이아웃·패턴 | ✅ |
+| 211 | [211_screen_css.md](211_screen_css.md) | CSS 반응형 시스템 — vh 기반 타입 스케일, BottomBar 기준 | 🔄 설계 중 |
 
 ## 라우팅 / 뷰
 

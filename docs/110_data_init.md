@@ -2,191 +2,178 @@
 > 분류: 데이터
 > 경로: `docs/110_data_init.md`
 > 상위: [100_DATA.md](100_DATA.md)
-> 최종 수정: 2026-06-19
+> 최종 수정: 2026-06-28
 
 ---
 
 ## 1. 개요
 
-시나리오 선택 후 `game.startGame(scId, playerFaction)` 호출 시  
+시나리오 선택 후 `game.startGame(scId, playerFaction, charCode)` 호출 시  
 시나리오 파일 기반의 초기 게임 상태를 구성한다.
 
-현재 `buildState()`는 일부 데이터를 하드코딩하거나 전체 마스터 데이터를 무차별 로드한다.  
-이를 **시나리오별 파일 기반**으로 전환하는 것이 목표.
+**현재 구현 상태:** `import.meta.glob` 기반 동적 로드로 전환 완료.  
+`buildState()`는 성계·행성·함대·인물직업을 시나리오 파일 기반으로 병합하며,  
+인물 목록 필터링·자원 초기값·Pinia persist는 미구현.
 
 ---
 
-## 2. 데이터 소스 맵
+## 2. 전체 초기화 흐름
 
-### 2-1. 국가 (Faction)
-
-| 항목 | 소스 | 비고 |
-|---|---|---|
-| 세력 목록 | `src/data/masterData.js` → `FACTIONS` | REH / FPA / PZN 고정 |
-| 초기 자금 | `src/data/scenario/{scId}/scenarioDesc.js` | 시나리오별 설정 (TODO) |
-| 초기 자원 | 동일 | TODO |
-
-현재: `resources`를 `gameStore.js` 내부 하드코딩으로 설정 중.
-
----
-
-### 2-2. 성계 + 행성 (Star Systems)
-
-| 항목 | 소스 | 비고 |
-|---|---|---|
-| 성계 기본 정보 | `src/data/base/stars/starSystemData.js` | 62개, code/name/x/y/type |
-| 시나리오별 초기값 | `src/data/scenario/{scId}/starDetail.js` | faction / morale / tax / traits 등 |
-
-현재: `_SCENARIO_DETAIL_MAP`으로 매핑 후 merge — **사용 중**.
-
----
-
-### 2-3. 함대 (Fleet)
-
-| 항목 | 소스 | 비고 |
-|---|---|---|
-| 함대 목록 | `src/data/scenario/{scId}/fleet/fleetData.js` | fltCode / faction / fltName / fltLoc |
-| 함선 수 | `src/data/scenario/{scId}/fleet/fleetShipData.js` | shipAmt 합산 → 초기 ships |
-| 지휘관/부관 | `src/data/scenario/{scId}/fleet/fleetCharacterData.js` | type: C(사령관) / O(부관) / S(분함대장) |
-
-현재: `gameStore.js` 내부 하드코딩 (E_1ST, A_13TH 등) — **교체 필요**.
-
-**변환 규칙**
 ```
-fleetData (fltCode, fltName, faction, fltLoc)
-  + fleetShipData (fltCode, shipAmt 합산)
+main.js
+  └─ useAuthStore().initTempCode()   ← localStorage tempCode 복원/생성
+
+라우터 /game 가드
+  └─ game.initialized === false → /title 리다이렉트
+
+게임 시작 경로:
+  ScenarioSelectView
+    → ScenarioDetailView   onMounted: game.preloadScenario(scId)
+      → ScenarioCharSelectView   onNext: game.startGame(scId, faction, charCode) → /game
+```
+
+### startGame() 내부 순서
+
+```
+startGame(scId, pf, charCode)
+  │
+  ├── 1. _preloadedScId === scId 이면 _preloadedData 재사용
+  │        아니면 _loadScenarioFiles(scId) 비동기 로드
+  │
+  ├── 2. buildState(scId, pf, extraData) 호출
+  │
+  ├── 3. Object.assign(this.$state, { initialized: true, ...fresh })
+  │
+  └── 4. if (charCode) this.playerCharCode = charCode
+```
+
+---
+
+## 3. 데이터 소스 맵
+
+### 3-1. 국가 (Faction)
+
+| 항목 | 소스 | 상태 |
+|---|---|---|
+| 세력 목록 | `masterData.js → FACTIONS` | ✅ 사용 중 |
+| 초기 자금 | `gameStore.js` 하드코딩 (REH:5000, FPA:4500, PZN:8000) | ⚠️ 하드코딩 |
+| 초기 자원 | 동일 | TODO: scenarioDesc 연동 |
+
+---
+
+### 3-2. 성계 + 행성 (Star Systems)
+
+| 항목 | 소스 | 상태 |
+|---|---|---|
+| 성계 기본 정보 | `base/stars/starSystemData.js → STAR_SYSTEMS` | ✅ 사용 중 |
+| 행성 기본 정보 | `base/stars/planetsData.js → PLANETS` | ✅ 사용 중 |
+| 시나리오 성계 오버라이드 | `scenario/{y}/{m}/{s}/stars/starDetail.js` | ✅ 사용 중 |
+| 시나리오 행성 파벌 | `scenario/{y}/{m}/{s}/stars/planetDetail.js` | ✅ 사용 중 |
+| 레인 / 장애물 | `base/stars/laneData.js`, starSystemData | ✅ 사용 중 |
+
+**성계 faction 결정 로직:** 해당 성계 행성들의 faction 다수결. 동률이면 `null`.
+
+**미구현 필드 (TODO):**
+- `fortress` — 현재 `null` 고정. `planetDetailTrait.js`에 FORTIFIED 트레잇 구현 후 트레잇 기반으로 재구현 필요.
+- `planetDetailTrait` / `Building` — 행성 트레잇·건물 데이터 구조 미구현.
+
+---
+
+### 3-3. 함대 (Fleet) ✅ 완료
+
+| 항목 | 소스 | 상태 |
+|---|---|---|
+| 함대 목록 | `scenario/{y}/{m}/{s}/fleet/fleetData.js` | ✅ 사용 중 |
+| 함선 수 | `scenario/{y}/{m}/{s}/fleet/fleetShipData.js` | ✅ shipAmt 합산 |
+| 지휘관 | `scenario/{y}/{m}/{s}/fleet/fleetCharacterData.js` | ✅ type=C |
+| 함대 트레잇 | `scenario/{y}/{m}/{s}/fleet/fleetTraitData.js` | ⚠️ 로드하나 buildState에서 미사용 |
+
+**변환 규칙 (현재 구현)**
+```
+fleetData (fltCode, fltName, faction, fltLoc)  — parentFlt 있는 하위함대 제외
+  + fleetShipData (fltCode 기준 shipAmt 합산)
   + fleetCharacterData (type=C → commander)
   ↓
 gameStore.fleets[faction][] = {
   id:        fltCode,
   name:      fltName,
-  faction:   faction,
-  commander: charCode (type=C인 인물),
-  officers:  [charCode, ...] (type=O),
+  commander: charCode (type=C),
   ships:     shipAmt 합산,
-  maxShips:  동일,
-  location:  fltLoc (starCode),
+  maxShips:  ships와 동일,
+  location:  fltLoc || null,
   status:    'standby',
   target:    null,
-  upkeep:    Math.floor(ships / 500),
+  upkeep:    Math.ceil(ships / 500),
 }
 ```
 
+**미구현:** `officers` 필드 (type=O 부관 목록) — 현재 사령관만 포함.
+
 ---
 
-### 2-4. 인물 (Character)
+### 3-4. 인물 (Character)
 
-| 항목 | 소스 | 비고 |
+| 항목 | 소스 | 상태 |
 |---|---|---|
-| 전체 마스터 | `src/data/base/characters/charactersData.js` → `CHAR_BASE` | 전체 인물 |
-| 시나리오 등장 인물 | `src/data/scenario/{scId}/charList.js` | charCode 목록 |
+| 전체 인물 마스터 | `masterData.js → CHARACTERS` | ✅ 전체 로드 중 |
+| 시나리오 등장 인물 | `scenario/{y}/{m}/{s}/characters/charactersData.js` | ⚠️ CharSelectView 전용, buildState 미연동 |
+| 직업 기본값 | `base/characters/charactersJobs.js` | ✅ 사용 중 |
+| 시나리오별 직업 오버라이드 | `scenario/{y}/{m}/{s}/characters/charactersJobs.js` | ✅ 사용 중 |
 
-현재: `CHAR_BASE` 전체를 `characters[c.code]`에 로드 — **필터링 필요**.
+**현재 동작:** `CHARACTERS` 전체를 `characters[c.code]`에 로드. 시나리오별 charList 필터링 미적용.
 
-**변환 규칙**
+**직업 오버라이드 패턴 (구현됨):**
 ```
-charList[].charCode 에 해당하는 CHAR_BASE 항목만 추출
-  ↓
-gameStore.characters[charCode] = {
-  ...CHAR_BASE_MAP[charCode],
-  currentPost: null,      // 초기 직위 없음 (TODO: 시나리오 오버라이드)
-  currentPost: jobCode,   // charList에 초기 직위 명시 시 적용
-  isDead: false,
-}
+charJobs (시나리오 직업) + BASE_CHAR_JOBS (기본 직업)
+  → 시나리오 직업이 있는 charCode는 시나리오 값 우선
+  → _initPostMap[charCode] = 첫 번째 jobCode
+  → _initPostsMap[charCode] = 직업 코드 배열
 ```
 
 ---
 
-## 3. 시나리오 파일 로드 흐름
+## 4. 파일 로드 방식 — import.meta.glob
 
-```
-startGame(scId, playerFaction)
-  │
-  ├── 1. scenarioData.js → 시나리오 메타 (year, month 등)
-  ├── 2. starSystemData + starDetail[scId] → systems{}
-  ├── 3. CHAR_BASE + charList[scId] → characters{}
-  ├── 4. fleetData + fleetShipData + fleetCharacterData → fleets{}
-  └── 5. (TODO) scenarioDesc → resources 초기값
-```
-
----
-
-## 4. preloadScenario — 사전 캐시 패턴
-
-### 목적
-
-`ScenarioDetailView` 진입 시 바로 파일을 로드해 두고, 실제 `startGame` 호출 시 캐시를 재사용한다.  
-로드가 완료되기 전까지 시작 버튼을 비활성화하고 로딩 UI를 표시한다.
-
-### 흐름
-
-```
-ScenarioDetailView onMounted
-  └── game.preloadScenario(scId)
-        ├── _preloadedScId === scId 이면 즉시 반환 (캐시 히트)
-        └── 아니면 _loadScenarioFiles(scId) 실행 → _preloadedScId / _preloadedData 에 저장
-
-startGame(scId, pf, charCode)
-  └── _preloadedScId === scId 이면 _preloadedData 재사용, 아니면 재요청
-```
-
-### 단계별 로드 순서 (설계 목표)
-
-```
- 1. base/stars/starSystemData.js         (STAR_SYSTEMS) 조회·무결성 검증
- 2. {scId}/stars/starSystemData.js       시나리오별 성계 오버라이드 조회
- 3. 실제 성계 상태 완성                   base + 시나리오 병합
- 4. base/stars/planetsData.js            행성 조회·무결성 검증
- 5. {scId}/stars/planetsData.js          시나리오별 행성 오버라이드 조회
- 6. 실제 행성 상태 완성                   base + 시나리오 병합
- 7. base/characters/charactersData.js    시나리오 YMD 기준 인물 필터링·무결성 검증
- 8. {scId}/characters/charactersData.js  시나리오 등장 인물 오버라이드 조회
- 9. 실제 인물 상태 완성                   base + 시나리오 병합
-10. 추가 인물 등장 옵션 Y/N 처리           7~9 결과물에 merge
-11. 이번 시나리오 등장 인물 최종 확정
-12. {scId}/fleet/fleetData.js            함대 데이터 조회·무결성 검증
-13. 인물·성계·함대 3요소 완성 → buildState 준비 완료
-```
-
-> 7~9에서 인물 데이터를 참조할 때 직업(jobData) / 트레잇(charTraitData)도 함께 로드.  
-> 6-1(faction 상태: idea/econ/파벌 등) 생성은 설계 중.
-
-### 로딩 UI
-
-- preload 시작 시 시작 버튼 **비활성화** + 게이지 표시 (좌→우)
-- 단계마다 현재 로드 중인 데이터 명칭 표시
-- 완료 전까지 시나리오 배경 화면을 유저에게 노출
-
-### 검토 항목
-
-- [ ] `charactersData.js` (CHAR_LIST) — `ScenarioCharSelectView`에서 별도 동적 import 중. 프리로드에 포함할지 결정
-- [ ] `scenarioDesc.js` (DESC) — `scenarioData.js` 정적 import로 이미 포함됨. 중복 로드 없음 확인
-- [ ] `planetDetail.js` — 현재 로드 목록 미포함. 필요 여부 확인
-- [ ] variant 전환(◁▷) 시 다른 scId로 이동하면 캐시 초기화 후 재로드 필요
-
----
-
-## 5. 시나리오 파일 import 등록 방식
-
-현재 `gameStore.js` 내부에 시나리오별 starDetail을 `_SCENARIO_DETAIL_MAP`으로 수동 등록.  
-함대/인물도 동일 패턴으로 확장 예정:
+`gameStore.js` 상단에 glob 패턴으로 일괄 등록, 시나리오 ID를 경로로 변환해 동적 로드:
 
 ```js
-// gameStore.js 상단
-import { FLEET_DATA as _FD_SE796_10, ... } from '@/data/scenario/SE796/10/fleet/fleetData'
-import { FLEET_SHIP_DATA as _FSD_SE796_10 } from '@/data/scenario/SE796/10/fleet/fleetShipData'
-import { FLEET_CHARACTER_DATA as _FCD_SE796_10 } from '@/data/scenario/SE796/10/fleet/fleetCharacterData'
-import { CHAR_LIST as _CL_SE796_10 } from '@/data/scenario/SE796/10/charList'
+const _GLOB_STAR_DETAIL   = import.meta.glob('/src/data/scenario/*/*/*/stars/starDetail.js')
+const _GLOB_PLANET_DETAIL = import.meta.glob('/src/data/scenario/*/*/*/stars/planetDetail.js')
+const _GLOB_CHAR_JOBS     = import.meta.glob('/src/data/scenario/*/*/*/characters/charactersJobs.js')
+const _GLOB_FLEET_DATA    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetData.js')
+const _GLOB_FLEET_CHAR    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetCharacterData.js')
+const _GLOB_FLEET_SHIP    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetShipData.js')
+const _GLOB_FLEET_TRAIT   = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetTraitData.js')
 
-const _SCENARIO_FLEET_MAP = {
-  'SE796_10': { fleet: _FD_SE796_10, ship: _FSD_SE796_10, char: _FCD_SE796_10 },
-  ...
-}
-const _SCENARIO_CHAR_MAP = {
-  'SE796_10': _CL_SE796_10,
-  ...
+// scId 'SE796_01_ASTARTE' → [y,m,s] 분리 → base 경로 조립
+async function _loadScenarioFiles(scId) {
+  const [y, m, s] = scId.split('_')
+  const base = `/src/data/scenario/${y}/${m}/${s}`
+  // 7개 파일 Promise.all 병렬 로드
 }
 ```
+
+파일이 없으면 `null`을 반환하며 `buildState`에서 기본값으로 대체.
+
+---
+
+## 5. preloadScenario — 사전 캐시 패턴
+
+```
+ScenarioDetailView onMounted (시나리오 unlock 상태인 경우)
+  └── game.preloadScenario(scId)
+        ├── _preloadedScId === scId → 즉시 반환 (캐시 히트)
+        └── 아니면 _loadScenarioFiles(scId) 실행
+              → this._preloadedScId = scId
+              → this._preloadedData = { starDetail, planetDetail, charJobs,
+                                         fleetData, fleetCharData, fleetShipData, fleetTraitData }
+
+startGame(scId, pf, charCode)
+  └── _preloadedScId === scId → _preloadedData 재사용
+        아니면 _loadScenarioFiles(scId) 재호출
+```
+
+**미구현:** preload 진행 중 시작 버튼 비활성화 / 로딩 UI.
 
 ---
 
@@ -194,12 +181,11 @@ const _SCENARIO_CHAR_MAP = {
 
 | 방식 | 장점 | 단점 |
 |---|---|---|
-| `localStorage` | 간단, 오프라인 | 용량 제한 (~5MB), 기기 종속 |
-| **Pinia persist 플러그인** | **자동화, 코드 최소화, 스토어 구조 유지** | localStorage 의존 |
+| **Pinia persist 플러그인** | 자동화, 코드 최소화, 스토어 구조 유지 | localStorage 의존 |
 | LOGH_API (Phase 3) | 서버 저장, 멀티 기기 | 구현 비용 높음 |
 
-**Phase 1~2**: `pinia-plugin-persistedstate` 사용 (`persist: true` 한 줄로 적용)  
-**Phase 3**: persist 옵션 비활성화 후 LOGH_API 저장으로 교체 예정
+**Phase 1~2:** `pinia-plugin-persistedstate` 사용 (`persist: true` 한 줄로 적용)  
+**Phase 3:** persist 옵션 비활성화 후 LOGH_API 저장으로 교체 예정
 
 저장 대상:
 - `gameStore.$state` 전체 (turn, systems, characters, fleets, resources, log, agendas)
@@ -207,19 +193,33 @@ const _SCENARIO_CHAR_MAP = {
 - 슬롯: 자동 1개 + 수동 3개 (미정)
 - 로그는 최근 200건만 유지 (localStorage 5MB 제한 대응)
 
-> 보안: localStorage는 평문 JSON — 클라이언트 위변조 가능하나 싱글플레이 범위에서는 허용.  
-> Phase 3 멀티플레이 시 서버 검증 필수.
+**현재:** 미구현. 새로고침 시 게임 상태 소실.
 
 ---
 
-## 7. TODO
+## 7. 알려진 버그
+
+| 항목 | 위치 | 내용 |
+|---|---|---|
+| `require()` 사용 | `gameStore.js` 다수 action | Vite ESM 환경에서 `require` 미지원 → 런타임 오류. `FINANCE` / `MILITARY` / `INTEL` 을 최상단 import로 전환 필요 |
+| `lobbyStore.loadUnlocks()` 미호출 | `main.js` | 앱 시작 시 unlock 데이터 복원 안 됨 → 구매한 시나리오가 잠금 상태로 표시될 수 있음 |
+| `ScenarioOptionsView.onNext()` 라우트 오류 | `ScenarioOptionsView.vue` | "다음" 버튼이 `scenario-char` 대신 `scenario-detail`로 이동 (역방향) |
+| `fleetTraitData` 미사용 | `gameStore.js buildState` | 파일은 로드하나 `buildState` destructuring에서 누락 |
+
+---
+
+## 8. TODO
 
 | 우선순위 | 항목 |
 |---|---|
-| 🔴 | `buildState()` 내 함대 하드코딩 → fleetData 기반으로 교체 |
-| 🔴 | `buildState()` 내 characters → charList 필터링 적용 |
-| 🟡 | `_SCENARIO_FLEET_MAP` / `_SCENARIO_CHAR_MAP` 등록 구조 추가 |
-| 🟡 | `fltLoc` 빈 값 → 시나리오별 성계 코드 입력 |
-| 🟡 | `resources` 초기값 → scenarioDesc에서 로드 |
-| 🟢 | 저장/불러오기 — pinia-plugin-persistedstate 설치 및 gameStore에 persist 적용 |
-| 🟢 | 시나리오 charOverride (시나리오별 인물 이름/파벌 오버라이드) |
+| 🔴 | `require()` → 최상단 `import` 전환 (`FINANCE`, `MILITARY`, `INTEL`) |
+| 🔴 | `main.js`에 `lobbyStore.loadUnlocks()` 추가 |
+| 🔴 | `ScenarioOptionsView.onNext()` 라우트 수정 (`scenario-char`로) |
+| 🟡 | `buildState()` 내 characters → charList 필터링 적용 |
+| 🟡 | `fleetTraitData` buildState에 연동 |
+| 🟡 | `officers` 필드 추가 (type=O 부관 목록) |
+| 🟡 | `resources` 초기값 → scenarioDesc 파일에서 로드 |
+| 🟡 | `fltLoc` 빈 값 → 시나리오별 기본 성계 코드 입력 |
+| 🟢 | Pinia persist 저장/불러오기 구현 |
+| 🟢 | preload 중 시작 버튼 비활성화 + 로딩 UI |
+| 🟢 | `planetDetailTrait` / `Building` 구현 후 `fortress` 필드 재구현 |
