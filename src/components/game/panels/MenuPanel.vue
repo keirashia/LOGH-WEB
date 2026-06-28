@@ -18,7 +18,7 @@
         <div v-if="isAgendaCat && !navStack.length" class="mp-approver-info">
           <span class="dim" style="font-size:10px">결재</span>
           <span v-if="approver" class="serif" style="font-size:12px">
-            {{ approver.name }}
+            {{ charName(approver) }}
             <span class="mono dim" style="font-size:10px">
               (활성 {{ maxActive }}건)
             </span>
@@ -83,6 +83,7 @@ import { ref, computed, watch } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { APPROVAL_CHAINS } from '@/data/base/agenda/agendaData'
 import { MENU_TREES } from '@/data/base/agenda/menuTree'
+import { charName } from '@/utils/charUtils'
 
 const props = defineProps({ category: { type: String, default: null } })
 const emit = defineEmits(['close'])
@@ -133,7 +134,7 @@ const approver = computed(() => {
   const chain = (APPROVAL_CHAINS[pf] || {})[props.category] || []
   for (const jobId of chain) {
     const c = Object.values(game.characters).find(
-      ch => ch.currentPost === jobId && ch.faction === pf && !ch.isDead
+      ch => ch.jobs.some(j => j.jobCode === jobId) && ch.faction === pf && !ch.isDead
     )
     if (c) return c
   }

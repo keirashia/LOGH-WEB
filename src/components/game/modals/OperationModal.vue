@@ -387,7 +387,7 @@ const dmJobs = computed(() => APPROVAL_CHAINS[game.playerFaction]?.military_op ?
 const autoApprover = computed(() => {
   const chars = Object.values(game.characters)
   for (const jobId of dmJobs.value) {
-    const found = chars.find(c => c.currentPost === jobId && c.faction === game.playerFaction && !c.isDead)
+    const found = chars.find(c => c.jobs.some(j => j.jobCode === jobId) && c.faction === game.playerFaction && !c.isDead)
     if (found) return found
   }
   return null
@@ -395,7 +395,7 @@ const autoApprover = computed(() => {
 
 const approverJobLabel = computed(() => {
   if (!autoApprover.value) return ''
-  return JOB_MAP[autoApprover.value.currentPost]?.nameKr ?? ''
+  return JOB_MAP[autoApprover.value.jobs[0]?.jobCode]?.nameKr ?? ''
 })
 
 // 수락률: 공격=기본50 / 방어=기본70 + 발의자 INF 보정
@@ -420,8 +420,8 @@ const proposerCandidates = computed(() => {
   const pf = game.playerFaction
   const playerCode = game.playerCharCode
   const chars = Object.values(game.characters)
-    .filter(c => c.faction === pf && !c.isDead && isGeneralRank(c.currentPost))
-    .map(c => ({ ...c, rankLabel: JOB_MAP[c.currentPost]?.nameKr ?? '' }))
+    .filter(c => c.faction === pf && !c.isDead && c.jobs.some(j => isGeneralRank(j.jobCode)))
+    .map(c => ({ ...c, rankLabel: JOB_MAP[c.jobs.find(j => isGeneralRank(j.jobCode))?.jobCode]?.nameKr ?? '' }))
     .sort((a, b) => (b.statCmd ?? 0) - (a.statCmd ?? 0))
 
   // playerChar 최상단 고정
@@ -504,11 +504,11 @@ const securityPct = computed(() => {
   const chars = Object.values(game.characters)
 
   // A: 아국 정보 담당관 INF (TODO: 정보 담당관 직위 코드 확정 후 정밀화)
-  const aChar = chars.find(c => c.faction === pf && c.currentPost?.includes('INTEL'))
+  const aChar = chars.find(c => c.faction === pf && c.jobs.some(j => j.jobCode?.includes('INTEL')))
   const A = aChar?.statInf ?? 0
 
   // B: 적국 정보 담당관 INF
-  const bChar = chars.find(c => c.faction !== pf && c.currentPost?.includes('INTEL'))
+  const bChar = chars.find(c => c.faction !== pf && c.jobs.some(j => j.jobCode?.includes('INTEL')))
   const B = bChar?.statInf ?? 0
 
   // C: 발의자 INF

@@ -107,10 +107,10 @@
 import { computed, ref, watch } from 'vue'
 import { charImgSrc, handleCharImgError, CHAR_PLACEHOLDER } from '@/utils/charImg'
 import TraitBadge from '@/components/char/TraitBadge.vue'
-import { CHAR_TRAITS_MASTER as CHAR_TRAITS, CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
+import { CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
 import { useGameStore } from '@/stores/gameStore'
 import { JOB_MAP } from '@/data/base/jobs/jobData'
-import { CHAR_JOBS } from '@/data/base/characters/charactersJobs.js'
+import { CHAR_JOBS, charName } from '@/utils/charUtils'
 
 defineProps({ isOverlay: { type: Boolean, default: false } })
 defineEmits(['close'])
@@ -121,8 +121,8 @@ const char = computed(() => game.playerChar)
 
 const charJobData = computed(() => {
   const code = char.value?.code
-  const posts = char.value?.currentPosts ?? []
-  return posts.map(jobCode => {
+  const jobs = char.value?.jobs ?? []
+  return jobs.map(({ jobCode }) => {
     const entry = CHAR_JOBS.find(j => j.charCode === code && j.jobCode === jobCode)
     return {
       jobCode,
@@ -148,10 +148,7 @@ function _nameFit(str) {
 
 const displayName = computed(() => {
   if (!char.value) return ''
-  const name = char.value[`name${USER_LANG}`] ?? char.value.nameKr
-  if (_nameFit(name) >= NAME_MIN_PX) return name
-  const nick = char.value[`nick${USER_LANG}`] ?? char.value.nickKr
-  return (nick && nick !== name) ? nick : name
+  return charName(char.value, USER_LANG)
 })
 
 const nameFontStyle = computed(() => ({
@@ -179,10 +176,7 @@ const portraitBgStyle = computed(() => {
   }
 })
 
-const charTraits = computed(() =>
-  CHAR_TRAITS.filter(t => t.charCode === char.value?.code)
-    .sort((a, b) => a.traitStDate - b.traitStDate)
-)
+const charTraits = computed(() => char.value?.traits ?? [])
 
 const jobsExpanded = ref(false)
 

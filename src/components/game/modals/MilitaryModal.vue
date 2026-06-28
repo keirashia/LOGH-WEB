@@ -27,7 +27,7 @@
           <select v-model="newFleet.commanderId" class="mil-select">
             <option value="">-- 선택 --</option>
             <option v-for="c in availableCommanders" :key="c.id" :value="c.id">
-              {{ c.portrait }} {{ c.name }} (전술 {{ c.military }})
+              {{ c.portrait }} {{ charName(c) }} (전술 {{ c.military }})
             </option>
           </select>
         </div>
@@ -215,7 +215,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import { MILITARY, CHARACTERS } from '@/data/masterData'
+import { MILITARY } from '@/data/masterData'
+import { charName } from '@/utils/charUtils'
 
 const emit = defineEmits(['close'])
 const game = useGameStore()

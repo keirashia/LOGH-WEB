@@ -58,7 +58,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import { FACTIONS, CHARACTERS, OPERATION_TYPES } from '@/data/masterData'
+import { OPERATION_TYPES } from '@/data/masterData'
+import { charName } from '@/utils/charUtils'
 const props = defineProps({ payload: Object })
 const emit = defineEmits(['close'])
 const game = useGameStore()
@@ -69,8 +70,8 @@ const targetSys = computed(() => {
   return id ? game.systems[id] : null
 })
 const available = computed(() => game.pFleets.filter(f => f.status==='standby'))
-const chr = id => CHARACTERS[id]
-const fName = fid => FACTIONS[fid]?.name || '중립'
+const chr = id => game.characters[id]
+const fName = fid => game.factions[fid]?.nameKr || '중립'
 function ico(s) {
   if (!s) return '🌟'
   if (s.type==='capital') return '🏛'
@@ -83,7 +84,7 @@ const narrative = computed(() => {
   const t = targetSys.value
   const op = OPERATION_TYPES[selOp.value]
   if (!fl||!t||!op) return ''
-  const cn = CHARACTERS[fl.commander]?.name || fl.name
+  const cn = charName(game.characters[fl.commander]) || fl.name
   return `우주력 ${game.year}년 ${game.impYear}년 ${game.month}월, ${cn}에 이끌린 ${fl.ships.toLocaleString()}척이 ${t.name} 성역에 대한 ${op.name}을 개시한다.`
 })
 function confirm() {

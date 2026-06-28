@@ -298,8 +298,7 @@ export const useGameStore = defineStore('game', {
     assignChar(charId, post) {
       const c = this.characters[charId]
       if (!c || c.faction !== this.playerFaction) return
-      c.currentPost = post
-      if (!c.currentPosts.includes(post)) c.currentPosts.unshift(post)
+      if (!c.jobs.some(j => j.jobCode === post)) c.jobs.unshift({ charCode: charId, jobCode: post })
       const dialog = this.playerFaction === 'REH' ? DIALOGS.APPOINTMENT.emperor : ''
       if (dialog) this.addLog(`[황제] ${dialog}`)
       this.addLog(`[임명] ${c.name} → ${post}`)
@@ -733,7 +732,7 @@ export const useGameStore = defineStore('game', {
           case 'DEFECTION': {
             // 적 이탈 인물 귀순
             const defector = Object.values(this.characters).find(
-              c => c.faction === targetFaction && !c.currentPost
+              c => c.faction === targetFaction && !c.jobs.length
             )
             if (defector) {
               defector.faction = this.playerFaction
@@ -899,7 +898,7 @@ export const useGameStore = defineStore('game', {
       if (!c) return
       const from = c.faction
       c.faction = targetFaction
-      c.currentPost = null
+      c.jobs = []
       this.addLog(`🔴 [쿠데타] ${c.name}이(가) ${this.factions[from]?.nameKr ?? from}에서 ${this.factions[targetFaction]?.nameKr ?? targetFaction}으로 이적.`)
       this.openModal('event', {
         title: '쿠데타',
@@ -915,7 +914,7 @@ export const useGameStore = defineStore('game', {
       if (!c) return
       const from = c.faction
       c.faction = targetFaction
-      c.currentPost = null
+      c.jobs = []
       this.addLog(`💫 [이탈] ${c.name}이(가) ${this.factions[targetFaction]?.nameKr ?? targetFaction}으로 이탈.`)
       this.openModal('event', {
         title: '이탈',
@@ -928,8 +927,8 @@ export const useGameStore = defineStore('game', {
     triggerResignation(charId) {
       const c = this.characters[charId]
       if (!c) return
-      const post = c.currentPost
-      c.currentPost = null
+      const post = c.jobs[0]?.jobCode ?? null
+      c.jobs = []
       this.addLog(`📝 [사직] ${c.name}이(가) ${post || '미직위'}에서 사직.`)
       this.openModal('event', {
         title: '사직',
@@ -943,7 +942,7 @@ export const useGameStore = defineStore('game', {
       const c = this.characters[charId]
       if (!c) return
       c.isDead = true
-      c.currentPost = null
+      c.jobs = []
       this.addLog(`💀 [사망] ${c.name} 사망.`)
       this.openModal('event', {
         title: '사망',
@@ -1010,7 +1009,7 @@ export const useGameStore = defineStore('game', {
         let approverChar = null
         for (const jobId of (chain[cat] || [])) {
           approverChar = Object.values(this.characters).find(
-            c => c.currentPost === jobId && c.faction === pf && !c.isDead
+            c => c.jobs.some(j => j.jobCode === jobId) && c.faction === pf && !c.isDead
           )
           if (approverChar) break
         }
@@ -1061,7 +1060,7 @@ export const useGameStore = defineStore('game', {
         this.assignChar(payload.charId, payload.jobId)
       } else if (action === 'dismiss') {
         const c = this.characters[payload.charId]
-        if (c) { c.currentPost = null; this.addLog(`[인사] ${c.name} 해임`) }
+        if (c) { c.jobs = []; this.addLog(`[인사] ${c.name} 해임`) }
       } else if (action === 'intel_spy' || action === 'intel_counter' || action === 'intel_special') {
         this.launchIntelOp(payload.targetStar, payload.opType, payload.officerId)
       }

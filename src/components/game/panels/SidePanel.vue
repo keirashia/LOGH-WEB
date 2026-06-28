@@ -21,7 +21,7 @@
           <div class="dim" style="font-size:10px">📍 {{ game.systems[fl.location]?.name || fl.location }}</div>
           <div class="fc-cmd">
             <span style="font-size:16px">{{ chr(fl.commander)?.portrait }}</span>
-            <span class="dim" style="font-size:10px">{{ chr(fl.commander)?.name }}</span>
+            <span class="dim" style="font-size:10px">{{ charName(chr(fl.commander)) }}</span>
           </div>
         </div>
       </template>
@@ -31,9 +31,9 @@
              class="char-card" @click="game.openModal('char',{charId:c.id})">
           <span class="cc-pt">{{ c.portrait }}</span>
           <div>
-            <div class="serif" style="font-size:11px">{{ c.name }}</div>
+            <div class="serif" style="font-size:11px">{{ charName(c) }}</div>
             <div class="dim" style="font-size:10px">{{ c.rank }}</div>
-            <div v-if="c.currentPost" class="gold mono" style="font-size:9px;margin-top:2px">{{ c.currentPost }}</div>
+            <div v-if="c.jobs?.[0]" class="gold mono" style="font-size:9px;margin-top:2px">{{ c.jobs[0].jobCode }}</div>
             <div class="cc-stats">
               <span class="cs-p">전{{ c.military }}</span>
               <span class="cs-p">정{{ c.politics }}</span>
@@ -46,7 +46,7 @@
       <template v-if="activeTab==='intel'">
         <div v-for="(f,fid) in enemyFacs" :key="fid" class="intel-card">
           <div :class="`fc-${fid}`" style="font-size:13px;font-family:var(--font-serif);margin-bottom:7px">
-            {{ f.flag }} {{ f.name }}
+            {{ f.flag }} {{ f.nameKr }}
           </div>
           <div class="dim" style="font-size:11px">보유 성계: {{ game.sysCounts[fid]||0 }}개</div>
           <div class="dim" style="font-size:11px">자금: ???</div>
@@ -59,7 +59,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import { FACTIONS, CHARACTERS } from '@/data/masterData'
+import { charName } from '@/utils/charUtils'
 
 const game = useGameStore()
 const activeTab = ref('fleets')
@@ -70,10 +70,10 @@ const TABS = [
 ]
 const enemyFacs = computed(() => {
   const r = {}
-  Object.entries(FACTIONS).forEach(([id,f]) => { if(id !== game.playerFaction) r[id]=f })
+  Object.entries(game.factions).forEach(([id,f]) => { if(id !== game.playerFaction) r[id]=f })
   return r
 })
-const chr = id => CHARACTERS[id]
+const chr = id => game.characters[id]
 function stLbl(s) { return {standby:'대기',deployed:'출격',retreat:'철수'}[s]||s }
 function stCls(s) { return {standby:'dim',deployed:'alert',retreat:'gold'}[s] }
 </script>

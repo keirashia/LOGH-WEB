@@ -222,7 +222,7 @@
           <div v-if="cmd" class="cmd-card">
             <span style="font-size:28px">{{ cmd.portrait }}</span>
             <div>
-              <div class="serif" style="font-size:12px">{{ cmd.name }}</div>
+              <div class="serif" style="font-size:12px">{{ charName(cmd) }}</div>
               <div class="dim" style="font-size:10px">{{ cmd.rank }}</div>
               <div class="cmd-st mono">
                 <span class="gold">전술 {{ cmd.military }}</span>
@@ -253,14 +253,15 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import { FACTIONS, CHARACTERS, CONSTRUCTION_TYPES } from '@/data/masterData'
+import { CONSTRUCTION_TYPES } from '@/data/masterData'
+import { charName } from '@/utils/charUtils'
 import { getStarMapByCode } from '@/data/base/stars/maps/index.js'
 import StatRow from '@/components/ui/StatRow.vue'
 
 const game  = useGameStore()
 const sys   = computed(() => game.selSysObj)
 const fleet = computed(() => game.selFleetObj)
-const cmd   = computed(() => fleet.value ? CHARACTERS[fleet.value.commander] : null)
+const cmd   = computed(() => fleet.value ? game.characters[fleet.value.commander] : null)
 
 const isPlayer      = computed(() => sys.value?.faction === game.playerFaction)
 const isEnemy       = computed(() => sys.value?.faction && sys.value.faction !== game.playerFaction && sys.value.faction !== 'PZN')
@@ -354,8 +355,8 @@ const supportBreakdown = computed(() => {
 })
 
 // ── 헬퍼 ──────────────────────────────────────────────────────
-function fName(fid)  { return FACTIONS[fid]?.name || '중립' }
-function fColor(fid) { return FACTIONS[fid]?.color || '#4a5a6a' }
+function fName(fid)  { return game.factions[fid]?.nameKr || '중립' }
+function fColor(fid) { return game.factions[fid]?.color || '#4a5a6a' }
 function ico(s) {
   if (!s) return '🌟'
   if (s.type === 'capital')   return '🏛'

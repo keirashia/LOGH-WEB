@@ -53,7 +53,7 @@
           <select v-model="spy.officerId" class="intel-select">
             <option value="">-- 선택 안 함 --</option>
             <option v-for="c in intelOfficers" :key="c.id" :value="c.id">
-              {{ c.portrait }} {{ c.name }} (지략 {{ c.intelligence }})
+              {{ c.portrait }} {{ charName(c) }} (지략 {{ c.intelligence }})
             </option>
           </select>
         </div>
@@ -117,7 +117,7 @@
           <select v-model="security.officerId" class="intel-select">
             <option value="">-- 선택 안 함 --</option>
             <option v-for="c in intelOfficers" :key="c.id" :value="c.id">
-              {{ c.portrait }} {{ c.name }} (정치 {{ c.politics }})
+              {{ c.portrait }} {{ charName(c) }} (정치 {{ c.politics }})
             </option>
           </select>
         </div>
@@ -160,7 +160,7 @@
                    class="faction-item" :class="{ sel: proposal.targetFaction===fid }"
                    @click="proposal.targetFaction=fid">
               <span style="font-size:20px">{{ f.flag }}</span>
-              <span class="serif" style="font-size:11px">{{ f.name }}</span>
+              <span class="serif" style="font-size:11px">{{ f.nameKr }}</span>
               <span class="gold" v-if="proposal.targetFaction===fid">✓</span>
             </label>
           </div>
@@ -187,7 +187,7 @@
       <div v-if="proposal.targetFaction && proposal.propType" class="effect-preview">
         <div class="ep-row">
           <span class="dim">대상</span>
-          <span>{{ FACTIONS[proposal.targetFaction]?.name }}</span>
+          <span>{{ game.factions[proposal.targetFaction]?.nameKr }}</span>
         </div>
         <div class="ep-row">
           <span class="dim">예상 성공률</span>
@@ -211,7 +211,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import { INTEL, FACTIONS } from '@/data/masterData'
+import { INTEL } from '@/data/masterData'
+import { charName } from '@/utils/charUtils'
 
 const emit = defineEmits(['close'])
 const game = useGameStore()
@@ -242,7 +243,7 @@ const intelOfficers = computed(() =>
 // 적대 세력
 const enemyFactions = computed(() => {
   const r = {}
-  Object.entries(FACTIONS).forEach(([id, f]) => {
+  Object.entries(game.factions).forEach(([id, f]) => {
     if (id !== game.playerFaction) r[id] = f
   })
   return r
@@ -261,7 +262,7 @@ const spySuccessRate = computed(() => {
   return Math.round(Math.min(0.95, base + bonus) * 100)
 })
 
-function fName(fid) { return FACTIONS[fid]?.name || '중립' }
+function fName(fid) { return game.factions[fid]?.nameKr || '중립' }
 
 function doSpy() {
   if (game.launchIntelOp(spy.value.targetId, spy.value.opType, spy.value.officerId)) {

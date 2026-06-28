@@ -199,15 +199,11 @@ export function buildCharactersMap({
   // 7. 인물별 초기 상태 구성
   const characters = {}
   for (const c of source) {
-    const jobs         = jobsByChar[c.code]   ?? []
-    const traits       = traitsByChar[c.code] ?? []
-    const currentPost  = jobs[0]?.jobCode ?? null
-    const currentPosts = jobs.map(j => j.jobCode)
+    const jobs   = jobsByChar[c.code]   ?? []
+    const traits = traitsByChar[c.code] ?? []
 
     characters[c.code] = {
       ...c,
-      currentPost,
-      currentPosts,
       jobs,
       traits,
       fleetCode: fleetByChar[c.code]  ?? null,

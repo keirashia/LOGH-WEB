@@ -9,7 +9,7 @@
                 @click="sel=game.characters[c.id]">
           <span style="font-size:18px">{{ c.portrait }}</span>
           <div>
-            <div class="serif" style="font-size:11px">{{ c.name }}</div>
+            <div class="serif" style="font-size:11px">{{ charName(c) }}</div>
             <div class="dim" style="font-size:9px">{{ c.rank }}</div>
           </div>
         </button>
@@ -17,7 +17,7 @@
       <!-- 상세 -->
       <div class="cm-detail" v-if="sel">
         <div style="font-size:44px;text-align:center">{{ sel.portrait }}</div>
-        <div class="serif gold" style="font-size:17px;text-align:center">{{ sel.name }}</div>
+        <div class="serif gold" style="font-size:17px;text-align:center">{{ charName(sel) }}</div>
         <div class="dim" style="font-size:11px;text-align:center">{{ sel.rank }}</div>
         <div class="mono dim" style="font-size:10px;text-align:center;font-style:italic;margin-top:3px">"{{ sel.quote }}"</div>
         <!-- 스탯 -->
@@ -33,7 +33,7 @@
           <div class="dim" style="font-size:10px;letter-spacing:1px;text-transform:uppercase;margin-bottom:7px">요직 임명</div>
           <div class="posts">
             <button v-for="p in posts" :key="p"
-                    class="post-btn" :class="{ on: sel.currentPost===p }"
+                    class="post-btn" :class="{ on: sel.jobs?.some(j => j.jobCode===p) }"
                     @click="assign(p)">{{ p }}</button>
           </div>
         </div>
@@ -51,6 +51,7 @@
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { POSTS } from '@/data/masterData'
+import { charName } from '@/utils/charUtils'
 const props = defineProps({ payload: Object })
 const emit = defineEmits(['close'])
 const game = useGameStore()
