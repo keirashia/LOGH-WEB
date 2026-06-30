@@ -111,8 +111,10 @@
           <circle v-if="s.underConstruction"
                   :r="vr(s)+3" fill="none" stroke="#f0b030"
                   stroke-width="0.8" stroke-dasharray="2 2" opacity=".7"/>
-          <text class="sys-lbl" text-anchor="middle" :dy="vr(s)+10"
-                font-size="9" :fill="fclr[s.faction]||'rgba(255,255,255,0.35)'">{{ s.name }}</text>
+          <text class="sys-lbl" text-anchor="middle"
+                :dy="vr(s) + 10 / scale"
+                :font-size="9 / scale"
+                :fill="fclr[s.faction]||'rgba(255,255,255,0.35)'">{{ s.name }}</text>
         </g>
 
         <!-- 추가 미리보기 -->

@@ -108,11 +108,13 @@ import TaxModal   from '@/components/game/modals/TaxModal.vue'
 import FleetModal from '@/components/game/modals/FleetModal.vue'
 import BuildModal from '@/components/game/modals/BuildModal.vue'
 import CharModal  from '@/components/game/modals/CharModal.vue'
-import FinanceModal  from '@/components/game/modals/FinanceModal.vue'
-import MilitaryModal from '@/components/game/modals/MilitaryModal.vue'
-import IntelModal       from '@/components/game/modals/IntelModal.vue'
+import FinanceModal    from '@/components/game/modals/FinanceModal.vue'
+import MilitaryModal   from '@/components/game/modals/MilitaryModal.vue'
+import IntelModal      from '@/components/game/modals/IntelModal.vue'
 import EventModal      from '@/components/game/modals/EventModal.vue'
 import OperationModal  from '@/components/game/modals/OperationModal.vue'
+import NationInfoModal from '@/components/game/modals/NationInfoModal.vue'
+import NationPostModal from '@/components/game/modals/NationPostModal.vue'
 
 const router = useRouter()
 const game = useGameStore()
@@ -146,7 +148,7 @@ watch(() => game._pendingBattle, (val) => {
   if (val) router.push('/game/tactical')
 })
 
-const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal }
+const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, nationInfo:NationInfoModal, nationPost:NationPostModal }
 const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.name] ?? null) : null)
 </script>
 

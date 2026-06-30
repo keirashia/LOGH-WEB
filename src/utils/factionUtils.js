@@ -22,6 +22,8 @@
 
 import FACTIONS_RAW      from '@/data/base/factions/factionsData'
 import { FACTION_NAMES } from '@/data/base/factions/factionName'
+import { IDEOLOGY_MAP }  from '@/data/base/regime/ideologyData'
+import { ECONOMY_MAP }   from '@/data/base/regime/economyData'
 
 // ================================================================
 //  raw 데이터 re-export
@@ -141,8 +143,10 @@ export function buildFactionsMap(factionIds = [], scenarioFactionData = {}) {
       color:    base.color    ?? '',
       flag:     base.flag     ?? '',
       currency: base.currency ?? '',
-      ideology: base.ideology ?? null,
-      economy:  base.economy  ?? null,
+      ideologyCode: base.ideologyCode ?? null,
+      economyCode:  base.economyCode  ?? null,
+      ideology: IDEOLOGY_MAP[base.ideologyCode] ?? null,
+      economy:  ECONOMY_MAP[base.economyCode]   ?? null,
       // 다국어 이름 (평면화)
       nameKr:      factionName(id, 'Kr'),
       shortNameKr: factionShortName(id, 'Kr'),
