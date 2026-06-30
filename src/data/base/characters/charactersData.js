@@ -70,7 +70,13 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "150",
-    desc: [{ code: "Kr", context: "명망높은 역사가이자 역사 다큐멘터리 해설가. 언변이 좋아 대중들로부터 많은 사랑을 받고 있다." }],
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "명망높은 역사가이자 역사 다큐멘터리 해설가. 언변이 좋아 대중들로부터 많은 사랑을 받고 있다.",
+      },
+    ],
     // — 직업
     // 시민(JB_C001) LV0
     // 학자(JB_C003) LV0
@@ -204,9 +210,21 @@ export const CHAR_BASE = [
     // — 기타
     point: "-",
     desc: [
-      { code: "Kr", context: "진짜 총대주교가 사망한 뒤, 부주교 드 빌리에가 그 영향력 손실을 우려해 세뇌시켜 옹립한 대역.\n    망상에 빠진 정신이상자로 자의식이 거의 없으며, 실질적인 교단 운영은 전적으로 드 빌리에가 좌우한다." },
-      { code: "En", context: "After the death of the real Grand Bishop, Archbishop De Villie, fearing the loss of the Church's influence, brainwashed a delusional man to take his place as a figurehead. With virtually no sense of self left, the impostor serves purely as a religious symbol while De Villie wields all real authority over the Church." },
-      { code: "Jp", context: "本物の総大主教の死後、その影響力の喪失を恐れた副主教ドゥ・ヴィリエが洗脳して立てた替え玉。妄想に取り憑かれた精神異常者で自我はほとんど残っておらず、教団の実質的な運営はすべてドゥ・ヴィリエが握っている。宗教的象徴としてのみ機能する。" },
+      {
+        code: "Kr",
+        context:
+          "진짜 총대주교가 사망한 뒤, 부주교 드 빌리에가 그 영향력 손실을 우려해 세뇌시켜 옹립한 대역.\n    망상에 빠진 정신이상자로 자의식이 거의 없으며, 실질적인 교단 운영은 전적으로 드 빌리에가 좌우한다.",
+      },
+      {
+        code: "En",
+        context:
+          "After the death of the real Grand Bishop, Archbishop De Villie, fearing the loss of the Church's influence, brainwashed a delusional man to take his place as a figurehead. With virtually no sense of self left, the impostor serves purely as a religious symbol while De Villie wields all real authority over the Church.",
+      },
+      {
+        code: "Jp",
+        context:
+          "本物の総大主教の死後、その影響力の喪失を恐れた副主教ドゥ・ヴィリエが洗脳して立てた替え玉。妄想に取り憑かれた精神異常者で自我はほとんど残っておらず、教団の実質的な運営はすべてドゥ・ヴィリエが握っている。宗教的象徴としてのみ機能する。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -294,8 +312,16 @@ export const CHAR_BASE = [
     point: "0",
     desc: [
       { code: "Kr", context: "자작 귀족 출신으로 궁정 내각의 일원." },
-      { code: "En", context: "Imperial Minister of Finance under Kaiser Friedrich IV. A Viscount and member of the court cabinet. He was replaced by Eugen Richter following the fall of the Goldenbaum Dynasty." },
-      { code: "Jp", context: "フリードリヒ4世治下の帝国財務尚書。子爵貴族出身で宮廷内閣の一員。ゴールデンバウム王朝崩壊後にオイゲン・リヒターに交代させられた。" },
+      {
+        code: "En",
+        context:
+          "Imperial Minister of Finance under Kaiser Friedrich IV. A Viscount and member of the court cabinet. He was replaced by Eugen Richter following the fall of the Goldenbaum Dynasty.",
+      },
+      {
+        code: "Jp",
+        context:
+          "フリードリヒ4世治下の帝国財務尚書。子爵貴族出身で宮廷内閣の一員。ゴールデンバウム王朝崩壊後にオイゲン・リヒターに交代させられた。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -703,9 +729,21 @@ export const CHAR_BASE = [
     loc: "230058P01", // 오딘
     point: "0",
     desc: [
-      { code: "Kr", context: "프리드리히 4세 치하 제국 우주함대사령장관. 3장관 중 실질적 군사 지휘권을 보유한 최고위직. 라인하르트 폰 뮤젤의 급속한 성장을 경계했으나 막을 수 없었다. 립슈타트 반란 이후 강제 퇴역하였다." },
-      { code: "En", context: "Space Fleet Commander in Chief under Kaiser Friedrich IV, the most senior of the three Imperial military chiefs with actual field command authority. He viewed Reinhard von Lohengramm's rise with wariness but was powerless to stop it. Forced into retirement following the Lippstadt Rebellion." },
-      { code: "Jp", context: "フリードリヒ4世治下の宇宙艦隊司令長官。三長官の中で実質的な軍事指揮権を持つ最高位職。ラインハルト・フォン・ミューゼルの台頭を警戒したが阻めなかった。リップシュタット叛乱後に強制退役した。" },
+      {
+        code: "Kr",
+        context:
+          "프리드리히 4세 치하 제국 우주함대사령장관. 3장관 중 실질적 군사 지휘권을 보유한 최고위직. 라인하르트 폰 뮤젤의 급속한 성장을 경계했으나 막을 수 없었다. 립슈타트 반란 이후 강제 퇴역하였다.",
+      },
+      {
+        code: "En",
+        context:
+          "Space Fleet Commander in Chief under Kaiser Friedrich IV, the most senior of the three Imperial military chiefs with actual field command authority. He viewed Reinhard von Lohengramm's rise with wariness but was powerless to stop it. Forced into retirement following the Lippstadt Rebellion.",
+      },
+      {
+        code: "Jp",
+        context:
+          "フリードリヒ4世治下の宇宙艦隊司令長官。三長官の中で実質的な軍事指揮権を持つ最高位職。ラインハルト・フォン・ミューゼルの台頭を警戒したが阻めなかった。リップシュタット叛乱後に強制退役した。",
+      },
     ],
     // — 직업
     // 우주함대사령장관(JB_R006) LV0
@@ -1267,9 +1305,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "로엔그람 제독단 최연소 제독. '철벽 뮐러'라는 별명처럼 뛰어난 방어 능력과 냉정한 판단력을 겸비한 균형형 지휘관. 베르밀리온 성전에서 라인하르트를 위기에서 구해낸 것으로 유명하며, 양 웬리 진영과의 교섭 역할도 자주 맡았다." },
-      { code: "En", context: "The youngest admiral in Lohengramm's admiralty. True to his nickname \"Iron Wall Müller,\" he is a well-rounded commander with outstanding defensive ability and calm judgment. Renowned for saving Reinhard from destruction at the Battle of Vermilion, he also frequently served as Reinhard's envoy to Yang Wen-li's faction." },
-      { code: "Jp", context: "ローエングラム提督団最年少の提督。「鉄壁ミュラー」の異名通り、優れた防御能力と冷静な判断力を兼ね備えたバランス型指揮官。バーミリオン星域会戦でラインハルトを危機から救ったことで知られ、ヤン・ウェンリー陣営との交渉役も度々務めた。" },
+      {
+        code: "Kr",
+        context:
+          "로엔그람 제독단 최연소 제독. '철벽 뮐러'라는 별명처럼 뛰어난 방어 능력과 냉정한 판단력을 겸비한 균형형 지휘관. 베르밀리온 성전에서 라인하르트를 위기에서 구해낸 것으로 유명하며, 양 웬리 진영과의 교섭 역할도 자주 맡았다.",
+      },
+      {
+        code: "En",
+        context:
+          "The youngest admiral in Lohengramm's admiralty. True to his nickname \"Iron Wall Müller,\" he is a well-rounded commander with outstanding defensive ability and calm judgment. Renowned for saving Reinhard from destruction at the Battle of Vermilion, he also frequently served as Reinhard's envoy to Yang Wen-li's faction.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ローエングラム提督団最年少の提督。「鉄壁ミュラー」の異名通り、優れた防御能力と冷静な判断力を兼ね備えたバランス型指揮官。バーミリオン星域会戦でラインハルトを危機から救ったことで知られ、ヤン・ウェンリー陣営との交渉役も度々務めた。",
+      },
     ],
     // — 직업
     // 평민(JB_N007) LV0
@@ -1509,10 +1559,12 @@ export const CHAR_BASE = [
       { code: "En", context: "Boltik" },
       { code: "Jp", context: "ボルテック" },
     ],
-    searchKeys: [],
+    searchKeys: ["볼테크"],
+    // ? ~ SE 800. 7. (??세)
     birth: "SE|756.05.11",
+    death: "SE|800.07.20",
     // — 성향
-    faction: "",
+    faction: "PZN",
     idea: "",
     econ: "",
     brave: "",
@@ -1530,9 +1582,9 @@ export const CHAR_BASE = [
     statAfg: 0,
     statPlt: 0,
     // — 기타
-    loc: "",
+    loc: "230042P01", // 페잔
     point: "0",
-    desc: [{ code: "Kr", context: "" }],
+    desc: [{ code: "Kr", context: `` }],
     // — 직업
     // — 트레잇
   },
@@ -1680,7 +1732,13 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
-    desc: [{ code: "Kr", context: "자유행성동맹 소속의 군인. \n    재치와 과단성을 자랑하는 명장으로 빠른 기동력을 앞세운 허를 찌르는 날카로운 공격이 주특기.\n    사회에 대한 불평불만이 많고 독설가이며 전쟁을 싫어하지만 뛰어난 재능을 가지고 있다." }],
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 소속의 군인. \n    재치와 과단성을 자랑하는 명장으로 빠른 기동력을 앞세운 허를 찌르는 날카로운 공격이 주특기.\n    사회에 대한 불평불만이 많고 독설가이며 전쟁을 싫어하지만 뛰어난 재능을 가지고 있다.",
+      },
+    ],
     // — 직업
     // — 트레잇
     // 허허실실의 귀재(TRC_U_000043) LV0
@@ -1842,12 +1900,24 @@ export const CHAR_BASE = [
     statAfg: 3,
     statPlt: 82,
     // — 기타
-    loc: "230042P01",
+    loc: "230042P01", // 페잔
     point: "0",
     desc: [
-      { code: "Kr", context: "페잔의 가수이자 댄서. 아드리안 루빈스키의 오랜 연인. 루빈스키의 야망과 계략을 가까이서 지켜본 인물로, 페잔의 몰락과 함께 공범으로 체포됐다." },
-      { code: "En", context: "A Fezzani singer and dancer and the long-time companion of Adrian Rubinsky. She witnessed his ambitions and schemes at close range, and was arrested as an accomplice following the fall of Fezzan." },
-      { code: "Jp", context: "ペザンの歌手兼ダンサー。アドリアン・ルビンスキーの長年の恋人。ルビンスキーの野望と謀略を間近で見届けた人物で、ペザン崩壊とともに共犯者として逮捕された。" },
+      {
+        code: "Kr",
+        context:
+          "페잔의 가수이자 댄서. 아드리안 루빈스키의 오랜 연인. 루빈스키의 야망과 계략을 가까이서 지켜본 인물로, 페잔의 몰락과 함께 공범으로 체포됐다.",
+      },
+      {
+        code: "En",
+        context:
+          "A Fezzani singer and dancer and the long-time companion of Adrian Rubinsky. She witnessed his ambitions and schemes at close range, and was arrested as an accomplice following the fall of Fezzan.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ペザンの歌手兼ダンサー。アドリアン・ルビンスキーの長年の恋人。ルビンスキーの野望と謀略を間近で見届けた人物で、ペザン崩壊とともに共犯者として逮捕された。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -2001,9 +2071,21 @@ export const CHAR_BASE = [
     // — 기타
     point: "0",
     desc: [
-      { code: "Kr", context: "지구교의 부주교이자 실질적 실권자. 테라이즘의 교리를 믿지 않으며 오직 권력 그 자체를 추구하는 냉혹한 모략가다. 총대주교의 사망을 은폐하고 세뇌시킨 대역을 옹립해 교단을 장악했으며, 제국과 동맹 양국 내부에 깊이 침투해 전쟁을 부추기는 공작을 주도한다." },
-      { code: "En", context: "Archbishop and de facto ruler of the Terraist Church. Unlike the Grand Bishop, he holds no genuine faith in Terraist doctrine and is driven purely by a hunger for power. He concealed the Grand Bishop's death and installed a brainwashed impostor in his place to seize control of the Church, and orchestrates covert operations deeply embedded within both the Empire and the Alliance to keep the war between them burning." },
-      { code: "Jp", context: "地球教の副主教であり実質的な実権者。テライズムの教義を信じておらず、ただ権力そのものを追い求める冷徹な策謀家である。総大主教の死を隠蔽し洗脳した替え玉を立てて教団を掌握し、帝国・同盟両国内部に深く浸透して戦争を煽る工作を主導する。" },
+      {
+        code: "Kr",
+        context:
+          "지구교의 부주교이자 실질적 실권자. 테라이즘의 교리를 믿지 않으며 오직 권력 그 자체를 추구하는 냉혹한 모략가다. 총대주교의 사망을 은폐하고 세뇌시킨 대역을 옹립해 교단을 장악했으며, 제국과 동맹 양국 내부에 깊이 침투해 전쟁을 부추기는 공작을 주도한다.",
+      },
+      {
+        code: "En",
+        context:
+          "Archbishop and de facto ruler of the Terraist Church. Unlike the Grand Bishop, he holds no genuine faith in Terraist doctrine and is driven purely by a hunger for power. He concealed the Grand Bishop's death and installed a brainwashed impostor in his place to seize control of the Church, and orchestrates covert operations deeply embedded within both the Empire and the Alliance to keep the war between them burning.",
+      },
+      {
+        code: "Jp",
+        context:
+          "地球教の副主教であり実質的な実権者。テライズムの教義を信じておらず、ただ権力そのものを追い求める冷徹な策謀家である。総大主教の死を隠蔽し洗脳した替え玉を立てて教団を掌握し、帝国・同盟両国内部に深く浸透して戦争を煽る工作を主導する。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -2146,9 +2228,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "150",
     desc: [
-      { code: "Kr", context: "자유행성동맹 통합작전본부 부본부장. 프레데리카 그린힐의 부친. 뛰어난 운영·정보 능력을 지닌 행정형 제독으로, 정치공작에도 발군의 재능을 보인다." },
-      { code: "En", context: "Deputy Chief of the Free Planets Alliance Joint Operations Headquarters and father of Frederica Greenhill. An administrative admiral with outstanding operational and intelligence abilities, and exceptional aptitude for political maneuvering." },
-      { code: "Jp", context: "自由惑星同盟統合作戦本部副本部長。フレデリカ・グリーンヒルの父。優れた運営・情報能力を持つ行政型提督で、政治工作にも卓越した才能を発揮する。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 통합작전본부 부본부장. 프레데리카 그린힐의 부친. 뛰어난 운영·정보 능력을 지닌 행정형 제독으로, 정치공작에도 발군의 재능을 보인다.",
+      },
+      {
+        code: "En",
+        context:
+          "Deputy Chief of the Free Planets Alliance Joint Operations Headquarters and father of Frederica Greenhill. An administrative admiral with outstanding operational and intelligence abilities, and exceptional aptitude for political maneuvering.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟統合作戦本部副本部長。フレデリカ・グリーンヒルの父。優れた運営・情報能力を持つ行政型提督で、政治工作にも卓越した才能を発揮する。",
+      },
     ],
     // — 직업
     // 시민(JB_C001) LV0
@@ -2472,9 +2566,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "은하제국의 군사 천재. 누나 안네로제가 황제의 후궁으로 끌려간 것에 분노하여 제국의 정점을 향한 야망을 품는다." },
-      { code: "En", context: "Military genius of the Galactic Empire. Driven by rage over his sister Annerose being taken as the Emperor's concubine, he harbors ambitions to reach the pinnacle of the empire." },
-      { code: "Jp", context: "銀河帝国の軍事天才。姉アンネローゼが皇帝の後宮に召し上げられたことへの憤りを胸に、帝国の頂点へと野望を燃やす" },
+      {
+        code: "Kr",
+        context:
+          "은하제국의 군사 천재. 누나 안네로제가 황제의 후궁으로 끌려간 것에 분노하여 제국의 정점을 향한 야망을 품는다.",
+      },
+      {
+        code: "En",
+        context:
+          "Military genius of the Galactic Empire. Driven by rage over his sister Annerose being taken as the Emperor's concubine, he harbors ambitions to reach the pinnacle of the empire.",
+      },
+      {
+        code: "Jp",
+        context:
+          "銀河帝国の軍事天才。姉アンネローゼが皇帝の後宮に召し上げられたことへの憤りを胸に、帝国の頂点へと野望を燃やす",
+      },
     ],
     // — 직업
     // 함대사령관(JB_M001) LV0
@@ -2520,9 +2626,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 우주함대 총사령관. 앤드류 포크의 제국 침공 계획을 승인하고 원정군 최고사령관을 맡았으나, 보급 위기 속에서도 후퇴 명령을 거부하는 무능함을 드러냈다. 아무리트사 성전 참패의 최고 책임자." },
-      { code: "En", context: "Supreme Commander of the Free Planets Star Fleet. He approved Andrew Falk's invasion plan and assumed command of the expeditionary force, but proved incapable by refusing retreat orders even as the supply crisis deepened. He bears ultimate responsibility for the catastrophic defeat at the Battle of Amritsar." },
-      { code: "Jp", context: "自由惑星同盟宇宙艦隊総司令官。アンドリュー・フォークの帝国侵攻計画を承認し遠征軍最高司令官を務めたが、補給危機の中でも撤退命令を拒否する無能さを露呈した。アムリッツァ星域会戦大敗の最高責任者。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 우주함대 총사령관. 앤드류 포크의 제국 침공 계획을 승인하고 원정군 최고사령관을 맡았으나, 보급 위기 속에서도 후퇴 명령을 거부하는 무능함을 드러냈다. 아무리트사 성전 참패의 최고 책임자.",
+      },
+      {
+        code: "En",
+        context:
+          "Supreme Commander of the Free Planets Star Fleet. He approved Andrew Falk's invasion plan and assumed command of the expeditionary force, but proved incapable by refusing retreat orders even as the supply crisis deepened. He bears ultimate responsibility for the catastrophic defeat at the Battle of Amritsar.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟宇宙艦隊総司令官。アンドリュー・フォークの帝国侵攻計画を承認し遠征軍最高司令官を務めたが、補給危機の中でも撤退命令を拒否する無能さを露呈した。アムリッツァ星域会戦大敗の最高責任者。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -3035,9 +3153,21 @@ export const CHAR_BASE = [
     // — 기타
     point: "0",
     desc: [
-      { code: "Kr", context: "（OVA 오리지널 등장인물) 트류니히트 파벌의 정치가. 테르누젠 보궐선거에 출마했다. 반전시민연합 선거본부 폭탄 테러로 상대 후보 제임스 손다이크가 사망하자, 뒤를 이어 출마한 제시카 에드워즈에게 밀려 낙선했다." },
-      { code: "En", context: "(OVA-original character) A politician of the Trünicht faction who ran in the Terneuzen by-election. After his original opponent James Sondheik was killed in a bombing of the anti-war citizens' coalition campaign office, he lost the race to Sondheik's replacement, Jessica Edwards." },
-      { code: "Jp", context: "（OVAオリジナルキャラクター）トリューニヒト派の政治家。テルヌーゼン補欠選挙に出馬した。反戦市民連合選挙事務所爆破テロで対立候補のジェームズ・ソーンダイクが死亡すると、その後を継いで出馬したジェシカ・エドワーズに敗れた。" },
+      {
+        code: "Kr",
+        context:
+          "（OVA 오리지널 등장인물) 트류니히트 파벌의 정치가. 테르누젠 보궐선거에 출마했다. 반전시민연합 선거본부 폭탄 테러로 상대 후보 제임스 손다이크가 사망하자, 뒤를 이어 출마한 제시카 에드워즈에게 밀려 낙선했다.",
+      },
+      {
+        code: "En",
+        context:
+          "(OVA-original character) A politician of the Trünicht faction who ran in the Terneuzen by-election. After his original opponent James Sondheik was killed in a bombing of the anti-war citizens' coalition campaign office, he lost the race to Sondheik's replacement, Jessica Edwards.",
+      },
+      {
+        code: "Jp",
+        context:
+          "（OVAオリジナルキャラクター）トリューニヒト派の政治家。テルヌーゼン補欠選挙に出馬した。反戦市民連合選挙事務所爆破テロで対立候補のジェームズ・ソーンダイクが死亡すると、その後を継いで出馬したジェシカ・エドワーズに敗れた。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -3113,9 +3243,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 최고평의회 의장. 지지율 만회를 위해 제국령 침공 작전을 승인한 인물. 참담한 패전의 책임을 지고 내각 전원과 함께 사퇴했다." },
-      { code: "En", context: "Supreme Chairman of the Free Planets Alliance High Council. He approved the invasion of Imperial territory in a bid to reverse flagging approval ratings, and resigned along with the entire cabinet following the catastrophic defeat." },
-      { code: "Jp", context: "自由惑星同盟最高評議会議長。支持率挽回のために帝国領侵攻作戦を承認した人物。惨敗の責任を取り内閣全員とともに辞任した。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 최고평의회 의장. 지지율 만회를 위해 제국령 침공 작전을 승인한 인물. 참담한 패전의 책임을 지고 내각 전원과 함께 사퇴했다.",
+      },
+      {
+        code: "En",
+        context:
+          "Supreme Chairman of the Free Planets Alliance High Council. He approved the invasion of Imperial territory in a bid to reverse flagging approval ratings, and resigned along with the entire cabinet following the catastrophic defeat.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟最高評議会議長。支持率挽回のために帝国領侵攻作戦を承認した人物。惨敗の責任を取り内閣全員とともに辞任した。",
+      },
     ],
     // — 직업
     // 최고평의회의장(JB_F001) LV0
@@ -3257,9 +3399,21 @@ export const CHAR_BASE = [
     // — 기타
     point: "0",
     desc: [
-      { code: "Kr", context: "트류니히트 파벌의 일원으로 사문회에 사문위원 자격으로 참여했다. 마르 아데타 성역 회전 이후 자기보신을 위해 조안 레벨로를 살해하고 라인하르트를 찾아갔으나, \"수치도 모르는 이족보행 하이에나\" 취급을 받으며 처형당했다." },
-      { code: "En", context: "A member of the Trünicht faction who participated in the inquiry committee as an examiner. Following the Battle of Mar-Adetta, he murdered João Rebelo for his own self-preservation and sought out Reinhard von Lohengramm, but was branded a \"shameless, two-legged hyena\" and executed." },
-      { code: "Jp", context: "トリューニヒト派の一員として査問会に査問委員として参加した。マル・アデッタ星域会戦後、自己保身のためジョアン・レベロを殺害してラインハルトのもとを訪ねたが、「恥知らずな二足歩行のハイエナ」と一蹴され処刑された。" },
+      {
+        code: "Kr",
+        context:
+          '트류니히트 파벌의 일원으로 사문회에 사문위원 자격으로 참여했다. 마르 아데타 성역 회전 이후 자기보신을 위해 조안 레벨로를 살해하고 라인하르트를 찾아갔으나, "수치도 모르는 이족보행 하이에나" 취급을 받으며 처형당했다.',
+      },
+      {
+        code: "En",
+        context:
+          'A member of the Trünicht faction who participated in the inquiry committee as an examiner. Following the Battle of Mar-Adetta, he murdered João Rebelo for his own self-preservation and sought out Reinhard von Lohengramm, but was branded a "shameless, two-legged hyena" and executed.',
+      },
+      {
+        code: "Jp",
+        context:
+          "トリューニヒト派の一員として査問会に査問委員として参加した。マル・アデッタ星域会戦後、自己保身のためジョアン・レベロを殺害してラインハルトのもとを訪ねたが、「恥知らずな二足歩行のハイエナ」と一蹴され処刑された。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -3331,16 +3485,17 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  // 루돌프 폰 골덴바움 Rudolf von Goldenbaum · ルドルフ・フォン・ゴールデンバウム
   {
     // — 기본
     code: "CH_000089",
     name: [{ code: "Kr", context: "루돌프 폰 골덴바움" }],
     nick: [{ code: "Kr", context: "" }],
     searchKeys: [],
-    birth: "",
-    death: "",
+    birth: "SE|268.01.07", // 268 확실
+    death: "SE|351", // 351 확실(83세)
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
     brave: "",
@@ -3360,8 +3515,17 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
-    desc: [{ code: "Kr", context: "" }],
+    desc: [
+      {
+        code: "Kr",
+        context: `루돌프 대제로 불리는 골덴바움조 은하제국을 건국한 초대 황제.
+        은하연방의 군인 출신으로 이후 정치계에 입문하여 독재를 거쳐 제국을 건설한다.
+        강철거인이라는 별명이 있을 정도로 위풍당당한 거구를 지녔으며, 풍채에 걸맞는 뛰어난 능력을 지녔다.`,
+      },
+    ],
     // — 직업
+    // 황제
+    //
     // — 트레잇
   },
   {
@@ -3501,9 +3665,21 @@ export const CHAR_BASE = [
     loc: "230042P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "아드리안 루빈스키의 서자이자 비서. 아버지의 정치 음모를 실행하는 야심 찬 마키아벨리스트. 속으로는 루빈스키를 몰아내고 자치령주 자리를 차지하려 했으나, 루빈스키에게 발각되어 제국의 페잔 침공 당일 밤 살해당했다." },
-      { code: "En", context: "Illegitimate son and secretary of Adrian Rubinsky. A highly ambitious Machiavellian who executed his father's political schemes while secretly plotting to overthrow him and seize the position of Landesherr. His ambitions were fully known to Rubinsky, who had him killed on the night of the Imperial invasion of Fezzan." },
-      { code: "Jp", context: "アドリアン・ルビンスキーの庶子にして秘書。父の政治的陰謀を実行する野心的なマキャベリスト。内心ではルビンスキーを追い落とし自治領主の座を狙っていたが、ルビンスキーに看破され帝国のペザン侵攻当夜に殺害された。" },
+      {
+        code: "Kr",
+        context:
+          "아드리안 루빈스키의 서자이자 비서. 아버지의 정치 음모를 실행하는 야심 찬 마키아벨리스트. 속으로는 루빈스키를 몰아내고 자치령주 자리를 차지하려 했으나, 루빈스키에게 발각되어 제국의 페잔 침공 당일 밤 살해당했다.",
+      },
+      {
+        code: "En",
+        context:
+          "Illegitimate son and secretary of Adrian Rubinsky. A highly ambitious Machiavellian who executed his father's political schemes while secretly plotting to overthrow him and seize the position of Landesherr. His ambitions were fully known to Rubinsky, who had him killed on the night of the Imperial invasion of Fezzan.",
+      },
+      {
+        code: "Jp",
+        context:
+          "アドリアン・ルビンスキーの庶子にして秘書。父の政治的陰謀を実行する野心的なマキャベリスト。内心ではルビンスキーを追い落とし自治領主の座を狙っていたが、ルビンスキーに看破され帝国のペザン侵攻当夜に殺害された。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -3810,9 +3986,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "겔라흐의 후임 제국 재무장관. 골덴바움 왕조 붕괴 후 로엔그람 체제에서 재무장관직을 이어받았다." },
-      { code: "En", context: "Imperial Minister of Finance, succeeding Gerlach after the fall of the Goldenbaum Dynasty under the Lohengramm administration." },
-      { code: "Jp", context: "ゲルラッハの後任の帝国財務尚書。ゴールデンバウム王朝崩壊後、ローエングラム体制で財務尚書職を引き継いだ。" },
+      {
+        code: "Kr",
+        context:
+          "겔라흐의 후임 제국 재무장관. 골덴바움 왕조 붕괴 후 로엔그람 체제에서 재무장관직을 이어받았다.",
+      },
+      {
+        code: "En",
+        context:
+          "Imperial Minister of Finance, succeeding Gerlach after the fall of the Goldenbaum Dynasty under the Lohengramm administration.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ゲルラッハの後任の帝国財務尚書。ゴールデンバウム王朝崩壊後、ローエングラム体制で財務尚書職を引き継いだ。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -4708,16 +4896,17 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  // 말콤 와이드본 Malcolm Wideborn · マルコム・ワイドボーン
   {
     // — 기본
     code: "CH_000130",
     name: [{ code: "Kr", context: "말콤 와이드본" }],
     nick: [{ code: "Kr", context: "" }],
     searchKeys: [],
-    birth: "",
-    death: "",
+    birth: "SE|767.03.10",
+    death: "SE|794.11.06",
     // — 성향
-    faction: "",
+    faction: "FPA",
     idea: "",
     econ: "",
     brave: "",
@@ -4737,8 +4926,14 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
-    desc: [{ code: "Kr", context: "" }],
+    desc: [
+      {
+        code: "Kr",
+        context: `자유행성동맹 소속의 군인. 10년만에 나온 수재라는 평을 듣고 있으며, `,
+      },
+    ],
     // — 직업
+    // 대령
     // — 트레잇
   },
   {
@@ -5043,7 +5238,13 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
-    desc: [{ code: "Kr", context: "자유행성동맹 소속의 사령관. 호탕하고 거친 성격으로 유명하다.\n    참모의 조언을 무시하는 독단적 성격도 있지만, 엄격한 군율을 세우는데 능해 뛰어난 사령관 중 하나로 평가받고 있다." }],
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 소속의 사령관. 호탕하고 거친 성격으로 유명하다.\n    참모의 조언을 무시하는 독단적 성격도 있지만, 엄격한 군율을 세우는데 능해 뛰어난 사령관 중 하나로 평가받고 있다.",
+      },
+    ],
     // — 직업
     // 함대사령관(JB_M001) LV0
     // 중장(JB_MR004) LV0
@@ -5354,9 +5555,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "동맹 정보부 출신 장교. 국가구제군 쿠데타에 가담했다가 양 웬리의 설득으로 귀순하여 쿠데타의 제국 배후를 폭로하는 방송을 감행했다. 이후 양 함대의 정보장교로 활동하며 이젤론 탈환 작전에도 참여했다." },
-      { code: "En", context: "A former Alliance intelligence officer who participated in the National Salvation Military Council coup, then defected to Yang Wen-li's side and made a public broadcast exposing the Empire's covert involvement behind the coup. He subsequently served as an intelligence officer for Yang's fleet, including the operation to retake Iserlohn." },
-      { code: "Jp", context: "同盟情報部出身の将校。国家救済軍クーデターに加担した後、ヤン・ウェンリーの説得で帰順し、クーデターの帝国関与を暴露する放送を敢行した。以後ヤン艦隊の情報将校として活動し、イゼルローン奪還作戦にも参加した。" },
+      {
+        code: "Kr",
+        context:
+          "동맹 정보부 출신 장교. 국가구제군 쿠데타에 가담했다가 양 웬리의 설득으로 귀순하여 쿠데타의 제국 배후를 폭로하는 방송을 감행했다. 이후 양 함대의 정보장교로 활동하며 이젤론 탈환 작전에도 참여했다.",
+      },
+      {
+        code: "En",
+        context:
+          "A former Alliance intelligence officer who participated in the National Salvation Military Council coup, then defected to Yang Wen-li's side and made a public broadcast exposing the Empire's covert involvement behind the coup. He subsequently served as an intelligence officer for Yang's fleet, including the operation to retake Iserlohn.",
+      },
+      {
+        code: "Jp",
+        context:
+          "同盟情報部出身の将校。国家救済軍クーデターに加担した後、ヤン・ウェンリーの説得で帰順し、クーデターの帝国関与を暴露する放送を敢行した。以後ヤン艦隊の情報将校として活動し、イゼルローン奪還作戦にも参加した。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -5630,9 +5843,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "로젠리터 연대장. 제국 귀족 출신 망명자 집단인 로젠리터를 이끄는 동맹 최강의 육전 전문가. 뛰어난 검술과 육탄전 능력으로 이젤론 요새 점령을 비롯한 수많은 작전의 핵심을 담당했다. 바람둥이로 유명하며 카테로제 폰 크로이처의 생부다." },
-      { code: "En", context: "Commander of the Rosen Ritter. The Alliance's foremost ground warfare specialist, leading a regiment of Imperial exile descendants. His exceptional swordsmanship and close-combat ability made him the linchpin of numerous operations including the capture of Iserlohn Fortress. Notorious as a womaniser, he is the biological father of Katerose von Kreutzer." },
-      { code: "Jp", context: "ローゼンリッター連隊長。帝国貴族出身の亡命者集団ローゼンリッターを率いる同盟最強の陸戦専門家。優れた剣術と格闘能力でイゼルローン要塞占領をはじめ数多くの作戦の中核を担った。プレイボーイとして有名で、カーテローゼ・フォン・クロイツェルの実父である。" },
+      {
+        code: "Kr",
+        context:
+          "로젠리터 연대장. 제국 귀족 출신 망명자 집단인 로젠리터를 이끄는 동맹 최강의 육전 전문가. 뛰어난 검술과 육탄전 능력으로 이젤론 요새 점령을 비롯한 수많은 작전의 핵심을 담당했다. 바람둥이로 유명하며 카테로제 폰 크로이처의 생부다.",
+      },
+      {
+        code: "En",
+        context:
+          "Commander of the Rosen Ritter. The Alliance's foremost ground warfare specialist, leading a regiment of Imperial exile descendants. His exceptional swordsmanship and close-combat ability made him the linchpin of numerous operations including the capture of Iserlohn Fortress. Notorious as a womaniser, he is the biological father of Katerose von Kreutzer.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ローゼンリッター連隊長。帝国貴族出身の亡命者集団ローゼンリッターを率いる同盟最強の陸戦専門家。優れた剣術と格闘能力でイゼルローン要塞占領をはじめ数多くの作戦の中核を担った。プレイボーイとして有名で、カーテローゼ・フォン・クロイツェルの実父である。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -6202,9 +6427,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "라인하르트 폰 뮤젤 휘하 제국군 최강의 제독 중 한 명. '질풍 늑대'라는 별명처럼 압도적인 기동력으로 전장을 누비며, 로이엔탈과 함께 '쌍벽'으로 불린다. 평민 출신으로 귀족 사회의 부조리에 맞서는 강직한 도덕관념을 지녔다." },
-      { code: "En", context: "One of the most formidable admirals under Reinhard von Lohengramm. Known as the \"Gale Wolf\" for his overwhelming speed and mobility in battle, he forms the \"Twin Pillars\" together with Reuenthal. A man of strong moral conviction, he stands firm against the corruption of the Imperial aristocracy despite his commoner birth." },
-      { code: "Jp", context: "ラインハルト・フォン・ミューゼル麾下の帝国軍最強の提督の一人。「疾風ウォルフ」の異名通り、圧倒的な機動力で戦場を席巻し、ロイエンタールとともに「双璧」と称される。平民出身ながら貴族社会の理不尽に真っ向から立ち向かう、強固な道徳観念の持ち主。" },
+      {
+        code: "Kr",
+        context:
+          "라인하르트 폰 뮤젤 휘하 제국군 최강의 제독 중 한 명. '질풍 늑대'라는 별명처럼 압도적인 기동력으로 전장을 누비며, 로이엔탈과 함께 '쌍벽'으로 불린다. 평민 출신으로 귀족 사회의 부조리에 맞서는 강직한 도덕관념을 지녔다.",
+      },
+      {
+        code: "En",
+        context:
+          'One of the most formidable admirals under Reinhard von Lohengramm. Known as the "Gale Wolf" for his overwhelming speed and mobility in battle, he forms the "Twin Pillars" together with Reuenthal. A man of strong moral conviction, he stands firm against the corruption of the Imperial aristocracy despite his commoner birth.',
+      },
+      {
+        code: "Jp",
+        context:
+          "ラインハルト・フォン・ミューゼル麾下の帝国軍最強の提督の一人。「疾風ウォルフ」の異名通り、圧倒的な機動力で戦場を席巻し、ロイエンタールとともに「双璧」と称される。平民出身ながら貴族社会の理不尽に真っ向から立ち向かう、強固な道徳観念の持ち主。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -6641,6 +6878,8 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  // 브루노 폰 크납슈타인 Bruno von Knappstein[DVD판]/Bruno von Knapfstein[LD판]
+  // ブルーノ・フォン・クナップシュタイン
   {
     // — 기본
     code: "CH_000187",
@@ -6707,13 +6946,14 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  // 브룩도르프 Bruckdorf[DVD판]/Bruckdolf[LD판] · ブルックドルフ
   {
     // — 기본
     code: "CH_000189",
     name: [{ code: "Kr", context: "브룩도르프" }],
     nick: [{ code: "Kr", context: "" }],
-    searchKeys: [],
-    birth: "",
+    searchKeys: ["부룩도르프"],
+    birth: "SE|759",
     death: "",
     // — 성향
     faction: "",
@@ -6943,7 +7183,13 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
-    desc: [{ code: "Kr", context: "은하제국이 자랑하는 노련한 명장.\n    말단 하급 귀족 출신이지만, 수십 년의 실전 경험을 보유한 뛰어난 지휘관으로, 견실하고 허점없이 합리적인 군사운용으로 유명하다.\n    다만, 고지식하고 융통성이 없는 성격 탓에 정치나 모략에는 서툰 편." }],
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "은하제국이 자랑하는 노련한 명장.\n    말단 하급 귀족 출신이지만, 수십 년의 실전 경험을 보유한 뛰어난 지휘관으로, 견실하고 허점없이 합리적인 군사운용으로 유명하다.\n    다만, 고지식하고 융통성이 없는 성격 탓에 정치나 모략에는 서툰 편.",
+      },
+    ],
     // — 직업
     // 함대사령관(JB_M001) LV0
     // 상급대장(JB_MR002) LV0
@@ -7055,9 +7301,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "골덴바움 왕조 최대 문벌귀족 후작. 황제 프리드리히 4세의 사위로 딸 사비네의 황위 계승을 획책하며 브라운슈바이크와 함께 립슈타트 동맹을 이끌었다. 실질적인 군사적 재능이 없어 키르히아이스에게 패배하고 부하의 자폭 테러로 사망했다." },
-      { code: "En", context: "An Imperial Marquis and son-in-law of Kaiser Friedrich IV, he co-led the Lippstadt Alliance alongside Duke Braunschweig in an attempt to place his daughter Sabine on the throne. Lacking any real martial talent, he was defeated by Siegfried Kircheis and was killed by a suicide attack from one of his own resentful subordinates." },
-      { code: "Jp", context: "ゴールデンバウム王朝の有力門閥貴族侯爵。皇帝フリードリヒ4世の義息子で、娘ザービネの皇位継承を目指しブラウンシュヴァイクとともにリップシュタット同盟を率いた。実質的な軍事的才能を持たずキルヒアイスに敗北し、部下の自爆テロで死亡した。" },
+      {
+        code: "Kr",
+        context:
+          "골덴바움 왕조 최대 문벌귀족 후작. 황제 프리드리히 4세의 사위로 딸 사비네의 황위 계승을 획책하며 브라운슈바이크와 함께 립슈타트 동맹을 이끌었다. 실질적인 군사적 재능이 없어 키르히아이스에게 패배하고 부하의 자폭 테러로 사망했다.",
+      },
+      {
+        code: "En",
+        context:
+          "An Imperial Marquis and son-in-law of Kaiser Friedrich IV, he co-led the Lippstadt Alliance alongside Duke Braunschweig in an attempt to place his daughter Sabine on the throne. Lacking any real martial talent, he was defeated by Siegfried Kircheis and was killed by a suicide attack from one of his own resentful subordinates.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ゴールデンバウム王朝の有力門閥貴族侯爵。皇帝フリードリヒ4世の義息子で、娘ザービネの皇位継承を目指しブラウンシュヴァイクとともにリップシュタット同盟を率いた。実質的な軍事的才能を持たずキルヒアイスに敗北し、部下の自爆テロで死亡した。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -7100,9 +7358,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "그레고르 폰 뮈켄베르거의 부친. 작중 이미 사망한 인물로 직접 등장하지 않는다." },
-      { code: "En", context: "Father of Gregor von Mückenberger. Deceased prior to the events of the story and does not appear directly." },
-      { code: "Jp", context: "グレゴール・フォン・ミュッケンベルガーの父。作中ではすでに死亡しており、直接登場しない。" },
+      {
+        code: "Kr",
+        context:
+          "그레고르 폰 뮈켄베르거의 부친. 작중 이미 사망한 인물로 직접 등장하지 않는다.",
+      },
+      {
+        code: "En",
+        context:
+          "Father of Gregor von Mückenberger. Deceased prior to the events of the story and does not appear directly.",
+      },
+      {
+        code: "Jp",
+        context:
+          "グレゴール・フォン・ミュッケンベルガーの父。作中ではすでに死亡しており、直接登場しない。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -7211,9 +7481,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "빌헬름 폰 리텐하임의 딸. 796년 황위 계승 후보로 내세워졌으나 에르빈 요제프 2세에게 황위를 빼앗겼다. 립슈타트 내전 이후 행방 불명." },
-      { code: "En", context: "Daughter of Marquis Wilhelm von Littenheim. Put forward as a claimant to the throne after Kaiser Friedrich IV's death but passed over in favour of Erwin Josef II. Her fate following the Lippstadt Rebellion is unknown." },
-      { code: "Jp", context: "ヴィルヘルム・フォン・リッテンハイムの娘。フリードリヒ4世崩御後に皇位継承候補として擁立されたがエルウィン・ヨーゼフ2世に皇位を奪われた。リップシュタット内乱後は行方不明。" },
+      {
+        code: "Kr",
+        context:
+          "빌헬름 폰 리텐하임의 딸. 796년 황위 계승 후보로 내세워졌으나 에르빈 요제프 2세에게 황위를 빼앗겼다. 립슈타트 내전 이후 행방 불명.",
+      },
+      {
+        code: "En",
+        context:
+          "Daughter of Marquis Wilhelm von Littenheim. Put forward as a claimant to the throne after Kaiser Friedrich IV's death but passed over in favour of Erwin Josef II. Her fate following the Lippstadt Rebellion is unknown.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ヴィルヘルム・フォン・リッテンハイムの娘。フリードリヒ4世崩御後に皇位継承候補として擁立されたがエルウィン・ヨーゼフ2世に皇位を奪われた。リップシュタット内乱後は行方不明。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -7964,9 +8246,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "프리드리히 4세 치하 제국군 3장관 중 통수본부총장. 군사 행정에 특화된 관료형 장성으로, 립슈타트 반란 이후 강제 퇴역하였다." },
-      { code: "En", context: "Chief of the Supreme Command Headquarters and one of the three Imperial military chiefs of staff under Kaiser Friedrich IV. A bureaucratic general specialising in military administration, he was forced into retirement following the Lippstadt Rebellion." },
-      { code: "Jp", context: "フリードリヒ4世治下の帝国軍三長官の一人、統帥本部総長。軍事行政に特化した官僚型将帥で、リップシュタット叛乱後に強制退役した。" },
+      {
+        code: "Kr",
+        context:
+          "프리드리히 4세 치하 제국군 3장관 중 통수본부총장. 군사 행정에 특화된 관료형 장성으로, 립슈타트 반란 이후 강제 퇴역하였다.",
+      },
+      {
+        code: "En",
+        context:
+          "Chief of the Supreme Command Headquarters and one of the three Imperial military chiefs of staff under Kaiser Friedrich IV. A bureaucratic general specialising in military administration, he was forced into retirement following the Lippstadt Rebellion.",
+      },
+      {
+        code: "Jp",
+        context:
+          "フリードリヒ4世治下の帝国軍三長官の一人、統帥本部総長。軍事行政に特化した官僚型将帥で、リップシュタット叛乱後に強制退役した。",
+      },
     ],
     // — 직업
     // 통수본부총장(JB_R007) LV0
@@ -8137,6 +8431,7 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  // 시드니 시톨레   Sidney Sitolet[소설]/Sidney Sithole[LD판] シドニー・シトレ
   {
     // — 기본
     code: "CH_000230",
@@ -8150,8 +8445,8 @@ export const CHAR_BASE = [
       { code: "En", context: "Sithole" },
       { code: "Jp", context: "シトレ" },
     ],
-    searchKeys: [],
-    birth: "SE|740.07.23",
+    searchKeys: ["시틀레이", "시토레", "Sitolet"],
+    birth: "SE|737.07.23", // 737년 확실
     death: "",
     // — 성향
     faction: "FPA", // 자유행성동맹
@@ -8175,12 +8470,18 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 통합작전본부장. 제5차 이젤론 공방전에서 '평행추격' 전술로 이젤론 요새에 가장 근접했던 제독이자 양 웬리의 후원자. 정치적 압력과 군 내부의 모순 속에서도 원칙을 지키며 양 웬리를 지원했다." },
-      { code: "En", context: "Chief of the Free Planets Alliance Joint Operations Headquarters. The admiral who came closest to taking Iserlohn Fortress by force with his \"parallel pursuit\" tactic in the Fifth Battle of Iserlohn, and the mentor figure who supported Yang Wen-li throughout his career despite political pressures and institutional contradictions." },
-      { code: "Jp", context: "自由惑星同盟統合作戦本部長。第5次イゼルローン攻防戦で「平行追撃」戦術によりイゼルローン要塞に最も迫った提督であり、ヤン・ウェンリーの後援者。政治的圧力と軍内部の矛盾の中でも原則を守りヤンを支援し続けた。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 통합작전본부장. 제5차 이젤론 공방전에서 '평행추격' 전술로 이젤론 요새에 가장 근접했던 제독이자 양 웬리의 후원자. 정치적 압력과 군 내부의 모순 속에서도 원칙을 지키며 양 웬리를 지원했다.",
+      },
     ],
     // — 직업
+    // 통합작전본부장
+    // 원수
+    // 시민
     // — 트레잇
+    //
   },
   {
     // — 기본
@@ -8289,7 +8590,13 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
-    desc: [{ code: "Kr", context: "가난한 하급 귀족 출신이나 무수한 실전에서 화려한 공적을 쌓아 31세에 소장이 된 장성." }],
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "가난한 하급 귀족 출신이나 무수한 실전에서 화려한 공적을 쌓아 31세에 소장이 된 장성.",
+      },
+    ],
     // — 직업
     // 함대사령관(JB_M001) LV0
     // 대장(JB_MR003) LV0
@@ -8334,9 +8641,21 @@ export const CHAR_BASE = [
     loc: "230042P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "페잔 자치령의 제5대 자치령주. '페잔의 흑여우'라 불리는 책략가로 제국과 동맹 양쪽을 조종하며 페잔의 금융 지배를 꿈꿨다. 지구교와도 깊이 연루되어 있으며 은하 정치의 막후 실력자." },
-      { code: "En", context: "The fifth Landesherr of the Dominion of Fezzan, nicknamed the \"Black Fox of Fezzan.\" A consummate schemer who manipulated both the Empire and the Alliance while dreaming of Fezzan's financial domination of the galaxy. Deeply entangled with the Terraist Church, he was the shadow power behind galactic politics." },
-      { code: "Jp", context: "ペザン自治領第5代自治領主。「ペザンの黒狐」と称される策謀家で、帝国と同盟の両方を操りながらペザンの金融支配を夢見た。地球教とも深く関わり、銀河政治の黒幕的存在。" },
+      {
+        code: "Kr",
+        context:
+          "페잔 자치령의 제5대 자치령주. '페잔의 흑여우'라 불리는 책략가로 제국과 동맹 양쪽을 조종하며 페잔의 금융 지배를 꿈꿨다. 지구교와도 깊이 연루되어 있으며 은하 정치의 막후 실력자.",
+      },
+      {
+        code: "En",
+        context:
+          'The fifth Landesherr of the Dominion of Fezzan, nicknamed the "Black Fox of Fezzan." A consummate schemer who manipulated both the Empire and the Alliance while dreaming of Fezzan\'s financial domination of the galaxy. Deeply entangled with the Terraist Church, he was the shadow power behind galactic politics.',
+      },
+      {
+        code: "Jp",
+        context:
+          "ペザン自治領第5代自治領主。「ペザンの黒狐」と称される策謀家で、帝国と同盟の両方を操りながらペザンの金融支配を夢見た。地球教とも深く関わり、銀河政治の黒幕的存在。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -8577,9 +8896,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "라인하르트 폰 뮤젤 제독단의 균형형 제독. 테라 공략 중 테러리스트에게 독침을 맞아 왼팔을 잃고 의수를 달았다. 충직하고 안정적인 지휘로 제국군 내에서 신뢰받는 중견 제독이다." },
-      { code: "En", context: "A well-rounded admiral in Reinhard's admiralty. He lost his left arm to a poisoned knife during the assault on Terra and replaced it with a prosthetic. Known for his loyal and steady command, he is a trusted senior officer within the Imperial Fleet." },
-      { code: "Jp", context: "ラインハルト提督団のバランス型提督。テラ攻略中にテロリストの毒針で左腕を失い義手を装着した。忠実で安定した指揮により帝国軍内で信頼される中堅提督である。" },
+      {
+        code: "Kr",
+        context:
+          "라인하르트 폰 뮤젤 제독단의 균형형 제독. 테라 공략 중 테러리스트에게 독침을 맞아 왼팔을 잃고 의수를 달았다. 충직하고 안정적인 지휘로 제국군 내에서 신뢰받는 중견 제독이다.",
+      },
+      {
+        code: "En",
+        context:
+          "A well-rounded admiral in Reinhard's admiralty. He lost his left arm to a poisoned knife during the assault on Terra and replaced it with a prosthetic. Known for his loyal and steady command, he is a trusted senior officer within the Imperial Fleet.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ラインハルト提督団のバランス型提督。テラ攻略中にテロリストの毒針で左腕を失い義手を装着した。忠実で安定した指揮により帝国軍内で信頼される中堅提督である。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -8735,9 +9066,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "라인하르트 폰 뮤젤의 누나. 황제 프리드리히 4세의 후궁으로 끌려가 동생의 야망을 촉발시킨 인물. 정치나 전쟁과는 거리를 두고 조용히 살아가지만, 라인하르트에게 있어 가장 소중한 존재다." },
-      { code: "En", context: "The elder sister of Reinhard von Lohengramm. Taken as a consort by Kaiser Friedrich IV, her fate became the catalyst for Reinhard's ambitions. She lives quietly apart from politics and war, yet remains the most precious person in Reinhard's life." },
-      { code: "Jp", context: "ラインハルト・フォン・ミューゼルの姉。フリードリヒ4世の後宮に召し上げられ、弟の野望を触発した人物。政治や戦争とは距離を置き静かに暮らすが、ラインハルトにとって最も大切な存在である。" },
+      {
+        code: "Kr",
+        context:
+          "라인하르트 폰 뮤젤의 누나. 황제 프리드리히 4세의 후궁으로 끌려가 동생의 야망을 촉발시킨 인물. 정치나 전쟁과는 거리를 두고 조용히 살아가지만, 라인하르트에게 있어 가장 소중한 존재다.",
+      },
+      {
+        code: "En",
+        context:
+          "The elder sister of Reinhard von Lohengramm. Taken as a consort by Kaiser Friedrich IV, her fate became the catalyst for Reinhard's ambitions. She lives quietly apart from politics and war, yet remains the most precious person in Reinhard's life.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ラインハルト・フォン・ミューゼルの姉。フリードリヒ4世の後宮に召し上げられ、弟の野望を触発した人物。政治や戦争とは距離を置き静かに暮らすが、ラインハルトにとって最も大切な存在である。",
+      },
     ],
     // — 직업
     // 백작(JB_N003) LV0
@@ -8815,9 +9158,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "오토 폰 브라운슈바이크 공작의 부관. 주군에 대한 충성심이 강하나 웨스터란트 핵폭격 결정에 강하게 반대하다 투옥됐다. 결국 주군의 비겁한 행동에 환멸을 느끼고 직접 독을 먹여 브라운슈바이크를 살해했다." },
-      { code: "En", context: "Aide to Duke Otto von Braunschweig. A man of strong loyalty to his lord, he was imprisoned after vocally opposing Braunschweig's decision to use nuclear weapons on Westerland. Ultimately disillusioned by his lord's cowardice, he personally administered the poison that killed Braunschweig." },
-      { code: "Jp", context: "オットー・フォン・ブラウンシュヴァイク公爵の副官。主君への忠誠心は強いが、ウェスターランドへの核爆撃決定に強く反対し投獄された。最終的に主君の臆病な行動に幻滅し、自ら毒を盛ってブラウンシュヴァイクを殺害した。" },
+      {
+        code: "Kr",
+        context:
+          "오토 폰 브라운슈바이크 공작의 부관. 주군에 대한 충성심이 강하나 웨스터란트 핵폭격 결정에 강하게 반대하다 투옥됐다. 결국 주군의 비겁한 행동에 환멸을 느끼고 직접 독을 먹여 브라운슈바이크를 살해했다.",
+      },
+      {
+        code: "En",
+        context:
+          "Aide to Duke Otto von Braunschweig. A man of strong loyalty to his lord, he was imprisoned after vocally opposing Braunschweig's decision to use nuclear weapons on Westerland. Ultimately disillusioned by his lord's cowardice, he personally administered the poison that killed Braunschweig.",
+      },
+      {
+        code: "Jp",
+        context:
+          "オットー・フォン・ブラウンシュヴァイク公爵の副官。主君への忠誠心は強いが、ウェスターランドへの核爆撃決定に強く反対し投獄された。最終的に主君の臆病な行動に幻滅し、自ら毒を盛ってブラウンシュヴァイクを殺害した。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -8853,9 +9208,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "워프 기술을 발견·개발한 전설적인 과학자. 우주항행부 소속 연구팀을 이끌며 항성간 워프 항법을 실용화했고, 그 업적은 이후 인류의 은하 진출을 가능하게 한 초석이 됐다." },
-      { code: "En", context: "Legendary scientist who discovered and developed Warp technology. Leading the Ministry of Space research team, he made interstellar warp navigation practical — an achievement that laid the foundation for all of humanity's expansion into the galaxy." },
-      { code: "Jp", context: "ワープ技術を発見・開発した伝説的な科学者。宇宙省の研究チームを率いて恒星間ワープ航法を実用化し、その功績は後に人類の銀河進出を可能にした礎となった。" },
+      {
+        code: "Kr",
+        context:
+          "워프 기술을 발견·개발한 전설적인 과학자. 우주항행부 소속 연구팀을 이끌며 항성간 워프 항법을 실용화했고, 그 업적은 이후 인류의 은하 진출을 가능하게 한 초석이 됐다.",
+      },
+      {
+        code: "En",
+        context:
+          "Legendary scientist who discovered and developed Warp technology. Leading the Ministry of Space research team, he made interstellar warp navigation practical — an achievement that laid the foundation for all of humanity's expansion into the galaxy.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ワープ技術を発見・開発した伝説的な科学者。宇宙省の研究チームを率いて恒星間ワープ航法を実用化し、その功績は後に人類の銀河進出を可能にした礎となった。",
+      },
     ],
     // — 직업
     // 학자(JB_C003) LV0
@@ -8932,9 +9299,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "공학·철학 박사 학위를 보유한 제국 과학기술감찰총감. 페잔의 사주를 받아 가이에스부르크 요새 기동화 계획을 추진하여 제8차 이젤론 공방전을 일으켰으나, 패전 후 루빈스키의 명으로 증거가 제공되어 부패·횡령·군사기밀 누설 혐의로 체포됐다." },
-      { code: "En", context: "Inspector General of the Imperial Science and Technology Division, holding doctoral degrees in both engineering and philosophy. Acting under covert direction from Fezzan, he devised and implemented the plan to mobilise Geiersburg Fortress, triggering the Eighth Battle of Iserlohn. After the Imperial defeat, Rubinsky had evidence of his crimes handed over to the Empire and he was arrested on charges of corruption, embezzlement, and betrayal of military secrets." },
-      { code: "Jp", context: "工学・哲学の博士号を持つ帝国科学技術監察総監。ペザンの指示のもとでガイエスブルク要塞機動化計画を立案・実行し第8次イゼルローン攻防戦を引き起こした。敗戦後、ルビンスキーの命で証拠が帝国に渡され、腐敗・横領・軍事機密漏洩の容疑で逮捕された。" },
+      {
+        code: "Kr",
+        context:
+          "공학·철학 박사 학위를 보유한 제국 과학기술감찰총감. 페잔의 사주를 받아 가이에스부르크 요새 기동화 계획을 추진하여 제8차 이젤론 공방전을 일으켰으나, 패전 후 루빈스키의 명으로 증거가 제공되어 부패·횡령·군사기밀 누설 혐의로 체포됐다.",
+      },
+      {
+        code: "En",
+        context:
+          "Inspector General of the Imperial Science and Technology Division, holding doctoral degrees in both engineering and philosophy. Acting under covert direction from Fezzan, he devised and implemented the plan to mobilise Geiersburg Fortress, triggering the Eighth Battle of Iserlohn. After the Imperial defeat, Rubinsky had evidence of his crimes handed over to the Empire and he was arrested on charges of corruption, embezzlement, and betrayal of military secrets.",
+      },
+      {
+        code: "Jp",
+        context:
+          "工学・哲学の博士号を持つ帝国科学技術監察総監。ペザンの指示のもとでガイエスブルク要塞機動化計画を立案・実行し第8次イゼルローン攻防戦を引き起こした。敗戦後、ルビンスキーの命で証拠が帝国に渡され、腐敗・横領・軍事機密漏洩の容疑で逮捕された。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -9006,9 +9385,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹의 정신적 시조. 은하제국의 혹성 알타이르 VII에서 농노로 태어나, 스스로 설계한 거대 드라이아이스 우주선으로 40만 명의 동포를 이끌고 이젤론 회랑을 돌파해 은하계 끝자락에 자유로운 공화국의 씨앗을 뿌렸다. 이젤론 통과 도중 사망했지만 그의 이름은 행성 '하이네센'과 동맹 그 자체에 영원히 새겨졌다." },
-      { code: "En", context: "The spiritual forefather of the Free Planets Alliance. Born a serf on the Imperial planet Altair VII, he engineered a fleet of massive dry-ice ships, led 400,000 people through the Iserlohn Corridor, and planted the seeds of a free republic at the galaxy's edge. He died during the passage, but his name lives on in the planet Heinessen and the Alliance itself." },
-      { code: "Jp", context: "自由惑星同盟の精神的な始祖。銀河帝国の惑星アルタイルⅦで農奴として生まれ、自ら設計した巨大なドライアイス製宇宙船で40万人の同胞を率いてイゼルローン回廊を突破し、銀河の果てに自由な共和国の種をまいた。回廊通過中に死亡したが、その名は惑星ハイネセンと同盟そのものに永遠に刻まれている。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹의 정신적 시조. 은하제국의 혹성 알타이르 VII에서 농노로 태어나, 스스로 설계한 거대 드라이아이스 우주선으로 40만 명의 동포를 이끌고 이젤론 회랑을 돌파해 은하계 끝자락에 자유로운 공화국의 씨앗을 뿌렸다. 이젤론 통과 도중 사망했지만 그의 이름은 행성 '하이네센'과 동맹 그 자체에 영원히 새겨졌다.",
+      },
+      {
+        code: "En",
+        context:
+          "The spiritual forefather of the Free Planets Alliance. Born a serf on the Imperial planet Altair VII, he engineered a fleet of massive dry-ice ships, led 400,000 people through the Iserlohn Corridor, and planted the seeds of a free republic at the galaxy's edge. He died during the passage, but his name lives on in the planet Heinessen and the Alliance itself.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟の精神的な始祖。銀河帝国の惑星アルタイルⅦで農奴として生まれ、自ら設計した巨大なドライアイス製宇宙船で40万人の同胞を率いてイゼルローン回廊を突破し、銀河の果てに自由な共和国の種をまいた。回廊通過中に死亡したが、その名は惑星ハイネセンと同盟そのものに永遠に刻まれている。",
+      },
     ],
     // — 직업
     // 시민(JB_C001) LV0
@@ -9085,9 +9476,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 최고의 노장. 사병으로 입대하여 원수까지 오른 입지전적 인물로, 수십 년의 전장 경험과 강직한 인품으로 양 웬리를 비롯한 동맹 장교들의 존경을 받았다. 란테마리오 성전에서 패배 후 최후의 저항을 이끌다 전사했다." },
-      { code: "En", context: "The Alliance's greatest veteran admiral. Enlisting as a common soldier and rising to Fleet Admiral through decades of combat, he earned the respect of Yang Wen-li and all Alliance officers through his battlefield experience and uncompromising integrity. He died leading a last stand after defeat at the Battle of Rantemario." },
-      { code: "Jp", context: "自由惑星同盟最高の老将。一兵卒として入隊し元帥にまで上り詰めた立志伝中の人物で、数十年の実戦経験と剛直な人品によりヤン・ウェンリーをはじめ同盟将校たちから尊敬された。ランテマリオ星域会戦で敗北後、最後の抵抗を率いて戦死した。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 최고의 노장. 사병으로 입대하여 원수까지 오른 입지전적 인물로, 수십 년의 전장 경험과 강직한 인품으로 양 웬리를 비롯한 동맹 장교들의 존경을 받았다. 란테마리오 성전에서 패배 후 최후의 저항을 이끌다 전사했다.",
+      },
+      {
+        code: "En",
+        context:
+          "The Alliance's greatest veteran admiral. Enlisting as a common soldier and rising to Fleet Admiral through decades of combat, he earned the respect of Yang Wen-li and all Alliance officers through his battlefield experience and uncompromising integrity. He died leading a last stand after defeat at the Battle of Rantemario.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟最高の老将。一兵卒として入隊し元帥にまで上り詰めた立志伝中の人物で、数十年の実戦経験と剛直な人品によりヤン・ウェンリーをはじめ同盟将校たちから尊敬された。ランテマリオ星域会戦で敗北後、最後の抵抗を率いて戦死した。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -9130,9 +9533,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 최고의 보급/행정 전문가. 양 웬리의 절친한 친구이자 13함대의 후방을 책임진 핵심 참모. 전투보다 물자 조달과 병참 운영에 천재적인 재능을 발휘하며, 율리안 민츠를 양 웬리에게 배정한 인물이기도 하다." },
-      { code: "En", context: "The Free Planets Alliance's foremost logistics and administrative specialist. A close friend of Yang Wen-li and the key staff officer responsible for the 13th Fleet's rear operations. A genius in supply and logistics rather than combat, he was also the one who assigned Julian Mintz to Yang Wen-li." },
-      { code: "Jp", context: "自由惑星同盟最高の補給・行政の専門家。ヤン・ウェンリーの親友にして第13艦隊の後方を担う中核参謀。戦闘よりも物資調達と兵站運営に天才的な才能を発揮し、ユリアン・ミンツをヤン・ウェンリーに配属した人物でもある。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 최고의 보급/행정 전문가. 양 웬리의 절친한 친구이자 13함대의 후방을 책임진 핵심 참모. 전투보다 물자 조달과 병참 운영에 천재적인 재능을 발휘하며, 율리안 민츠를 양 웬리에게 배정한 인물이기도 하다.",
+      },
+      {
+        code: "En",
+        context:
+          "The Free Planets Alliance's foremost logistics and administrative specialist. A close friend of Yang Wen-li and the key staff officer responsible for the 13th Fleet's rear operations. A genius in supply and logistics rather than combat, he was also the one who assigned Julian Mintz to Yang Wen-li.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟最高の補給・行政の専門家。ヤン・ウェンリーの親友にして第13艦隊の後方を担う中核参謀。戦闘よりも物資調達と兵站運営に天才的な才能を発揮し、ユリアン・ミンツをヤン・ウェンリーに配属した人物でもある。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -9184,9 +9599,21 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [
-      { code: "Kr", context: "730년 마피아의 일원. \n    다른 730마피아의 일원에 비해 뛰어난 인재는 아니었으며, 실제 지휘관으로서는 능력은 평균보다 조금 나은 수준이었다.\n    여러 인재들이 모인 장소에서 의견을 취합하고 갈등을 해소시키는데에 매우 능해 오랜 기간 우주함대 총참모장으로 혁혁한 공을 세웠다." },
-      { code: "En", context: "A member of the Year 730 Mafia. Though not as gifted as his fellow Mafia members, and only slightly above average as a commander in his own right, he excelled at listening to strong personalities and reconciling their differing opinions, allowing him to serve with great distinction as Chief of Staff of the Space Fleet for many years." },
-      { code: "Jp", context: "730年マフィアの一員。他の730マフィアの仲間に比べ際立った才能の持ち主ではなく、自身が指揮官として見れば平均よりやや上程度の能力であった。しかし様々な人材が集う場で意見を取りまとめ対立を解消することに非常に長け、長年にわたり宇宙艦隊総参謀長として赫々たる功績を残した。" },
+      {
+        code: "Kr",
+        context:
+          "730년 마피아의 일원. \n    다른 730마피아의 일원에 비해 뛰어난 인재는 아니었으며, 실제 지휘관으로서는 능력은 평균보다 조금 나은 수준이었다.\n    여러 인재들이 모인 장소에서 의견을 취합하고 갈등을 해소시키는데에 매우 능해 오랜 기간 우주함대 총참모장으로 혁혁한 공을 세웠다.",
+      },
+      {
+        code: "En",
+        context:
+          "A member of the Year 730 Mafia. Though not as gifted as his fellow Mafia members, and only slightly above average as a commander in his own right, he excelled at listening to strong personalities and reconciling their differing opinions, allowing him to serve with great distinction as Chief of Staff of the Space Fleet for many years.",
+      },
+      {
+        code: "Jp",
+        context:
+          "730年マフィアの一員。他の730マフィアの仲間に比べ際立った才能の持ち主ではなく、自身が指揮官として見れば平均よりやや上程度の能力であった。しかし様々な人材が集う場で意見を取りまとめ対立を解消することに非常に長け、長年にわたり宇宙艦隊総参謀長として赫々たる功績を残した。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -9209,15 +9636,7 @@ export const CHAR_BASE = [
       { code: "En", context: "Landsberg" },
       { code: "Jp", context: "ランズベルク" },
     ],
-    searchKeys: [
-      "알프레트",
-      "란즈베르크",
-      "Alfred",
-      "Landsberg",
-      "Lansberg",
-      "アルフレット",
-      "ランズベルク",
-    ],
+    searchKeys: ["Lansberg"],
     birth: "SE|772.04.10",
     death: "SE|804.07.22", // 798년 슈마허와 함께 어린 황제 유괴 후 동맹 망명, 이후 정신착란으로 체포(사망일 불명)
     // — 성향
@@ -9241,12 +9660,14 @@ export const CHAR_BASE = [
     statAfg: 12,
     statPlt: 40,
     // — 기타
-    loc: "",
+    loc: "230058P01", // 오딘
     point: "0",
     desc: [
-      { code: "Kr", context: "5대째 이어진 제국 명문 귀족가의 백작. 립슈타트 동맹에 가담했으나 슈타덴의 오딘 침공 계획에는 동의만 하고 직접 참전하지는 않았다. 패전 후 페잔으로 망명해 시와 소설을 쓰며 지냈는데, 자신이 쓴 「립슈타트 전사」가 지나치게 주관적이고 낭만적이라는 이유로 출판을 거절당했다. 798년 페잔의 사주를 받아 레오폴트 슈마허와 함께 어린 황제 에르빈 요제프 2세를 유괴해 동맹으로 도주했다." },
-      { code: "En", context: "A Count from a high noble family with five generations of lineage in the Empire. He joined the Lippstadt League but only endorsed Admiral Staaden's plan to invade Odin without personally taking part. After the defeat, he fled into exile on Fezzan, where he spent his time writing poetry and prose, though his own manuscript, \"A History of the Lippstadt War,\" was rejected for publication as being too subjective and romantic. In 798 UC, acting on a Fezzani scheme, he and Leopold Schumacher kidnapped the infant Kaiser Erwin Josef II and fled with him to the Alliance." },
-      { code: "Jp", context: "5代続く帝国の名門貴族の伯爵。リップシュタット同盟に加わったが、シュターデンのオーディン侵攻計画には賛同するのみで自らは参戦しなかった。敗戦後フェザンに亡命し詩や小説を書いて過ごしたが、自著「リップシュタット戦史」はあまりに主観的かつ浪漫的すぎるとして出版を拒否された。798年、フェザンの策謀によりレオポルト・シューマッハとともに幼帝エルウィン・ヨーゼフ2世を誘拐し、同盟へ逃亡した。" },
+      {
+        code: "Kr",
+        context:
+          "5대째 이어진 제국 명문 귀족가의 백작. 립슈타트 동맹에 가담했으나 슈타덴의 오딘 침공 계획에는 동의만 하고 직접 참전하지는 않았다. 패전 후 페잔으로 망명해 시와 소설을 쓰며 지냈는데, 자신이 쓴 「립슈타트 전사」가 지나치게 주관적이고 낭만적이라는 이유로 출판을 거절당했다. 798년 페잔의 사주를 받아 레오폴트 슈마허와 함께 어린 황제 에르빈 요제프 2세를 유괴해 동맹으로 도주했다.",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -9466,7 +9887,13 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
-    desc: [{ code: "Kr", context: "자유행성동맹 소속의 군인.\n    국방사관학교를 수석으로 졸업한 인재로, 실전경험이 없으며 보급,훈련 등의 군사작전의 세부사항을 짜는데는 매우 허술하지만\n    전체적인 큰 그림을 입안하고 이를 관철시킬 정치적 모략에 매우 능하다는 평을 받고 있다." }],
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 소속의 군인.\n    국방사관학교를 수석으로 졸업한 인재로, 실전경험이 없으며 보급,훈련 등의 군사작전의 세부사항을 짜는데는 매우 허술하지만\n    전체적인 큰 그림을 입안하고 이를 관철시킬 정치적 모략에 매우 능하다는 평을 받고 있다.",
+      },
+    ],
     // — 직업
     // — 트레잇
     // 재앙을 기획하는 자(TRC_U_000263) LV0
@@ -9578,9 +10005,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "은하역사상 손꼽히는 전략가.\n    역사학자를 꿈꿨으나 생활고로 사관학교에 입학한 이후 군인의 삶을 걷는다.\n    전쟁을 혐오하면서도 부하들의 생명을 지키기 위해 전장에서 불패의 전술을 구사하며 '마법사 양'이라는 명성을 얻는다." },
-      { code: "En", context: "One of the greatest strategists in galactic history. Though he dreamed of becoming a historian, financial hardship led him to the officer academy and a life in the military. Despising war yet fighting to protect his soldiers, he employs undefeated tactics and earns the name \"Yang the Magician.\"" },
-      { code: "Jp", context: "銀河史上屈指の戦略家。歴史家を夢見ていたが、生活苦から士官学校へ入学し軍人の道を歩む。戦争を憎みながらも部下の命を守るため戦場で不敗の戦術を駆使し、「魔術師ヤン」の名声を得る。" },
+      {
+        code: "Kr",
+        context:
+          "은하역사상 손꼽히는 전략가.\n    역사학자를 꿈꿨으나 생활고로 사관학교에 입학한 이후 군인의 삶을 걷는다.\n    전쟁을 혐오하면서도 부하들의 생명을 지키기 위해 전장에서 불패의 전술을 구사하며 '마법사 양'이라는 명성을 얻는다.",
+      },
+      {
+        code: "En",
+        context:
+          'One of the greatest strategists in galactic history. Though he dreamed of becoming a historian, financial hardship led him to the officer academy and a life in the military. Despising war yet fighting to protect his soldiers, he employs undefeated tactics and earns the name "Yang the Magician."',
+      },
+      {
+        code: "Jp",
+        context:
+          "銀河史上屈指の戦略家。歴史家を夢見ていたが、生活苦から士官学校へ入学し軍人の道を歩む。戦争を憎みながらも部下の命を守るため戦場で不敗の戦術を駆使し、「魔術師ヤン」の名声を得る。",
+      },
     ],
     // 트레잇
     // 기적의 양(고유)
@@ -9740,7 +10179,13 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
-    desc: [{ code: "Kr", context: "자유행성동맹 소속의 군인.\n    함대운용을 실전에서 완벽하게 구현하는 달인으로, 다소 과묵하고 침착한 성격이다." }],
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 소속의 군인.\n    함대운용을 실전에서 완벽하게 구현하는 달인으로, 다소 과묵하고 침착한 성격이다.",
+      },
+    ],
     // — 직업
     // — 트레잇
   },
@@ -9782,9 +10227,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "프리드리히 4세 치하 제국군 3장관 중 군무상서. 라인하르트 폰 뮤젤의 세력 확장에 반발한 구체제 귀족 세력의 일원으로, 립슈타트 반란 당시 비텐펠트에게 체포되어 강제 퇴역당했다." },
-      { code: "En", context: "Minister of Military Affairs and one of the three Imperial military chiefs of staff under Kaiser Friedrich IV. A member of the old guard who resisted Reinhard von Lohengramm's rise, he was captured by Bittenfeld during the Lippstadt Rebellion and forced into retirement." },
-      { code: "Jp", context: "フリードリヒ4世治下の帝国軍三長官の一人、軍務尚書。ラインハルト・フォン・ミューゼルの台頭に反発した旧体制貴族勢力の一員で、リップシュタット叛乱時にビッテンフェルトに捕縛され強制退役させられた。" },
+      {
+        code: "Kr",
+        context:
+          "프리드리히 4세 치하 제국군 3장관 중 군무상서. 라인하르트 폰 뮤젤의 세력 확장에 반발한 구체제 귀족 세력의 일원으로, 립슈타트 반란 당시 비텐펠트에게 체포되어 강제 퇴역당했다.",
+      },
+      {
+        code: "En",
+        context:
+          "Minister of Military Affairs and one of the three Imperial military chiefs of staff under Kaiser Friedrich IV. A member of the old guard who resisted Reinhard von Lohengramm's rise, he was captured by Bittenfeld during the Lippstadt Rebellion and forced into retirement.",
+      },
+      {
+        code: "Jp",
+        context:
+          "フリードリヒ4世治下の帝国軍三長官の一人、軍務尚書。ラインハルト・フォン・ミューゼルの台頭に反発した旧体制貴族勢力の一員で、リップシュタット叛乱時にビッテンフェルトに捕縛され強制退役させられた。",
+      },
     ],
     // — 직업
     // 군무상서(JB_R008) LV0
@@ -9828,9 +10285,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "'예술가 제독'이라 불리는 제국군 후방 사령관. \n    군사적 능력과 예술적 소양을 겸비한 지휘관으로 평가받고 있다." },
-      { code: "En", context: "Known as the \"Artistic Admiral,\" Mecklinger served as rear forces commander and former chief of staff under Reinhard. A commander who combined military skill with genuine artistic sensibility, he was recommended for promotion to Fleet Admiral by Reinhard on his deathbed." },
-      { code: "Jp", context: "「芸術家提督」と称される帝国軍後方司令官。軍事的能力と芸術的素養を兼ね備えた指揮官で、ラインハルトの参謀長を歴任。ラインハルトの臨終の際に元帥への昇進を推薦された。" },
+      {
+        code: "Kr",
+        context:
+          "'예술가 제독'이라 불리는 제국군 후방 사령관. \n    군사적 능력과 예술적 소양을 겸비한 지휘관으로 평가받고 있다.",
+      },
+      {
+        code: "En",
+        context:
+          'Known as the "Artistic Admiral," Mecklinger served as rear forces commander and former chief of staff under Reinhard. A commander who combined military skill with genuine artistic sensibility, he was recommended for promotion to Fleet Admiral by Reinhard on his deathbed.',
+      },
+      {
+        code: "Jp",
+        context:
+          "「芸術家提督」と称される帝国軍後方司令官。軍事的能力と芸術的素養を兼ね備えた指揮官で、ラインハルトの参謀長を歴任。ラインハルトの臨終の際に元帥への昇進を推薦された。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -10227,7 +10696,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
-    desc: [{ code: "Kr", context: "" }],  // 에멜리히
+    desc: [{ code: "Kr", context: "" }], // 에멜리히
     // — 직업
     // — 트레잇
   },
@@ -10435,9 +10904,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "은하제국의 함대 지휘관. 아스타테 회전에서 라인하르트 함대의 분함대 사령관으로 참전했으나 전투 중 전사했다." },
-      { code: "En", context: "A fleet commander of the Galactic Empire. He participated in the Battle of Astarte as a sub-fleet commander under Reinhard's fleet, but was killed in action during the engagement." },
-      { code: "Jp", context: "銀河帝国の艦隊指揮官。アスターテ会戦ではラインハルト艦隊の分艦隊司令官として参戦したが、戦闘中に戦死した。" },
+      {
+        code: "Kr",
+        context:
+          "은하제국의 함대 지휘관. 아스타테 회전에서 라인하르트 함대의 분함대 사령관으로 참전했으나 전투 중 전사했다.",
+      },
+      {
+        code: "En",
+        context:
+          "A fleet commander of the Galactic Empire. He participated in the Battle of Astarte as a sub-fleet commander under Reinhard's fleet, but was killed in action during the engagement.",
+      },
+      {
+        code: "Jp",
+        context:
+          "銀河帝国の艦隊指揮官。アスターテ会戦ではラインハルト艦隊の分艦隊司令官として参戦したが、戦闘中に戦死した。",
+      },
     ],
     // — 직업
     // 함대사령관(JB_M001) LV0
@@ -10515,9 +10996,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "오토 폰 브라운슈바이크의 딸. 796년 프리드리히 4세 붕어 후 황위 계승 후보로 내세워졌으나 에르빈 요제프 2세에게 황위를 빼앗겼다. 립슈타트 내전 이후 행방 불명." },
-      { code: "En", context: "Daughter of Duke Otto von Braunschweig. Put forward as a claimant to the throne after Kaiser Friedrich IV's death in 796 UC, but the throne went to Erwin Josef II instead. Her fate following the Lippstadt Rebellion is unknown." },
-      { code: "Jp", context: "オットー・フォン・ブラウンシュヴァイクの娘。796年フリードリヒ4世崩御後に皇位継承候補として擁立されたが、エルウィン・ヨーゼフ2世に皇位を奪われた。リップシュタット内乱後は行方不明。" },
+      {
+        code: "Kr",
+        context:
+          "오토 폰 브라운슈바이크의 딸. 796년 프리드리히 4세 붕어 후 황위 계승 후보로 내세워졌으나 에르빈 요제프 2세에게 황위를 빼앗겼다. 립슈타트 내전 이후 행방 불명.",
+      },
+      {
+        code: "En",
+        context:
+          "Daughter of Duke Otto von Braunschweig. Put forward as a claimant to the throne after Kaiser Friedrich IV's death in 796 UC, but the throne went to Erwin Josef II instead. Her fate following the Lippstadt Rebellion is unknown.",
+      },
+      {
+        code: "Jp",
+        context:
+          "オットー・フォン・ブラウンシュヴァイクの娘。796年フリードリヒ4世崩御後に皇位継承候補として擁立されたが、エルウィン・ヨーゼフ2世に皇位を奪われた。リップシュタット内乱後は行方不明。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -10833,9 +11326,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "라인하르트 다음가는 전략 능력을 지닌 제국군 최고의 제독. 이색동공을 가졌으며, 미터마이어와 함께 '쌍벽'으로 불린다. 야망과 반골 기질을 내면에 품고 있으며, 결국 라인하르트에게 반란을 일으켰다가 전사한다." },
-      { code: "En", context: "The finest Imperial admiral second only to Reinhard in strategic ability. Known for his heterochromia, he forms the \"Twin Pillars\" with Mittermeyer. Harbouring deep ambition and a rebellious spirit within, he ultimately rises in insurrection against Kaiser Reinhard, only to fall in battle." },
-      { code: "Jp", context: "ラインハルトに次ぐ戦略能力を持つ帝国最高の提督。左右色の異なる瞳を持ち、ミッターマイヤーとともに「双璧」と呼ばれる。内に野望と反骨心を秘め、最終的にラインハルトへの叛乱を起こして戦死する。" },
+      {
+        code: "Kr",
+        context:
+          "라인하르트 다음가는 전략 능력을 지닌 제국군 최고의 제독. 이색동공을 가졌으며, 미터마이어와 함께 '쌍벽'으로 불린다. 야망과 반골 기질을 내면에 품고 있으며, 결국 라인하르트에게 반란을 일으켰다가 전사한다.",
+      },
+      {
+        code: "En",
+        context:
+          'The finest Imperial admiral second only to Reinhard in strategic ability. Known for his heterochromia, he forms the "Twin Pillars" with Mittermeyer. Harbouring deep ambition and a rebellious spirit within, he ultimately rises in insurrection against Kaiser Reinhard, only to fall in battle.',
+      },
+      {
+        code: "Jp",
+        context:
+          "ラインハルトに次ぐ戦略能力を持つ帝国最高の提督。左右色の異なる瞳を持ち、ミッターマイヤーとともに「双璧」と呼ばれる。内に野望と反骨心を秘め、最終的にラインハルトへの叛乱を起こして戦死する。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -11020,9 +11525,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "골덴바움 왕조 최대 문벌귀족 공작. 황제 프리드리히 4세의 사위로 딸 엘리자베트의 황위 계승을 획책하며 립슈타트 동맹을 주도했다. 리텐하임과 대립하면서도 연합하여 라인하르트에 맞섰으나 패배하고 측근 안스바흐에게 독살당했다." },
-      { code: "En", context: "The most powerful high noble Duke of the Goldenbaum Dynasty and son-in-law of Kaiser Friedrich IV. He led the Lippstadt Alliance in an attempt to place his daughter Elisabeth on the throne, forming a fragile coalition with his rival Marquis Littenheim against Reinhard von Lohengramm. Defeated in the civil war, he was poisoned by his own aide Ansbach." },
-      { code: "Jp", context: "ゴールデンバウム王朝最大の門閥貴族公爵。皇帝フリードリヒ4世の義息子で、娘エリザベートの皇位継承を画策しリップシュタット同盟を主導した。宿敵リッテンハイムと連合してラインハルトに対抗したが敗北し、側近アンスバッハに毒殺された。" },
+      {
+        code: "Kr",
+        context:
+          "골덴바움 왕조 최대 문벌귀족 공작. 황제 프리드리히 4세의 사위로 딸 엘리자베트의 황위 계승을 획책하며 립슈타트 동맹을 주도했다. 리텐하임과 대립하면서도 연합하여 라인하르트에 맞섰으나 패배하고 측근 안스바흐에게 독살당했다.",
+      },
+      {
+        code: "En",
+        context:
+          "The most powerful high noble Duke of the Goldenbaum Dynasty and son-in-law of Kaiser Friedrich IV. He led the Lippstadt Alliance in an attempt to place his daughter Elisabeth on the throne, forming a fragile coalition with his rival Marquis Littenheim against Reinhard von Lohengramm. Defeated in the civil war, he was poisoned by his own aide Ansbach.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ゴールデンバウム王朝最大の門閥貴族公爵。皇帝フリードリヒ4世の義息子で、娘エリザベートの皇位継承を画策しリップシュタット同盟を主導した。宿敵リッテンハイムと連合してラインハルトに対抗したが敗北し、側近アンスバッハに毒殺された。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -11792,9 +12309,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹의 정치가. 부패하고 무능한 행정으로 동맹 몰락의 한 원인이 된 최고평의회 의장. 공포 정치와 선동으로 권력을 유지했으며 제국에 항복 후에도 생존을 위해 지구교, 제국과 거래하는 등 철저한 기회주의자다." },
-      { code: "En", context: "An Alliance politician and penultimate head of state whose corrupt and incompetent administration was one of the contributing factors to the fall of the Alliance. He maintained power through fear and demagoguery, and after surrendering to the Empire continued to survive through dealings with the Church of Terra and the New Galactic Empire — a consummate opportunist to the last." },
-      { code: "Jp", context: "自由惑星同盟の政治家。腐敗した無能な行政で同盟崩壊の一因となった最高評議会議長。恐怖政治と扇動で権力を維持し、帝国への降伏後も地球教・帝国と取引するなど徹底した機会主義者。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹의 정치가. 부패하고 무능한 행정으로 동맹 몰락의 한 원인이 된 최고평의회 의장. 공포 정치와 선동으로 권력을 유지했으며 제국에 항복 후에도 생존을 위해 지구교, 제국과 거래하는 등 철저한 기회주의자다.",
+      },
+      {
+        code: "En",
+        context:
+          "An Alliance politician and penultimate head of state whose corrupt and incompetent administration was one of the contributing factors to the fall of the Alliance. He maintained power through fear and demagoguery, and after surrendering to the Empire continued to survive through dealings with the Church of Terra and the New Galactic Empire — a consummate opportunist to the last.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟の政治家。腐敗した無能な行政で同盟崩壊の一因となった最高評議会議長。恐怖政治と扇動で権力を維持し、帝国への降伏後も地球教・帝国と取引するなど徹底した機会主義者。",
+      },
     ],
     // — 직업
     // 국방위원장(JB_F002) LV0
@@ -11900,38 +12429,49 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  // 우란푸 Uranff · ウランフ · 伍蘭夫(오란부)
   {
     // — 기본
     code: "CH_000333",
     name: [{ code: "Kr", context: "우란푸" }],
-    nick: [{ code: "Kr", context: "" }],
-    searchKeys: [],
-    birth: "",
-    death: "",
+    nick: [{ code: "Kr", context: "우란푸" }],
+    searchKeys: ["우람프", "울람프", "오란부"],
+    birth: "SE|755.08.27",
+    death: "SE|796.10.10",
     // — 성향
-    faction: "",
+    faction: "FPA",
     idea: "",
     econ: "",
-    brave: "",
+    brave: "80",
     moral: "",
     friend: "",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    // 4 통솔 84 공격 94 방어 75 기동 76 운영 39 정보 57 육전 73 공전 94
+    // 6 통솔 92 지휘 85 공격 93 방어 80 기동 82 운영 50 정보 55.
+    statCmd: 88,
+    statCsm: 85,
+    statAtt: 94,
+    statDef: 78,
+    statFst: 89,
+    statMng: 50,
+    statInf: 56,
+    statGfg: 76,
+    statAfg: 94,
+    statPlt: 42,
     // — 기타
-    loc: "",
+    loc: "230006P01", // 하이네센
     point: "0",
-    desc: [{ code: "Kr", context: "" }],
+    desc: [
+      {
+        code: "Kr",
+        context: `자유행성동맹 소속의 군인.
+        보로딘과 함께 수위를 다투는 명장으로, 평시엔 겸손하고 침착한 인격자인 동시에 전시엔 공격적인 맹장으로 통한다.
+        함대의 운용 뿐 아니라 뛰어난 전략적 통찰과 넓은 시야까지 보유한 완성형 지휘관이라는 평가.`,
+      },
+    ],
     // — 직업
     // — 트레잇
+    // 기마민족의 후예(고유) :
   },
   {
     // — 기본
@@ -12004,9 +12544,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "법무 장교 출신으로 제국군 헌병총감을 역임한 행정형 제독. 전장보다 치안 유지와 사법 개혁에서 두각을 나타낸다. 로엔그람 제독단 중 함대를 직접 지휘한 횟수가 가장 적지만, 제국 내부 질서 유지의 핵심 역할을 담당했다." },
-      { code: "En", context: "An administrative admiral who rose from a legal advocate background to serve as Chief of the Imperial Military Police. More distinguished for his law enforcement and judicial reforms than battlefield command, he was the least active fleet commander among Lohengramm's admirals, yet played a crucial role in maintaining internal order within the Empire." },
-      { code: "Jp", context: "法務将校出身で帝国軍憲兵総監を務めた行政型提督。戦場よりも治安維持と司法改革において頭角を現す。ローエングラム提督団の中で艦隊を直接指揮した回数は最も少ないが、帝国内部秩序維持の中核を担った。" },
+      {
+        code: "Kr",
+        context:
+          "법무 장교 출신으로 제국군 헌병총감을 역임한 행정형 제독. 전장보다 치안 유지와 사법 개혁에서 두각을 나타낸다. 로엔그람 제독단 중 함대를 직접 지휘한 횟수가 가장 적지만, 제국 내부 질서 유지의 핵심 역할을 담당했다.",
+      },
+      {
+        code: "En",
+        context:
+          "An administrative admiral who rose from a legal advocate background to serve as Chief of the Imperial Military Police. More distinguished for his law enforcement and judicial reforms than battlefield command, he was the least active fleet commander among Lohengramm's admirals, yet played a crucial role in maintaining internal order within the Empire.",
+      },
+      {
+        code: "Jp",
+        context:
+          "法務将校出身で帝国軍憲兵総監を務めた行政型提督。戦場よりも治安維持と司法改革において頭角を現す。ローエングラム提督団の中で艦隊を直接指揮した回数は最も少ないが、帝国内部秩序維持の中核を担った。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -12129,9 +12681,21 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 국방위원장. 네그로폰테의 사임 이후 트류니히트에게 은제 화병을 뇌물로 바쳐 자리를 차지했다. 초기엔 사리사욕에 몰두한 3류 정치인이었으나, 페잔 강점으로 제국군의 본격 침공이 시작되자 돌변하여 통합작전본부에 전폭적인 지지를 보내고 양 웬리의 작전을 승인했다. 베르밀리온 전투 패배 후 항전을 주장하다 트류니히트에게 부패 사실을 폭로당하며 정치 인생을 마쳤다." },
-      { code: "En", context: "Alliance Secretary of Defence who bribed Trünicht with a silver vase to obtain the post after Negroponte's resignation. Initially a self-admitted third-rate politician focused on personal enrichment, he transformed during the Imperial invasion following the annexation of Fezzan, throwing his full political support behind the Joint Operations Headquarters and approving Yang Wen-li's strategy. After the defeat at Vermillion, he argued for continued resistance but was exposed by Trünicht for his earlier corruption, ending his political career." },
-      { code: "Jp", context: "自由惑星同盟国防委員長。ネグロポンテの辞任後、トリューニヒトに銀の花瓶を賄賂として贈り地位を得た。当初は私利私欲にまみれた三流政治家であったが、ペザン強占により帝国軍の本格侵攻が始まると一変し、統合作戦本部を全面的に支持しヤン・ウェンリーの作戦を承認した。ヴァーミリオン会戦の敗北後は抗戦を主張したが、トリューニヒトに過去の腐敗を暴露され政治生命を終えた。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 국방위원장. 네그로폰테의 사임 이후 트류니히트에게 은제 화병을 뇌물로 바쳐 자리를 차지했다. 초기엔 사리사욕에 몰두한 3류 정치인이었으나, 페잔 강점으로 제국군의 본격 침공이 시작되자 돌변하여 통합작전본부에 전폭적인 지지를 보내고 양 웬리의 작전을 승인했다. 베르밀리온 전투 패배 후 항전을 주장하다 트류니히트에게 부패 사실을 폭로당하며 정치 인생을 마쳤다.",
+      },
+      {
+        code: "En",
+        context:
+          "Alliance Secretary of Defence who bribed Trünicht with a silver vase to obtain the post after Negroponte's resignation. Initially a self-admitted third-rate politician focused on personal enrichment, he transformed during the Imperial invasion following the annexation of Fezzan, throwing his full political support behind the Joint Operations Headquarters and approving Yang Wen-li's strategy. After the defeat at Vermillion, he argued for continued resistance but was exposed by Trünicht for his earlier corruption, ending his political career.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟国防委員長。ネグロポンテの辞任後、トリューニヒトに銀の花瓶を賄賂として贈り地位を得た。当初は私利私欲にまみれた三流政治家であったが、ペザン強占により帝国軍の本格侵攻が始まると一変し、統合作戦本部を全面的に支持しヤン・ウェンリーの作戦を承認した。ヴァーミリオン会戦の敗北後は抗戦を主張したが、トリューニヒトに過去の腐敗を暴露され政治生命を終えた。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -12303,16 +12867,19 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  // 윌렘 홀랜드 Willem Holland · ウィレム・ホーランド
+  // TODO 260629
   {
     // — 기본
     code: "CH_000344",
     name: [{ code: "Kr", context: "윌렘 홀랜드" }],
-    nick: [{ code: "Kr", context: "" }],
-    searchKeys: [],
-    birth: "",
-    death: "",
+    nick: [{ code: "Kr", context: "홀랜드" }],
+    searchKeys: ["홀란드"],
+    // SE 763 ~ SE 795. 2. 6. (32세)
+    birth: "763.12.15",
+    death: "795.02.06",
     // — 성향
-    faction: "",
+    faction: "FPA",
     idea: "",
     econ: "",
     brave: "",
@@ -12330,11 +12897,22 @@ export const CHAR_BASE = [
     statAfg: 0,
     statPlt: 0,
     // — 기타
-    loc: "",
+    loc: "230006P01", // 하이네센
     point: "0",
-    desc: [{ code: "Kr", context: "" }],
+    desc: [
+      {
+        code: "Kr",
+        context: `자유행성동맹 소속의 군인.
+      브루스 애쉬비의 재림이라고 불리는 맹장으로, 뛰어난 능력을 가졌지만 그 능력 이상으로 비대한 자신감과 공명심, 오만함을 가지고 있다.
+      795년 2월. 제 3차 티아마트 회전에서 32세의 나이로 전사`,
+      }, // 796.02
+    ],
     // — 직업
+    // 중장
+    // 시민
     // — 트레잇
+    // 맹렬한 돌진 LV3 : 교전 시 공격 + 10(*3), 매 공격 후, 공격력이 -50+(5*3)씩 감소. 공격을 하지 않은 경우 공격력이 10(*3)씩 회복
+    // 오만함 LV2 : 다른 인물과의 친밀도 보정 -10(*2)
   },
   {
     // — 기본
@@ -12539,9 +13117,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "양 웬리의 양자. 트래버스법에 따라 양 웬리의 보호 아래 성장하며 뛰어난 전술 감각과 외교적 수완을 익혔다. 스파르타니안 조종사로도 두각을 나타내며 양 함대의 차세대 기대주로 여겨진다." },
-      { code: "En", context: "The adopted ward of Yang Wen-li. Raised under Yang's guardianship through the Travers Act, he developed exceptional tactical instincts and diplomatic skill. A gifted Spartanian pilot, he is regarded as the most promising of the next generation in Yang's fleet." },
-      { code: "Jp", context: "ヤン・ウェンリーの養子。トラバース法によりヤンの保護のもとで成長し、優れた戦術センスと外交的手腕を身につけた。スパルタニアンパイロットとしても頭角を現し、ヤン艦隊の次世代の期待の星と見なされている。" },
+      {
+        code: "Kr",
+        context:
+          "양 웬리의 양자. 트래버스법에 따라 양 웬리의 보호 아래 성장하며 뛰어난 전술 감각과 외교적 수완을 익혔다. 스파르타니안 조종사로도 두각을 나타내며 양 함대의 차세대 기대주로 여겨진다.",
+      },
+      {
+        code: "En",
+        context:
+          "The adopted ward of Yang Wen-li. Raised under Yang's guardianship through the Travers Act, he developed exceptional tactical instincts and diplomatic skill. A gifted Spartanian pilot, he is regarded as the most promising of the next generation in Yang's fleet.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ヤン・ウェンリーの養子。トラバース法によりヤンの保護のもとで成長し、優れた戦術センスと外交的手腕を身につけた。スパルタニアンパイロットとしても頭角を現し、ヤン艦隊の次世代の期待の星と見なされている。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -12743,7 +13333,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
-    desc: [{ code: "Kr", context: "" }],  // 이븐 샤마
+    desc: [{ code: "Kr", context: "" }], // 이븐 샤마
     // — 직업
     // — 트레잇
   },
@@ -12811,9 +13401,21 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [
-      { code: "Kr", context: "알타이르 VII의 아이. 얼음을 깎아 장난감 보트를 만들어 놀던 모습이 알레 하이네센의 눈에 띄어, 드라이아이스로 우주선을 건조한다는 착상의 계기가 됐다. 그의 이름은 하이네센이 최초로 완성한 거대 우주선에 붙여져 역사에 남았다." },
-      { code: "En", context: "A child on Altair VII. His habit of carving ice boats caught the eye of Arle Heinessen, inspiring the idea of building spacecraft from dry ice. His name was bestowed on the first massive vessel Heinessen completed, earning him a place in history." },
-      { code: "Jp", context: "アルタイルⅦの子供。氷を削って手製のボートを作って遊ぶ姿がアーレ・ハイネセンの目に留まり、ドライアイスで宇宙船を建造するという発想のきっかけとなった。その名はハイネセンが完成させた最初の巨大宇宙船に冠され、歴史に刻まれた。" },
+      {
+        code: "Kr",
+        context:
+          "알타이르 VII의 아이. 얼음을 깎아 장난감 보트를 만들어 놀던 모습이 알레 하이네센의 눈에 띄어, 드라이아이스로 우주선을 건조한다는 착상의 계기가 됐다. 그의 이름은 하이네센이 최초로 완성한 거대 우주선에 붙여져 역사에 남았다.",
+      },
+      {
+        code: "En",
+        context:
+          "A child on Altair VII. His habit of carving ice boats caught the eye of Arle Heinessen, inspiring the idea of building spacecraft from dry ice. His name was bestowed on the first massive vessel Heinessen completed, earning him a place in history.",
+      },
+      {
+        code: "Jp",
+        context:
+          "アルタイルⅦの子供。氷を削って手製のボートを作って遊ぶ姿がアーレ・ハイネセンの目に留まり、ドライアイスで宇宙船を建造するという発想のきっかけとなった。その名はハイネセンが完成させた最初の巨大宇宙船に冠され、歴史に刻まれた。",
+      },
     ],
     // — 직업
     // 시민(JB_C001) LV0
@@ -13164,7 +13766,13 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
-    desc: [{ code: "Kr", context: "자유행성동맹 소속의 군인. 집단을 지도하는 역량과 인격을 갖추어 훌륭한 지휘관이 될 것이라는 평가를 받고 있다.\n    높은 군사적 식견과 능력도 가지고 있어, 그와 사관학교 동기인 양 웬리는 동기 중 가장 출세할 사람이라고 생각했다." }],
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 소속의 군인. 집단을 지도하는 역량과 인격을 갖추어 훌륭한 지휘관이 될 것이라는 평가를 받고 있다.\n    높은 군사적 식견과 능력도 가지고 있어, 그와 사관학교 동기인 양 웬리는 동기 중 가장 출세할 사람이라고 생각했다.",
+      },
+    ],
     // 사망 이후 시나리오에선 desc에 추가 '아스타테 회전에서 전사. 이후 양 웬리는 그의 이른 죽음을 두고두고 안타까워했다.'
     // — 직업
     // 참모(JB_M003) LV0
@@ -13275,9 +13883,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹의 반전운동가. 양 웬리의 사관학교 동창이자 절친한 친구인 진 로베르 랍의 연인. 전쟁으로 연인을 잃은 뒤 반전 평화운동에 헌신하며 욥 트류니히트의 선동 정치에 정면으로 맞섰다." },
-      { code: "En", context: "A pacifist activist of the Free Planets Alliance and the partner of Jean Robert Lapp, a close friend of Yang Wen-li. After losing her lover to war, she devoted herself to the anti-war peace movement and openly confronted the demagogic politics of Job Trunicht." },
-      { code: "Jp", context: "自由惑星同盟の反戦運動家。ヤン・ウェンリーの士官学校同窓で親友のジャン・ロベール・ラップの恋人。戦争で恋人を失った後、反戦平和運動に身を捧げ、ヨブ・トリューニヒトの扇動政治に真っ向から立ち向かった。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹의 반전운동가. 양 웬리의 사관학교 동창이자 절친한 친구인 진 로베르 랍의 연인. 전쟁으로 연인을 잃은 뒤 반전 평화운동에 헌신하며 욥 트류니히트의 선동 정치에 정면으로 맞섰다.",
+      },
+      {
+        code: "En",
+        context:
+          "A pacifist activist of the Free Planets Alliance and the partner of Jean Robert Lapp, a close friend of Yang Wen-li. After losing her lover to war, she devoted herself to the anti-war peace movement and openly confronted the demagogic politics of Job Trunicht.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟の反戦運動家。ヤン・ウェンリーの士官学校同窓で親友のジャン・ロベール・ラップの恋人。戦争で恋人を失った後、反戦平和運動に身を捧げ、ヨブ・トリューニヒトの扇動政治に真っ向から立ち向かった。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -13361,9 +13981,21 @@ export const CHAR_BASE = [
     // — 기타
     point: "0",
     desc: [
-      { code: "Kr", context: "테르누젠 보궐선거에 출마한 반전시민연합 후보. 친전파 후보 레이몬도 토리아티와 맞섰으나, 선거 직전 반전시민연합 선거본부에서 발생한 폭탄 테러로 살해당했다. 그의 죽음은 오히려 여론을 반전 쪽으로 돌려, 뒤를 이어 출마한 제시카 에드워즈가 압도적인 득표율로 당선되는 계기가 되었다." },
-      { code: "En", context: "Citizens' Anti-War Union candidate in the Terneuzen by-election. He ran against the pro-war candidate Raymond Tolliarty, but was murdered in a bombing of the Citizens' Anti-War Union's campaign office shortly before the election. His death swung public opinion sharply against the war, paving the way for his successor, Jessica Edwards, to win the seat in a landslide." },
-      { code: "Jp", context: "テルヌーゼン補欠選挙に出馬した反戦市民連合の候補者。親戦派候補のレイモンド・トリアッティと対立したが、選挙直前に反戦市民連合選挙事務所で発生した爆弾テロにより殺害された。その死はむしろ世論を反戦へと大きく動かし、後を継いで出馬したジェシカ・エドワーズが圧倒的な得票率で当選するきっかけとなった。" },
+      {
+        code: "Kr",
+        context:
+          "테르누젠 보궐선거에 출마한 반전시민연합 후보. 친전파 후보 레이몬도 토리아티와 맞섰으나, 선거 직전 반전시민연합 선거본부에서 발생한 폭탄 테러로 살해당했다. 그의 죽음은 오히려 여론을 반전 쪽으로 돌려, 뒤를 이어 출마한 제시카 에드워즈가 압도적인 득표율로 당선되는 계기가 되었다.",
+      },
+      {
+        code: "En",
+        context:
+          "Citizens' Anti-War Union candidate in the Terneuzen by-election. He ran against the pro-war candidate Raymond Tolliarty, but was murdered in a bombing of the Citizens' Anti-War Union's campaign office shortly before the election. His death swung public opinion sharply against the war, paving the way for his successor, Jessica Edwards, to win the seat in a landslide.",
+      },
+      {
+        code: "Jp",
+        context:
+          "テルヌーゼン補欠選挙に出馬した反戦市民連合の候補者。親戦派候補のレイモンド・トリアッティと対立したが、選挙直前に反戦市民連合選挙事務所で発生した爆弾テロにより殺害された。その死はむしろ世論を反戦へと大きく動かし、後を継いで出馬したジェシカ・エドワーズが圧倒的な得票率で当選するきっかけとなった。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -13377,7 +14009,7 @@ export const CHAR_BASE = [
     birth: "",
     death: "",
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
     brave: "",
@@ -13514,9 +14146,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 최고평의회 재정위원장. 양식 있는 화평파 정치인으로 제국령 침공 작전에 반대했다.\n    이후 최고평의회 의장까지 올랐으나 제국의 침공 앞에 속수무책으로 동맹을 잃었다." },
-      { code: "En", context: "Secretary of the Treasury of the Free Planets Alliance High Council. \n    A principled peace-faction politician who opposed the Imperial invasion. He later rose to Supreme Chairman but was powerless to prevent the Alliance's fall to the Empire." },
-      { code: "Jp", context: "自由惑星同盟最高評議会財政委員長。良識ある和平派政治家で帝国領侵攻作戦に反対した\n    後に最高評議会議長にまで昇り詰めたが、帝国の侵攻を前に為す術なく同盟を失った。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 최고평의회 재정위원장. 양식 있는 화평파 정치인으로 제국령 침공 작전에 반대했다.\n    이후 최고평의회 의장까지 올랐으나 제국의 침공 앞에 속수무책으로 동맹을 잃었다.",
+      },
+      {
+        code: "En",
+        context:
+          "Secretary of the Treasury of the Free Planets Alliance High Council. \n    A principled peace-faction politician who opposed the Imperial invasion. He later rose to Supreme Chairman but was powerless to prevent the Alliance's fall to the Empire.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟最高評議会財政委員長。良識ある和平派政治家で帝国領侵攻作戦に反対した\n    後に最高評議会議長にまで昇り詰めたが、帝国の侵攻を前に為す術なく同盟を失った。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -13651,9 +14295,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "시리우스 공화국의 군사 천재. 지구교를 상징하는 지구연방에 맞선 흑색함대의 공동 창설자이자 국방장관. 6,000척으로 2만 척의 적 함대를 격파한 베가 성계 전투 등 수많은 전공을 쌓았으나, 권력욕으로 쿠데타를 일으켰다가 실패해 처형됐다." },
-      { code: "En", context: "Military genius of the Sirius Republic and co-founder of the Black Fleet. As Minister of Defense, he crushed a 20,000-strong enemy fleet with only 6,000 ships at the Second Battle of Vega. He later attempted a military coup against Prime Minister Townshent but was executed for his failure." },
-      { code: "Jp", context: "シリウス共和国の軍事天才。黒色艦隊の共同創設者にして国防大臣。第二次ベガ星域会戦では6,000隻で2万隻の敵艦隊を撃破するなど多くの戦功を挙げた。しかし権力欲からタウンシェント首相にクーデターを起こし、失敗して処刑された。" },
+      {
+        code: "Kr",
+        context:
+          "시리우스 공화국의 군사 천재. 지구교를 상징하는 지구연방에 맞선 흑색함대의 공동 창설자이자 국방장관. 6,000척으로 2만 척의 적 함대를 격파한 베가 성계 전투 등 수많은 전공을 쌓았으나, 권력욕으로 쿠데타를 일으켰다가 실패해 처형됐다.",
+      },
+      {
+        code: "En",
+        context:
+          "Military genius of the Sirius Republic and co-founder of the Black Fleet. As Minister of Defense, he crushed a 20,000-strong enemy fleet with only 6,000 ships at the Second Battle of Vega. He later attempted a military coup against Prime Minister Townshent but was executed for his failure.",
+      },
+      {
+        code: "Jp",
+        context:
+          "シリウス共和国の軍事天才。黒色艦隊の共同創設者にして国防大臣。第二次ベガ星域会戦では6,000隻で2万隻の敵艦隊を撃破するなど多くの戦功を挙げた。しかし権力欲からタウンシェント首相にクーデターを起こし、失敗して処刑された。",
+      },
     ],
     // — 직업
     // 함대사령관(JB_M001) LV0
@@ -13763,9 +14419,21 @@ export const CHAR_BASE = [
     // — 기타
     point: "0",
     desc: [
-      { code: "Kr", context: "지구교의 수장이자 테라(지구)의 실질적 통치자. 광신적이지만 진심으로 테라이즘의 교리를 믿는 인물로, 매일 신도들에게 직접 영적 지도를 베풀었다. 796년 죽음을 맞이했으나, 부주교 드 빌리에가 그 영향력을 우려해 사망 사실을 은폐하고 세뇌시킨 대역(가짜 총대주교, CH_000004)으로 교체했다." },
-      { code: "En", context: "Supreme head of the Terraist Church and effective ruler of the planet Terra. Though fanatical, he was a genuine believer in Terraist doctrine and personally provided daily spiritual guidance to devout followers. He died around 796 UC, but Archbishop De Villie, fearing the loss of his influence, concealed his death and replaced him with a brainwashed impostor (the Fake Grand Bishop, CH_000004)." },
-      { code: "Jp", context: "地球教の首長であり、テラ（地球）の実質的な統治者。狂信的だが本人は心からテライズムの教義を信じ、毎日信徒に直接霊的指導を与えていた。796年頃に死去したが、その影響力の喪失を恐れた副主教ドゥ・ヴィリエが死を隠蔽し、洗脳した替え玉（偽総大主教、CH_000004）に置き換えた。" },
+      {
+        code: "Kr",
+        context:
+          "지구교의 수장이자 테라(지구)의 실질적 통치자. 광신적이지만 진심으로 테라이즘의 교리를 믿는 인물로, 매일 신도들에게 직접 영적 지도를 베풀었다. 796년 죽음을 맞이했으나, 부주교 드 빌리에가 그 영향력을 우려해 사망 사실을 은폐하고 세뇌시킨 대역(가짜 총대주교, CH_000004)으로 교체했다.",
+      },
+      {
+        code: "En",
+        context:
+          "Supreme head of the Terraist Church and effective ruler of the planet Terra. Though fanatical, he was a genuine believer in Terraist doctrine and personally provided daily spiritual guidance to devout followers. He died around 796 UC, but Archbishop De Villie, fearing the loss of his influence, concealed his death and replaced him with a brainwashed impostor (the Fake Grand Bishop, CH_000004).",
+      },
+      {
+        code: "Jp",
+        context:
+          "地球教の首長であり、テラ（地球）の実質的な統治者。狂信的だが本人は心からテライズムの教義を信じ、毎日信徒に直接霊的指導を与えていた。796年頃に死去したが、その影響力の喪失を恐れた副主教ドゥ・ヴィリエが死を隠蔽し、洗脳した替え玉（偽総大主教、CH_000004）に置き換えた。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -13907,9 +14575,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "라인하르트 폰 뮤젤의 절친한 친구이자 가장 신뢰하는 부관. 탁월한 전술 능력과 높은 도덕성을 겸비한 인물로, 라인하르트의 야망을 함께 지지하며 제국 최강의 함대를 이끌었다. SE796년 말, 쿠데타 음모에 맞서다 총격을 받고 전사했다." },
-      { code: "En", context: "Reinhard's closest friend and most trusted adjutant. Possessing both exceptional tactical ability and high moral character, he stood by Reinhard's ambitions and commanded a powerful fleet. He was shot and killed late in SE796 while opposing a coup attempt." },
-      { code: "Jp", context: "ラインハルト・フォン・ミューゼルの親友で最も信頼する副官。卓越した戦術能力と高い道徳性を兼ね備え、ラインハルトの野望を支えながら帝国最強の艦隊を率いた。SE796年末、クーデター陰謀に抗して銃撃を受け戦死した。" },
+      {
+        code: "Kr",
+        context:
+          "라인하르트 폰 뮤젤의 절친한 친구이자 가장 신뢰하는 부관. 탁월한 전술 능력과 높은 도덕성을 겸비한 인물로, 라인하르트의 야망을 함께 지지하며 제국 최강의 함대를 이끌었다. SE796년 말, 쿠데타 음모에 맞서다 총격을 받고 전사했다.",
+      },
+      {
+        code: "En",
+        context:
+          "Reinhard's closest friend and most trusted adjutant. Possessing both exceptional tactical ability and high moral character, he stood by Reinhard's ambitions and commanded a powerful fleet. He was shot and killed late in SE796 while opposing a coup attempt.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ラインハルト・フォン・ミューゼルの親友で最も信頼する副官。卓越した戦術能力と高い道徳性を兼ね備え、ラインハルトの野望を支えながら帝国最強の艦隊を率いた。SE796年末、クーデター陰謀に抗して銃撃を受け戦死した。",
+      },
     ],
     // — 직업
     // 함대사령관(JB_M001) LV0
@@ -13955,9 +14635,21 @@ export const CHAR_BASE = [
     loc: "",
     point: "2000",
     desc: [
-      { code: "Kr", context: "시리우스 공화국의 비밀공작국장. 음악 작곡을 전공하던 청년이 가족을 지구연방군에게 잃은 후 반지구 운동에 합류해 탁월한 정보 조작과 선전 공작으로 흑색함대의 승리를 음지에서 지지했다. 전후 고향에 음악학교를 세웠으나, 독재자로 변한 동료에게 처형됐다." },
-      { code: "En", context: "Director of Covert Affairs for the Sirius Republic. A music composition student who lost his family to the UEG military and joined the Anti-Earth Movement, he supported the Black Fleet's victories through brilliant intelligence manipulation and propaganda. After the war he founded a music conservatory on his home planet but was executed by a former ally turned dictator." },
-      { code: "Jp", context: "シリウス共和国の秘密工作局長。音楽作曲を専攻していた青年が地球連邦軍に家族を奪われ反地球運動に加わり、卓越した情報操作と宣伝工作で黒色艦隊の勝利を陰から支えた。戦後は故郷に音楽学校を設立したが、独裁者へと変貌した元同志によって処刑された。" },
+      {
+        code: "Kr",
+        context:
+          "시리우스 공화국의 비밀공작국장. 음악 작곡을 전공하던 청년이 가족을 지구연방군에게 잃은 후 반지구 운동에 합류해 탁월한 정보 조작과 선전 공작으로 흑색함대의 승리를 음지에서 지지했다. 전후 고향에 음악학교를 세웠으나, 독재자로 변한 동료에게 처형됐다.",
+      },
+      {
+        code: "En",
+        context:
+          "Director of Covert Affairs for the Sirius Republic. A music composition student who lost his family to the UEG military and joined the Anti-Earth Movement, he supported the Black Fleet's victories through brilliant intelligence manipulation and propaganda. After the war he founded a music conservatory on his home planet but was executed by a former ally turned dictator.",
+      },
+      {
+        code: "Jp",
+        context:
+          "シリウス共和国の秘密工作局長。音楽作曲を専攻していた青年が地球連邦軍に家族を奪われ反地球運動に加わり、卓越した情報操作と宣伝工作で黒色艦隊の勝利を陰から支えた。戦後は故郷に音楽学校を設立したが、独裁者へと変貌した元同志によって処刑された。",
+      },
     ],
     // — 직업
     // 참모(JB_M003) LV0
@@ -14210,9 +14902,21 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹의 군인. 798년 5월경까지 사관학교 교수로 재직했다. 이후 군에 복귀해 뷰코크 휘하 참모장으로 란테마리오 회전에 참전했으며, 패전이 확실해지자 뷰코크가 자결하려는 것을 권총의 탄창을 미리 제거해 막았다. 바알라트 조약 체결 후 뷰코크가 퇴역하자 임시로 우주함대사령장관 직을 대행했으며, 이후 레벨로 의장의 요청으로 정식 사령장관이 되어 동맹군 최후의 함대를 지휘했다." },
-      { code: "En", context: "An officer of the Free Planets Alliance. He served as a professor at the Officers' Academy until around May 798 UC. He later returned to military service as Chief of Staff under Admiral Bewcock during the Battle of Rantemario, and when defeat became inevitable, he prevented Bewcock from taking his own life by having removed the clip from his weapon beforehand. After the Treaty of Ba'alat, when Bewcock retired, Chung served as interim Space Fleet Commander, and was later asked by Chairman Rebelo to take official command, leading the Alliance's last fleet." },
-      { code: "Jp", context: "自由惑星同盟の軍人。798年5月頃まで士官学校教授として在職した。後に軍に復帰しビュコック提督の下で参謀長としてランテマリオ会戦に参戦、敗戦が確実となるとビュコックが自決しようとするのを事前に銃の弾倉を抜いておくことで阻止した。バーラト条約締結後にビュコックが退役すると臨時で宇宙艦隊司令長官代理を務め、後にレベロ議長の要請で正式な司令長官となり同盟軍最後の艦隊を指揮した。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹의 군인. 798년 5월경까지 사관학교 교수로 재직했다. 이후 군에 복귀해 뷰코크 휘하 참모장으로 란테마리오 회전에 참전했으며, 패전이 확실해지자 뷰코크가 자결하려는 것을 권총의 탄창을 미리 제거해 막았다. 바알라트 조약 체결 후 뷰코크가 퇴역하자 임시로 우주함대사령장관 직을 대행했으며, 이후 레벨로 의장의 요청으로 정식 사령장관이 되어 동맹군 최후의 함대를 지휘했다.",
+      },
+      {
+        code: "En",
+        context:
+          "An officer of the Free Planets Alliance. He served as a professor at the Officers' Academy until around May 798 UC. He later returned to military service as Chief of Staff under Admiral Bewcock during the Battle of Rantemario, and when defeat became inevitable, he prevented Bewcock from taking his own life by having removed the clip from his weapon beforehand. After the Treaty of Ba'alat, when Bewcock retired, Chung served as interim Space Fleet Commander, and was later asked by Chairman Rebelo to take official command, leading the Alliance's last fleet.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟の軍人。798年5月頃まで士官学校教授として在職した。後に軍に復帰しビュコック提督の下で参謀長としてランテマリオ会戦に参戦、敗戦が確実となるとビュコックが自決しようとするのを事前に銃の弾倉を抜いておくことで阻止した。バーラト条約締結後にビュコックが退役すると臨時で宇宙艦隊司令長官代理を務め、後にレベロ議長の要請で正式な司令長官となり同盟軍最後の艦隊を指揮した。",
+      },
     ],
     // — 직업
     // 시민(JB_C001) LV0
@@ -14287,7 +14991,7 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
-     //은하제국의 군인으로, 최종 계급은 중장.
+    //은하제국의 군인으로, 최종 계급은 중장.
     // — 직업
     // — 트레잇
   },
@@ -14321,7 +15025,7 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
-     // 정통정부의 내각서기관장. 남작. OVA 성우는 후쿠다 노부야키. 제국군이 침공하자 내각회의에 출석하여 라트부르흐, 렘샤이트와 정통정부의 미래를 논했으나 답을 얻지 못하고 도망쳤다. 은하제국군의 제독 카르나프와는 동명이인.
+    // 정통정부의 내각서기관장. 남작. OVA 성우는 후쿠다 노부야키. 제국군이 침공하자 내각회의에 출석하여 라트부르흐, 렘샤이트와 정통정부의 미래를 논했으나 답을 얻지 못하고 도망쳤다. 은하제국군의 제독 카르나프와는 동명이인.
     // — 직업
     // — 트레잇
   },
@@ -14627,9 +15331,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 최고평의회 서기. 평의회 행정 및 의사록 관리를 담당하는 실무형 관료." },
-      { code: "En", context: "Chief Clerk of the Free Planets Alliance High Council. A practical bureaucrat responsible for council administration and the management of minutes." },
-      { code: "Jp", context: "自由惑星同盟最高評議会書記。評議会の行政および議事録管理を担う実務型官僚。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 최고평의회 서기. 평의회 행정 및 의사록 관리를 담당하는 실무형 관료.",
+      },
+      {
+        code: "En",
+        context:
+          "Chief Clerk of the Free Planets Alliance High Council. A practical bureaucrat responsible for council administration and the management of minutes.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟最高評議会書記。評議会の行政および議事録管理を担う実務型官僚。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -14649,18 +15365,7 @@ export const CHAR_BASE = [
       { code: "En", context: "Kempff" },
       { code: "Jp", context: "ケンプ" },
     ],
-    searchKeys: [
-      "칼",
-      "구스타프",
-      "켐프",
-      "켄프",
-      "Karl",
-      "Gustav",
-      "Kempff",
-      "カール",
-      "グスタフ",
-      "ケンプ",
-    ],
+    searchKeys: ["켄프"],
     // SE 762. 8. 19.~ SE 798. 5. ?? (36세)
     birth: "SE|762.08.19",
     death: "SE|798.05.07",
@@ -14687,14 +15392,11 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
-    // 트레잇
-    // 환상의 격추왕(고유) : 함대기 타입의 공격 시, 피해량 + 15%
-
-    // 직업
+    // — 직업
     // 소장 : 군사직
     // 평민 : 제국 시민
-    // — 직업
     // — 트레잇
+    // 환상의 격추왕(고유) : 함대기 타입의 공격 시, 피해량 + 15%
   },
   {
     // — 기본
@@ -14705,7 +15407,7 @@ export const CHAR_BASE = [
     birth: "",
     death: "",
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
     brave: "",
@@ -14795,16 +15497,17 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  // 칼 에두아르트 바이어라인 Karl Edward Bayerlein · カール・エドワルド・バイエルライン
   {
     // — 기본
     code: "CH_000413",
-    name: [{ code: "Kr", context: "칼 에두아르트 바이에르라인" }],
-    nick: [{ code: "Kr", context: "" }],
-    searchKeys: [],
+    name: [{ code: "Kr", context: "칼 에두아르트 바이어라인" }],
+    nick: [{ code: "Kr", context: "바이어라인" }],
+    searchKeys: ["에드왈드", "바이엘라인", "바이에르라인"],
     birth: "",
     death: "",
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
     brave: "",
@@ -15057,9 +15760,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "시리우스 공화국 초대 수상이자 지구-시리우스 전쟁의 영웅. 카리스마 넘치는 지도자로 식민지 세계를 규합해 지구연방에 맞선 반지구 운동을 이끌었다. 안정적인 민주 정부를 꿈꿨으나 \"앞으로 5년만 더\"를 바라던 중 심장마비로 급서해, 그 죽음이 이후 3세기에 걸친 혼란의 씨앗이 됐다." },
-      { code: "En", context: "First Premier of the Sirius Republic and hero of the Earth–Sirius War. A charismatic visionary who united the colony worlds against the Earth United Government, he dreamed of building a stable democracy but died of a sudden heart attack while lamenting he needed \"five more years\" — a death whose consequences echoed across three centuries." },
-      { code: "Jp", context: "シリウス共和国初代首相にして地球・シリウス戦争の英雄。カリスマ的な指導者として植民地世界をまとめ地球連邦に抗する反地球運動を牽引した。安定した民主政府を夢見たが、「あと5年の命があれば」と嘆きながら心臓発作で急死し、その死が以後3世紀にわたる混乱の種となった。" },
+      {
+        code: "Kr",
+        context:
+          '시리우스 공화국 초대 수상이자 지구-시리우스 전쟁의 영웅. 카리스마 넘치는 지도자로 식민지 세계를 규합해 지구연방에 맞선 반지구 운동을 이끌었다. 안정적인 민주 정부를 꿈꿨으나 "앞으로 5년만 더"를 바라던 중 심장마비로 급서해, 그 죽음이 이후 3세기에 걸친 혼란의 씨앗이 됐다.',
+      },
+      {
+        code: "En",
+        context:
+          'First Premier of the Sirius Republic and hero of the Earth–Sirius War. A charismatic visionary who united the colony worlds against the Earth United Government, he dreamed of building a stable democracy but died of a sudden heart attack while lamenting he needed "five more years" — a death whose consequences echoed across three centuries.',
+      },
+      {
+        code: "Jp",
+        context:
+          "シリウス共和国初代首相にして地球・シリウス戦争の英雄。カリスマ的な指導者として植民地世界をまとめ地球連邦に抗する反地球運動を牽引した。安定した民主政府を夢見たが、「あと5年の命があれば」と嘆きながら心臓発作で急死し、その死が以後3世紀にわたる混乱の種となった。",
+      },
     ],
     // — 직업
     // 최고평의회의장(JB_F001) LV0
@@ -15301,9 +16016,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 최고평의회 정보교통위원장. 뇌물수수 혐의로 실각했다. 샌포드 내각의 부패를 상징하는 인물 중 하나." },
-      { code: "En", context: "Secretary of Transportation of the Free Planets Alliance High Council. She was forced out of office on bribery charges, becoming one of the symbols of the Sanford Administration's corruption." },
-      { code: "Jp", context: "自由惑星同盟最高評議会情報交通委員長。収賄容疑で失脚した。サンフォード内閣の腐敗を象徴する人物の一人。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 최고평의회 정보교통위원장. 뇌물수수 혐의로 실각했다. 샌포드 내각의 부패를 상징하는 인물 중 하나.",
+      },
+      {
+        code: "En",
+        context:
+          "Secretary of Transportation of the Free Planets Alliance High Council. She was forced out of office on bribery charges, becoming one of the symbols of the Sanford Administration's corruption.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟最高評議会情報交通委員長。収賄容疑で失脚した。サンフォード内閣の腐敗を象徴する人物の一人。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -15379,9 +16106,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "라인하르트 폰 뮤젤 제독단의 균형형 제독. 이젤론 요새 사령관을 역임하며 요새 방어의 핵심을 맡았으나, 양 웬리의 책략에 속아 요새를 내주는 실책을 범했다. 우루바시에서 라인하르트를 노린 암살 기도 현장에서 전사했다." },
-      { code: "En", context: "A well-rounded admiral in Reinhard's admiralty who served as commander of Iserlohn Fortress. Despite being a capable commander, he was deceived by Yang Wen-li's stratagem and lost the fortress. He died at Uruvasi during a large-scale assassination attempt targeting Reinhard." },
-      { code: "Jp", context: "ラインハルト提督団のバランス型提督。イゼルローン要塞司令官を歴任し要塞防衛の中核を担ったが、ヤン・ウェンリーの策略に嵌まり要塞を奪われる失態を犯した。ウルヴァシーでラインハルトを狙った暗殺計画の現場で戦死した。" },
+      {
+        code: "Kr",
+        context:
+          "라인하르트 폰 뮤젤 제독단의 균형형 제독. 이젤론 요새 사령관을 역임하며 요새 방어의 핵심을 맡았으나, 양 웬리의 책략에 속아 요새를 내주는 실책을 범했다. 우루바시에서 라인하르트를 노린 암살 기도 현장에서 전사했다.",
+      },
+      {
+        code: "En",
+        context:
+          "A well-rounded admiral in Reinhard's admiralty who served as commander of Iserlohn Fortress. Despite being a capable commander, he was deceived by Yang Wen-li's stratagem and lost the fortress. He died at Uruvasi during a large-scale assassination attempt targeting Reinhard.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ラインハルト提督団のバランス型提督。イゼルローン要塞司令官を歴任し要塞防衛の中核を担ったが、ヤン・ウェンリーの策略に嵌まり要塞を奪われる失態を犯した。ウルヴァシーでラインハルトを狙った暗殺計画の現場で戦死した。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -16209,9 +16948,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "은하연방 함대 제독. 미쉘 퀴프렌과 함께 특수 해적 토벌 부대를 지휘하여 은하계를 어지럽히던 해적 세력을 대부분 소탕했다. \"유능한 적과 무능한 아군을 동시에 상대하며 싸웠다\"는 말을 남긴 것으로 유명하며, 전역 후 의원이 되어 반부패 운동에 앞장섰다. 훗날 루돌프 폰 골덴바움이 해적을 소탕했을 때 그의 환생으로 불릴 만큼 영웅으로 칭송받는다." },
-      { code: "En", context: "Admiral of the Galactic Federation. Together with Michel Cuffren, he commanded a special anti-piracy task force that eliminated most of the pirate threat destabilizing the galaxy. Famous for his remark \"I had competent enemies in front of me and incompetent allies behind me, and had to fight both at once,\" he later entered parliament as an anti-corruption advocate and became so legendary that Rudolf von Goldenbaum was called his reincarnation." },
-      { code: "Jp", context: "銀河連邦の艦隊提督。ミシェル・キュフランとともに特別海賊討伐艦隊を指揮し、銀河系を乱す海賊勢力のほとんどを掃討した。「有能な敵と無能な味方の双方と戦わねばならなかった」という言葉で知られ、退役後は議会に転身して反腐敗運動を率いた。後にルドルフ・フォン・ゴールデンバウムが海賊を討伐した際、彼の生まれ変わりと称されるほどの英雄として語り継がれている。" },
+      {
+        code: "Kr",
+        context:
+          '은하연방 함대 제독. 미쉘 퀴프렌과 함께 특수 해적 토벌 부대를 지휘하여 은하계를 어지럽히던 해적 세력을 대부분 소탕했다. "유능한 적과 무능한 아군을 동시에 상대하며 싸웠다"는 말을 남긴 것으로 유명하며, 전역 후 의원이 되어 반부패 운동에 앞장섰다. 훗날 루돌프 폰 골덴바움이 해적을 소탕했을 때 그의 환생으로 불릴 만큼 영웅으로 칭송받는다.',
+      },
+      {
+        code: "En",
+        context:
+          'Admiral of the Galactic Federation. Together with Michel Cuffren, he commanded a special anti-piracy task force that eliminated most of the pirate threat destabilizing the galaxy. Famous for his remark "I had competent enemies in front of me and incompetent allies behind me, and had to fight both at once," he later entered parliament as an anti-corruption advocate and became so legendary that Rudolf von Goldenbaum was called his reincarnation.',
+      },
+      {
+        code: "Jp",
+        context:
+          "銀河連邦の艦隊提督。ミシェル・キュフランとともに特別海賊討伐艦隊を指揮し、銀河系を乱す海賊勢力のほとんどを掃討した。「有能な敵と無能な味方の双方と戦わねばならなかった」という言葉で知られ、退役後は議会に転身して反腐敗運動を率いた。後にルドルフ・フォン・ゴールデンバウムが海賊を討伐した際、彼の生まれ変わりと称されるほどの英雄として語り継がれている。",
+      },
     ],
     // — 직업
     // 함대사령관(JB_M001) LV0
@@ -16488,9 +17239,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "프리드리히 4세 치하 제국재상. 궁정 귀족 출신으로 군사력 없이 정치력만으로 권세를 유지했다. 프리드리히 4세 붕어 후 라인하르트와 손잡고 에르빈 요제프 2세를 옹립했으나, 립슈타트 전역 종전 후 라인하르트에게 체포되어 자결했다." },
-      { code: "En", context: "Imperial Prime Minister under Kaiser Friedrich IV. A court noble who maintained power through political acumen alone, with no military force of his own. After Friedrich IV's death he allied with Reinhard to place Erwin Josef II on the throne, but was arrested by Reinhard's forces after the Lippstadt Rebellion and forced to commit suicide." },
-      { code: "Jp", context: "フリードリヒ4世治下の帝国宰相。宮廷貴族出身で軍事力なく政治力のみで権勢を保った。フリードリヒ4世崩御後、ラインハルトと組んでエルウィン・ヨーゼフ2世を擁立したが、リップシュタット戦役終結後にラインハルトに逮捕され自決した。" },
+      {
+        code: "Kr",
+        context:
+          "프리드리히 4세 치하 제국재상. 궁정 귀족 출신으로 군사력 없이 정치력만으로 권세를 유지했다. 프리드리히 4세 붕어 후 라인하르트와 손잡고 에르빈 요제프 2세를 옹립했으나, 립슈타트 전역 종전 후 라인하르트에게 체포되어 자결했다.",
+      },
+      {
+        code: "En",
+        context:
+          "Imperial Prime Minister under Kaiser Friedrich IV. A court noble who maintained power through political acumen alone, with no military force of his own. After Friedrich IV's death he allied with Reinhard to place Erwin Josef II on the throne, but was arrested by Reinhard's forces after the Lippstadt Rebellion and forced to commit suicide.",
+      },
+      {
+        code: "Jp",
+        context:
+          "フリードリヒ4世治下の帝国宰相。宮廷貴族出身で軍事力なく政治力のみで権勢を保った。フリードリヒ4世崩御後、ラインハルトと組んでエルウィン・ヨーゼフ2世を擁立したが、リップシュタット戦役終結後にラインハルトに逮捕され自決した。",
+      },
     ],
     // 트레잇
 
@@ -17036,7 +17799,13 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
-    desc: [{ code: "Kr", context: "자유행성동맹 제4함대 사령관. 광범위한 영역에서의 전략을 생각하고 읽는 능력은 부족하나, 국지적 단위에서의 공방과 돌파에는 매우 능숙한 전술가이다.\n    무수한 전역에서 선봉을 맡아 많은 성과를 거둔 맹장으로 동맹군 내에서도 많은 신뢰를 받고 있다." }],
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 제4함대 사령관. 광범위한 영역에서의 전략을 생각하고 읽는 능력은 부족하나, 국지적 단위에서의 공방과 돌파에는 매우 능숙한 전술가이다.\n    무수한 전역에서 선봉을 맡아 많은 성과를 거둔 맹장으로 동맹군 내에서도 많은 신뢰를 받고 있다.",
+      },
+    ],
     // — 직업
     // 함대사령관(JB_M001) LV0
     // 중장(JB_MR004) LV0
@@ -17083,7 +17852,13 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
-    desc: [{ code: "Kr", context: "자유행성동맹 소속의 사령관. \n    역전의 용장이자 유능한 전술가라는 평을 들었지만 다소 독선적이고 성급한 성격을 가지고 있다." }],
+    desc: [
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 소속의 사령관. \n    역전의 용장이자 유능한 전술가라는 평을 들었지만 다소 독선적이고 성급한 성격을 가지고 있다.",
+      },
+    ],
     // — 직업
     // 함대사령관(JB_M001) LV0
     // 중장(JB_MR004) LV0
@@ -17172,9 +17947,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "라인하르트 폰 뮤젤의 핵심 참모. 의안을 가진 냉혹한 전략가로, 목적을 위해서라면 수단을 가리지 않는 철저한 합리주의자다. 골덴바움 왕조 타도와 로엔그람 체제 확립을 위해 암약하며, 제국군 내에서도 기피 대상이지만 라인하르트에게는 없어서는 안 될 존재다." },
-      { code: "En", context: "The core strategist of Reinhard von Lohengramm. A ruthless rationalist with artificial eyes who stops at nothing to achieve his ends. He works in the shadows to bring down the Goldenbaum Dynasty and establish the Lohengramm regime — feared and despised within the Imperial military, yet indispensable to Reinhard." },
-      { code: "Jp", context: "ラインハルト・フォン・ミューゼルの中枢参謀。義眼を持つ冷酷な戦略家で、目的のためには手段を選ばない徹底した合理主義者。ゴールデンバウム王朝打倒とローエングラム体制確立のために暗躍し、帝国軍内でも忌避される存在だが、ラインハルトには欠かせない人物である。" },
+      {
+        code: "Kr",
+        context:
+          "라인하르트 폰 뮤젤의 핵심 참모. 의안을 가진 냉혹한 전략가로, 목적을 위해서라면 수단을 가리지 않는 철저한 합리주의자다. 골덴바움 왕조 타도와 로엔그람 체제 확립을 위해 암약하며, 제국군 내에서도 기피 대상이지만 라인하르트에게는 없어서는 안 될 존재다.",
+      },
+      {
+        code: "En",
+        context:
+          "The core strategist of Reinhard von Lohengramm. A ruthless rationalist with artificial eyes who stops at nothing to achieve his ends. He works in the shadows to bring down the Goldenbaum Dynasty and establish the Lohengramm regime — feared and despised within the Imperial military, yet indispensable to Reinhard.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ラインハルト・フォン・ミューゼルの中枢参謀。義眼を持つ冷酷な戦略家で、目的のためには手段を選ばない徹底した合理主義者。ゴールデンバウム王朝打倒とローエングラム体制確立のために暗躍し、帝国軍内でも忌避される存在だが、ラインハルトには欠かせない人物である。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -17616,12 +18403,13 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "은하제국의 함대 지휘관. 아스타테 회전에서 라인하르트 함대의 분함대 사령관으로 참전했다." },
-      { code: "En", context: "A fleet commander of the Galactic Empire. Participated in the Battle of Astarte as a sub-fleet commander under Reinhard's fleet." },
-      { code: "Jp", context: "銀河帝国の艦隊指揮官。アスターテ会戦ではラインハルト艦隊の分艦隊司令官として参戦した。" },
+      {
+        code: "Kr",
+        context:
+          "은하제국의 함대 지휘관. 아스타테 회전에서 라인하르트 함대의 분함대 사령관으로 참전했다.",
+      },
     ],
     // — 직업
-    // 함대사령관(JB_M001) LV0
     // 소장(JB_MR005) LV0
     // — 트레잇
     // 독선(TRC_G_004) LV0
@@ -17994,9 +18782,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "마린도르프 백작가의 당주이자 힐데가르트 폰 마린도르프의 부친. 딸의 판단을 신뢰하여 라인하르트 폰 뮤젤을 지지하는 결단을 내렸으며, 제국 내 온건한 귀족 세력의 대표적 인물이다." },
-      { code: "En", context: "Count of the Mariendorf family and father of Hildegard von Mariendorf. Trusting his daughter's judgment, he made the pivotal decision to support Reinhard von Lohengramm, making him a representative figure of the moderate noble faction within the Empire." },
-      { code: "Jp", context: "マリーンドルフ伯爵家の当主にしてヒルデガルド・フォン・マリーンドルフの父。娘の判断を信頼してラインハルト・フォン・ミューゼルを支持する決断を下し、帝国内の穏健貴族勢力を代表する人物。" },
+      {
+        code: "Kr",
+        context:
+          "마린도르프 백작가의 당주이자 힐데가르트 폰 마린도르프의 부친. 딸의 판단을 신뢰하여 라인하르트 폰 뮤젤을 지지하는 결단을 내렸으며, 제국 내 온건한 귀족 세력의 대표적 인물이다.",
+      },
+      {
+        code: "En",
+        context:
+          "Count of the Mariendorf family and father of Hildegard von Mariendorf. Trusting his daughter's judgment, he made the pivotal decision to support Reinhard von Lohengramm, making him a representative figure of the moderate noble faction within the Empire.",
+      },
+      {
+        code: "Jp",
+        context:
+          "マリーンドルフ伯爵家の当主にしてヒルデガルド・フォン・マリーンドルフの父。娘の判断を信頼してラインハルト・フォン・ミューゼルを支持する決断を下し、帝国内の穏健貴族勢力を代表する人物。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -18039,9 +18839,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "양 웬리의 부관이자 아내. 사관학교 차석 졸업의 수재로 완전 기억력을 지녀 양 함대 운영의 핵심 역할을 담당했다. 양의 전략을 누구보다 깊이 이해하며 후에 이젤론 공화국의 정신적 지주가 된다." },
-      { code: "En", context: "Yang Wen-li's adjutant and wife. A brilliant officer who graduated second from the Alliance Academy, she possesses eidetic memory and served as a cornerstone of the 13th Fleet's operations. Understanding Yang's strategies more deeply than anyone, she later became a spiritual pillar of the Iserlohn Republic." },
-      { code: "Jp", context: "ヤン・ウェンリーの副官にして妻。士官学校次席卒業の秀才で完全記憶力を持ち、ヤン艦隊運営の中核を担った。ヤンの戦略を誰よりも深く理解し、後にイゼルローン共和国の精神的支柱となる。" },
+      {
+        code: "Kr",
+        context:
+          "양 웬리의 부관이자 아내. 사관학교 차석 졸업의 수재로 완전 기억력을 지녀 양 함대 운영의 핵심 역할을 담당했다. 양의 전략을 누구보다 깊이 이해하며 후에 이젤론 공화국의 정신적 지주가 된다.",
+      },
+      {
+        code: "En",
+        context:
+          "Yang Wen-li's adjutant and wife. A brilliant officer who graduated second from the Alliance Academy, she possesses eidetic memory and served as a cornerstone of the 13th Fleet's operations. Understanding Yang's strategies more deeply than anyone, she later became a spiritual pillar of the Iserlohn Republic.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ヤン・ウェンリーの副官にして妻。士官学校次席卒業の秀才で完全記憶力を持ち、ヤン艦隊運営の中核を担った。ヤンの戦略を誰よりも深く理解し、後にイゼルローン共和国の精神的支柱となる。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -18315,9 +19127,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "골덴바움 왕조 제36대 황제. '재의 황제'로 불리는 무능한 군주로 정치에 무관심하고 향락에 빠진 채 제국을 방치했다. 안네로제 폰 그뤼네발트를 후궁으로 들이며 라인하르트의 야망에 불을 지폈다. 796년 심장마비로 붕어하며 골덴바움 왕조 몰락의 도화선이 됐다." },
-      { code: "En", context: "The 36th Kaiser of the Goldenbaum Dynasty, known as the \"Kaiser of the Ashes.\" An indolent ruler who showed little interest in governance and allowed the Empire to drift while pursuing personal pleasure. By taking Annerose von Grünewald as his concubine, he ignited Reinhard von Lohengramm's ambitions. His death from a heart attack in 796 UC set off the chain of events that led to the dynasty's collapse." },
-      { code: "Jp", context: "ゴールデンバウム王朝第36代皇帝。「灰燼の皇帝」と呼ばれる無能な君主で、政治に無関心のまま享楽に耽り帝国を放置した。アンネローゼ・フォン・グリューネワルトを後宮に迎えることでラインハルトの野望に火を付けた。796年の心臓発作による崩御がゴールデンバウム王朝崩壊の導火線となった。" },
+      {
+        code: "Kr",
+        context:
+          "골덴바움 왕조 제36대 황제. '재의 황제'로 불리는 무능한 군주로 정치에 무관심하고 향락에 빠진 채 제국을 방치했다. 안네로제 폰 그뤼네발트를 후궁으로 들이며 라인하르트의 야망에 불을 지폈다. 796년 심장마비로 붕어하며 골덴바움 왕조 몰락의 도화선이 됐다.",
+      },
+      {
+        code: "En",
+        context:
+          "The 36th Kaiser of the Goldenbaum Dynasty, known as the \"Kaiser of the Ashes.\" An indolent ruler who showed little interest in governance and allowed the Empire to drift while pursuing personal pleasure. By taking Annerose von Grünewald as his concubine, he ignited Reinhard von Lohengramm's ambitions. His death from a heart attack in 796 UC set off the chain of events that led to the dynasty's collapse.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ゴールデンバウム王朝第36代皇帝。「灰燼の皇帝」と呼ばれる無能な君主で、政治に無関心のまま享楽に耽り帝国を放置した。アンネローゼ・フォン・グリューネワルトを後宮に迎えることでラインハルトの野望に火を付けた。796年の心臓発作による崩御がゴールデンバウム王朝崩壊の導火線となった。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -18360,9 +19184,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "흑색창기병대를 이끄는 제국군 최강의 공격형 제독. 불 같은 성격과 압도적인 돌격전술로 유명하며, 사령관으로서의 신중함보다는 전장의 기세를 중시한다. 무모함으로 인해 수차례 위기를 자초하기도 하지만, 그 화력과 돌진력은 제국군 내에서도 독보적이다." },
-      { code: "En", context: "Commander of the Black Lancers, the most powerful offensive fleet in the Imperial Navy. Renowned for his fiery temperament and overwhelming assault tactics, he values battlefield momentum over the caution expected of a commander. His recklessness has brought him close to court-martial more than once, yet his firepower and charge are unmatched in the Empire." },
-      { code: "Jp", context: "黒色槍騎兵隊を率いる帝国軍最強の攻撃型提督。激しい気性と圧倒的な突撃戦術で知られ、指揮官としての慎重さより戦場の勢いを重んじる。無謀さから幾度も危機を招くが、その火力と突進力は帝国軍内でも独歩の存在である。" },
+      {
+        code: "Kr",
+        context:
+          "흑색창기병대를 이끄는 제국군 최강의 공격형 제독. 불 같은 성격과 압도적인 돌격전술로 유명하며, 사령관으로서의 신중함보다는 전장의 기세를 중시한다. 무모함으로 인해 수차례 위기를 자초하기도 하지만, 그 화력과 돌진력은 제국군 내에서도 독보적이다.",
+      },
+      {
+        code: "En",
+        context:
+          "Commander of the Black Lancers, the most powerful offensive fleet in the Imperial Navy. Renowned for his fiery temperament and overwhelming assault tactics, he values battlefield momentum over the caution expected of a commander. His recklessness has brought him close to court-martial more than once, yet his firepower and charge are unmatched in the Empire.",
+      },
+      {
+        code: "Jp",
+        context:
+          "黒色槍騎兵隊を率いる帝国軍最強の攻撃型提督。激しい気性と圧倒的な突撃戦術で知られ、指揮官としての慎重さより戦場の勢いを重んじる。無謀さから幾度も危機を招くが、その火力と突進力は帝国軍内でも独歩の存在である。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -18409,9 +19245,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "은하제국의 함대 지휘관. 남작가 출신으로 아스타테 회전 당시 오딘에 머물렀다. 문벌귀족 특유의 혈통의식이 강하고 모략과 정치공작에 능하다." },
-      { code: "En", context: "A fleet officer of the Galactic Empire. Born into a Baron's house, he remained on Odin during the Battle of Astarte. Strongly conscious of his noble lineage, he is skilled in political intrigue and scheming." },
-      { code: "Jp", context: "銀河帝国の艦隊指揮官。男爵家出身でアスターテ会戦当時はオーディンに留まっていた。門閥貴族特有の血統意識が強く、謀略と政治工作に長けている。" },
+      {
+        code: "Kr",
+        context:
+          "은하제국의 함대 지휘관. 남작가 출신으로 아스타테 회전 당시 오딘에 머물렀다. 문벌귀족 특유의 혈통의식이 강하고 모략과 정치공작에 능하다.",
+      },
+      {
+        code: "En",
+        context:
+          "A fleet officer of the Galactic Empire. Born into a Baron's house, he remained on Odin during the Battle of Astarte. Strongly conscious of his noble lineage, he is skilled in political intrigue and scheming.",
+      },
+      {
+        code: "Jp",
+        context:
+          "銀河帝国の艦隊指揮官。男爵家出身でアスターテ会戦当時はオーディンに留まっていた。門閥貴族特有の血統意識が強く、謀略と政治工作に長けている。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -18766,7 +19614,7 @@ export const CHAR_BASE = [
       { code: "En", context: "Lang" },
       { code: "Jp", context: "ラング" },
     ],
-    searchKeys: ["하이드리히", "랭", "랑"],
+    searchKeys: ["랭"],
     birth: "SE|754.05.24",
     death: "SE|801.05.18",
     // — 성향
@@ -18793,9 +19641,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "골덴바움 왕조 사회질서유지국(이후 내무안전부) 국장. 비밀경찰 조직의 수장으로 \"51 중 26을 확보하면 51을, 나아가 100을 지배할 수 있다\"는 소수지배론을 신봉하는 모략가다. 온화한 외모와 어울리지 않게 음험한 정치공작에 능하며, 로엔그람 왕조 출범 이후에도 자리를 보전한 몇 안 되는 구체제 관료다." },
-      { code: "En", context: "Director of the Department of Social Discipline (later the Internal Security Department) under the Goldenbaum Dynasty. As chief of the Empire's secret police, he is a calculating schemer who subscribes to the theory that control of a minority within a majority secures control of the whole. Despite his disarmingly gentle appearance, he is highly skilled in covert political manoeuvring, and was one of the few officials of the old regime to retain his post after the rise of the Lohengramm Dynasty." },
-      { code: "Jp", context: "ゴールデンバウム王朝社会秩序維持局（後の内務安全部）局長。秘密警察組織の長として「51のうち26を確保すれば51を、さらに100を支配できる」という少数支配論を信奉する策謀家である。穏やかな外見に似合わず陰険な政治工作に長け、ローエングラム王朝成立後も地位を保った数少ない旧体制官僚の一人。" },
+      {
+        code: "Kr",
+        context:
+          '골덴바움 왕조 사회질서유지국(이후 내무안전부) 국장. 비밀경찰 조직의 수장으로 "51 중 26을 확보하면 51을, 나아가 100을 지배할 수 있다"는 소수지배론을 신봉하는 모략가다. 온화한 외모와 어울리지 않게 음험한 정치공작에 능하며, 로엔그람 왕조 출범 이후에도 자리를 보전한 몇 안 되는 구체제 관료다.',
+      },
+      {
+        code: "En",
+        context:
+          "Director of the Department of Social Discipline (later the Internal Security Department) under the Goldenbaum Dynasty. As chief of the Empire's secret police, he is a calculating schemer who subscribes to the theory that control of a minority within a majority secures control of the whole. Despite his disarmingly gentle appearance, he is highly skilled in covert political manoeuvring, and was one of the few officials of the old regime to retain his post after the rise of the Lohengramm Dynasty.",
+      },
+      {
+        code: "Jp",
+        context:
+          "ゴールデンバウム王朝社会秩序維持局（後の内務安全部）局長。秘密警察組織の長として「51のうち26を確保すれば51を、さらに100を支配できる」という少数支配論を信奉する策謀家である。穏やかな外見に似合わず陰険な政治工作に長け、ローエングラム王朝成立後も地位を保った数少ない旧体制官僚の一人。",
+      },
     ],
     // — 직업
     // 평민(JB_N007) LV0
@@ -19012,9 +19872,21 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "은하제국의 함대 지휘관. 남작가 출신으로 아스타테 회전 당시 이젤론 요새 주둔함대 사령관을 맡았다. 토마 폰 슈토크하우젠과 함께 이젤론을 양분하여 지휘했다. 가문의 격을 중시하는 독선적인 성격으로, 자존심을 앞세워 부하를 희생시키는 졸장으로도 평가받는다." },
-      { code: "En", context: "A fleet officer of the Galactic Empire. Born into a Baron's house, he commanded the garrisoned fleet of Iserlohn Fortress during the Battle of Astarte, splitting command of the fortress with Thoma von Stockhausen. A self-important commander who prized his noble status, he is also remembered as a mediocre officer who sacrificed his subordinates out of wounded pride." },
-      { code: "Jp", context: "銀河帝国の艦隊指揮官。男爵家出身でアスターテ会戦当時はイゼルローン要塞駐留艦隊司令官を務めた。トーマ・フォン・シュトックハウゼンとともにイゼルローンの指揮を二分した。家門の格を重んじる独善的な性格で、自尊心のために部下を犠牲にした凡将としても評される。" },
+      {
+        code: "Kr",
+        context:
+          "은하제국의 함대 지휘관. 남작가 출신으로 아스타테 회전 당시 이젤론 요새 주둔함대 사령관을 맡았다. 토마 폰 슈토크하우젠과 함께 이젤론을 양분하여 지휘했다. 가문의 격을 중시하는 독선적인 성격으로, 자존심을 앞세워 부하를 희생시키는 졸장으로도 평가받는다.",
+      },
+      {
+        code: "En",
+        context:
+          "A fleet officer of the Galactic Empire. Born into a Baron's house, he commanded the garrisoned fleet of Iserlohn Fortress during the Battle of Astarte, splitting command of the fortress with Thoma von Stockhausen. A self-important commander who prized his noble status, he is also remembered as a mediocre officer who sacrificed his subordinates out of wounded pride.",
+      },
+      {
+        code: "Jp",
+        context:
+          "銀河帝国の艦隊指揮官。男爵家出身でアスターテ会戦当時はイゼルローン要塞駐留艦隊司令官を務めた。トーマ・フォン・シュトックハウゼンとともにイゼルローンの指揮を二分した。家門の格を重んじる独善的な性格で、自尊心のために部下を犠牲にした凡将としても評される。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -19062,7 +19934,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000535",
     name: [{ code: "Kr", context: "한스 에두아르트 베르겐그륀" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "베르겐그륀" }],
     searchKeys: [],
     birth: "",
     death: "",
@@ -19385,7 +20257,7 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
-     // 카프체란카 주둔기지의 대령.
+    // 카프체란카 주둔기지의 대령.
     // — 직업
     // — 트레잇
   },
@@ -19404,14 +20276,7 @@ export const CHAR_BASE = [
       { code: "En", context: "Lennenkampf" },
       { code: "Jp", context: "レンネンカンプ" },
     ],
-    searchKeys: [
-      "헬무트",
-      "렌넨캄프",
-      "Helmut",
-      "Lennenkampf",
-      "ヘルムート",
-      "レンネンカンプ",
-    ],
+    searchKeys: [],
     birth: "SE|763.06.23", // 763 확실
     death: "SE|799.07.01", // 799.07 확실 (36세 사망)
     // — 성향
@@ -19742,9 +20607,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 최고평의회 인적자원위원장. 레벨로와 함께 제국령 침공 작전에 반대한 화평파. 전쟁이 사회 구조를 무너뜨릴 것이라 경고했으나 받아들여지지 않았다." },
-      { code: "En", context: "Secretary of Human Resources of the Free Planets Alliance High Council. A peace-faction member alongside Rebelo who opposed the Imperial invasion, warning that continued war would unravel the social fabric of the Alliance — a warning that went unheeded." },
-      { code: "Jp", context: "自由惑星同盟最高評議会人的資源委員長。レベロとともに帝国領侵攻作戦に反対した和平派。戦争が社会構造を崩壊させると警告したが受け入れられなかった。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 최고평의회 인적자원위원장. 레벨로와 함께 제국령 침공 작전에 반대한 화평파. 전쟁이 사회 구조를 무너뜨릴 것이라 경고했으나 받아들여지지 않았다.",
+      },
+      {
+        code: "En",
+        context:
+          "Secretary of Human Resources of the Free Planets Alliance High Council. A peace-faction member alongside Rebelo who opposed the Imperial invasion, warning that continued war would unravel the social fabric of the Alliance — a warning that went unheeded.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟最高評議会人的資源委員長。レベロとともに帝国領侵攻作戦に反対した和平派。戦争が社会構造を崩壊させると警告したが受け入れられなかった。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -19919,9 +20796,11 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "마린도르프 백작가의 외동딸. 라인하르트 폰 뮤젤의 야망을 일찍이 간파하고 자진하여 그의 책사가 된 탁월한 정치 전략가. 라인하르트 사후 신은하제국의 섭정 황후로서 제국을 이끌었다." },
-      { code: "En", context: "The sole daughter of Count Franz von Mariendorf. A brilliant political strategist who recognized Reinhard's ambitions early and voluntarily became his advisor. After Reinhard's death, she served as regent Kaiserin of the New Galactic Empire." },
-      { code: "Jp", context: "マリーンドルフ伯爵家の一人娘。ラインハルトの野望をいち早く見抜き、自ら彼の策士となった卓越した政治戦略家。ラインハルト没後は新銀河帝国の摂政皇后として帝国を率いた。" },
+      {
+        code: "Kr",
+        context:
+          "마린도르프 백작가의 외동딸. 라인하르트 폰 뮤젤의 야망을 일찍이 간파하고 자진하여 그의 책사가 된 탁월한 정치 전략가. 라인하르트 사후 신은하제국의 섭정 황후로서 제국을 이끌었다.",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -19998,9 +20877,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 최고평의회 부의장. 행정 경험이 풍부한 노련한 정치인으로, 의장 부재 시 평의회를 주재한다." },
-      { code: "En", context: "Vice Chairman of the Free Planets Alliance Supreme Council. A seasoned politician with extensive administrative experience, who presides over the Council in the Chairman's absence." },
-      { code: "Jp", context: "自由惑星同盟最高評議会副議長。豊富な行政経験を持つ老練な政治家で、議長不在時に評議会を主宰する。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 최고평의회 부의장. 행정 경험이 풍부한 노련한 정치인으로, 의장 부재 시 평의회를 주재한다.",
+      },
+      {
+        code: "En",
+        context:
+          "Vice Chairman of the Free Planets Alliance Supreme Council. A seasoned politician with extensive administrative experience, who presides over the Council in the Chairman's absence.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟最高評議会副議長。豊富な行政経験を持つ老練な政治家で、議長不在時に評議会を主宰する。",
+      },
     ],
     // — 직업
     // 최고평의회부의장(JB_F013) LV0
@@ -20044,9 +20935,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 최고평의회 천연자원위원장. 자원 배분 및 환경 정책을 총괄한다." },
-      { code: "En", context: "Chairman of the Natural Resources Committee of the Free Planets Alliance Supreme Council. Oversees resource allocation and environmental policy." },
-      { code: "Jp", context: "自由惑星同盟最高評議会天然資源委員長。資源配分と環境政策を統括する。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 최고평의회 천연자원위원장. 자원 배분 및 환경 정책을 총괄한다.",
+      },
+      {
+        code: "En",
+        context:
+          "Chairman of the Natural Resources Committee of the Free Planets Alliance Supreme Council. Oversees resource allocation and environmental policy.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟最高評議会天然資源委員長。資源配分と環境政策を統括する。",
+      },
     ],
     // — 직업
     // 천연자원위원장(JB_F005) LV0
@@ -20090,9 +20993,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 최고평의회 경제개발위원장. 동맹 경제 성장 및 산업 육성 정책을 담당한다." },
-      { code: "En", context: "Chairman of the Economic Development Committee of the Free Planets Alliance Supreme Council. Responsible for economic growth and industrial development policy." },
-      { code: "Jp", context: "自由惑星同盟最高評議会経済開発委員長。同盟の経済成長と産業育成政策を担当する。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 최고평의회 경제개발위원장. 동맹 경제 성장 및 산업 육성 정책을 담당한다.",
+      },
+      {
+        code: "En",
+        context:
+          "Chairman of the Economic Development Committee of the Free Planets Alliance Supreme Council. Responsible for economic growth and industrial development policy.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟最高評議会経済開発委員長。同盟の経済成長と産業育成政策を担当する。",
+      },
     ],
     // — 직업
     // 경제개발위원장(JB_F007) LV0
@@ -20136,9 +21051,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 최고평의회 지역사회개발위원장. 각 성계의 도시 개발 및 복지 정책을 담당한다." },
-      { code: "En", context: "Chairman of the Community Development Committee of the Free Planets Alliance Supreme Council. Responsible for urban development and welfare policy across star systems." },
-      { code: "Jp", context: "自由惑星同盟最高評議会地域社会開発委員長。各星系の都市開発と福祉政策を担当する。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 최고평의회 지역사회개발위원장. 각 성계의 도시 개발 및 복지 정책을 담당한다.",
+      },
+      {
+        code: "En",
+        context:
+          "Chairman of the Community Development Committee of the Free Planets Alliance Supreme Council. Responsible for urban development and welfare policy across star systems.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟最高評議会地域社会開発委員長。各星系の都市開発と福祉政策を担当する。",
+      },
     ],
     // — 직업
     // 지역사회개발위원장(JB_F008) LV0
@@ -20182,9 +21109,21 @@ export const CHAR_BASE = [
     loc: "230006P01",
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹 최고평의회 법질서위원장. 동맹 내 사법 및 치안 관련 정책을 총괄한다." },
-      { code: "En", context: "Chairman of the Law and Order Committee of the Free Planets Alliance Supreme Council. Oversees judicial and public security policy within the Alliance." },
-      { code: "Jp", context: "自由惑星同盟最高評議会法秩序委員長。同盟内の司法と治安関連政策を統括する。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹 최고평의회 법질서위원장. 동맹 내 사법 및 치안 관련 정책을 총괄한다.",
+      },
+      {
+        code: "En",
+        context:
+          "Chairman of the Law and Order Committee of the Free Planets Alliance Supreme Council. Oversees judicial and public security policy within the Alliance.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟最高評議会法秩序委員長。同盟内の司法と治安関連政策を統括する。",
+      },
     ],
     // — 직업
     // 법질서위원장(JB_F004) LV0
@@ -20229,9 +21168,21 @@ export const CHAR_BASE = [
     // — 기타
     point: "0",
     desc: [
-      { code: "Kr", context: "자유행성동맹군 인사국장. 뷰코크의 평가에 따르면 트류니히트 파벌에 약 70% 가담한 것으로 알려져 있다." },
-      { code: "En", context: "Director of the Personnel Bureau of the Free Planets Alliance Armed Forces. According to Admiral Bucock's assessment, he is regarded as roughly 70% aligned with the Trünicht faction." },
-      { code: "Jp", context: "自由惑星同盟軍人事局長。ビュコック提督の評によれば、トリューニヒト派閥に約70%加担していると見られている。" },
+      {
+        code: "Kr",
+        context:
+          "자유행성동맹군 인사국장. 뷰코크의 평가에 따르면 트류니히트 파벌에 약 70% 가담한 것으로 알려져 있다.",
+      },
+      {
+        code: "En",
+        context:
+          "Director of the Personnel Bureau of the Free Planets Alliance Armed Forces. According to Admiral Bucock's assessment, he is regarded as roughly 70% aligned with the Trünicht faction.",
+      },
+      {
+        code: "Jp",
+        context:
+          "自由惑星同盟軍人事局長。ビュコック提督の評によれば、トリューニヒト派閥に約70%加担していると見られている。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -20275,9 +21226,21 @@ export const CHAR_BASE = [
     // — 기타
     point: "0",
     desc: [
-      { code: "Kr", context: "본래 소설가였으나 정치평론가를 거쳐 정계에 입문했다. 욥 트류니히트의 측근으로서 트류니히트의 정적과 언론기관을 공격하는 역할을 맡았다." },
-      { code: "En", context: "Originally a novelist, he entered politics after a stint as a political commentator. As a close associate of Job Trünicht, he was tasked with attacking Trünicht's political rivals and hostile media outlets." },
-      { code: "Jp", context: "元は小説家であったが、政治評論家を経て政界に入った。ヨブ・トリューニヒトの側近として、トリューニヒトの政敵やマスコミを攻撃する役割を担った。" },
+      {
+        code: "Kr",
+        context:
+          "본래 소설가였으나 정치평론가를 거쳐 정계에 입문했다. 욥 트류니히트의 측근으로서 트류니히트의 정적과 언론기관을 공격하는 역할을 맡았다.",
+      },
+      {
+        code: "En",
+        context:
+          "Originally a novelist, he entered politics after a stint as a political commentator. As a close associate of Job Trünicht, he was tasked with attacking Trünicht's political rivals and hostile media outlets.",
+      },
+      {
+        code: "Jp",
+        context:
+          "元は小説家であったが、政治評論家を経て政界に入った。ヨブ・トリューニヒトの側近として、トリューニヒトの政敵やマスコミを攻撃する役割を担った。",
+      },
     ],
     // — 직업
     // — 트레잇
@@ -20318,7 +21281,7 @@ export const CHAR_BASE = [
     // — 기타
     point: "0",
     desc: [{ code: "Kr", context: "골덴바움조 은하제국 남작." }],
-     // 후일 정통정부의 내부상서로 취임. 제국군이 침공하자 도주
+    // 후일 정통정부의 내부상서로 취임. 제국군이 침공하자 도주
     // — 직업
     // — 트레잇
   },
@@ -20352,7 +21315,7 @@ export const CHAR_BASE = [
     // — 기타
     point: "0",
     desc: [{ code: "Kr", context: "골덴바움조 은하제국 자작." }],
-     // 정통정부의 재무상서. 제국군이 침공하자 헬더와 함께 도주
+    // 정통정부의 재무상서. 제국군이 침공하자 헬더와 함께 도주
     // — 직업
     // — 트레잇
   },
@@ -20420,7 +21383,7 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
-     //정통정부의 궁내상서. 남작. OVA 성우는 나토리 유키마사. 제국군이 침공하자 술에 취한 채로 내각회의에 출석하여 참석자들에게 독설을 퍼부었다. 마찬가지로 다음 날 도망쳤다.
+    //정통정부의 궁내상서. 남작. OVA 성우는 나토리 유키마사. 제국군이 침공하자 술에 취한 채로 내각회의에 출석하여 참석자들에게 독설을 퍼부었다. 마찬가지로 다음 날 도망쳤다.
     // — 직업
     // — 트레잇
   },
@@ -20454,7 +21417,7 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
-     //후작. 궁내성 고등참사관으로 베네뮌데 후작부인 사건 궁정재판에 참석하였다.
+    //후작. 궁내성 고등참사관으로 베네뮌데 후작부인 사건 궁정재판에 참석하였다.
     // — 직업
     // — 트레잇
   },
