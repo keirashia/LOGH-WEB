@@ -9,5 +9,6 @@ export const CHAR_JOBS = [
   // 양 웬리: 아스타테 회전 당시 제2함대 소장/전략고문
   // 13함대 사령관 임명은 아스타테 이후이므로 함대사령관(JB_M001) 미적용
   { charCode: "CH_000266", jobCode: "JB_MR005", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  { charCode: "CH_000266", jobCode: "JB_C001",  jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
 
 ]

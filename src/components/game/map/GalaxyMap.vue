@@ -111,10 +111,22 @@
           <circle v-if="s.underConstruction"
                   :r="vr(s)+3" fill="none" stroke="#f0b030"
                   stroke-width="0.8" stroke-dasharray="2 2" opacity=".7"/>
-          <text class="sys-lbl" text-anchor="middle"
-                :dy="vr(s) + 10 / scale"
-                :font-size="9 / scale"
-                :fill="fclr[s.faction]||'rgba(255,255,255,0.35)'">{{ s.name }}</text>
+          <g v-if="labelOpacity > 0" :opacity="labelOpacity" style="pointer-events:none">
+            <rect
+              :x="-(s.name.length * 9 / scale + 4 / scale)"
+              :y="vr(s) + 3 / scale"
+              :width="s.name.length * 18 / scale + 8 / scale"
+              :height="22 / scale"
+              :rx="2 / scale"
+              fill="rgba(4,8,16,0.80)"
+              :stroke="fclr[s.faction] || 'rgba(255,255,255,0.25)'"
+              :stroke-width="0.8 / scale"
+            />
+            <text class="sys-lbl" text-anchor="middle"
+                  :dy="vr(s) + 19 / scale"
+                  :font-size="18 / scale"
+                  :fill="fclr[s.faction] || 'rgba(255,255,255,0.9)'">{{ s.name }}</text>
+          </g>
         </g>
 
         <!-- 추가 미리보기 -->
@@ -601,6 +613,14 @@ const lanesComp = computed(() => {
 // ── 기존 헬퍼 ────────────────────────────────────────────────
 const fclr    = computed(() => game.fColors)
 const systems = computed(() => Object.values(game.systems))
+
+// 라벨 페이드: 줌아웃 시 서서히 사라짐
+// scale 0.75 이하에서 fade 시작, 0.55 이하에서 완전 소멸
+const LABEL_FADE_IN  = 0.75
+const LABEL_FADE_OUT = 0.55
+const labelOpacity = computed(() =>
+  Math.max(0, Math.min(1, (scale.value - LABEL_FADE_OUT) / (LABEL_FADE_IN - LABEL_FADE_OUT)))
+)
 
 
 function nr(s) {

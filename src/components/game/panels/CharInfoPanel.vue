@@ -30,32 +30,25 @@
         </div>
       </div>
 
-      <!-- 직책 목록 -->
-      <div class="job-list">
-        <div v-if="!charJobData.length" class="job-row mono dim">직책 없음</div>
-        <template v-else>
-          <div v-if="charJobData.length >= 2"
-               class="job-toggle-bar mono"
-               @click="jobsExpanded = !jobsExpanded">
-            <span>직책 {{ charJobData.length }}개</span>
-            <span class="job-arrow">{{ jobsExpanded ? '▲' : '▼' }}</span>
-          </div>
-          <div v-if="jobsExpanded || charJobData.length === 1"
-               v-for="j in charJobData" :key="j.jobCode"
-               class="job-row">
-            <span class="job-label serif">{{ j.nameKr }}</span>
-            <div class="job-right mono">
-              <span class="job-lv">Lv.{{ j.jobLevel }}</span>
-              <div class="job-exp-bar">
-                <div class="job-exp-fill" :style="{ width: `${j.jobExp}%` }" />
-              </div>
+      <!-- 직업 -->
+      <div class="trait-section">
+        <div class="section-label mono job-lbl-badge" style="margin-bottom:6px;font-size:12px;color:#fff">직업</div>
+        <div v-if="!charJobData.length" class="no-trait mono dim">직업 없음</div>
+        <div v-for="j in charJobData" :key="j.jobCode" class="job-chip">
+          <span class="chip-cat mono">{{ j.category }}</span>
+          <span class="chip-name serif">{{ j.nameKr }}</span>
+          <div class="job-right mono">
+            <span class="job-lv">Lv.{{ j.jobLevel }}</span>
+            <div class="job-exp-bar">
+              <div class="job-exp-fill" :style="{ width: `${j.jobExp}%` }" />
             </div>
           </div>
-        </template>
+        </div>
       </div>
 
       <!-- 트레잇 -->
       <div class="trait-section">
+        <div class="section-label mono" style="margin-bottom:4px;font-size:12px;color:#fff">트레잇</div>
         <TraitBadge
           v-for="t in charTraits" :key="t.traitCode"
           :trait="CHAR_TRAIT_MAP[t.traitCode]"
@@ -123,17 +116,17 @@ const charJobData = computed(() => {
   const code = char.value?.code
   const jobs = char.value?.jobs ?? []
   return jobs.map(({ jobCode }) => {
-    const entry = CHAR_JOBS.find(j => j.charCode === code && j.jobCode === jobCode)
+    const entry  = CHAR_JOBS.find(j => j.charCode === code && j.jobCode === jobCode)
+    const jobDef = JOB_MAP[jobCode]
     return {
       jobCode,
-      nameKr:   JOB_MAP[jobCode]?.nameKr ?? jobCode,
-      jobLevel: entry?.jobLevel ?? 0,
-      jobExp:   entry?.jobExp   ?? 0,
+      nameKr:   jobDef?.nameKr  ?? jobCode,
+      category: jobDef?.category ?? '',
+      jobLevel: entry?.jobLevel  ?? 0,
+      jobExp:   entry?.jobExp    ?? 0,
     }
   })
 })
-
-const charJobLabels = computed(() => charJobData.value.map(j => j.nameKr))
 
 const USER_LANG = 'Kr'  // TODO: 유저 설정에서 읽기
 
@@ -177,8 +170,6 @@ const portraitBgStyle = computed(() => {
 })
 
 const charTraits = computed(() => char.value?.traits ?? [])
-
-const jobsExpanded = ref(false)
 
 // 행동력 슬롯 (항상 3개)
 const actionSlotDisplay = computed(() => {
@@ -294,41 +285,30 @@ function statClass(val) {
   word-break: break-all;
 }
 
-/* ── 직책 ──────────────────────────────────────────────────────── */
-.job-list {
-  border-bottom: 1px solid var(--bd);
+/* ── 직업 섹션 라벨 배지 ────────────────────────────────────── */
+.job-lbl-badge {
+  display: inline-block;
+  font-size: 12px; color: #fff; letter-spacing: 1px;
+  padding: 2px 10px;
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 3px;
+  background: rgba(255,255,255,.05);
 }
-.job-toggle-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 5px 14px;
-  font-size: 10px; letter-spacing: .5px; color: var(--td);
-  background: var(--bg3);
-  border-bottom: 1px solid var(--bd);
-  cursor: pointer; transition: color .13s;
+
+/* ── 직업 chip (TraitBadge 동일 스타일) ─────────────────────── */
+.job-chip {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 9px 12px;
+  background: var(--bg4); border: 1px solid var(--bd); border-radius: 4px;
 }
-.job-toggle-bar:hover { color: var(--t1); }
-.job-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 6px 14px;
-  font-size: 12px; letter-spacing: .5px;
-  color: var(--t1);
-  border-bottom: 1px solid rgba(255,255,255,.04);
+.chip-cat {
+  font-size: 9px; color: var(--td);
+  border: 1px solid var(--bd); padding: 1px 5px; border-radius: 2px;
+  flex-shrink: 0; letter-spacing: .5px;
 }
-.job-row:last-child { border-bottom: none; }
-.job-label { flex: 1; }
-.job-right {
-  display: flex; flex-direction: column; align-items: flex-end;
-  gap: 3px; flex-shrink: 0;
+.chip-name {
+  font-size: 12px; color: var(--t1); flex: 1; letter-spacing: .5px;
 }
-.job-lv { font-size: 10px; color: var(--t2); }
-.job-exp-bar {
-  width: 40px; height: 3px;
-  background: var(--bd); border-radius: 2px; overflow: hidden;
-}
-.job-exp-fill {
-  height: 100%; background: var(--tg); border-radius: 2px; transition: width .3s;
-}
-.job-arrow { font-size: 8px; color: var(--td); }
 
 /* ── 트레잇 ─────────────────────────────────────────────────────── */
 .trait-section {

@@ -150,6 +150,11 @@ export const CHAR_JOBS = [
     jobCode: "JB_MR005",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
+  {
+    charCode: "CH_000266",
+    jobCode: "JB_C001",
+    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+  },
   // 크리스토퍼 우드 (https://gineipaedia.com/wiki/Christpher_Wood)
   {
     charCode: "CH_000454",
