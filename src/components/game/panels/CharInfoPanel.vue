@@ -48,7 +48,7 @@
 
       <!-- 트레잇 -->
       <div class="trait-section">
-        <div class="section-label mono" style="margin-bottom:4px;font-size:12px;color:#fff">트레잇</div>
+        <div class="section-label mono job-lbl-badge" style="margin-bottom:4px;font-size:12px;color:#fff">트레잇</div>
         <TraitBadge
           v-for="t in charTraits" :key="t.traitCode"
           :trait="CHAR_TRAIT_MAP[t.traitCode]"
@@ -59,7 +59,7 @@
 
       <!-- 행동력 슬롯 -->
       <div class="action-section">
-        <div class="section-label mono dim">행동력</div>
+        <div class="section-label mono job-lbl-badge" style="margin-bottom:6px;font-size:12px;color:#fff">행동력</div>
         <div class="action-slots">
           <div v-for="(slot, i) in actionSlotDisplay" :key="i" class="action-slot"
                :class="{ filled: slot.used, empty: !slot.used }">
@@ -75,7 +75,7 @@
 
       <!-- 능력치 -->
       <div class="stat-section">
-        <div class="section-label mono dim">능력치</div>
+        <div class="section-label mono job-lbl-badge" style="margin-bottom:6px;font-size:12px;color:#fff">능력치</div>
         <div class="stat-list">
           <div v-for="s in STATS" :key="s.key" class="stat-row">
             <span class="stat-lbl mono dim">{{ s.short }}</span>
@@ -288,11 +288,13 @@ function statClass(val) {
 /* ── 직업 섹션 라벨 배지 ────────────────────────────────────── */
 .job-lbl-badge {
   display: inline-block;
+  width: 100%; text-align: center;
   font-size: 12px; color: #fff; letter-spacing: 1px;
   padding: 2px 10px;
   border: 1px solid rgba(255,255,255,.3);
   border-radius: 3px;
   background: rgba(255,255,255,.05);
+  box-sizing: border-box;
 }
 
 /* ── 직업 chip (TraitBadge 동일 스타일) ─────────────────────── */
