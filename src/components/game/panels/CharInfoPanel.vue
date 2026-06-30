@@ -76,9 +76,9 @@
       <!-- 능력치 -->
       <div class="stat-section">
         <div class="section-label mono job-lbl-badge" style="margin-bottom:6px;font-size:12px;color:#fff">능력치</div>
-        <div class="stat-list">
+        <div class="stat-grid">
           <div v-for="s in STATS" :key="s.key" class="stat-row">
-            <span class="stat-lbl mono dim">{{ s.short }}</span>
+            <span class="stat-lbl mono dim">{{ s.label }}</span>
             <div class="stat-bar-wrap">
               <div class="stat-bar">
                 <div class="stat-fill" :style="{ width: (char[s.key] ?? 0) + '%' }"
@@ -93,6 +93,7 @@
       </div>
 
     </template>
+
   </div>
 </template>
 
@@ -182,16 +183,16 @@ const actionSlotDisplay = computed(() => {
 })
 
 const STATS = [
-  { key: 'statCmd', short: 'CMD', label: '지휘' },
-  { key: 'statCsm', short: 'CSM', label: '카리스마' },
-  { key: 'statAtt', short: 'ATT', label: '공격' },
-  { key: 'statDef', short: 'DEF', label: '방어' },
-  { key: 'statFst', short: 'FST', label: '속도' },
-  { key: 'statMng', short: 'MNG', label: '관리' },
-  { key: 'statInf', short: 'INF', label: '정보' },
-  { key: 'statGfg', short: 'GFG', label: '지상전' },
-  { key: 'statAfg', short: 'AFG', label: '공중전' },
-  { key: 'statPlt', short: 'PLT', label: '정략' },
+  { key: 'statCmd', label: '통솔' },
+  { key: 'statCsm', label: '지휘' },
+  { key: 'statAtt', label: '공격' },
+  { key: 'statDef', label: '방어' },
+  { key: 'statFst', label: '기동' },
+  { key: 'statMng', label: '운영' },
+  { key: 'statInf', label: '정보' },
+  { key: 'statPlt', label: '정략' },
+  { key: 'statGfg', label: '지상' },
+  { key: 'statAfg', label: '공중' },
 ]
 
 function statClass(val) {
@@ -359,13 +360,17 @@ function statClass(val) {
   padding: 10px 14px;
   flex: 1;
 }
-.stat-list { display: flex; flex-direction: column; gap: 4px; }
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px 8px;
+}
 .stat-row {
-  display: flex; align-items: center; gap: 6px;
+  display: flex; align-items: center; gap: 4px;
 }
 .stat-lbl {
-  width: 30px; font-size: 9px; text-align: right; flex-shrink: 0;
-  letter-spacing: .3px;
+  font-size: 2.4vh; text-align: left; flex-shrink: 0;
+  white-space: nowrap; letter-spacing: .3px;
 }
 .stat-bar-wrap { flex: 1; }
 .stat-bar {
@@ -376,7 +381,7 @@ function statClass(val) {
   height: 100%; border-radius: 2px;
   transition: width .4s;
 }
-.stat-val { width: 24px; font-size: 10px; text-align: right; flex-shrink: 0; }
+.stat-val { width: 24px; font-size: 2.4vh; text-align: right; flex-shrink: 0; }
 
 /* stat 색상 */
 .stat-high     { color: var(--tg); }
