@@ -294,6 +294,25 @@ export function fncGetTraitInfo(traitCode) {
 }
 
 // ================================================================
+//  군인 여부 판정
+// ================================================================
+
+/**
+ * isActiveMilitary(char)
+ * 현역 군인 여부 반환.
+ * 조건: JB_MR* 계급 직업 보유 AND TRC_G_012(군은퇴) 트레잇 없음.
+ *
+ * @param {object} char  gameStore.characters[charCode] 엔트리
+ * @returns {boolean}
+ */
+export function isActiveMilitary(char) {
+  if (!char) return false
+  const hasMilitaryRank = char.jobs?.some(j => j.jobCode?.startsWith('JB_MR'))
+  const isRetired = char.traits?.some(t => t.traitCode === 'TRC_G_012')
+  return !!hasMilitaryRank && !isRetired
+}
+
+// ================================================================
 //  친밀도 계산
 // ================================================================
 

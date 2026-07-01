@@ -13,6 +13,7 @@
 // jobEdDate: 0, 직업의 종료턴
 // ================================================================
 // 직업 리스트는 제발 charCode, jobCode 순으로 정렬해주세요.
+// ※ JB_M001(함대사령관) / JB_M002(부관)은 fleetCharacterData.js에서 파생되므로 여기에 등록하지 말 것.
 
 
 
@@ -36,14 +37,6 @@ export const CHAR_JOBS = [
   // 라인하르트 폰 뮤젤 (로엔그람)
   {
     charCode: "CH_000064",
-    jobCode: "JB_M001",
-    jobLevel: 0,
-    jobExp: 0,
-    jobStDate: 0,
-    jobEdDate: 0,
-  },
-  {
-    charCode: "CH_000064",
     jobCode: "JB_MR002",
     jobLevel: 0,
     jobExp: 0,
@@ -61,34 +54,16 @@ export const CHAR_JOBS = [
   // 무어
   {
     charCode: "CH_000139",
-    jobCode: "JB_M001",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
-  {
-    charCode: "CH_000139",
     jobCode: "JB_MR004",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
   // 빌리바르트 요아힘 폰 메르카츠
   {
     charCode: "CH_000195",
-    jobCode: "JB_M001",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
-  {
-    charCode: "CH_000195",
     jobCode: "JB_MR002",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
   // 슈타덴
-  {
-    charCode: "CH_000223",
-    jobCode: "JB_M001",
-    jobLevel: 0,
-    jobExp: 0,
-    jobStDate: 0,
-    jobEdDate: 0,
-  },
   {
     charCode: "CH_000223",
     jobCode: "JB_MR004",
@@ -105,12 +80,7 @@ export const CHAR_JOBS = [
     jobStDate: 0,
     jobEdDate: 0,
   },
-  // 엘라흐
-  {
-    charCode: "CH_000290",
-    jobCode: "JB_M001",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
+  // 에를라흐
   {
     charCode: "CH_000290",
     jobCode: "JB_MR004",
@@ -131,20 +101,10 @@ export const CHAR_JOBS = [
   // 아달베르트 폰 파렌하이트
   {
     charCode: "CH_000233",
-    jobCode: "JB_M001",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
-  {
-    charCode: "CH_000233",
     jobCode: "JB_MR003",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
   // 양 웬리
-  {
-    charCode: "CH_000266",
-    jobCode: "JB_M001",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
   {
     charCode: "CH_000266",
     jobCode: "JB_MR005",
@@ -156,11 +116,6 @@ export const CHAR_JOBS = [
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
   // 크리스토퍼 우드 (https://gineipaedia.com/wiki/Christpher_Wood)
-  {
-    charCode: "CH_000454",
-    jobCode: "JB_M001",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
   {
     charCode: "CH_000454",
     jobCode: "JB_MR001",
@@ -181,11 +136,6 @@ export const CHAR_JOBS = [
   // 졸리오 프랑쿠르 (https://gineipaedia.com/wiki/Joliot_Frankul)
   {
     charCode: "CH_000381",
-    jobCode: "JB_M001",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
-  {
-    charCode: "CH_000381",
     jobCode: "JB_MR001",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
@@ -198,20 +148,10 @@ export const CHAR_JOBS = [
   // 파스톨레
   {
     charCode: "CH_000478",
-    jobCode: "JB_M001",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
-  {
-    charCode: "CH_000478",
     jobCode: "JB_MR004",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
   // 파에타
-  {
-    charCode: "CH_000479",
-    jobCode: "JB_M001",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
   {
     charCode: "CH_000479",
     jobCode: "JB_MR004",
@@ -231,20 +171,10 @@ export const CHAR_JOBS = [
   // 지크프리트 키르히아이스
   {
     charCode: "CH_000388",
-    jobCode: "JB_M001",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
-  {
-    charCode: "CH_000388",
     jobCode: "JB_MR004",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
   // 포겔
-  {
-    charCode: "CH_000494",
-    jobCode: "JB_M001",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
   {
     charCode: "CH_000494",
     jobCode: "JB_MR005",

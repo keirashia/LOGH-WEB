@@ -80,12 +80,12 @@ export function buildFleetsMap(fleetData = [], fleetCharData = [], fleetShipData
 
     result[fleet.faction].push({
       id:        fleet.fltCode,
-      name:      fleet.fltName,
+      name:      fleet.fltFullName ?? (Array.isArray(fleet.fltName) ? fleet.fltName.find(n => n.code === 'Kr')?.context : fleet.fltName) ?? '',
       commander: commander?.charCode ?? null,
       officers,
       ships:     totalShips,
       maxShips:  totalShips,
-      location:  fleet.fltLoc || null,
+      location:  fleet.location ?? fleet.fltLoc ?? null,
       status:    'standby',
       target:    null,
       upkeep:    Math.ceil(totalShips / 500),
@@ -129,6 +129,32 @@ export function fncGetCharFleet(charCode, fleetCharData = []) {
   const entry = fleetCharData.find(f => f.charCode === charCode)
   if (!entry) return { error: `함대 미배속: ${charCode}` }
   return { data: { ...entry } }
+}
+
+// type → 역할 레이블
+const _FLEET_TYPE_ROLE = { C: '사령관', O: '부관', S: '분함대 사령관' }
+
+/**
+ * getCharFleetRole(charCode, fleetData, fleetCharData, lang?)
+ * 인물의 함대 역할 레이블 반환. (예: "제2함대 사령관", "로엔그람 함대 부관")
+ * fleetCharData.fltCode는 6자리, fleetData.fltCode는 7자리이므로 startsWith로 매핑.
+ *
+ * @param {string}   charCode
+ * @param {object[]} fleetData       FLEET_DATA
+ * @param {object[]} fleetCharData   FLEET_CHARACTER_DATA
+ * @param {'Kr'}     [lang='Kr']
+ * @returns {string|null}  역할 레이블. 미배속이면 null.
+ */
+export function getCharFleetRole(charCode, fleetData = [], fleetCharData = [], lang = 'Kr') {
+  const entry = fleetCharData.find(fc => fc.charCode === charCode)
+  if (!entry) return null
+  const fleet = fleetData.find(f => f.fltCode.startsWith(entry.fltCode))
+  if (!fleet) return null
+  const ctx = Array.isArray(fleet.fltName)
+    ? fleet.fltName.find(n => n.code === lang)?.context ?? fleet.fltFullName ?? ''
+    : fleet.fltFullName ?? fleet.fltName ?? ''
+  const role = _FLEET_TYPE_ROLE[entry.type] ?? entry.type
+  return `${ctx} ${role}`
 }
 
 /**
