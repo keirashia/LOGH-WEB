@@ -143,7 +143,7 @@ export const CHAR_UNIQUE_TRAIT_MAP = (() => {
  * @param {object}   [options]
  * @param {object[]|null} [options.charList]        시나리오 CHAR_LIST (null이면 전체 CHAR_BASE 사용)
  * @param {object[]|null} [options.scenarioCharJobs] 시나리오별 직업 오버라이드 (null이면 base CHAR_JOBS만 사용)
- * @param {object[]}      [options.fleetCharData]   시나리오 FLEET_CHARACTER_DATA (소속 함대 연계)
+ * @param {object[]}      [options.fleetData]       시나리오 FLEET_DATA (소속 함대 연계)
  * @param {object[]}      [options.cliqueData]      시나리오 CLIQUE_DATA (소속 파벌 연계)
  *
  * @returns {{ [charCode: string]: object }}
@@ -151,7 +151,7 @@ export const CHAR_UNIQUE_TRAIT_MAP = (() => {
 export function buildCharactersMap({
   charList        = null,
   scenarioCharJobs = null,
-  fleetCharData   = [],
+  fleetData       = [],
   cliqueData      = [],
 } = {}) {
   // 1. 직업 소스: 시나리오 override → base CHAR_JOBS 보완
@@ -176,8 +176,10 @@ export function buildCharactersMap({
 
   // 4. 소속 함대 맵: { [charCode]: fltCode(6자리) }
   const fleetByChar = {}
-  for (const fc of fleetCharData) {
-    if (!fleetByChar[fc.charCode]) fleetByChar[fc.charCode] = fc.fltCode
+  for (const fleet of fleetData) {
+    for (const entry of (fleet.charList ?? [])) {
+      if (!fleetByChar[entry.charCode]) fleetByChar[entry.charCode] = fleet.fltCode
+    }
   }
 
   // 5. 소속 파벌 맵: { [charCode]: cliqueId }

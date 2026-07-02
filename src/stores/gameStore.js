@@ -16,8 +16,6 @@ const _GLOB_STAR_DETAIL   = import.meta.glob('/src/data/scenario/*/*/*/stars/sta
 const _GLOB_PLANET_DETAIL = import.meta.glob('/src/data/scenario/*/*/*/stars/planetDetail.js')
 const _GLOB_CHAR_JOBS     = import.meta.glob('/src/data/scenario/*/*/*/characters/charactersJobs.js')
 const _GLOB_FLEET_DATA    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetData.js')
-const _GLOB_FLEET_CHAR    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetCharacterData.js')
-const _GLOB_FLEET_SHIP    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetShipData.js')
 const _GLOB_FLEET_TRAIT   = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetTraitData.js')
 const _GLOB_CHAR_LIST     = import.meta.glob('/src/data/scenario/*/*/*/characters/charactersData.js')
 const _GLOB_CLIQUE_DATA   = import.meta.glob('/src/data/scenario/*/*/*/cliqueData.js')
@@ -26,15 +24,13 @@ async function _loadScenarioFiles(scId) {
   const [y, m, s] = scId.split('_')
   const base = `/src/data/scenario/${y}/${m}/${s}`
   const load = (glob, suf) => (glob[`${base}/${suf}`] ?? (() => Promise.resolve(null)))()
-  const [sd, pd, cj, cl, cld, fd, fcd, fsd, ftd] = await Promise.all([
+  const [sd, pd, cj, cl, cld, fd, ftd] = await Promise.all([
     load(_GLOB_STAR_DETAIL,   'stars/starDetail.js'),
     load(_GLOB_PLANET_DETAIL, 'stars/planetDetail.js'),
     load(_GLOB_CHAR_JOBS,     'characters/charactersJobs.js'),
     load(_GLOB_CHAR_LIST,     'characters/charactersData.js'),
     load(_GLOB_CLIQUE_DATA,   'cliqueData.js'),
     load(_GLOB_FLEET_DATA,    'fleet/fleetData.js'),
-    load(_GLOB_FLEET_CHAR,    'fleet/fleetCharacterData.js'),
-    load(_GLOB_FLEET_SHIP,    'fleet/fleetShipData.js'),
     load(_GLOB_FLEET_TRAIT,   'fleet/fleetTraitData.js'),
   ])
   return {
@@ -44,8 +40,6 @@ async function _loadScenarioFiles(scId) {
     charList:      cl?.CHAR_LIST               ?? null,
     cliqueData:    cld?.CLIQUE_DATA            ?? [],
     fleetData:     fd?.FLEET_DATA              ?? [],
-    fleetCharData: fcd?.FLEET_CHARACTER_DATA   ?? [],
-    fleetShipData: fsd?.FLEET_SHIP_DATA        ?? [],
     fleetTraitData:ftd?.FLEET_TRAIT_DATA       ?? [],
   }
 }
@@ -55,13 +49,13 @@ function buildState(scId, pf, extraData = {}) {
   const {
     starDetail = [], planetDetail = [],
     charJobs = null, charList = null, cliqueData = [],
-    fleetData = [], fleetCharData = [], fleetShipData = [],
+    fleetData = [],
   } = extraData
 
   const factions   = buildFactionsMap(sc.factions ?? ['REH', 'FPA', 'PZN'])
   const systems    = buildSystemsMap(starDetail, planetDetail)
-  const characters = buildCharactersMap({ charList, scenarioCharJobs: charJobs, fleetCharData, cliqueData })
-  const fleets     = buildFleetsMap(fleetData, fleetCharData, fleetShipData)
+  const characters = buildCharactersMap({ charList, scenarioCharJobs: charJobs, fleetData, cliqueData })
+  const fleets     = buildFleetsMap(fleetData)
 
   const resources = {}
   for (const [id, f] of Object.entries(factions)) {
@@ -159,6 +153,9 @@ export const useGameStore = defineStore('game', {
       this._actionSlots   = []
       this._processAgendas()
       this._income()
+      this._supply()
+      this._fleetMove()
+      this._morale()
       this._construct()
       this._events()
       this._ai()
@@ -199,39 +196,22 @@ export const useGameStore = defineStore('game', {
     },
 
     deployFleet(fleetId, targetId, opType) {
-      const fleet = this.pFleets.find(f => f.id === fleetId)
+      const fleet  = this.pFleets.find(f => f.id === fleetId)
       const target = this.systems[targetId]
       if (!fleet || !target || fleet.status !== 'standby') return false
 
-      // 해당 성계에 있는 적국 함대 탐색
-      const defenderFleets = []
-      Object.entries(this.fleets).forEach(([faction, fleets]) => {
-        if (faction !== this.playerFaction) {
-          fleets.filter(f => f.location === targetId).forEach(f => {
-            defenderFleets.push({ ...f, faction })
-          })
-        }
-      })
-
-      fleet.status = 'deployed'
-      fleet.target = targetId
-
-      if (defenderFleets.length > 0) {
-        // 전술전투로 전환
-        this._pendingBattle = {
-          attackerFleet:   { ...fleet, faction: this.playerFaction },
-          attackerFaction: this.playerFaction,
-          defenderFleets,
-          targetSystemId:  targetId,
-          opType,
-        }
-        this.addLog(`[출격] ${fleet.name} → ${target.name} ← 적 함대 감지, 전술전투 시작!`)
-        return 'tactical'
+      // 같은 성계: 기존 즉시 처리 유지
+      if (fleet.location === targetId) {
+        this._battle(fleet, target, opType)
+        return true
       }
 
-      // 방어 함대 없을 때 전략 해결
-      this.addLog(`[출격] ${fleet.name} → ${target.name} (${OPERATION_TYPES[opType]?.name})`)
-      this._battle(fleet, target, opType)
+      // 다른 성계: 이동 명령
+      fleet.status        = 'moving'
+      fleet.moveTarget    = targetId
+      fleet.moveTurnsLeft = 2        // TODO: LANES 거리 기반으로 교체
+      fleet.target        = targetId
+      this.addLog(`[이동] ${fleet.name} → ${target.name} (${fleet.moveTurnsLeft}턴)`)
       return true
     },
 
@@ -494,8 +474,8 @@ export const useGameStore = defineStore('game', {
       const idx = this.fleets[this.playerFaction].findIndex(f => f.id === fleetId)
       if (idx === -1) return false
       const fleet = this.fleets[this.playerFaction][idx]
-      if (fleet.status === 'deployed') {
-        this.addLog('⚠ [해산] 출격 중인 함대는 해산할 수 없습니다.')
+      if (fleet.status !== 'standby') {
+        this.addLog('⚠ [해산] 대기 중인 함대만 해산할 수 있습니다.')
         return false
       }
       // 잔여 함선 보상 환급
@@ -779,6 +759,79 @@ export const useGameStore = defineStore('game', {
         ;(this.fleets[f] || []).forEach(fl => { upkeepTotal += (fl.upkeep || 0) })
         this.resources[f].gold = Math.max(0, this.resources[f].gold + inc - upkeepTotal)
         if (f === this.playerFaction) this.addLog(`[수입] +${inc} / 유지비 -${upkeepTotal} (잔고 ${this.resources[f].gold})`)
+      })
+    },
+
+    _supply() {
+      Object.entries(this.fleets).forEach(([faction, fleets]) => {
+        fleets.forEach(fleet => {
+          const isAlly = this.systems[fleet.location]?.faction === faction
+
+          if (fleet.status === 'resupply') {
+            fleet.supply = Math.min(100, (fleet.supply ?? 100) + 20)
+            if (fleet.supply >= 100) fleet.status = 'standby'
+          } else if (isAlly && fleet.status === 'standby') {
+            fleet.supply = Math.min(100, (fleet.supply ?? 100) + 10)
+          } else if (!isAlly) {
+            fleet.supply = Math.max(0, (fleet.supply ?? 100) - 5)
+          }
+
+          if (faction === this.playerFaction && (fleet.supply ?? 100) <= 30)
+            this.addLog(`⚠ [보급] ${fleet.name} 보급 부족 (${fleet.supply})`)
+        })
+      })
+    },
+
+    _fleetMove() {
+      Object.entries(this.fleets).forEach(([faction, fleets]) => {
+        fleets.forEach(fleet => {
+          if (fleet.status !== 'moving') return
+          fleet.moveTurnsLeft = Math.max(0, (fleet.moveTurnsLeft ?? 0) - 1)
+          if (fleet.moveTurnsLeft > 0) return
+
+          // 도착
+          fleet.location   = fleet.moveTarget
+          fleet.moveTarget = null
+          fleet.status     = 'standby'
+          const sysName = this.systems[fleet.location]?.name ?? fleet.location
+          if (faction === this.playerFaction)
+            this.addLog(`[도착] ${fleet.name} → ${sysName}`)
+
+          // 적 함대 감지 → 전투
+          const enemies = []
+          Object.entries(this.fleets).forEach(([ef, eFleets]) => {
+            if (ef === faction) return
+            eFleets.filter(f => f.location === fleet.location).forEach(f =>
+              enemies.push({ ...f, faction: ef })
+            )
+          })
+          if (enemies.length) {
+            fleet.status = 'battle'
+            this._pendingBattle = {
+              attackerFleet:   { ...fleet, faction },
+              attackerFaction: faction,
+              defenderFleets:  enemies,
+              targetSystemId:  fleet.location,
+              opType:          'OCCUPATION',
+            }
+            if (faction === this.playerFaction)
+              this.addLog(`⚔ [전투] ${fleet.name} — 적 함대 감지`)
+          }
+        })
+      })
+    },
+
+    _morale() {
+      Object.entries(this.fleets).forEach(([faction, fleets]) => {
+        fleets.forEach(fleet => {
+          const isAlly = this.systems[fleet.location]?.faction === faction
+          if (fleet.status === 'standby' && isAlly)
+            fleet.moral = Math.min(100, (fleet.moral ?? 100) + 5)
+          if (fleet.status === 'damaged')
+            fleet.moral = Math.max(0, (fleet.moral ?? 100) - 10)
+          if ((fleet.supply ?? 100) < 30)
+            fleet.moral = Math.max(0, (fleet.moral ?? 100) - 5)
+        })
       })
     },
 

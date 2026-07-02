@@ -1,7 +1,7 @@
 // 경로: src/utils/fleetUtils.js
 // ================================================================
 //  fleetUtils.js — 함대 데이터 유틸리티
-//  수정: 2026-06-28
+//  수정: 2026-07-02
 //
 //  ■ 사용 범위
 //    게임 전 (로비·시나리오선택·초기화):
@@ -17,13 +17,11 @@
 //    flagshipData.js   → FLAGSHIP_DATA
 //    formationData.js  → FORMATION_DATA
 //    unitshipData.js   → UNIT_SHIP_DATA
-//    charactersData.js → CHAR_BASE_MAP (인물 정보 연계용)
 // ================================================================
 
 import { FLAGSHIP_DATA }  from '@/data/base/fleet/flagshipData'
 import { FORMATION_DATA } from '@/data/base/fleet/formationData'
 import { UNIT_SHIP_DATA } from '@/data/base/fleet/unitshipData'
-import { CHAR_BASE_MAP }  from '@/data/base/characters/charactersData'
 
 // ================================================================
 //  raw 데이터 re-export
@@ -50,45 +48,116 @@ export const UNIT_SHIP_MAP = Object.fromEntries(UNIT_SHIP_DATA.map(u => [u.shipC
 // ================================================================
 
 /**
- * buildFleetsMap(fleetData, fleetCharData, fleetShipData)
- * 시나리오 함대 파일 3종 → gameStore.fleets 초기값 생성.
- *
- * fltCode 불일치 규칙:
- *   fleetData    → 7자리 (예: FPA0020)
- *   fleetCharData, fleetShipData → 6자리 (예: FPA002)
- *   → fltCode.slice(0, 6)으로 매핑
- *
- * @param {object[]} fleetData       FLEET_DATA (함대 목록)
- * @param {object[]} fleetCharData   FLEET_CHARACTER_DATA (지휘관/부관)
- * @param {object[]} fleetShipData   FLEET_SHIP_DATA (함선 수)
- * @returns {{ REH: object[], FPA: object[], PZN: object[] }}
+ * getFltName(fleet, lang?)
+ * fltName 배열에서 지정 언어 context 반환. 없으면 Kr 폴백.
  */
-export function buildFleetsMap(fleetData = [], fleetCharData = [], fleetShipData = []) {
-  const result = { REH: [], FPA: [], PZN: [] }
-  if (!fleetData.length) return result
+export function getFltName(fleet, lang = 'Kr') {
+  if (!Array.isArray(fleet.fltName)) return fleet.fltName ?? ''
+  return fleet.fltName.find(n => n.code === lang)?.context
+      ?? fleet.fltName.find(n => n.code === 'Kr')?.context
+      ?? ''
+}
 
+/**
+ * computeFleetStats(fleet, charBaseMap)
+ * charList + charBaseMap 기반 함대 스탯 계산
+ * 규칙:
+ *   1. type=C 사령관 statCmd/statCsm 고정 (상한 미적용)
+ *   2. 전원(C+O) 각 스탯 max 선택
+ *   3. 각 스탯 = Math.min(선택값, statCsm)
+ */
+export function computeFleetStats(fleet, charBaseMap = {}) {
+  const list = fleet.charList ?? []
+  if (!list.length) return null
+
+  const cmdEntry = list.find(c => c.type === 'C')
+  const cmdr     = cmdEntry ? charBaseMap[cmdEntry.charCode] : null
+  const statCsm  = cmdr?.statCsm ?? 100
+  const statCmd  = cmdr?.statCmd ?? 0
+
+  const KEYS = ['statAtt','statDef','statFst','statMng','statInf','statGfg','statAfg','statPlt']
+  const chars = list.map(c => charBaseMap[c.charCode]).filter(Boolean)
+
+  const result = { statCmd, statCsm }
+  for (const key of KEYS) {
+    const maxVal = Math.max(0, ...chars.map(c => c[key] ?? 0))
+    result[key] = Math.min(maxVal, statCsm)
+  }
+  return result
+}
+
+/**
+ * getFleetAssignment(charCode, fleetData, lang?)
+ * 인물의 함대 직책 라벨 반환
+ * 반환 예: "제2함대 사령관", "로엔그람 함대 부관"
+ */
+export function getFleetAssignment(charCode, fleetData = [], lang = 'Kr') {
   for (const fleet of fleetData) {
-    if (fleet.parentFlt) continue
-    if (!result[fleet.faction]) continue
+    const entry = (fleet.charList ?? []).find(c => c.charCode === charCode)
+    if (!entry) continue
+    const name  = getFltName(fleet, lang)
+    const label = { C: '사령관', O: '부관', S: '사령관' }[entry.type] ?? ''
+    return `${name} ${label}`.trim()
+  }
+  return null
+}
 
-    const baseCode    = fleet.fltCode.slice(0, 6)
-    const commander   = fleetCharData.find(fc => fc.fltCode === baseCode && fc.type === 'C')
-    const officers    = fleetCharData.filter(fc => fc.fltCode === baseCode && fc.type === 'O').map(fc => fc.charCode)
-    const totalShips  = fleetShipData
-      .filter(fs => fs.fltCode === baseCode)
-      .reduce((sum, s) => sum + (s.shipAmt || 0), 0)
+/**
+ * getCharFleetRole(charCode, fleetData)
+ * 인물의 함대 소속 코드 및 역할 타입 반환.
+ *
+ * @param {string}   charCode
+ * @param {object[]} fleetData  FLEET_DATA
+ * @returns {{ fltCode: string, type: 'C'|'O'|'S' }|null}
+ */
+export function getCharFleetRole(charCode, fleetData = []) {
+  for (const fleet of fleetData) {
+    const entry = (fleet.charList ?? []).find(c => c.charCode === charCode)
+    if (entry) return { fltCode: fleet.fltCode, type: entry.type }
+  }
+  return null
+}
 
-    result[fleet.faction].push({
-      id:        fleet.fltCode,
-      name:      fleet.fltFullName ?? (Array.isArray(fleet.fltName) ? fleet.fltName.find(n => n.code === 'Kr')?.context : fleet.fltName) ?? '',
-      commander: commander?.charCode ?? null,
-      officers,
-      ships:     totalShips,
-      maxShips:  totalShips,
-      location:  fleet.location ?? fleet.fltLoc ?? null,
-      status:    'standby',
-      target:    null,
-      upkeep:    Math.ceil(totalShips / 500),
+/**
+ * buildFleetsMap(fleetData)
+ * 시나리오 함대 파일 → gameStore.fleets 초기값 생성.
+ *
+ * @param {object[]} fleetData  FLEET_DATA (함대 목록)
+ * @returns {{ [faction: string]: object[] }}
+ */
+export function buildFleetsMap(fleetData = []) {
+  const result = {}
+  for (const fleet of fleetData) {
+    if (fleet.parentFlt) continue            // 분함대 제외 (상위 함대로 관리)
+    const f = fleet.faction
+    if (!result[f]) result[f] = []
+
+    const totalShips = (fleet.shipList ?? [])
+      .reduce((s, sh) => s + (sh.shipAmt ?? 0), 0)
+
+    result[f].push({
+      // 불변값
+      id:            fleet.fltCode,
+      faction:       f,
+      name:          getFltName(fleet, 'Kr'),
+      parentFlt:     fleet.parentFlt ?? null,
+      location:      fleet.location?.locCode ?? null,
+      formation:     fleet.formationList?.find(ff => ff.useYn)?.ffCode ?? null,
+      commander:     fleet.charList?.find(c => c.type === 'C')?.charCode ?? null,
+      officers:      fleet.charList?.filter(c => c.type === 'O').map(c => c.charCode) ?? [],
+      // shipList 파생
+      ships:         totalShips,
+      maxShips:      totalShips,
+      upkeep:        Math.ceil(totalShips / 500),
+      // 런타임 변동값 초기값
+      status:        'standby',
+      moral:         100,
+      supply:        100,
+      moveTurnsLeft: 0,
+      moveTarget:    null,
+      battleId:      null,
+      target:        null,
+      stats:         null,   // computeFleetStats() lazy 캐시
     })
   }
   return result
@@ -97,65 +166,6 @@ export function buildFleetsMap(fleetData = [], fleetCharData = [], fleetShipData
 // ================================================================
 //  함대 조회 함수 (시나리오 데이터 인자로 전달)
 // ================================================================
-
-/**
- * fncGetFleetChars(fltCode, fleetCharData)
- * 특정 함대 소속 인물 목록 반환 (사령관 C / 부관 O / 분함대장 S).
- * 인물 기본 정보(charInfo) 포함.
- *
- * @param {string}   fltCode        6자리 기준 코드 (예: "FPA002")
- * @param {object[]} fleetCharData  FLEET_CHARACTER_DATA
- */
-export function fncGetFleetChars(fltCode, fleetCharData = []) {
-  if (!fltCode) return { error: '함대 코드 없음' }
-  const members = fleetCharData.filter(f => f.fltCode === fltCode)
-  if (!members.length) return { data: [] }
-  return {
-    data: members.map(m => ({
-      ...m,
-      charInfo: CHAR_BASE_MAP[m.charCode] ?? null,
-    })),
-  }
-}
-
-/**
- * fncGetCharFleet(charCode, fleetCharData)
- * 인물이 속한 함대 코드 및 역할 반환.
- *
- * @param {string}   charCode
- * @param {object[]} fleetCharData  FLEET_CHARACTER_DATA
- */
-export function fncGetCharFleet(charCode, fleetCharData = []) {
-  const entry = fleetCharData.find(f => f.charCode === charCode)
-  if (!entry) return { error: `함대 미배속: ${charCode}` }
-  return { data: { ...entry } }
-}
-
-// type → 역할 레이블
-const _FLEET_TYPE_ROLE = { C: '사령관', O: '부관', S: '분함대 사령관' }
-
-/**
- * getCharFleetRole(charCode, fleetData, fleetCharData, lang?)
- * 인물의 함대 역할 레이블 반환. (예: "제2함대 사령관", "로엔그람 함대 부관")
- * fleetCharData.fltCode는 6자리, fleetData.fltCode는 7자리이므로 startsWith로 매핑.
- *
- * @param {string}   charCode
- * @param {object[]} fleetData       FLEET_DATA
- * @param {object[]} fleetCharData   FLEET_CHARACTER_DATA
- * @param {'Kr'}     [lang='Kr']
- * @returns {string|null}  역할 레이블. 미배속이면 null.
- */
-export function getCharFleetRole(charCode, fleetData = [], fleetCharData = [], lang = 'Kr') {
-  const entry = fleetCharData.find(fc => fc.charCode === charCode)
-  if (!entry) return null
-  const fleet = fleetData.find(f => f.fltCode.startsWith(entry.fltCode))
-  if (!fleet) return null
-  const ctx = Array.isArray(fleet.fltName)
-    ? fleet.fltName.find(n => n.code === lang)?.context ?? fleet.fltFullName ?? ''
-    : fleet.fltFullName ?? fleet.fltName ?? ''
-  const role = _FLEET_TYPE_ROLE[entry.type] ?? entry.type
-  return `${ctx} ${role}`
-}
 
 /**
  * fncGetFleetsByFaction(faction, fleetData)
@@ -168,21 +178,6 @@ export function fncGetFleetsByFaction(faction, fleetData = []) {
   if (!faction) return { error: '세력 코드 없음' }
   const list = fleetData.filter(f => f.faction === faction && !f.parentFlt)
   return { data: list.map(f => ({ ...f })) }
-}
-
-/**
- * fncGetFleetShips(fltCode, fleetShipData)
- * 특정 함대의 함선 구성 반환 (6자리 코드 기준).
- *
- * @param {string}   fltCode        6자리 기준 코드
- * @param {object[]} fleetShipData  FLEET_SHIP_DATA
- */
-export function fncGetFleetShips(fltCode, fleetShipData = []) {
-  if (!fltCode) return { error: '함대 코드 없음' }
-  const ships = fleetShipData.filter(s => s.fltCode === fltCode)
-  if (!ships.length) return { data: [] }
-  const total = ships.reduce((sum, s) => sum + (s.shipAmt || 0), 0)
-  return { data: ships.map(s => ({ ...s })), total }
 }
 
 /**

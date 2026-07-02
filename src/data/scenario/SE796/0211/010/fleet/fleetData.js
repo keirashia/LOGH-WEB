@@ -3,13 +3,12 @@
 //  경로: src/data/scenario/SE796/0211/010/fleet/fleetData.js
 //  시나리오: SE796 아스타테 회전 (01)
 //  작성: 2026-06-08
+//  수정: 2026-07-02 — charList/shipList 통합 스키마 전환, fltCode 6자리화
 //
 //  fltName  : [{ code, context }] — 다국어 함대명 (context = 함대 고유명칭)
-//  fltFullName : computed 대응 표시용 풀네임 (faction명 + context)
 //  location : 함대 현재 위치 (locCode, locPos, direction)
-//  stats    : 함대 능력치 (사령관 기준값, 부관 보정 별도 적용)
-//  characterList : 이 함대 소속 인물 목록 (fleetCharacterData.js와 병행)
-//  shipList      : 이 함대 함선 구성 (fleetShipData.js와 병행)
+//  charList : 이 함대 소속 인물 목록 (type: C=사령관/O=부관/S=분함대 사령관)
+//  shipList : 이 함대 함선 구성 (fltCode는 조인 키, type: F=기함/U=일반함선)
 //  formationList : 보유 방진 목록 (현재 사용 방진 포함)
 // ================================================================
 
@@ -18,34 +17,13 @@ export const FLEET_DATA = [
   // ── 자유행성동맹 (FPA) ───────────────────────────────────────
   // 사령관 쿠브르슬리
   {
-    fltCode: "FPA0010",
+    fltCode: "FPA001",
     faction: "FPA",
     fltNum: "001",
     fltName: [{ code: "Kr", context: "제1함대" }],
-    fltFullName: "자유행성동맹 제1함대",
     parentFlt: null,
-    location: {
-      locCode: "230006",        // 바라트 성계
-      locPos: { x: 527, y: 775 }, // 하이네센 행성
-      direction: 12,            // 현재 바라보고 있는 방향(시계 기준)
-    },
-    stats: {
-      supply: 1000,
-      moral: 100,
-      statCmd: 83,
-      statCsm: 75,
-      statAtt: 70,
-      statDef: 73,
-      statFst: 64,
-      statMng: 81,
-      statInf: 72,
-      statGfg: 50,
-      statAfg: 72,
-      statPlt: 50,
-    },
-    characterList: [
+    charList: [
       {
-        fltCode: "FPA0010",
         charCode: "CH_000443",  // 쿠브르슬리
         type: "C",
         stDate: "0",
@@ -54,200 +32,664 @@ export const FLEET_DATA = [
     ],
     shipList: [
       {
-        fltCode: "FPA0010",
-        type: "F",
+        fltCode: "FPA001",
         shipIndex: 1,
+        type: "F",
         shipCode: "",
-        shipAmt: 1000,
+        shipAmt: 15000,
       },
     ],
+    location: {
+      locCode: "230006",
+      locPos: { x: 527, y: 775 },
+      direction: 12,
+    },
     formationList: [
       { ffCode: "FF_01", useYn: true },
-      { ffCode: "FF_07", useYn: false },
     ],
     stratageList: [],
   },
 
-  // 사령관 파에타 / 부관 양 웬리(전략고문)
+  // 사령관 파에타 / 부관 양 웬리(전략고문), 아텐보로, 라오
   {
-    fltCode: "FPA0020",
+    fltCode: "FPA002",
     faction: "FPA",
     fltNum: "002",
     fltName: [{ code: "Kr", context: "제2함대" }],
-    fltFullName: "자유행성동맹 제2함대",
     parentFlt: null,
+    charList: [
+      {
+        charCode: "CH_000479",  // 파에타
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+      {
+        charCode: "CH_000266",  // 양 웬리
+        type: "O",
+        stDate: "0",
+        proactive: 50,
+      },
+      {
+        charCode: "CH_000043",  // 아텐보로
+        type: "O",
+        stDate: "0",
+        proactive: 50,
+      },
+      {
+        charCode: "CH_000060",  // 라오
+        type: "O",
+        stDate: "0",
+        proactive: 50,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "FPA002",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 15000,
+      },
+    ],
+    location: {
+      locCode: "230006",
+      locPos: { x: 527, y: 775 },
+      direction: 12,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
-  // 사령관 르페브르
+  // 사령관 르페브르 (미등록 인물 — charList 미입력, TODO)
   {
-    fltCode: "FPA0030",
+    fltCode: "FPA003",
     faction: "FPA",
     fltNum: "003",
     fltName: [{ code: "Kr", context: "제3함대" }],
-    fltFullName: "자유행성동맹 제3함대",
     parentFlt: null,
+    charList: [],   // TODO: 르페브르 캐릭터 데이터 미등록
+    shipList: [
+      {
+        fltCode: "FPA003",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 15000,
+      },
+    ],
+    location: {
+      locCode: "230006",
+      locPos: { x: 527, y: 775 },
+      direction: 12,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 사령관 파스톨레 / 부관 피셔
   {
-    fltCode: "FPA0040",
+    fltCode: "FPA004",
     faction: "FPA",
     fltNum: "004",
     fltName: [{ code: "Kr", context: "제4함대" }],
-    fltFullName: "자유행성동맹 제4함대",
     parentFlt: null,
+    charList: [
+      {
+        charCode: "CH_000478",  // 파스톨레
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+      {
+        charCode: "CH_000270",  // 피셔
+        type: "O",
+        stDate: "0",
+        proactive: 50,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "FPA004",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 15000,
+      },
+    ],
+    location: {
+      locCode: "230006",
+      locPos: { x: 527, y: 775 },
+      direction: 12,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 사령관 뷰코크 / 부관 파이펠
   {
-    fltCode: "FPA0050",
+    fltCode: "FPA005",
     faction: "FPA",
     fltNum: "005",
     fltName: [{ code: "Kr", context: "제5함대" }],
-    fltFullName: "자유행성동맹 제5함대",
     parentFlt: null,
+    charList: [
+      {
+        charCode: "CH_000254",  // 뷰코크
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+      {
+        charCode: "CH_000483",  // 파이펠
+        type: "O",
+        stDate: "0",
+        proactive: 50,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "FPA005",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 15000,
+      },
+    ],
+    location: {
+      locCode: "230006",
+      locPos: { x: 527, y: 775 },
+      direction: 12,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 사령관 무어 / 부관 랍
   {
-    fltCode: "FPA0060",
+    fltCode: "FPA006",
     faction: "FPA",
     fltNum: "006",
     fltName: [{ code: "Kr", context: "제6함대" }],
-    fltFullName: "자유행성동맹 제6함대",
     parentFlt: null,
+    charList: [
+      {
+        charCode: "CH_000139",  // 무어
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+      {
+        charCode: "CH_000368",  // 장 로베르 랍
+        type: "O",
+        stDate: "0",
+        proactive: 50,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "FPA006",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 15000,
+      },
+    ],
+    location: {
+      locCode: "230006",
+      locPos: { x: 527, y: 775 },
+      direction: 12,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 사령관 호우드
   {
-    fltCode: "FPA0070",
+    fltCode: "FPA007",
     faction: "FPA",
     fltNum: "007",
     fltName: [{ code: "Kr", context: "제7함대" }],
-    fltFullName: "자유행성동맹 제7함대",
     parentFlt: null,
+    charList: [
+      {
+        charCode: "CH_000550",  // 호우드
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "FPA007",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 15000,
+      },
+    ],
+    location: {
+      locCode: "230006",
+      locPos: { x: 527, y: 775 },
+      direction: 12,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 사령관 애플턴
   {
-    fltCode: "FPA0080",
+    fltCode: "FPA008",
     faction: "FPA",
     fltNum: "008",
     fltName: [{ code: "Kr", context: "제8함대" }],
-    fltFullName: "자유행성동맹 제8함대",
     parentFlt: null,
+    charList: [
+      {
+        charCode: "CH_000262",  // 애플턴
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "FPA008",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 15000,
+      },
+    ],
+    location: {
+      locCode: "230006",
+      locPos: { x: 527, y: 775 },
+      direction: 12,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 사령관 알 살렘
   {
-    fltCode: "FPA0090",
+    fltCode: "FPA009",
     faction: "FPA",
     fltNum: "009",
     fltName: [{ code: "Kr", context: "제9함대" }],
-    fltFullName: "자유행성동맹 제9함대",
     parentFlt: null,
+    charList: [
+      {
+        charCode: "CH_000251",  // 알 살렘
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "FPA009",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 15000,
+      },
+    ],
+    location: {
+      locCode: "230006",
+      locPos: { x: 527, y: 775 },
+      direction: 12,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 사령관 우란푸
   {
-    fltCode: "FPA0100",
+    fltCode: "FPA010",
     faction: "FPA",
     fltNum: "010",
     fltName: [{ code: "Kr", context: "제10함대" }],
-    fltFullName: "자유행성동맹 제10함대",
     parentFlt: null,
+    charList: [
+      {
+        charCode: "CH_000333",  // 우란푸
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "FPA010",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 15000,
+      },
+    ],
+    location: {
+      locCode: "230006",
+      locPos: { x: 527, y: 775 },
+      direction: 12,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 사령관 루글랑주
   {
-    fltCode: "FPA0110",
+    fltCode: "FPA011",
     faction: "FPA",
     fltNum: "011",
     fltName: [{ code: "Kr", context: "제11함대" }],
-    fltFullName: "자유행성동맹 제11함대",
     parentFlt: null,
+    charList: [
+      {
+        charCode: "CH_000088",  // 루글랑주
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "FPA011",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 15000,
+      },
+    ],
+    location: {
+      locCode: "230006",
+      locPos: { x: 527, y: 775 },
+      direction: 12,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 사령관 보로딘
   {
-    fltCode: "FPA0120",
+    fltCode: "FPA012",
     faction: "FPA",
     fltNum: "012",
     fltName: [{ code: "Kr", context: "제12함대" }],
-    fltFullName: "자유행성동맹 제12함대",
     parentFlt: null,
+    charList: [
+      {
+        charCode: "CH_000169",  // 보로딘
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "FPA012",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 15000,
+      },
+    ],
+    location: {
+      locCode: "230006",
+      locPos: { x: 527, y: 775 },
+      direction: 12,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // ── 은하제국 (REH) ───────────────────────────────────────────
 
   // 함대 - 뮈켄베르거
   {
-    fltCode: "REH0010",
+    fltCode: "REH001",
     faction: "REH",
     fltNum: "001",
     fltName: [{ code: "Kr", context: "뮈켄베르거 함대" }],
-    fltFullName: "뮈켄베르거 함대",
     parentFlt: null,
+    charList: [
+      {
+        charCode: "CH_000199",  // 뮈켄베르거
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "REH001",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 4000,
+      },
+    ],
+    location: {
+      locCode: "",              // 미확정 성계
+      locPos: { x: 0, y: 0 },
+      direction: 0,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 함대 - 로엔그람 (총사령관 라인하르트 폰 뮤젤 / 부관 키르히아이스)
   {
-    fltCode: "REH0040",
+    fltCode: "REH004",
     faction: "REH",
     fltNum: "004",
     fltName: [{ code: "Kr", context: "로엔그람 함대" }],
-    fltFullName: "로엔그람 함대",
     parentFlt: null,
+    charList: [
+      {
+        charCode: "CH_000064",  // 라인하르트 폰 뮤젤
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+      {
+        charCode: "CH_000388",  // 지크프리트 키르히아이스
+        type: "O",
+        stDate: "0",
+        proactive: 50,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "REH004",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 4000,
+      },
+    ],
+    location: {
+      locCode: "",              // 미확정 성계
+      locPos: { x: 0, y: 0 },
+      direction: 0,
+    },
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
-  // 분함대 - 메르카츠
+  // 분함대 - 메르카츠 (키르히아이스는 REH004 소속이므로 중복 제거)
   {
-    fltCode: "REH0041",
+    fltCode: "REH041",
     faction: "REH",
     fltNum: "002",
     fltName: [{ code: "Kr", context: "메르카츠 분함대" }],
-    fltFullName: "로엔그람 함대 메르카츠 분함대",
-    parentFlt: "REH0040",
+    parentFlt: "REH004",
+    charList: [
+      {
+        charCode: "CH_000195",  // 메르카츠
+        type: "S",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "REH041",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 4000,
+      },
+    ],
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 분함대 — 슈타덴
   {
-    fltCode: "REH0042",
+    fltCode: "REH042",
     faction: "REH",
     fltNum: "003",
     fltName: [{ code: "Kr", context: "슈타덴 분함대" }],
-    fltFullName: "로엔그람 함대 슈타덴 분함대",
-    parentFlt: "REH0040",
+    parentFlt: "REH004",
+    charList: [
+      {
+        charCode: "CH_000223",  // 슈타덴
+        type: "S",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "REH042",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 4000,
+      },
+    ],
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 분함대 — 파렌하이트
   {
-    fltCode: "REH0043",
+    fltCode: "REH043",
     faction: "REH",
     fltNum: "004",
     fltName: [{ code: "Kr", context: "파렌하이트 분함대" }],
-    fltFullName: "로엔그람 함대 파렌하이트 분함대",
-    parentFlt: "REH0040",
+    parentFlt: "REH004",
+    charList: [
+      {
+        charCode: "CH_000233",  // 파렌하이트
+        type: "S",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "REH043",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 4000,
+      },
+    ],
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 분함대 — 에를라흐
   {
-    fltCode: "REH0044",
+    fltCode: "REH044",
     faction: "REH",
     fltNum: "005",
     fltName: [{ code: "Kr", context: "에를라흐 분함대" }],
-    fltFullName: "로엔그람 함대 에를라흐 분함대",
-    parentFlt: "REH0040",
+    parentFlt: "REH004",
+    charList: [
+      {
+        charCode: "CH_000290",  // 에를라흐
+        type: "S",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "REH044",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 4000,
+      },
+    ],
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 분함대 — 포겔
   {
-    fltCode: "REH0045",
+    fltCode: "REH045",
     faction: "REH",
     fltNum: "006",
     fltName: [{ code: "Kr", context: "포겔 분함대" }],
-    fltFullName: "로엔그람 함대 포겔 분함대",
-    parentFlt: "REH0040",
+    parentFlt: "REH004",
+    charList: [
+      {
+        charCode: "CH_000494",  // 포겔
+        type: "S",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
+    shipList: [
+      {
+        fltCode: "REH045",
+        shipIndex: 1,
+        type: "F",
+        shipCode: "",
+        shipAmt: 4000,
+      },
+    ],
+    formationList: [
+      { ffCode: "FF_01", useYn: true },
+    ],
+    stratageList: [],
   },
 
   // 그 외.

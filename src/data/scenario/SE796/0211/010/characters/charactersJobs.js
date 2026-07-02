@@ -7,7 +7,7 @@
 export const CHAR_JOBS = [
 
   // 양 웬리: 아스타테 회전 당시 제2함대 소장/전략고문
-  // 함대사령관 역할은 fleetCharacterData.js에서 파생되므로 여기서는 계급·신분만 등록
+  // 함대사령관 역할은 fleetData.js의 charList에서 파생되므로 여기서는 계급·신분만 등록
   { charCode: "CH_000266", jobCode: "JB_MR005", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   { charCode: "CH_000266", jobCode: "JB_C001",  jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
 
