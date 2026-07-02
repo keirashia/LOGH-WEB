@@ -18,7 +18,7 @@
       @touchcancel="onUp"
       @contextmenu.prevent
     >
-      <span class="tb-rarity mono">{{ RARITY_LABEL[trait.rarity] ?? trait.rarity }}</span>
+      <span v-if="trait.rarity === 'unique'" class="tb-rarity mono">{{ RARITY_LABEL[trait.rarity] ?? trait.rarity }}</span>
       <span class="tb-name serif">{{ trait.nameKr }}</span>
       <div class="tb-right">
         <span class="tb-lv mono">Lv.{{ charTrait?.traitLv ?? 0 }}</span>
@@ -33,7 +33,7 @@
       <div v-if="showHint" class="tb-hint" @click.stop="showHint = false">
         <div class="tb-hint-head">
           <span class="serif tb-hint-name">{{ trait.nameKr }}</span>
-          <span class="tb-hint-rar mono">{{ RARITY_LABEL[trait.rarity] ?? trait.rarity }}</span>
+          <!-- <span class="tb-hint-rar mono">{{ RARITY_LABEL[trait.rarity] ?? trait.rarity }}</span> -->
         </div>
         <p class="tb-hint-desc">{{ trait.desc }}</p>
         <div v-if="hasEffects" class="tb-hint-fx">

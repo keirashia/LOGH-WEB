@@ -30,12 +30,21 @@
         </div>
       </div>
 
+      <!-- 소속 함대 -->
+      <div class="trait-section">
+        <div class="section-label mono job-lbl-badge" style="margin-bottom:6px;font-size:12px;color:#fff">소속</div>
+        <div v-if="fleetAssignment" class="job-chip">
+          <span class="chip-name serif">{{ fleetAssignment.name }} {{ fleetAssignment.role }}</span>
+        </div>
+        <div v-else class="no-trait mono dim">소속 없음</div>
+      </div>
+
       <!-- 직업 -->
       <div class="trait-section">
         <div class="section-label mono job-lbl-badge" style="margin-bottom:6px;font-size:12px;color:#fff">직업</div>
         <div v-if="!charJobData.length" class="no-trait mono dim">직업 없음</div>
         <div v-for="j in charJobData" :key="j.jobCode" class="job-chip">
-          <span class="chip-cat mono">{{ j.category }}</span>
+          <!-- <span class="chip-cat mono">{{ j.category }}</span> -->
           <span class="chip-name serif">{{ j.nameKr }}</span>
           <div class="job-right mono">
             <span class="job-lv">Lv.{{ j.jobLevel }}</span>
@@ -168,6 +177,19 @@ const portraitBgStyle = computed(() => {
   return {
     background: `linear-gradient(160deg, #0a0f1c 20%, ${color}cc 100%)`
   }
+})
+
+// 소속 함대: 게임 중이므로 fleetUtils가 아닌 gameStore.fleets에서 조회
+const fleetAssignment = computed(() => {
+  const code = char.value?.code
+  if (!code) return null
+  for (const fleets of Object.values(game.fleets)) {
+    for (const f of fleets) {
+      if (f.commander === code) return { name: f.name, role: '사령관' }
+      if (f.officers?.includes(code)) return { name: f.name, role: '부관' }
+    }
+  }
+  return null
 })
 
 const charTraits = computed(() => char.value?.traits ?? [])
