@@ -39,7 +39,61 @@ GameView (/game) 진입
 > TODO. 초기 데이터 세팅
 > 연도 선택 시, 해당 연도의 시나리오를 불러와 화면에 노출하는지 여부 체크
 > 시나리오 선택 시, 해당 시나리오에 등장하는 인물 필터링
-> 
+
+### 2-1. 참조 파일 상세
+
+#### `src/data/scenario/scenarioData.js`
+- 전체 시나리오 메타 목록 (`SCENARIOS` 배열) 관리
+- 각 항목: `id`, `yearType`, `year`, `month`, `nameKr`, `factions`, `tags`, `useYn`, `openPt`, `desc`
+- `desc` 배열은 각 시나리오 폴더의 `scenarioDesc.js`에서 import해 주입
+- `showYn: false`이면 타임라인에서 숨김 (`ScenarioSelectView`에서 필터링)
+
+#### `src/data/scenario/SE796/0211/010/scenarioDesc.js`
+- 아스타테 회전 오프닝 3페이지 데이터 (`SCENARIO_DESC` 배열)
+- 각 항목 인터페이스: `{ index, image/bg, char, charName, text, effect, libs }`
+- `libs` 값 형식: `"ST_:아스타테"`, `"CH_:양 웬리"` → 클릭 시 백과사전(`encyclopediaStore`) 열림
+
+#### `src/views/lobby/scenario/ScenarioSelectView.vue`
+- 연도(타임라인) 선택 화면
+- `SCENARIOS`를 연도별로 그룹핑 → `ScTimelineLayout` · `ScEventListPanel` 에 전달
+- 시나리오 선택 시 `lobbyStore.selectedFaction/selectedCharCode` 초기화 후 `/lobby/single/new/{scId}/options` 라우팅
+
+#### `src/views/lobby/scenario/ScenarioDetailView.vue`
+- 시나리오 오프닝 3페이지 표시 화면 (이미지 + 텍스트 + libs 버튼 + 페이지 도트)
+- `SCENARIOS[scId].desc` 배열을 페이지 단위로 렌더링; 이미지 경로: `/img/scenarios/{y}/{m}/{s}/{파일명}`
+- `onMounted`에서 `game.preloadScenario(scId)` 호출 → 백그라운드 사전 로드
+- [국가 선택] 클릭 시 `scenario-char` 라우트로 이동
+- ※ 흐름도 상 "시나리오 선택" 단계이지만 실제로 오프닝 desc 표시 역할도 겸함
+
+#### `src/views/lobby/scenario/ScenarioOptionsView.vue`
+- NPC 등장/행동 옵션 선택 화면
+- `lobbyStore.options.npcAppearance` (`fact` / `fiction`), `lobbyStore.options.npcBehavior` (`fact` / `fiction`) 바인딩
+- 현재 옵션 카드 전체 `disabled` 처리 중 (선택 불가 상태, TODO)
+- [다음] 클릭 시 `scenario-char` 라우트로 이동
+
+#### `src/views/lobby/scenario/ScenarioCharSelectView.vue`
+- 국가 선택(Stage 1) + 인물 선택(Stage 2) 통합 화면
+- 인물 목록: 시나리오별 `characters/charactersData.js` (dynamic import) 의 `CHAR_LIST` + 전체 `CHAR_BASE` 조합
+- `game._preloadedData?.charJobs`로 시나리오 오버라이드 직책 반영 (`effectiveCharJobs`)
+- `isAliveAt()`: `npcAppearance === 'fact'`일 때 생몰년(`birth`/`death`) 기준으로 인물 필터링
+- `recommend` 값 기준 추천 인물 자동 선택 (`leadChars`)
+- [게임 시작] 클릭 → `game.startGame(scId, faction, charCode)` 후 `/game` 라우팅
+
+#### `src/stores/gameStore.js` — `startGame(scId, pf, charCode)`
+- `_loadScenarioFiles(scId)`로 아래 7개 파일 병렬 로드 (glob 기반 dynamic import):
+
+  | 파일 경로 (시나리오 폴더 기준) | export | 용도 |
+  |---|---|---|
+  | `stars/starDetail.js` | `STAR_DETAIL` | 성계 초기 상태 |
+  | `stars/planetDetail.js` | `PLANET_DETAIL` | 행성 상세 |
+  | `characters/charactersJobs.js` | `CHAR_JOBS` | 시나리오 직책 오버라이드 |
+  | `characters/charactersData.js` | `CHAR_LIST` | 시나리오 등장 인물 목록 |
+  | `cliqueData.js` | `CLIQUE_DATA` | 파벌 데이터 |
+  | `fleet/fleetData.js` | `FLEET_DATA` | 초기 함대 배치 |
+  | `fleet/fleetTraitData.js` | `FLEET_TRAIT_DATA` | 함대 트레잇 |
+
+- 로드 완료 후 `buildState(scId, pf, extraData)`로 초기 게임 상태 구성 → `$state` 전체 교체
+- `preloadScenario(scId)`: `ScenarioDetailView` 진입 시 미리 로드 → `startGame`에서 캐시 재사용
 
 
 ---
