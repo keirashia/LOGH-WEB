@@ -3417,7 +3417,7 @@ export const CHAR_BASE = [
     ],
     // — 직업
     // — 트레잇
-    // 이족보행 하이에나(TRC_U_000086) LV0
+    // 이족보행 하이에나(TRC_U_000086)
   },
   {
     // — 기본
@@ -3714,6 +3714,55 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     desc: [{ code: "Kr", context: "" }],
+    // — 직업
+    // — 트레잇
+  },
+  // 르페브르 Lefebvre · ルフェーブル
+  {
+    // — 기본
+    code: "CH_000574",
+    name: [
+      { code: "Kr", context: "르페브르" },
+      { code: "En", context: "Lefebvre" },
+      { code: "Jp", context: "ルフェーブル" },
+    ],
+    nick: [{ code: "Kr", context: "르페브르" }],
+    searchKeys: ["루페브르"],
+    birth: "",
+    death: "SE|796.10.12",
+    // — 성향
+    faction: "FPA", // 자유행성동맹
+    idea: "100", // 자유민주공화국
+    econ: "100", // 시장경제
+    brave: "60",
+    moral: "75",
+    friend: "170", // 145 양 245 트류니히트
+    // — 능력치
+    // 은하영웅전설 4 통솔74 / 운영23 / 정보52 / 기동64 / 공격81 / 방어73 / 육전67 / 공전86
+    // 은하영웅전설 6 통솔 80/지휘 72/공격 70/방어 82/기동 64
+    statCmd: 77,
+    statCsm: 72,
+    statAtt: 76,
+    statDef: 78,
+    statFst: 64,
+    statMng: 23,
+    statInf: 52,
+    statGfg: 67,
+    statAfg: 86,
+    statPlt: 22,
+    // — 기타
+    loc: "230006P01", // 하이네센
+    point: "0",
+    desc: [
+      {
+        code: "Kr",
+        context:
+          `자유행성동맹군 중장.
+          제3함대 사령관으로 동맹군 일선 제독 중 뷰코크 다음으로 고령의 노장이다.
+          원숙한 용병술을 바탕으로 방어전에 특화된 우수한 지휘관으로 평가받는다.`,
+          //  제국령 침공작전 도중 아우구스트 자무엘 바렌 함대의 공격을 받아 기함 쿠 쿨린이 소행성에 충돌하여 전사했다.
+      },
+    ],
     // — 직업
     // — 트레잇
   },

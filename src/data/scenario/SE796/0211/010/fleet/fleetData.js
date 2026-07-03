@@ -11,10 +11,21 @@
 //  shipList : 이 함대 함선 구성 (fltCode는 조인 키, type: F=기함/U=일반함선)
 //  formationList : 보유 방진 목록 (현재 사용 방진 포함)
 // ================================================================
-
 export const FLEET_DATA = [
-
   // ── 자유행성동맹 (FPA) ───────────────────────────────────────
+// 1 쿠브르슬리
+// 2 파에타
+// 3 르페브르
+// 4 파스톨레
+// 5 알렉산드르 뷰코크
+// 6 무어
+// 7 호우드
+// 8 애플턴
+// 9 알 살렘
+// 10 우란푸
+// 11 루글랑주
+// 12 보로딘
+
   // 사령관 쿠브르슬리
   {
     fltCode: "FPA001",
@@ -465,42 +476,9 @@ export const FLEET_DATA = [
   },
 
   // ── 은하제국 (REH) ───────────────────────────────────────────
+  // 이제르론 주둔함대
 
-  // 함대 - 뮈켄베르거
-  {
-    fltCode: "REH001",
-    faction: "REH",
-    fltNum: "001",
-    fltName: [{ code: "Kr", context: "뮈켄베르거 함대" }],
-    parentFlt: null,
-    charList: [
-      {
-        charCode: "CH_000199",  // 뮈켄베르거
-        type: "C",
-        stDate: "0",
-        proactive: 100,
-      },
-    ],
-    shipList: [
-      {
-        fltCode: "REH001",
-        shipIndex: 1,
-        type: "F",
-        shipCode: "",
-        shipAmt: 4000,
-      },
-    ],
-    location: {
-      locCode: "",              // 미확정 성계
-      locPos: { x: 0, y: 0 },
-      direction: 0,
-    },
-    formationList: [
-      { ffCode: "FF_01", useYn: true },
-    ],
-    stratageList: [],
-  },
-
+  
   // 함대 - 로엔그람 (총사령관 라인하르트 폰 뮤젤 / 부관 키르히아이스)
   {
     fltCode: "REH004",
@@ -692,8 +670,6 @@ export const FLEET_DATA = [
     stratageList: [],
   },
 
-  // 그 외.
-  // 이젤론 주둔함대 미터마이어함대 로이엔탈함대 슈바르츠란첸라이터 등 제국 후방에 존재하는 함대
 ];
 
 export const FLEET_MAP = Object.fromEntries(
