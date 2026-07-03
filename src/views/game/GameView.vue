@@ -144,8 +144,41 @@ function onPopState() {
   if (showCharPanel.value)  { showCharPanel.value = false; history.pushState(null, '') }
 }
 
-watch(() => game._pendingBattle, (val) => {
-  if (val) router.push('/game/tactical')
+watch(() => game._pendingBattles.length, (len) => {
+  if (len === 0) return
+  const ctx = game._pendingBattles[0]
+  const attackerFleet = ctx.attackerFleet
+
+  // 플레이어 캐릭터가 해당 함대(전투 현장)에 있으면 곧바로 전술턴 진입
+  const playerCharPresent = game.playerCharCode && (
+    attackerFleet.commander === game.playerCharCode ||
+    (attackerFleet.officers || []).includes(game.playerCharCode)
+  )
+  if (playerCharPresent) { router.push('/game/tactical'); return }
+
+  const sysName = game.systems[ctx.targetSystemId]?.name ?? ctx.targetSystemId
+  game.openModal('event', {
+    title: '교전 발생',
+    desc: `${sysName}에서 교전이 발생하였습니다.\n상세 전투를 보시겠어요?`,
+    buttons: [
+      { label: '네',   cls: 'btn-gold', action: () => router.push('/game/tactical') },
+      {
+        label: '아니오', cls: 'btn',
+        action: () => {
+          const result = game.autoResolveBattle()
+          if (!result) return
+          setTimeout(() => {
+            game.openModal('event', {
+              title: '전투 결과',
+              desc: `${sysName} 전투가 자동 처리되었습니다.\n`
+                  + `${result.winner === game.playerFaction ? '아군 승리' : '아군 패배'}\n`
+                  + `아군 손실 ${result.attackerLosses.toLocaleString()}척 · 적 손실 ${result.defenderLosses.toLocaleString()}척`,
+            })
+          }, 0)
+        },
+      },
+    ],
+  })
 })
 
 const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, nationInfo:NationInfoModal, nationPost:NationPostModal }

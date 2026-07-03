@@ -69,7 +69,8 @@ function buildState(scId, pf, extraData = {}) {
     log: [], selectedSystem: null, selectedFleet: null,
     _levyCooldown: 0, _loanBalance: 0, _loanDueTurn: null, _fleetSeq: 10, _truce: {}, _tradeBonus: 0,
     _reserve: 0, _intelligenceFund: 0, _budgetAllocation: null,
-    _pendingBattle: null,
+    _pendingBattles: [],
+    _turnActionTaken: false,
     activeModal: null, gameOver: false, winner: null,
     agendas: [], _agendaSeq: 0,
     playerCharCode: null,
@@ -169,12 +170,14 @@ export const useGameStore = defineStore('game', {
       this.turn++
       this._victory()
       this.addLog(`은하력 ${this.year}년 ${this.month}월 ${this.day}일 (턴 ${this.turn}) 시작합니다`)
+      this._turnActionTaken = false
     },
 
     selectSystem(id)  { this.selectedSystem = id;    this.selectedFleet = null },
     selectFleet(id)   { this.selectedFleet = id;     this.selectedSystem = null },
     openModal(n, p=null) { this.activeModal = { name: n, payload: p } },
     closeModal()      { this.activeModal = null },
+    _markAction()     { this._turnActionTaken = true },
 
     changeTax(sysId, rate) {
       const s = this.systems[sysId]
@@ -183,6 +186,7 @@ export const useGameStore = defineStore('game', {
       s.tax = Math.max(10, Math.min(80, rate))
       s.morale = Math.max(5, Math.min(100, s.morale - Math.floor((s.tax - old) * 0.5)))
       this.addLog(`[${s.name}] 세율 ${old}% → ${s.tax}%`)
+      this._markAction()
     },
 
     buildConstruction(sysId, type) {
@@ -192,6 +196,7 @@ export const useGameStore = defineStore('game', {
       this.pRes.gold -= ct.cost
       s.underConstruction = { type, turnsLeft: ct.turns }
       this.addLog(`[${s.name}] ${ct.name} 건설 시작 (${ct.turns}턴)`)
+      this._markAction()
       return true
     },
 
@@ -203,6 +208,7 @@ export const useGameStore = defineStore('game', {
       // 같은 성계: 기존 즉시 처리 유지
       if (fleet.location === targetId) {
         this._battle(fleet, target, opType)
+        this._markAction()
         return true
       }
 
@@ -212,11 +218,12 @@ export const useGameStore = defineStore('game', {
       fleet.moveTurnsLeft = 2        // TODO: LANES 거리 기반으로 교체
       fleet.target        = targetId
       this.addLog(`[이동] ${fleet.name} → ${target.name} (${fleet.moveTurnsLeft}턴)`)
+      this._markAction()
       return true
     },
 
     applyBattleResult(result) {
-      const ctx = this._pendingBattle
+      const ctx = this._pendingBattles[0]
       if (!ctx) return
 
       const attackerFleet = this.pFleets.find(f => f.id === ctx.attackerFleet.id)
@@ -272,7 +279,34 @@ export const useGameStore = defineStore('game', {
         this.addLog(`⚠ [패배] 아군함대 패배, ${ctx.attackerFleet.name} 철수`)
       }
 
-      this._pendingBattle = null
+      this._pendingBattles.shift()
+    },
+
+    // ── 교전 자동 처리 (상세 전투를 보지 않고 결과만 산출) ─────────
+    autoResolveBattle() {
+      const ctx = this._pendingBattles[0]
+      if (!ctx) return null
+
+      const atkShips = ctx.attackerFleet.ships
+      const defShips = ctx.defenderFleets.reduce((sum, f) => sum + f.ships, 0)
+      const atkChar  = this.characters[ctx.attackerFleet.commander]
+      const atkBonus = atkChar ? 0.7 + (atkChar.military || 50) / 100 * 0.6 : 1.0
+
+      const atkPower = atkShips * atkBonus * (0.85 + Math.random() * 0.3)
+      const defPower = defShips * (0.85 + Math.random() * 0.3)
+      const attackerWins = atkPower >= defPower
+
+      const winnerLossRate = 0.05 + Math.random() * 0.10
+      const loserLossRate  = 0.30 + Math.random() * 0.25
+      const attackerLosses = Math.floor(atkShips * (attackerWins ? winnerLossRate : loserLossRate))
+      const defenderLosses = Math.floor(defShips * (attackerWins ? loserLossRate : winnerLossRate))
+      const winner = attackerWins ? ctx.attackerFaction : (ctx.defenderFleets[0]?.faction ?? null)
+
+      const result = { winner, attackerLosses, defenderLosses }
+      const sysName = this.systems[ctx.targetSystemId]?.name ?? ctx.targetSystemId
+      this.addLog(`⚔ [자동 처리] ${sysName} 전투 결과: ${attackerWins ? '아군 승리' : '아군 패배'} (아군 손실 ${attackerLosses.toLocaleString()}척, 적 손실 ${defenderLosses.toLocaleString()}척)`)
+      this.applyBattleResult(result)
+      return result
     },
 
     assignChar(charId, post) {
@@ -282,6 +316,7 @@ export const useGameStore = defineStore('game', {
       const dialog = this.playerFaction === 'REH' ? DIALOGS.APPOINTMENT.emperor : ''
       if (dialog) this.addLog(`[황제] ${dialog}`)
       this.addLog(`[임명] ${c.name} → ${post}`)
+      this._markAction()
     },
 
 
@@ -318,6 +353,7 @@ export const useGameStore = defineStore('game', {
         this.addLog(`[황제] ${dlg.emperor_reply}`)
       }
       this.addLog(dlg.success(amount))
+      this._markAction()
       return true
     },
 
@@ -347,6 +383,7 @@ export const useGameStore = defineStore('game', {
       if (this.playerFaction === 'REH') this.addLog(`[황제] ${dlg.empire_accept}`)
       else this.addLog(`[의장] ${dlg.alliance_accept}`)
       this.addLog(`💰 [차관] ${amount.toLocaleString()} 마크 수령. 상환액: ${totalRepay.toLocaleString()} 마크 (${terms.REPAY_TURNS}턴 내)`)
+      this._markAction()
       return true
     },
 
@@ -366,6 +403,7 @@ export const useGameStore = defineStore('game', {
       this._loanDueTurn = null
       this.addLog(`[페잔] ${FINANCE.DIALOGS.LOAN.repay_confirm}`)
       this.addLog(`✅ [상환] ${paid.toLocaleString()} 마크 상환 완료.`)
+      this._markAction()
       return true
     },
 
@@ -413,6 +451,7 @@ export const useGameStore = defineStore('game', {
         this.addLog(`[의장] ${dlg.alliance_council}`)
       }
       this.addLog(`✅ [예산] ${dlg.success} (총 ${total.toLocaleString()} 마크)`)
+      this._markAction()
       return true
     },
 
@@ -444,6 +483,7 @@ export const useGameStore = defineStore('game', {
       const decree = this.playerFaction === 'REH' ? dlg.empire_decree(name) : dlg.alliance_decree(name)
       this.addLog(`[편성] ${decree}`)
       this.addLog(`✅ ${dlg.success(name, size.ships)}`)
+      this._markAction()
       return true
     },
 
@@ -466,6 +506,7 @@ export const useGameStore = defineStore('game', {
       fleet.upkeep = Math.floor(fleet.ships / 500)
       if (diff > 0) this.pRes.gold -= cost
       this.addLog(`✅ ${MILITARY.DIALOGS.REORGANIZE.success(fleet.name, before, fleet.ships)}`)
+      this._markAction()
       return true
     },
 
@@ -484,6 +525,7 @@ export const useGameStore = defineStore('game', {
       this.fleets[this.playerFaction].splice(idx, 1)
       this.addLog(MILITARY.DIALOGS.FORMATION.disband(fleet.name))
       this.addLog(`💰 잔여 환급: ${refund.toLocaleString()} 마크`)
+      this._markAction()
       return true
     },
 
@@ -503,6 +545,7 @@ export const useGameStore = defineStore('game', {
       const from = this.systems[fleet.location]?.name || fleet.location
       fleet.location = targetSystemId
       this.addLog(`🚀 [이동] ${fleet.name}: ${from} → ${target.name}`)
+      this._markAction()
       return true
     },
 
@@ -526,6 +569,7 @@ export const useGameStore = defineStore('game', {
 
       this.addLog(`[철수] ${MILITARY.DIALOGS.RETREAT.order(fleet.name)}`)
       this.addLog(`✅ ${MILITARY.DIALOGS.RETREAT.complete(fleet.name, dest.name)} (손실: ${loss.toLocaleString()}척)`)
+      this._markAction()
       return true
     },
 
@@ -572,6 +616,7 @@ export const useGameStore = defineStore('game', {
 
       this.addLog(`[수송] ${MILITARY.DIALOGS.TRANSPORT.order(from.name, to.name, item.name)}`)
       this.addLog(`✅ ${MILITARY.DIALOGS.TRANSPORT.success(to.name, item.name)}`)
+      this._markAction()
       return true
     },
 
@@ -633,9 +678,11 @@ export const useGameStore = defineStore('game', {
             break
           }
         }
+        this._markAction()
         return true
       } else {
         this.addLog(dlg.fail)
+        this._markAction()
         return false
       }
     },
@@ -666,6 +713,7 @@ export const useGameStore = defineStore('game', {
         this.addLog(`[${officer.name}] ${replyMsg}`)
       }
       this.addLog(`✅ ${dlg.success(sys.name)} (민심 ${lvl.moraleEffect >= 0 ? '+' : ''}${lvl.moraleEffect}, 방어 +${lvl.defEffect})`)
+      this._markAction()
       return true
     },
 
@@ -723,9 +771,11 @@ export const useGameStore = defineStore('game', {
             break
           }
         }
+        this._markAction()
         return true
       } else {
         this.addLog(`⚠ ${dlg.fail(tName)}`)
+        this._markAction()
         return false
       }
     },
@@ -783,6 +833,7 @@ export const useGameStore = defineStore('game', {
     },
 
     _fleetMove() {
+      const detected = []
       Object.entries(this.fleets).forEach(([faction, fleets]) => {
         fleets.forEach(fleet => {
           if (fleet.status !== 'moving') return
@@ -807,18 +858,21 @@ export const useGameStore = defineStore('game', {
           })
           if (enemies.length) {
             fleet.status = 'battle'
-            this._pendingBattle = {
+            detected.push({
               attackerFleet:   { ...fleet, faction },
               attackerFaction: faction,
               defenderFleets:  enemies,
               targetSystemId:  fleet.location,
               opType:          'OCCUPATION',
-            }
+            })
             if (faction === this.playerFaction)
               this.addLog(`⚔ [전투] ${fleet.name} — 적 함대 감지`)
           }
         })
       })
+      // 성계 ID 순서대로 전술턴 진행
+      detected.sort((a, b) => a.targetSystemId.localeCompare(b.targetSystemId))
+      this._pendingBattles.push(...detected)
     },
 
     _morale() {
@@ -1037,6 +1091,7 @@ export const useGameStore = defineStore('game', {
         status:         'pending',
       })
       this.addLog(`[의안] ${def.label} 등록`)
+      this._markAction()
       return id
     },
 

@@ -12,7 +12,7 @@
                 @click="toggle(c.id)">{{ c.label }}</button>
       </div>
     </div>
-    <button class="btn end-btn" :class="endBtnCls" @click="game.endTurn()">턴 종료</button>
+    <button class="btn end-btn" :class="endBtnCls" @click="onEndTurnClick">턴 종료</button>
   </div>
 
   <MenuPanel :category="activecat" @close="activecat = null" />
@@ -42,6 +42,20 @@ const ROW2 = [
 
 function toggle(id) {
   activecat.value = activecat.value === id ? null : id
+}
+
+function onEndTurnClick() {
+  const desc = game._turnActionTaken
+    ? '전략 턴을 종료할까요?'
+    : '이번 턴에는 전략 활동 이력이 없습니다. 전략 턴을 종료할까요?'
+  game.openModal('event', {
+    title: '턴 종료',
+    desc,
+    buttons: [
+      { label: '취소',   cls: 'btn' },
+      { label: '턴종료', cls: 'btn-gold', action: () => game.endTurn() },
+    ],
+  })
 }
 </script>
 

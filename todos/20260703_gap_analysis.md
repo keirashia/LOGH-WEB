@@ -14,7 +14,7 @@
 
 ## 🔴 플로우 단절
 
-1. **`ScenarioDetailView` → `[국가선택]`이 `ScenarioOptionsView`를 건너뜀** — 바로 `scenario-char`로 라우팅. `ScenarioOptionsView`는 라우트만 등록되어 있고 실제로는 도달 불가능한 고아 화면. 옵션 카드도 전부 `disabled` 상태 (`lobby.options.npcAppearance/npcBehavior`가 기본값에 고정됨).
+1. ✅ **[해결됨 2026-07-03]** ~~`ScenarioDetailView` → `[국가선택]`이 `ScenarioOptionsView`를 건너뜀~~. `onStart()`가 `scenario-options`로 라우팅하도록 수정, 옵션 카드 `disabled` 제거 후 `@click="lobby.options[grp.key] = opt.val"` 연결. Playwright로 상세→옵션→국가선택 전체 플로우 및 카드 active 토글 확인 완료.
    - `ScenarioDetailView.vue:119-121`, `ScenarioOptionsView.vue:49`
 2. **턴종료 confirm 다이얼로그 전체 미구현.** "전략 활동 이력" 추적 자체가 없고 (`actionHistory` 류 코드 전무), `BottomBar.vue`의 턴종료 버튼은 `game.endTurn()`을 확인 없이 즉시 호출.
    - `BottomBar.vue:15`
@@ -23,8 +23,8 @@
 
 ## 🔴 구조적 버그
 
-4. **`_pendingBattle`이 스칼라(단일 객체).** 한 턴에 전투가 여러 건 감지되면 나중 것이 이전 것을 덮어써 사라짐. 스펙의 "성계 ID 순서대로 큐 처리" 불가능.
-   - `gameStore.js:810-816`
+4. ✅ **[해결됨 2026-07-03]** ~~`_pendingBattle`이 스칼라(단일 객체).~~ `_pendingBattles`(배열) 큐로 전환 완료. `_fleetMove()`가 한 턴에 감지된 전투를 모아 성계 ID 순으로 정렬 후 큐에 push, `applyBattleResult()`는 `shift()`로 소비. `GameView.vue`/`TacticalView.vue`도 큐 길이 기반으로 갱신, `returnToCampaign()`이 다음 대기 전투가 있으면 `initBattle()`로 이어서 처리하도록 수정.
+   - `gameStore.js:72,219,275,791-826`, `GameView.vue:147-149`, `TacticalView.vue:268-271,362-368`
 5. **라인(lane) 이동 중 조우 감지 로직 없음.** 도착한 성계에서의 적 감지만 존재 (`_fleetMove` 내부).
 6. **`_victory()` 실행 순서 역전.** `endTurn()` 안에서 전술턴 진입보다 먼저 `_victory()`가 실행되어, 턴/날짜가 이미 넘어간 뒤에 전투가 재생됨.
    - `gameStore.js:162-171`
@@ -66,8 +66,8 @@
 
 ## 권장 우선순위 (구현 착수 시)
 
-1. `_pendingBattle` 큐화 (스칼라 → 배열) — 구조적 버그이자 이후 confirm/자동처리 로직의 전제조건
-2. 시나리오 옵션 플로우 연결 (`ScenarioDetailView` → `ScenarioOptionsView` → `ScenarioCharSelectView`) 복구
+1. ✅ `_pendingBattle` 큐화 (스칼라 → 배열) — 완료 (2026-07-03)
+2. ✅ 시나리오 옵션 플로우 연결 (`ScenarioDetailView` → `ScenarioOptionsView` → `ScenarioCharSelectView`) 복구 — 완료 (2026-07-03)
 3. 턴종료 / 교전 발생 confirm 다이얼로그 2건 구현
 4. REH004 `locCode` 확정 + `parentFlt` 함대 합산 로직 수정 (아스타테 시나리오 플레이 자체를 막는 블로커)
 5. `_victory()` 순서 재정렬 (턴 종료 전에 모든 전술턴 처리 완료되도록)

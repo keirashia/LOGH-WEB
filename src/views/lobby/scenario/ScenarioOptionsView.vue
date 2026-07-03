@@ -46,7 +46,7 @@
                 :key="opt.val"
                 class="opt-card"
                 :class="{ active: lobby.options[grp.key] === opt.val }"
-                disabled
+                @click="lobby.options[grp.key] = opt.val"
               >
                 <div class="card-corner tl">
                   <span class="cc-icon">{{ opt.icon }}</span>

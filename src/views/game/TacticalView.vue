@@ -266,8 +266,8 @@ const CS     = CELL_SIZE
 
 // ── 초기화 ──────────────────────────────────────────────────
 onMounted(() => {
-  if (game._pendingBattle && !store.active) {
-    store.initBattle(game._pendingBattle)
+  if (game._pendingBattles.length && !store.active) {
+    store.initBattle(game._pendingBattles[0])
   }
   window.addEventListener('keydown', onKey)
 })
@@ -361,8 +361,12 @@ function onUnitClick(u) {
 // ── 결과 처리 ───────────────────────────────────────────────
 function returnToCampaign() {
   if (store.result) game.applyBattleResult(store.result)
-  store.active = false
-  router.push('/game')
+  if (game._pendingBattles.length) {
+    store.initBattle(game._pendingBattles[0])
+  } else {
+    store.active = false
+    router.push('/game')
+  }
 }
 </script>
 
