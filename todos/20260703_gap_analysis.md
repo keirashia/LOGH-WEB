@@ -56,6 +56,11 @@
     - `fleetData.js:512-516`, `fleetUtils.js:128-164`(parentFlt 제외 로직), `gameStore.js:97-106`(allFleets 필터)
 16. **`REH001`(뮈켄베르거 함대)이 `fleetData.js`에 아예 없음** — 문서와 실제 데이터 불일치.
 17. 이제르론 주둔함대(미터마이어/로이엔탈), 시나리오 전용 승리조건, 1턴 강제 조우 이벤트(포위망/제2분함대), 양 웬리 지휘권 이전 이벤트 — 전부 코드 없음, 문서의 TODO 그대로 미해결.
+18. **`scenarioDesc.js` 인터페이스 불일치.** `796dummy.md`가 명시한 페이지 인터페이스는 `{ index, image/bg, char, charName, text, effect, libs }`이지만, 실제 `scenarioDesc.js`(3페이지 전부)는 `char`/`charName` 필드를 전혀 채우지 않음(`image`/`text`/`effect`/`libs`만 존재). `ScenarioDetailView.vue`는 `page.char`로 캐릭터 초상화(`charSrc`)를, `page.charName`으로 이름 라벨을 렌더링하도록 이미 구현되어 있는데(`ScenarioDetailView.vue:100-102,22`), 이 시나리오는 해당 기능을 아예 쓰지 않는 상태 — 코드 버그는 아니지만 연출 콘텐츠 미완성.
+19. **오프닝 내레이션과 함대 데이터 간 인명 불일치.** `scenarioDesc.js` 3페이지 텍스트는 "제4함대 사령관 패트릭 캐슬네스 중장"이 후퇴를 결단했다고 서술하지만, `fleetData.js`의 실제 `FPA004` 사령관은 파스톨레(`CH_000478`)이며 이는 `796dummy.md` 자체의 표(4절)와도 일치함. 즉 오프닝 컷씬 스크립트 쪽 인명이 시나리오 데이터/문서와 어긋나 있어 수정 필요.
+    - `scenarioDesc.js` index 3, `fleetData.js:145-165`
+
+**검증 완료(문제 없음):** `796dummy.md` 6절의 주요 성계 초기 상태 표(230006/230042/230002/230009/230037의 morale·tax·traits)는 `starDetail.js`와 정확히 일치. 5절 양 웬리 직책 오버라이드도 `charactersJobs.js`와 정확히 일치. libs 프리픽스 라우팅(`ST_`→성계 백과사전, `CH_`→인물 백과사전)도 `ScenarioDetailView.vue:109-110`에 정상 구현되어 있음.
 
 ---
 
