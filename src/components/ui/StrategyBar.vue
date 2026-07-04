@@ -1,5 +1,5 @@
 ﻿<template>
-  <div class="bottom-bar">
+  <div class="strategy-bar">
     <div class="cat-area">
       <div class="cat-row">
         <button v-for="c in ROW1" :key="c.id"
@@ -60,7 +60,7 @@ function onEndTurnClick() {
 </script>
 
 <style scoped>
-.bottom-bar {
+.strategy-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 1500;
   display: flex; align-items: stretch;
   height: var(--bar-h);

@@ -127,13 +127,18 @@ export function getCharFleetRole(charCode, fleetData = []) {
  */
 export function buildFleetsMap(fleetData = []) {
   const result = {}
+  const sumShips = list => (list ?? []).reduce((s, sh) => s + (sh.shipAmt ?? 0), 0)
+
   for (const fleet of fleetData) {
     if (fleet.parentFlt) continue            // 분함대 제외 (상위 함대로 관리)
     const f = fleet.faction
     if (!result[f]) result[f] = []
 
-    const totalShips = (fleet.shipList ?? [])
-      .reduce((s, sh) => s + (sh.shipAmt ?? 0), 0)
+    // 분함대(parentFlt로 이 함대를 가리키는 하위 함대) 함선 수를 상위 함대에 합산
+    const childShips = fleetData
+      .filter(c => c.parentFlt === fleet.fltCode)
+      .reduce((s, c) => s + sumShips(c.shipList), 0)
+    const totalShips = sumShips(fleet.shipList) + childShips
 
     result[f].push({
       // 불변값

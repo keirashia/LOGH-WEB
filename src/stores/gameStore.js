@@ -160,6 +160,14 @@ export const useGameStore = defineStore('game', {
       this._construct()
       this._events()
       this._ai()
+
+      // 전술턴 대기열이 있으면 모두 처리될 때까지 턴 종료(날짜 증가·승리 판정)를 보류
+      // (전투 해소는 applyBattleResult()에서 큐 소진 시 _finishTurn() 호출로 이어짐)
+      if (this._pendingBattles.length === 0) this._finishTurn()
+    },
+
+    // ── 턴의 종료 (모든 전술턴 처리 완료 후 수행) ──────────────────
+    _finishTurn() {
       const DAYS_IN_MONTH = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
       this.day++
       if (this.day > DAYS_IN_MONTH[this.month - 1]) {
@@ -265,7 +273,6 @@ export const useGameStore = defineStore('game', {
           target.morale   = Math.max(5, target.morale   - (op.moraleDmg || 0))
           this.addLog(`✅ [점령] ${target.name} 점령 완료 (${prev || '무소속'} → ${this.playerFaction})`)
         }
-        this._victory()
 
       } else {
         // 아군 패배
@@ -280,6 +287,8 @@ export const useGameStore = defineStore('game', {
       }
 
       this._pendingBattles.shift()
+      // 대기 중인 전술턴을 모두 처리했으면 그제서야 턴을 종료(날짜 증가·승리 판정)
+      if (this._pendingBattles.length === 0) this._finishTurn()
     },
 
     // ── 교전 자동 처리 (상세 전투를 보지 않고 결과만 산출) ─────────

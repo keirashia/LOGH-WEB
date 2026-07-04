@@ -510,7 +510,7 @@ export const FLEET_DATA = [
       },
     ],
     location: {
-      locCode: "",              // 미확정 성계
+      locCode: "230005",        // 아스타테 (회전 발발 성계)
       locPos: { x: 0, y: 0 },
       direction: 0,
     },

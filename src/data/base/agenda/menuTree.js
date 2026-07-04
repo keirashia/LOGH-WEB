@@ -1,5 +1,5 @@
 // ================================================================
-//  menuTree.js — BottomBar 카테고리별 메뉴 트리 정의
+//  menuTree.js — StrategyBar 카테고리별 메뉴 트리 정의
 //  leaf 항목: { id, label, modal?, action? }
 //  group 항목: { id, label, type: "group", items: [...] }
 //

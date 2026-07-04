@@ -56,7 +56,7 @@
       </div>
 
     </div>
-    <BottomBar />
+    <StrategyBar />
 
     <!-- 모달 -->
     <transition name="fade">
@@ -99,7 +99,7 @@ import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
 import GameHud    from '@/components/ui/GameHud.vue'
 import EventLog   from '@/components/ui/EventLog.vue'
-import BottomBar  from '@/components/ui/BottomBar.vue'
+import StrategyBar from '@/components/ui/StrategyBar.vue'
 import SidePanel     from '@/components/game/panels/SidePanel.vue'
 import GalaxyMap     from '@/components/game/map/GalaxyMap.vue'
 import InfoPanel     from '@/components/game/panels/InfoPanel.vue'

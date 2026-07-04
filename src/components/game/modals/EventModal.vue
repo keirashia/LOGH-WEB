@@ -29,10 +29,12 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
+
 const props = defineProps({ payload: Object })
 defineEmits(['close'])
 
-const buttons = props.payload?.buttons ?? [{ label: '확인' }]
+const buttons = computed(() => props.payload?.buttons ?? [{ label: '확인' }])
 
 const EFFECT_LABELS = {
   morale: '민심', industry: '산업', defense: '방어',
@@ -55,7 +57,7 @@ function effectLabel(k) { return EFFECT_LABELS[k] || k }
   margin-bottom: 12px;
 }
 .dlg-spk { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
-.dlg-txt  { font-size: 12px; line-height: 1.9; color: var(--t2); }
+.dlg-txt  { font-size: 12px; line-height: 1.9; color: var(--t2); white-space: pre-line; }
 .ev-effect {
   display: flex; flex-wrap: wrap; gap: 5px;
   margin-bottom: 14px;
