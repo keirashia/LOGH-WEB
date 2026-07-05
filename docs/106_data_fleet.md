@@ -2,7 +2,7 @@
 > 분류: 데이터
 > 경로: `docs/106_data_fleet.md`
 > 상위: [100_DATA.md](100_DATA.md)
-> 최종 수정: 2026-06-17
+> 최종 수정: 2026-07-05
 
 ---
 
@@ -71,6 +71,25 @@ src/data/scenario/{id}/fleet/
   stDate:    "0",          // 배치 시작 턴
 }
 ```
+
+### 분함대(parentFlt) 함선 수 합산 — `fleetUtils.buildFleetsMap()`
+
+분함대(`parentFlt`로 상위 함대를 가리키는 함대)는 `gameStore.fleets`에 독립 항목으로 올라가지 않고,
+`shipList` 합계가 상위 함대의 `ships`/`maxShips`에 더해진다.
+
+```js
+// buildFleetsMap() 내부
+const childShips = fleetData
+  .filter(c => c.parentFlt === fleet.fltCode)
+  .reduce((s, c) => s + sumShips(c.shipList), 0)
+totalShips = sumShips(fleet.shipList) + childShips
+```
+
+예) `REH004`(로엔그람 함대, 4,000) + `REH041~044`(분함대 4개 × 4,000) → `ships = 24,000`
+
+**미해결**: 분함대 사령관(메르카츠 등)은 상위 함대의 `officers` 배열에 반영되지 않는다 (`796dummy.md` 참조).
+
+---
 
 ### SE796_01 아스타테 편성 예시
 
@@ -180,7 +199,9 @@ typeCode:
 
 ## TODO
 
-- [ ] fleetData.js `fltLoc` 성계 code 입력 (현재 전체 빈값)
+- [x] `REH004` `location.locCode` 확정 (`230005` 아스타테) — 2026-07-04
+- [ ] fleetData.js `fltLoc` 성계 code 입력 (REH004 외 나머지 여전히 빈값)
+- [ ] `REH001`(뮈켄베르거 함대)이 `fleetData.js`에 아예 없음 — 문서와 실제 데이터 불일치
 - [ ] fleetShipData.js / fleetTraitData.js 스키마 문서화
 - [ ] formationData.js `effect` 미완성 6종 (FF_04~10 중 일부) 입력
 - [ ] SE640/01, SE745/01 함대 데이터 미작성

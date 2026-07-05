@@ -2,7 +2,7 @@
 > 분류: 화면
 > 경로: `docs/205_screen_scenario.md`
 > 상위: [200_SCREEN.md](200_SCREEN.md)
-> 최종 수정: 2026-06-17
+> 최종 수정: 2026-07-05
 
 ---
 
@@ -323,6 +323,7 @@ router
 | 2026-06-18 | 카드 클릭 잠금: isScenarioUnlocked (openPt/userUnlocks 기준, useYn 미체크) |
 | 2026-06-18 | prevPlayable/nextPlayable: showYn !== false 필터 추가 |
 | 2026-06-18 | SingleView 새 게임 진입 시 lobby.loadUnlocks() 선행 호출 |
+| 2026-07-03 | `ScenarioDetailView.onStart()` 라우팅 버그 수정 — `scenario-options`로 정상 이동하도록 변경, `ScenarioOptionsView.vue`의 옵션 카드 `disabled` 제거 후 클릭 시 `lobby.options[grp.key] = opt.val` 연결 |
 
 ---
 

@@ -2,8 +2,58 @@
 > 분류: 시스템 로직
 > 경로: `docs/114_data_battle.md`
 > 상위: [100_DATA.md](100_DATA.md)
-> 최종 수정: 2026-06-28
-> 상태: 🔄 설계 중
+> 최종 수정: 2026-07-05
+> 상태: 🔄 설계 중 (아래 "현재 구현"은 이미 동작 중인 단순 버전, 그 이하 0~7절은 향후 부대 시스템 개편 설계)
+
+---
+
+## 현재 구현 (단순 버전, 부대 시스템 적용 전)
+
+`tacticalStore.js` 기준. 아래 §0~7의 부대(部隊)/9×9 포진/FF_01~10 개편은 아직 미적용이며,
+현재는 **함대 = 편대(Squadron) 1~3개** 단위로 단순화된 전투가 실제로 동작한다.
+
+### 조우 감지 → 전술턴 큐 등록
+- `gameStore._fleetMove()`에서 이동 완료 함대의 도착 위치에 타 세력 함대가 있으면 조우 성립
+- 조우 목록을 성계 ID 순으로 정렬해 `_pendingBattles` 배열에 push (여러 건 순차 처리)
+- `GameView.vue`가 큐를 watch: 플레이어 인물이 없으면 confirm(네=상세 전투 / 아니오=자동 해결) 노출
+
+### 편대(Squadron) 생성 — `makeSquadrons(fleet)`
+| 함선 수 | 편대 수 |
+|---|---|
+| ≥ 12,000 | 3 (전위/중위/후위) |
+| ≥ 6,000 | 2 |
+| < 6,000 | 1 |
+
+- 공격측은 맵 우측(`x = MAP_W-2`), 방어측은 좌측(`x = 1`)에 배치
+- 초기 사기 80, 초기 진형 `DOUBLE_COL` 고정 (`tacticalData.js`의 `FORMATIONS`, FF_01~10 아님)
+
+### 턴 진행 — 3페이즈
+1. **player**: `selectUnit` → 이동 가능 칸(`_calcMovable`, Manhattan ≤ 진형 speed)/공격 가능 칸(`_calcAttackable`, 진형 range 기준) 계산 → `moveUnit`/`attackUnit`/`changeFormation` → [턴종료] 또는 전 유닛 행동 완료 시 `endPlayerTurn()`
+2. **ai**: `_aiTurn()` — 20% 확률 진형 변경 → 가장 가까운 플레이어 유닛 탐색 → 사거리 내면 공격, 밖이면 최단 이동 후 재확인 → 완료 시 다음 턴 player 페이즈로
+3. **result**: `_checkVictory()` — 적 유닛 전멸 시 공격측 승리, 플레이어 유닛 전멸 시 방어측 승리
+
+### 전투 해결 — `_combat(atkId, defId)`
+```js
+dmg     = max(100, floor(atk.ships * atkFm.offMod * atkStatBonus * atkTerrainMod * rand(0.85,1.15) * 0.15
+                          - def.ships * defFm.defMod * defStatBonus * defTerrainMod * 0.04))
+counter = max(50,  floor(def.ships * defFm.defMod * defStatBonus * defTerrainMod * rand(0.85,1.15) * 0.06))
+// statBonus = commander 있으면 0.7 + military/100*0.6, 없으면 1.0
+// moraleDmg = floor(dmg또는counter / maxShips * (피격측 기준 50 또는 반격측 25))
+// ships<=0 또는 morale<=10 이면 유닛 격파(배열에서 제거)
+```
+
+### 전투 결과 반영 — `gameStore.applyBattleResult(result)`
+- **승리**: 공격 함대 위치=목표 성계로 갱신, 방어 함대들에 손실을 균등 분배(잔여 ≤1000이면 해산), 목표 성계 점령(faction 변경 + defense/morale 감소)
+- **패배**: 공격 함대는 가장 가까운 아군 성계로 철수, 손실 적용
+- 처리 후 `_pendingBattles.shift()` → 큐가 비면 `gameStore._finishTurn()` 호출 (턴 흐름은 [108_data_turns.md](108_data_turns.md) 참조)
+
+### 자동 해결 — `autoResolveBattle()`
+전술 화면 없이 전투력(함선 수 × 지휘관 보정 × 난수)만으로 승패/손실률을 즉시 산출 후 `applyBattleResult()` 호출.
+
+### 결정: 전술 전용 하단바(`TacticalBar.vue`) 신설 보류
+이동/공격은 지도 셀 클릭 기반 UX이고 진형변경은 선택 유닛 좌측 패널에 있어, 별도 하단바로 쪼개면
+이미 동작하는 전술 UI에 회귀 위험만 생기고 실익이 없다고 판단 (2026-07-04). 기능은 이미 100% 동작 중이며,
+컴포넌트 명명 일치가 목적일 때만 재검토. `CharInfoPanel` 교체 여부 결정도 동일 사유 — [208_screen_components.md](208_screen_components.md#전술뷰tacticalview와의-관계--교체-대신-별도-패널-신설-결정) 참조.
 
 ---
 

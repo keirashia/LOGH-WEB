@@ -2,7 +2,7 @@
 > 분류: 화면
 > 경로: `docs/203_screen_views.md`
 > 상위: [200_SCREEN.md](200_SCREEN.md)
-> 최종 수정: 2026-06-17
+> 최종 수정: 2026-07-05
 
 ## 라우터 경로
 
@@ -54,17 +54,20 @@
 [ 게임오버 오버레이 (gameOver) ]
 ```
 
-- `watch(() => game._pendingBattle)` → `/game/tactical` 라우팅
+- `watch(() => game._pendingBattles.length)` → 큐에 항목이 생기면 처리 (여러 건은 순차 처리)
+  - 플레이어 인물이 교전 함대(지휘관/부관)에 있으면 confirm 없이 곧바로 `/game/tactical` 이동
+  - 없으면 confirm 모달(`{성계}에서 교전이 발생하였습니다. 상세 전투를 보시겠어요?`) → [네] 상세 진입 / [아니오] `game.autoResolveBattle()`로 즉시 자동 처리 후 결과 모달만 노출
 - 테마: `.theme-REH` / `.theme-FPA` / `.theme-PZN` (CSS 변수 `--fc` 세팅)
 
 ---
 
 ## TacticalView.vue (`/game/tactical`)
 
-전술 전투 화면. `gameStore._pendingBattle`로 진입.
+전술 전투 화면. `gameStore._pendingBattles[0]`(큐 선두 항목)로 진입.
 
-- 전투 종료 시 `gameStore.applyBattleResult(result)` 호출 후 `/game` 복귀
+- 전투 종료 시 `gameStore.applyBattleResult(result)` 호출 → 큐에서 shift → `/game` 복귀 → 다음 대기 전투 있으면 반복
 - 자동/수동 모드 전환 지원
+- 상세 전투 로직: [114_data_battle.md](114_data_battle.md#현재-구현-단순-버전-부대-시스템-적용-전) 참조
 
 ---
 

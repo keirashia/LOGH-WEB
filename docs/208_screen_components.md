@@ -2,7 +2,7 @@
 > 분류: 화면
 > 경로: `docs/208_screen_components.md`
 > 상위: [200_SCREEN.md](200_SCREEN.md)
-> 최종 수정: 2026-06-18
+> 최종 수정: 2026-07-05
 
 ## 개요
 
@@ -25,7 +25,7 @@ components/
 | `OptionsPanel.vue` | AppHeader 메뉴 패널 |
 | `GameHud.vue` | 게임 중 HUD (세력/자원/날짜) |
 | `EventLog.vue` | 이벤트 로그 패널 |
-| `BottomBar.vue` | 하단 카테고리 버튼 8개(2×4 그리드) + 턴 종료 (position: fixed) |
+| `StrategyBar.vue`(구 `BottomBar.vue`, 2026-07-04 리네임) | 하단 카테고리 버튼 8개(2×4 그리드) + 턴 종료 (position: fixed). 최신 카테고리 구성/CSS는 [209_screen_bottombar.md](209_screen_bottombar.md) 참조 |
 | `StatRow.vue` | 스탯 행 공통 컴포넌트 |
 
 ### AppHeader 상세
@@ -206,6 +206,16 @@ info:      인물 / 함대 / 세력 / 성계*
                (CharInfoPanel은 오버레이)
 ```
 
+#### 전술뷰(TacticalView)와의 관계 — 교체 대신 별도 패널 신설 (결정)
+
+원래 스펙은 전술턴 진입 시 `CharInfoPanel.vue`를 함대(편대) 정보 패널로 "교체"하는 것이었으나,
+실제로는 `TacticalView.vue` 내부에 별도 패널(`.tac-left`)을 새로 만들어 편대 정보를 표시한다.
+`CharInfoPanel.vue` 자체는 `tacticalStore`를 전혀 참조하지 않는다.
+
+**사유**: 이동/공격은 지도 셀 클릭 기반 UX이고 진형변경은 선택 유닛과 밀접한 좌측 패널에 있어,
+기존 `CharInfoPanel`을 재활용하도록 뜯어고치면 이미 검증된 전술 UI에 회귀 위험만 생기고 실질적 이득이 없다고 판단.
+컴포넌트 명명/구조를 스펙과 일치시키는 것 자체가 목적이 아니라면 현재 구조 유지 (2026-07-04).
+
 #### 뒤로가기 / 닫기 처리
 
 - 명령 관련 컴포넌트(MenuPanel 등) 우측 상단 **X** → 행동 취소(닫기)
@@ -244,11 +254,18 @@ const starMapData = computed(() => getStarMapByCode(sys.value.code ?? sys.value.
   title: '쿠데타 발생',
   portrait: '⚔️',
   speaker: '라인하르트 폰 로엔그람',
-  desc: '은하제국 내에 쿠데타가 발생했습니다...',
+  desc: '은하제국 내에 쿠데타가 발생했습니다...\n두 번째 줄',  // white-space: pre-line 적용, \n 개행 반영
   effect: { morale: -10, gold: -500 },  // optional
-  buttons: [{ label: '확인' }],          // optional, default=[{label:'확인'}]
+  buttons: [{ label: '확인', cls: 'btn-gold', action: () => {...} }],
+  // buttons: optional, default=[{label:'확인'}]
+  // cls: 'btn'|'btn-gold'|'btn-red'|... (미지정 시 btn-gold)
+  // action: 클릭 시 실행할 콜백 (실행 후 자동으로 close emit)
 }
 ```
+
+**주의 (2026-07-04 수정)**: `buttons`는 `computed(() => props.payload?.buttons ?? [...])`로 구현되어야 한다.
+일반 `const`로 두면 같은 EventModal 인스턴스가 재사용되는 연속 모달 호출(예: 턴종료 confirm → 교전 confirm)에서
+두 번째 모달이 첫 번째 모달의 버튼을 그대로 표시하는 반응성 버그가 발생한다.
 
 ---
 

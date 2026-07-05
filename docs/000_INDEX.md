@@ -1,7 +1,7 @@
 # LOGH-WEB — 문서 관리 가이드 (총괄)
 > 분류: 총괄
 > 경로: `docs/000_INDEX.md`
-> 최종 수정: 2026-06-27
+> 최종 수정: 2026-07-05
 
 ## 프로젝트 개요
 
@@ -138,6 +138,10 @@ docs/
 - **요직 개편**: REH JB_R004 삭제·JB_R011 추가 / FPA JB_F003/010/011 삭제·JB_F013~018 추가
 - **planetsData.js name 배열 버그 수정**: gameStore buildState에서 [{code:"Kr"}] → nameKr 자동 변환
 - **MD 개편**: docs/ 폴더 중앙화 (102~113 작성)
+- **턴 종료 / 교전 발생 confirm 다이얼로그**: `_turnActionTaken` 플래그, `_pendingBattles` 큐(스칼라→배열) 전환, `autoResolveBattle()` 신규 (2026-07-03~04, 상세: [108_data_turns.md](108_data_turns.md), [114_data_battle.md](114_data_battle.md))
+- **BottomBar.vue → StrategyBar.vue 리네임** 완료, `TacticalBar`/`CharInfoPanel` 교체는 회귀 위험 대비 실익 낮아 보류 (2026-07-04)
+- **REH004 함대 위치 확정 + 분함대(parentFlt) 함선 수 합산 로직** 구현 (2026-07-04, [106_data_fleet.md](106_data_fleet.md))
+- **ScenarioDetailView → ScenarioOptionsView 라우팅 버그 수정** (2026-07-03, [205_screen_scenario.md](205_screen_scenario.md))
 
 ### ⬜ 진행 중 / 다음 작업
 
