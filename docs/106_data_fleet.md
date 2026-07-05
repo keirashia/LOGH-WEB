@@ -15,11 +15,13 @@ src/data/base/fleet/
 └── unitshipData.js      일반 함선 제원 (US_*)
 
 src/data/scenario/{id}/fleet/
-├── fleetData.js         함대 초기 편성
-├── fleetCharacterData.js 함대-인물 배치 (C/O/S 계층)
-├── fleetShipData.js     함대-함선 구성
+├── fleetData.js         함대 초기 편성 (charList/shipList 내장)
 └── fleetTraitData.js    함대 트레잇 초기값
 ```
+
+> **2026-07-02 스키마 개편**: 구 `fleetCharacterData.js`(지휘 계층) / `fleetShipData.js`(함선 구성) 2개 파일은
+> **삭제**되었고, 각 함대 객체 안에 `charList`/`shipList`로 내장됐다. `fltCode`도 7자리(예: `FPA0020`)→
+> **6자리**(`FPA002`)로 통일 (본함대/분함대 구분 없이 전부 6자리, 접미사 seq 규칙 폐기).
 
 ---
 
@@ -28,49 +30,42 @@ src/data/scenario/{id}/fleet/
 ### fltCode 체계
 
 ```
-{FACTION}{NUM:3자리}  예) FPA0020, REH0040, REH0041
+{FACTION}{NUM:3자리}  예) FPA002(동맹 제2함대), REH004(로엔그람 함대), REH041(메르카츠 분함대)
 ```
 
-- `FPA0020` = 동맹 제2함대
-- `REH0040` = 제국 로엔그람 함대
-- `REH0041` = 로엔그람 함대 메르카츠 **분**함대
+- `parentFlt`: 분함대면 상위 `fltCode`(6자리), 독립 함대면 `null`
 
 ### 스키마
 
 ```js
 {
-  fltCode:   "FPA0020",
+  fltCode:   "FPA002",
   faction:   "FPA",
   fltNum:    "002",
-  fltName:   "자유행성동맹 제2함대",
-  fltLoc:    "",           // 초기 위치 성계 code (현재 빈값)
-  parentFlt: null,         // 분함대인 경우 상위 fltCode, 독립이면 null
+  fltName:   [{ code: "Kr", context: "제2함대" }],   // 다국어 배열, context = 함대 고유명칭
+  parentFlt: null,          // 분함대인 경우 상위 fltCode, 독립이면 null
+  charList:  [              // 지휘 계층 (fltCode 필드 없음 — 상위 함대와 중복이므로 제거)
+    { charCode: "CH_000479", type: "C", stDate: "0", proactive: 100 },  // 파에타
+    { charCode: "CH_000266", type: "O", stDate: "0", proactive: 50  },  // 양 웬리
+  ],
+  shipList: [                // 함선 구성 (fltCode는 조인 키로 유지)
+    { fltCode: "FPA002", shipIndex: 1, type: "F", shipCode: "", shipAmt: 15000 },
+  ],
+  location: {                 // 분함대는 location 필드 자체를 생략 (상위 함대 위치 따름)
+    locCode: "230006", locPos: { x: 527, y: 775 }, direction: 12,
+  },
+  formationList: [{ ffCode: "FF_01", useYn: true }],
+  stratageList: [],
 }
 ```
 
----
-
-## fleetCharacterData.js — 지휘 계층
-
-### type 분류
+### type 분류 (charList)
 
 | type | 역할 | 함대 능력치 |
 |---|---|---|
-| C | 사령관 | 해당 함대 기본값 결정 |
-| O | 부관 | 사령관 스탯에 보정 적용 |
-| S | 분함대 사령관 | 상위 함대 소속, 독립 행동 가능 |
-
-### 스키마
-
-```js
-{
-  fltCode:   "FPA002",     // 3자리 축약 코드 (FPA0020 → FPA002)
-  charCode:  "CH_000479",  // 인물 코드
-  type:      "C",          // C | O | S
-  parentFlt: null,         // S 타입이면 상위 fltCode, 아니면 null
-  stDate:    "0",          // 배치 시작 턴
-}
-```
+| C | 사령관 | 해당 함대 기본값 결정 (`statCmd`/`statCsm` 고정) |
+| O | 부관 | 사령관 스탯에 보정 적용 (전원 중 최고값, `statCsm` 상한) |
+| S | 분함대 사령관 | 상위 함대(`parentFlt`) 소속, 독립 행동 가능. `getFleetAssignment` 라벨은 "사령관"과 동일 취급 |
 
 ### 분함대(parentFlt) 함선 수 합산 — `fleetUtils.buildFleetsMap()`
 
@@ -85,26 +80,39 @@ const childShips = fleetData
 totalShips = sumShips(fleet.shipList) + childShips
 ```
 
-예) `REH004`(로엔그람 함대, 4,000) + `REH041~044`(분함대 4개 × 4,000) → `ships = 24,000`
-
-**미해결**: 분함대 사령관(메르카츠 등)은 상위 함대의 `officers` 배열에 반영되지 않는다 (`796dummy.md` 참조).
+예) `REH004`(로엔그람 함대, 4,000) + `REH041~045`(분함대 5개 × 4,000) → `ships = 24,000`
 
 ---
 
-### SE796_01 아스타테 편성 예시
+### SE796_0211_010 (아스타테 회전) 편성 — 검증 완료 (2026-07-05, `796dummy.md`↔`fleetData.js` 대조)
 
-**FPA:**
-- FPA002: 파에타(C) + 양 웬리(O)
-- FPA004: 파스톨레(C)
-- FPA006: 무어(C)
+**FPA — 아스타테에 직접 투입되는 3개 분함대(총 4만 5천척) + 대기 함대:**
 
-**REH:**
-- REH001: 뮈켄베르거(C) — 독립 함대
-- REH004: 로엔그람(C)
-  - REH041: 메르카츠 분함대(S)
-  - REH042: 슈타덴 분함대(S)
-  - REH043: 파렌하이트 분함대(S)
-  - REH044: 에를라흐 분함대(S)
+| fltCode | 함대명 | 사령관 | 부관/참모 | 함선 수 | 위치 |
+|---|---|---|---|---|---|
+| FPA001 | 제1함대 | 쿠브르슬리(CH_000443) | — | 15,000 | 230006(하이네센) |
+| FPA002 | 제2함대 | 파에타(CH_000479) | 양 웬리(O)/아텐보로(O)/라오(O) | 15,000 | 230006 |
+| FPA003 | 제3함대 | 르페브르(CH_000574) | — | 15,000 | 230006 |
+| FPA004 | 제4함대 | 파스톨레(CH_000478) | 피셔(O) | 15,000 | 230006 |
+| FPA005~012 | — | — | — | 각 15,000 | 230006, 이 시나리오 교전 미참여 |
+
+**REH — 라인하르트 총사령관 휘하:**
+
+| fltCode | 함대명 | 사령관 | 함선 수 | 비고 |
+|---|---|---|---|---|
+| REH004 | 로엔그람 함대(총사령관) | 라인하르트(C) + 키르히아이스(O) | 4,000 | 230005(아스타테) |
+| REH041 | 메르카츠 분함대 | 메르카츠(S) | 4,000 | parentFlt: REH004 |
+| REH042 | 슈타덴 분함대 | 슈타덴(S) | 4,000 | parentFlt: REH004 |
+| REH043 | 파렌하이트 분함대 | 파렌하이트(S) | 4,000 | parentFlt: REH004 |
+| REH044 | 에를라흐 분함대 | 에를라흐(S) | 4,000 | parentFlt: REH004 |
+| REH045 | 포겔 분함대 | 포겔(S) | 4,000 | parentFlt: REH004 |
+
+→ `buildFleetsMap()` 합산으로 REH 총 병력 24,000척 (§ 위 "분함대 함선 수 합산" 참조)
+
+**미해결 (fleetData.js에 데이터 없음)**:
+- `REH001`(뮈켄베르거 함대, 4,000척 추정) — 코드에 존재하지 않음. 추가 시 `796dummy.md`가 지정한 사령관 코드 `CH_000199`는
+  실제로는 "그레고르 폰 뮈켄베르거의 부친, 이미 사망해 직접 등장하지 않는 인물"이므로 활동 중인 `CH_000017`로 정정 필요.
+- 이제르론 주둔함대 (미터마이어/로이엔탈) — `fleetData.js`에 자리만 표시된 주석(`// 이제르론 주둔함대`)만 있고 데이터 없음.
 
 ---
 
@@ -200,8 +208,10 @@ typeCode:
 ## TODO
 
 - [x] `REH004` `location.locCode` 확정 (`230005` 아스타테) — 2026-07-04
-- [ ] fleetData.js `fltLoc` 성계 code 입력 (REH004 외 나머지 여전히 빈값)
-- [ ] `REH001`(뮈켄베르거 함대)이 `fleetData.js`에 아예 없음 — 문서와 실제 데이터 불일치
-- [ ] fleetShipData.js / fleetTraitData.js 스키마 문서화
+- [x] FPA003 사령관(르페브르, `CH_000574`) charList 등록 — 2026-07-05
+- [ ] `location.locCode` 나머지 함대 입력 (REH004 외 대부분 여전히 빈값 또는 하이네센 고정)
+- [ ] `REH001`(뮈켄베르거 함대) / 이제르론 주둔함대 — `fleetData.js`에 아예 없음 (위 예시 절 참조)
+- [ ] 분함대 사령관(메르카츠 등)을 상위 함대 `officers`에 반영 (현재 함선 수만 합산)
+- [ ] fleetTraitData.js 스키마 문서화 (현재 미입력)
 - [ ] formationData.js `effect` 미완성 6종 (FF_04~10 중 일부) 입력
 - [ ] SE640/01, SE745/01 함대 데이터 미작성

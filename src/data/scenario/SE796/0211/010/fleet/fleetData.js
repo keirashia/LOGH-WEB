@@ -114,14 +114,21 @@ export const FLEET_DATA = [
     stratageList: [],
   },
 
-  // 사령관 르페브르 (미등록 인물 — charList 미입력, TODO)
+  // 사령관 르페브르
   {
     fltCode: "FPA003",
     faction: "FPA",
     fltNum: "003",
     fltName: [{ code: "Kr", context: "제3함대" }],
     parentFlt: null,
-    charList: [],   // TODO: 르페브르 캐릭터 데이터 미등록
+    charList: [
+      {
+        charCode: "CH_000574",  // 르페브르
+        type: "C",
+        stDate: "0",
+        proactive: 100,
+      },
+    ],
     shipList: [
       {
         fltCode: "FPA003",

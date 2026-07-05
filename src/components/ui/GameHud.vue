@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="hud-mid">
-      <span class="mono dim" style="font-size:10px;white-space:nowrap">{{ game.dateStr }}</span>
+      <span class="mono dim" style="font-size:10px;white-space:nowrap">{{ game.dateStr }} · 턴 {{ game.turn }}</span>
       <div class="hud-res">
         <span>💰</span>
         <span class="gold mono">{{ game.pRes.gold.toLocaleString() }}</span>

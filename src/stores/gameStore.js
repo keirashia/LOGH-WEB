@@ -92,7 +92,7 @@ export const useGameStore = defineStore('game', {
       Object.values(s.systems).forEach(x => { if (x.faction) c[x.faction] = (c[x.faction] || 0) + 1 })
       return c
     },
-    dateStr:   s => `우주력 ${s.year}년 ${s.month}월 / 제국력 ${s.impYear}년`,
+    dateStr:   s => `우주력 ${s.year}년 ${s.month}월 ${s.day}일 / 제국력 ${s.impYear}년`,
     pFaction:  s => s.factions[s.playerFaction] ?? null,
     fColors:   s => Object.fromEntries(Object.values(s.factions).map(f => [f.id, f.color])),
     allFleets: s => {
@@ -258,7 +258,7 @@ export const useGameStore = defineStore('game', {
             factionFleets.splice(idx, 1)
           } else {
             factionFleets[idx].ships = remaining
-            const friendly = Object.values(this.systems).find(s => s.faction === df.faction)
+            const friendly = this._nearestFriendlySystem(ctx.targetSystemId, df.faction)
             if (friendly) factionFleets[idx].location = friendly.id
           }
         })
@@ -280,7 +280,7 @@ export const useGameStore = defineStore('game', {
           attackerFleet.ships  = Math.max(1000, ctx.attackerFleet.ships - result.attackerLosses)
           attackerFleet.status = 'standby'
           attackerFleet.target = null
-          const friendly = Object.values(this.systems).find(s => s.faction === this.playerFaction)
+          const friendly = this._nearestFriendlySystem(ctx.targetSystemId, this.playerFaction)
           if (friendly) attackerFleet.location = friendly.id
         }
         this.addLog(`⚠ [패배] 아군함대 패배, ${ctx.attackerFleet.name} 철수`)
@@ -558,17 +558,26 @@ export const useGameStore = defineStore('game', {
       return true
     },
 
+    // ── 가장 가까운 아군 성계 탐색 (직선거리 기준) ─────────────────
+    _nearestFriendlySystem(fromId, faction) {
+      const homes = Object.values(this.systems).filter(s => s.faction === faction)
+      if (!homes.length) return null
+      const from = this.systems[fromId]
+      if (!from) return homes[0]
+      return homes.reduce((a, b) =>
+        Math.hypot(a.x - from.x, a.y - from.y) <= Math.hypot(b.x - from.x, b.y - from.y) ? a : b
+      )
+    },
+
     // ── 함대 철수 (출격 중 또는 적 성계에서 철수) ─────────────────
     retreatFleet(fleetId) {
       const fleet = this.pFleets.find(f => f.id === fleetId)
       if (!fleet) return false
 
-      // 가장 가까운 아군 성계로 철수
-      const homeSystems = Object.values(this.systems)
-        .filter(s => s.faction === this.playerFaction)
-      if (!homeSystems.length) return false
+      // 가장 가까운 아군 성계로 철수 (현재 위치 기준 직선거리)
+      const dest = this._nearestFriendlySystem(fleet.location, this.playerFaction)
+      if (!dest) return false
 
-      const dest = homeSystems[0]
       fleet.status = 'standby'
       fleet.target = null
       fleet.location = dest.id

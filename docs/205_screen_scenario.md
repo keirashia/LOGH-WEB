@@ -167,11 +167,12 @@ desc[].image: "01.webp"  → 하위 호환 폴백
 
 ### libs 필드 — 사전 팝업 연동
 ```js
-libs: ["ST_230017:엘 파실", "CH_000240:아서 린치"]
+libs: ["ST_:아스타테", "CH_:양 웬리"]   // 실사용 예 (SE796_0211_010 scenarioDesc.js)
 
-// 접두사 규칙
-ST_{code}  → encyclopediaStore.open('systems');  enc.searchQuery = label
-CH_{code}  → encyclopediaStore.open('characters'); enc.searchQuery = label
+// 파싱: prefix = lib.slice(0,3) (항상 "ST_"/"CH_" 3글자) / label = lib.slice(indexOf(':')+1)
+// prefix와 ':' 사이 값은 파싱에서 그냥 버려짐 — 코드값을 넣어도(예: "ST_230017:엘 파실") 무시되고 label만 쓰임
+ST_  → encyclopediaStore.open('systems');    enc.searchQuery = label
+CH_  → encyclopediaStore.open('characters'); enc.searchQuery = label
 ```
 
 ---
@@ -202,13 +203,16 @@ cur.variants 배열이 존재하고 2개 이상일 때 서브타이틀 칩에 �
 
 ---
 
-## Step 3 — 인물 선택 ✅ 구현됨 (legacy, 이동 예정)
+## Step 3 — 인물 선택 ✅ 구현됨 (`ScenarioCharSelectView.vue`)
+
+국가 선택(Stage 1) + 인물 선택(Stage 2) 통합 화면.
 
 ```
-CHAR_BASE 전체 풀 기반
-  charList.js에 faction 있으면 → charList 값 우선
-  charList.js에 faction 없으면 → charactersData.js 폴백
-NPC 등장 옵션에 따라 생존 필터 적용
+인물 목록: 시나리오별 characters/charactersData.js(dynamic import)의 CHAR_LIST + 전체 CHAR_BASE 조합
+직책 오버라이드: game._preloadedData?.charJobs 로 시나리오 직책 반영(effectiveCharJobs)
+생존 필터: isAliveAt() — npcAppearance === 'fact'일 때 생몰년(birth/death) 기준 필터링
+추천 인물: recommend 값 기준 자동 선택(leadChars)
+[게임 시작] 클릭 → game.startGame(scId, faction, charCode) 후 /game 라우팅
 ```
 
 ---
