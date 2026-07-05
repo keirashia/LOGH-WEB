@@ -142,6 +142,10 @@ docs/
 - **BottomBar.vue → StrategyBar.vue 리네임** 완료, `TacticalBar`/`CharInfoPanel` 교체는 회귀 위험 대비 실익 낮아 보류 (2026-07-04)
 - **REH004 함대 위치 확정 + 분함대(parentFlt) 함선 수 합산 로직** 구현 (2026-07-04, [106_data_fleet.md](106_data_fleet.md))
 - **ScenarioDetailView → ScenarioOptionsView 라우팅 버그 수정** (2026-07-03, [205_screen_scenario.md](205_screen_scenario.md))
+- **SE796_0211_010(아스타테) 마무리**: FPA003(르페브르) charList 등록, 오프닝 인명 오류 수정, 분함대 사령관
+  `subCommanders` 필드로 반영(officers와 구분), 게임 시작 시점 강제 조우 `_checkInitialEncounters()` 신규 —
+  REH001/이제르론 주둔함대는 이 시나리오 범위 밖으로 확정 (2026-07-05, [108_data_turns.md](108_data_turns.md),
+  [106_data_fleet.md](106_data_fleet.md), Playwright로 REH/PZN 양쪽 게임 시작 흐름 실제 검증 완료)
 
 ### ⬜ 진행 중 / 다음 작업
 
