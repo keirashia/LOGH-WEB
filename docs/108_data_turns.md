@@ -72,6 +72,14 @@
 - `GameView.vue` 마운트 시 `game.initialized` 확인 (false면 `/game` 라우터 가드가 `/title`로 리다이렉트)
 - 전략턴 화면: `GalaxyMap.vue` 은하계 지도 + `GameHud.vue`(년/월/일, 턴 수 HUD) 노출
 
+### 게임 시작 시점의 강제 조우 (`gameStore._checkInitialEncounters()`, 2026-07-05 신규)
+- `startGame()` 마지막 단계에서 호출 — 시나리오 데이터가 플레이어 세력 함대를 처음부터 적 함대와
+  같은 성계에 배치해뒀다면(예: SE796_0211_010 아스타테의 FPA002/REH004) 1턴 시작과 동시에 `_pendingBattles`에 등록
+- 시나리오 무관 범용 로직 — `fleetData.js`의 `location.locCode`만으로 결정되므로 특정 시나리오에 하드코딩되지 않음
+- `GameView.vue`의 `_pendingBattles` watcher는 `{ immediate: true }`로 등록해야 함 — 컴포넌트가 마운트되기
+  **이전**(스토어 초기화 시점)에 이미 큐가 채워지는 경우가 있어, 일반 `watch`(값이 "변경"될 때만 발화)로는
+  이 최초 진입 조우를 감지하지 못하는 타이밍 버그가 있었음. `ctx._notified` 플래그로 중복 확인창 방지.
+
 ### 전략턴 → `StrategyBar.vue`(구 BottomBar) [턴종료] 클릭 시
 1. 이번 턴 전략 활동 여부(`game._turnActionTaken`)에 따라 confirm 메시지 분기
    - 없음: `이번 턴에는 전략 활동 이력이 없습니다. 전략 턴을 종료할까요?`
@@ -99,8 +107,8 @@ _ai()              AI 세력 수입 처리 + 12% 확률 함대 공략 시도
 - `_victory()`: 성계 70% 이상 점유 세력 있으면 `gameOver = true`
 - `game.addLog()`로 턴 시작 로그 기록, `_turnActionTaken = false`로 초기화
 
-### 전술턴 진입 판정 (`GameView.vue`가 `game._pendingBattles.length`를 watch)
-- 플레이어 인물이 교전 함대(지휘관/부관)에 있으면 confirm 없이 곧바로 `/game/tactical` 이동
+### 전술턴 진입 판정 (`GameView.vue`가 `game._pendingBattles.length`를 watch, `immediate:true`)
+- 플레이어 인물이 교전 함대(사령관/부관/분함대사령관 — `commander`/`officers`/`subCommanders`)에 있으면 confirm 없이 곧바로 `/game/tactical` 이동
 - 없으면 confirm 모달(`이번 턴 교전 발생. 상세 전투를 보시겠어요?`) → [네] 상세 진입 / [아니오] `autoResolveBattle()`로 즉시 결과만 산출
 - 전술턴(또는 자동 해결) 종료 후 `gameStore.applyBattleResult(result)` → `_pendingBattles.shift()` → 큐가 비면 `_finishTurn()` 호출
 

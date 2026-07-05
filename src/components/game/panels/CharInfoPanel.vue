@@ -186,6 +186,8 @@ const fleetAssignment = computed(() => {
   for (const fleets of Object.values(game.fleets)) {
     for (const f of fleets) {
       if (f.commander === code) return { name: f.name, role: '사령관' }
+      const sub = f.subCommanders?.find(c => c.charCode === code)
+      if (sub) return { name: sub.fleetName, role: '사령관' }
       if (f.officers?.includes(code)) return { name: f.name, role: '부관' }
     }
   }

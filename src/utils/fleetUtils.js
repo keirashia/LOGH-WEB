@@ -135,10 +135,16 @@ export function buildFleetsMap(fleetData = []) {
     if (!result[f]) result[f] = []
 
     // 분함대(parentFlt로 이 함대를 가리키는 하위 함대) 함선 수를 상위 함대에 합산
-    const childShips = fleetData
-      .filter(c => c.parentFlt === fleet.fltCode)
-      .reduce((s, c) => s + sumShips(c.shipList), 0)
+    const childFleets = fleetData.filter(c => c.parentFlt === fleet.fltCode)
+    const childShips = childFleets.reduce((s, c) => s + sumShips(c.shipList), 0)
     const totalShips = sumShips(fleet.shipList) + childShips
+
+    // 분함대 사령관(type=S)은 officers(부관)와 구분해 별도 필드로 상위 함대에 반영
+    const subCommanders = childFleets.flatMap(c =>
+      (c.charList ?? [])
+        .filter(ch => ch.type === 'S')
+        .map(ch => ({ charCode: ch.charCode, fleetName: getFltName(c, 'Kr') }))
+    )
 
     result[f].push({
       // 불변값
@@ -150,6 +156,7 @@ export function buildFleetsMap(fleetData = []) {
       formation:     fleet.formationList?.find(ff => ff.useYn)?.ffCode ?? null,
       commander:     fleet.charList?.find(c => c.type === 'C')?.charCode ?? null,
       officers:      fleet.charList?.filter(c => c.type === 'O').map(c => c.charCode) ?? [],
+      subCommanders, // [{ charCode, fleetName }] — 분함대 사령관 (메르카츠 등), officers와 별도 취급
       // shipList 파생
       ships:         totalShips,
       maxShips:      totalShips,

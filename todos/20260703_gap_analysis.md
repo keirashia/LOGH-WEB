@@ -4,7 +4,8 @@
 > 해결된 항목은 `docs/`로 이관 완료 (108_data_turns.md, 114_data_battle.md, 203_screen_views.md,
 > 106_data_fleet.md, 205_screen_scenario.md, 208_screen_components.md, 000_INDEX.md 참조).
 > 2026-07-05: 철수 최근접 성계 거리계산(`gameStore.js _nearestFriendlySystem`), GameHud 일/턴 표시,
-> FPA003(르페브르 CH_000574) charList 등록 3건 코드 수정 완료 (문서화는 별도 불필요한 소규모 수정).
+> FPA003(르페브르 CH_000574) charList 등록, 오프닝 내레이션 인명 수정, 분함대 사령관 `subCommanders` 반영
+> (officers와 구분) 총 5건 코드 수정 완료 (문서화는 별도 불필요한 소규모 수정).
 
 ## 🔴 플로우 단절
 
@@ -23,12 +24,8 @@
 
 ## 🟠 `796dummy.md` (아스타테 성역 회전 시나리오) 관련
 
-5. **`REH001`(뮈켄베르거 함대)이 `fleetData.js`에 아예 없음** — 문서와 실제 데이터 불일치. 추가 시 주의: `796dummy.md`가 지정한
-   사령관 코드 `CH_000199`는 실제로는 "그레고르 폰 뮈켄베르거의 부친, 이미 사망해 직접 등장하지 않는 인물"(`charactersData.js` desc 참조)이고,
-   활동 중인 그레고르 폰 뮈켄베르거는 `CH_000017`이므로 `796dummy.md` 쪽 인물 코드부터 정정 필요.
-6. 이제르론 주둔함대(미터마이어/로이엔탈), 시나리오 전용 승리조건, 1턴 강제 조우 이벤트(포위망/제2분함대), 양 웬리 지휘권 이전 이벤트 — 전부 코드 없음, 문서의 TODO 그대로 미해결.
-7. **`scenarioDesc.js` 인터페이스 불일치.** `796dummy.md`가 명시한 페이지 인터페이스는 `{ index, image/bg, char, charName, text, effect, libs }`이지만, 실제 `scenarioDesc.js`(3페이지 전부)는 `char`/`charName` 필드를 전혀 채우지 않음(`image`/`text`/`effect`/`libs`만 존재). `ScenarioDetailView.vue`는 `page.char`로 캐릭터 초상화(`charSrc`)를, `page.charName`으로 이름 라벨을 렌더링하도록 이미 구현되어 있는데(`ScenarioDetailView.vue:100-102,22`), 이 시나리오는 해당 기능을 아예 쓰지 않는 상태 — 코드 버그는 아니지만 연출 콘텐츠 미완성.
-8. **오프닝 내레이션과 함대 데이터 간 인명 불일치.** `scenarioDesc.js` 3페이지 텍스트는 "제4함대 사령관 패트릭 캐슬네스 중장"이 후퇴를 결단했다고 서술하지만, `fleetData.js`의 실제 `FPA004` 사령관은 파스톨레(`CH_000478`)이며 이는 `796dummy.md` 자체의 표(4절)와도 일치함. 즉 오프닝 컷씬 스크립트 쪽 인명이 시나리오 데이터/문서와 어긋나 있어 수정 필요.
-    - `scenarioDesc.js` index 3, `fleetData.js:145-165`
+5. 시나리오 전용 승리조건, 1턴 강제 조우 이벤트(포위망/제2분함대), 양 웬리 지휘권 이전 이벤트 — 전부 코드 없음, 문서의 TODO 그대로 미해결.
+   (`REH001`/이제르론 주둔함대는 2026-07-05 사용자 확인 결과 이 시나리오 범위 밖으로 확정 — 추가하지 않음, [106_data_fleet.md](../docs/106_data_fleet.md) 참조)
+6. **`scenarioDesc.js` 인터페이스 불일치.** `796dummy.md`가 명시한 페이지 인터페이스는 `{ index, image/bg, char, charName, text, effect, libs }`이지만, 실제 `scenarioDesc.js`(3페이지 전부)는 `char`/`charName` 필드를 전혀 채우지 않음(`image`/`text`/`effect`/`libs`만 존재). `ScenarioDetailView.vue`는 `page.char`로 캐릭터 초상화(`charSrc`)를, `page.charName`으로 이름 라벨을 렌더링하도록 이미 구현되어 있는데(`ScenarioDetailView.vue:100-102,22`), 이 시나리오는 해당 기능을 아예 쓰지 않는 상태 — 코드 버그는 아니지만 연출 콘텐츠 미완성.
 
 **검증 완료(문제 없음):** `796dummy.md` 6절의 주요 성계 초기 상태 표(230006/230042/230002/230009/230037의 morale·tax·traits)는 `starDetail.js`와 정확히 일치. 5절 양 웬리 직책 오버라이드도 `charactersJobs.js`와 정확히 일치. libs 프리픽스 라우팅(`ST_`→성계 백과사전, `CH_`→인물 백과사전)도 `ScenarioDetailView.vue:109-110`에 정상 구현되어 있음.

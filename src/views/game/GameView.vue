@@ -147,12 +147,15 @@ function onPopState() {
 watch(() => game._pendingBattles.length, (len) => {
   if (len === 0) return
   const ctx = game._pendingBattles[0]
+  if (ctx._notified) return
+  ctx._notified = true
   const attackerFleet = ctx.attackerFleet
 
   // 플레이어 캐릭터가 해당 함대(전투 현장)에 있으면 곧바로 전술턴 진입
   const playerCharPresent = game.playerCharCode && (
     attackerFleet.commander === game.playerCharCode ||
-    (attackerFleet.officers || []).includes(game.playerCharCode)
+    (attackerFleet.officers || []).includes(game.playerCharCode) ||
+    (attackerFleet.subCommanders || []).some(c => c.charCode === game.playerCharCode)
   )
   if (playerCharPresent) { router.push('/game/tactical'); return }
 
@@ -179,7 +182,7 @@ watch(() => game._pendingBattles.length, (len) => {
       },
     ],
   })
-})
+}, { immediate: true })
 
 const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, nationInfo:NationInfoModal, nationPost:NationPostModal }
 const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.name] ?? null) : null)

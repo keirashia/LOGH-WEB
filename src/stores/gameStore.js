@@ -133,6 +133,7 @@ export const useGameStore = defineStore('game', {
       Object.assign(this.$state, { initialized: true, ...fresh })
       if (charCode) this.playerCharCode = charCode
       this.addLog(`[${this.factions[pf]?.nameKr ?? pf}] ${fresh.sc.nameKr} 시작.`)
+      this._checkInitialEncounters()
     },
 
     endTurn() {
@@ -850,6 +851,42 @@ export const useGameStore = defineStore('game', {
       })
     },
 
+    // ── 동일 성계 내 적 함대 탐지 (공용) ─────────────────────────
+    _enemiesAt(faction, locationId) {
+      const enemies = []
+      Object.entries(this.fleets).forEach(([ef, eFleets]) => {
+        if (ef === faction) return
+        eFleets.filter(f => f.location === locationId).forEach(f =>
+          enemies.push({ ...f, faction: ef })
+        )
+      })
+      return enemies
+    },
+
+    // ── 시나리오 시작 시점에 이미 배치돼 조우가 성립하는 경우 감지 ──
+    // (예: SE796_0211_010 아스타테 — FPA002가 처음부터 REH004와 같은 성계에 배치됨)
+    // playerFaction 소속 함대 기준으로만 판정 — 현재 전술전투 큐(_pendingBattles)는
+    // attackerFleet가 항상 플레이어 소속임을 전제로 하므로(deployFleet과 동일 관례) 그대로 따름.
+    _checkInitialEncounters() {
+      const seenLocations = new Set()
+      this.pFleets.forEach(fleet => {
+        if (seenLocations.has(fleet.location)) return
+        const enemies = this._enemiesAt(this.playerFaction, fleet.location)
+        if (!enemies.length) return
+        seenLocations.add(fleet.location)
+        fleet.status = 'battle'
+        this._pendingBattles.push({
+          attackerFleet:   { ...fleet, faction: this.playerFaction },
+          attackerFaction: this.playerFaction,
+          defenderFleets:  enemies,
+          targetSystemId:  fleet.location,
+          opType:          'OCCUPATION',
+        })
+        this.addLog(`⚔ [전투] ${fleet.name} — 시작부터 적 함대와 조우`)
+      })
+      this._pendingBattles.sort((a, b) => a.targetSystemId.localeCompare(b.targetSystemId))
+    },
+
     _fleetMove() {
       const detected = []
       Object.entries(this.fleets).forEach(([faction, fleets]) => {
@@ -867,13 +904,7 @@ export const useGameStore = defineStore('game', {
             this.addLog(`[도착] ${fleet.name} → ${sysName}`)
 
           // 적 함대 감지 → 전투
-          const enemies = []
-          Object.entries(this.fleets).forEach(([ef, eFleets]) => {
-            if (ef === faction) return
-            eFleets.filter(f => f.location === fleet.location).forEach(f =>
-              enemies.push({ ...f, faction: ef })
-            )
-          })
+          const enemies = this._enemiesAt(faction, fleet.location)
           if (enemies.length) {
             fleet.status = 'battle'
             detected.push({

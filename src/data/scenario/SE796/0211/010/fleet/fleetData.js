@@ -62,6 +62,7 @@ export const FLEET_DATA = [
   },
 
   // 사령관 파에타 / 부관 양 웬리(전략고문), 아텐보로, 라오
+  // 시나리오 시작 시점에 이미 아스타테(230005)에서 REH004(로엔그람 함대)와 조우한 상태로 배치 (2026-07-05 결정)
   {
     fltCode: "FPA002",
     faction: "FPA",
@@ -104,8 +105,8 @@ export const FLEET_DATA = [
       },
     ],
     location: {
-      locCode: "230006",
-      locPos: { x: 527, y: 775 },
+      locCode: "230005",
+      locPos: { x: 580, y: 190 },
       direction: 12,
     },
     formationList: [
