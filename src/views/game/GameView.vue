@@ -60,11 +60,11 @@
 
     <!-- 모달 -->
     <transition name="fade">
-      <div v-if="game.activeModal && modalComp" class="modal-overlay" @click.self="game.closeModal()">
+      <div v-if="game.activeModal && modalComp" class="modal-overlay" @click.self="closeModalSafe">
         <transition name="slide-up">
           <component :is="modalComp" v-if="game.activeModal"
                      :payload="game.activeModal.payload"
-                     @close="game.closeModal()" />
+                     @close="closeModalSafe" />
         </transition>
       </div>
     </transition>
@@ -140,14 +140,15 @@ onUnmounted(() => {
 })
 
 function onPopState() {
-  if (game.activeModal) { game.closeModal(); return }
+  if (game.activeModal) { closeModalSafe(); return }
   if (showCharPanel.value)  { showCharPanel.value = false; history.pushState(null, '') }
 }
 
-watch(() => game._pendingBattles.length, (len) => {
-  if (len === 0) return
-  const ctx = game._pendingBattles[0]
-  if (ctx._notified) return
+// ── 전투 확인 모달 (배경클릭/뒤로가기로 응답 없이 닫히면 재소환) ──
+// 이 모달은 반드시 네/아니오 응답을 거쳐야 _pendingBattles가 줄어들고
+// endTurn()의 _finishTurn() 보류가 풀린다. 응답 없이 닫히면(ctx._handled 없음)
+// 큐가 영원히 남아 턴이 멈추므로, 닫힘을 감지해 동일 전투를 다시 띄운다.
+function showBattleConfirm(ctx) {
   ctx._notified = true
   const attackerFleet = ctx.attackerFleet
 
@@ -161,13 +162,15 @@ watch(() => game._pendingBattles.length, (len) => {
 
   const sysName = game.systems[ctx.targetSystemId]?.name ?? ctx.targetSystemId
   game.openModal('event', {
+    battleConfirm: true,
     title: '교전 발생',
     desc: `${sysName}에서 교전이 발생하였습니다.\n상세 전투를 보시겠어요?`,
     buttons: [
-      { label: '네',   cls: 'btn-gold', action: () => router.push('/game/tactical') },
+      { label: '네',   cls: 'btn-gold', action: () => { ctx._handled = true; router.push('/game/tactical') } },
       {
         label: '아니오', cls: 'btn',
         action: () => {
+          ctx._handled = true
           const result = game.autoResolveBattle()
           if (!result) return
           setTimeout(() => {
@@ -182,6 +185,25 @@ watch(() => game._pendingBattles.length, (len) => {
       },
     ],
   })
+}
+
+// 모달을 닫는 모든 경로(배경클릭 / 뒤로가기 / 버튼 close)에서 공통으로 사용.
+// 닫힌 모달이 미응답 전투 확인 모달이었다면 같은 전투를 다시 띄운다.
+function closeModalSafe() {
+  const payload = game.activeModal?.payload
+  const wasBattleConfirm = payload?.battleConfirm === true
+  const ctx = game._pendingBattles[0]
+  game.closeModal()
+  if (wasBattleConfirm && ctx && !ctx._handled && game._pendingBattles[0] === ctx) {
+    setTimeout(() => showBattleConfirm(ctx), 0)
+  }
+}
+
+watch(() => game._pendingBattles.length, (len) => {
+  if (len === 0) return
+  const ctx = game._pendingBattles[0]
+  if (ctx._notified) return
+  showBattleConfirm(ctx)
 }, { immediate: true })
 
 const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, nationInfo:NationInfoModal, nationPost:NationPostModal }

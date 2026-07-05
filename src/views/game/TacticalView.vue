@@ -270,12 +270,33 @@ onMounted(() => {
     store.initBattle(game._pendingBattles[0])
   }
   window.addEventListener('keydown', onKey)
+  // 전투 중 브라우저 뒤로가기로 이탈 방지용 더미 히스토리 (아래 onPopState 참고)
+  history.pushState({ ...history.state }, '')
+  window.addEventListener('popstate', onPopState)
 })
-onUnmounted(() => window.removeEventListener('keydown', onKey))
+onUnmounted(() => {
+  window.removeEventListener('keydown', onKey)
+  window.removeEventListener('popstate', onPopState)
+})
 
 function onKey(e) {
   if (e.key === ' ')      { e.preventDefault(); if (store.phase === 'player') store.endPlayerTurn() }
   if (e.key === 'Escape') { store.deselect() }
+}
+
+// 뒤로가기(popstate)가 결과 확인 전 전투 중간에 발생하면 전략 화면으로
+// 그냥 튕겨나가 버려 전투가 미해결(applyBattleResult 미호출) 상태로 남는 문제가
+// 있었다. 전투 진행 중에는 뒤로가기를 흡수(재무장)해 막고, 결과 확인 단계
+// (phase 'result')에서는 "전략 지도로 귀환" 버튼과 동일하게 처리한다.
+function onPopState() {
+  if (store.phase === 'result') {
+    const left = finishTacticalSession(true)
+    if (left) { window.removeEventListener('popstate', onPopState); return }
+    history.pushState({ ...history.state }, '')
+    return
+  }
+  history.pushState({ ...history.state }, '')
+  game.addLog('⚠ [전투] 전투가 끝나기 전에는 전략 화면으로 돌아갈 수 없습니다.')
 }
 
 // ── 표시 헬퍼 ───────────────────────────────────────────────
@@ -359,14 +380,23 @@ function onUnitClick(u) {
 // 하이라이트된 칸이면 이동해야 함 — rect에 클릭 핸들러 추가 대신 overlay rect 사용)
 
 // ── 결과 처리 ───────────────────────────────────────────────
-function returnToCampaign() {
+// 결과를 적용하고, 이어지는 전투가 있으면 계속 진행(false 반환), 없으면
+// 전략 화면으로 나간다(true 반환). useReplace는 popstate로 나가는 경우
+// history에 tactical 항목이 남아 "뒤로가기"로 되돌아오는 걸 막기 위함.
+function finishTacticalSession(useReplace = false) {
   if (store.result) game.applyBattleResult(store.result)
   if (game._pendingBattles.length) {
     store.initBattle(game._pendingBattles[0])
-  } else {
-    store.active = false
-    router.push('/game')
+    return false
   }
+  store.active = false
+  if (useReplace) router.replace('/game')
+  else router.push('/game')
+  return true
+}
+
+function returnToCampaign() {
+  finishTacticalSession(false)
 }
 </script>
 
