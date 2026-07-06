@@ -72,15 +72,15 @@ export const APPROVAL_CHAINS = {
     diplomacy:      ["JB_R002", "JB_R001"],
   },
   FPA: {
-    military_op:    ["JB_F016", "JB_F013", "JB_F001"], // 통합작전본부장→부의장→의장
-    military_fleet: ["JB_F017", "JB_F013", "JB_F001"], // 우주함대사령장관→부의장→의장
-    military:       ["JB_F016", "JB_F013", "JB_F001"], // fallback
-    domestic:       ["JB_F002", "JB_F013", "JB_F001"], // 국방위원장→부의장→의장
-    personnel:      ["JB_F002", "JB_F013", "JB_F001"],
-    finance:        ["JB_F015", "JB_F013", "JB_F001"], // 재정위원장→부의장→의장
-    research:       ["JB_F013", "JB_F001"],             // 장관 없음, 부의장 직결
-    intel:          ["JB_F018"],                        // 첩보관 단독
-    diplomacy:      ["JB_F013", "JB_F001"],
+    military_op:    ["JB_F013", "JB_F002", "JB_F001"], // 통합작전본부장→부의장→의장
+    military_fleet: ["JB_F014", "JB_F002", "JB_F001"], // 우주함대사령장관→부의장→의장
+    military:       ["JB_F013", "JB_F002", "JB_F001"], // fallback
+    domestic:       ["JB_F004", "JB_F002", "JB_F001"], // 국방위원장→부의장→의장
+    personnel:      ["JB_F004", "JB_F002", "JB_F001"],
+    finance:        ["JB_F011", "JB_F002", "JB_F001"], // 재정위원장→부의장→의장
+    research:       ["JB_F002", "JB_F001"],             // 장관 없음, 부의장 직결
+    intel:          ["JB_F016"],                        // 첩보관 단독
+    diplomacy:      ["JB_F002", "JB_F001"],
   },
   PZN: {
     military_op:    ["JB_P001"],

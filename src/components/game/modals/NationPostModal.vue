@@ -63,15 +63,15 @@ const POST_CONFIG = {
       label: '내무',
       jobCodes: [
         { title: '최고평의회의장',  jobCode: 'JB_F001' },
-        { title: '최고평의회부의장', jobCode: 'JB_F013' },
+        { title: '최고평의회부의장', jobCode: 'JB_F002' },
       ],
     },
     {
       label: '군무',
       jobCodes: [
-        { title: '국방위원장',       jobCode: 'JB_F002' },
-        { title: '통합작전본부장',    jobCode: 'JB_F016' },
-        { title: '우주함대사령장관',  jobCode: 'JB_F017' },
+        { title: '국방위원장',       jobCode: 'JB_F004' },
+        { title: '통합작전본부장',    jobCode: 'JB_F013' },
+        { title: '우주함대사령장관',  jobCode: 'JB_F014' },
       ],
     },
   ],

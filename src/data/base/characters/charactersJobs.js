@@ -192,20 +192,27 @@ export const CHAR_JOBS = [
   // ── FPA 최고평의회 ─────────────────────────────────────────────
   // 로열 샌포드 — 최고평의회의장
   { charCode: "CH_000082", jobCode: "JB_F001", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
-  // 욥 트류니히트 — 국방위원장
-  { charCode: "CH_000329", jobCode: "JB_F002", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
-  // 드와이트 그린힐 — (공석, JB_F003 삭제)
+  // 리처드 호프만 — 최고평의회부의장 겸 국무위원장
+  { charCode: "CH_000561", jobCode: "JB_F002", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  { charCode: "CH_000561", jobCode: "JB_F003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 드와이트 그린힐 — (공석, F003)
   { charCode: "CH_000055", jobCode: "JB_C001", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
-  // 헤르만 크라우스 — 법질서위원장 (CH_000565)
-  { charCode: "CH_000565", jobCode: "JB_F004", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
-  // 에릭 발렌타인 — 천연자원위원장 (CH_000562)
-  { charCode: "CH_000562", jobCode: "JB_F005", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
-  // 클로드 모리스 — 경제개발위원장 (CH_000563)
-  { charCode: "CH_000563", jobCode: "JB_F007", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
-  // 앤서니 버클리 — 지역사회개발위원장 (CH_000564)
-  { charCode: "CH_000564", jobCode: "JB_F008", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
-  // 리처드 호프만 — 최고평의회부의장
-  { charCode: "CH_000561", jobCode: "JB_F013", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 욥 트뤼니히트 — 국방위원장
+  { charCode: "CH_000329", jobCode: "JB_F004", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 헤르만 크라우스 — 법질서위원장
+  { charCode: "CH_000565", jobCode: "JB_F005", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 에릭 발렌타인 — 천연자원위원장
+  { charCode: "CH_000562", jobCode: "JB_F006", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 황 루이 — 인적자원위원장
+  { charCode: "CH_000554", jobCode: "JB_F007", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 클로드 모리스 — 경제개발위원장
+  { charCode: "CH_000563", jobCode: "JB_F008", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 앤서니 버클리 — 지역사회개발위원장
+  { charCode: "CH_000564", jobCode: "JB_F009", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 코넬리아 윈저 — 정보교통위원장
+  { charCode: "CH_000427", jobCode: "JB_F010", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 조안 레벨로 — 재정위원장
+  { charCode: "CH_000377", jobCode: "JB_F011", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // ── 0617 패치 — 하이드리히 랑 직업 등록 ──────────────────────
   // 평민 출신 사회질서유지국(내무안전부) 국장
   { charCode: "CH_000527", jobCode: "JB_N007", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },

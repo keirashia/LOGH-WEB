@@ -341,6 +341,7 @@ export const CHAR_BASE = [
     ],
     searchKeys: [],
     birth: "SE|742.07.22",
+    death: "",
     // — 성향
     faction: "",
     idea: "",
