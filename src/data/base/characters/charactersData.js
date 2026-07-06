@@ -1,4 +1,4 @@
-// 경로: src/data/base/characters/charactersData.js
+﻿// 경로: src/data/base/characters/charactersData.js
 // ================================================================
 //  charactersData.js
 //  경로: src/data/characters/charactersData.js
@@ -70,6 +70,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "150",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -120,6 +121,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "150",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -162,6 +164,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -209,6 +212,7 @@ export const CHAR_BASE = [
     statPlt: 5,
     // — 기타
     point: "-",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -267,6 +271,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -310,6 +315,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       { code: "Kr", context: "자작 귀족 출신으로 궁정 내각의 일원." },
       {
@@ -363,6 +369,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "-",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -403,6 +410,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "100",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -441,6 +449,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "X",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -479,6 +488,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -512,6 +522,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "X",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -544,6 +555,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -576,6 +588,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -614,6 +627,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -655,6 +669,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01", // 오딘
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -688,6 +703,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -729,6 +745,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01", // 오딘
     point: "0",
+    recommend: 137,
     desc: [
       {
         code: "Kr",
@@ -786,6 +803,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -824,6 +842,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -864,6 +883,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -897,6 +917,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -936,6 +957,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -969,6 +991,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1005,6 +1028,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1038,6 +1062,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1079,6 +1104,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1112,6 +1138,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1145,6 +1172,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1178,6 +1206,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1219,6 +1248,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1255,6 +1285,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1305,6 +1336,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 122,
     desc: [
       {
         code: "Kr",
@@ -1364,6 +1396,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1404,6 +1437,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1437,6 +1471,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1470,6 +1505,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1510,6 +1546,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1543,6 +1580,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1585,6 +1623,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230042P01", // 페잔
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: `` }],
     // — 직업
     // — 트레잇
@@ -1618,6 +1657,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1658,6 +1698,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1691,6 +1732,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1733,6 +1775,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 125,
     desc: [
       {
         code: "Kr",
@@ -1780,6 +1823,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1821,6 +1865,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1862,6 +1907,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1903,6 +1949,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230042P01", // 페잔
     point: "0",
+    recommend: 147,
     desc: [
       {
         code: "Kr",
@@ -1958,6 +2005,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -1991,6 +2039,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2024,6 +2073,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2071,6 +2121,7 @@ export const CHAR_BASE = [
     statPlt: 90,
     // — 기타
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -2120,6 +2171,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2153,6 +2205,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2186,6 +2239,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2228,6 +2282,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "150",
+    recommend: 136,
     desc: [
       {
         code: "Kr",
@@ -2278,6 +2333,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2311,6 +2367,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2344,6 +2401,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2377,6 +2435,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2419,6 +2478,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "자유행성동맹 소속의 군인" }],
     // — 직업
     // — 트레잇
@@ -2458,6 +2518,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2491,6 +2552,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2524,6 +2586,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2566,6 +2629,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 100,
     desc: [
       {
         code: "Kr",
@@ -2626,6 +2690,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 134,
     desc: [
       {
         code: "Kr",
@@ -2675,6 +2740,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2708,6 +2774,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2741,6 +2808,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2774,6 +2842,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2807,6 +2876,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2840,6 +2910,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2873,6 +2944,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2906,6 +2978,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2939,6 +3012,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -2972,6 +3046,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3005,6 +3080,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3038,6 +3114,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3071,6 +3148,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3104,6 +3182,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3153,6 +3232,7 @@ export const CHAR_BASE = [
     statPlt: 50,
     // — 기타
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -3202,6 +3282,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3243,6 +3324,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 128,
     desc: [
       {
         code: "Kr",
@@ -3293,6 +3375,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3326,6 +3409,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3359,6 +3443,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3399,6 +3484,7 @@ export const CHAR_BASE = [
     statPlt: 48,
     // — 기타
     point: "0",
+    recommend: 148,
     desc: [
       {
         code: "Kr",
@@ -3449,6 +3535,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3482,6 +3569,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3516,6 +3604,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -3558,6 +3647,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3591,6 +3681,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3624,6 +3715,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3665,6 +3757,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230042P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -3714,6 +3807,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3754,6 +3848,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01", // 하이네센
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -3796,6 +3891,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3829,6 +3925,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3862,6 +3959,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3895,6 +3993,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3928,6 +4027,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3961,6 +4061,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -3994,6 +4095,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4035,6 +4137,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -4084,6 +4187,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4117,6 +4221,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4150,6 +4255,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4183,6 +4289,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4216,6 +4323,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4249,6 +4357,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4282,6 +4391,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4315,6 +4425,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4348,6 +4459,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4381,6 +4493,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4414,6 +4527,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4447,6 +4561,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4480,6 +4595,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4513,6 +4629,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4546,6 +4663,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4579,6 +4697,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4612,6 +4731,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4645,6 +4765,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4678,6 +4799,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4711,6 +4833,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4744,6 +4867,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4777,6 +4901,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4810,6 +4935,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4843,6 +4969,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4876,6 +5003,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4909,6 +5037,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4942,6 +5071,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -4976,6 +5106,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -5015,6 +5146,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5048,6 +5180,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5081,6 +5214,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5114,6 +5248,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5147,6 +5282,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5180,6 +5316,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5213,6 +5350,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5246,6 +5384,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5288,6 +5427,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 141,
     desc: [
       {
         code: "Kr",
@@ -5332,6 +5472,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5365,6 +5506,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5398,6 +5540,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5431,6 +5574,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5464,6 +5608,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5497,6 +5642,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5530,6 +5676,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5563,6 +5710,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5604,6 +5752,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -5653,6 +5802,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5686,6 +5836,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5719,6 +5870,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5752,6 +5904,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5785,6 +5938,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5818,6 +5972,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5851,6 +6006,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5892,6 +6048,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -5941,6 +6098,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -5974,6 +6132,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6007,6 +6166,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6040,6 +6200,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6073,6 +6234,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6106,6 +6268,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6139,6 +6302,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6172,6 +6336,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6205,6 +6370,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6238,6 +6404,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6271,6 +6438,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6304,6 +6472,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6337,6 +6506,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6370,6 +6540,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6403,6 +6574,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6436,6 +6608,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6476,6 +6649,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 111,
     desc: [
       {
         code: "Kr",
@@ -6528,6 +6702,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6561,6 +6736,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6594,6 +6770,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6627,6 +6804,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6660,6 +6838,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6693,6 +6872,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6726,6 +6906,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6759,6 +6940,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6792,6 +6974,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6825,6 +7008,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6858,6 +7042,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6891,6 +7076,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6924,6 +7110,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6959,6 +7146,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -6992,6 +7180,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7026,6 +7215,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7059,6 +7249,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7092,6 +7283,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7125,6 +7317,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7158,6 +7351,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7191,6 +7385,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7233,6 +7428,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 126,
     desc: [
       {
         code: "Kr",
@@ -7275,6 +7471,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7308,6 +7505,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7350,6 +7548,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -7407,6 +7606,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -7456,6 +7656,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7489,6 +7690,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7530,6 +7732,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -7579,6 +7782,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7612,6 +7816,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7645,6 +7850,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7678,6 +7884,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7711,6 +7918,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7744,6 +7952,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7777,6 +7986,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7810,6 +8020,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7843,6 +8054,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7876,6 +8088,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7909,6 +8122,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7942,6 +8156,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -7975,6 +8190,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8008,6 +8224,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8041,6 +8258,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8074,6 +8292,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8107,6 +8326,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8140,6 +8360,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8173,6 +8394,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8206,6 +8428,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8248,6 +8471,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 145,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // 함대사령관(JB_M001) LV0
@@ -8295,6 +8519,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 138,
     desc: [
       {
         code: "Kr",
@@ -8345,6 +8570,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8378,6 +8604,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8411,6 +8638,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8444,6 +8672,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8477,6 +8706,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8519,6 +8749,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 135,
     desc: [
       {
         code: "Kr",
@@ -8565,6 +8796,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8598,6 +8830,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8640,6 +8873,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 124,
     desc: [
       {
         code: "Kr",
@@ -8690,6 +8924,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230042P01",
     point: "0",
+    recommend: 129,
     desc: [
       {
         code: "Kr",
@@ -8739,6 +8974,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8772,6 +9008,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8805,6 +9042,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8838,6 +9076,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8871,6 +9110,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8904,6 +9144,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -8945,6 +9186,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -8994,6 +9236,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -9027,6 +9270,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -9060,6 +9304,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -9115,6 +9360,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 113,
     desc: [
       {
         code: "Kr",
@@ -9166,6 +9412,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -9207,6 +9454,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -9257,6 +9505,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -9307,6 +9556,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -9348,6 +9598,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -9400,6 +9651,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -9434,6 +9686,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -9484,6 +9737,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -9525,6 +9779,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -9582,6 +9837,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -9648,6 +9904,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -9712,6 +9969,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01", // 오딘
     point: "0",
+    recommend: 146,
     desc: [
       {
         code: "Kr",
@@ -9754,6 +10012,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -9787,6 +10046,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -9820,6 +10080,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -9853,6 +10114,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -9886,6 +10148,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -9937,6 +10200,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -9979,6 +10243,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10012,6 +10277,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10054,6 +10320,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 101,
     desc: [
       {
         code: "Kr",
@@ -10116,6 +10383,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10149,6 +10417,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10182,6 +10451,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10229,6 +10499,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 132,
     desc: [
       {
         code: "Kr",
@@ -10276,6 +10547,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 139,
     desc: [
       {
         code: "Kr",
@@ -10334,6 +10606,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -10383,6 +10656,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10416,6 +10690,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10449,6 +10724,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10482,6 +10758,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10515,6 +10792,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10548,6 +10826,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10581,6 +10860,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10614,6 +10894,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10647,6 +10928,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10680,6 +10962,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10713,6 +10996,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10746,6 +11030,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }], // 에멜리히
     // — 직업
     // — 트레잇
@@ -10779,6 +11064,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10812,6 +11098,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10845,6 +11132,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10878,6 +11166,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10911,6 +11200,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -10953,6 +11243,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -11004,6 +11295,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11045,6 +11337,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -11103,6 +11396,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11136,6 +11430,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11169,6 +11464,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11202,6 +11498,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11235,6 +11532,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11268,6 +11566,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11301,6 +11600,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11334,6 +11634,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11375,6 +11676,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 110,
     desc: [
       {
         code: "Kr",
@@ -11424,6 +11726,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11457,6 +11760,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11499,6 +11803,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 151,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11532,6 +11837,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11574,6 +11880,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -11623,6 +11930,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11656,6 +11964,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11689,6 +11998,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11722,6 +12032,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11755,6 +12066,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11788,6 +12100,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11821,6 +12134,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11854,6 +12168,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11887,6 +12202,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11920,6 +12236,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11953,6 +12270,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -11986,6 +12304,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12019,6 +12338,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12052,6 +12372,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 131,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12085,6 +12406,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12118,6 +12440,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12151,6 +12474,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12184,6 +12508,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12225,6 +12550,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 150,
     desc: [{ code: "Kr", context: `` }],
     // — 직업
     // 백작
@@ -12260,6 +12586,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12293,6 +12620,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12326,6 +12654,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12368,6 +12697,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 127,
     desc: [
       {
         code: "Kr",
@@ -12419,6 +12749,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12452,6 +12783,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12485,6 +12817,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12521,6 +12854,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01", // 하이네센
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -12562,6 +12896,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12603,6 +12938,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 121,
     desc: [
       {
         code: "Kr",
@@ -12652,6 +12988,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12688,6 +13025,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12740,6 +13078,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -12790,6 +13129,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12823,6 +13163,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12856,6 +13197,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12890,6 +13232,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12923,6 +13266,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -12959,6 +13303,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01", // 하이네센
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -13003,6 +13348,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13036,6 +13382,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13069,6 +13416,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13102,6 +13450,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13135,6 +13484,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13176,6 +13526,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -13225,6 +13576,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13258,6 +13610,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13294,6 +13647,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13327,6 +13681,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13360,6 +13715,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13393,6 +13749,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }], // 이븐 샤마
     // — 직업
     // — 트레잇
@@ -13426,6 +13783,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13460,6 +13818,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -13510,6 +13869,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13543,6 +13903,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13576,6 +13937,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13609,6 +13971,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13642,6 +14005,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13675,6 +14039,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13708,6 +14073,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13741,6 +14107,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13774,6 +14141,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13826,6 +14194,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -13868,6 +14237,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13901,6 +14271,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -13942,6 +14313,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -13991,6 +14363,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14040,6 +14413,7 @@ export const CHAR_BASE = [
     statPlt: 38,
     // — 기타
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -14089,6 +14463,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14122,6 +14497,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14155,6 +14531,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14205,6 +14582,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -14254,6 +14632,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14287,6 +14666,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14320,6 +14700,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14354,6 +14735,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -14405,6 +14787,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14438,6 +14821,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14478,6 +14862,7 @@ export const CHAR_BASE = [
     statPlt: 70,
     // — 기타
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -14527,6 +14912,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14560,6 +14946,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14593,6 +14980,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14634,6 +15022,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 102,
     desc: [
       {
         code: "Kr",
@@ -14694,6 +15083,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "2000",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -14744,6 +15134,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14777,6 +15168,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14810,6 +15202,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14843,6 +15236,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14876,6 +15270,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14909,6 +15304,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -14961,6 +15357,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 152,
     desc: [
       {
         code: "Kr",
@@ -15014,6 +15411,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15050,6 +15448,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     //은하제국의 군인으로, 최종 계급은 중장.
     // — 직업
@@ -15084,6 +15483,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // 정통정부의 내각서기관장. 남작. OVA 성우는 후쿠다 노부야키. 제국군이 침공하자 내각회의에 출석하여 라트부르흐, 렘샤이트와 정통정부의 미래를 논했으나 답을 얻지 못하고 도망쳤다. 은하제국군의 제독 카르나프와는 동명이인.
     // — 직업
@@ -15118,6 +15518,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }], // 카르테너: 자작. 시종차장으로 베네뮌데 후작부인 사건 궁정재판에 참석하였다.
     // — 직업
     // — 트레잇
@@ -15151,6 +15552,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15184,6 +15586,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15217,6 +15620,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15250,6 +15654,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15283,6 +15688,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15316,6 +15722,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15349,6 +15756,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15390,6 +15798,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -15451,6 +15860,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // 소장 : 군사직
@@ -15487,6 +15897,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15520,6 +15931,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15553,6 +15965,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15587,6 +16000,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15620,6 +16034,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15653,6 +16068,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15686,6 +16102,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15719,6 +16136,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15752,6 +16170,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15785,6 +16204,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15819,6 +16239,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -15869,6 +16290,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15902,6 +16324,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15935,6 +16358,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -15968,6 +16392,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16001,6 +16426,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16034,6 +16460,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16075,6 +16502,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -16124,6 +16552,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16165,6 +16594,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 123,
     desc: [
       {
         code: "Kr",
@@ -16214,6 +16644,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16247,6 +16678,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16280,6 +16712,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16313,6 +16746,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16346,6 +16780,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16379,6 +16814,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16412,6 +16848,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16445,6 +16882,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16478,6 +16916,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16511,6 +16950,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16544,6 +16984,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16577,6 +17018,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16610,6 +17052,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16643,6 +17086,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16676,6 +17120,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16709,6 +17154,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16742,6 +17188,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16775,6 +17222,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16808,6 +17256,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16841,6 +17290,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16874,6 +17324,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16907,6 +17358,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16940,6 +17392,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -16973,6 +17426,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17007,6 +17461,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -17058,6 +17513,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17091,6 +17547,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17124,6 +17581,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17157,6 +17615,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17190,6 +17649,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17223,6 +17683,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17256,6 +17717,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17298,6 +17760,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 133,
     desc: [
       {
         code: "Kr",
@@ -17353,6 +17816,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17386,6 +17850,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17419,6 +17884,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17452,6 +17918,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17485,6 +17952,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17518,6 +17986,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17551,6 +18020,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17584,6 +18054,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17617,6 +18088,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17650,6 +18122,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17683,6 +18156,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17716,6 +18190,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17749,6 +18224,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17782,6 +18258,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17815,6 +18292,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -17859,6 +18337,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 143,
     desc: [
       {
         code: "Kr",
@@ -17912,6 +18391,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 142,
     desc: [
       {
         code: "Kr",
@@ -17957,6 +18437,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18006,6 +18487,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 112,
     desc: [
       {
         code: "Kr",
@@ -18055,6 +18537,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18088,6 +18571,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18121,6 +18605,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18154,6 +18639,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18187,6 +18673,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18220,6 +18707,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18253,6 +18741,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18286,6 +18775,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18319,6 +18809,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18352,6 +18843,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18385,6 +18877,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18418,6 +18911,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18462,6 +18956,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 144,
     desc: [
       {
         code: "Kr",
@@ -18503,6 +18998,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18536,6 +19032,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18569,6 +19066,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18602,6 +19100,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18635,6 +19134,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18668,6 +19168,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18701,6 +19202,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18734,6 +19236,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18767,6 +19270,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18800,6 +19304,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18841,6 +19346,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -18898,6 +19404,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 130,
     desc: [
       {
         code: "Kr",
@@ -18947,6 +19454,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -18980,6 +19488,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19013,6 +19522,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19046,6 +19556,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19079,6 +19590,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19112,6 +19624,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19145,6 +19658,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19186,6 +19700,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 140,
     desc: [
       {
         code: "Kr",
@@ -19243,6 +19758,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 120,
     desc: [
       {
         code: "Kr",
@@ -19304,6 +19820,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -19359,6 +19876,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19392,6 +19910,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19425,6 +19944,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19458,6 +19978,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19491,6 +20012,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19524,6 +20046,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19557,6 +20080,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19590,6 +20114,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19623,6 +20148,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19656,6 +20182,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19700,6 +20227,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 149,
     desc: [
       {
         code: "Kr",
@@ -19754,6 +20282,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19787,6 +20316,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19820,6 +20350,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19853,6 +20384,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19886,6 +20418,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -19931,6 +20464,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -19986,6 +20520,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20019,6 +20554,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20052,6 +20588,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20085,6 +20622,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20118,6 +20656,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20151,6 +20690,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20184,6 +20724,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20217,6 +20758,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20250,6 +20792,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20283,6 +20826,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20316,6 +20860,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // 카프체란카 주둔기지의 대령.
     // — 직업
@@ -20361,6 +20906,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20394,6 +20940,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20427,6 +20974,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20460,6 +21008,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20493,6 +21042,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20526,6 +21076,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20559,6 +21110,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20592,6 +21144,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20625,6 +21178,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20666,6 +21220,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -20715,6 +21270,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20748,6 +21304,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20781,6 +21338,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20814,6 +21372,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20855,6 +21414,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230058P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -20894,6 +21454,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -20936,6 +21497,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -20994,6 +21556,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -21052,6 +21615,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -21110,6 +21674,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -21168,6 +21733,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "230006P01",
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -21227,6 +21793,7 @@ export const CHAR_BASE = [
     statPlt: 60,
     // — 기타
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -21285,6 +21852,7 @@ export const CHAR_BASE = [
     statPlt: 75,
     // — 기타
     point: "0",
+    recommend: 0,
     desc: [
       {
         code: "Kr",
@@ -21340,6 +21908,7 @@ export const CHAR_BASE = [
     statPlt: 0,
     // — 기타
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "골덴바움조 은하제국 남작." }],
     // 후일 정통정부의 내부상서로 취임. 제국군이 침공하자 도주
     // — 직업
@@ -21374,6 +21943,7 @@ export const CHAR_BASE = [
     statPlt: 0,
     // — 기타
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "골덴바움조 은하제국 자작." }],
     // 정통정부의 재무상서. 제국군이 침공하자 헬더와 함께 도주
     // — 직업
@@ -21408,6 +21978,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     //정통정부의 사법상서. 자작. 제국군이 침공하자 셰츨러와 함께 가장 먼저 도망쳤다.
     // — 직업
@@ -21442,6 +22013,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     //정통정부의 궁내상서. 남작. OVA 성우는 나토리 유키마사. 제국군이 침공하자 술에 취한 채로 내각회의에 출석하여 참석자들에게 독설을 퍼부었다. 마찬가지로 다음 날 도망쳤다.
     // — 직업
@@ -21476,6 +22048,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     //후작. 궁내성 고등참사관으로 베네뮌데 후작부인 사건 궁정재판에 참석하였다.
     // — 직업
@@ -21510,6 +22083,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
@@ -21544,6 +22118,7 @@ export const CHAR_BASE = [
     // — 기타
     loc: "",
     point: "0",
+    recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
