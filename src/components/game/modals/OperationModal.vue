@@ -395,7 +395,7 @@ const autoApprover = computed(() => {
 
 const approverJobLabel = computed(() => {
   if (!autoApprover.value) return ''
-  return JOB_MAP[autoApprover.value.jobs[0]?.jobCode]?.nameKr ?? ''
+  return JOB_MAP[autoApprover.value.jobs[0]?.jobCode]?.name?.find(e => e.code === 'Kr')?.context ?? ''
 })
 
 // 수락률: 공격=기본50 / 방어=기본70 + 발의자 INF 보정
@@ -421,7 +421,7 @@ const proposerCandidates = computed(() => {
   const playerCode = game.playerCharCode
   const chars = Object.values(game.characters)
     .filter(c => c.faction === pf && !c.isDead && c.jobs.some(j => isGeneralRank(j.jobCode)))
-    .map(c => ({ ...c, rankLabel: JOB_MAP[c.jobs.find(j => isGeneralRank(j.jobCode))?.jobCode]?.nameKr ?? '' }))
+    .map(c => ({ ...c, rankLabel: JOB_MAP[c.jobs.find(j => isGeneralRank(j.jobCode))?.jobCode]?.name?.find(e => e.code === 'Kr')?.context ?? '' }))
     .sort((a, b) => (b.statCmd ?? 0) - (a.statCmd ?? 0))
 
   // playerChar 최상단 고정

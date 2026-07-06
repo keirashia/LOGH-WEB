@@ -130,7 +130,7 @@ const charJobData = computed(() => {
     const jobDef = JOB_MAP[jobCode]
     return {
       jobCode,
-      nameKr:   jobDef?.nameKr  ?? jobCode,
+      nameKr:   jobDef?.name?.find(e => e.code === 'Kr')?.context ?? jobCode,
       category: jobDef?.category ?? '',
       jobLevel: entry?.jobLevel  ?? 0,
       jobExp:   entry?.jobExp    ?? 0,

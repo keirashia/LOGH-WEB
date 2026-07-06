@@ -213,6 +213,11 @@ export const CHAR_JOBS = [
   { charCode: "CH_000427", jobCode: "JB_F010", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 조안 레벨로 — 재정위원장
   { charCode: "CH_000377", jobCode: "JB_F011", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // ── FPA 군직위 ────────────────────────────────────────────────
+  // 시드니 시톨레 — 통합작전본부장
+  { charCode: "CH_000230", jobCode: "JB_F013", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 라자르 로보스 — 우주함대사령장관
+  { charCode: "CH_000065", jobCode: "JB_F014", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // ── 0617 패치 — 하이드리히 랑 직업 등록 ──────────────────────
   // 평민 출신 사회질서유지국(내무안전부) 국장
   { charCode: "CH_000527", jobCode: "JB_N007", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },

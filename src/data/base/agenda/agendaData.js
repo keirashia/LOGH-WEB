@@ -79,7 +79,7 @@ export const APPROVAL_CHAINS = {
     personnel:      ["JB_F004", "JB_F002", "JB_F001"],
     finance:        ["JB_F011", "JB_F002", "JB_F001"], // 재정위원장→부의장→의장
     research:       ["JB_F002", "JB_F001"],             // 장관 없음, 부의장 직결
-    intel:          ["JB_F016"],                        // 첩보관 단독
+    intel:          ["JB_F004", "JB_F002", "JB_F001"],  // 국방위원장→부의장→의장
     diplomacy:      ["JB_F002", "JB_F001"],
   },
   PZN: {

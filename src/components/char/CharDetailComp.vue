@@ -17,7 +17,7 @@
             {{ NATION_LABEL[charData.faction] ?? charData.faction }}
           </span>
           <span v-for="j in topJobs" :key="j.jobCode" class="job-badge mono">
-            {{ JOB_MAP[j.jobCode]?.nameKr ?? j.jobCode }}
+            {{ JOB_MAP[j.jobCode]?.name?.find(e => e.code === 'Kr')?.context ?? j.jobCode }}
           </span>
         </div>
         <div v-if="descData?.desc" class="cdc-desc dim">{{ descData.desc }}</div>
@@ -35,7 +35,7 @@
       <div v-if="!jobList.length" class="job-row mono dim">직책 없음</div>
       <template v-else-if="jobsExpanded || jobList.length === 1">
         <div v-for="j in jobList" :key="j.jobCode" class="job-row">
-          <span class="job-label serif">{{ JOB_MAP[j.jobCode]?.nameKr ?? j.jobCode }}</span>
+          <span class="job-label serif">{{ JOB_MAP[j.jobCode]?.name?.find(e => e.code === 'Kr')?.context ?? j.jobCode }}</span>
           <div class="job-right mono">
             <span class="job-lv">Lv.{{ j.jobLevel ?? 0 }}</span>
             <div class="job-exp-bar">

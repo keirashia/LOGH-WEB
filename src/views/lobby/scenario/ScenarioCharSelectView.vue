@@ -188,7 +188,7 @@ const charJobMap = computed(() => Object.fromEntries(
     const primary = effectiveCharJobs.value
       .filter(j => j.charCode === c.code)
       .sort((a, b) => a.jobStDate - b.jobStDate)[0]
-    return [c.code, primary ? (JOB_MAP[primary.jobCode]?.nameKr ?? '') : '']
+    return [c.code, primary ? (JOB_MAP[primary.jobCode]?.name?.find(e => e.code === 'Kr')?.context ?? '') : '']
   })
 ))
 

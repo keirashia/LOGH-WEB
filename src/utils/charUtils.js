@@ -112,7 +112,7 @@ export const CHAR_JOB_LABEL_MAP = (() => {
       const jobs = grouped[c.code] ?? []
       jobs.sort((a, b) => a.jobStDate - b.jobStDate)
       const primary = jobs[0]
-      return [c.code, primary ? (JOB_MAP[primary.jobCode]?.nameKr ?? '') : '']
+      return [c.code, primary ? (JOB_MAP[primary.jobCode]?.name?.find(e => e.code === 'Kr')?.context ?? '') : '']
     })
   )
 })()
