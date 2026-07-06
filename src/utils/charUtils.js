@@ -136,23 +136,81 @@ export const CHAR_UNIQUE_TRAIT_MAP = (() => {
 //  초기화 빌더
 // ================================================================
 
+// SE 기준 연도 오프셋. SE 1 = AD 2801 → AD를 SE로 변환: SE = AD - 2800
+const YEAR_TYPE_TO_SE_OFFSET = {
+  SE:  0,
+  AD: -2800,
+}
+
+/**
+ * isAliveAtDate(char, yearType, year, month, day)
+ * 인물의 birth/death를 시나리오 날짜와 비교해 생존 여부를 반환한다.
+ * - "SE|796.02.11" 형식 파싱. 월·일이 없으면 해당 필드는 경계값(생년월일 불명 → 1월1일 기준) 취급.
+ * - 타입이 달라도 SE 기준으로 변환해 비교 (AD↔SE 혼용 지원).
+ * - 변환 불가 타입(YEAR_TYPE_TO_SE_OFFSET에 없음)은 날짜 미상으로 간주해 포함.
+ */
+export function isAliveAtDate(char, yearType, year, month = 1, day = 1) {
+  function parseDate(str) {
+    if (!str) return null
+    const [type, rest] = str.split('|')
+    if (!rest) return null
+    const offset = YEAR_TYPE_TO_SE_OFFSET[type]
+    if (offset === undefined) return null  // 알 수 없는 타입 → 미상 처리
+    const parts = rest.split('.')
+    const rawY = parseInt(parts[0])
+    if (isNaN(rawY)) return null
+    const m = parts[1] ? parseInt(parts[1]) : null
+    const d = parts[2] ? parseInt(parts[2]) : null
+    return {
+      y: rawY + offset,  // SE 기준으로 정규화
+      m: isNaN(m) ? null : m,
+      d: isNaN(d) ? null : d,
+    }
+  }
+
+  // 모든 날짜를 YYYYMMDD 정수로 변환해 비교
+  function toInt(y, m, d) { return y * 10000 + (m ?? 1) * 100 + (d ?? 1) }
+
+  // 시나리오 날짜 → SE 기준 정수
+  const scOffset = YEAR_TYPE_TO_SE_OFFSET[yearType] ?? 0
+  const scInt = toInt(year + scOffset, month, day)
+
+  const bd = parseDate(char.birth)
+  if (bd) {
+    if (toInt(bd.y, bd.m, bd.d) > scInt) return false  // 아직 태어나지 않음
+  }
+  const dd = parseDate(char.death)
+  if (dd) {
+    if (toInt(dd.y, dd.m, dd.d) < scInt) return false  // 이미 사망
+  }
+  return true
+}
+
 /**
  * buildCharactersMap(options)
  * 게임 시작 시 characters{} 초기값을 생성한다.
  *
  * @param {object}   [options]
- * @param {object[]|null} [options.charList]        시나리오 CHAR_LIST (null이면 전체 CHAR_BASE 사용)
- * @param {object[]|null} [options.scenarioCharJobs] 시나리오별 직업 오버라이드 (null이면 base CHAR_JOBS만 사용)
- * @param {object[]}      [options.fleetData]       시나리오 FLEET_DATA (소속 함대 연계)
- * @param {object[]}      [options.cliqueData]      시나리오 CLIQUE_DATA (소속 파벌 연계)
+ * @param {object[]|null} [options.charList]         시나리오 CHAR_LIST — recommend 메타 전용 (필터링 아님)
+ * @param {object[]|null} [options.scenarioCharJobs]  시나리오별 직업 오버라이드
+ * @param {object[]}      [options.fleetData]         시나리오 FLEET_DATA
+ * @param {object[]}      [options.cliqueData]        시나리오 CLIQUE_DATA
+ * @param {string|null}   [options.scenarioYearType]  'SE' 등 연도 타입 (birth/death 필터링용)
+ * @param {number|null}   [options.scenarioYear]      시나리오 시작 연도
+ * @param {number}        [options.scenarioMonth]     시나리오 시작 월 (기본 1)
+ * @param {number}        [options.scenarioDay]       시나리오 시작 일 (기본 1)
  *
  * @returns {{ [charCode: string]: object }}
  */
 export function buildCharactersMap({
-  charList        = null,
+  charList         = null,
   scenarioCharJobs = null,
-  fleetData       = [],
-  cliqueData      = [],
+  fleetData        = [],
+  cliqueData       = [],
+  scenarioYearType = null,
+  scenarioYear     = null,
+  scenarioMonth    = 1,
+  scenarioDay      = 1,
 } = {}) {
   // 1. 직업 소스: 시나리오 override → base CHAR_JOBS 보완
   const overriddenCodes = scenarioCharJobs?.length
@@ -190,13 +248,20 @@ export function buildCharactersMap({
     }
   }
 
-  // 6. 인물 필터링 (charList 지정 시 해당 코드만)
-  const charListSet = charList?.length
-    ? new Set(charList.map(c => c.charCode))
-    : null
-  const source = charListSet
-    ? CHAR_BASE.filter(c => charListSet.has(c.code))
-    : CHAR_BASE
+  // 6. 인물 필터링
+  // scenarioYear 지정 시: birth/death 날짜 기준으로 시나리오 시점에 생존한 인물 전체 포함
+  // 미지정 시: charList 코드 목록으로 필터 (없으면 전체)
+  let source
+  if (scenarioYear !== null && scenarioYearType) {
+    source = CHAR_BASE.filter(c =>
+      isAliveAtDate(c, scenarioYearType, scenarioYear, scenarioMonth, scenarioDay)
+    )
+  } else if (charList?.length) {
+    const charListSet = new Set(charList.map(c => c.charCode))
+    source = CHAR_BASE.filter(c => charListSet.has(c.code))
+  } else {
+    source = CHAR_BASE
+  }
 
   // 7. 인물별 초기 상태 구성
   const characters = {}

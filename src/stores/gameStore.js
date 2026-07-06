@@ -54,7 +54,16 @@ function buildState(scId, pf, extraData = {}) {
 
   const factions   = buildFactionsMap(sc.factions ?? ['REH', 'FPA', 'PZN'])
   const systems    = buildSystemsMap(starDetail, planetDetail)
-  const characters = buildCharactersMap({ charList, scenarioCharJobs: charJobs, fleetData, cliqueData })
+  const characters = buildCharactersMap({
+    charList,
+    scenarioCharJobs: charJobs,
+    fleetData,
+    cliqueData,
+    scenarioYearType: sc.yearType ?? null,
+    scenarioYear:     sc.year     ?? null,
+    scenarioMonth:    sc.month    ?? 1,
+    scenarioDay:      sc.date     ?? 1,
+  })
   const fleets     = buildFleetsMap(fleetData)
 
   const resources = {}
@@ -133,10 +142,11 @@ export const useGameStore = defineStore('game', {
       Object.assign(this.$state, { initialized: true, ...fresh })
       if (charCode) this.playerCharCode = charCode
       this.addLog(`[${this.factions[pf]?.nameKr ?? pf}] ${fresh.sc.nameKr} 시작.`)
-      this._checkInitialEncounters()
     },
 
     endTurn() {
+      // 시나리오 시작 성계에 적 함대가 있으면 첫 턴 종료 시 전투 등록
+      if (this.turn === 1) this._checkInitialEncounters()
       // 임시 징세 쿨다운
       if (this._levyCooldown > 0) this._levyCooldown--
       // 페잔 차관 처리
