@@ -191,6 +191,11 @@ export const CHAR_JOBS = [
   { charCode: "CH_000271", jobCode: "JB_R008", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 클라우스 폰 리히텐라데 — 국무상서 (796년 기준 재상 대리 수행)
   { charCode: "CH_000462", jobCode: "JB_R003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 오이겐 폰 카스트로프 — 재무상서 (796년 기준, 15년 역임)
+  { charCode: "CH_000304", jobCode: "JB_R009", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 요펜 폰 렘샤이트 — 첩보관 / 페잔 주재 고등판무관 (대 동맹 첩보망·대 페잔 외교 총책임)
+  { charCode: "CH_000325", jobCode: "JB_R011", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  { charCode: "CH_000325", jobCode: "JB_N003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // ── FPA 최고평의회 ─────────────────────────────────────────────
   // 로열 샌포드 — 최고평의회의장
   { charCode: "CH_000082", jobCode: "JB_F001", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },

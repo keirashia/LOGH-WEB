@@ -168,20 +168,23 @@ export function isAliveAtDate(char, yearType, year, month = 1, day = 1) {
     }
   }
 
-  // 모든 날짜를 YYYYMMDD 정수로 변환해 비교
-  function toInt(y, m, d) { return y * 10000 + (m ?? 1) * 100 + (d ?? 1) }
+  // 날짜 → YYYYMMDD 정수 변환
+  // birth: 불명 필드는 가장 이른 값(월=1, 일=1) → "이미 태어났을 가능성" 극대화
+  // death: 불명 필드는 가장 늦은 값(월=12, 일=31) → "아직 살아있을 가능성" 극대화
+  function toIntBirth(y, m, d) { return y * 10000 + (m ?? 1)  * 100 + (d ?? 1)  }
+  function toIntDeath(y, m, d) { return y * 10000 + (m ?? 12) * 100 + (d ?? 31) }
 
   // 시나리오 날짜 → SE 기준 정수
   const scOffset = YEAR_TYPE_TO_SE_OFFSET[yearType] ?? 0
-  const scInt = toInt(year + scOffset, month, day)
+  const scInt = toIntBirth(year + scOffset, month, day)
 
   const bd = parseDate(char.birth)
   if (bd) {
-    if (toInt(bd.y, bd.m, bd.d) > scInt) return false  // 아직 태어나지 않음
+    if (toIntBirth(bd.y, bd.m, bd.d) > scInt) return false  // 아직 태어나지 않음
   }
   const dd = parseDate(char.death)
   if (dd) {
-    if (toInt(dd.y, dd.m, dd.d) < scInt) return false  // 이미 사망
+    if (toIntDeath(dd.y, dd.m, dd.d) < scInt) return false  // 이미 사망
   }
   return true
 }

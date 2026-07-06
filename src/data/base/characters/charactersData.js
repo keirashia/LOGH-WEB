@@ -11479,8 +11479,8 @@ export const CHAR_BASE = [
     birth: "",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
+    faction: "REH", // 은하제국
+    idea: "270", // 전제군주제
     econ: "",
     brave: "",
     moral: "",
@@ -12191,35 +12191,45 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000325",
-    name: [{ code: "Kr", context: "요펜 폰 렘샤이트" }],
-    nick: [{ code: "Kr", context: "" }],
-    searchKeys: [],
+    name: [
+      { code: "Kr", context: "요펜 폰 렘샤이트" },
+      { code: "En", context: "Jochen von Remscheid" },
+      { code: "Jp", context: "ヨッフェン・フォン・レムシャイト" },
+    ],
+    nick: [
+      { code: "Kr", context: "렘샤이트" },
+      { code: "En", context: "Remscheid" },
+      { code: "Jp", context: "レムシャイト" },
+    ],
+    searchKeys: ["요헨", "오펜"],
     birth: "",
-    death: "",
+    death: "SE|799.05.",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH", // 은하제국 (796년 페잔 주재 고등판무관)
+    idea: "270", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "45",
+    moral: "55",
+    friend: "100",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    statCmd: 12,
+    statCsm: 60,
+    statAtt:  8,
+    statDef: 12,
+    statFst: 10,
+    statMng: 68,
+    statInf: 85,
+    statGfg:  5,
+    statAfg:  5,
+    statPlt: 72,
     // — 기타
     loc: "",
     point: "0",
-    desc: [{ code: "Kr", context: "" }],
+    desc: [{ code: "Kr", context: `` }],
     // — 직업
+    // 백작
     // — 트레잇
+    // 하얀 여우 (고유)
   },
   {
     // — 기본

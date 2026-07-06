@@ -353,6 +353,16 @@ export const CHAR_TRAITS_MASTER = [
     effects: { statCsm: 10, statPlt: 8, statCmd: -10 },
   },
   {
+    id: "TRC_U_000325",
+    nameKr: "하얀 여우",
+    nameEn: "White Fox",
+    nameJp: "白い狐",
+    rarity: "unique",
+    desc: "겉으로는 점잖은 백작 귀족이지만 제국 전역의 첩보망을 손에 쥔 그림자. 대 동맹·대 페잔 정보공작을 총괄하며 정보력과 정치공작이 극대화된다.",
+    permanent: true,
+    effects: { statInf: 10, statPlt: 8 },
+  },
+  {
     id: "TRC_U_000329",
     nameKr: "민주주의의 어둠",
     nameEn: "Darkness of Democracy",

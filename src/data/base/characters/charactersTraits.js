@@ -160,4 +160,6 @@ export const CHAR_TRAITS = [
   // 춘우 지엔
   { charCode: "CH_000396", traitCode: "TRC_G_012", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null }, // 은퇴(군) — 798.5 복귀 이벤트로 해제 예정
   { charCode: "CH_000396", traitCode: "TRC_G_014", traitLv: 5, traitExp: 0, traitStDate: 0, traitEdDate: null }, // 참모 LV5
+  // 요펜 폰 렘샤이트
+  { charCode: "CH_000325", traitCode: "TRC_U_000325", traitLv: 0, traitExp: 0, traitStDate: 0, traitEdDate: null },
 ]
