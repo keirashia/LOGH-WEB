@@ -146,6 +146,12 @@ docs/
   `subCommanders` 필드로 반영(officers와 구분), 게임 시작 시점 강제 조우 `_checkInitialEncounters()` 신규 —
   REH001/이제르론 주둔함대는 이 시나리오 범위 밖으로 확정 (2026-07-05, [108_data_turns.md](108_data_turns.md),
   [106_data_fleet.md](106_data_fleet.md), Playwright로 REH/PZN 양쪽 게임 시작 흐름 실제 검증 완료)
+- **REH 요직 데이터 정비 + 군주 체제 계층도 컴포넌트** (2026-07-06):
+  jobData.js — JB_R003 내무상서→국무상서 개명, JB_R004 내무상서 신규, JB_R012 궁내상서/R013 사법상서/R014 전례상서 추가;
+  charactersJobs.js — 리히텐라데 JB_R002→JB_R003(국무상서) 재배정;
+  agendaData.js — REH 결재 체인 JB_R002→JB_R003 전체 교체;
+  MonarchyPostComp.vue 신규(`ideology.system==='군주'` 조건, tier 0=황제/1=재상급/2=상서 6종);
+  NationPostModal.vue — MONARCHY_CONFIG(REH) 추가, MonarchyPostComp 연결
 
 ### ⬜ 진행 중 / 다음 작업
 

@@ -9,6 +9,14 @@
 
     <!-- 내용 (스크롤) -->
     <div class="np-body">
+
+      <!-- 공화 체제: 평의회 링 -->
+      <CouncilRingComp v-if="councilSeats.length" :seats="councilSeats" />
+
+      <!-- 군주 체제: 황실 계층도 -->
+      <MonarchyPostComp v-if="monarchySeats.length" :seats="monarchySeats" />
+
+      <!-- 나머지 섹션 (군무 등) -->
       <div v-for="sec in sections" :key="sec.label" class="np-section">
         <div class="np-sec-head" @click="toggleSection(sec.label)">
           <span class="serif" style="font-size:12px;letter-spacing:.5px">{{ sec.label }}</span>
@@ -23,6 +31,7 @@
           </div>
         </template>
       </div>
+
     </div>
 
     <!-- 하단 -->
@@ -36,40 +45,61 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import CouncilRingComp from '@/components/game/modals/CouncilRingComp.vue'
+import MonarchyPostComp from '@/components/game/modals/MonarchyPostComp.vue'
 
 defineEmits(['close'])
 const game = useGameStore()
 
+// ── 공화 체제 평의회 링 설정 ────────────────────────────────────────
+// system: "공화" 조건으로만 표시. 세력별 의석 정의.
+const COUNCIL_CONFIG = {
+  FPA: [
+    { jobCode: 'JB_F001', shortTitle: '의장' },
+    { jobCode: 'JB_F002', shortTitle: '부의장' },
+    { jobCode: 'JB_F003', shortTitle: '국무' },
+    { jobCode: 'JB_F004', shortTitle: '국방' },
+    { jobCode: 'JB_F005', shortTitle: '법질서' },
+    { jobCode: 'JB_F006', shortTitle: '천연자원' },
+    { jobCode: 'JB_F007', shortTitle: '인적자원' },
+    { jobCode: 'JB_F008', shortTitle: '경제개발' },
+    { jobCode: 'JB_F009', shortTitle: '지역개발' },
+    { jobCode: 'JB_F010', shortTitle: '정보교통' },
+    { jobCode: 'JB_F011', shortTitle: '재정' },
+  ],
+}
+
+// ── 군주 체제 계층도 설정 ─────────────────────────────────────────
+// system: "군주" 조건으로만 표시. tier 0=황제, 1=재상급, 2=각 상서.
+const MONARCHY_CONFIG = {
+  REH: [
+    { jobCode: 'JB_R001', label: '황제',     tier: 0 },
+    { jobCode: 'JB_R002', label: '제국재상', tier: 1 },
+    { jobCode: 'JB_R003', label: '국무상서', tier: 1 },
+    { jobCode: 'JB_R004', label: '내무상서', tier: 2 },
+    { jobCode: 'JB_R008', label: '군무상서', tier: 2 },
+    { jobCode: 'JB_R009', label: '재무상서', tier: 2 },
+    { jobCode: 'JB_R012', label: '궁내상서', tier: 2 },
+    { jobCode: 'JB_R013', label: '사법상서', tier: 2 },
+    { jobCode: 'JB_R014', label: '전례상서', tier: 2 },
+  ],
+}
+
+// ── 계층도에 포함되지 않는 직위 섹션 ─────────────────────────────────
 const POST_CONFIG = {
   REH: [
     {
-      label: '내무',
-      jobCodes: [
-        { title: '황제',     jobCode: 'JB_R001' },
-        { title: '제국재상',  jobCode: 'JB_R002' },
-      ],
-    },
-    {
       label: '군무',
       jobCodes: [
-        { title: '군무상서',       jobCode: 'JB_R008' },
-        { title: '통수본부총장',    jobCode: 'JB_R007' },
-        { title: '우주함대사령장관', jobCode: 'JB_R006' },
+        { title: '통수본부총장',      jobCode: 'JB_R007' },
+        { title: '우주함대사령장관',  jobCode: 'JB_R006' },
       ],
     },
   ],
   FPA: [
     {
-      label: '내무',
-      jobCodes: [
-        { title: '최고평의회의장',  jobCode: 'JB_F001' },
-        { title: '최고평의회부의장', jobCode: 'JB_F002' },
-      ],
-    },
-    {
       label: '군무',
       jobCodes: [
-        { title: '국방위원장',       jobCode: 'JB_F004' },
         { title: '통합작전본부장',    jobCode: 'JB_F013' },
         { title: '우주함대사령장관',  jobCode: 'JB_F014' },
       ],
@@ -110,6 +140,18 @@ function charDisplayName(ch) {
       ?? ch.code
       ?? '?'
 }
+
+const councilSeats = computed(() => {
+  const faction = game.factions[game.playerFaction]
+  if (faction?.ideology?.system !== '공화') return []
+  return COUNCIL_CONFIG[game.playerFaction] ?? []
+})
+
+const monarchySeats = computed(() => {
+  const faction = game.factions[game.playerFaction]
+  if (faction?.ideology?.system !== '군주') return []
+  return MONARCHY_CONFIG[game.playerFaction] ?? []
+})
 
 const sections = computed(() => {
   const config = POST_CONFIG[game.playerFaction] ?? []

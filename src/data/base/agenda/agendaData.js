@@ -61,15 +61,15 @@ export const AGENDA_ACTIONS = {
 // military     = 위 둘의 공통 fallback (menuTree의 군사 카테고리 의안 판정용)
 export const APPROVAL_CHAINS = {
   REH: {
-    military_op:    ["JB_R007", "JB_R002", "JB_R001"], // 통수본부총장→재상→황제
-    military_fleet: ["JB_R006", "JB_R002", "JB_R001"], // 우주함대사령장관→재상→황제
-    military:       ["JB_R007", "JB_R002", "JB_R001"], // fallback
-    domestic:       ["JB_R008", "JB_R002", "JB_R001"], // 군무상서→재상→황제
-    personnel:      ["JB_R008", "JB_R002", "JB_R001"],
-    finance:        ["JB_R009", "JB_R002", "JB_R001"], // 재무상서→재상→황제
-    research:       ["JB_R002", "JB_R001"],             // 장관 없음, 재상 직결
+    military_op:    ["JB_R007", "JB_R003", "JB_R001"], // 통수본부총장→국무상서→황제
+    military_fleet: ["JB_R006", "JB_R003", "JB_R001"], // 우주함대사령장관→국무상서→황제
+    military:       ["JB_R007", "JB_R003", "JB_R001"], // fallback
+    domestic:       ["JB_R008", "JB_R003", "JB_R001"], // 군무상서→국무상서→황제
+    personnel:      ["JB_R008", "JB_R003", "JB_R001"],
+    finance:        ["JB_R009", "JB_R003", "JB_R001"], // 재무상서→국무상서→황제
+    research:       ["JB_R003", "JB_R001"],             // 장관 없음, 국무상서 직결
     intel:          ["JB_R011"],                        // 첩보관 단독
-    diplomacy:      ["JB_R002", "JB_R001"],
+    diplomacy:      ["JB_R003", "JB_R001"],
   },
   FPA: {
     military_op:    ["JB_F013", "JB_F002", "JB_F001"], // 통합작전본부장→부의장→의장

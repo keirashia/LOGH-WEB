@@ -180,15 +180,17 @@ export const CHAR_JOBS = [
     jobCode: "JB_MR005",
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
-  // ── REH 3장관 ─────────────────────────────────────────────────
+  // ── REH 요직 ──────────────────────────────────────────────────
+  // 프리드리히 폰 골덴바움 4세 — 황제
+  { charCode: "CH_000514", jobCode: "JB_R001", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 그레고르 폰 뮈켄베르거 — 우주함대사령장관
   { charCode: "CH_000017", jobCode: "JB_R006", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 슈타인호프 — 통수본부총장
   { charCode: "CH_000224", jobCode: "JB_R007", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 에렌베르크 — 군무상서
   { charCode: "CH_000271", jobCode: "JB_R008", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
-  // 클라우스 폰 리히텐라데 — 제국재상
-  { charCode: "CH_000462", jobCode: "JB_R002", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 클라우스 폰 리히텐라데 — 국무상서 (796년 기준 재상 대리 수행)
+  { charCode: "CH_000462", jobCode: "JB_R003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // ── FPA 최고평의회 ─────────────────────────────────────────────
   // 로열 샌포드 — 최고평의회의장
   { charCode: "CH_000082", jobCode: "JB_F001", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },

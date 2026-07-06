@@ -246,6 +246,34 @@ const starMapData = computed(() => getStarMapByCode(sys.value.code ?? sys.value.
 | `military` | MilitaryModal.vue | 군사 작전 |
 | `intel` | IntelModal.vue | 첩보/외교 |
 | `event` | EventModal.vue | 스토리 이벤트 |
+| `nationPost` | NationPostModal.vue | 국가 요직 현황 |
+
+### NationPostModal.vue — 요직 현황
+
+세력 이념에 따라 다른 레이아웃 컴포넌트를 조건부로 표시:
+
+| 조건 | 컴포넌트 | 설명 |
+|---|---|---|
+| `ideology.system === '공화'` | `CouncilRingComp.vue` | 평의회원 원형 배치 (11석) |
+| `ideology.system === '군주'` | `MonarchyPostComp.vue` | 황실 계층도 (tier별 행 배치) |
+
+#### CouncilRingComp.vue
+
+- props: `seats: [{ jobCode, shortTitle }]`
+- `COUNCIL_CONFIG.FPA` — 11석 설정
+- CSS `rotate(angle) translateY(-radius) rotate(-angle)` 트릭으로 원형 배치
+- 의장석(`i===0`)에 gold 테두리
+
+#### MonarchyPostComp.vue
+
+- props: `seats: [{ jobCode, label, tier }]`
+- tier 0: 황제 1인 (80px gold 셀), tier 1: 재상급, tier 2: 각 상서 (50px 셀)
+- 각 tier 사이 수직선(`mph-vline`) 표시
+- `MONARCHY_CONFIG.REH` — tier 0(황제) / tier 1(제국재상·국무상서) / tier 2(내무·군무·재무·궁내·사법·전례상서)
+
+NationPostModal의 `sections` (POST_CONFIG): 계층도에 포함되지 않는 군사 직위 표시.
+- REH: 통수본부총장(JB_R007) · 우주함대사령장관(JB_R006)
+- FPA: 통합작전본부장(JB_F013) · 우주함대사령장관(JB_F014)
 
 ### EventModal payload 구조
 
