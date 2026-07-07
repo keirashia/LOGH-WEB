@@ -12,7 +12,9 @@
                 @click="toggle(c.id)">{{ c.label }}</button>
       </div>
     </div>
-    <button class="btn end-btn" :class="endBtnCls" @click="onEndTurnClick">턴 종료</button>
+    <button class="btn end-btn" :class="endBtnCls" @click="onEndTurnClick">
+      {{ hasPendingBattle ? '전투 시작' : '턴 종료' }}
+    </button>
   </div>
 
   <MenuPanel :category="activecat" @close="activecat = null" />
@@ -23,8 +25,11 @@ import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import MenuPanel from '@/components/game/panels/MenuPanel.vue'
 
+const emit = defineEmits(['showBattle'])
+
 const game = useGameStore()
 const activecat = ref(null)
+const hasPendingBattle = computed(() => game._pendingBattles.length > 0)
 const endBtnCls = computed(() => ({ REH:'btn-red', FPA:'btn-blue', PZN:'btn-green' }[game.playerFaction]))
 
 const ROW1 = [
@@ -45,6 +50,10 @@ function toggle(id) {
 }
 
 function onEndTurnClick() {
+  if (hasPendingBattle.value) {
+    emit('showBattle')
+    return
+  }
   const desc = game._turnActionTaken
     ? '전략 턴을 종료할까요?'
     : '이번 턴에는 전략 활동 이력이 없습니다. 전략 턴을 종료할까요?'

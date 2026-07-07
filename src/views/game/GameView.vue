@@ -56,7 +56,7 @@
       </div>
 
     </div>
-    <StrategyBar />
+    <StrategyBar @show-battle="onShowBattle" />
 
     <!-- 모달 -->
     <transition name="fade">
@@ -185,6 +185,11 @@ function showBattleConfirm(ctx) {
       },
     ],
   })
+}
+
+function onShowBattle() {
+  const ctx = game._pendingBattles[0]
+  if (ctx) showBattleConfirm(ctx)
 }
 
 // 모달을 닫는 모든 경로(배경클릭 / 뒤로가기 / 버튼 close)에서 공통으로 사용.
