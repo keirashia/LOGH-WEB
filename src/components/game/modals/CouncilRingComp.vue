@@ -1,36 +1,95 @@
 <template>
   <div class="cring-root">
-    <svg class="cring-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="150" cy="150" r="115" class="cring-circle" />
+    <div class="cring-bg" />
+    <svg class="cring-svg" viewBox="0 0 370 370" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="185" cy="185" r="140" class="cring-circle" />
     </svg>
 
     <div
       v-for="(pos, i) in resolved"
       :key="pos.jobCode"
       class="cring-seat"
-      :class="{ vacant: !pos.charName, chair: i === 0 }"
+      :class="{ vacant: !pos.charName, chair: i === 0, held: heldIdx === i }"
       :style="{ '--i': i, '--n': resolved.length }"
+      @mousedown="onDown(i)"
+      @mouseup="onUp"
+      @mouseleave="onUp"
+      @touchstart.prevent="onDown(i)"
+      @touchend.prevent="onUp"
+      @touchcancel="onUp"
+      @contextmenu.prevent
     >
+      <div class="seat-gauge" v-if="heldIdx === i && gaugePercent > 0"
+           :style="{ clipPath: `inset(0 ${100 - gaugePercent}% 0 0)` }" />
       <div class="seat-lbl mono">{{ pos.shortTitle }}</div>
-      <div class="seat-nm serif" :class="{ dim: !pos.charName }">
-        {{ pos.charName ?? '공석' }}
-      </div>
+      <div class="seat-nm serif" :class="{ dim: !pos.charName }">{{ pos.charName ?? '공석' }}</div>
     </div>
 
-    <div class="cring-center mono dim">평의회</div>
+    <!-- 중앙 힌트 패널 -->
+    <CharacterInfoPopup
+      :show="showHintIdx !== null && !!resolved[showHintIdx]"
+      :title="resolved[showHintIdx]?.shortTitle ?? ''"
+      :name="resolved[showHintIdx]?.charName ?? null"
+      :traits="resolved[showHintIdx]?.traits ?? []"
+      @close="showHintIdx = null"
+    />
+
+
   </div>
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed, onUnmounted } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import CharacterInfoPopup from '@/components/char/CharacterInfoPopup.vue'
 
 const props = defineProps({
   seats: { type: Array, required: true },
-  // [{ jobCode: string, shortTitle: string }]
 })
 
 const game = useGameStore()
+
+const HOLD_MS = 800
+const TICK_MS = 16
+
+const gaugePercent  = ref(0)
+const heldIdx       = ref(null)
+const showHintIdx   = ref(null)
+
+let timerId = null
+let elapsed = 0
+
+function onDown(i) {
+  if (!resolved.value[i]?.charName) return
+  if (showHintIdx.value !== null) { showHintIdx.value = null; return }
+  heldIdx.value = i
+  elapsed = 0
+  gaugePercent.value = 0
+  timerId = setInterval(() => {
+    elapsed += TICK_MS
+    gaugePercent.value = Math.min((elapsed / HOLD_MS) * 100, 100)
+    if (elapsed >= HOLD_MS) {
+      stop()
+      gaugePercent.value = 0
+      heldIdx.value = null
+      showHintIdx.value = i
+    }
+  }, TICK_MS)
+}
+
+function onUp() {
+  stop()
+  if (showHintIdx.value === null) {
+    gaugePercent.value = 0
+    heldIdx.value = null
+  }
+}
+
+function stop() {
+  if (timerId) { clearInterval(timerId); timerId = null }
+}
+
+onUnmounted(stop)
 
 function charByJob(jobCode) {
   return Object.values(game.characters).find(
@@ -44,7 +103,10 @@ const resolved = computed(() =>
     const ch = charByJob(s.jobCode)
     return {
       ...s,
-      charName: ch?.name?.find(e => e.code === 'Kr')?.context ?? null,
+      charName: ch?.nick?.find(e => e.code === 'Kr')?.context
+             ?? ch?.name?.find(e => e.code === 'Kr')?.context
+             ?? null,
+      traits: ch?.traits ?? [],
     }
   })
 )
@@ -53,10 +115,20 @@ const resolved = computed(() =>
 <style scoped>
 .cring-root {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 370px;
+  height: 370px;
   margin: 4px auto;
   flex-shrink: 0;
+  overflow: hidden;
+  border-radius: var(--r);
+}
+.cring-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom, rgba(2,5,8,.55) 0%, rgba(2,5,8,.35) 50%, rgba(2,5,8,.65) 100%),
+    url('/img/ui/council_chamber.jpg') center / cover no-repeat;
+  border-radius: var(--r);
 }
 .cring-svg {
   position: absolute;
@@ -79,45 +151,66 @@ const resolved = computed(() =>
   transform:
     translate(-50%, -50%)
     rotate(calc(360deg / var(--n) * var(--i) - 90deg))
-    translateY(-115px)
+    translateY(-140px)
     rotate(calc(-1 * (360deg / var(--n) * var(--i) - 90deg)));
-  width: 64px;
+  width: 76px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
   text-align: center;
-  background: var(--bg2);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  padding: 3px 5px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
 }
-.cring-seat.chair {
-  border-color: var(--tg);
-  background: rgba(255, 215, 0, .05);
+.cring-seat.chair .seat-lbl {
+  border-color: rgba(212,170,96,.6);
+  color: var(--tg);
 }
-.cring-seat.vacant { opacity: .55; }
+.cring-seat.chair .seat-nm {
+  border-color: rgba(212,170,96,.4);
+}
+.cring-seat.vacant { opacity: .55; cursor: default; }
+
+/* 홀드 게이지 */
+.seat-gauge {
+  position: absolute;
+  inset: -2px;
+  border: 2px solid rgba(212,170,96,.85);
+  border-radius: 5px;
+  pointer-events: none;
+  z-index: 2;
+}
 
 .seat-lbl {
-  font-size: 9px;
-  color: var(--td);
-  letter-spacing: .3px;
+  display: inline-block;
+  width: 100%;
+  font-size: 10px;
+  color: rgba(255,255,255,.9);
+  letter-spacing: .4px;
   line-height: 1.4;
+  background: var(--bg3);
+  border: 1px solid var(--bd);
+  border-radius: 3px 3px 0 0;
+  padding: 2px 4px;
+  box-sizing: border-box;
 }
 .seat-nm {
-  font-size: 10px;
+  display: inline-block;
+  width: 100%;
+  font-size: 11px;
   color: var(--t1);
   letter-spacing: .3px;
   line-height: 1.5;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  background: var(--bg2);
+  border: 1px solid var(--bdg);
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  padding: 2px 4px;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  word-break: break-all;
 }
 .seat-nm.dim { color: var(--td); font-style: italic; }
 
-.cring-center {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 9px;
-  letter-spacing: .5px;
-  pointer-events: none;
-}
 </style>

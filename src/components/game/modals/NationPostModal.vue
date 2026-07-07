@@ -7,30 +7,44 @@
       <button class="np-close" @click="$emit('close')">✕</button>
     </div>
 
+    <!-- 탭 바 -->
+    <div class="np-tabs">
+      <button
+        v-for="tab in tabs" :key="tab.id"
+        class="np-tab serif"
+        :class="{ active: activeTab === tab.id }"
+        @click="activeTab = tab.id"
+      >{{ tab.label }}</button>
+    </div>
+
     <!-- 내용 (스크롤) -->
     <div class="np-body">
 
-      <!-- 공화 체제: 평의회 링 -->
-      <CouncilRingComp v-if="councilSeats.length" :seats="councilSeats" />
+      <!-- 궁정 탭 -->
+      <template v-if="activeTab === 'court'">
+        <!-- 공화 체제: 평의회 링 -->
+        <CouncilRingComp v-if="councilSeats.length" :seats="councilSeats" />
+        <!-- 군주 체제: 황실 계층도 -->
+        <MonarchyPostComp v-if="monarchySeats.length" :seats="monarchySeats" />
+      </template>
 
-      <!-- 군주 체제: 황실 계층도 -->
-      <MonarchyPostComp v-if="monarchySeats.length" :seats="monarchySeats" />
-
-      <!-- 나머지 섹션 (군무 등) -->
-      <div v-for="sec in sections" :key="sec.label" class="np-section">
-        <div class="np-sec-head" @click="toggleSection(sec.label)">
-          <span class="serif" style="font-size:12px;letter-spacing:.5px">{{ sec.label }}</span>
-          <span class="mono dim" style="font-size:11px">{{ collapsed[sec.label] ? '▶' : '▼' }}</span>
-        </div>
-        <template v-if="!collapsed[sec.label]">
-          <div v-for="pos in sec.positions" :key="pos.title" class="np-pos-row">
-            <span class="np-pos-title dim">{{ pos.title }}</span>
-            <span class="np-pos-name" :class="{ vacant: !pos.char }">
-              {{ pos.char ? charDisplayName(pos.char) : '(공석)' }}
-            </span>
+      <!-- 군무성 탭 -->
+      <template v-if="activeTab === 'military'">
+        <div v-for="sec in sections" :key="sec.label" class="np-section">
+          <div class="np-sec-head" @click="toggleSection(sec.label)">
+            <span class="serif" style="font-size:12px;letter-spacing:.5px">{{ sec.label }}</span>
+            <span class="mono dim" style="font-size:11px">{{ collapsed[sec.label] ? '▶' : '▼' }}</span>
           </div>
-        </template>
-      </div>
+          <template v-if="!collapsed[sec.label]">
+            <div v-for="pos in sec.positions" :key="pos.title" class="np-pos-row">
+              <span class="np-pos-title dim">{{ pos.title }}</span>
+              <span class="np-pos-name" :class="{ vacant: !pos.char }">
+                {{ pos.char ? charDisplayName(pos.char) : '(공석)' }}
+              </span>
+            </div>
+          </template>
+        </div>
+      </template>
 
     </div>
 
@@ -51,8 +65,13 @@ import MonarchyPostComp from '@/components/game/modals/MonarchyPostComp.vue'
 defineEmits(['close'])
 const game = useGameStore()
 
+const activeTab = ref('court')
+const tabs = [
+  { id: 'court',    label: '궁정' },
+  { id: 'military', label: '군무성' },
+]
+
 // ── 공화 체제 평의회 링 설정 ────────────────────────────────────────
-// system: "공화" 조건으로만 표시. 세력별 의석 정의.
 const COUNCIL_CONFIG = {
   FPA: [
     { jobCode: 'JB_F001', shortTitle: '의장' },
@@ -70,7 +89,6 @@ const COUNCIL_CONFIG = {
 }
 
 // ── 군주 체제 계층도 설정 ─────────────────────────────────────────
-// system: "군주" 조건으로만 표시. tier 0=황제, 1=재상급, 2=각 상서.
 const MONARCHY_CONFIG = {
   REH: [
     { jobCode: 'JB_R001', label: '황제',     tier: 0 },
@@ -85,7 +103,7 @@ const MONARCHY_CONFIG = {
   ],
 }
 
-// ── 계층도에 포함되지 않는 직위 섹션 ─────────────────────────────────
+// ── 섹션 설정 ─────────────────────────────────────────────────────
 const POST_CONFIG = {
   REH: [
     {
@@ -181,6 +199,31 @@ const sections = computed(() => {
   transition: color .15s;
 }
 .np-close:hover { color: var(--t1); }
+
+/* ── 탭 바 ────────────────────────────────────────── */
+.np-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--bd);
+  flex-shrink: 0;
+}
+.np-tab {
+  flex: 1;
+  padding: 8px 0;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  color: var(--t1);
+  font-size: 12px;
+  letter-spacing: .6px;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+  margin-bottom: -1px;
+}
+.np-tab:hover { color: rgba(255,255,255,.95); }
+.np-tab.active {
+  color: var(--tg);
+  border-bottom-color: var(--tg);
+}
 
 .np-body { flex: 1; overflow-y: auto; min-height: 140px; }
 

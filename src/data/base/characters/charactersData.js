@@ -21477,14 +21477,10 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000561",
     name: [
-      { code: "Kr", context: "리처드 호프만" },
-      { code: "En", context: "Richard Hoffmann" },
-      { code: "Jp", context: "リチャード・ホフマン" },
+      { code: "Kr", context: "리처드 제논" },
     ],
     nick: [
-      { code: "Kr", context: "호프만" },
-      { code: "En", context: "Hoffmann" },
-      { code: "Jp", context: "ホフマン" },
+      { code: "Kr", context: "제논" },
     ],
     searchKeys: [],
     birth: "",
