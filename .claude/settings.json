@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --input-type=module -e ' *)",
+      "WebFetch(domain:web.archive.org)",
+      "WebFetch(domain:webcache.googleusercontent.com)",
+      "WebFetch(domain:archive.ph)",
+      "WebFetch(domain:www.antian.sakura.ne.jp)",
+      "WebFetch(domain:kumashige.hatenadiary.org)",
+      "WebFetch(domain:blog.goo.ne.jp)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\keira\\Project_Genei\\LOGH-WEB\\src"
+    ]
+  }
+}

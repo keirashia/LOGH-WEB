@@ -91,6 +91,7 @@ const POST_CONFIG = {
     {
       label: '군무',
       jobCodes: [
+        { title: '군무상서',          jobCode: 'JB_R008' },
         { title: '통수본부총장',      jobCode: 'JB_R007' },
         { title: '우주함대사령장관',  jobCode: 'JB_R006' },
       ],
@@ -100,6 +101,7 @@ const POST_CONFIG = {
     {
       label: '군무',
       jobCodes: [
+        { title: '국방위원장',        jobCode: 'JB_F004' },
         { title: '통합작전본부장',    jobCode: 'JB_F013' },
         { title: '우주함대사령장관',  jobCode: 'JB_F014' },
       ],

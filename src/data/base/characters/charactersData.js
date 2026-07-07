@@ -9712,15 +9712,15 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000253",
     name: [{ code: "Kr", context: "알렉산드르 바르트하우저" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "바르트하우저" }],
     searchKeys: [],
     birth: "",
     death: "",
     // — 성향
-    faction: "",
+    faction: "REH",
     idea: "",
     econ: "",
-    brave: "",
+    brave: "95",
     moral: "",
     friend: "",
     // — 능력치
@@ -9738,7 +9738,10 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     recommend: 0,
-    desc: [{ code: "Kr", context: "" }],
+    desc: [{ code: "Kr", context: `은하제국 출신의 군인.
+      뛰어난 용장으로 눈에 띄지는 않지만 치밀하고 명령에 충실해 소수로 전장의 상황을 변화시키려고 할 때 자주 이용했다.
+      볼프강 미터마이어 휘하의 칼 에두아르트 바이어라인이나 양 웬리 휘하의 더스티 아텐보로와 비견할만 하다.
+      회랑 전투에서는 소수의 분함대를 이끌고 참가했고, 노이에란트 전역 당시에는 로이엔탈을 따라 제2차 란테마리오 회전에서 2800척을 이끌고 참전했으나 전사.` }],
     // — 직업
     // — 트레잇
   },
@@ -9815,7 +9818,7 @@ export const CHAR_BASE = [
     ],
     searchKeys: [],
     birth: "SE|761.05.01",
-    death: "",
+    death: "SE|840.12.31",
     // — 성향
     faction: "FPA", // 자유행성동맹
     idea: "100", // 자유민주공화국
@@ -12343,39 +12346,46 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  /** @CH_000320 올리비에 포플랭 Olivier Poplin · オリビエ・ポプラン */
   {
     // — 기본
     code: "CH_000320",
     name: [{ code: "Kr", context: "올리비에 포플랭" }],
     nick: [{ code: "Kr", context: "" }],
     searchKeys: [],
-    birth: "",
+    birth: "SE|771",
     death: "",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
-    // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    faction: "FPA",
+    idea: "70",
+    econ: "120",
+    brave: "92",
+    moral: "62",
+    friend: "155",
+    /** — 능력치
+     *  4EX : 통솔(90)/공격(96)/기동(84)/공전(100)
+     *  6 : 미확인
+     *  Die Neue Saga : 내구(76)/포격(36)/대포격(58)/공전(105)/대공(79)/기동(201)/지휘(300)
+     */
+    statCmd: 76,
+    statCsm: 58,
+    statAtt: 56,
+    statDef: 62,
+    statFst: 84,
+    statMng: 35,
+    statInf: 60,
+    statGfg: 55,
+    statAfg: 99,
+    statPlt: 58,
     // — 기타
     loc: "",
     point: "0",
     recommend: 131,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
+    // 796년 기준 중위
     // — 트레잇
+    // 하트의 에이스(고유)
   },
   {
     // — 기본

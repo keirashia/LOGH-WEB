@@ -79,16 +79,17 @@ const tiers = computed(() => {
 }
 
 .mph-cell {
-  width: 50px;
+  flex: 1 1 60px;
+  min-width: 60px;
   text-align: center;
   background: var(--bg2);
   border: 1px solid var(--bd);
   border-radius: var(--r);
-  padding: 3px 4px;
+  padding: 4px 5px;
 }
 
 .mph-cell.apex {
-  width: 80px;
+  flex: 0 0 90px;
   border-color: var(--tg);
   background: rgba(255, 215, 0, .05);
 }
@@ -96,14 +97,14 @@ const tiers = computed(() => {
 .mph-cell.vacant { opacity: .5; }
 
 .mph-lbl {
-  font-size: 9px;
+  font-size: 10px;
   color: var(--td);
   letter-spacing: .3px;
   line-height: 1.4;
 }
 
 .mph-name {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--t1);
   letter-spacing: .3px;
   line-height: 1.5;

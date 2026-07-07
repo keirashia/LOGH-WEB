@@ -10,7 +10,13 @@
       "Bash(git -C \"c:\\\\Users\\\\user\\\\Documents\\\\workspace\\\\LOGH\\\\LOGH-WEB\" show --stat HEAD)",
       "Bash(git -C \"c:\\\\Users\\\\user\\\\Documents\\\\workspace\\\\LOGH\\\\LOGH-WEB\" show --stat HEAD~1)",
       "PowerShell(\\(Select-String -Path \"c:\\\\Users\\\\keira\\\\Project_Genei\\\\LOGH-WEB\\\\src\\\\data\\\\base\\\\characters\\\\charactersData.js\" -Pattern '^\\\\s+code:\\\\s+\"CH_'\\).Count)",
-      "PowerShell(Select-String -Path \"c:\\\\Users\\\\keira\\\\Project_Genei\\\\LOGH-WEB\\\\src\\\\data\\\\base\\\\characters\\\\charactersData.js\" -Pattern 'point:' | Select-Object -First 10 | ForEach-Object { $_.Line })"
+      "PowerShell(Select-String -Path \"c:\\\\Users\\\\keira\\\\Project_Genei\\\\LOGH-WEB\\\\src\\\\data\\\\base\\\\characters\\\\charactersData.js\" -Pattern 'point:' | Select-Object -First 10 | ForEach-Object { $_.Line })",
+      "Bash(node --input-type=module -e ' *)",
+      "WebSearch",
+      "WebFetch(domain:achilleus.o-oku.jp)",
+      "WebFetch(domain:hisakawa.net)",
+      "WebFetch(domain:wiki3.jp)",
+      "WebFetch(domain:rainharuto.com)"
     ]
   }
 }
