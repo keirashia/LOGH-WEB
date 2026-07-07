@@ -67,7 +67,7 @@
       </div>
 
       <!-- 행동력 슬롯 -->
-      <div class="action-section">
+      <div class="action-section" :class="{ 'battle-lock': hasPendingBattle }">
         <div class="section-label mono job-lbl-badge" style="margin-bottom:6px;font-size:12px;color:#fff">행동력</div>
         <div class="action-slots">
           <div v-for="(slot, i) in actionSlotDisplay" :key="i" class="action-slot"
@@ -79,6 +79,9 @@
             </template>
             <span v-else class="slot-empty mono dim">—</span>
           </div>
+        </div>
+        <div v-if="hasPendingBattle" class="battle-dim">
+          <span class="battle-dim-msg serif">전투 참여 중</span>
         </div>
       </div>
 
@@ -195,6 +198,8 @@ const fleetAssignment = computed(() => {
 })
 
 const charTraits = computed(() => char.value?.traits ?? [])
+
+const hasPendingBattle = computed(() => game._pendingBattles.length > 0)
 
 // 행동력 슬롯 (항상 3개)
 const actionSlotDisplay = computed(() => {
@@ -347,8 +352,24 @@ function statClass(val) {
 
 /* ── 행동력 슬롯 ────────────────────────────────────────────────── */
 .action-section {
+  position: relative;
   padding: 10px 14px 8px;
   border-bottom: 1px solid var(--bd);
+}
+.battle-lock .action-slots { pointer-events: none; }
+.battle-dim {
+  position: absolute;
+  inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(2, 5, 8, .1);
+  backdrop-filter: blur(1px);
+  border-radius: var(--r);
+  pointer-events: none;
+}
+.battle-dim-msg {
+  font-size: 18px; letter-spacing: 1px;
+  color: rgba(220, 60, 60, .9);
+  font-weight: bold;
 }
 .section-label {
   font-size: 9px; letter-spacing: 1px; text-transform: uppercase;

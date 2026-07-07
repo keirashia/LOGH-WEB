@@ -93,7 +93,7 @@
 </template>
 
 <script setup>
-import { computed, watch, ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
@@ -204,12 +204,6 @@ function closeModalSafe() {
   }
 }
 
-watch(() => game._pendingBattles.length, (len) => {
-  if (len === 0) return
-  const ctx = game._pendingBattles[0]
-  if (ctx._notified) return
-  showBattleConfirm(ctx)
-}, { immediate: true })
 
 const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, nationInfo:NationInfoModal, nationPost:NationPostModal }
 const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.name] ?? null) : null)

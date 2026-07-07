@@ -56,6 +56,7 @@
         <button class="btn btn-cancel" @click="router.back()">◁ 설정</button>
         <button v-if="!cur.useYn"                              class="btn dim-action" disabled>진행 불가</button>
         <button v-else-if="!lobby.isScenarioUnlocked(cur.id)" class="btn btn-blue">🔒 {{ cur.openPt !== '-' ? cur.openPt + 'P로 구매' : '업적 해금 필요' }}</button>
+        <button v-else-if="game.isLoading"                    class="btn dim-action" disabled>초기화 중…</button>
         <button v-else                                         class="btn btn-gold" @click="onStart">국가 선택</button>
       </div>
     </div>

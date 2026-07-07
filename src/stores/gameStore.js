@@ -90,7 +90,7 @@ function buildState(scId, pf, extraData = {}) {
 }
 
 export const useGameStore = defineStore('game', {
-  state: () => ({ initialized: false, _preloadedScId: null, _preloadedData: null, lanes: LANES, obstacles: OBSTACLES, ...buildState(0, 'REH') }),
+  state: () => ({ initialized: false, isLoading: false, _preloadedScId: null, _preloadedData: null, lanes: LANES, obstacles: OBSTACLES, ...buildState(0, 'REH') }),
 
   getters: {
     pRes:      s => s.resources[s.playerFaction],
@@ -129,9 +129,11 @@ export const useGameStore = defineStore('game', {
   actions: {
     async preloadScenario(scId) {
       if (this._preloadedScId === scId) return
+      this.isLoading = true
       const data = await _loadScenarioFiles(scId)
       this._preloadedScId  = scId
       this._preloadedData  = data
+      this.isLoading = false
     },
 
     async startGame(scId, pf, charCode = null) {
@@ -142,11 +144,10 @@ export const useGameStore = defineStore('game', {
       Object.assign(this.$state, { initialized: true, ...fresh })
       if (charCode) this.playerCharCode = charCode
       this.addLog(`[${this.factions[pf]?.nameKr ?? pf}] ${fresh.sc.nameKr} 시작.`)
+      this._checkInitialEncounters()
     },
 
     endTurn() {
-      // 시나리오 시작 성계에 적 함대가 있으면 첫 턴 종료 시 전투 등록
-      if (this.turn === 1) this._checkInitialEncounters()
       // 임시 징세 쿨다운
       if (this._levyCooldown > 0) this._levyCooldown--
       // 페잔 차관 처리
@@ -190,6 +191,7 @@ export const useGameStore = defineStore('game', {
       this._victory()
       this.addLog(`은하력 ${this.year}년 ${this.month}월 ${this.day}일 (턴 ${this.turn}) 시작합니다`)
       this._turnActionTaken = false
+      this._checkInitialEncounters()
     },
 
     selectSystem(id)  { this.selectedSystem = id;    this.selectedFleet = null },
@@ -1121,6 +1123,7 @@ export const useGameStore = defineStore('game', {
     holdOp(data)     { this._pendingOp = data },
     clearHeldOp()    { this._pendingOp = null },
     useActionSlot(label, agendaId = null) {
+      if (this._pendingBattles.length > 0) return
       if (this._opActionsUsed >= 3) return
       this._actionSlots.push({ label, agendaId })
       this._opActionsUsed++
