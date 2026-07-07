@@ -94,6 +94,18 @@ export const FLEET_DATA = [
         stDate: "0",
         proactive: 50,
       },
+      {
+        charCode: "CH_000320",  // 올리비에 포플랭
+        type: "O",
+        stDate: "0",
+        proactive: 50,
+      },
+      {
+        charCode: "CH_000355",  // 이반 코네프
+        type: "O",
+        stDate: "0",
+        proactive: 50,
+      },
     ],
     shipList: [
       {

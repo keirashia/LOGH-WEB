@@ -12378,7 +12378,7 @@ export const CHAR_BASE = [
     statAfg: 99,
     statPlt: 58,
     // — 기타
-    loc: "",
+    loc: "230005P01",
     point: "0",
     recommend: 131,
     desc: [{ code: "Kr", context: "" }],
@@ -13696,16 +13696,17 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  // 이반 코네프 Ivan Konev · イワン・コーネフ
   {
     // — 기본
     code: "CH_000355",
     name: [{ code: "Kr", context: "이반 코네프" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "코네프" }],
     searchKeys: [],
     birth: "",
     death: "",
     // — 성향
-    faction: "",
+    faction: "FPA",
     idea: "",
     econ: "",
     brave: "",
@@ -13723,12 +13724,13 @@ export const CHAR_BASE = [
     statAfg: 0,
     statPlt: 0,
     // — 기타
-    loc: "",
+    loc: "230005P01",
     point: "0",
     recommend: 0,
     desc: [{ code: "Kr", context: "" }],
     // — 직업
     // — 트레잇
+    // 클로버의 에이스
   },
   {
     // — 기본
@@ -16407,40 +16409,41 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
-  {
-    // — 기본
-    code: "CH_000425",
-    name: [{ code: "Kr", context: "코네프" }],
-    nick: [{ code: "Kr", context: "" }],
-    searchKeys: [],
-    birth: "",
-    death: "",
-    // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
-    // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
-    // — 기타
-    loc: "",
-    point: "0",
-    recommend: 0,
-    desc: [{ code: "Kr", context: "" }],
-    // — 직업
-    // — 트레잇
-  },
+  // 
+  // {
+  //   // — 기본
+  //   code: "CH_000425",
+  //   name: [{ code: "Kr", context: "코네프" }],
+  //   nick: [{ code: "Kr", context: "" }],
+  //   searchKeys: [],
+  //   birth: "",
+  //   death: "",
+  //   // — 성향
+  //   faction: "",
+  //   idea: "",
+  //   econ: "",
+  //   brave: "",
+  //   moral: "",
+  //   friend: "",
+  //   // — 능력치
+  //   statCmd: 0,
+  //   statCsm: 0,
+  //   statAtt: 0,
+  //   statDef: 0,
+  //   statFst: 0,
+  //   statMng: 0,
+  //   statInf: 0,
+  //   statGfg: 0,
+  //   statAfg: 0,
+  //   statPlt: 0,
+  //   // — 기타
+  //   loc: "",
+  //   point: "0",
+  //   recommend: 0,
+  //   desc: [{ code: "Kr", context: "" }],
+  //   // — 직업
+  //   // — 트레잇
+  // },
   {
     // — 기본
     code: "CH_000426",

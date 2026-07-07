@@ -117,7 +117,7 @@ onMounted(() => {
 })
 
 function onStart() {
-  router.push({ name: 'scenario-options', params: { scId: cur.value.id } })
+  router.push({ name: 'scenario-char', params: { scId: cur.value.id } })
 }
 </script>
 

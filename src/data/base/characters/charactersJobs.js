@@ -245,6 +245,12 @@ export const CHAR_JOBS = [
   // 798.5 군 복귀 이벤트 발생 시 중령부터 재시작 (시나리오 오버라이드로 처리)
   { charCode: "CH_000396", jobCode: "JB_C001", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   { charCode: "CH_000396", jobCode: "JB_MR008", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 }, // 중령(예편)
+
+  // ── 아스타테 2함대 공전대 ──────────────────────────────────────
+  // 올리비에 포플랭 — 796년 기준 중위
+  { charCode: "CH_000320", jobCode: "JB_MR011", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 이반 코네프 — 796년 기준 중위
+  { charCode: "CH_000355", jobCode: "JB_MR011", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
 ];
 
 export const CHAR_JOBS_MAP = Object.fromEntries(
