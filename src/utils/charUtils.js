@@ -27,6 +27,7 @@ import { CHAR_JOBS }                           from '@/data/base/characters/char
 import { CHAR_TRAITS }                         from '@/data/base/characters/charactersTraits'
 import { CHAR_TRAITS_MASTER, CHAR_TRAIT_MAP }  from '@/data/base/trait/chars/charTraitData'
 import { JOBS, JOB_MAP }                       from '@/data/base/jobs/jobData'
+import { braveLabel, ideaLabel, econLabel }    from '@/utils/charValueLabel.js'
 
 // ================================================================
 //  raw 데이터 re-export
@@ -276,9 +277,12 @@ export function buildCharactersMap({
       ...c,
       jobs,
       traits,
-      fleetCode: fleetByChar[c.code]  ?? null,
-      cliqueId:  cliqueByChar[c.code] ?? null,
-      isDead:    false,
+      fleetCode:  fleetByChar[c.code]  ?? null,
+      cliqueId:   cliqueByChar[c.code] ?? null,
+      isDead:     false,
+      braveLabel: braveLabel(c.brave),
+      ideaLabel:  ideaLabel(c.idea),
+      econLabel:  econLabel(c.econ),
     }
   }
   return characters

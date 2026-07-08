@@ -43,14 +43,37 @@
 
       <!-- ④ 성향 -->
       <div class="cp-sep"><span class="cp-sep-lbl">성향</span></div>
-      <div class="cp-grid-3col">
+      <div class="cp-grid-3col" @click="activeHint = null">
         <div v-for="p in PERSONALITY" :key="p.key" class="cp-stat">
           <span class="cp-sl mono">{{ p.label }}</span>
-          <template v-if="p.brave">
+          <template v-if="p.friendMode">
             <span style="flex:1" />
-            <span class="cp-sv mono" style="width:auto" :style="braveInfo(char[p.key]).style">
-              {{ braveInfo(char[p.key]).text }}
-            </span>
+            <div class="cp-friend-wrap" @click.stop>
+              <span class="cp-sv mono cp-hint-trigger" style="width:auto"
+                    @click="activeHint = activeHint === 'friend' ? null : 'friend'">
+                {{ friendInfo?.label ?? '-' }}
+              </span>
+              <div v-if="activeHint === 'friend'" class="cp-hint-box">
+                <div class="cp-hint-title mono">친화도 계산</div>
+                <div class="cp-hint-row">
+                  <span class="dim">내 친화</span>
+                  <span>{{ friendInfo?.playerVal }}</span>
+                </div>
+                <div class="cp-hint-row">
+                  <span class="dim">상대 친화</span>
+                  <span>{{ friendInfo?.charVal }}</span>
+                </div>
+                <div class="cp-hint-row">
+                  <span class="dim">원형 거리</span>
+                  <span>{{ friendInfo?.diff }} / 150</span>
+                </div>
+                <div class="cp-hint-grade">→ {{ friendInfo?.label }}</div>
+              </div>
+            </div>
+          </template>
+          <template v-else-if="p.labelFn">
+            <span style="flex:1" />
+            <span class="cp-sv mono" style="width:auto">{{ p.labelFn(char[p.key]) }}</span>
           </template>
           <template v-else>
             <span class="cp-sb"><span class="cp-sf" :style="{ width: pct(char[p.key], p.max) }" /></span>
@@ -78,11 +101,12 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import TraitBadge from '@/components/char/TraitBadge.vue'
 import { CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
 import { JOB_MAP } from '@/data/base/jobs/jobData.js'
+import { braveLabel, ideaLabel, econLabel, friendGrade } from '@/utils/charValueLabel.js'
 
 const props = defineProps({
   show:     { type: Boolean, default: false },
@@ -113,25 +137,21 @@ const STATS = [
 ]
 
 const PERSONALITY = [
-  { key: 'brave',  label: '성격', brave: true },
+  { key: 'brave',  label: '성격', labelFn: braveLabel },
   { key: 'moral',  label: '도덕', max: 100 },
-  { key: 'friend', label: '친화', max: 200 },
-  { key: 'idea',   label: '이념', max: 200 },
-  { key: 'econ',   label: '경제', max: 200 },
+  { key: 'friend', label: '친화', friendMode: true },
+  { key: 'idea',   label: '이념', labelFn: ideaLabel },
+  { key: 'econ',   label: '경제', labelFn: econLabel },
 ]
 
-const BRAVE_LABELS = [
-  { max: 20,  text: '신중', style: { color: 'var(--td)' } },
-  { max: 40,  text: '냉정', style: { color: 'var(--t2)' } },
-  { max: 60,  text: '일반', style: { color: 'var(--t1)' } },
-  { max: 80,  text: '용맹', style: { color: 'var(--tg)' } },
-  { max: 100, text: '돌진', style: { color: 'var(--REH)' } },
-]
+const playerFriend = computed(() =>
+  Number(game.characters?.[game.playerCharCode]?.friend ?? 0)
+)
+const friendInfo = computed(() =>
+  char.value ? friendGrade(char.value.friend, playerFriend.value) : null
+)
 
-function braveInfo(v) {
-  const n = Number(v ?? 0)
-  return BRAVE_LABELS.find(l => n < l.max) ?? BRAVE_LABELS[BRAVE_LABELS.length - 1]
-}
+const activeHint = ref(null)
 
 const fullName = computed(() =>
   char.value?.name?.find(e => e.code === 'Kr')?.context ?? '?'
@@ -297,6 +317,53 @@ function valStyle(v, max = 100) {
   width: 28px;
   text-align: right;
   flex-shrink: 0;
+}
+
+/* 친화 힌트 */
+.cp-friend-wrap {
+  position: relative;
+}
+.cp-hint-trigger {
+  cursor: pointer;
+  border-bottom: 1px dotted var(--td);
+}
+.cp-hint-box {
+  position: absolute;
+  right: 0; top: calc(100% + 4px);
+  z-index: 10;
+  background: var(--bg3);
+  border: 1px solid var(--bdg);
+  border-radius: var(--r);
+  padding: 8px 10px;
+  min-width: 140px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 4px 16px rgba(0,0,0,.6);
+}
+.cp-hint-title {
+  font-size: 10px;
+  color: var(--td);
+  letter-spacing: .5px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--bd);
+}
+.cp-hint-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--t1);
+}
+.cp-hint-row .dim { color: var(--td); }
+.cp-hint-grade {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--tg);
+  text-align: right;
+  padding-top: 2px;
+  border-top: 1px solid var(--bd);
 }
 
 /* 닫기 */
