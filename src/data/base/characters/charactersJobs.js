@@ -193,6 +193,9 @@ export const CHAR_JOBS = [
   { charCode: "CH_000462", jobCode: "JB_R003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 오이겐 폰 카스트로프 — 재무상서 (796년 기준, 15년 역임)
   { charCode: "CH_000304", jobCode: "JB_R009", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 노이쾰른 — 궁내상서 + 남작
+  { charCode: "CH_000575", jobCode: "JB_R012", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  { charCode: "CH_000575", jobCode: "JB_N005", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 요펜 폰 렘샤이트 — 첩보관 / 페잔 주재 고등판무관 (대 동맹 첩보망·대 페잔 외교 총책임)
   { charCode: "CH_000325", jobCode: "JB_R011", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   { charCode: "CH_000325", jobCode: "JB_N003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },

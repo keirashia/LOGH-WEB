@@ -13,10 +13,7 @@
       "PowerShell(Select-String -Path \"c:\\\\Users\\\\keira\\\\Project_Genei\\\\LOGH-WEB\\\\src\\\\data\\\\base\\\\characters\\\\charactersData.js\" -Pattern 'point:' | Select-Object -First 10 | ForEach-Object { $_.Line })",
       "Bash(node --input-type=module -e ' *)",
       "WebSearch",
-      "WebFetch(domain:achilleus.o-oku.jp)",
-      "WebFetch(domain:hisakawa.net)",
-      "WebFetch(domain:wiki3.jp)",
-      "WebFetch(domain:rainharuto.com)"
+      "Bash(sort -t_ -k2 -n)"
     ]
   }
 }

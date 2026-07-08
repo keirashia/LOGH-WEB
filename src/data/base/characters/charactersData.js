@@ -22132,6 +22132,45 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  // 노이쾰른 von Neuköln — 궁내상서
+  {
+    // — 기본
+    code: "CH_000575",
+    name: [{ code: "Kr", context: "바르반 폰 노이쾰른" }],
+    nick: [{ code: "Kr", context: "노이쾰른" }],
+    searchKeys: [],
+    birth: "SE|745.03.14",
+    death: "SE|810.08.22",
+    // — 성향
+    faction: "REH", // 은하제국
+    idea: "270", // 전제군주제
+    econ: "140", // 혼합경제
+    brave: "25", // 신중
+    moral: "55",
+    friend: "95",
+    // — 능력치
+    statCmd: 22, // 통솔
+    statCsm: 28, // 지휘
+    statAtt: 20, // 공격
+    statDef: 26, // 방어
+    statFst: 23, // 기동
+    statMng: 57, // 운영
+    statInf: 77, // 정보(음모)
+    statGfg: 24, // 육전
+    statAfg: 30, // 공전
+    statPlt: 73, // 정치
+    // — 기타
+    loc: "230058P01", // 오딘
+    point: "0",
+    recommend: 0,
+    desc: [{ code: "Kr", context: `은하영웅전설 제 1권 여명편에서 첫 등장.
+      골덴바움조 은하제국 소속의 각료.` }],
+    // — 직업
+    // 궁내상서
+    // 남작
+    // — 트레잇
+    // 
+  },
 ];
 
 // ================================================================
