@@ -193,8 +193,8 @@ export const FLEET_DATA = [
       },
     ],
     location: {
-      locCode: "230006",
-      locPos: { x: 527, y: 775 },
+      locCode: "230005",        // 아스타테
+      locPos: { x: 420, y: 300 },
       direction: 12,
     },
     formationList: [
@@ -275,8 +275,8 @@ export const FLEET_DATA = [
       },
     ],
     location: {
-      locCode: "230006",
-      locPos: { x: 527, y: 775 },
+      locCode: "230005",        // 아스타테
+      locPos: { x: 700, y: 300 },
       direction: 12,
     },
     formationList: [

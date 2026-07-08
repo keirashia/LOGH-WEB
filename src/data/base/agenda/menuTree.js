@@ -75,6 +75,7 @@ export const MENU_TREES = {
       label: "함대",
       type: "group",
       items: [
+        { id: "fleet_info",    label: "함대정보", modal: "fleetInfo" },
         { id: "fleet_form",    label: "함대편성", modal: "fleet" },
         { id: "fleet_reorg",   label: "함대재편", modal: "fleet" },
         { id: "fleet_deploy",  label: "함대 출격", modal: "military" },
@@ -99,16 +100,16 @@ export const MENU_TREES = {
         { id: "appoint_staff",     label: "참모 추천",   disabled: true },
       ],
     },
-    {
-      id: "doctrine",
-      label: "교리",
-      type: "group",
-      items: [
-        { id: "doctrine_maneuver",  label: "기동전",   disabled: true },
-        { id: "doctrine_attrition", label: "소모전",   disabled: true },
-        { id: "doctrine_strike",    label: "집중타격", disabled: true },
-      ],
-    },
+    // {
+    //   id: "doctrine",
+    //   label: "교리",
+    //   type: "group",
+    //   items: [
+    //     { id: "doctrine_maneuver",  label: "기동전",   disabled: true },
+    //     { id: "doctrine_attrition", label: "소모전",   disabled: true },
+    //     { id: "doctrine_strike",    label: "집중타격", disabled: true },
+    //   ],
+    // },
     {
       id: "mil_admin",
       label: "군정",

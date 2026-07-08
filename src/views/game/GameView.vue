@@ -114,7 +114,8 @@ import IntelModal      from '@/components/game/modals/IntelModal.vue'
 import EventModal      from '@/components/game/modals/EventModal.vue'
 import OperationModal  from '@/components/game/modals/OperationModal.vue'
 import NationInfoModal from '@/components/game/modals/NationInfoModal.vue'
-import NationPostModal from '@/components/game/modals/NationPostModal.vue'
+import NationPostModal  from '@/components/game/modals/NationPostModal.vue'
+import FleetInfoModal   from '@/components/game/modals/FleetInfoModal.vue'
 
 const router = useRouter()
 const game = useGameStore()
@@ -205,7 +206,7 @@ function closeModalSafe() {
 }
 
 
-const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, nationInfo:NationInfoModal, nationPost:NationPostModal }
+const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, nationInfo:NationInfoModal, nationPost:NationPostModal, fleetInfo:FleetInfoModal }
 const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.name] ?? null) : null)
 </script>
 

@@ -174,9 +174,6 @@
       </div>
     </div>
 
-    <!-- 줌 수치 표시 (테스트용) -->
-    <div class="zoom-indicator">x{{ scale.toFixed(2) }}</div>
-
     <!-- 날짜 -->
     <GameDateDisplay class="map-date" />
 
@@ -191,10 +188,6 @@
         <span class="leg-dot" style="background:transparent;border:1px solid rgba(255,255,255,0.25)"/>
         <span class="dim" style="font-size:10px">중립</span>
       </div>
-    </div>
-    <!-- TODO: 좌표 확인용 임시 오버레이 — 삭제 예정 -->
-    <div style="position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.7);color:#0f0;font:11px/1.6 monospace;padding:4px 8px;border-radius:4px;pointer-events:none;z-index:999">
-      {{ mousePos.x }}, {{ mousePos.y }}
     </div>
   </div>
 </template>
@@ -264,8 +257,6 @@ function resetZoom()  { scale.value = 1; panX.value = 0; panY.value = 0 }
 
 // ── 포인터 통합 (팬·드래그·핀치) ────────────────────────────
 const activePointers = new Map()   // pointerId → { x, y }
-// TODO: 좌표 확인용 임시 — 삭제 예정
-const mousePos = ref({ x: 0, y: 0 })
 let   pinchDist0     = 0
 
 // drag state: null | { type:'pan'|'sys', id?, startSvg, startPan, startContent, moved }
@@ -297,7 +288,6 @@ function onPtrDown(e) {
 
 function onPtrMove(e) {
   const sp = toSvg(e.clientX, e.clientY)
-  mousePos.value = { x: Math.round(sp.x), y: Math.round(sp.y) }
   activePointers.set(e.pointerId, sp)
 
   if (activePointers.size === 2) {
@@ -744,14 +734,6 @@ onUnmounted(() => {
 }
 .af-input:focus { border-color:var(--fc) }
 .af-btns { display:flex; gap:6px }
-
-/* 줌 수치 (테스트용) */
-.zoom-indicator {
-  position: absolute; top: 10px; left: 50%; transform: translateX(-50%);
-  background: rgba(10,16,24,.75); border: 1px solid var(--bd);
-  color: var(--fc); font-size: 12px; padding: 3px 10px; border-radius: 4px;
-  pointer-events: none; z-index: 10; font-variant-numeric: tabular-nums;
-}
 
 /* 날짜 */
 .map-date {

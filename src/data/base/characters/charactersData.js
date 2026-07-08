@@ -3544,7 +3544,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000088",
     name: [{ code: "Kr", context: "루글랑주" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "루글랑주" }],
     searchKeys: [],
     birth: "",
     death: "",
@@ -6483,7 +6483,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000169",
     name: [{ code: "Kr", context: "보로딘" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "보로딘" }],
     searchKeys: [],
     birth: "",
     death: "",

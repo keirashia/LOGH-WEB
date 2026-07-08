@@ -1,4 +1,6 @@
 <template>
+  <HelpOverlay v-if="showHelp" :menu-id="category" :title="helpTitle" @close="showHelp = false" />
+
   <Teleport to="body">
     <Transition name="mp-fade">
       <div v-if="category" class="mp-backdrop" @click.self="closeAll" />
@@ -79,20 +81,34 @@
 </template>
 
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import { useHelpStore } from '@/stores/helpStore'
 import { APPROVAL_CHAINS } from '@/data/base/agenda/agendaData'
 import { MENU_TREES } from '@/data/base/agenda/menuTree'
 import { charName } from '@/utils/charUtils'
+import HelpOverlay from '@/components/ui/HelpOverlay.vue'
 
 const props = defineProps({ category: { type: String, default: null } })
 const emit = defineEmits(['close'])
 
 const game = useGameStore()
+const help = useHelpStore()
 
-// 카테고리가 바뀌면 네비게이션 초기화
-const navStack = ref([])
-watch(() => props.category, () => { navStack.value = [] })
+onMounted(() => help.init())
+
+// 카테고리가 바뀌면 네비게이션 초기화 + 도움말 체크
+const navStack  = ref([])
+const showHelp  = ref(false)
+const helpTitle = ref('')
+
+watch(() => props.category, (id) => {
+  navStack.value = []
+  if (id && help.shouldShow(id)) {
+    helpTitle.value = CAT_LABEL[id] ?? id
+    showHelp.value  = true
+  }
+})
 
 const AGENDA_CATS = new Set(['military', 'domestic', 'personnel', 'intel', 'research', 'finance'])
 const isAgendaCat = computed(() => AGENDA_CATS.has(props.category))

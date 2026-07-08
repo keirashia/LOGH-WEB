@@ -28,10 +28,10 @@
           <div class="op-char-card" :class="{ empty: !autoApprover }">
             <template v-if="autoApprover">
               <span class="char-avatar serif" :class="`fc-${autoApprover.faction}`">
-                {{ autoApprover.nickKr?.[0] ?? '?' }}
+                {{ nickOf(autoApprover)[0] ?? '?' }}
               </span>
               <div class="char-info">
-                <span class="serif char-nick">{{ autoApprover.nickKr }}</span>
+                <span class="serif char-nick">{{ nickOf(autoApprover) }}</span>
                 <span class="mono dim char-job">{{ approverJobLabel }}</span>
               </div>
               <span class="mono char-rate" :class="approverAcceptRate >= 50 ? 'gold' : 'alert'">
@@ -51,10 +51,10 @@
           <div class="op-char-card" :class="{ self: proposer?.code === game.playerCharCode }">
             <template v-if="proposer">
               <span class="char-avatar serif" :class="`fc-${proposer.faction}`">
-                {{ proposer.nickKr?.[0] ?? '?' }}
+                {{ nickOf(proposer)[0] ?? '?' }}
               </span>
               <div class="char-info">
-                <span class="serif char-nick">{{ proposer.nickKr }}</span>
+                <span class="serif char-nick">{{ nickOf(proposer) }}</span>
                 <span v-if="proposer.code !== game.playerCharCode" class="mono dim char-job">
                   대리 발의
                 </span>
@@ -174,9 +174,9 @@
                     class="picker-row"
                     :class="{ sel: proposer?.code === c.code, top: c.code === game.playerCharCode }"
                     @click="selectProposer(c)">
-              <span class="char-avatar serif sm" :class="`fc-${c.faction}`">{{ c.nickKr?.[0] }}</span>
+              <span class="char-avatar serif sm" :class="`fc-${c.faction}`">{{ nickOf(c)[0] }}</span>
               <div class="picker-info">
-                <span class="serif">{{ c.nickKr }}</span>
+                <span class="serif">{{ nickOf(c) }}</span>
                 <span class="mono dim" style="font-size:10px">{{ c.rankLabel }}</span>
               </div>
               <div class="picker-stats mono dim" style="font-size:10px">
@@ -446,6 +446,12 @@ function selectProposer(c) {
 function confirmProposer() {
   proposer.value         = pendingProposer.value
   pendingProposer.value  = null
+}
+
+function nickOf(ch) {
+  return ch?.nick?.find(e => e.code === 'Kr')?.context
+      ?? ch?.name?.find(e => e.code === 'Kr')?.context
+      ?? ch?.code ?? '?'
 }
 
 // ── 작전목표 ──────────────────────────────────────────────────────
