@@ -58,6 +58,9 @@
     </div>
     <StrategyBar @show-battle="onShowBattle" />
 
+    <!-- 게임 진입 초기 도움말 -->
+    <HelpOverlay v-if="showGameHelp" menu-id="game_intro" title="게임 안내" @close="showGameHelp = false" />
+
     <!-- 모달 -->
     <transition name="fade">
       <div v-if="game.activeModal && modalComp" class="modal-overlay" @click.self="closeModalSafe">
@@ -96,7 +99,9 @@
 import { computed, ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/gameStore'
+import { useHelpStore } from '@/stores/helpStore'
 import { FACTIONS } from '@/data/masterData'
+import HelpOverlay from '@/components/ui/HelpOverlay.vue'
 import GameHud    from '@/components/ui/GameHud.vue'
 import EventLog   from '@/components/ui/EventLog.vue'
 import StrategyBar from '@/components/ui/StrategyBar.vue'
@@ -119,7 +124,9 @@ import FleetInfoModal   from '@/components/game/modals/FleetInfoModal.vue'
 
 const router = useRouter()
 const game = useGameStore()
+const help = useHelpStore()
 
+const showGameHelp  = ref(false)
 const showSide      = ref(false)
 const showCharPanel = ref(false)
 const isMobileLs   = ref(false)
@@ -134,6 +141,7 @@ onMounted(() => {
   checkLayout()
   window.addEventListener('resize', checkLayout)
   window.addEventListener('popstate', onPopState)
+  if (help.shouldShow('game_intro')) showGameHelp.value = true
 })
 onUnmounted(() => {
   window.removeEventListener('resize', checkLayout)

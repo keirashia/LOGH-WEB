@@ -190,7 +190,7 @@ operation = {
 | 항목 | 설명 | 결정 방식 |
 |---|---|---|
 | `cmd` | 통솔 — 전반적 전투 효율 기준 | 사령관(C)의 `statCmd` 고정 |
-| `csm` | 카리스마 — 사기 상한 결정 | 사령관(C)의 `statCsm` 고정 |
+| `csm` | 지휘 — 사기 상한 결정 | 사령관(C)의 `statCsm` 고정 |
 | `att` | 공격성 — 공격 데미지 배율 | 소속 인원 최고값, `csm` 상한 |
 | `def` | 방어성 — 피해 감소율 | 소속 인원 최고값, `csm` 상한 |
 | `fst` | 기동성 — 이동력/회피 | 소속 인원 최고값, `csm` 상한 |
@@ -214,7 +214,7 @@ att_final = Math.min(att_final, commander.statCsm)
 // computeFleetStats(fleet, characters, fleetCharData) 함수 반환값
 {
   cmd: 85,      // 사령관 통솔
-  csm: 80,      // 사령관 카리스마 (상한값)
+  csm: 80,      // 사령관 지휘 (상한값)
   att: 78,      // 최종 공격성
   def: 72,      // 최종 방어성
   fst: 68,      // 최종 기동성

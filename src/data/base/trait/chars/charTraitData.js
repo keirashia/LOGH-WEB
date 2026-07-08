@@ -348,7 +348,7 @@ export const CHAR_TRAITS_MASTER = [
     nameKr: "최대 문벌",
     nameEn: "Greatest Noble House",
     rarity: "unique",
-    desc: "골덴바움 왕조 최대 문벌귀족의 수장. 카리스마와 정치공작이 향상되나 군사적 판단력이 저하된다.",
+    desc: "골덴바움 왕조 최대 문벌귀족의 수장. 지휘와 정치공작이 향상되나 군사적 판단력이 저하된다.",
     permanent: true,
     effects: { statCsm: 10, statPlt: 8, statCmd: -10 },
   },

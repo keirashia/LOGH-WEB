@@ -14,10 +14,12 @@ function writeLS(allHidden, hidden) {
 }
 
 export const useHelpStore = defineStore('help', () => {
-  const allHidden = ref(false)
-  const hidden    = ref({})
+  // store 생성 시 localStorage에서 즉시 초기화
+  const _s        = readLS()
+  const allHidden = ref(_s.allHidden ?? false)
+  const hidden    = ref(_s.hidden    ?? {})
 
-  // TODO: DB(helpData.js) 로드 후 localStorage set → 여기서 store 세팅으로 확장
+  // TODO: DB(helpData.js) 로드 후 localStorage set → store 갱신으로 확장
   function init() {
     const s = readLS()
     allHidden.value = s.allHidden ?? false
@@ -35,7 +37,8 @@ export const useHelpStore = defineStore('help', () => {
 
   function showHelp() {
     allHidden.value = false
-    writeLS(false, hidden.value)
+    hidden.value    = {}
+    writeLS(false, {})
   }
 
   function hideThis(id) {

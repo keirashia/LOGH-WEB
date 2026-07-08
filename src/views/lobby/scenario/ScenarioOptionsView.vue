@@ -68,7 +68,7 @@
           <div class="group">
             <div class="group-label mono">도움말</div>
             <div class="group-row">
-              <button class="opt-card" :class="{ active: !help.allHidden }" @click="help.showHelp()">
+              <button class="opt-card" :class="{ active: !helpAllHidden }" @click="help.showHelp()">
                 <div class="card-corner tl"><span class="cc-icon">📖</span></div>
                 <div class="card-body">
                   <span class="cb-icon">📖</span>
@@ -76,9 +76,9 @@
                   <span class="cb-desc mono dim">메뉴 첫 진입 시 도움말 표시</span>
                 </div>
                 <div class="card-corner br"><span class="cc-icon">📖</span></div>
-                <div v-if="!help.allHidden" class="active-glow" />
+                <div v-if="!helpAllHidden" class="active-glow" />
               </button>
-              <button class="opt-card" :class="{ active: help.allHidden }" @click="help.hideAll()">
+              <button class="opt-card" :class="{ active: helpAllHidden }" @click="help.hideAll()">
                 <div class="card-corner tl"><span class="cc-icon">🔕</span></div>
                 <div class="card-body">
                   <span class="cb-icon">🔕</span>
@@ -86,7 +86,7 @@
                   <span class="cb-desc mono dim">도움말을 표시하지 않음</span>
                 </div>
                 <div class="card-corner br"><span class="cc-icon">🔕</span></div>
-                <div v-if="help.allHidden" class="active-glow" />
+                <div v-if="helpAllHidden" class="active-glow" />
               </button>
             </div>
           </div>
@@ -111,6 +111,7 @@
 
 <script setup>
 import { ref, computed, watch, nextTick, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useLobbyStore } from '@/stores/lobbyStore'
@@ -121,6 +122,7 @@ const route  = useRoute()
 const router = useRouter()
 const lobby  = useLobbyStore()
 const help   = useHelpStore()
+const { allHidden: helpAllHidden } = storeToRefs(help)
 
 
 const cur = computed(() => SCENARIOS.find(s => s.id === route.params.scId) ?? SCENARIOS[0])

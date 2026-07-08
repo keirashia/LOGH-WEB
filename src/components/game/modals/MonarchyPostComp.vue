@@ -30,9 +30,8 @@
     <!-- 힌트 패널 -->
     <CharacterInfoPopup
       :show="!!hintPos"
+      :char-code="hintPos?.charCode ?? null"
       :title="hintPos?.label ?? ''"
-      :name="hintPos?.charName ?? null"
-      :traits="hintPos?.traits ?? []"
       @close="hintPos = null"
     />
   </div>
@@ -103,6 +102,7 @@ const resolved = computed(() =>
     const ch = charByJob(s.jobCode)
     return {
       ...s,
+      charCode: ch?.code ?? null,
       charName: ch?.nick?.find(e => e.code === 'Kr')?.context
              ?? ch?.name?.find(e => e.code === 'Kr')?.context
              ?? null,

@@ -13,6 +13,7 @@
         <div class="mp-header">
           <button v-if="navStack.length" class="mp-back mono" @click="navStack.pop()">← 뒤로</button>
           <span class="serif gold" style="font-size:13px;letter-spacing:1px">{{ headerTitle }}</span>
+          <button class="mp-help" @click="openHelp">?</button>
           <button class="mp-close" @click="closeAll">✕</button>
         </div>
 
@@ -102,12 +103,14 @@ const navStack  = ref([])
 const showHelp  = ref(false)
 const helpTitle = ref('')
 
+function openHelp() {
+  helpTitle.value = CAT_LABEL[props.category] ?? props.category
+  showHelp.value  = true
+}
+
 watch(() => props.category, (id) => {
   navStack.value = []
-  if (id && help.shouldShow(id)) {
-    helpTitle.value = CAT_LABEL[id] ?? id
-    showHelp.value  = true
-  }
+  if (id && help.shouldShow(id)) openHelp()
 })
 
 const AGENDA_CATS = new Set(['military', 'domestic', 'personnel', 'intel', 'research', 'finance'])
@@ -173,6 +176,10 @@ const pendingCount = computed(() => agendas.value.length)
 function handleItem(item) {
   if (item.children) {
     navStack.value.push(item.id)
+    if (help.shouldShow(item.id)) {
+      helpTitle.value = item.label
+      showHelp.value  = true
+    }
   } else {
     if (item.modal) {
       game.openModal(item.modal)
@@ -222,8 +229,17 @@ function closeAll() {
   transition: all .15s;
 }
 .mp-back:hover { border-color: var(--tg); color: var(--tg); }
+.mp-help {
+  margin-left: auto; background: none; flex-shrink: 0;
+  border: 1px solid var(--td); border-radius: 50%;
+  color: var(--td); font-size: 11px; font-weight: bold;
+  cursor: pointer; width: 20px; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1; transition: all .15s;
+}
+.mp-help:hover { border-color: var(--tg); color: var(--tg); }
 .mp-close {
-  margin-left: auto; background: none; border: none;
+  background: none; border: none;
   color: var(--td); font-size: 14px; cursor: pointer; padding: 4px 6px;
   line-height: 1; transition: color .15s;
 }

@@ -10,15 +10,24 @@
       <!-- TODO: helpData.js 연결 후 실제 도움말 본문으로 교체 -->
       <div class="ho-body dim serif">{{ body || '(도움말 준비 중)' }}</div>
       <div class="ho-actions">
-        <button class="btn" @click="onHideAll">전부 다시 보지 않기</button>
-        <button class="btn" @click="onHideThis">해당 건 다시 보지 않기</button>
-        <button class="btn btn-gold" @click="$emit('close')">닫기</button>
+        <div class="ho-checks">
+          <label class="ho-check-label">
+            <input type="checkbox" v-model="checkAll" />
+            <span>전부 다시 보지 않기</span>
+          </label>
+          <label class="ho-check-label">
+            <input type="checkbox" v-model="checkThis" />
+            <span>해당건 다시 보지 않기</span>
+          </label>
+        </div>
+        <button class="btn btn-gold" style="width:100%;justify-content:center" @click="onClose">닫기</button>
       </div>
     </div>
   </Teleport>
 </template>
 
 <script setup>
+import { ref, watch } from 'vue'
 import { useHelpStore } from '@/stores/helpStore'
 
 const props = defineProps({
@@ -30,13 +39,14 @@ const emit = defineEmits(['close'])
 
 const help = useHelpStore()
 
-function onHideAll() {
-  help.hideAll()
-  emit('close')
-}
+const checkAll  = ref(false)
+const checkThis = ref(false)
 
-function onHideThis() {
-  help.hideThis(props.menuId)
+watch(checkAll, (val) => { if (val) checkThis.value = true })
+
+function onClose() {
+  if (checkAll.value)  help.hideAll()
+  if (checkThis.value) help.hideThis(props.menuId)
   emit('close')
 }
 </script>
@@ -78,10 +88,25 @@ function onHideThis() {
   flex: 1; overflow-y: auto;
 }
 .ho-actions {
-  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 7px;
+  display: flex; flex-direction: column; gap: 10px; flex-shrink: 0;
 }
-.ho-actions .btn {
-  font-size: 11px; padding: 9px 4px; letter-spacing: .3px;
-  justify-content: center; white-space: normal; word-break: keep-all;
+.ho-checks {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 7px;
+}
+.ho-check-label {
+  display: flex; align-items: center; gap: 7px;
+  padding: 9px 12px;
+  border: 1px solid var(--bd); border-radius: var(--r);
+  cursor: pointer; font-size: 11px; font-family: var(--font-serif);
+  color: var(--t2); letter-spacing: .3px;
+  transition: border-color .15s, color .15s;
+  user-select: none;
+}
+.ho-check-label:hover { border-color: var(--bdg); color: var(--t1); }
+.ho-check-label input[type="checkbox"] {
+  accent-color: var(--tg); width: 14px; height: 14px; flex-shrink: 0; cursor: pointer;
+}
+.ho-check-label span {
+  flex: 1; text-align: center;
 }
 </style>

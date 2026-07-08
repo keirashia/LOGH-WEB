@@ -1,88 +1,312 @@
 <template>
   <transition name="cp-fade">
-    <div v-if="show" class="cp-hint" @click.stop="$emit('close')">
-      <div class="cp-header">
-        <span class="cp-title serif">{{ title }}</span>
-        <span class="cp-name serif">{{ name ?? '공석' }}</span>
+    <div v-if="show && char" class="cp-box" @click.stop>
+
+      <!-- ① 헤더: 초상화 | 소속국가 | 풀네임 -->
+      <div class="cp-head">
+        <div class="cp-portrait">
+          <!-- TODO: /img/chars/{charCode}.png -->
+          <span class="cp-init serif">{{ initials }}</span>
+        </div>
+        <div class="cp-head-info">
+          <span class="mono" :class="`fc-${char.faction}`" style="font-size:12px;letter-spacing:.5px">
+            {{ FACTION_NAMES[char.faction] ?? char.faction }}
+          </span>
+          <span class="mono dim" style="font-size:12px;margin:0 6px">|</span>
+          <span class="serif gold" style="font-size:18px;letter-spacing:.5px">{{ fullName }}</span>
+        </div>
       </div>
-      <template v-if="traits.length">
-        <TraitBadge
-          v-for="t in traits" :key="t.traitCode"
-          :trait="CHAR_TRAIT_MAP[t.traitCode]"
-          :char-trait="t"
-        />
-      </template>
-      <div v-else class="cp-no-trait mono dim">트레잇 없음</div>
-      <div class="cp-close mono dim">클릭하여 닫기</div>
+
+      <!-- ② 직업 -->
+      <div class="cp-sep"><span class="cp-sep-lbl">직업</span></div>
+      <div class="cp-jobs">
+        <template v-if="char.jobs?.length">
+          <span v-for="j in char.jobs" :key="j.jobCode" class="cp-chip mono">
+            {{ jobName(j.jobCode) }}
+          </span>
+        </template>
+        <span v-else class="dim serif" style="font-size:11px">없음</span>
+      </div>
+
+      <!-- ③ 트레잇 -->
+      <div class="cp-sep"><span class="cp-sep-lbl">트레잇</span></div>
+      <div class="cp-traits">
+        <template v-if="char.traits?.length">
+          <TraitBadge
+            v-for="t in char.traits" :key="t.traitCode"
+            :trait="CHAR_TRAIT_MAP[t.traitCode]"
+            :char-trait="t"
+          />
+        </template>
+        <span v-else class="dim serif" style="font-size:11px">없음</span>
+      </div>
+
+      <!-- ④ 성향 -->
+      <div class="cp-sep"><span class="cp-sep-lbl">성향</span></div>
+      <div class="cp-grid-3col">
+        <div v-for="p in PERSONALITY" :key="p.key" class="cp-stat">
+          <span class="cp-sl mono">{{ p.label }}</span>
+          <template v-if="p.brave">
+            <span style="flex:1" />
+            <span class="cp-sv mono" style="width:auto" :style="braveInfo(char[p.key]).style">
+              {{ braveInfo(char[p.key]).text }}
+            </span>
+          </template>
+          <template v-else>
+            <span class="cp-sb"><span class="cp-sf" :style="{ width: pct(char[p.key], p.max) }" /></span>
+            <span class="cp-sv mono" :style="valStyle(Number(char[p.key]), p.max)">{{ char[p.key] ?? '-' }}</span>
+          </template>
+        </div>
+      </div>
+
+      <!-- ⑤ 능력치 -->
+      <div class="cp-sep"><span class="cp-sep-lbl">능력치</span></div>
+      <div class="cp-grid-2col">
+        <div v-for="s in STATS" :key="s.key" class="cp-stat">
+          <span class="cp-sl mono">{{ s.label }}</span>
+          <span class="cp-sb"><span class="cp-sf" :style="{ width: pct(char[s.key], 100) }" /></span>
+          <span class="cp-sv mono" :style="valStyle(char[s.key], 100)">{{ char[s.key] ?? '-' }}</span>
+        </div>
+      </div>
+
+      <!-- 닫기 -->
+      <div class="cp-sep" />
+      <button class="btn btn-gold cp-close-btn" @click="$emit('close')">닫기</button>
+
     </div>
   </transition>
 </template>
 
 <script setup>
+import { computed } from 'vue'
+import { useGameStore } from '@/stores/gameStore'
 import TraitBadge from '@/components/char/TraitBadge.vue'
 import { CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
+import { JOB_MAP } from '@/data/base/jobs/jobData.js'
 
-defineProps({
-  show:   { type: Boolean, default: false },
-  title:  { type: String,  default: '' },
-  name:   { type: String,  default: null },
-  traits: { type: Array,   default: () => [] },
+const props = defineProps({
+  show:     { type: Boolean, default: false },
+  charCode: { type: String,  default: null },
+  title:    { type: String,  default: '' },
 })
-
 defineEmits(['close'])
+
+const game = useGameStore()
+
+const char = computed(() =>
+  props.charCode ? (game.characters?.[props.charCode] ?? null) : null
+)
+
+const FACTION_NAMES = { REH: '은하제국', FPA: '자유행성동맹', PZN: '페잔' }
+
+const STATS = [
+  { key: 'statCmd', label: '통솔' },
+  { key: 'statCsm', label: '운용' },
+  { key: 'statAtt', label: '공격' },
+  { key: 'statDef', label: '방어' },
+  { key: 'statFst', label: '기동' },
+  { key: 'statMng', label: '운영' },
+  { key: 'statInf', label: '정보' },
+  { key: 'statGfg', label: '육전' },
+  { key: 'statAfg', label: '공전' },
+  { key: 'statPlt', label: '정치' },
+]
+
+const PERSONALITY = [
+  { key: 'brave',  label: '성격', brave: true },
+  { key: 'moral',  label: '도덕', max: 100 },
+  { key: 'friend', label: '친화', max: 200 },
+  { key: 'idea',   label: '이념', max: 200 },
+  { key: 'econ',   label: '경제', max: 200 },
+]
+
+const BRAVE_LABELS = [
+  { max: 20,  text: '신중', style: { color: 'var(--td)' } },
+  { max: 40,  text: '냉정', style: { color: 'var(--t2)' } },
+  { max: 60,  text: '일반', style: { color: 'var(--t1)' } },
+  { max: 80,  text: '용맹', style: { color: 'var(--tg)' } },
+  { max: 100, text: '돌진', style: { color: 'var(--REH)' } },
+]
+
+function braveInfo(v) {
+  const n = Number(v ?? 0)
+  return BRAVE_LABELS.find(l => n < l.max) ?? BRAVE_LABELS[BRAVE_LABELS.length - 1]
+}
+
+const fullName = computed(() =>
+  char.value?.name?.find(e => e.code === 'Kr')?.context ?? '?'
+)
+
+const initials = computed(() => fullName.value?.slice(-1) ?? '?')
+
+function jobName(code) {
+  return JOB_MAP[code]?.name?.find(e => e.code === 'Kr')?.context ?? code
+}
+
+function pct(v, max = 100) {
+  const n = Number(v ?? 0)
+  return `${Math.min((n / max) * 100, 100)}%`
+}
+
+function valStyle(v, max = 100) {
+  const n = Number(v)
+  if (isNaN(n))       return { color: 'var(--td)' }
+  const r = n / max
+  if (r >= 0.9)       return { color: 'var(--tg)' }
+  if (r >= 0.7)       return { color: 'var(--t1)' }
+  if (r >= 0.5)       return { color: 'var(--t2)' }
+  return { color: 'var(--td)' }
+}
 </script>
 
 <style scoped>
-.cp-hint {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+.cp-box {
+  position: fixed;
+  top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  width: 190px;
-  z-index: 100;
-  background: var(--bg3);
+  width: 90vw; height: 90vh;
+  z-index: 200;
+  background: linear-gradient(180deg, #101828 0%, #0b1220 100%);
   border: 1px solid rgba(212,170,96,.4);
   border-radius: var(--r);
-  padding: 12px 10px 8px;
-  box-shadow: 0 8px 32px rgba(0,0,0,.85);
-  cursor: pointer;
+  padding: 18px 20px 16px;
+  box-shadow: 0 8px 40px rgba(0,0,0,.9);
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  max-height: 280px;
+  gap: 0;
   overflow-y: auto;
 }
-.cp-header {
+
+/* ① 헤더 */
+.cp-head {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 2px;
-  margin-bottom: 4px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--bd);
+  gap: 16px;
+  padding-bottom: 4px;
 }
-.cp-title {
-  font-size: 10px;
-  color: var(--td);
-  letter-spacing: .5px;
+.cp-portrait {
+  width: 100px; height: 100px;
+  flex-shrink: 0;
+  border: 1px solid var(--bd);
+  border-radius: var(--r);
+  background: var(--bg4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.cp-name {
-  font-size: 14px;
-  color: var(--tg);
-  letter-spacing: .5px;
-}
-.cp-no-trait {
-  font-size: 10px;
-  text-align: center;
-  padding: 4px 0;
-}
-.cp-close {
-  font-size: 9px;
-  text-align: center;
-  margin-top: 2px;
-  letter-spacing: .5px;
+.cp-init { font-size: 36px; color: var(--td); }
+.cp-head-info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
+/* 구분선 */
+.cp-sep {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0 8px;
+}
+.cp-sep::before {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--bd);
+}
+.cp-sep::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--bd);
+}
+.cp-sep-lbl {
+  font-size: 2.2vh;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+/* ② 직업 */
+.cp-jobs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cp-chip {
+  font-size: 11px;
+  color: var(--t2);
+  letter-spacing: .3px;
+  background: var(--bg4);
+  border: 1px solid var(--bd);
+  border-radius: var(--r);
+  padding: 3px 8px;
+}
+
+/* ③ 트레잇 */
+.cp-traits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ④ 성향 (3열) */
+.cp-grid-3col {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px 20px;
+}
+
+/* ⑤ 능력치 (2열 × 5행, column-flow) */
+.cp-grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(5, auto);
+  grid-auto-flow: column;
+  gap: 8px 24px;
+}
+
+/* 공통 스탯 행 */
+.cp-stat {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.cp-sl {
+  font-size: 11px;
+  color: var(--t2);
+  letter-spacing: .3px;
+  width: 26px;
+  flex-shrink: 0;
+}
+.cp-sb {
+  flex: 1;
+  height: 4px;
+  background: var(--bg4);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.cp-sf {
+  display: block;
+  height: 100%;
+  background: var(--tg);
+  border-radius: 2px;
+  opacity: .55;
+}
+.cp-sv {
+  font-size: 12px;
+  width: 28px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* 닫기 */
+.cp-close-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: auto;
+}
+
+/* 트랜지션 */
 .cp-fade-enter-active { transition: opacity .18s, transform .18s; }
 .cp-fade-leave-active { transition: opacity .12s; }
 .cp-fade-enter-from   { opacity: 0; transform: translate(-50%, -48%); }

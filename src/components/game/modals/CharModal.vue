@@ -65,7 +65,7 @@ const statRows = computed(() => sel.value ? [
   ['전술',    sel.value.military,     '#e74c3c'],
   ['정치',    sel.value.politics,     '#3498db'],
   ['지략',    sel.value.intelligence, '#9b59b6'],
-  ['카리스마', sel.value.charisma,    '#f39c12'],
+  ['지휘', sel.value.charisma,    '#f39c12'],
   ['충성',    sel.value.loyalty,      '#2ecc71'],
   ['건강',    sel.value.health,       '#1abc9c'],
 ] : [])

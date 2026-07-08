@@ -109,7 +109,7 @@ const filtered = computed(() => {
   이미지 + 이름(한글/영문) + 세력 배지 + 직책
 
 능력치 ▼
-  통솔 / 카리스마 / 공격 / 방어 / 기동
+  통솔 / 지휘 / 공격 / 방어 / 기동
   운영 / 정보 / 육전 / 공전 / 정략  (10개 바 차트)
 
 성향 ▼
@@ -130,7 +130,7 @@ const filtered = computed(() => {
 | 필드 | 한글 |
 |---|---|
 | `CHA_ST_CMD` | 통솔 |
-| `CHA_ST_CSM` | 카리스마 |
+| `CHA_ST_CSM` | 지휘 |
 | `CHA_ST_ATT` | 공격 |
 | `CHA_ST_DEF` | 방어 |
 | `CHA_ST_FST` | 기동 |

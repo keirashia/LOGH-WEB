@@ -135,7 +135,7 @@ const NATION_COLORS = {
 }
 
 const STAT_KEYS = [
-  ['statCmd','통솔'], ['statCsm','카리스마'],
+  ['statCmd','통솔'], ['statCsm','지휘'],
   ['statAtt','공격'], ['statDef','방어'],
   ['statFst','기동'], ['statMng','운영'],
   ['statInf','정보'], ['statGfg','육전'],

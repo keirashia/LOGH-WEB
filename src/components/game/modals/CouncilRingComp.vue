@@ -28,9 +28,8 @@
     <!-- 중앙 힌트 패널 -->
     <CharacterInfoPopup
       :show="showHintIdx !== null && !!resolved[showHintIdx]"
+      :char-code="resolved[showHintIdx]?.charCode ?? null"
       :title="resolved[showHintIdx]?.shortTitle ?? ''"
-      :name="resolved[showHintIdx]?.charName ?? null"
-      :traits="resolved[showHintIdx]?.traits ?? []"
       @close="showHintIdx = null"
     />
 
@@ -103,6 +102,7 @@ const resolved = computed(() =>
     const ch = charByJob(s.jobCode)
     return {
       ...s,
+      charCode: ch?.code ?? null,
       charName: ch?.nick?.find(e => e.code === 'Kr')?.context
              ?? ch?.name?.find(e => e.code === 'Kr')?.context
              ?? null,

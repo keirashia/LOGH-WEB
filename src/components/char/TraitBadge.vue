@@ -63,7 +63,7 @@ const TICK_MS = 16
 
 const RARITY_LABEL = { common: '일반', uncommon: '비범', rare: '희귀', unique: '고유' }
 const STAT_LABEL = {
-  statCmd: '통솔', statCsm: '카리스마', statAtt: '공격', statDef: '방어',
+  statCmd: '통솔', statCsm: '지휘', statAtt: '공격', statDef: '방어',
   statFst: '기동', statMng: '운영', statInf: '정보', statGfg: '육전',
   statAfg: '공전', statPlt: '정략',
 }
