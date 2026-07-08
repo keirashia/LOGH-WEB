@@ -186,7 +186,7 @@ const sections = computed(() => {
 </script>
 
 <style scoped>
-.np-modal { min-width: min(90vw, 360px); display: flex; flex-direction: column; padding: 0; overflow: hidden }
+.np-modal { width: 80vh; height: 80vh; display: flex; flex-direction: column; padding: 0; overflow: hidden }
 
 .np-header {
   display: flex; align-items: center; justify-content: space-between;
