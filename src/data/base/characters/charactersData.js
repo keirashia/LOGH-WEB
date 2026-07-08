@@ -22107,7 +22107,7 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000573",
-    name: [{ code: "Kr", context: "폰 플레겔" }],
+    name: [{ code: "Kr", context: "카나드 폰 플레겔" }],
     nick: [{ code: "Kr", context: "플레겔" }],
     searchKeys: [],
     birth: "SE|750.09.17",
@@ -22153,7 +22153,7 @@ export const CHAR_BASE = [
     nick: [{ code: "Kr", context: "아이젠후트" }],
     searchKeys: [],
     birth: "SE|712.02.17",
-    death: "",
+    death: "SE|800.12.08",
     // — 성향
     faction: "REH",
     idea: "270",
@@ -22187,7 +22187,7 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000576",
-    name: [{ code: "Kr", context: "폰 킬만젝" }],
+    name: [{ code: "Kr", context: "모르겐 폰 킬만젝" }],
     nick: [{ code: "Kr", context: "킬만젝" }],
     searchKeys: [],
     birth: "SE|746.11.03",
@@ -22214,7 +22214,8 @@ export const CHAR_BASE = [
     loc: "230058P01",
     point: "0",
     recommend: 0,
-    desc: [{ code: "Kr", context: `골덴바움조 은하제국 소속의 각료.` }],
+    desc: [{ code: "Kr", context: `골덴바움조 은하제국 소속의 각료.
+      원작에서는 킬만젝이라는 성만 등장한다.` }],
     // — 직업
     // 내각 서기관장
     // 남작
