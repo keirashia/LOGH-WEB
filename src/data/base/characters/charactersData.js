@@ -3781,35 +3781,37 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000094",
-    name: [{ code: "Kr", context: "룸프" }],
-    nick: [{ code: "Kr", context: "" }],
+    name: [{ code: "Kr", context: "오토 폰 룸프" }],
+    nick: [{ code: "Kr", context: "룸프" }],
     searchKeys: [],
-    birth: "",
-    death: "",
+    birth: "SE|748.07.22",
+    death: "SE|805.11.03",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH",
+    idea: "270",
+    econ: "140",
+    brave: "20",
+    moral: "50",
+    friend: "90",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    statCmd: 18, // 통솔
+    statCsm: 24, // 지휘
+    statAtt: 18, // 공격
+    statDef: 22, // 방어
+    statFst: 20, // 기동
+    statMng: 58, // 운영
+    statInf: 65, // 정보(음모)
+    statGfg: 20, // 육전
+    statAfg: 25, // 공전
+    statPlt: 75, // 정치
     // — 기타
-    loc: "",
+    loc: "230058P01",
     point: "0",
     recommend: 0,
-    desc: [{ code: "Kr", context: "" }],
+    desc: [{ code: "Kr", context: `골덴바움조 은하제국 소속의 각료.
+      원작에서는 룸프라는 성만 등장하고 있다.` }],
     // — 직업
+    // 사법상서
     // — 트레잇
   },
   // 르페브르 Lefebvre · ルフェーブル
@@ -7664,35 +7666,39 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000201",
-    name: [{ code: "Kr", context: "빌헬미" }],
-    nick: [{ code: "Kr", context: "" }],
+    name: [{ code: "Kr", context: "오스마르 폰 빌헬미" }],
+    nick: [{ code: "Kr", context: "빌헬미" }],
     searchKeys: [],
-    birth: "",
-    death: "",
+    birth: "SE|752.04.09",
+    death: "SE|812.10.27",
     // — 성향
-    faction: "",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    faction: "REH",
+    idea: "270",
+    econ: "140",
+    brave: "35",
+    moral: "55",
+    friend: "85",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    statCmd: 20, // 통솔
+    statCsm: 25, // 지휘
+    statAtt: 19, // 공격
+    statDef: 24, // 방어
+    statFst: 22, // 기동
+    statMng: 65, // 운영
+    statInf: 45, // 정보(음모)
+    statGfg: 21, // 육전
+    statAfg: 26, // 공전
+    statPlt: 62, // 정치
     // — 기타
-    loc: "",
+    loc: "230058P01",
     point: "0",
     recommend: 0,
-    desc: [{ code: "Kr", context: "" }],
+    desc: [{ code: "Kr", context: `은하영웅전설 제 1권 여명편에서 첫 등장.
+      골덴바움조 은하제국 소속의 각료.
+      원작에서는 성인 빌헬미로만 등장하고 있다.` }],
     // — 직업
+    // 과학상서
+    // 남작
     // — 트레잇
   },
   {
@@ -22101,35 +22107,117 @@ export const CHAR_BASE = [
   {
     // — 기본
     code: "CH_000573",
-    name: [{ code: "Kr", context: "플레겔" }],
-    nick: [{ code: "Kr", context: "" }],
+    name: [{ code: "Kr", context: "폰 플레겔" }],
+    nick: [{ code: "Kr", context: "플레겔" }],
     searchKeys: [],
-    birth: "",
+    birth: "SE|750.09.17",
+    death: "SE|808.04.11",
+    // — 성향
+    faction: "REH",
+    idea: "270",
+    econ: "140",
+    brave: "30",
+    moral: "50",
+    friend: "90",
+    // — 능력치
+    statCmd: 20, // 통솔
+    statCsm: 26, // 지휘
+    statAtt: 22, // 공격
+    statDef: 28, // 방어
+    statFst: 21, // 기동
+    statMng: 60, // 운영
+    statInf: 55, // 정보(음모)
+    statGfg: 22, // 육전
+    statAfg: 27, // 공전
+    statPlt: 72, // 정치
+    // — 기타
+    loc: "230058P01",
+    point: "0",
+    recommend: 0,
+    desc: [{ code: "Kr", context: `은하영웅전설 제 1권 여명편에서 첫 등장.
+      골덴바움조 은하제국 소속의 각료.
+      원작에서는 플레겔이라는 성만 등장하고 있다.` }],
+    // — 직업
+    // 내무상서
+    // 남작
+    // — 트레잇
+  },
+  // 아이젠후트 von Eisenhut — 전례상서
+  {
+    // — 기본
+    code: "CH_000577",
+    name: [
+      { code: "Kr", context: "요한 디트리히 폰 아이젠후트" },
+      { code: "Jp", context: "ヨハン・ディートリッヒ・フォン・アイゼンフート" },
+    ],
+    nick: [{ code: "Kr", context: "아이젠후트" }],
+    searchKeys: [],
+    birth: "SE|712.02.17",
     death: "",
     // — 성향
     faction: "REH",
-    idea: "",
-    econ: "",
-    brave: "",
-    moral: "",
-    friend: "",
+    idea: "270",
+    econ: "140",
+    brave: "15",
+    moral: "40",
+    friend: "80",
     // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
-    statPlt: 0,
+    statCmd: 12, // 통솔
+    statCsm: 15, // 지휘
+    statAtt: 11, // 공격
+    statDef: 14, // 방어
+    statFst: 10, // 기동
+    statMng: 50, // 운영
+    statInf: 52, // 정보(음모)
+    statGfg: 12, // 육전
+    statAfg: 14, // 공전
+    statPlt: 58, // 정치
     // — 기타
-    loc: "",
+    loc: "230058P01",
     point: "0",
     recommend: 0,
-    desc: [{ code: "Kr", context: "" }],
+    desc: [{ code: "Kr", context: `골덴바움조 은하제국 소속의 각료.
+      30년에 걸친 공작 끝에 전례상서직을 얻은 노귀족` }],
     // — 직업
+    // 전례상서
+    // 백작
+    // — 트레잇
+  },
+  // 킬만젝 — 내각 서기관장
+  {
+    // — 기본
+    code: "CH_000576",
+    name: [{ code: "Kr", context: "폰 킬만젝" }],
+    nick: [{ code: "Kr", context: "킬만젝" }],
+    searchKeys: [],
+    birth: "SE|746.11.03",
+    death: "SE|807.06.18",
+    // — 성향
+    faction: "REH",
+    idea: "270",
+    econ: "140",
+    brave: "25",
+    moral: "50",
+    friend: "92",
+    // — 능력치
+    statCmd: 21, // 통솔
+    statCsm: 27, // 지휘
+    statAtt: 19, // 공격
+    statDef: 25, // 방어
+    statFst: 22, // 기동
+    statMng: 63, // 운영
+    statInf: 58, // 정보(음모)
+    statGfg: 22, // 육전
+    statAfg: 28, // 공전
+    statPlt: 70, // 정치
+    // — 기타
+    loc: "230058P01",
+    point: "0",
+    recommend: 0,
+    desc: [{ code: "Kr", context: `골덴바움조 은하제국 소속의 각료.` }],
+    // — 직업
+    // 내각 서기관장
+    // 남작
     // — 트레잇
   },
   // 노이쾰른 von Neuköln — 궁내상서
@@ -22164,7 +22252,8 @@ export const CHAR_BASE = [
     point: "0",
     recommend: 0,
     desc: [{ code: "Kr", context: `은하영웅전설 제 1권 여명편에서 첫 등장.
-      골덴바움조 은하제국 소속의 각료.` }],
+      골덴바움조 은하제국 소속의 각료.
+      원작에서는 노이쾰른이라는 성만 등장하고 있다.` }],
     // — 직업
     // 궁내상서
     // 남작

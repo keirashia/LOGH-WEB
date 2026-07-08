@@ -193,6 +193,21 @@ export const CHAR_JOBS = [
   { charCode: "CH_000462", jobCode: "JB_R003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 오이겐 폰 카스트로프 — 재무상서 (796년 기준, 15년 역임)
   { charCode: "CH_000304", jobCode: "JB_R009", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 아이젠후트 — 전례상서 + 백작
+  { charCode: "CH_000577", jobCode: "JB_R014", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  { charCode: "CH_000577", jobCode: "JB_N003", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 빌헬미 — 과학상서 + 남작
+  { charCode: "CH_000201", jobCode: "JB_R015", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  { charCode: "CH_000201", jobCode: "JB_N005", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 킬만젝 — 내각 서기관장 + 남작
+  { charCode: "CH_000576", jobCode: "JB_R016", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  { charCode: "CH_000576", jobCode: "JB_N005", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 플레겔 — 내무상서 + 남작
+  { charCode: "CH_000573", jobCode: "JB_R004", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  { charCode: "CH_000573", jobCode: "JB_N005", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  // 룸프 — 사법상서 + 남작
+  { charCode: "CH_000094", jobCode: "JB_R013", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
+  { charCode: "CH_000094", jobCode: "JB_N005", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   // 노이쾰른 — 궁내상서 + 남작
   { charCode: "CH_000575", jobCode: "JB_R012", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },
   { charCode: "CH_000575", jobCode: "JB_N005", jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0 },

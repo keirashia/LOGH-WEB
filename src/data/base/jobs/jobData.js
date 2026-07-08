@@ -336,6 +336,31 @@ export const JOBS = [
     desc: "전례성 수장. 황실 의식·귀족 서열 관장.",
   },
 
+  {
+    id: "JB_R015",
+    name: [{ code: "Kr", context: "과학상서" }, { code: "En", context: "Minister of Science and Technology" }],
+    category: "political",
+    faction: "REH",
+    effects: { PLT: 5, MNG: 7 },
+    canCommand: false,
+    canGovern: true,
+    expToNext: null,
+    nextJob: null,
+    desc: "과학성 수장. 제국 과학기술·연구개발 총괄.",
+  },
+  {
+    id: "JB_R016",
+    name: [{ code: "Kr", context: "내각 서기관장" }, { code: "En", context: "Chief Cabinet Secretary" }],
+    category: "political",
+    faction: "REH",
+    effects: { PLT: 7, MNG: 8 },
+    canCommand: false,
+    canGovern: true,
+    expToNext: null,
+    nextJob: null,
+    desc: "내각 사무 총괄. 황제·재상의 명령을 각 성청에 전달·조정.",
+  },
+
   // ── 동맹 정치직 (political) — FPA 전용 ─────────────────────────
   // 최고평의회 11인: F001~F011, 동맹군 2장관: F013~F014
   {

@@ -100,6 +100,8 @@ const MONARCHY_CONFIG = {
     { jobCode: 'JB_R012', label: '궁내상서', tier: 2 },
     { jobCode: 'JB_R013', label: '사법상서', tier: 2 },
     { jobCode: 'JB_R014', label: '전례상서', tier: 2 },
+    { jobCode: 'JB_R015', label: '과학상서', tier: 2 },
+    { jobCode: 'JB_R016', label: '내각 서기관장', tier: 2 },
   ],
 }
 
