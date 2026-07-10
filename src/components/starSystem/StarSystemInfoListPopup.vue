@@ -29,7 +29,6 @@
       <!-- 헤더 행 -->
       <div class="sl-thead">
         <button class="sl-th" :class="{ active: sortKey === 'name' }"       @click="setSort('name')">성계명{{ arrow('name') }}</button>
-        <button class="sl-th" :class="{ active: sortKey === 'type' }"       @click="setSort('type')">유형{{ arrow('type') }}</button>
         <button class="sl-th num" :class="{ active: sortKey === 'planets' }" @click="setSort('planets')">행성{{ arrow('planets') }}</button>
         <button class="sl-th num" :class="{ active: sortKey === 'population' }" @click="setSort('population')">인구{{ arrow('population') }}</button>
         <button class="sl-th num" :class="{ active: sortKey === 'industry' }" @click="setSort('industry')">산업{{ arrow('industry') }}</button>
@@ -48,7 +47,6 @@
           <span class="serif" style="font-size:12px;white-space:nowrap;letter-spacing:.3px">{{ s.name }}</span>
           <span v-if="s.fortress" class="sl-badge mono">요새</span>
         </div>
-        <div class="sl-cell mono" :class="`sl-type--${s.type}`" style="font-size:10px">{{ TYPE_LABELS[s.type] ?? s.type }}</div>
         <div class="sl-cell num mono dim" style="font-size:11px">{{ s.planets }}</div>
         <div class="sl-cell num mono" style="font-size:11px" :style="valStyle(s.population, 200)">{{ s.population }}</div>
         <div class="sl-cell num mono" style="font-size:11px" :style="valStyle(s.industry,   100)">{{ s.industry }}</div>
@@ -56,33 +54,22 @@
         <div class="sl-cell num mono" style="font-size:11px" :style="valStyle(s.morale,     100)">{{ s.morale }}</div>
       </div>
 
-      <!-- 선택 시 상세 -->
-      <transition name="sl-detail-fade">
-        <div v-if="detail" class="sl-detail">
-          <div class="sl-detail-header">
-            <span class="serif gold" style="font-size:13px;letter-spacing:.5px">{{ detail.name }}</span>
-            <span class="mono dim" style="font-size:10px;margin-left:6px">{{ detail.nameEn }}</span>
-          </div>
-          <div class="sl-detail-grid">
-            <div v-for="p in detail.planets" :key="p.code" class="sl-planet-row">
-              <span class="serif" style="font-size:11px;color:var(--t1)">{{ p.nameKr ?? p.name ?? p.code }}</span>
-              <span class="mono dim" style="font-size:10px">{{ p.nameEn ?? '' }}</span>
-            </div>
-            <div v-if="!detail.planets?.length" class="mono dim" style="font-size:11px;padding:4px 0">
-              행성 정보 없음
-            </div>
-          </div>
-          <div v-if="detail.desc" class="sl-detail-desc serif">{{ detail.desc }}</div>
-        </div>
-      </transition>
-
     </div>
+
+    <!-- 성계 상세 팝업 -->
+    <StarSystemInfoDetailPopup
+      :show="!!selectedId"
+      :system-code="selectedId"
+      @close="selectedId = null"
+    />
+
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import StarSystemInfoDetailPopup from '@/components/starSystem/StarSystemInfoDetailPopup.vue'
 
 defineProps({ payload: { default: null } })
 defineEmits(['close'])
@@ -105,16 +92,6 @@ function switchTab(key) {
   factionTab.value  = key
   selectedId.value  = null
   query.value       = ''
-}
-
-const TYPE_LABELS = {
-  capital:   '수도',
-  fortress:  '요새',
-  frontier:  '전초',
-  contested: '분쟁',
-  noble:     '귀족',
-  normal:    '일반',
-  neutral:   '중립',
 }
 
 // ── 데이터 (선택 세력 성계) ──────────────────────────────────────
@@ -145,21 +122,16 @@ const sorted = computed(() => {
     : rows.value
   return [...list].sort((a, b) => {
     if (sortKey.value === 'name') return sortDir.value * a.name.localeCompare(b.name, 'ko')
-    if (sortKey.value === 'type') return sortDir.value * a.type.localeCompare(b.type)
     return sortDir.value * (b[sortKey.value] - a[sortKey.value])
   })
 })
-
-const detail = computed(() =>
-  selectedId.value ? rows.value.find(s => s.id === selectedId.value) ?? null : null
-)
 
 function setSort(key) {
   if (sortKey.value === key) {
     sortDir.value *= -1
   } else {
     sortKey.value = key
-    sortDir.value = (key === 'name' || key === 'type') ? 1 : -1
+    sortDir.value = key === 'name' ? 1 : -1
   }
 }
 
@@ -245,12 +217,12 @@ function valStyle(v, max) {
 .sl-scroll { flex: 1; overflow: auto; }
 
 /* ── 그리드 공통
-   성계명(1fr·min120) | 유형(54px) | 행성(36px) | 인구·산업·방어·사기(42px×4)
+   성계명(1fr·min120) | 행성(36px) | 인구·산업·방어·사기(42px×4)
 */
 .sl-thead,
 .sl-row {
   display: grid;
-  grid-template-columns: minmax(120px, 1fr) 54px 36px repeat(4, 42px);
+  grid-template-columns: minmax(120px, 1fr) 36px repeat(4, 42px);
   gap: 0 8px;
   padding: 0 16px;
 }
@@ -292,45 +264,10 @@ function valStyle(v, max) {
 }
 .sl-cell.num { text-align: right; }
 
-/* 유형 색상 */
-.sl-type--capital   { color: var(--tg); }
-.sl-type--fortress  { color: #b06090; }
-.sl-type--frontier  { color: #8090c0; }
-.sl-type--contested { color: #c06050; }
-.sl-type--noble     { color: #a09060; }
-
 .sl-badge {
   font-size: 9px; color: #b06090;
   border: 1px solid #b06090; border-radius: 3px;
   padding: 1px 4px; letter-spacing: .3px;
 }
 
-/* ── 상세 패널 ───────────────────────────────────────────────── */
-.sl-detail {
-  margin: 0 16px 12px;
-  padding: 12px 14px;
-  background: rgba(255,255,255,.03);
-  border: 1px solid var(--bd);
-  border-radius: var(--r);
-  display: flex; flex-direction: column; gap: 8px;
-}
-.sl-detail-header { display: flex; align-items: baseline; gap: 0; }
-.sl-detail-grid {
-  display: flex; flex-direction: column; gap: 4px;
-}
-.sl-planet-row {
-  display: flex; align-items: baseline; gap: 8px;
-}
-.sl-detail-desc {
-  font-size: 11px; color: var(--t2);
-  line-height: 1.7; letter-spacing: .3px;
-  border-top: 1px solid var(--bd);
-  padding-top: 8px;
-}
-
-/* 상세 트랜지션 */
-.sl-detail-fade-enter-active { transition: opacity .15s, transform .15s; }
-.sl-detail-fade-leave-active { transition: opacity .1s; }
-.sl-detail-fade-enter-from   { opacity: 0; transform: translateY(-4px); }
-.sl-detail-fade-leave-to     { opacity: 0; }
 </style>
