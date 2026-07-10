@@ -123,7 +123,7 @@ const CHAR_DATA_MAP = Object.fromEntries(CHAR_BASE.map(c => [c.code, c]))
 
 const NATION_LABEL = {
   FPA: '자유행성동맹',
-  REH: '은하帝国',
+  REH: '은하제국',
   PZN: '페잔',
   EAT: '지구교',
 }
