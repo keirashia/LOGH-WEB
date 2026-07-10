@@ -1,146 +1,321 @@
 import { defineStore } from 'pinia'
-import { FORMATIONS, TERRAIN, MAP_W, MAP_H, buildTacticalMap } from '@/data/base/tactical/tacticalData'
+import {
+  FORMATIONS, FORMATION_OFFSETS, TERRAIN,
+  MAP_W, MAP_H, TILE_PX, buildTacticalMap,
+} from '@/data/base/tactical/tacticalData'
 import { CHARACTERS } from '@/data/masterData'
 
-function fm(id)            { return FORMATIONS[id] || FORMATIONS.DOUBLE_COL }
-function manhattan(a, b)   { return Math.abs(a.x - b.x) + Math.abs(a.y - b.y) }
-function rand(lo, hi)      { return lo + Math.random() * (hi - lo) }
+const BASE_SPEED = 4
+const BASE_RANGE = 2
+const MORALE_ROUT = 15
 
-// fleet → 전술 편대 배열 생성
-function makeSquadrons(fleet, faction, isAttacker) {
-  const sqCount = fleet.ships >= 12000 ? 3 : fleet.ships >= 6000 ? 2 : 1
-  const shipsEa = Math.floor(fleet.ships / sqCount)
-  return Array.from({ length: sqCount }, (_, i) => ({
-    id:        `${fleet.id}_sq${i}`,
-    name:      sqCount === 1 ? fleet.name : `${fleet.name} ${['전위','중위','후위'][i]}`,
-    faction,
-    fleetId:   fleet.id,
-    commander: i === 0 ? fleet.commander : null,
-    ships:     shipsEa,
-    maxShips:  shipsEa,
-    formation: 'DOUBLE_COL',
-    morale:    80,
-    // 공격측: 오른쪽, 방어측: 왼쪽
-    x:         isAttacker ? MAP_W - 2 - (i % 2) : 1 + (i % 2),
-    y:         Math.min(MAP_H - 2, Math.max(1, 2 + i * 3)),
-    moved:     false,
-    attacked:  false,
-  }))
+function rand(lo, hi) { return lo + Math.random() * (hi - lo) }
+function manhattan(a, b) { return Math.abs(a.x - b.x) + Math.abs(a.y - b.y) }
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)) }
+
+function fm(id) {
+  return FORMATIONS[id] ?? FORMATIONS['FF_01']
+}
+
+function charStat(charCode) {
+  const c = CHARACTERS?.[charCode]
+  return c ? (c.statCmd ?? 50) : 50
+}
+
+function unitSpeed(unit) {
+  const f = fm(unit.formation)
+  return Math.max(1, Math.round(BASE_SPEED * f.speedMod))
+}
+
+function unitRange(unit, tileAt) {
+  const f    = fm(unit.formation)
+  const terr = TERRAIN[tileAt(unit.x, unit.y)?.terrain ?? 'SPACE']
+  return Math.max(1, BASE_RANGE + f.rangeMod + (terr?.rangeMod ?? 0))
+}
+
+// BFS — 이동 가능 타일 목록 반환
+function bfsMovable(unit, allUnits, tileAt, mapW, mapH) {
+  const speed   = unitSpeed(unit)
+  const visited = new Map()          // `${x},${y}` → cost
+  const queue   = [{ x: unit.x, y: unit.y, cost: 0 }]
+  const result  = []
+  const blocked = new Set(allUnits.filter(u => u.unitId !== unit.unitId).map(u => `${u.x},${u.y}`))
+
+  visited.set(`${unit.x},${unit.y}`, 0)
+
+  while (queue.length) {
+    const cur = queue.shift()
+    for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1]]) {
+      const nx = cur.x + dx, ny = cur.y + dy
+      if (nx < 0 || nx >= mapW || ny < 0 || ny >= mapH) continue
+      const key  = `${nx},${ny}`
+      const terr = TERRAIN[tileAt(nx, ny)?.terrain ?? 'SPACE']
+      if (!terr?.passable) continue
+      const moveCost = cur.cost + (1 / (terr.moveMod ?? 1))
+      if (moveCost > speed) continue
+      if ((visited.get(key) ?? Infinity) <= moveCost) continue
+      visited.set(key, moveCost)
+      if (!blocked.has(key)) result.push({ x: nx, y: ny })
+      queue.push({ x: nx, y: ny, cost: moveCost })
+    }
+  }
+  return result
+}
+
+// 진형 오프셋 계산 (방어측은 x 반전)
+function formationPos(buIndex, formation, flagship, isAttacker) {
+  const offsets = FORMATION_OFFSETS[formation] ?? FORMATION_OFFSETS['FF_01']
+  const [dx, dy] = offsets[buIndex] ?? [0, buIndex]
+  return {
+    x: flagship.x + (isAttacker ? dx : -dx),
+    y: flagship.y + dy,
+  }
+}
+
+// 함대 → BU 엔티티 배열 생성
+function makeUnits(fleet, faction, isAttacker, mapW, mapH) {
+  const formation = fleet.formation ?? 'FF_01'
+  const totalShips = fleet.ships ?? 0
+  const buCount = Math.min(8, Math.max(1, Math.ceil(totalShips / 10000) + 1))
+  const shipsPerBU = Math.max(100, Math.floor(totalShips / buCount))
+
+  // BU_0 초기 위치
+  const startX = isAttacker
+    ? clamp(mapW - 4, 2, mapW - 2)
+    : clamp(3, 1, mapW - 3)
+  const startY = clamp(Math.floor(mapH / 2), 1, mapH - 2)
+
+  const flagship = { x: startX, y: startY }
+
+  return Array.from({ length: buCount }, (_, i) => {
+    const pos = i === 0 ? flagship : formationPos(i, formation, flagship, isAttacker)
+    return {
+      unitId:        `${fleet.id}_BU_${i}`,
+      fleetCode:     fleet.id,
+      fleetName:     fleet.name,
+      faction,
+      role:          i === 0 ? 'flagship' : 'unit',
+      buIndex:       i,
+      isAttacker,
+      commander:     i === 0 ? (fleet.commander ?? null) : null,
+      formation,
+      ships:         shipsPerBU,
+      maxShips:      shipsPerBU,
+      morale:        clamp(60 + Math.floor(charStat(fleet.commander) / 100 * 20), 60, 80),
+      x:             clamp(pos.x, 0, mapW - 1),
+      y:             clamp(pos.y, 0, mapH - 1),
+      // 픽셀 좌표 (캔버스 애니메이션용)
+      px:            0,
+      py:            0,
+      targetPx:      0,
+      targetPy:      0,
+      moving:        false,
+      // 턴 상태
+      moved:         false,
+      attacked:      false,
+      status:        'active',     // 'active' | 'routing' | 'destroyed'
+      priorityTarget: null,
+    }
+  })
+}
+
+// 픽셀 위치 동기화
+function syncPixels(unit) {
+  unit.px = unit.x * TILE_PX
+  unit.py = unit.y * TILE_PX
+  unit.targetPx = unit.px
+  unit.targetPy = unit.py
 }
 
 export const useTacticalStore = defineStore('tactical', {
   state: () => ({
-    active:          false,
-    map:             buildTacticalMap(),
-    units:           [],
-    phase:           'player',    // 'player' | 'ai' | 'result'
-    turn:            1,
-    selectedId:      null,
-    movableCells:    [],
-    attackableCells: [],
-    result:          null,        // { winner, attackerLosses, defenderLosses }
-    context:         null,
-    logs:            [],
+    active:           false,
+    map:              buildTacticalMap(),
+    units:            [],
+    phase:            'player',
+    turn:             1,
+    selectedFleet:    null,   // fleetCode
+    movableCells:     [],
+    attackableCells:  [],
+    result:           null,
+    context:          null,
+    logs:             [],
+    // 애니메이션 진행 중 입력 잠금
+    animating:        false,
   }),
 
   getters: {
-    playerFaction:   s => s.context?.playerFaction ?? s.context?.attackerFaction ?? 'REH',
-    selectedUnit:    s => s.units.find(u => u.id === s.selectedId) || null,
-    playerUnits:     s => s.units.filter(u => u.faction === (s.context?.attackerFaction || 'REH')),
-    enemyUnits:      s => s.units.filter(u => u.faction !== (s.context?.attackerFaction || 'REH')),
-    tileAt:          s => (x, y) => s.map.tiles.find(t => t.x === x && t.y === y) || { terrain:'SPACE' },
-    unitAt:          s => (x, y) => s.units.find(u => u.x === x && u.y === y) || null,
-    isMovable:       s => (x, y) => s.movableCells.some(c => c.x === x && c.y === y),
-    isAttackable:    s => (x, y) => s.attackableCells.some(c => c.x === x && c.y === y),
+    playerFaction:    s => s.context?.playerFaction ?? s.context?.attackerFaction ?? 'REH',
+    tileAt:           s => (x, y) => s.map.tiles.find(t => t.x === x && t.y === y) ?? { terrain:'SPACE' },
+    unitAt:           s => (x, y) => s.units.find(u => u.x === x && u.y === y) ?? null,
+    flagshipOf:       s => fc => s.units.find(u => u.fleetCode === fc && u.role === 'flagship'),
+    unitsOfFleet:     s => fc => s.units.filter(u => u.fleetCode === fc),
+
+    isMovable:        s => (x, y) => s.movableCells.some(c => c.x === x && c.y === y),
+    isAttackable:     s => (x, y) => s.attackableCells.some(c => c.x === x && c.y === y),
+
+    playerFleets() {
+      const fcs = new Set(this.units.filter(u => u.faction === this.playerFaction).map(u => u.fleetCode))
+      return [...fcs]
+    },
+    enemyFleets() {
+      const fcs = new Set(this.units.filter(u => u.faction !== this.playerFaction).map(u => u.fleetCode))
+      return [...fcs]
+    },
+
+    selectedFlagship() {
+      if (!this.selectedFleet) return null
+      return this.flagshipOf(this.selectedFleet)
+    },
+
+    unitGroups() {
+      const map = {}
+      this.units.forEach(u => {
+        if (!map[u.faction]) map[u.faction] = { faction: u.faction, units: 0, ships: 0 }
+        map[u.faction].units++
+        map[u.faction].ships += u.ships
+      })
+      return Object.values(map)
+    },
   },
 
   actions: {
-    // ── 전투 초기화 ──────────────────────────────────────────
+    // ── 초기화 ────────────────────────────────────────────────
     initBattle(context) {
       this.$patch({
         active: true, context,
         turn: 1, phase: 'player',
-        selectedId: null, movableCells: [], attackableCells: [],
-        result: null, logs: [],
-        map: buildTacticalMap(),
+        selectedFleet: null, movableCells: [], attackableCells: [],
+        result: null, logs: [], animating: false,
+        map: buildTacticalMap(context.locationId ?? null),
       })
-      this.units = [
-        ...context.attackerFleets.flatMap(af => makeSquadrons(af, context.attackerFaction, true)),
-        ...context.defenderFleets.flatMap(df => makeSquadrons(df, df.faction, false)),
-      ]
-      const atkNames = context.attackerFleets.map(f => f.name).join(', ')
-      const defNames = context.defenderFleets.map(f => f.name).join(', ')
-      this._log(`⚔️ 전술전투 개시`)
-      this._log(`  공격: ${atkNames}  /  방어: ${defNames}`)
+      const mapW = this.map.width  ?? MAP_W
+      const mapH = this.map.height ?? MAP_H
+
+      const atkUnits = context.attackerFleets.flatMap(af =>
+        makeUnits(af, context.attackerFaction, true, mapW, mapH))
+      const defUnits = context.defenderFleets.flatMap(df =>
+        makeUnits(df, df.faction, false, mapW, mapH))
+
+      this.units = [...atkUnits, ...defUnits]
+      this.units.forEach(syncPixels)
+
+      this._log(`⚔️ 전술전투 개시 — ${context.attackerFleets.map(f=>f.name).join(', ')} vs ${context.defenderFleets.map(f=>f.name).join(', ')}`)
       this._log(`── 1턴 플레이어 페이즈 ──`)
     },
 
-    // ── 선택 / 해제 ──────────────────────────────────────────
-    selectUnit(id) {
-      if (this.phase !== 'player') return
-      const u = this.units.find(x => x.id === id)
-      if (!u || u.faction !== this.playerFaction) return
-      this.selectedId = id
-      this._calcMovable(id)
-      this._calcAttackable(id)
+    // ── 함대 선택 ────────────────────────────────────────────
+    selectFleet(fleetCode) {
+      if (this.phase !== 'player' || this.animating) return
+      const flagship = this.flagshipOf(fleetCode)
+      if (!flagship || flagship.faction !== this.playerFaction) return
+      if (flagship.moved && flagship.attacked) return
+
+      this.selectedFleet = fleetCode
+      this._calcMovable()
+      this._calcAttackable()
     },
 
     deselect() {
-      this.selectedId = null
-      this.movableCells = []
+      this.selectedFleet   = null
+      this.movableCells    = []
       this.attackableCells = []
     },
 
-    // ── 이동 ────────────────────────────────────────────────
-    moveUnit(tx, ty) {
-      const u = this.units.find(x => x.id === this.selectedId)
-      if (!u || u.moved) return false
-      if (!this.movableCells.some(c => c.x === tx && c.y === ty)) return false
-      if (this.unitAt(tx, ty)) return false
+    // ── 기함 이동 → 편대 추종 ────────────────────────────────
+    moveFleetTo(tx, ty) {
+      if (this.phase !== 'player' || this.animating) return false
+      if (!this.selectedFleet) return false
+      const flagship = this.flagshipOf(this.selectedFleet)
+      if (!flagship || flagship.moved) return false
+      if (!this.isMovable(tx, ty)) return false
 
-      u.x = tx; u.y = ty; u.moved = true
-      this._calcAttackable(u.id)
+      const mapW = this.map.width  ?? MAP_W
+      const mapH = this.map.height ?? MAP_H
+      const fleetUnits = this.unitsOfFleet(this.selectedFleet)
+
+      // BU_0 이동
+      flagship.x = tx; flagship.y = ty
+      flagship.moved = true
+      flagship.targetPx = tx * TILE_PX
+      flagship.targetPy = ty * TILE_PX
+      flagship.moving = true
+
+      // BU_1~7 편대 추종
+      fleetUnits.filter(u => u.role !== 'flagship').forEach(u => {
+        const pos = formationPos(u.buIndex, flagship.formation, flagship, flagship.isAttacker)
+        u.x = clamp(pos.x, 0, mapW - 1)
+        u.y = clamp(pos.y, 0, mapH - 1)
+        u.targetPx = u.x * TILE_PX
+        u.targetPy = u.y * TILE_PX
+        u.moving = true
+      })
+
+      this._log(`▶ [${flagship.fleetName}] 기함 → (${tx}, ${ty})`)
       this.movableCells = []
-      this._log(`▶ ${u.name} → (${tx}, ${ty})`)
+      this._calcAttackable()
+
+      // 이동 후 사거리 내 자동교전 체크
+      this._checkAutoEngage(this.selectedFleet)
       return true
     },
 
-    // ── 공격 ────────────────────────────────────────────────
+    // ── 우선 공격 대상 지정 ──────────────────────────────────
+    setPriorityTarget(targetUnitId) {
+      if (!this.selectedFleet) return
+      const fleetUnits = this.unitsOfFleet(this.selectedFleet)
+      fleetUnits.forEach(u => { u.priorityTarget = targetUnitId })
+      this._log(`🎯 우선 공격 대상 지정`)
+    },
+
+    // ── 자동교전 (이동 후 / 턴 시작 시) ─────────────────────
+    _checkAutoEngage(fleetCode) {
+      const fleetUnits = this.unitsOfFleet(fleetCode).filter(u => !u.attacked && u.status === 'active')
+      for (const atk of fleetUnits) {
+        const range = unitRange(atk, (x, y) => this.tileAt(x, y))
+        const enemies = this.units.filter(u => u.faction !== atk.faction && u.status === 'active')
+        const priorityEnemy = atk.priorityTarget
+          ? enemies.find(e => e.unitId === atk.priorityTarget)
+          : null
+        const inRange = enemies.filter(e => manhattan(atk, e) <= range)
+        const target = priorityEnemy && inRange.some(e => e.unitId === priorityEnemy.unitId)
+          ? priorityEnemy
+          : inRange.length ? inRange.reduce((a, b) => manhattan(atk, a) < manhattan(atk, b) ? a : b) : null
+        if (target) {
+          this._combat(atk.unitId, target.unitId)
+          if (atk.status !== 'destroyed') {
+            atk.attacked = true
+            atk.priorityTarget = null
+          }
+        }
+      }
+      this._checkVictory()
+    },
+
+    // ── 수동 공격 (적 유닛 클릭 시) ─────────────────────────
     attackUnit(targetId) {
-      const atk = this.units.find(x => x.id === this.selectedId)
-      if (!atk || atk.attacked) return false
-      const tgt = this.units.find(u => u.id === targetId)
-      if (!tgt || tgt.faction === this.playerFaction) return false
-      if (!this.attackableCells.some(c => c.x === tgt.x && c.y === tgt.y)) {
-        this._log('사거리 밖입니다.'); return false
-      }
-      this._combat(atk.id, tgt.id)
-      const stillSelected = this.units.find(u => u.id === this.selectedId)
-      if (stillSelected) {
-        stillSelected.attacked = true
-        this._calcAttackable(stillSelected.id)
-      }
-      this.attackableCells = []
+      if (this.phase !== 'player' || this.animating) return false
+      if (!this.selectedFleet) return false
+      const target = this.units.find(u => u.unitId === targetId)
+      if (!target || target.faction === this.playerFaction) return false
+      if (!this.attackableCells.some(c => c.x === target.x && c.y === target.y)) return false
+
+      const atkUnits = this.unitsOfFleet(this.selectedFleet).filter(u => !u.attacked && u.status === 'active')
+      atkUnits.forEach(u => {
+        const range = unitRange(u, (x, y) => this.tileAt(x, y))
+        if (manhattan(u, target) <= range) {
+          this._combat(u.unitId, targetId)
+          if (u.status !== 'destroyed') { u.attacked = true; u.priorityTarget = null }
+        }
+      })
+      this._calcAttackable()
       this._checkVictory()
       return true
     },
 
-    // ── 진형 변경 ────────────────────────────────────────────
-    changeFormation(unitId, formId) {
-      const u = this.units.find(x => x.id === unitId)
-      if (!u || u.faction !== this.playerFaction || !FORMATIONS[formId]) return
-      const prev = u.formation
-      u.formation = formId
-      if (u.id === this.selectedId) {
-        this._calcMovable(u.id)
-        this._calcAttackable(u.id)
-      }
-      this._log(`${u.name}: ${FORMATIONS[prev].name} → ${FORMATIONS[formId].name}`)
-    },
-
     // ── 턴 종료 ──────────────────────────────────────────────
     endPlayerTurn() {
-      if (this.phase !== 'player') return
+      if (this.phase !== 'player' || this.animating) return
       this.phase = 'ai'
       this.deselect()
       this._log(`── ${this.turn}턴 종료 ──`)
@@ -152,63 +327,61 @@ export const useTacticalStore = defineStore('tactical', {
 
     // ── AI 페이즈 ────────────────────────────────────────────
     _aiTurn() {
-      const aiIds = this.units
-        .filter(u => u.faction !== this.playerFaction)
-        .map(u => u.id)
+      const mapW = this.map.width  ?? MAP_W
+      const mapH = this.map.height ?? MAP_H
 
-      for (const aid of aiIds) {
+      const aiFleets = [...new Set(
+        this.units
+          .filter(u => u.faction !== this.playerFaction && u.status === 'active')
+          .map(u => u.fleetCode)
+      )]
+
+      for (const fc of aiFleets) {
         if (this.phase === 'result') break
+        const flagship = this.flagshipOf(fc)
+        if (!flagship || flagship.moved) continue
 
-        const enemy = this.units.find(u => u.id === aid)
-        if (!enemy) continue
+        const playerUnits = this.units.filter(u => u.faction === this.playerFaction && u.status === 'active')
+        if (!playerUnits.length) break
 
-        const targets = this.units.filter(u => u.faction === this.playerFaction)
-        if (!targets.length) break
+        const nearest = playerUnits.reduce((a, b) => manhattan(flagship, a) < manhattan(flagship, b) ? a : b)
+        const range   = unitRange(flagship, (x, y) => this.tileAt(x, y))
+        const dist    = manhattan(flagship, nearest)
 
-        // 20% 확률 진형 변경
-        if (Math.random() < 0.2) {
-          const fmKeys = Object.keys(FORMATIONS)
-          enemy.formation = fmKeys[Math.floor(Math.random() * fmKeys.length)]
-        }
-
-        const f        = fm(enemy.formation)
-        const tile     = this.tileAt(enemy.x, enemy.y)
-        const range    = Math.max(1, f.range + (TERRAIN[tile.terrain]?.rangeMod || 0))
-        const speed    = f.speed
-        const nearest  = targets.reduce((a, b) => manhattan(enemy, a) <= manhattan(enemy, b) ? a : b)
-        const dist     = manhattan(enemy, nearest)
-
-        if (dist <= range) {
-          this._combat(enemy.id, nearest.id)
-        } else {
-          // 최단거리 이동
-          const steps = Math.min(speed, dist - 1)
-          const dx    = Math.sign(nearest.x - enemy.x)
-          const dy    = Math.sign(nearest.y - enemy.y)
-          const absDx = Math.abs(nearest.x - enemy.x)
-          const absDy = Math.abs(nearest.y - enemy.y)
-
+        if (dist > range) {
+          // 기함 이동
+          const speed = unitSpeed(flagship)
+          const dx = Math.sign(nearest.x - flagship.x)
+          const dy = Math.sign(nearest.y - flagship.y)
+          const absDx = Math.abs(nearest.x - flagship.x)
+          const absDy = Math.abs(nearest.y - flagship.y)
           const dirs = absDx >= absDy
-            ? [{ x:dx, y:0 }, { x:0, y:dy }, { x:dx, y:dy }]
-            : [{ x:0, y:dy }, { x:dx, y:0 }, { x:dx, y:dy }]
+            ? [{ x:dx, y:0 },{ x:0, y:dy },{ x:dx, y:dy }]
+            : [{ x:0, y:dy },{ x:dx, y:0 },{ x:dx, y:dy }]
 
-          for (const dir of dirs) {
-            if (!dir.x && !dir.y) continue
-            const nx = Math.max(0, Math.min(MAP_W - 1, enemy.x + dir.x * steps))
-            const ny = Math.max(0, Math.min(MAP_H - 1, enemy.y + dir.y * steps))
+          for (const d of dirs) {
+            if (!d.x && !d.y) continue
+            const nx = clamp(flagship.x + d.x * speed, 0, mapW - 1)
+            const ny = clamp(flagship.y + d.y * speed, 0, mapH - 1)
             const t  = this.tileAt(nx, ny)
             if (TERRAIN[t.terrain]?.passable === false) continue
-            if (this.unitAt(nx, ny)) continue
-            enemy.x = nx; enemy.y = ny
+            if (this.unitAt(nx, ny)?.faction === this.playerFaction) continue
+            flagship.x = nx; flagship.y = ny
+            flagship.targetPx = nx * TILE_PX; flagship.targetPy = ny * TILE_PX; flagship.moving = true
+            flagship.moved = true
+            // 편대 추종
+            this.unitsOfFleet(fc).filter(u => u.role !== 'flagship').forEach(u => {
+              const pos = formationPos(u.buIndex, flagship.formation, flagship, flagship.isAttacker)
+              u.x = clamp(pos.x, 0, mapW - 1); u.y = clamp(pos.y, 0, mapH - 1)
+              u.targetPx = u.x * TILE_PX; u.targetPy = u.y * TILE_PX; u.moving = true
+            })
             break
           }
-
-          // 이동 후 사거리 재확인
-          const freshNearest = this.units.find(u => u.id === nearest.id)
-          if (freshNearest && manhattan(enemy, freshNearest) <= range) {
-            this._combat(enemy.id, freshNearest.id)
-          }
+        } else {
+          flagship.moved = true
         }
+
+        this._checkAutoEngage(fc)
       }
 
       this._checkVictory()
@@ -220,103 +393,110 @@ export const useTacticalStore = defineStore('tactical', {
         this.turn++
         this.phase = 'player'
         this._log(`── ${this.turn}턴 플레이어 페이즈 ──`)
+        // 플레이어 턴 시작 시 자동교전 체크
+        for (const fc of this.playerFleets) this._checkAutoEngage(fc)
       }
     },
 
-    // ── 전투 해결 ────────────────────────────────────────────
+    // ── 전투 계산 ────────────────────────────────────────────
     _combat(atkId, defId) {
-      const atk = this.units.find(u => u.id === atkId)
-      const def = this.units.find(u => u.id === defId)
-      if (!atk || !def) return
+      const atk = this.units.find(u => u.unitId === atkId)
+      const def = this.units.find(u => u.unitId === defId)
+      if (!atk || !def || atk.status !== 'active' || def.status !== 'active') return
 
-      const atkFm    = fm(atk.formation)
-      const defFm    = fm(def.formation)
-      const atkChar  = CHARACTERS?.[atk.commander]
-      const defChar  = CHARACTERS?.[def.commander]
-      const atkStatB = atkChar ? (0.7 + (atkChar.statCmd ?? 50) / 100 * 0.6) : 1.0
-      const defStatB = defChar ? (0.7 + (defChar.statCmd ?? 50) / 100 * 0.6) : 1.0
-      const atkTerr  = TERRAIN[this.tileAt(atk.x, atk.y).terrain]?.offMod ?? 1.0
-      const defTerr  = TERRAIN[this.tileAt(def.x, def.y).terrain]?.defMod ?? 1.0
+      const atkFm   = fm(atk.formation)
+      const defFm   = fm(def.formation)
+      const atkStat = charStat(atk.commander) / 100
+      const defStat = charStat(def.commander) / 100
+      const atkTerr = TERRAIN[this.tileAt(atk.x, atk.y)?.terrain ?? 'SPACE']
+      const defTerr = TERRAIN[this.tileAt(def.x, def.y)?.terrain ?? 'SPACE']
 
-      // 공격: 아군 함선 15% 기준, 적 방어로 일부 상쇄
-      const dmg     = Math.max(100, Math.floor(
-        atk.ships * atkFm.offMod * atkStatB * atkTerr * rand(0.85, 1.15) * 0.15
-        - def.ships * defFm.defMod * defStatB * defTerr * 0.04
-      ))
-      // 반격: 방어측 6% 수준
-      const counter = Math.max(50, Math.floor(
-        def.ships * defFm.defMod * defStatB * defTerr * rand(0.85, 1.15) * 0.06
-      ))
+      const matchMod = this._matchBonus(atkFm.ffType, defFm.ffType)
+
+      const rawDmg  = atk.ships * 0.15 * atkFm.offMod * (0.7 + atkStat * 0.6) * (atkTerr?.offMod ?? 1) * matchMod * rand(0.85, 1.15)
+      const dmg     = Math.max(100, Math.floor(rawDmg * (1 - defFm.defMod * 0.3 * (defTerr?.defMod ?? 1))))
+      const counter = Math.max(50,  Math.floor(def.ships * defFm.defMod * (0.7 + defStat * 0.6) * (defTerr?.defMod ?? 1) * 0.06 * rand(0.85, 1.15)))
 
       def.ships  = Math.max(0, def.ships  - dmg)
       atk.ships  = Math.max(0, atk.ships  - counter)
       def.morale = Math.max(0, def.morale - Math.floor(dmg     / Math.max(1, def.maxShips) * 50))
       atk.morale = Math.max(0, atk.morale - Math.floor(counter / Math.max(1, atk.maxShips) * 25))
 
-      const atkLabel = atkChar?.name || atk.name
-      this._log(`${atkLabel} [${FORMATIONS[atk.formation].name}] → ${def.name}: -${dmg.toLocaleString()}척 / 반격 -${counter.toLocaleString()}척`)
+      const atkLabel = atk.role === 'flagship' ? `[${atk.fleetName}] 기함` : `[${atk.fleetName}] BU_${atk.buIndex}`
+      this._log(`${atkLabel} → ${def.fleetName} BU_${def.buIndex}: -${dmg.toLocaleString()}척 / 반격 -${counter.toLocaleString()}척`)
 
-      // 격파 / 사기 붕괴
-      if (def.ships <= 0 || def.morale <= 10) {
-        this._log(`💥 ${def.name} 격파!`)
-        this.units = this.units.filter(u => u.id !== def.id)
+      if (def.ships  <= 0 || def.morale  <= MORALE_ROUT) this._destroyUnit(def.unitId)
+      if (atk.ships  <= 0 || atk.morale  <= MORALE_ROUT) this._destroyUnit(atk.unitId)
+    },
+
+    _destroyUnit(unitId) {
+      const u = this.units.find(x => x.unitId === unitId)
+      if (!u || u.status === 'destroyed') return
+      u.status = 'destroyed'
+      this._log(`💥 [${u.fleetName}] BU_${u.buIndex} 격파!`)
+
+      // 기함 격파 → 편대 사기 붕괴
+      if (u.role === 'flagship') {
+        this.unitsOfFleet(u.fleetCode).forEach(bu => {
+          if (bu.unitId === unitId) return
+          bu.morale = Math.max(0, bu.morale - 40)
+          if (bu.morale <= MORALE_ROUT) { bu.status = 'destroyed'; this._log(`💥 [${bu.fleetName}] BU_${bu.buIndex} 패주!`) }
+        })
       }
-      if (atk.ships <= 0 || atk.morale <= 10) {
-        this._log(`💥 ${atk.name} 격파!`)
-        this.units = this.units.filter(u => u.id !== atk.id)
-        if (this.selectedId === atk.id) this.selectedId = null
-      }
+
+      this.units = this.units.filter(x => x.status !== 'destroyed')
+    },
+
+    _matchBonus(atkType, defType) {
+      if (atkType === 'ATK' && defType === 'DEF') return 0.85
+      if (atkType === 'ATK' && defType === 'MOV') return 1.15
+      if (atkType === 'MOV' && defType === 'DEF') return 1.15
+      if (atkType === 'ENC' && defType === 'ATK') return 1.15
+      if (atkType === 'DEF' && defType === 'ATK') return 1.15
+      return 1.0
     },
 
     // ── 승리 판정 ────────────────────────────────────────────
     _checkVictory() {
-      const pUnits = this.units.filter(u => u.faction === this.playerFaction)
-      const eUnits = this.units.filter(u => u.faction !== this.playerFaction)
+      const pShips = this.units.filter(u => u.faction === this.playerFaction).reduce((s, u) => s + u.ships, 0)
+      const eShips = this.units.filter(u => u.faction !== this.playerFaction).reduce((s, u) => s + u.ships, 0)
+      const initAtk = this.context?.attackerFleets?.reduce((a, f) => a + (f.ships ?? 0), 0) ?? 1
+      const initDef = this.context?.defenderFleets?.reduce((a, f) => a + (f.ships ?? 0), 0) ?? 1
 
-      const initAtk  = this.context?.attackerFleets?.reduce((a, f) => a + f.ships, 0) ?? 1
-      const initDef  = this.context?.defenderFleets?.reduce((a, f) => a + f.ships, 0) ?? 1
-      const remAtk   = pUnits.reduce((a, u) => a + u.ships, 0)
-      const remDef   = eUnits.reduce((a, u) => a + u.ships, 0)
+      const pGone = this.units.filter(u => u.faction === this.playerFaction).length === 0
+      const eGone = this.units.filter(u => u.faction !== this.playerFaction).length === 0
 
-      if (eUnits.length === 0) {
-        this.result = { winner: this.playerFaction, attackerLosses: initAtk - remAtk, defenderLosses: initDef }
+      if (eGone) {
+        this.result = { winner: this.playerFaction, attackerLosses: initAtk - pShips, defenderLosses: initDef }
         this.phase  = 'result'
-        this._log(`🏆 승리! 적 함대 전멸`)
-      } else if (pUnits.length === 0) {
-        this.result = { winner: eUnits[0].faction, attackerLosses: initAtk, defenderLosses: initDef - remDef }
+        this._log('🏆 승리! 적 함대 전멸')
+      } else if (pGone) {
+        const ef = this.units.find(u => u.faction !== this.playerFaction)?.faction
+        this.result = { winner: ef, attackerLosses: initAtk, defenderLosses: initDef - eShips }
         this.phase  = 'result'
-        this._log(`💀 패배`)
+        this._log('💀 패배')
       }
     },
 
     // ── 하이라이트 계산 ──────────────────────────────────────
-    _calcMovable(uid) {
-      const u = this.units.find(x => x.id === uid)
-      if (!u || u.moved) { this.movableCells = []; return }
-      const speed = fm(u.formation).speed
-      const cells = []
-      for (let y = 0; y < MAP_H; y++) {
-        for (let x = 0; x < MAP_W; x++) {
-          const d = manhattan(u, { x, y })
-          if (d === 0 || d > speed) continue
-          const tile = this.tileAt(x, y)
-          if (TERRAIN[tile.terrain]?.passable === false) continue
-          if (this.unitAt(x, y)) continue
-          cells.push({ x, y })
-        }
-      }
-      this.movableCells = cells
+    _calcMovable() {
+      const flagship = this.selectedFlagship
+      if (!flagship || flagship.moved) { this.movableCells = []; return }
+      this.movableCells = bfsMovable(flagship, this.units, (x,y) => this.tileAt(x,y), this.map.width ?? MAP_W, this.map.height ?? MAP_H)
     },
 
-    _calcAttackable(uid) {
-      const u = this.units.find(x => x.id === uid)
-      if (!u) { this.attackableCells = []; return }
-      const f     = fm(u.formation)
-      const tile  = this.tileAt(u.x, u.y)
-      const range = Math.max(1, f.range + (TERRAIN[tile.terrain]?.rangeMod || 0))
-      this.attackableCells = this.units
-        .filter(e => e.faction !== this.playerFaction && manhattan(u, e) <= range)
-        .map(e => ({ x: e.x, y: e.y }))
+    _calcAttackable() {
+      const flagship = this.selectedFlagship
+      if (!flagship) { this.attackableCells = []; return }
+      const fleetUnits = this.unitsOfFleet(this.selectedFleet).filter(u => !u.attacked && u.status === 'active')
+      const cells = new Map()
+      for (const u of fleetUnits) {
+        const range = unitRange(u, (x, y) => this.tileAt(x, y))
+        this.units
+          .filter(e => e.faction !== this.playerFaction && e.status === 'active' && manhattan(u, e) <= range)
+          .forEach(e => cells.set(`${e.x},${e.y}`, { x: e.x, y: e.y }))
+      }
+      this.attackableCells = [...cells.values()]
     },
 
     _log(msg) {

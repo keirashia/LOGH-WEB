@@ -323,211 +323,301 @@ opType: 작전 타입 (SURRENDER_DEMAND / PRECISION_BOMB / ...)
 
 ---
 
-## 4. 전술전투 개편 (`tacticalStore`)
+## 4. 전술전투 — Canvas 기반 턴제 RTS
 
-적 방어 함대가 있을 때 TacticalView로 전환.
+적 방어 함대가 있을 때 `TacticalView`로 진입. 현재 tile-grid Vue 구현은 테스트용으로 폐기 예정.
 
 ### 4-0. 전술 맵 구조
 
-- **맵 크기: 256 × 256 그리드** (원작 128×128 기준, 웹 구현 시 2배 확장)
-- 셀 크기: 구현 시 결정
-- 항로 전투: `lane.map` 사용 / 성계 전투: `starSystem.map` 사용 (동일 스키마)
-- `map` 필드는 **Base 데이터** (`starSystemData.js` / `laneData.js`) 에 정의 — 시나리오 무관 불변
+#### 좌표계
+- **256×256 타일 격자** — 유닛은 정수 타일 좌표(x, y)에 snap
+- `STAR_MAP.mapSize: [1000, 1000]` 은 **성계 시각 맵 캔버스 크기**로만 사용 (전술 전용 아님)
+- terrain 객체의 좌표(1000×1000 공간) → 256×256 타일로 **래스터라이즈** (scale = 1000/256)
 
 #### 렌더링 아키텍처 — Canvas 2D + 스크롤 뷰포트 + 미니맵
 
 ```
 TacticalView.vue
-├── <canvas ref="mainCanvas" />   ← 전술 뷰포트 (화면에 보이는 영역만 렌더)
-├── <canvas ref="miniCanvas" />   ← 미니맵 (전체 맵 축소 표시)
-└── tacticalStore (Pinia)         ← 맵 상태, 유닛 위치 관리
+├── <canvas ref="mainCanvas" />     ← 전술 뷰포트 (rAF 루프, 카메라 scroll/zoom)
+├── <canvas ref="miniCanvas" />     ← 미니맵 (256×256 축소, 뷰포트 rect 표시)
+├── <div class="hud" />             ← HTML overlay (유닛 정보, 버튼)
+└── tacticalStore (Pinia)           ← 전체 상태
 
-풀맵(256×256)은 메모리에만 존재.
-카메라 이동 시 뷰포트(~24×16 타일)만 재렌더 → 256×256도 부하 없음.
+풀맵(256×256)은 메모리 타일 배열로만 존재.
+카메라(camera.x, camera.y)가 이동하면 뷰포트 영역만 재렌더 → 성능 부담 없음.
 ```
 
-원작 DOS 전투 화면 구조를 그대로 계승 (좌: 전술 뷰포트 / 우상단: 미니맵 / 우하단: 유닛 정보).
+원작 DOS 전투 화면 계승: 좌측 뷰포트 / 우상단 미니맵 / 우하단 유닛 정보.
 
-#### map 스키마
+#### STAR_MAP terrain 스키마 (성계 맵 파일에 정의)
 
 ```js
-// starSystemData.js 및 laneData.js 공통 구조
-map: {
+// stars/maps/230005_ASTADE.js — STAR_MAP.tactical.terrain
+tactical: {
   terrain: [
-    // 행성 (통행 불가 원형 오브젝트)
-    { type: 'planet', label: '아트라-하시스', x: 32, y: 48, r: 4 },
-
-    // 소행성대 (이동 패널티, 방어 보너스)
-    { type: 'asteroid', x: 60, y: 30, w: 12, h: 8 },
-
-    // 성운 (사거리 감소, 이동 패널티)
-    { type: 'nebula', x: 80, y: 70, w: 20, h: 15 },
-
-    // 잔해 (경엄폐, 약한 방어 보너스)
-    { type: 'debris', x: 45, y: 90, w: 6, h: 6 },
+    // 행성: 원형, r = 타일 반지름 (1000좌표계 기준)
+    { type: 'planet',   label: '아트라-하시스', x: 398, y: 228, r: 42 },
+    { type: 'planet',   label: '아스페륀',       x: 758, y: 544, r: 25 },
+    { type: 'planet',   label: '우가리트',        x: 316, y: 728, r: 25 },
+    // 소행성대: 직사각형 (이동 패널티, 방어 +20%)
+    { type: 'asteroid', x: 100, y: 80,  w: 60, h: 40 },
+    // 성운: 직사각형 (사거리 -1, 이동 ×0.8)
+    { type: 'nebula',   x: 500, y: 400, w: 120, h: 90 },
+    // 잔해: 직사각형 (방어 +10%)
+    { type: 'debris',   x: 200, y: 600, w: 40, h: 30 },
   ]
 }
-// terrain 미정의 시 → 128×128 빈 공간으로 처리
+// terrain 미정의 시 → 256×256 빈 우주 공간
+```
+
+> 기존 `STAR_MAP.tactical.planet/nebula/asteroid` 타일셋 방식은 이 스키마로 교체.
+
+#### terrain → 타일 래스터라이즈 (`rasterizeTerrain`)
+
+```js
+// initBattle() 호출 시 1회 수행
+const SCALE = 1000 / 256  // ≈ 3.906
+function rasterizeTerrain(terrainObjects) {
+  const grid = new Uint8Array(256 * 256)  // 0=space, 1=planet, 2=asteroid, 3=nebula, 4=debris
+  for (const obj of terrainObjects) {
+    if (obj.type === 'planet') {
+      // 원형 채우기
+      const tx = Math.round(obj.x / SCALE), ty = Math.round(obj.y / SCALE)
+      const tr = Math.ceil(obj.r / SCALE)
+      for (let dy = -tr; dy <= tr; dy++)
+        for (let dx = -tr; dx <= tr; dx++)
+          if (dx*dx + dy*dy <= tr*tr) setTile(grid, tx+dx, ty+dy, 1)
+    } else {
+      // 직사각형 채우기
+      const typeId = { asteroid:2, nebula:3, debris:4 }[obj.type] ?? 0
+      const x0 = Math.floor(obj.x / SCALE), y0 = Math.floor(obj.y / SCALE)
+      const x1 = Math.ceil((obj.x + obj.w) / SCALE)
+      const y1 = Math.ceil((obj.y + obj.h) / SCALE)
+      for (let y = y0; y < y1; y++)
+        for (let x = x0; x < x1; x++)
+          setTile(grid, x, y, typeId)
+    }
+  }
+  return grid
+}
 ```
 
 #### terrain 타입별 전술 효과
 
 | type | 통행 | 이동력 | 사거리 | 방어 |
 |---|---|---|---|---|
-| `planet` | 중심 r 이내 불가 | - | -1 (행성 뒤) | +방어막 역할 |
+| `planet`   | 불가 (원형 영역) | — | — | — |
 | `asteroid` | 가능 | ×0.6 | 0 | +20% |
-| `nebula` | 가능 | ×0.8 | -1 | 0 |
-| `debris` | 가능 | ×0.9 | 0 | +10% |
+| `nebula`   | 가능 | ×0.8 | −1 | 0 |
+| `debris`   | 가능 | ×0.9 | 0 | +10% |
 
-### 4-1. 부대(部隊) 구조 — 개별 엔티티 방식 (안 B)
+---
 
-전술 맵의 기본 단위는 **부대(部隊)** 다. 함대는 부대들의 집합이며, 각 부대는 맵 위의 독립 유닛으로 개별 이동·전투한다.
+### 4-1. 부대(部隊) 구조
 
-```
-함대 = 기함부대(BU_0) + 제1~7부대(BU_1 ~ BU_7)   (최대 8 부대)
-```
-
-#### 부대당 함선 수 (함선 타입 기준)
-
-| 함선 타입 | 부대당 척수 |
-|---|---|
-| 전함(BS) · 공작함(WS) · 수송함(TR) · 기함 | 1,000 |
-| 순양함(CR) · 강습양륙함(AL) | 2,000 |
-
-> 총 함선 수 = 각 부대 척수의 합산.  
-> 진형(FF)에 따라 편성 함선 타입이 달라지므로 총 척수는 함대마다 다르다.
+전술 맵의 기본 단위는 **부대(BU)**. 함대 = 기함부대(BU_0) + 제1~7부대(BU_1~BU_7), 최대 8개.
 
 #### 부대 데이터 스키마
 
 ```js
-// 전술전투 생성 시 makeSquadrons()에서 생성
 {
-  unitId:    'FPA0020_BU_0',   // 함대코드_BU_인덱스
-  fleetCode: 'FPA0020',
+  unitId:    'FPA002_BU_0',   // 함대코드_BU_인덱스
+  fleetCode: 'FPA002',
+  fleetName: '제2함대',
   faction:   'FPA',
-  label:     '기함부대',        // '기함부대' | '제N부대'
-  shipType:  'BS',             // BS | CR | WS | AL | TR
-  ships:     1000,             // 현재 함선 수
-  maxShips:  1000,             // 최대 함선 수 (초기값)
-  formation: 'FF_02',          // 소속 함대의 현재 진형
-  morale:    75,               // 현재 사기 (0~100)
-  x: 10, y: 20,               // 전술 맵 좌표
+  role:      'flagship',      // 'flagship' | 'unit'
+  buIndex:   0,               // 0=기함, 1~7=일반부대
+  shipType:  'BS',            // BS | CR | WS | AL | TR
+  ships:     1000,
+  maxShips:  1000,
+  formation: 'FF_02',         // 소속 함대의 현재 진형
+  morale:    75,
+  x: 10, y: 20,              // 타일 좌표 (정수)
+  // 렌더링용 (캔버스 픽셀 보간 — 애니메이션)
+  px: 480.0, py: 960.0,      // 픽셀 위치 (x * TILE_PX, y * TILE_PX)
+  // 턴 상태
+  moved:    false,
+  attacked: false,
+  status:   'active',         // 'active' | 'routing' | 'destroyed'
+  // 우선 공격 대상 (플레이어 지정)
+  priorityTarget: null,       // unitId or null
 }
 ```
 
-### 4-2. 9×9 포진 규칙
+#### 부대당 함선 수
 
-- **완편(8 부대) 함대**는 초기 배치 시 **9×9 그리드 영역** 내에 부대를 배치
-- 9×9 내 부대 위치는 **진형(FF)** 에 따라 결정됨
-
-| 진형 | 배치 패턴 |
+| 함선 타입 | 부대당 척수 |
 |---|---|
-| FF_02 횡렬진 | 부대 가로 1열 배치 (전열 집중) |
-| FF_03 종렬진 | 부대 세로 1열 배치 (돌파 특화) |
-| FF_04 학익진 | 중앙+양익 U형 배치 |
-| FF_05 포위진 | 외곽 포위 원형 배치 |
-| FF_01/07/10 방어형 | 밀집 정방형 배치 |
-| FF_06 쐐기진 | 역삼각형(선봉 집중) 배치 |
-| FF_08 돌격진 | 선두 밀집 + 후위 집중 |
-| FF_09 기동진 | 분산 배치 (사방 기동 대응) |
+| 전함(BS) · 공작함(WS) · 수송함(TR) | 1,000 |
+| 순양함(CR) · 강습양륙함(AL) | 2,000 |
 
-> [DESIGN] 각 진형의 9×9 내 좌표 매핑 테이블은 `tacticalData.js`에 정의.
+---
 
-### 4-3. 기함부대(BU_0) 격파 조건
+### 4-2. 초기 배치 — 9×9 포진
 
-기함부대가 격파(ships ≤ 0)되면 해당 함대 전체가 붕괴한다.
+완편(8부대) 함대 배치 시 기함 위치를 기준으로 **9×9 영역** 안에 진형 오프셋으로 배치.
 
-```
-BU_0 격파
-  → 사령관 전사/도주 이벤트 발생
-  → 소속 BU_1~7 의 morale -= 40 (즉시)
-  → morale ≤ 15 인 부대 → 패주(제거)
-  → 나머지 부대도 다음 턴 이내 패주 확정
-```
+#### 진형 오프셋 테이블 (BU_0 기준 [dx, dy])
 
-### 4-4. 진형 통합
-
-`tacticalData.js`의 6종 진형(DOUBLE_COL 등) 대신 `formationData.js`의 FF_01~FF_10을 사용.  
-유닛 생성 시 해당 함대의 초기 진형(`fleetFormationData.js`)을 그대로 사용.
+> 공격측(우측 진입): 오프셋 x 방향 반전 적용.
 
 ```js
-// makeSquadrons() 변경점
-formation: fleetFormation?.ffCode ?? 'FF_01'   // 기존: 'DOUBLE_COL'
+// tacticalData.js에 정의
+FORMATION_OFFSETS = {
+  FF_01: [[0,0],[-1,0],[1,0],[0,-1],[0,1],[-1,-1],[1,-1],[0,-2]],  // 방진 — 밀집 정방형
+  FF_02: [[0,0],[-1,0],[1,0],[-2,0],[2,0],[-3,0],[3,0],[-4,0]],   // 횡렬진 — 가로 1열
+  FF_03: [[0,0],[0,-1],[0,1],[0,-2],[0,2],[0,-3],[0,3],[0,-4]],    // 종렬진 — 세로 1열
+  FF_04: [[0,0],[-1,1],[1,1],[-2,2],[2,2],[-1,0],[1,0],[0,1]],    // 학익진 — U형
+  FF_05: [[0,0],[-2,0],[2,0],[0,-2],[0,2],[-1,-1],[1,-1],[0,0]],  // 포위진 — 외곽 원형
+  FF_06: [[0,0],[0,-1],[-1,1],[1,1],[-2,2],[2,2],[0,2],[0,3]],    // 쐐기진 — 역삼각형
+  FF_07: [[0,0],[-1,0],[1,0],[0,-1],[0,1],[-1,1],[1,1],[0,2]],    // 원형진 — 밀집
+  FF_08: [[0,0],[-1,0],[1,0],[-2,0],[2,0],[0,-1],[0,-2],[0,-3]], // 돌격진 — 선두 집중
+  FF_09: [[0,0],[-2,0],[2,0],[0,-2],[0,2],[-1,1],[1,1],[0,-1]],  // 기동진 — 분산
+  FF_10: [[0,0],[-1,0],[1,0],[0,1],[0,-1],[-1,1],[1,1],[0,2]],   // 방어진 — 후방 밀집
+}
 ```
 
-### 4-5. 전투 계산 (`_combat`)
+---
+
+### 4-3. 이동 시스템 — 기함 지정 이동 + 편대 추종
+
+#### 이동 흐름
 
 ```
-// 공격 배율
-atkBase = atkFleetStats.att / 100           // 0~1
-atkFm   = FORMATION_MAP[atk.formation].offMod
-atkTerr = TERRAIN[atkTile.terrain].offMod
-dmgMult = atkBase * atkFm * atkTerr
+1. 플레이어가 아군 함대(기함 BU_0)를 선택
+2. 이동 가능 타일 하이라이트 표시 (BFS, speed 칸 이내, 장애물·적 점유 제외)
+3. 목적지 타일 클릭
+4. BU_0 → 목적지로 이동 (A* pathfinding)
+5. BU_1~7 → BU_0 도착 위치 + FORMATION_OFFSETS[formation] 으로 각자 이동
+6. 이동 애니메이션 재생 (픽셀 보간, rAF 루프)
+7. 이동 완료 후 사거리 내 적 자동교전 체크
+```
 
-// 방어 배율
-defBase = defFleetStats.def / 100
-defFm   = FORMATION_MAP[def.formation].defMod
-defTerr = TERRAIN[defTile.terrain].defMod
+#### 이동력 계산
 
-// 상성
-matchBonus = getMatchBonus(atkFm.ffType, defFm.ffType)   // -0.15 / 0 / +0.15
+```js
+speed = Math.max(1, Math.round(BASE_SPEED * formation.speedMod * (fleetStats.fst / 100 + 0.5)))
+// BASE_SPEED = 4
+// asteroid/nebula 타일 통과 시 이동력 소모 추가 (×1/terrainMoveMod)
+```
 
-// 데미지
-rawDmg = atk.ships * 0.15 * dmgMult * matchBonus * rand(0.85, 1.15)
-reduced = rawDmg * (1 - defBase * defFm)
-dmg    = Math.max(100, Math.floor(reduced))
+#### 이동 애니메이션
 
-// 포위 보너스 (ENC 진형이고 적보다 아군 유닛이 인접 많을 때)
-encBonus = atkFm.encBonus * getEncirclementCount(atk, def)
+- `px, py` 픽셀 좌표를 목표 픽셀 좌표로 선형 보간 (`lerp`)
+- 속도: 타일당 약 150ms 소요 기준
+- 애니메이션 중 플레이어 입력 차단
+
+---
+
+### 4-4. 교전 시스템 — 자동교전 + 우선 대상 지정
+
+#### 자동교전 흐름
+
+```
+이동 완료 or 공격 가능 상태 진입 시:
+  1. 사거리 내 적 유닛 탐색
+  2. priorityTarget 지정 있으면 → 해당 적 우선 공격
+  3. 없으면 → 가장 가까운(Manhattan) 적 자동 선택
+  4. _combat(atk, def) 실행
+  5. 피격 적이 사거리 내 반격 가능 시 counter 실행
+```
+
+#### 우선 대상 지정 (플레이어)
+
+```
+플레이어가 적 유닛 우클릭(or 롱탭) → priorityTarget 설정
+다음 공격 행동 1회에 한해 해당 유닛 우선 공격 후 초기화
+```
+
+#### 전투 계산 (`_combat`)
+
+```js
+// 공격력
+atkBase = fleetStats[atkFleet].att / 100
+atkFm   = FORMATIONS[atk.formation].offMod
+atkTerr = TERRAIN_EFFECT[tileAt(atk)].offMod
+matchMod = getMatchBonus(FORMATIONS[atk.formation].ffType, FORMATIONS[def.formation].ffType)
+// +0.15 / 0 / -0.15
+
+rawDmg  = atk.ships * 0.15 * atkBase * atkFm * atkTerr * matchMod * rand(0.85, 1.15)
+// 방어 감소
+defBase = fleetStats[defFleet].def / 100
+defFm   = FORMATIONS[def.formation].defMod
+defTerr = TERRAIN_EFFECT[tileAt(def)].defMod
+dmg     = Math.max(100, Math.floor(rawDmg * (1 - defBase * defFm * defTerr)))
+
+// 포위 보너스 (ENC 진형 + 인접 아군 수)
+encBonus = FORMATIONS[atk.formation].encBonus * encirclementCount(atk, def)
 dmg = Math.floor(dmg * (1 + encBonus))
 
 // 반격
-counter = Math.max(50, Math.floor(def.ships * defFm.defMod * defBase * 0.06 * rand(0.85, 1.15)))
+counter = Math.max(50, Math.floor(def.ships * defBase * defFm * defTerr * 0.06 * rand(0.85, 1.15)))
 ```
+
+---
+
+### 4-5. 기함부대(BU_0) 격파 조건
+
+```
+BU_0 격파 (ships ≤ 0 or morale ≤ 15)
+  → 사령관 전사/도주 이벤트
+  → 소속 BU_1~7: morale -= 40
+  → morale ≤ 15 인 부대 → 패주 제거
+  → 나머지도 다음 턴 이내 패주 확정
+```
+
+---
 
 ### 4-6. 사기(Morale) 시스템
 
-```
+```js
 // 초기 사기
-morale = 60 + (fleetStats.cmd / 100) * 20   // 60~80 범위
-// 상한
-moraleMax = fleetStats.csm
+morale    = 60 + (fleetStats.cmd / 100) * 20   // 60~80
+moraleMax = fleetStats.csm                       // 상한
 
-// 사기 감소 (피격 시)
-morale -= Math.floor(dmgRatio * 50)   // dmgRatio = dmg / maxShips
+// 피격 시 감소
+morale -= Math.floor((dmg / unit.maxShips) * 50)
 
-// 붕괴 조건
-if (morale <= 15) → 패주 처리 (유닛 제거)
+// 붕괴
+if (morale <= 15) → 패주(제거)
 ```
 
-> [DESIGN] 사기 붕괴 임계값 (15) 조정 가능.
+---
 
-### 4-7. 이동력 계산
+### 4-7. 이니셔티브 (행동 순서)
 
+```js
+// 각 BU 행동 순서 = (fleetStats.cmd + fleetStats.fst) 내림차순
+// 동점: fleetStats.cmd 높은 쪽 우선 → 그래도 동점: 공격측 우선
+initiativeQueue = allUnits
+  .filter(u => u.status === 'active')
+  .sort((a, b) => (statsOf(b).cmd + statsOf(b).fst) - (statsOf(a).cmd + statsOf(a).fst))
 ```
-speed = Math.max(1, Math.round(BASE_SPEED * formation.speedMod * (fleetStats.fst / 100 + 0.5)))
-// BASE_SPEED = 4 (grid 칸)
-```
 
-> [DESIGN] BASE_SPEED 값 확정 필요.
+---
 
 ### 4-8. 사거리 계산
 
-```
-range = BASE_RANGE + formation.rangeMod + terrainRangeMod
+```js
+range = BASE_RANGE + FORMATIONS[unit.formation].rangeMod + TERRAIN_EFFECT[tileAt(unit)].rangeMod
 // BASE_RANGE = 2
 ```
+
+---
 
 ### 4-9. AI 행동 원칙
 
 | 조건 | AI 행동 |
 |---|---|
 | 적이 사거리 내 | 즉시 공격 |
-| `fst` 높음 (≥70) | 기동진/종렬진 선호 |
-| `def` 높음 (≥70) | 방진/원형진 선호 |
-| `att` 높음 (≥70) | 쐐기진/돌격진 선호 |
-| 수적 열세 (아군<적 50%) | 원형진으로 전환 |
-| 포위 가능 | 학익진/포위진 시도 |
+| 사거리 밖 | 가장 가까운 적 방향으로 이동 후 재확인 |
+| `fst` ≥ 70 | 기동진(FF_09) / 종렬진(FF_03) 선호 |
+| `def` ≥ 70 | 방진(FF_01) / 원형진(FF_07) 선호 |
+| `att` ≥ 70 | 쐐기진(FF_06) / 돌격진(FF_08) 선호 |
+| 아군 < 적 50% | 원형진(FF_07)으로 전환 |
+| 포위 가능 | 학익진(FF_04) / 포위진(FF_05) 시도 |
+
+AI 이동 애니메이션: 플레이어 이동과 동일한 픽셀 보간 적용.
 
 ---
 
@@ -535,65 +625,71 @@ range = BASE_RANGE + formation.rangeMod + terrainRangeMod
 
 ```
 전술전투 종료
-  → result = { winner, attackerLosses, defenderLosses, moraleDmg? }
+  → result = { winner, attackerLosses, defenderLosses }
   → gameStore.applyBattleResult(result)
     ├─ 승리: 공격함대 목표 성계로 이동, 방어함대 손실 적용
-    └─ 패배: 공격함대 원위치 복귀, 손실 적용
+    └─ 패배: 공격함대 근접 아군 성계로 철수, 손실 적용
 ```
 
-### 5-1. 방어 함대 손실 분배 (다수 vs 다수)
+### 5-1. 손실 분배
 
+```js
+// 각 함대의 최초 함선 수 비율로 총 손실 분배 (비례 분배)
+perFleet = totalLoss * (fleet.initShips / totalInitShips)
 ```
-perFleet = defenderLosses / defenderFleets.length
-각 방어 함대에 균등 분배 (현행 유지)
-```
-
-> [DESIGN] 집중 타격 시나리오(특정 함대 집중 공격)는 향후 구현 고려.
 
 ### 5-2. 괴멸 조건
 
 ```
-남은 함선 ≤ 1000 → 해당 함대 해산 (배열에서 제거)
+함대 잔여 함선 ≤ 1000 → 해산 (배열 제거)
 ```
 
 ---
 
 ## 6. 파일 변경 계획
 
-| 파일 | 변경 내용 |
-|---|---|
-| `src/utils/battleUtils.js` | **신규** — computeFleetStats(), getMatchBonus() 등 공통 함수 |
-| `src/data/base/fleet/formationData.js` | offMod/defMod/rangeMod/speedMod/encBonus 필드 추가 |
-| `src/data/base/tactical/tacticalData.js` | FF_01~FF_10 기반으로 FORMATIONS 재정의 (또는 formationData import) |
-| `src/stores/tacticalStore.js` | 진형 통합, _combat 재작성, 이동/사거리 계산 개선 |
-| `src/stores/gameStore.js` | _battle() 개선 (computeFleetStats 사용) |
+| 파일 | 상태 | 변경 내용 |
+|---|---|---|
+| `src/views/game/TacticalView.vue` | 전면 재작성 | Canvas 2D + 뷰포트 + 미니맵 |
+| `src/stores/tacticalStore.js` | 전면 재작성 | BU 엔티티, 이니셔티브, 이동/교전 로직 |
+| `src/utils/battleUtils.js` | 신규 | `computeFleetStats()`, `getMatchBonus()`, `rasterizeTerrain()` |
+| `src/utils/tacticalPathfinder.js` | 신규 | BFS(이동 범위) + A*(경로 탐색) |
+| `src/data/base/tactical/tacticalData.js` | 수정 | FF_01~10 FORMATIONS, FORMATION_OFFSETS, TERRAIN_EFFECT |
+| `src/data/base/stars/maps/230005_ASTADE.js` | 수정 | `tactical.terrain` 스키마를 객체 배열로 교체 |
+| `src/data/base/fleet/formationData.js` | 수정 | offMod/defMod/rangeMod/speedMod/encBonus 추가 |
+| `src/stores/gameStore.js` | 수정 | `_battle()` 개선 (computeFleetStats 사용) |
 
 ---
 
-## 7. TODO (설계 결정 필요)
+## 7. TODO
 
 ### 확정된 사항
-- [x] **전술전투 방식**: 안 B — 부대 개별 엔티티 (기함부대+제1~7부대)
-- [x] **전술 맵 크기**: 256×256 (원작 128 기준, 웹 2배 확장)
-- [x] **렌더링 방식**: Canvas 2D + 스크롤 뷰포트 + 미니맵
-- [x] **9×9 포진**: 완편 함대 초기 배치 영역 9×9
-- [x] **부대당 척수**: 함선 타입 기준 (전함/공작함/수송함 1,000 / 순양함/강습양륙함 2,000)
-- [x] **기함부대 격파**: 함대 붕괴 트리거
-- [x] **성계 전술 맵**: `starSystemData.js`에 `map.terrain` 정의 (Base 데이터, 시나리오 무관)
+- [x] **전술전투 방식**: 부대 개별 엔티티 (BU_0 기함 + BU_1~7)
+- [x] **전술 맵 크기**: 256×256 타일 격자
+- [x] **렌더링 방식**: Canvas 2D + 스크롤 뷰포트 + 미니맵 (성계 뷰와 동일 패턴)
+- [x] **좌표계**: 타일 기반 (유닛 = 정수 타일 좌표 snap)
+- [x] **STAR_MAP.mapSize**: 성계 시각 맵 캔버스 크기 전용 (전술 맵 크기와 무관)
+- [x] **terrain 스키마**: 객체 배열 (planet=원형, asteroid/nebula/debris=직사각형, 1000×1000 좌표계)
 - [x] **terrain 타입 4종**: `planet` / `asteroid` / `nebula` / `debris`
-- [x] **아스타테 맵 초안**: 행성 3개 배치 (아트라-하시스/아스페륀/우가리트)
+- [x] **9×9 포진**: 기함 기준 오프셋 배치
+- [x] **이동 방식**: 기함(BU_0) 목적지 클릭 → BU_1~7 진형 오프셋으로 자동 추종
+- [x] **교전 방식**: 사거리 내 자동교전 + 우선 대상 수동 지정 가능
+- [x] **애니메이션**: 이동 픽셀 보간 (플레이어·AI 공통)
+- [x] **유닛 시각**: 텍스트 라벨 (이후 스프라이트 교체 예정)
+- [x] **부대당 척수**: 전함/공작함/수송함 1,000 / 순양함/강습양륙함 2,000
+- [x] **기함부대 격파**: 함대 붕괴 트리거
+- [x] **아스타테 terrain**: 행성 3개 (아트라-하시스/아스페륀/우가리트), 성운 1개
+- [x] **래스터라이즈**: terrain 객체 → 256×256 타일 배열 변환 (`rasterizeTerrain`)
 
 ### 미결 항목
-- [ ] **진형별 9×9 좌표 매핑** — 각 FF 진형에서 BU_0~7 배치 좌표 정의 (`tacticalData.js`)
-- [ ] **진형 전환 시 부대 재배치** — 전환 딜레이(weight) 동안 임시 배치 처리 방식
-- [ ] **부대 독립 이동 vs 편대 이동** — 개별 명령 vs 함대 단위 이동 UI 결정
-- [ ] **진형 수치 확정** (offMod/defMod 등 표 2-2)
+- [ ] **진형 수치 확정** (offMod/defMod/rangeMod/speedMod/encBonus 표 2-2)
+- [ ] **진형 전환 처리** — 전환 딜레이(weight)·부대 재배치 방식
 - [ ] **상성 보너스 수치** (±15% 초안, 조정 필요)
-- [ ] **기동력 BASE_SPEED 값**
-- [ ] **포위 보너스 계산 방식** (인접 유닛 수 기준 or 고정값)
+- [ ] **BASE_SPEED 확정** (4 초안)
+- [ ] **BASE_RANGE 확정** (2 초안)
+- [ ] **포위 보너스 계산** (인접 아군 유닛 수 기준)
 - [ ] **사기 붕괴 임계값** (15 초안)
 - [ ] **전략전투 손실 계수** (0.05/0.15 초안)
-- [ ] **tacticalData.js 6종 진형 완전 제거 or 병행 유지**
-- [ ] **분함대(S) 전술전투 참여 방식** (독립 유닛 vs 상위 함대에 합산)
-- [ ] **AI 진형 선택 로직 구체화**
-- [ ] **주요 성계 terrain 데이터 입력** (티아메트, 암릿처, 이제르론 등)
+- [ ] **분함대(S) 전술전투 참여 방식**
+- [ ] **주요 성계 terrain 입력** (티아메트, 암릿처, 이제르론 등)
+- [ ] **TILE_PX(타일 픽셀 크기) 확정** — 뷰포트 가시 타일 수 결정
