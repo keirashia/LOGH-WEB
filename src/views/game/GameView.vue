@@ -161,17 +161,21 @@ function onPopState() {
 // 큐가 영원히 남아 턴이 멈추므로, 닫힘을 감지해 동일 전투를 다시 띄운다.
 function showBattleConfirm(ctx) {
   ctx._notified = true
-  const attackerFleet = ctx.attackerFleet
 
-  // 플레이어 캐릭터가 해당 함대(전투 현장)에 있으면 곧바로 전술턴 진입
+  // 플레이어 캐릭터가 공격측/방어측 어느 함대에든 있으면 전술턴 진입
+  const hasPlayerChar = (fleets) => fleets.some(snap => {
+    const live = game.fleets[snap.faction]?.find(f => f.id === snap.id)
+    if (!live) return false
+    return live.commander === game.playerCharCode ||
+      (live.officers ?? []).includes(game.playerCharCode) ||
+      (live.subCommanders ?? []).some(c => c.charCode === game.playerCharCode)
+  })
   const playerCharPresent = game.playerCharCode && (
-    attackerFleet.commander === game.playerCharCode ||
-    (attackerFleet.officers || []).includes(game.playerCharCode) ||
-    (attackerFleet.subCommanders || []).some(c => c.charCode === game.playerCharCode)
+    hasPlayerChar(ctx.attackerFleets) || hasPlayerChar(ctx.defenderFleets)
   )
   if (playerCharPresent) { router.push('/game/tactical'); return }
 
-  const sysName = game.systems[ctx.targetSystemId]?.name ?? ctx.targetSystemId
+  const sysName = game.systems[ctx.locationId]?.name ?? ctx.locationId
   game.openModal('event', {
     battleConfirm: true,
     title: '교전 발생',

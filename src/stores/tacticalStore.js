@@ -44,7 +44,7 @@ export const useTacticalStore = defineStore('tactical', {
   }),
 
   getters: {
-    playerFaction:   s => s.context?.attackerFaction || 'REH',
+    playerFaction:   s => s.context?.playerFaction ?? s.context?.attackerFaction ?? 'REH',
     selectedUnit:    s => s.units.find(u => u.id === s.selectedId) || null,
     playerUnits:     s => s.units.filter(u => u.faction === (s.context?.attackerFaction || 'REH')),
     enemyUnits:      s => s.units.filter(u => u.faction !== (s.context?.attackerFaction || 'REH')),
@@ -65,12 +65,13 @@ export const useTacticalStore = defineStore('tactical', {
         map: buildTacticalMap(),
       })
       this.units = [
-        ...makeSquadrons(context.attackerFleet, context.attackerFaction, true),
+        ...context.attackerFleets.flatMap(af => makeSquadrons(af, context.attackerFaction, true)),
         ...context.defenderFleets.flatMap(df => makeSquadrons(df, df.faction, false)),
       ]
+      const atkNames = context.attackerFleets.map(f => f.name).join(', ')
       const defNames = context.defenderFleets.map(f => f.name).join(', ')
       this._log(`⚔️ 전술전투 개시`)
-      this._log(`  공격: ${context.attackerFleet.name}  /  방어: ${defNames}`)
+      this._log(`  공격: ${atkNames}  /  방어: ${defNames}`)
       this._log(`── 1턴 플레이어 페이즈 ──`)
     },
 
@@ -232,8 +233,8 @@ export const useTacticalStore = defineStore('tactical', {
       const defFm    = fm(def.formation)
       const atkChar  = CHARACTERS?.[atk.commander]
       const defChar  = CHARACTERS?.[def.commander]
-      const atkStatB = atkChar ? (0.7 + atkChar.military / 100 * 0.6) : 1.0
-      const defStatB = defChar ? (0.7 + defChar.military / 100 * 0.6) : 1.0
+      const atkStatB = atkChar ? (0.7 + (atkChar.statCmd ?? 50) / 100 * 0.6) : 1.0
+      const defStatB = defChar ? (0.7 + (defChar.statCmd ?? 50) / 100 * 0.6) : 1.0
       const atkTerr  = TERRAIN[this.tileAt(atk.x, atk.y).terrain]?.offMod ?? 1.0
       const defTerr  = TERRAIN[this.tileAt(def.x, def.y).terrain]?.defMod ?? 1.0
 
@@ -272,7 +273,7 @@ export const useTacticalStore = defineStore('tactical', {
       const pUnits = this.units.filter(u => u.faction === this.playerFaction)
       const eUnits = this.units.filter(u => u.faction !== this.playerFaction)
 
-      const initAtk  = this.context?.attackerFleet?.ships ?? 1
+      const initAtk  = this.context?.attackerFleets?.reduce((a, f) => a + f.ships, 0) ?? 1
       const initDef  = this.context?.defenderFleets?.reduce((a, f) => a + f.ships, 0) ?? 1
       const remAtk   = pUnits.reduce((a, u) => a + u.ships, 0)
       const remDef   = eUnits.reduce((a, u) => a + u.ships, 0)

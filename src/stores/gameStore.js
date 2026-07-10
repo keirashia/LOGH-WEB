@@ -226,9 +226,35 @@ export const useGameStore = defineStore('game', {
       const target = this.systems[targetId]
       if (!fleet || !target || fleet.status !== 'standby') return false
 
-      // 같은 성계: 기존 즉시 처리 유지
+      // 같은 성계: 적 함대 유무에 따라 분기
       if (fleet.location === targetId) {
-        this._battle(fleet, target, opType)
+        const enemies = this._enemiesAt(this.playerFaction, targetId)
+        if (enemies.length) {
+          // 적 함대 존재 → 전술 전투 큐 등록
+          fleet.status = 'battle'
+          const existing = this._pendingBattles.find(b => b.locationId === targetId && !b._handled)
+          if (existing) {
+            if (!existing.attackerFleets.find(f => f.id === fleet.id))
+              existing.attackerFleets.push(this._snapFleet(fleet, this.playerFaction))
+          } else {
+            const sysName = this.systems[targetId]?.name ?? targetId
+            this._pendingBattles.push({
+              locationId:      targetId,
+              playerFaction:   this.playerFaction,
+              attackerFaction: this.playerFaction,
+              defenderFaction: enemies[0].faction,
+              attackerFleets:  [this._snapFleet(fleet, this.playerFaction)],
+              defenderFleets:  enemies.map(e => this._snapFleet(e, e.faction)),
+              opType,
+              _handled:  false,
+              _notified: false,
+            })
+            this.addLog(`⚔ [교전] ${fleet.name} — ${sysName} 교전 개시`)
+          }
+        } else {
+          // 적 함대 없음 → 즉시 작전 처리
+          this._battle(fleet, target, opType)
+        }
         this._markAction()
         return true
       }
@@ -247,86 +273,98 @@ export const useGameStore = defineStore('game', {
       const ctx = this._pendingBattles[0]
       if (!ctx) return
 
-      const attackerFleet = this.pFleets.find(f => f.id === ctx.attackerFleet.id)
+      const atkWins = result.winner === ctx.attackerFaction
+      const totalAtkSnap = ctx.attackerFleets.reduce((s, f) => s + f.ships, 0)
+      const totalDefSnap = ctx.defenderFleets.reduce((s, f) => s + f.ships, 0)
 
-      if (result.winner === this.playerFaction) {
-        // 아군 승리
-        if (attackerFleet) {
-          attackerFleet.ships    = Math.max(1000, ctx.attackerFleet.ships - result.attackerLosses)
-          attackerFleet.status   = 'standby'
-          attackerFleet.target   = null
-          attackerFleet.location = ctx.targetSystemId
+      // ── 공격 측 함대 결과 반영 ─────────────────────────────────
+      ctx.attackerFleets.forEach(snap => {
+        const live = this.fleets[snap.faction]?.find(f => f.id === snap.id)
+        if (!live) return
+        const share = totalAtkSnap > 0 ? snap.ships / totalAtkSnap : 1 / ctx.attackerFleets.length
+        live.ships  = Math.max(1000, live.ships - Math.floor(result.attackerLosses * share))
+        live.status = 'standby'
+        live.target = null
+        if (atkWins) {
+          live.location = ctx.locationId
+        } else {
+          const safe = this._nearestFriendlySystem(ctx.locationId, snap.faction)
+          if (safe) live.location = safe.id
         }
+      })
 
-        // 적 함대에 패배 분배 (각 함대에 균등 분배)
-        const perFleet = Math.floor(result.defenderLosses / Math.max(1, ctx.defenderFleets.length))
-        ctx.defenderFleets.forEach(df => {
-          const factionFleets = this.fleets[df.faction]
-          if (!factionFleets) return
-          const idx = factionFleets.findIndex(f => f.id === df.id)
-          if (idx === -1) return
-          const remaining = df.ships - perFleet
-          if (remaining <= 1000) {
-            this.addLog(`🗡️ [격멸] ${df.name} 전투에서 격멸 → 해산`)
-            factionFleets.splice(idx, 1)
-          } else {
-            factionFleets[idx].ships = remaining
-            const friendly = this._nearestFriendlySystem(ctx.targetSystemId, df.faction)
-            if (friendly) factionFleets[idx].location = friendly.id
+      // ── 방어 측 함대 결과 반영 ─────────────────────────────────
+      ctx.defenderFleets.forEach(snap => {
+        const fFleets = this.fleets[snap.faction]
+        if (!fFleets) return
+        const idx = fFleets.findIndex(f => f.id === snap.id)
+        if (idx === -1) return
+        const share     = totalDefSnap > 0 ? snap.ships / totalDefSnap : 1 / ctx.defenderFleets.length
+        const loss      = Math.floor(result.defenderLosses * share)
+        const remaining = fFleets[idx].ships - loss
+        if (remaining <= 1000) {
+          this.addLog(`🗡️ [격멸] ${snap.name} 격멸 → 해산`)
+          fFleets.splice(idx, 1)
+        } else {
+          fFleets[idx].ships  = remaining
+          fFleets[idx].status = 'standby'
+          if (atkWins) {
+            const safe = this._nearestFriendlySystem(ctx.locationId, snap.faction)
+            if (safe) fFleets[idx].location = safe.id
           }
-        })
+        }
+      })
 
-        // 성계 점령 효과
-        const target = this.systems[ctx.targetSystemId]
+      // ── 성계 점령 효과 (공격측 승리 시) ──────────────────────
+      if (atkWins) {
+        const target = this.systems[ctx.locationId]
         const op     = OPERATION_TYPES[ctx.opType]
         if (target && op) {
           const prev = target.faction
-          target.faction  = this.playerFaction
-          target.defense  = Math.max(5, target.defense  - (op.defDmg   || 0))
-          target.morale   = Math.max(5, target.morale   - (op.moraleDmg || 0))
-          this.addLog(`✅ [점령] ${target.name} 점령 완료 (${prev || '무소속'} → ${this.playerFaction})`)
+          target.faction = ctx.attackerFaction
+          target.defense = Math.max(5, target.defense - (op.defDmg    || 0))
+          target.morale  = Math.max(5, target.morale  - (op.moraleDmg || 0))
+          this.addLog(`✅ [점령] ${target.name} (${prev || '무소속'} → ${ctx.attackerFaction})`)
         }
-
       } else {
-        // 아군 패배
-        if (attackerFleet) {
-          attackerFleet.ships  = Math.max(1000, ctx.attackerFleet.ships - result.attackerLosses)
-          attackerFleet.status = 'standby'
-          attackerFleet.target = null
-          const friendly = this._nearestFriendlySystem(ctx.targetSystemId, this.playerFaction)
-          if (friendly) attackerFleet.location = friendly.id
-        }
-        this.addLog(`⚠ [패배] 아군함대 패배, ${ctx.attackerFleet.name} 철수`)
+        if (ctx.attackerFaction === this.playerFaction)
+          this.addLog(`⚠ [패배] 아군 함대 철수`)
       }
 
       this._pendingBattles.shift()
-      // 대기 중인 전술턴을 모두 처리했으면 그제서야 턴을 종료(날짜 증가·승리 판정)
       if (this._pendingBattles.length === 0) this._finishTurn()
     },
 
-    // ── 교전 자동 처리 (상세 전투를 보지 않고 결과만 산출) ─────────
+    // ── 교전 자동 처리 ────────────────────────────────────────────
     autoResolveBattle() {
       const ctx = this._pendingBattles[0]
       if (!ctx) return null
 
-      const atkShips = ctx.attackerFleet.ships
-      const defShips = ctx.defenderFleets.reduce((sum, f) => sum + f.ships, 0)
-      const atkChar  = this.characters[ctx.attackerFleet.commander]
-      const atkBonus = atkChar ? 0.7 + (atkChar.military || 50) / 100 * 0.6 : 1.0
+      const totalAtkShips = ctx.attackerFleets.reduce((s, f) => s + f.ships, 0)
+      const totalDefShips = ctx.defenderFleets.reduce((s, f) => s + f.ships, 0)
 
-      const atkPower = atkShips * atkBonus * (0.85 + Math.random() * 0.3)
-      const defPower = defShips * (0.85 + Math.random() * 0.3)
+      // 공격 측 최우수 사령관 보너스
+      const atkBonus = ctx.attackerFleets.reduce((best, f) => {
+        const c      = this.characters[f.commander]
+        const rating = c ? 0.7 + (c.statCmd ?? 50) / 100 * 0.6 : 1.0
+        return Math.max(best, rating)
+      }, 0.7)
+
+      const atkPower     = totalAtkShips * atkBonus * (0.85 + Math.random() * 0.3)
+      const defPower     = totalDefShips * (0.85 + Math.random() * 0.3)
       const attackerWins = atkPower >= defPower
 
       const winnerLossRate = 0.05 + Math.random() * 0.10
       const loserLossRate  = 0.30 + Math.random() * 0.25
-      const attackerLosses = Math.floor(atkShips * (attackerWins ? winnerLossRate : loserLossRate))
-      const defenderLosses = Math.floor(defShips * (attackerWins ? loserLossRate : winnerLossRate))
-      const winner = attackerWins ? ctx.attackerFaction : (ctx.defenderFleets[0]?.faction ?? null)
+      const attackerLosses = Math.floor(totalAtkShips * (attackerWins ? winnerLossRate : loserLossRate))
+      const defenderLosses = Math.floor(totalDefShips * (attackerWins ? loserLossRate  : winnerLossRate))
+      const winner = attackerWins ? ctx.attackerFaction : ctx.defenderFaction
+
+      const sysName = this.systems[ctx.locationId]?.name ?? ctx.locationId
+      const atkLabel = ctx.attackerFleets.map(f => f.name).join('+')
+      this.addLog(`⚔ [자동] ${sysName} — ${attackerWins ? '아군 승리' : '아군 패배'} (${atkLabel} 손실 ${attackerLosses.toLocaleString()}척 / 적 손실 ${defenderLosses.toLocaleString()}척)`)
 
       const result = { winner, attackerLosses, defenderLosses }
-      const sysName = this.systems[ctx.targetSystemId]?.name ?? ctx.targetSystemId
-      this.addLog(`⚔ [자동 처리] ${sysName} 전투 결과: ${attackerWins ? '아군 승리' : '아군 패배'} (아군 손실 ${attackerLosses.toLocaleString()}척, 적 손실 ${defenderLosses.toLocaleString()}척)`)
       this.applyBattleResult(result)
       return result
     },
@@ -875,28 +913,49 @@ export const useGameStore = defineStore('game', {
       return enemies
     },
 
-    // ── 시나리오 시작 시점에 이미 배치돼 조우가 성립하는 경우 감지 ──
-    // (예: SE796_0211_010 아스타테 — FPA002가 처음부터 REH004와 같은 성계에 배치됨)
-    // playerFaction 소속 함대 기준으로만 판정 — 현재 전술전투 큐(_pendingBattles)는
-    // attackerFleet가 항상 플레이어 소속임을 전제로 하므로(deployFleet과 동일 관례) 그대로 따름.
+    // 전투 컨텍스트용 함대 스냅샷 생성
+    _snapFleet(fleet, faction) {
+      return {
+        id:        fleet.id,
+        name:      fleet.name,
+        ships:     fleet.ships,
+        commander: fleet.commander ?? null,
+        faction:   faction ?? fleet.faction,
+      }
+    },
+
+    // ── 시나리오 시작 / 턴 시작 시 이미 조우 중인 함대 감지 ─────
+    // _pendingBattles 스키마:
+    //   { locationId, attackerFaction, defenderFaction,
+    //     attackerFleets: [snap], defenderFleets: [snap],
+    //     opType, _handled, _notified }
     _checkInitialEncounters() {
-      const seenLocations = new Set()
+      const done = new Set()
       this.pFleets.forEach(fleet => {
-        if (seenLocations.has(fleet.location)) return
+        if (done.has(fleet.location)) return
         const enemies = this._enemiesAt(this.playerFaction, fleet.location)
         if (!enemies.length) return
-        seenLocations.add(fleet.location)
-        fleet.status = 'battle'
+        done.add(fleet.location)
+
+        // 같은 성계의 모든 아군 함대를 참전으로 표시
+        const allied = this.pFleets.filter(f => f.location === fleet.location)
+        allied.forEach(f => { f.status = 'battle' })
+
+        const sysName = this.systems[fleet.location]?.name ?? fleet.location
         this._pendingBattles.push({
-          attackerFleet:   { ...fleet, faction: this.playerFaction },
+          locationId:      fleet.location,
+          playerFaction:   this.playerFaction,
           attackerFaction: this.playerFaction,
-          defenderFleets:  enemies,
-          targetSystemId:  fleet.location,
+          defenderFaction: enemies[0].faction,
+          attackerFleets:  allied.map(f => this._snapFleet(f, this.playerFaction)),
+          defenderFleets:  enemies.map(e => this._snapFleet(e, e.faction)),
           opType:          'OCCUPATION',
+          _handled:        false,
+          _notified:       false,
         })
-        this.addLog(`⚔ [전투] ${fleet.name} — 시작부터 적 함대와 조우`)
+        this.addLog(`⚔ [조우] ${sysName} — 아군 ${allied.length}개 함대 vs 적 ${enemies.length}개 함대`)
       })
-      this._pendingBattles.sort((a, b) => a.targetSystemId.localeCompare(b.targetSystemId))
+      this._pendingBattles.sort((a, b) => a.locationId.localeCompare(b.locationId))
     },
 
     _fleetMove() {
@@ -919,20 +978,34 @@ export const useGameStore = defineStore('game', {
           const enemies = this._enemiesAt(faction, fleet.location)
           if (enemies.length) {
             fleet.status = 'battle'
-            detected.push({
-              attackerFleet:   { ...fleet, faction },
-              attackerFaction: faction,
-              defenderFleets:  enemies,
-              targetSystemId:  fleet.location,
-              opType:          'OCCUPATION',
-            })
-            if (faction === this.playerFaction)
-              this.addLog(`⚔ [전투] ${fleet.name} — 적 함대 감지`)
+            const sysName = this.systems[fleet.location]?.name ?? fleet.location
+            // 같은 성계에 이미 생성 중인 전투가 있으면 합류, 없으면 신규 생성
+            const existing = detected.find(b => b.locationId === fleet.location)
+            if (existing) {
+              if (!existing.attackerFleets.find(f => f.id === fleet.id))
+                existing.attackerFleets.push(this._snapFleet(fleet, faction))
+            } else {
+              detected.push({
+                locationId:      fleet.location,
+                playerFaction:   this.playerFaction,
+                attackerFaction: faction,
+                defenderFaction: enemies[0].faction,
+                attackerFleets:  [this._snapFleet(fleet, faction)],
+                defenderFleets:  enemies.map(e => this._snapFleet(e, e.faction)),
+                opType:          'OCCUPATION',
+                _handled:        false,
+                _notified:       false,
+              })
+              if (faction === this.playerFaction)
+                this.addLog(`⚔ [전투] ${fleet.name} — ${sysName} 적 함대 조우`)
+              else if (enemies.some(e => e.faction === this.playerFaction))
+                this.addLog(`⚔ [AI 침공] ${this.factions[faction]?.nameKr ?? faction} — ${sysName} 침공!`)
+            }
           }
         })
       })
       // 성계 ID 순서대로 전술턴 진행
-      detected.sort((a, b) => a.targetSystemId.localeCompare(b.targetSystemId))
+      detected.sort((a, b) => a.locationId.localeCompare(b.locationId))
       this._pendingBattles.push(...detected)
     },
 
@@ -967,7 +1040,7 @@ export const useGameStore = defineStore('game', {
       const op = OPERATION_TYPES[opType]
       if (!op) return
       const char = this.characters[fleet.commander]
-      const bonus = char ? (char.military / 100) * 0.3 : 0
+      const bonus = char ? (char.statCmd ?? 50) / 100 * 0.3 : 0
       const defMod = (target.defense / 100) * 0.4
       const success = Math.random() < Math.min(0.95, op.successRate + bonus - defMod)
 
@@ -1034,15 +1107,43 @@ export const useGameStore = defineStore('game', {
           if (s.faction === f) inc += Math.floor(s.population * 0.3 * (s.industry / 100) * 10)
         })
         this.resources[f].gold += inc
+
         ;(this.fleets[f] || []).forEach(fleet => {
-          if (fleet.status !== 'standby' || Math.random() > 0.12) return
+          if (fleet.status !== 'standby' || Math.random() > 0.15) return
           const targets = Object.values(this.systems).filter(s => s.faction !== f && s.faction !== 'PZN')
           if (!targets.length) return
-          const t = targets[Math.floor(Math.random() * targets.length)]
-          if (Math.random() < 0.5) {
-            const prev = t.faction
-            t.faction = f
-            this.addLog(`⚔️ [AI] ${this.factions[f]?.nameKr ?? f} ${fleet.name}이 ${t.name} 공략! (${prev || '무소속'} → ${f})`)
+          const target = targets[Math.floor(Math.random() * targets.length)]
+
+          // 함대 이동
+          fleet.location = target.id
+
+          // 해당 성계의 적 함대 확인
+          const enemies = this._enemiesAt(f, target.id)
+          if (enemies.length) {
+            // 플레이어/동맹 함대와 조우 → 전투 대기열 등록
+            fleet.status = 'battle'
+            const existing = this._pendingBattles.find(b => b.locationId === target.id && !b._handled)
+            if (existing) {
+              if (!existing.attackerFleets.find(af => af.id === fleet.id))
+                existing.attackerFleets.push(this._snapFleet(fleet, f))
+            } else {
+              this._pendingBattles.push({
+                locationId:      target.id,
+                playerFaction:   this.playerFaction,
+                attackerFaction: f,
+                defenderFaction: enemies[0].faction,
+                attackerFleets:  [this._snapFleet(fleet, f)],
+                defenderFleets:  enemies.map(e => this._snapFleet(e, e.faction)),
+                opType:          'OCCUPATION',
+                _handled:        false,
+                _notified:       false,
+              })
+              if (enemies.some(e => e.faction === this.playerFaction))
+                this.addLog(`⚔ [AI 침공] ${this.factions[f]?.nameKr ?? f} ${fleet.name} — ${target.name} 침공!`)
+            }
+          } else {
+            // 무방비 성계 → _battle()로 즉시 처리
+            this._battle(fleet, target, 'OCCUPATION')
           }
         })
       })

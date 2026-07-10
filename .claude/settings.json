@@ -7,7 +7,8 @@
       "WebFetch(domain:archive.ph)",
       "WebFetch(domain:www.antian.sakura.ne.jp)",
       "WebFetch(domain:kumashige.hatenadiary.org)",
-      "WebFetch(domain:blog.goo.ne.jp)"
+      "WebFetch(domain:blog.goo.ne.jp)",
+      "Bash(sort -t'|' -k2 -rn)"
     ],
     "additionalDirectories": [
       "c:\\Users\\keira\\Project_Genei\\LOGH-WEB\\src"
