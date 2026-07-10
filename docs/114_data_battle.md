@@ -417,6 +417,24 @@ function rasterizeTerrain(terrainObjects) {
 
 전술 맵의 기본 단위는 **부대(BU)**. 함대 = 기함부대(BU_0) + 제1~7부대(BU_1~BU_7), 최대 8개.
 
+#### 분함대(parentFlt) 처리 규칙
+
+분함대(`parentFlt != null`, 예: REH041~045)는 **전략 레이어에서 상위 함대에 완전 합산**되며 전술전투에는 독립 BU세트로 참여하지 않는다.
+
+| 레이어 | 처리 방식 |
+|---|---|
+| 전략 (`gameStore.fleets`) | `buildFleetsMap`에서 `parentFlt != null`은 skip → 상위 함대 `ships`에 합산 |
+| 분함대 사령관 | 상위 함대 `subCommanders[]`에 기록 (메르카츠 등) |
+| 전술 (`tacticalStore.units`) | 상위 함대의 BU세트로만 표현 (별도 BU세트 없음) |
+
+```
+아스타테 전투 참전 구조:
+  공격측(FPA): FPA002(제2, 15,000) · FPA004(제4, 15,000) · FPA006(제6, 15,000)
+               → 3개 함대 × 각 BU세트
+  방어측(REH): REH004(로엔그람, 4,000 + 분함대 5×4,000 = 24,000)
+               → 1개 함대 BU세트
+```
+
 #### 부대 데이터 스키마
 
 ```js
@@ -456,6 +474,23 @@ function rasterizeTerrain(terrainObjects) {
 ### 4-2. 초기 배치 — 9×9 포진
 
 완편(8부대) 함대 배치 시 기함 위치를 기준으로 **9×9 영역** 안에 진형 오프셋으로 배치.
+
+#### 다중 함대 기함 Y 분산 배치
+
+같은 진영에 N개 함대가 참전할 경우, 기함(BU_0)을 Y축 균등 분할로 배치한다.
+
+```js
+// makeUnits(fleet, faction, isAttacker, mapW, mapH, fleetIndex, totalFleets)
+const startX = isAttacker ? mapW - 4 : 3
+const startY = Math.round(mapH * (fleetIndex + 1) / (totalFleets + 1))
+
+// 예) FPA 3개 함대, mapH=24
+// FPA002 (index=0): y = round(24 * 1/4) = 6
+// FPA004 (index=1): y = round(24 * 2/4) = 12
+// FPA006 (index=2): y = round(24 * 3/4) = 18
+```
+
+BU_1~7 위치는 기함 위치 기준 `FORMATION_OFFSETS`로 계산.
 
 #### 진형 오프셋 테이블 (BU_0 기준 [dx, dy])
 
@@ -680,6 +715,8 @@ perFleet = totalLoss * (fleet.initShips / totalInitShips)
 - [x] **기함부대 격파**: 함대 붕괴 트리거
 - [x] **아스타테 terrain**: 행성 3개 (아트라-하시스/아스페륀/우가리트), 성운 1개
 - [x] **래스터라이즈**: terrain 객체 → 256×256 타일 배열 변환 (`rasterizeTerrain`)
+- [x] **다중 함대 배치**: `makeUnits(fleetIndex, totalFleets)`로 기함 Y 균등 분산 (§4-2 참조)
+- [x] **분함대 합산**: `buildFleetsMap`에서 parentFlt 제외, 상위 함대 ships에 합산
 
 ### 미결 항목
 - [ ] **진형 수치 확정** (offMod/defMod/rangeMod/speedMod/encBonus 표 2-2)
@@ -690,6 +727,6 @@ perFleet = totalLoss * (fleet.initShips / totalInitShips)
 - [ ] **포위 보너스 계산** (인접 아군 유닛 수 기준)
 - [ ] **사기 붕괴 임계값** (15 초안)
 - [ ] **전략전투 손실 계수** (0.05/0.15 초안)
-- [ ] **분함대(S) 전술전투 참여 방식**
+- [x] **분함대(S) 전술전투 참여 방식** — 전략 레이어에서 상위 함대에 합산, 전술 BU세트 미분리 (§4-1 참조)
 - [ ] **주요 성계 terrain 입력** (티아메트, 암릿처, 이제르론 등)
 - [ ] **TILE_PX(타일 픽셀 크기) 확정** — 뷰포트 가시 타일 수 결정

@@ -73,17 +73,21 @@ function formationPos(buIndex, formation, flagship, isAttacker) {
 }
 
 // 함대 → BU 엔티티 배열 생성
-function makeUnits(fleet, faction, isAttacker, mapW, mapH) {
+// fleetIndex/totalFleets: 같은 진영 다중 함대 시 기함 Y 분산 배치
+function makeUnits(fleet, faction, isAttacker, mapW, mapH, fleetIndex = 0, totalFleets = 1) {
   const formation = fleet.formation ?? 'FF_01'
   const totalShips = fleet.ships ?? 0
   const buCount = Math.min(8, Math.max(1, Math.ceil(totalShips / 10000) + 1))
   const shipsPerBU = Math.max(100, Math.floor(totalShips / buCount))
 
-  // BU_0 초기 위치
+  // BU_0 초기 위치 — 다중 함대는 Y축 균등 분산
   const startX = isAttacker
     ? clamp(mapW - 4, 2, mapW - 2)
     : clamp(3, 1, mapW - 3)
-  const startY = clamp(Math.floor(mapH / 2), 1, mapH - 2)
+  const startY = clamp(
+    Math.round(mapH * (fleetIndex + 1) / (totalFleets + 1)),
+    2, mapH - 3
+  )
 
   const flagship = { x: startX, y: startY }
 
@@ -192,10 +196,12 @@ export const useTacticalStore = defineStore('tactical', {
       const mapW = this.map.width  ?? MAP_W
       const mapH = this.map.height ?? MAP_H
 
-      const atkUnits = context.attackerFleets.flatMap(af =>
-        makeUnits(af, context.attackerFaction, true, mapW, mapH))
-      const defUnits = context.defenderFleets.flatMap(df =>
-        makeUnits(df, df.faction, false, mapW, mapH))
+      const atkTotal = context.attackerFleets.length
+      const defTotal = context.defenderFleets.length
+      const atkUnits = context.attackerFleets.flatMap((af, i) =>
+        makeUnits(af, context.attackerFaction, true, mapW, mapH, i, atkTotal))
+      const defUnits = context.defenderFleets.flatMap((df, i) =>
+        makeUnits(df, df.faction, false, mapW, mapH, i, defTotal))
 
       this.units = [...atkUnits, ...defUnits]
       this.units.forEach(syncPixels)
