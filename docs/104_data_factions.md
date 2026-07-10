@@ -2,7 +2,7 @@
 > 분류: 데이터
 > 경로: `docs/104_data_factions.md`
 > 상위: [100_DATA.md](100_DATA.md)
-> 최종 수정: 2026-06-27
+> 최종 수정: 2026-07-08
 
 ---
 
@@ -120,9 +120,28 @@ lang: `"Kr"` | `"En"` | `"Jp"`
 
 ---
 
+## economyData.js — 경제 체제 코드
+
+```js
+{ code: 20,  name: "자급자족" }
+{ code: 60,  name: "봉건경제" }
+{ code: 100, name: "자본주의" }
+{ code: 140, name: "혼합경제" }
+{ code: 180, name: "국가자본주의" }
+{ code: 220, name: "사회주의" }
+{ code: 260, name: "계획경제" }
+{ code: 300, name: "공산주의" }
+```
+
+`ECONOMY_MAP` = code → 객체 Map
+
+> ideologyData / economyData 는 인물 성향 표시에도 사용됨.
+> 인물의 `idea`/`econ` 수치를 최근접 코드로 찾아 이름으로 변환 → `charValueLabel.js` 참조.
+
+---
+
 ## TODO
 
 - [ ] RAG(라그랑그룹) factionsData.js 등록
 - [ ] AD 시대 세력 (NOC/USE 등) desc 입력
-- [ ] economyData.js 스키마 문서화 (현재 미기록)
 - [ ] regimeData.js 전체 조합 표 정리

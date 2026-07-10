@@ -2,7 +2,7 @@
 > 분류: 데이터
 > 경로: `docs/105_data_characters.md`
 > 상위: [100_DATA.md](100_DATA.md)
-> 최종 수정: 2026-06-19
+> 최종 수정: 2026-07-08
 
 ---
 
@@ -19,6 +19,10 @@ src/data/base/jobs/
 
 src/data/base/trait/
 └── traitData.js          트레잇 마스터 (22종)
+
+src/utils/
+├── charUtils.js          인물 빌드·조회 유틸리티 (buildCharactersMap 등)
+└── charValueLabel.js     성향 수치 → 표시 텍스트 변환 유틸리티
 ```
 
 ---
@@ -49,11 +53,11 @@ CH_{6자리}  예) CH_000064 = 라인하르트 폰 뮤젤
 
   // ── 성향 ──────────────────────────────────────────
   faction: "REH",     // 소속 세력 코드
-  idea:    "35",      // 이념 코드 (ideologyData.js)
-  econ:    "100",     // 경제 코드
+  idea:    "35",      // 이념 코드 (ideologyData.js, 1~255)
+  econ:    "100",     // 경제 코드 (economyData.js, 20~300)
   brave:   "85",      // 성격 (0~100): 신중(0~19) / 냉정(20~39) / 일반(40~59) / 용맹(60~79) / 돌진(80~100)
   moral:   "70",      // 도덕성 (0~100)
-  friend:  "120",     // 친밀도 초기값
+  friend:  "120",     // 친화 좌표 (0~299, 원형 좌표계) — 플레이어와의 원형 거리로 관계 등급 결정
 
   // ── 능력치 ────────────────────────────────────────
   statCmd: 95,   // 통솔 (함대 전투 기본)
@@ -92,6 +96,58 @@ CH_{6자리}  예) CH_000064 = 라인하르트 폰 뮤젤
 | statGfg | 지상전 | 지상 전투 |
 | statAfg | 공중전 | 전술 전투 |
 | statPlt | 정략 | 정치력·의회 공작 |
+
+---
+
+## 성향 필드 표시 규칙
+
+게임 내에서 아래 4개 필드는 수치 대신 텍스트 레이블로 표시한다.
+변환 로직은 `src/utils/charValueLabel.js` 에서 관리.
+
+| 필드 | 표시명 | 변환 방식 | 출처 |
+|---|---|---|---|
+| brave  | 성격 | 범위 매핑 (0~99 → 신중/냉정/일반/용맹/돌진) | charValueLabel.js |
+| idea   | 이념 | 최근접 코드 → 이념명 (ideologyData.js) | charValueLabel.js |
+| econ   | 경제 | 최근접 코드 → 경제체제명 (economyData.js) | charValueLabel.js |
+| friend | 친화 | 플레이어와의 원형 거리 → 관계 등급 | charValueLabel.js |
+
+### friend — 원형 좌표계 친화 시스템
+
+`friend` 값은 0~299 원형 좌표계. 두 인물의 값 차이(원형 최단 거리, 0~150)로 관계 등급을 결정.
+
+| 원형 거리 | 등급 | 표시 |
+|---|---|---|
+| 0 ~ 20 | close | 친밀 |
+| 21 ~ 40 | friendly | 우호 |
+| 41 ~ 60 | neutral | 보통 |
+| 61 ~ 80 | distant | 소원함 |
+| 81 ~ 100 | hostile | 상극 |
+| 101 ~ 150 | disgust | 혐오 |
+
+구현 함수: `friendGrade(v, playerV)` — `{ label, grade, diff, charVal, playerVal }` 반환
+
+---
+
+## buildCharactersMap — 초기화 시 계산 필드
+
+`charUtils.js`의 `buildCharactersMap()`은 게임 시작 시 각 인물 객체에 아래 필드를 추가 주입한다.
+
+```js
+{
+  ...원본 스탯,
+  jobs,       // CHAR_JOBS 기반
+  traits,     // CHAR_TRAITS 기반
+  fleetCode,  // 소속 함대 코드
+  cliqueId,   // 소속 파벌 ID
+  isDead: false,
+  braveLabel, // charValueLabel.braveLabel(c.brave)
+  ideaLabel,  // charValueLabel.ideaLabel(c.idea)
+  econLabel,  // charValueLabel.econLabel(c.econ)
+  // friendLabel은 플레이어 의존 → 런타임 계산 (초기화 시 미주입)
+}
+```
+
+> `friendLabel`은 플레이어 캐릭터의 `friend` 값에 의존하므로 초기화 시점이 아닌 표시 시점에 계산.
 
 ---
 
@@ -146,6 +202,5 @@ src/data/scenario/{id}/charOverride.js
 ## TODO
 
 - [ ] charOverride.js 설계 및 `fncGetCharInfo()` 구현
-- [ ] 친밀도(intimacy) 시스템: 현재 등록 순서로 임시 정렬
 - [ ] 인물 리팩토링: charBase/charTender/charDetail/charJobs/charTraits 분리 검토
 - [ ] descEn/descJp 전체 미입력 — 추후 번역

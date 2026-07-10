@@ -22,13 +22,23 @@ export const MENU_TREES = {
       ],
     },
     {
+      id: "",
+      label: "주요 정보",
+      type: "group",
+      items: [
+        { id: "nation_post",  label: "인물",     modal: "" },
+        { id: "nation_post",  label: "함대",     modal: "" },
+        { id: "nation_post",  label: "성계",     modal: "" },
+      ],
+    },
+    {
       id: "nation_budget",
       label: "국가 예산",
       type: "group",
       items: [
         { id: "budget_info",  label: "예산정보", modal: "finance" },
         { id: "budget_levy",  label: "임시징세", modal: "tax" },
-        { id: "budget_plan",  label: "예산편성", disabled: true },
+        { id: "budget_plan",  label: "예산배분", disabled: true },
       ],
     },
     {
