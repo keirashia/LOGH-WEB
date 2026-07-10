@@ -5,8 +5,9 @@
       <!-- ① 헤더: 초상화 | 소속국가 | 풀네임 -->
       <div class="cp-head">
         <div class="cp-portrait">
-          <!-- TODO: /img/chars/{charCode}.png -->
-          <span class="cp-init serif">{{ initials }}</span>
+          <img v-if="portraitSrc" :src="portraitSrc" class="cp-portrait-img"
+               @error="onPortraitError" alt="" />
+          <span v-else class="cp-init serif">{{ initials }}</span>
         </div>
         <div class="cp-head-info">
           <span class="mono" :class="`fc-${char.faction}`" style="font-size:12px;letter-spacing:.5px">
@@ -101,7 +102,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import TraitBadge from '@/components/char/TraitBadge.vue'
 import { CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
@@ -156,6 +157,21 @@ const activeHint = ref(null)
 const fullName = computed(() =>
   char.value?.name?.find(e => e.code === 'Kr')?.context ?? '?'
 )
+
+const portraitSrc = ref(null)
+watch(() => props.charCode, (code) => {
+  portraitSrc.value = code ? `/img/characters/${code}O_H.png` : null
+}, { immediate: true })
+
+function onPortraitError() {
+  if (!props.charCode) return
+  const cur = portraitSrc.value ?? ''
+  if (cur.endsWith('.png')) {
+    portraitSrc.value = `/img/characters/${props.charCode}O_H.jpg`
+  } else {
+    portraitSrc.value = null
+  }
+}
 
 const initials = computed(() => fullName.value?.slice(-1) ?? '?')
 
@@ -213,6 +229,11 @@ function valStyle(v, max = 100) {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.cp-portrait-img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: var(--r);
 }
 .cp-init { font-size: 36px; color: var(--td); }
 .cp-head-info {

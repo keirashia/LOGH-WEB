@@ -2634,17 +2634,9 @@ export const CHAR_BASE = [
       {
         code: "Kr",
         context:
-          "은하제국의 군사 천재. 누나 안네로제가 황제의 후궁으로 끌려간 것에 분노하여 제국의 정점을 향한 야망을 품는다.",
-      },
-      {
-        code: "En",
-        context:
-          "Military genius of the Galactic Empire. Driven by rage over his sister Annerose being taken as the Emperor's concubine, he harbors ambitions to reach the pinnacle of the empire.",
-      },
-      {
-        code: "Jp",
-        context:
-          "銀河帝国の軍事天才。姉アンネローゼが皇帝の後宮に召し上げられたことへの憤りを胸に、帝国の頂点へと野望を燃やす",
+          `첫 등장은 은하영웅전설 1권 여명편.
+          은하제국 소속의 군인.
+          누나 안네로제가 황제의 후궁으로 끌려간 것에 분노하여 제국의 정점을 향한 야망을 품는다.`,
       },
     ],
     // — 직업
@@ -9667,10 +9659,10 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000252",
     name: [{ code: "Kr", context: "알레 하이네센" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "하이네센" }],
     searchKeys: [],
-    birth: "",
-    death: "",
+    birth: "SE|431.03.17",
+    death: "SE|518.09.04",
     // — 성향
     faction: "FPA",
     idea: "20",
@@ -12357,7 +12349,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000320",
     name: [{ code: "Kr", context: "올리비에 포플랭" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "포플랭" }],
     searchKeys: [],
     birth: "SE|771",
     death: "",
@@ -12700,15 +12692,15 @@ export const CHAR_BASE = [
     // friend: 양 웬리(145)와 순환거리 100(상극) / 라인하르트(150)와 순환거리 95(매우 혐오하지만 극상은 아님)
     friend: "245",
     // — 능력치
-    statCmd: 3,
-    statCsm: 90,
-    statAtt: 2,
-    statDef: 3,
-    statFst: 2,
-    statMng: 90,
-    statInf: 10,
-    statGfg: 2,
-    statAfg: 2,
+    statCmd: 33,
+    statCsm: 76,
+    statAtt: 29,
+    statDef: 35,
+    statFst: 26,
+    statMng: 85,
+    statInf: 88,
+    statGfg: 49,
+    statAfg: 28,
     statPlt: 98,
     // — 기타
     loc: "230006P01",
@@ -13296,8 +13288,8 @@ export const CHAR_BASE = [
     nick: [{ code: "Kr", context: "홀랜드" }],
     searchKeys: ["홀란드"],
     // SE 763 ~ SE 795. 2. 6. (32세)
-    birth: "763.12.15",
-    death: "795.02.06",
+    birth: "SE|763.12.15",
+    death: "SE|795.02.06",
     // — 성향
     faction: "FPA",
     idea: "",
@@ -14456,7 +14448,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000374",
     name: [{ code: "Kr", context: "제페르트" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "제페르트" }],
     searchKeys: [],
     birth: "",
     death: "",
@@ -15337,7 +15329,7 @@ export const CHAR_BASE = [
       { code: "En", context: "Chung Wu-Cheng" },
       { code: "Jp", context: "チュン・ウー・チェン" },
     ],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "지엔" }],
     searchKeys: [
       "춘우",
       "지엔",
@@ -15441,7 +15433,7 @@ export const CHAR_BASE = [
       { code: "Kr", context: "카르나프" },
       { code: "En", context: "Carnap" },
     ],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "카르나프" }],
     searchKeys: [],
     birth: "",
     death: "",
@@ -15476,7 +15468,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000399",
     name: [{ code: "Kr", context: "카르나프" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "카르나프" }],
     searchKeys: [],
     birth: "",
     death: "",
@@ -15890,7 +15882,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000410",
     name: [{ code: "Kr", context: "칼 로베르토 슈타인메츠" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "슈타인메츠" }],
     searchKeys: [],
     birth: "",
     death: "",
@@ -20850,11 +20842,12 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  // 헬더 Herder · ヘルダー
   {
     // — 기본
     code: "CH_000544",
-    name: [{ code: "Kr", context: "헬더" }],
-    nick: [{ code: "Kr", context: "" }],
+    name: [{ code: "Kr", context: "허버트 헬더" }],
+    nick: [{ code: "Kr", context: "헬더" }],
     searchKeys: [],
     birth: "",
     death: "",
@@ -20880,7 +20873,8 @@ export const CHAR_BASE = [
     loc: "",
     point: "0",
     recommend: 0,
-    desc: [{ code: "Kr", context: "" }],
+    desc: [{ code: "Kr", context: `외전 백은계곡에 등장.
+      은하제국 소속의 군인. ` }],
     // 카프체란카 주둔기지의 대령.
     // — 직업
     // — 트레잇
@@ -21968,7 +21962,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000569",
     name: [{ code: "Kr", context: "헬더" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "헬더" }],
     searchKeys: [],
     birth: "",
     death: "",
@@ -22003,7 +21997,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000570",
     name: [{ code: "Kr", context: "호징거" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "호징거" }],
     searchKeys: [],
     birth: "",
     death: "",
@@ -22038,7 +22032,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000571",
     name: [{ code: "Kr", context: "호덴" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "호덴" }],
     searchKeys: [],
     birth: "",
     death: "",
@@ -22073,7 +22067,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000572",
     name: [{ code: "Kr", context: "올렌부르크" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "올렌부르크" }],
     searchKeys: [],
     birth: "",
     death: "",

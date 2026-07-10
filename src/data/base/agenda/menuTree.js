@@ -22,13 +22,13 @@ export const MENU_TREES = {
       ],
     },
     {
-      id: "",
+      id: "nation_summary",
       label: "주요 정보",
       type: "group",
       items: [
-        { id: "nation_post",  label: "인물",     modal: "" },
-        { id: "nation_post",  label: "함대",     modal: "" },
-        { id: "nation_post",  label: "성계",     modal: "" },
+        { id: "nation_char",  label: "인물", modal: "charList"  },
+        { id: "nation_fleet", label: "함대", modal: "fleetInfo" },
+        { id: "nation_star",  label: "성계", modal: "starList"  },
       ],
     },
     {
