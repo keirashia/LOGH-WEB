@@ -3,7 +3,6 @@
 
     <!-- 헤더 -->
     <div class="tac-header">
-      <div class="tac-title serif">전술전투</div>
       <div class="tac-info">
         <span class="date-badge serif">{{ battleDate }}</span>
         <span :class="['phase-badge', store.phase]">{{ phaseLabel }}</span>
@@ -12,6 +11,12 @@
         </span>
       </div>
       <div v-if="store.phase === 'ai'" class="ai-label">AI 행동 중…</div>
+      <!-- 격자 토글 -->
+      <button :class="['btn', 'grid-toggle-btn', showGrid ? 'btn-gold' : '']"
+              @click="showGrid = !showGrid"
+              title="격자선 표시/숨김">
+        <span class="grid-icon">⊞</span>
+      </button>
       <!-- 로그 토글 -->
       <button class="btn log-toggle-btn" @click="logOpen = !logOpen">
         전투 기록 {{ logOpen ? '▲' : '▼' }}
@@ -38,8 +43,13 @@
         </div>
       </transition>
 
+      <!-- 좌측 패널 토글 버튼 -->
+      <button class="left-panel-toggle" @click="showLeftPanel = !showLeftPanel">
+        {{ showLeftPanel ? '◀' : '▶' }}
+      </button>
+
       <!-- 좌측 패널 -->
-      <div class="tac-left">
+      <div v-show="showLeftPanel" class="tac-left">
         <!-- 미니맵 (최상단) -->
         <div class="mini-wrap panel">
           <div class="mini-title">전술 현황</div>
@@ -54,7 +64,7 @@
             <div class="sp-gauge-red"   :style="{ width: shipRatio('REH') + '%' }"></div>
             <div class="sp-gauge-blue"  :style="{ width: shipRatio('FPA') + '%' }"></div>
           </div>
-          <div v-for="grp in store.unitGroups" :key="grp.faction" class="sp-row">
+          <div v-for="grp in store.visibleUnitGroups" :key="grp.faction" class="sp-row">
             <span class="sp-name" :class="`fc-${grp.faction}`">{{ factionShort(grp.faction) }}</span>
             <span class="sp-count">{{ grp.ships.toLocaleString() }}척</span>
           </div>
@@ -62,45 +72,63 @@
 
         <template v-if="store.selectedFlagship">
           <div class="panel unit-panel">
+            <!-- 함대명 -->
             <div class="unit-name serif">{{ store.selectedFlagship.fleetName }}</div>
-            <div class="unit-faction" :class="`fc-${store.selectedFlagship.faction}`">
-              {{ factionLabel(store.selectedFlagship.faction) }}
+            <div class="unit-faction-row">
+              <span class="unit-faction" :class="`fc-${store.selectedFlagship.faction}`">
+                {{ factionLabel(store.selectedFlagship.faction) }}
+              </span>
+              <span class="unit-move-badge" :class="store.selectedFlagship.moved ? 'done' : 'ready'">
+                {{ store.selectedFlagship.moved ? '완료' : '가능' }}
+              </span>
             </div>
 
-            <div class="stat-rows">
-              <div class="stat-row">
-                <span class="sl">BU 수</span>
-                <span class="sv">{{ store.unitsOfFleet(store.selectedFleet).length }}부대</span>
+            <div class="panel-divider"></div>
+
+            <!-- 기본 정보 -->
+            <div class="info-rows">
+              <div class="info-row">
+                <span class="ir-label">총 함선</span>
+                <span class="ir-value">{{ totalShips.toLocaleString() }}척</span>
               </div>
-              <div class="stat-row">
-                <span class="sl">총 함선</span>
-                <span class="sv">{{ totalShips.toLocaleString() }}척</span>
+              <div class="info-row">
+                <span class="ir-label">부대 수</span>
+                <span class="ir-value">{{ store.unitsOfFleet(store.selectedFleet).length }}부대</span>
+              </div>
+              <div class="info-row">
+                <span class="ir-label">사기</span>
+                <span class="ir-value" :style="{ color: moraleColor(store.selectedFlagship.morale) }">
+                  {{ store.selectedFlagship.morale }}
+                </span>
               </div>
               <div class="morale-bar">
                 <div class="morale-fill" :style="{ width: store.selectedFlagship.morale + '%', background: moraleColor(store.selectedFlagship.morale) }"></div>
               </div>
-              <div class="stat-row">
-                <span class="sl">사기</span>
-                <span class="sv">{{ store.selectedFlagship.morale }}</span>
-              </div>
-              <div class="stat-row">
-                <span class="sl">이동</span>
-                <span class="sv">{{ store.selectedFlagship.moved ? '완료' : '가능' }}</span>
+              <div class="info-row">
+                <span class="ir-label">진형</span>
+                <span class="ir-value ir-gold">{{ FORMATIONS[store.selectedFlagship.formation]?.name ?? '—' }}</span>
               </div>
             </div>
 
-            <div v-if="selectedCommander" class="commander-row">
-              <div class="c-info">
-                <div class="c-name">{{ selectedCommander.name }}</div>
-                <div class="c-rank">지휘 {{ selectedCommander.statCmd }}</div>
+            <div class="panel-divider"></div>
+
+            <!-- 함대 능력치 -->
+            <div class="stats-section-title">함대 능력치</div>
+            <div v-if="selectedCommander" class="fleet-stats">
+              <div v-for="[label, key] in fleetStatDefs" :key="key" class="fs-row">
+                <span class="fs-label">{{ label }}</span>
+                <div class="fs-bar-wrap">
+                  <div class="fs-bar" :style="{ width: Math.min(100, selectedCommander[key] ?? 0) + '%' }"></div>
+                </div>
+                <span class="fs-val">{{ selectedCommander[key] ?? '—' }}</span>
               </div>
             </div>
+            <div v-else class="no-cmd-txt">능력치 정보 없음</div>
 
-            <div class="fm-title">현재 진형</div>
-            <div class="fm-current">{{ FORMATIONS[store.selectedFlagship.formation]?.name ?? '—' }}</div>
-            <div v-if="curFm" class="fm-desc">
-              공격 ×{{ curFm.offMod.toFixed(2) }} &nbsp; 방어 ×{{ curFm.defMod.toFixed(2) }}<br/>
-              사거리 ±{{ curFm.rangeMod >= 0 ? '+':'' }}{{ curFm.rangeMod }} &nbsp; 속도 ×{{ curFm.speedMod.toFixed(1) }}
+            <!-- 사령관 -->
+            <div v-if="selectedCommander" class="cmd-line">
+              <span class="cmd-label">사령관</span>
+              <span class="cmd-name serif">{{ selectedCommander.nameKr }}</span>
             </div>
 
             <button
@@ -127,10 +155,19 @@
           @mousedown="onMouseDown"
           @mousemove="onMouseMove"
           @mouseup="onMouseUp"
-          @mouseleave="onMouseUp"
+          @mouseleave="onMouseLeave"
+          @wheel.prevent="onWheel"
+          @touchstart.prevent="onTouchStart"
+          @touchmove.prevent="onTouchMove"
+          @touchend="onTouchEnd"
         />
         <!-- 카메라 힌트 -->
-        <div class="cam-hint">WASD / 드래그: 카메라 이동</div>
+        <div class="cam-hint">WASD / 좌클릭 드래그: 이동 &nbsp;|&nbsp; 휠 / PgUp/Dn: 줌</div>
+        <!-- 마우스 위치 + 줌 -->
+        <div class="tile-coord">
+          <template v-if="hoverTile">X:{{ hoverTile.x }} &nbsp; Y:{{ hoverTile.y }} &nbsp; [{{ hoverTerrainLabel }}] &nbsp;|&nbsp;</template>
+          {{ Math.round(zoom * 100) }}%
+        </div>
       </div>
 
     </div>
@@ -188,21 +225,40 @@ import { useRouter } from 'vue-router'
 import { useTacticalStore } from '@/stores/tacticalStore'
 import { useGameStore }     from '@/stores/gameStore'
 import { FORMATIONS, TERRAIN, TILE_PX } from '@/data/base/tactical/tacticalData'
-import { CHARACTERS, FACTIONS } from '@/data/masterData'
+import { CHARACTERS_MAP, FACTIONS } from '@/data/masterData'
 
 const router = useRouter()
 const store  = useTacticalStore()
 const game   = useGameStore()
 
 // ── refs ─────────────────────────────────────────────────────
-const mapWrap    = ref(null)
-const mainCanvas = ref(null)
-const miniCanvas = ref(null)
-const logOpen    = ref(false)
+const mapWrap       = ref(null)
+const mainCanvas    = ref(null)
+const miniCanvas    = ref(null)
+const logOpen       = ref(false)
+const showLeftPanel = ref(true)
+const showGrid      = ref(true)
+const hoverTile     = ref(null)   // { x, y } — 마우스 커서 타일 좌표
 
-// ── 카메라 ───────────────────────────────────────────────────
-const cam = ref({ x: 0, y: 0 })     // 뷰포트 픽셀 오프셋
-let drag = null                       // { startX, startY, camX, camY }
+// ── 카메라 + 줌 ─────────────────────────────────────────────
+const cam     = ref({ x: 0, y: 0 })   // 뷰포트 픽셀 오프셋 (줌 적용 공간)
+const zoom    = ref(0.25)              // 현재 줌 배율
+const ZOOM_MIN = 0.1
+const ZOOM_MAX = 4.0
+let drag    = null
+let didDrag = false
+let pinchDist = null
+
+function applyZoom(factor, mx, my) {
+  const oldZ = zoom.value
+  const newZ = Math.max(ZOOM_MIN, Math.min(ZOOM_MAX, oldZ * factor))
+  if (newZ === oldZ) return
+  const ratio = newZ / oldZ
+  cam.value.x = (cam.value.x + mx) * ratio - mx
+  cam.value.y = (cam.value.y + my) * ratio - my
+  zoom.value = newZ
+  clampCam()
+}
 
 // ── rAF ──────────────────────────────────────────────────────
 let rafId = null
@@ -223,9 +279,9 @@ function factionShort(id) { return FACTION_SHORT[id] ?? factionLabel(id) }
 
 
 function shipRatio(factionId) {
-  const total = store.unitGroups.reduce((s, g) => s + g.ships, 0)
+  const total = store.visibleUnitGroups.reduce((s, g) => s + g.ships, 0)
   if (!total) return 0
-  const grp = store.unitGroups.find(g => g.faction === factionId)
+  const grp = store.visibleUnitGroups.find(g => g.faction === factionId)
   return grp ? Math.round(grp.ships / total * 100) : 0
 }
 
@@ -241,10 +297,22 @@ function logClass(e) {
 const phaseLabel = computed(() => ({ player:'🎮 플레이어 페이즈', ai:'🤖 AI 페이즈', result:'⚔️ 전투 결과' }[store.phase] || ''))
 const defFaction = computed(() => store.context?.defenderFleets?.[0]?.faction || '')
 const isPlayerWin = computed(() => store.result?.winner === store.playerFaction)
-const curFm = computed(() => store.selectedFlagship ? FORMATIONS[store.selectedFlagship.formation] : null)
+const fleetStatDefs = [
+  ['지휘', 'statCmd'],
+  ['통솔', 'statCsm'],
+  ['공격', 'statAtt'],
+  ['방어', 'statDef'],
+  ['기동', 'statFst'],
+]
 const selectedCommander = computed(() => {
   const code = store.selectedFlagship?.commander
-  return code ? CHARACTERS[code] : null
+  if (!code) return null
+  const ch = CHARACTERS_MAP[code]
+  if (!ch) return null
+  const nameKr = Array.isArray(ch.name)
+    ? (ch.name.find(n => n.code === 'Kr')?.context ?? ch.name[0]?.context ?? '')
+    : (ch.name ?? '')
+  return { ...ch, nameKr }
 })
 const totalShips = computed(() => {
   if (!store.selectedFleet) return 0
@@ -259,6 +327,13 @@ const battleDate = computed(() => {
   return `우주력 ${y}년 ${m}월 ${d}일 ${hStr}시`
 })
 const endBtnCls = computed(() => ({ REH:'btn-red', FPA:'btn-blue', PZN:'btn-green' }[store.playerFaction ?? 'REH']))
+
+const TERRAIN_LABEL = { SPACE: '우주', NEBULA: '성운', ASTEROID: '소행성', PLANET: '행성' }
+const hoverTerrainLabel = computed(() => {
+  if (!hoverTile.value) return ''
+  const tile = store.tileAt?.(hoverTile.value.x, hoverTile.value.y)
+  return TERRAIN_LABEL[tile?.terrain] ?? tile?.terrain ?? '-'
+})
 
 // ── 픽셀 보간 업데이트 ───────────────────────────────────────
 function updateAnimation() {
@@ -290,49 +365,52 @@ function render() {
   const mapH = store.map.height
   const camX = cam.value.x
   const camY = cam.value.y
+  const tpx  = TILE_PX * zoom.value    // 현재 줌 적용 타일 픽셀 크기
 
   ctx.clearRect(0, 0, W, H)
 
   // 가시 타일 범위
-  const tx0 = Math.max(0, Math.floor(camX / TILE_PX))
-  const ty0 = Math.max(0, Math.floor(camY / TILE_PX))
-  const tx1 = Math.min(mapW - 1, Math.ceil((camX + W) / TILE_PX))
-  const ty1 = Math.min(mapH - 1, Math.ceil((camY + H) / TILE_PX))
+  const tx0 = Math.max(0, Math.floor(camX / tpx))
+  const ty0 = Math.max(0, Math.floor(camY / tpx))
+  const tx1 = Math.min(mapW - 1, Math.ceil((camX + W) / tpx))
+  const ty1 = Math.min(mapH - 1, Math.ceil((camY + H) / tpx))
 
   // 지형 그리기
   for (let ty = ty0; ty <= ty1; ty++) {
     for (let tx = tx0; tx <= tx1; tx++) {
       const tile = store.tileAt(tx, ty)
-      const sx = tx * TILE_PX - camX
-      const sy = ty * TILE_PX - camY
+      const sx = tx * tpx - camX
+      const sy = ty * tpx - camY
       ctx.fillStyle = TERRAIN_COLOR[tile.terrain] ?? TERRAIN_COLOR.SPACE
-      ctx.fillRect(sx, sy, TILE_PX, TILE_PX)
+      ctx.fillRect(sx, sy, tpx, tpx)
       // 격자선
-      ctx.strokeStyle = '#0d1117'
-      ctx.lineWidth = 0.5
-      ctx.strokeRect(sx, sy, TILE_PX, TILE_PX)
+      if (showGrid.value && tpx >= 4) {
+        ctx.strokeStyle = 'rgba(255,255,255,0.12)'
+        ctx.lineWidth = 0.5
+        ctx.strokeRect(sx, sy, tpx, tpx)
+      }
       // 소행성 텍스처
-      if (tile.terrain === 'ASTEROID') {
+      if (tile.terrain === 'ASTEROID' && tpx >= 12) {
         ctx.fillStyle = '#2a2a22'
-        ctx.font = '10px serif'
+        ctx.font = `${Math.max(8, tpx * 0.35)}px serif`
         ctx.textAlign = 'center'
-        ctx.fillText('✦', sx + TILE_PX/2, sy + TILE_PX/2 + 4)
+        ctx.fillText('✦', sx + tpx/2, sy + tpx/2 + 4)
       }
       // 성운 텍스처
       if (tile.terrain === 'NEBULA') {
         ctx.fillStyle = 'rgba(100,50,180,0.15)'
-        ctx.fillRect(sx + 2, sy + 2, TILE_PX - 4, TILE_PX - 4)
+        ctx.fillRect(sx + 2, sy + 2, tpx - 4, tpx - 4)
       }
     }
   }
 
-  // Fog of War 오버레이 (시야 밖 타일 어둡게)
+  // Fog of War 오버레이
   if (store.fowEnabled) {
     ctx.fillStyle = 'rgba(0,0,0,0.62)'
     for (let ty = ty0; ty <= ty1; ty++) {
       for (let tx = tx0; tx <= tx1; tx++) {
         if (!store.isTileVisible(tx, ty)) {
-          ctx.fillRect(tx * TILE_PX - camX, ty * TILE_PX - camY, TILE_PX, TILE_PX)
+          ctx.fillRect(tx * tpx - camX, ty * tpx - camY, tpx, tpx)
         }
       }
     }
@@ -343,28 +421,30 @@ function render() {
   ctx.strokeStyle = '#4488ff'
   ctx.lineWidth = 1.5
   for (const c of store.movableCells) {
-    const sx = c.x * TILE_PX - camX, sy = c.y * TILE_PX - camY
-    if (sx + TILE_PX < 0 || sx > W || sy + TILE_PX < 0 || sy > H) continue
-    ctx.fillRect(sx+1, sy+1, TILE_PX-2, TILE_PX-2)
-    ctx.strokeRect(sx+1, sy+1, TILE_PX-2, TILE_PX-2)
+    const sx = c.x * tpx - camX, sy = c.y * tpx - camY
+    if (sx + tpx < 0 || sx > W || sy + tpx < 0 || sy > H) continue
+    ctx.fillRect(sx+1, sy+1, tpx-2, tpx-2)
+    ctx.strokeRect(sx+1, sy+1, tpx-2, tpx-2)
   }
 
   // 공격 가능 하이라이트
   ctx.fillStyle = 'rgba(255,60,60,0.18)'
   ctx.strokeStyle = '#ff4444'
   for (const c of store.attackableCells) {
-    const sx = c.x * TILE_PX - camX, sy = c.y * TILE_PX - camY
-    if (sx + TILE_PX < 0 || sx > W || sy + TILE_PX < 0 || sy > H) continue
-    ctx.fillRect(sx+1, sy+1, TILE_PX-2, TILE_PX-2)
-    ctx.strokeRect(sx+1, sy+1, TILE_PX-2, TILE_PX-2)
+    const sx = c.x * tpx - camX, sy = c.y * tpx - camY
+    if (sx + tpx < 0 || sx > W || sy + tpx < 0 || sy > H) continue
+    ctx.fillRect(sx+1, sy+1, tpx-2, tpx-2)
+    ctx.strokeRect(sx+1, sy+1, tpx-2, tpx-2)
   }
 
   // 유닛 그리기
   ctx.textAlign = 'center'
   for (const u of store.units) {
-    if (!store.isUnitVisible(u)) continue   // FOW — 시야 밖 적 유닛 숨김
-    const sx = u.px - camX, sy = u.py - camY
-    if (sx + TILE_PX < 0 || sx > W || sy + TILE_PX < 0 || sy > H) continue
+    if (!store.isUnitVisible(u)) continue
+    // u.px 는 TILE_PX 기준 픽셀 좌표 → zoom 보정
+    const sx = (u.px / TILE_PX) * tpx - camX
+    const sy = (u.py / TILE_PX) * tpx - camY
+    if (sx + tpx < 0 || sx > W || sy + tpx < 0 || sy > H) continue
 
     const isSelected = u.fleetCode === store.selectedFleet
     const fc = FACTION_COLOR[u.faction] ?? '#888'
@@ -374,46 +454,46 @@ function render() {
     if (isSelected) {
       ctx.strokeStyle = 'gold'
       ctx.lineWidth = 2
-      ctx.strokeRect(sx - 1, sy - 1, TILE_PX + 2, TILE_PX + 2)
+      ctx.strokeRect(sx - 1, sy - 1, tpx + 2, tpx + 2)
     }
 
     // 본체
     ctx.fillStyle = fbg
     ctx.beginPath()
-    ctx.roundRect(sx + 2, sy + 2, TILE_PX - 4, TILE_PX - 4, 4)
+    ctx.roundRect(sx + 2, sy + 2, tpx - 4, tpx - 4, 4)
     ctx.fill()
     ctx.strokeStyle = fc
     ctx.lineWidth = 1.5
     ctx.stroke()
 
-    // 기함 별표
-    if (u.role === 'flagship') {
-      ctx.fillStyle = 'rgba(255,220,50,0.9)'
-      ctx.font = 'bold 9px sans-serif'
-      ctx.fillText('★', sx + TILE_PX - 8, sy + 10)
+    if (tpx >= 10) {
+      // 기함 별표
+      if (u.role === 'flagship') {
+        ctx.fillStyle = 'rgba(255,220,50,0.9)'
+        ctx.font = `bold ${Math.max(7, tpx * 0.28)}px sans-serif`
+        ctx.fillText('★', sx + tpx - 8, sy + 10)
+      }
+      // 레이블 (함대명 앞 2자)
+      ctx.fillStyle = '#fff'
+      ctx.font = `bold ${Math.max(7, tpx * 0.28)}px serif`
+      ctx.fillText(u.fleetName.slice(0, 2), sx + tpx/2, sy + tpx/2 - 2)
+      // 함선 수
+      ctx.fillStyle = '#ddd'
+      ctx.font = `${Math.max(6, tpx * 0.24)}px monospace`
+      ctx.fillText(fmtShips(u.ships), sx + tpx/2, sy + tpx/2 + tpx * 0.28)
     }
 
-    // 레이블 (함대명 앞 2자)
-    ctx.fillStyle = '#fff'
-    ctx.font = 'bold 9px serif'
-    ctx.fillText(u.fleetName.slice(0, 2), sx + TILE_PX/2, sy + TILE_PX/2 - 2)
-
-    // 함선 수
-    ctx.fillStyle = '#ddd'
-    ctx.font = '8px monospace'
-    ctx.fillText(fmtShips(u.ships), sx + TILE_PX/2, sy + TILE_PX/2 + 9)
-
     // 사기 바
-    const barW = TILE_PX - 8
+    const barW = Math.max(2, tpx - 8)
     ctx.fillStyle = '#111'
-    ctx.fillRect(sx + 4, sy + TILE_PX - 7, barW, 3)
+    ctx.fillRect(sx + 4, sy + tpx - 6, barW, 3)
     ctx.fillStyle = moraleColor(u.morale)
-    ctx.fillRect(sx + 4, sy + TILE_PX - 7, Math.max(0, barW * u.morale / 100), 3)
+    ctx.fillRect(sx + 4, sy + tpx - 6, Math.max(0, barW * u.morale / 100), 3)
 
     // 이동/공격 완료 표시
     if (u.role === 'flagship' && u.moved && u.attacked) {
       ctx.fillStyle = 'rgba(0,0,0,0.4)'
-      ctx.fillRect(sx + 2, sy + 2, TILE_PX - 4, TILE_PX - 4)
+      ctx.fillRect(sx + 2, sy + 2, tpx - 4, tpx - 4)
     }
   }
 
@@ -421,7 +501,7 @@ function render() {
   ctx.strokeStyle = 'rgba(30,50,70,0.7)'
   ctx.lineWidth = 1
   ctx.setLineDash([4, 4])
-  const sep1x = 3 * TILE_PX - camX, sep2x = (mapW - 3) * TILE_PX - camX
+  const sep1x = 3 * tpx - camX, sep2x = (mapW - 3) * tpx - camX
   ctx.beginPath(); ctx.moveTo(sep1x, 0); ctx.lineTo(sep1x, H); ctx.stroke()
   ctx.beginPath(); ctx.moveTo(sep2x, 0); ctx.lineTo(sep2x, H); ctx.stroke()
   ctx.setLineDash([])
@@ -448,8 +528,9 @@ function renderMinimap() {
     ctx.fillRect(tile.x * px, tile.y * py, Math.max(1, px), Math.max(1, py))
   }
 
-  // 유닛
+  // 유닛 (FOW ON 시 탐지된 유닛만)
   for (const u of store.units) {
+    if (!store.isUnitVisible(u)) continue
     ctx.fillStyle = FACTION_COLOR[u.faction] ?? '#888'
     ctx.fillRect(u.x * px - 1, u.y * py - 1, Math.max(2, px + 1), Math.max(2, py + 1))
   }
@@ -457,10 +538,11 @@ function renderMinimap() {
   // 뷰포트 rect
   const canvas = mainCanvas.value
   if (canvas) {
-    const vx = cam.value.x / TILE_PX * px
-    const vy = cam.value.y / TILE_PX * py
-    const vw = (canvas.width  / TILE_PX) * px
-    const vh = (canvas.height / TILE_PX) * py
+    const tpx = TILE_PX * zoom.value
+    const vx = cam.value.x / tpx * px
+    const vy = cam.value.y / tpx * py
+    const vw = (canvas.width  / tpx) * px
+    const vh = (canvas.height / tpx) * py
     ctx.strokeStyle = 'rgba(255,255,255,0.6)'
     ctx.lineWidth = 1
     ctx.strokeRect(vx, vy, vw, vh)
@@ -485,9 +567,10 @@ function resizeCanvas() {
 
 // ── 좌표 변환 ────────────────────────────────────────────────
 function canvasToTile(cx, cy) {
+  const tpx = TILE_PX * zoom.value
   return {
-    tx: Math.floor((cx + cam.value.x) / TILE_PX),
-    ty: Math.floor((cy + cam.value.y) / TILE_PX),
+    tx: Math.floor((cx + cam.value.x) / tpx),
+    ty: Math.floor((cy + cam.value.y) / tpx),
   }
 }
 
@@ -495,8 +578,9 @@ function clampCam() {
   const canvas  = mainCanvas.value
   const mapW    = store.map.width
   const mapH    = store.map.height
-  const fullW   = mapW * TILE_PX
-  const fullH   = mapH * TILE_PX
+  const tpx     = TILE_PX * zoom.value
+  const fullW   = mapW * tpx
+  const fullH   = mapH * tpx
   const maxX    = Math.max(0, fullW  - (canvas?.width  ?? fullW))
   const maxY    = Math.max(0, fullH  - (canvas?.height ?? fullH))
   cam.value.x = Math.max(0, Math.min(cam.value.x, maxX))
@@ -505,7 +589,7 @@ function clampCam() {
 
 // ── 클릭 ─────────────────────────────────────────────────────
 function onCanvasClick(e) {
-  if (store.animating) return
+  if (store.animating || didDrag) { didDrag = false; return }
   const rect = mainCanvas.value.getBoundingClientRect()
   const { tx, ty } = canvasToTile(e.clientX - rect.left, e.clientY - rect.top)
 
@@ -549,23 +633,68 @@ function onMiniClick(e) {
   const mx   = (e.clientX - rect.left) / mc.width  * store.map.width
   const my   = (e.clientY - rect.top)  / mc.height * store.map.height
   const canvas = mainCanvas.value
-  cam.value.x = mx * TILE_PX - (canvas?.width ?? 0) / 2
-  cam.value.y = my * TILE_PX - (canvas?.height ?? 0) / 2
+  const tpx = TILE_PX * zoom.value
+  cam.value.x = mx * tpx - (canvas?.width ?? 0) / 2
+  cam.value.y = my * tpx - (canvas?.height ?? 0) / 2
   clampCam()
 }
 
-// ── 드래그 패닝 ──────────────────────────────────────────────
+// ── 드래그 패닝 (좌클릭) ─────────────────────────────────────
 function onMouseDown(e) {
-  if (e.button !== 1 && e.button !== 2) return   // 중간 or 우클릭만 드래그
+  if (e.button !== 0) return
   drag = { startX: e.clientX, startY: e.clientY, camX: cam.value.x, camY: cam.value.y }
+  didDrag = false
 }
 function onMouseMove(e) {
+  // 호버 타일 갱신 (zoom 반영 — canvasToTile 재사용)
+  if (mainCanvas.value) {
+    const rect = mainCanvas.value.getBoundingClientRect()
+    const { tx, ty } = canvasToTile(e.clientX - rect.left, e.clientY - rect.top)
+    hoverTile.value = { x: tx, y: ty }
+  }
   if (!drag) return
-  cam.value.x = drag.camX - (e.clientX - drag.startX)
-  cam.value.y = drag.camY - (e.clientY - drag.startY)
-  clampCam()
+  const dx = e.clientX - drag.startX
+  const dy = e.clientY - drag.startY
+  if (!didDrag && (Math.abs(dx) > 4 || Math.abs(dy) > 4)) didDrag = true
+  if (didDrag) {
+    cam.value.x = drag.camX - dx
+    cam.value.y = drag.camY - dy
+    clampCam()
+  }
 }
 function onMouseUp() { drag = null }
+function onMouseLeave() { drag = null; hoverTile.value = null }
+
+// ── 마우스 휠 줌 ──────────────────────────────────────────────
+function onWheel(e) {
+  e.preventDefault()
+  const rect = mainCanvas.value.getBoundingClientRect()
+  applyZoom(e.deltaY < 0 ? 1.15 : 1 / 1.15, e.clientX - rect.left, e.clientY - rect.top)
+}
+
+// ── 터치 핀치 줌 ──────────────────────────────────────────────
+function onTouchStart(e) {
+  if (e.touches.length === 2) {
+    pinchDist = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    )
+  }
+}
+function onTouchMove(e) {
+  if (e.touches.length !== 2 || pinchDist === null) return
+  e.preventDefault()
+  const dist = Math.hypot(
+    e.touches[0].clientX - e.touches[1].clientX,
+    e.touches[0].clientY - e.touches[1].clientY
+  )
+  const rect = mainCanvas.value.getBoundingClientRect()
+  const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left
+  const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top
+  applyZoom(dist / pinchDist, cx, cy)
+  pinchDist = dist
+}
+function onTouchEnd() { pinchDist = null }
 
 // ── 액션 버튼 ────────────────────────────────────────────────
 function autoAttack() {
@@ -583,8 +712,10 @@ function onEndTurnClick() {
 // ── 키보드 ───────────────────────────────────────────────────
 const CAM_STEP = TILE_PX * 3
 function onKey(e) {
-  if (e.key === ' ')      { e.preventDefault(); if (store.phase === 'player') store.endPlayerTurn() }
-  if (e.key === 'Escape') store.deselect()
+  if (e.key === ' ')        { e.preventDefault(); if (store.phase === 'player') store.endPlayerTurn() }
+  if (e.key === 'Escape')   store.deselect()
+  if (e.key === 'PageUp')   { e.preventDefault(); const c = mainCanvas.value; applyZoom(1.2, (c?.width??0)/2, (c?.height??0)/2) }
+  if (e.key === 'PageDown') { e.preventDefault(); const c = mainCanvas.value; applyZoom(1/1.2, (c?.width??0)/2, (c?.height??0)/2) }
   if (e.key === 'w' || e.key === 'ArrowUp')    { cam.value.y -= CAM_STEP; clampCam() }
   if (e.key === 's' || e.key === 'ArrowDown')  { cam.value.y += CAM_STEP; clampCam() }
   if (e.key === 'a' || e.key === 'ArrowLeft')  { cam.value.x -= CAM_STEP; clampCam() }
@@ -607,8 +738,9 @@ function onPopState() {
 const resizeObserver = new ResizeObserver(() => { resizeCanvas(); clampCam() })
 
 onMounted(() => {
-  if (game._pendingBattles.length && !store.active) {
-    store.initBattle(game._pendingBattles[0])
+  if (game._pendingBattles.length) {
+    const ctx = game._pendingBattles[0]
+    if (store.context !== ctx) store.initBattle(ctx)
   }
 
   resizeCanvas()
@@ -671,6 +803,9 @@ function returnToCampaign() { finishTacticalSession(false) }
 .phase-badge.result { background: rgba(218,165,32,0.18); border: 1px solid var(--tg); color: var(--tg); }
 .battle-label { font-size: 11px; color: var(--td); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ai-label     { font-size: 12px; color: #e88; white-space: nowrap; animation: pulse 1s infinite; }
+.grid-toggle-btn { font-size: 15px; padding: 2px 8px; white-space: nowrap; flex-shrink: 0; line-height: 1; }
+.grid-toggle-btn:not(.btn-gold) { opacity: 0.45; }
+.grid-icon { font-style: normal; }
 .log-toggle-btn { font-size: 11px; padding: 4px 9px; white-space: nowrap; flex-shrink: 0; }
 .fow-toggle-btn { font-size: 11px; padding: 4px 9px; white-space: nowrap; flex-shrink: 0; opacity: 0.85; }
 
@@ -702,20 +837,45 @@ function returnToCampaign() { finishTacticalSession(false) }
   border-right: 1px solid var(--bd);
 }
 .unit-panel   { padding: 11px; }
-.unit-name    { font-size: 13px; font-weight: bold; letter-spacing: 1px; }
-.unit-faction { font-size: 11px; margin: 2px 0 6px; opacity: 0.7; }
-.stat-rows    { display: flex; flex-direction: column; gap: 3px; margin-bottom: 6px; }
-.stat-row     { display: flex; justify-content: space-between; font-size: 11px; }
-.sl           { color: var(--td); }
-.sv           { color: var(--t1); }
-.morale-bar   { height: 4px; background: #1a1a2e; border-radius: 3px; overflow: hidden; margin: 2px 0; }
-.morale-fill  { height: 100%; border-radius: 3px; transition: width .3s; }
-.commander-row { background: var(--bg3); border-radius: 5px; padding: 5px 8px; margin-bottom: 6px; }
-.c-name { font-size: 12px; font-weight: bold; }
-.c-rank { font-size: 10px; color: var(--td); }
-.fm-title   { font-size: 10px; color: var(--td); margin: 3px 0 2px; }
-.fm-current { font-size: 12px; font-weight: bold; color: var(--tg); margin-bottom: 3px; font-family: var(--font-serif); }
-.fm-desc    { font-size: 10px; line-height: 1.5; color: var(--td); background: var(--bg3); border-radius: 4px; padding: 4px 6px; }
+.unit-name    { font-size: 13px; font-weight: bold; letter-spacing: 1px; margin-bottom: 3px; }
+.unit-faction-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.unit-faction { font-size: 11px; opacity: 0.75; }
+.unit-move-badge {
+  font-size: 9px; padding: 1px 5px; border-radius: 3px;
+  font-family: var(--font-mono); letter-spacing: .3px;
+}
+.unit-move-badge.ready { background: rgba(39,174,96,.18); color: #4bc87a; border: 1px solid rgba(39,174,96,.3); }
+.unit-move-badge.done  { background: rgba(80,80,80,.18); color: var(--td); border: 1px solid rgba(120,120,120,.2); }
+
+.panel-divider { height: 1px; background: var(--bd); margin: 6px 0; }
+
+/* 기본 정보 */
+.info-rows  { display: flex; flex-direction: column; gap: 3px; margin-bottom: 2px; }
+.info-row   { display: flex; justify-content: space-between; align-items: center; font-size: 11px; }
+.ir-label   { color: var(--td); }
+.ir-value   { color: var(--t1); font-family: var(--font-mono); font-size: 10px; }
+.ir-gold    { color: var(--tg); font-family: var(--font-serif); font-size: 11px; }
+.morale-bar { height: 3px; background: #1a1a2e; border-radius: 3px; overflow: hidden; margin: 1px 0 3px; }
+.morale-fill { height: 100%; border-radius: 3px; transition: width .3s; }
+
+/* 함대 능력치 */
+.stats-section-title {
+  font-size: 10px; color: var(--td); letter-spacing: .5px;
+  margin: 2px 0 5px;
+}
+.fleet-stats { display: flex; flex-direction: column; gap: 4px; margin-bottom: 6px; }
+.fs-row     { display: flex; align-items: center; gap: 4px; }
+.fs-label   { width: 24px; font-size: 10px; color: var(--td); flex-shrink: 0; font-family: var(--font-serif); }
+.fs-bar-wrap { flex: 1; height: 4px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+.fs-bar     { height: 100%; background: var(--tg); border-radius: 2px; transition: width .3s; }
+.fs-val     { width: 20px; font-size: 10px; color: var(--t2); text-align: right; font-family: var(--font-mono); flex-shrink: 0; }
+
+/* 사령관 */
+.cmd-line   { display: flex; align-items: baseline; gap: 5px; margin-top: 4px; padding: 4px 6px; background: var(--bg3); border-radius: 4px; }
+.cmd-label  { font-size: 9px; color: var(--td); flex-shrink: 0; }
+.cmd-name   { font-size: 12px; font-weight: bold; color: var(--t1); }
+.no-cmd-txt { font-size: 10px; color: var(--td); text-align: center; margin-bottom: 6px; }
+
 .hint-btn   { width: 100%; margin-top: 6px; font-size: 11px; }
 .no-sel     { min-height: 100px; display: flex; align-items: center; justify-content: center; }
 .no-sel-txt { text-align: center; color: var(--td); font-size: 11px; line-height: 1.8; }
@@ -746,7 +906,19 @@ function returnToCampaign() { finishTacticalSession(false) }
 /* ── 중앙 Canvas ─────────────────────────────────────────── */
 .tac-map-wrap { flex: 1; position: relative; overflow: hidden; background: #020509; }
 .tac-canvas   { display: block; width: 100%; height: 100%; cursor: crosshair; }
-.cam-hint     { position: absolute; left: 8px; bottom: 8px; font-size: 10px; color: rgba(255,255,255,0.25); pointer-events: none; }
+.cam-hint     { position: absolute; left: 8px; bottom: 22px; font-size: 10px; color: rgba(255,255,255,0.25); pointer-events: none; }
+.tile-coord   { position: absolute; left: 8px; bottom: 6px; font-size: 10px; font-family: var(--font-mono); color: rgba(255,255,255,0.45); pointer-events: none; letter-spacing: .3px; }
+
+/* 좌측 패널 토글 */
+.left-panel-toggle {
+  position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+  z-index: 50; width: 16px; height: 48px;
+  background: rgba(10,16,24,.88); border: 1px solid var(--bd); border-left: none;
+  color: var(--td); cursor: pointer; font-size: 10px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 0 var(--r) var(--r) 0; transition: all .15s;
+}
+.left-panel-toggle:hover { border-color: var(--tg); color: var(--tg); }
 
 /* ── 로그 텍스트 ─────────────────────────────────────────── */
 .log-entry  { font-size: 10px; line-height: 1.5; color: var(--t2); word-break: break-all; }

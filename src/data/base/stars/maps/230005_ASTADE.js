@@ -6,7 +6,6 @@ export const STAR_MAP = {
   code:    '230005',
   nameKr:  '아스타데',
   nameEn:  'ASTADE',
-  mapSize: [1000, 1000],
   nebulae: [
     { x:296, y:557, r:175, color:'rgba(20,80,60,', alpha:0.09 },
   ],
@@ -16,6 +15,7 @@ export const STAR_MAP = {
     { nameKr:'우가리트', nameEn:'', main:false, type:'terrestrial', fortress:null, x:316, y:728, size:25 },
   ],
   tactical: {
+    mapSize: [400, 240],
     terrain: [
       // 행성 (1000×1000 좌표계, r = 반지름)
       { type:'planet', label:'아트라-하시스', x:398, y:228, r:42 },

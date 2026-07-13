@@ -17,21 +17,6 @@
           <button class="mp-close" @click="closeAll">✕</button>
         </div>
 
-        <!-- 결재권자 (의안 카테고리 + 최상위 레벨에서만 표시) -->
-        <div v-if="isAgendaCat && !navStack.length" class="mp-approver-info">
-          <span class="dim" style="font-size:10px">결재</span>
-          <span v-if="approver" class="serif" style="font-size:12px">
-            {{ charName(approver) }}
-            <span class="mono dim" style="font-size:10px">
-              (활성 {{ maxActive }}건)
-            </span>
-          </span>
-          <span v-else class="dim" style="font-size:11px">공석</span>
-          <span v-if="pendingCount" class="mono gold" style="font-size:11px;margin-left:auto">
-            대기 {{ pendingCount }}
-          </span>
-        </div>
-
         <!-- 메뉴 항목 목록 -->
         <div class="mp-list">
           <template v-for="item in currentItems" :key="item.id">
@@ -87,7 +72,6 @@ import { useGameStore } from '@/stores/gameStore'
 import { useHelpStore } from '@/stores/helpStore'
 import { APPROVAL_CHAINS } from '@/data/base/agenda/agendaData'
 import { MENU_TREES } from '@/data/base/agenda/menuTree'
-import { charName } from '@/utils/charUtils'
 import HelpOverlay from '@/components/ui/HelpOverlay.vue'
 
 const props = defineProps({ category: { type: String, default: null } })
@@ -244,13 +228,6 @@ function closeAll() {
   line-height: 1; transition: color .15s;
 }
 .mp-close:hover { color: var(--t1); }
-
-/* 결재권자 */
-.mp-approver-info {
-  display: flex; align-items: center; gap: 10px;
-  padding: 7px 16px; border-bottom: 1px solid var(--bd);
-  background: rgba(212,170,96,.04); flex-shrink: 0;
-}
 
 /* 메뉴 항목 */
 .mp-list { display: flex; flex-direction: column; flex-shrink: 0; }

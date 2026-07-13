@@ -81,14 +81,17 @@ function makeUnits(fleet, faction, isAttacker, mapW, mapH, fleetIndex = 0, total
   const buCount = Math.min(8, Math.max(1, Math.ceil(totalShips / 10000) + 1))
   const shipsPerBU = Math.max(100, Math.floor(totalShips / buCount))
 
-  // BU_0 초기 위치 — 다중 함대는 Y축 균등 분산
-  const startX = isAttacker
-    ? clamp(mapW - 4, 2, mapW - 2)
-    : clamp(3, 1, mapW - 3)
-  const startY = clamp(
-    Math.round(mapH * (fleetIndex + 1) / (totalFleets + 1)),
-    2, mapH - 3
-  )
+  // BU_0 초기 위치 — locPos 지정 시 우선 적용, 없으면 자동 배치
+  const lp = fleet.locPos
+  const hasLocPos = lp && (lp.x > 0 || lp.y > 0)
+  const startX = hasLocPos
+    ? clamp(lp.x, 1, mapW - 2)
+    : isAttacker
+      ? clamp(mapW - 4, 2, mapW - 2)
+      : clamp(3, 1, mapW - 3)
+  const startY = hasLocPos
+    ? clamp(lp.y, 1, mapH - 2)
+    : clamp(Math.round(mapH * (fleetIndex + 1) / (totalFleets + 1)), 2, mapH - 3)
 
   const flagship = { x: startX, y: startY }
 
@@ -153,7 +156,12 @@ export const useTacticalStore = defineStore('tactical', {
 
   getters: {
     playerFaction:    s => s.context?.playerFaction ?? s.context?.attackerFaction ?? 'REH',
-    tileAt:           s => (x, y) => s.map.tiles.find(t => t.x === x && t.y === y) ?? { terrain:'SPACE' },
+    tileAt: (s) => {
+      const w = s.map.width ?? 40
+      const grid = Object.create(null)
+      s.map.tiles.forEach(t => { grid[t.x + t.y * w] = t })
+      return (x, y) => grid[x + y * w] ?? { terrain: 'SPACE' }
+    },
     unitAt:           s => (x, y) => s.units.find(u => u.x === x && u.y === y) ?? null,
     flagshipOf:       s => fc => s.units.find(u => u.fleetCode === fc && u.role === 'flagship'),
     unitsOfFleet:     s => fc => s.units.filter(u => u.fleetCode === fc),
@@ -183,6 +191,16 @@ export const useTacticalStore = defineStore('tactical', {
     unitGroups() {
       const map = {}
       this.units.forEach(u => {
+        if (!map[u.faction]) map[u.faction] = { faction: u.faction, units: 0, ships: 0 }
+        map[u.faction].units++
+        map[u.faction].ships += u.ships
+      })
+      return Object.values(map)
+    },
+
+    visibleUnitGroups() {
+      const map = {}
+      this.units.filter(u => this.isUnitVisible(u)).forEach(u => {
         if (!map[u.faction]) map[u.faction] = { faction: u.faction, units: 0, ships: 0 }
         map[u.faction].units++
         map[u.faction].ships += u.ships

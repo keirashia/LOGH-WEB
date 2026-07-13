@@ -5,7 +5,7 @@ import { STAR_MAP as ASTADE } from './230005_ASTADE.js'
 // terrain: STAR_MAP.tactical.terrain (1000×1000 좌표계 객체 배열)
 export const TACTICAL_MAP_DATA = {
   [ASTADE.code]: {
-    mapSize: [40, 24],
+    mapSize: ASTADE.tactical.mapSize,
     terrain: ASTADE.tactical.terrain,
   },
 }

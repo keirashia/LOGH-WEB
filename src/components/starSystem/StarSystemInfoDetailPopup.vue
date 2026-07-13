@@ -102,7 +102,7 @@ const STATS = [
   { key: 'population', label: '인구', max: 200 },
   { key: 'industry',   label: '산업', max: 100 },
   { key: 'defense',    label: '방어', max: 100 },
-  { key: 'morale',     label: '사기', max: 100 },
+  { key: 'morale',     label: '민심', max: 100 },
   { key: 'tax',        label: '세율', max: 100 },
 ]
 

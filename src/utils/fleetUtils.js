@@ -153,6 +153,7 @@ export function buildFleetsMap(fleetData = []) {
       name:          getFltName(fleet, 'Kr'),
       parentFlt:     fleet.parentFlt ?? null,
       location:      fleet.location?.locCode ?? null,
+      locPos:        fleet.location?.locPos ?? null,
       formation:     fleet.formationList?.find(ff => ff.useYn)?.ffCode ?? null,
       commander:     fleet.charList?.find(c => c.type === 'C')?.charCode ?? null,
       officers:      fleet.charList?.filter(c => c.type === 'O').map(c => c.charCode) ?? [],

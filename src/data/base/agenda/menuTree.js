@@ -36,8 +36,8 @@ export const MENU_TREES = {
       label: "국가 예산",
       type: "group",
       items: [
-        { id: "budget_info",  label: "예산정보", modal: "finance" },
-        { id: "budget_levy",  label: "임시징세", modal: "tax" },
+        { id: "budget_info",  label: "예산정보", modal: "finance", disabled: true },
+        { id: "budget_levy",  label: "임시징세", modal: "tax",     disabled: true },
         { id: "budget_plan",  label: "예산배분", disabled: true },
       ],
     },

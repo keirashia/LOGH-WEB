@@ -33,7 +33,7 @@
         <button class="sl-th num" :class="{ active: sortKey === 'population' }" @click="setSort('population')">인구{{ arrow('population') }}</button>
         <button class="sl-th num" :class="{ active: sortKey === 'industry' }" @click="setSort('industry')">산업{{ arrow('industry') }}</button>
         <button class="sl-th num" :class="{ active: sortKey === 'defense' }"  @click="setSort('defense')">방어{{ arrow('defense') }}</button>
-        <button class="sl-th num" :class="{ active: sortKey === 'morale' }"   @click="setSort('morale')">사기{{ arrow('morale') }}</button>
+        <button class="sl-th num" :class="{ active: sortKey === 'morale' }"   @click="setSort('morale')">민심{{ arrow('morale') }}</button>
       </div>
 
       <!-- 데이터 행 -->
@@ -137,7 +137,7 @@ function setSort(key) {
 
 function arrow(key) {
   if (sortKey.value !== key) return ''
-  return sortDir.value < 0 ? ' ↓' : ' ↑'
+  return sortDir.value < 0 ? ' ▼' : ' ▲'
 }
 
 function valStyle(v, max) {
@@ -217,7 +217,7 @@ function valStyle(v, max) {
 .sl-scroll { flex: 1; overflow: auto; }
 
 /* ── 그리드 공통
-   성계명(1fr·min120) | 행성(36px) | 인구·산업·방어·사기(42px×4)
+   성계명(1fr·min120) | 행성(36px) | 인구·산업·방어·민심(42px×4)
 */
 .sl-thead,
 .sl-row {

@@ -1,10 +1,11 @@
-import { CHAR_BASE as CHARACTERS_DATA } from '@/data/base/characters/charactersData.js'
+import { CHAR_BASE as CHARACTERS_DATA, CHAR_BASE_MAP as CHARACTERS_MAP_DATA } from '@/data/base/characters/charactersData.js'
 import FACTIONS_DATA from '@/data/base/factions/factionsData.js'
 import { SCENARIOS as _SCENARIOS } from '@/data/scenario/scenarioData.js'
 
 export { _SCENARIOS as SCENARIOS }
 
 export const CHARACTERS = CHARACTERS_DATA
+export const CHARACTERS_MAP = CHARACTERS_MAP_DATA
 export const FACTIONS = Object.fromEntries(FACTIONS_DATA.map(f => [f.id, f]))
 
 export const OPERATION_TYPES = {

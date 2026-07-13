@@ -720,7 +720,7 @@ export const useGameStore = defineStore('game', {
         switch (opType) {
           case 'SPY':
             this.addLog(dlg.success(sys.name))
-            this.addLog(`🔍 [정찰] ${sys.name}: 방어 ${sys.defense}% / 산업 ${sys.industry}% / 민심 ${sys.morale}%`)
+            this.addLog(`🔍 [정찰] ${sys.name}: 방어 ${sys.defense} / 산업 ${sys.industry} / 민심 ${sys.morale}`)
             break
           case 'SABOTAGE':
             sys.defense   = Math.max(5,  sys.defense   - 20)
@@ -922,6 +922,8 @@ export const useGameStore = defineStore('game', {
         ships:     fleet.ships,
         commander: fleet.commander ?? null,
         faction:   faction ?? fleet.faction,
+        formation: fleet.formation ?? null,
+        locPos:    fleet.locPos ?? null,
       }
     },
 

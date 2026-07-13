@@ -194,7 +194,7 @@ export const FLEET_DATA = [
     ],
     location: {
       locCode: "230005",        // 아스타테
-      locPos: { x: 420, y: 300 },
+      locPos: { x: 194, y: 58 },
       direction: 12,
     },
     formationList: [
@@ -531,8 +531,8 @@ export const FLEET_DATA = [
     ],
     location: {
       locCode: "230005",        // 아스타테 (회전 발발 성계)
-      locPos: { x: 0, y: 0 },
-      direction: 0,
+      locPos: { x: 194, y: 71 },
+      direction: 12,
     },
     formationList: [
       { ffCode: "FF_01", useYn: true },
