@@ -1,0 +1,43 @@
+// src/utils/battleUtils.js
+// 전투 유틸리티 — 전략/전술 양 레이어에서 공통 사용
+
+// 계급 코드 우선순위 (낮은 인덱스 = 높은 계급)
+const RANK_ORDER = [
+  'JB_MR001', // 원수
+  'JB_MR002', // 상급대장
+  'JB_MR003', // 대장
+  'JB_MR004', // 중장
+  'JB_MR005', // 소장
+  'JB_MR006', // 준장
+]
+
+/**
+ * resolveSupremeCommander(fleets, characters)
+ * 참전 함대 사령관 중 총사령관 charCode 반환.
+ *
+ * 결정 규칙:
+ *   1. military_rank 계급 높은 쪽 우선 (JB_MR001 > JB_MR006)
+ *   2. 동일 계급 시 jobExp 높은 쪽 우선
+ *
+ * @param {object[]} fleets     _snapFleet() 반환 배열
+ * @param {object}   characters gameStore.characters 맵
+ * @returns {string|null}       총사령관 charCode (없으면 null)
+ */
+export function resolveSupremeCommander(fleets, characters) {
+  let best = null
+  for (const fleet of fleets) {
+    const char = characters[fleet.commander]
+    if (!char) continue
+    const rankJob = (char.jobs ?? []).find(j => RANK_ORDER.includes(j.jobCode))
+    if (!rankJob) continue
+    const pri = RANK_ORDER.indexOf(rankJob.jobCode)
+    if (
+      !best ||
+      pri < best.pri ||
+      (pri === best.pri && rankJob.jobExp > best.exp)
+    ) {
+      best = { fleetCode: fleet.id, charCode: fleet.commander, pri, exp: rankJob.jobExp }
+    }
+  }
+  return best?.charCode ?? null
+}

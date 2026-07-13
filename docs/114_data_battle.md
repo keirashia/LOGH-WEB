@@ -325,7 +325,190 @@ opType: 작전 타입 (SURRENDER_DEMAND / PRECISION_BOMB / ...)
 
 ## 4. 전술전투 — Canvas 기반 턴제 RTS
 
-적 방어 함대가 있을 때 `TacticalView`로 진입. 현재 tile-grid Vue 구현은 테스트용으로 폐기 예정.
+적 방어 함대가 있을 때 `TacticalView`로 진입. 전투는 **3개 페이즈** 구조로 진행된다.
+
+```
+[1페이즈 — 시작 페이즈]  (턴마다 반복)
+  총사령관 결정(최초 1회) → 작전 목표 확인/변경
+        ↓
+[2페이즈 — 색적·명령 페이즈]
+  1. 색적: 각 함대 시야 반경 계산
+  2. 명령: 함대별 이동·공격 목표 지정 (플레이어·AI)
+        ↓
+[3페이즈 — 수행 페이즈]
+  이동 패스: 이니셔티브 순서대로 전 유닛 이동 실행
+  공격 패스: 이니셔티브 순서대로 전 유닛 공격 실행
+  → 승패 체크 후 1페이즈로
+```
+
+---
+
+### 4-P1. 시작 페이즈 (Start Phase)
+
+전술 맵 진입 직전에 처리. 캔버스 렌더링 시작 전에 완료.
+
+#### 총사령관 결정
+
+참전 함대 사령관 중 **군사 계급(military_rank)** 이 가장 높은 인물이 총사령관.
+
+```
+계급 우선순위 (JB_MR001 = 최고):
+  JB_MR001 원수 > JB_MR002 상급대장 > JB_MR003 대장
+  > JB_MR004 중장 > JB_MR005 소장 > JB_MR006 준장
+
+동일 계급 시: jobExp 높은 쪽 우선
+
+아스타테 예시:
+  FPA002(파에타) — JB_MR004, exp:900  ← 총사령관
+  FPA004(파스톨레) — JB_MR004, exp:600
+  FPA006(무어)   — JB_MR004, exp:300
+```
+
+```js
+// battleUtils.js — resolveSupremeCommander(fleets, characters)
+const RANK_ORDER = ['JB_MR001','JB_MR002','JB_MR003','JB_MR004','JB_MR005','JB_MR006']
+
+function resolveSupremeCommander(fleets, characters) {
+  let best = null
+  for (const fleet of fleets) {
+    const char = characters[fleet.commander]
+    if (!char) continue
+    const rankJob = (char.jobs ?? []).find(j => RANK_ORDER.includes(j.jobCode))
+    if (!rankJob) continue
+    const pri = RANK_ORDER.indexOf(rankJob.jobCode)
+    if (!best || pri < best.pri || (pri === best.pri && rankJob.jobExp > best.exp))
+      best = { fleetCode: fleet.id, charCode: fleet.commander, pri, exp: rankJob.jobExp }
+  }
+  return best   // { fleetCode, charCode, pri, exp }
+}
+```
+
+#### 사령관 작전 목표 제안
+
+총사령관을 제외한 각 함대 사령관이 AI로 작전 목표를 제안.  
+제안 결과는 시작 페이즈 UI에 표시.
+
+#### 총사령관 작전 목표 설정
+
+총사령관(플레이어 또는 AI)이 최종 작2전 목표를 결정. **AI 행동 원칙(§4-9)** 에만 영향.
+
+| 구분 | 목표코드 | 명칭 | AI 행동 우선순위 |
+|---|---|---|---|
+| 공격측 | `OP_PLANET_CAPTURE` | 행성점령 | 행성 방향 이동 우선, 교전 회피 가능 |
+| 공격측 | `OP_FLEET_ATTACK` | 함대공격 | 적 함대 우선 공격 |
+| 공격측 | `OP_MOVE` | 이동 | 교전 회피, 맵 횡단 이동 |
+| 공격측 | `OP_STANDBY` | 대기 | 제자리 유지, 사거리 내 자동교전만 |
+| 방어측 | `OP_PLANET_DEFENSE` | 행성방어 | 행성 주위 방어 포지션 유지 |
+| 방어측 | `OP_FLEET_ESCORT` | 함대호위 | 보호 대상 인접 유지 |
+| 방어측 | `OP_MOVE` | 이동 | 철수 방향 이동, 교전 회피 |
+| 방어측 | `OP_STANDBY` | 대기 | 제자리 유지, 사거리 내 자동교전만 |
+
+> 적극성(proactive) 필드 연계는 추후 구현 (LOGH VI 참조).
+
+---
+
+### 4-P2. 색적·명령 페이즈 (Detection & Orders Phase)
+
+매 턴 1페이즈 직후 진행. **먼저 시야를 계산**하고, **그 결과를 바탕으로 명령을 입력**한다.
+
+#### 색적 (Detection) — 시야 반경 계산
+
+각 함대 기함(BU_0)을 기준으로 원형 시야를 계산.
+
+```js
+// 시야 반경 (타일)
+// inf: 함대 사령관 statInf (0~100)
+// mng: 함대 전투력 mng (0~100)
+const BASE_SIGHT = 4
+sight = BASE_SIGHT + Math.floor(inf / 25) + Math.floor(mng / 25)
+// 범위: 4(최솟값) ~ 12(최댓값)
+```
+
+| 단계 | 처리 |
+|---|---|
+| 시야 내 적 BU | 명령 대상으로 지정 가능 |
+| 시야 외 적 BU | Fog of War — 숨김 (현재는 테스트용으로 항상 표시) |
+
+> fog of war는 구현 완료 후 활성화. 현재 `SHOW_ALL = true` 플래그로 항상 표시.
+
+#### 함대 명령 입력 (Orders)
+
+총사령관이 1페이즈에서 설정한 **작전 목표가 각 함대의 기본 명령값**으로 세팅된다.
+
+```
+플레이어 함대: 플레이어가 캔버스에서 직접 명령 입력 (기본값 유지 가능)
+AI 함대:       §4-9 AI 행동 원칙 + 작전 목표에 따라 자동 결정
+```
+
+**명령 단위: 함대(Fleet) 기준**
+
+| 명령 | 내용 |
+|---|---|
+| `MOVE` | 기함(BU_0) 이동 목표 타일 지정 → BU_1~7 진형 추종 |
+| `ATTACK` | 공격 대상 unitId 지정 (우클릭) — 미지정 시 자동 선택 |
+| `STANDBY` | 이동 없이 사거리 내 자동 공격만 |
+
+**플레이어 입력 흐름**
+
+```
+1. 아군 함대 클릭 → 이동 가능 범위 하이라이트
+2. 목적지 타일 클릭 → fleet.pendingMove = {x, y} 저장 (즉시 실행 아님)
+3. 적 유닛 우클릭 → fleet.pendingAttack = targetId 저장
+4. [명령 확정] 버튼 → 3페이즈(수행)로 진입
+```
+
+> 현재 구현(선택→즉시 이동)에서 **선택→명령 예약→일괄 수행** 모델로 전환.
+
+---
+
+### 4-P3. 수행 페이즈 (Execution Phase)
+
+2페이즈에서 입력된 모든 명령을 **이니셔티브 순서**에 따라 일괄 실행.
+
+#### 이동 패스 (Move Pass)
+
+이니셔티브 큐 순서대로 각 유닛의 `pendingMove`를 실행.
+
+```js
+// 이니셔티브 큐 (§4-7 동일)
+queue = allActiveUnits.sort((a,b) => (statsOf(b).cmd + statsOf(b).fst) - (statsOf(a).cmd + statsOf(a).fst))
+
+// 이동 패스
+for (const unit of queue) {
+  if (!unit.pendingMove) continue
+  // 기함(BU_0)이면: 목적지로 이동 후 BU_1~7 진형 재배치
+  // 일반부대(BU_1~7): 기함 완료 후 진형 오프셋 위치로 이동
+  unit.moved = true
+  unit.pendingMove = null
+}
+```
+
+#### 공격 패스 (Attack Pass)
+
+이동 패스 완료 후, 동일 이니셔티브 큐 순서로 각 유닛의 `pendingAttack`을 실행.
+
+```js
+for (const unit of queue) {
+  if (unit.attacked) continue
+  const target = unit.pendingAttack
+    ?? autoSelectTarget(unit)   // 사거리 내 최근접 적 자동 선택
+  if (!target) continue
+  _combat(unit.unitId, target)
+  unit.attacked = true
+  unit.pendingAttack = null
+}
+```
+
+#### 턴 마무리
+
+```
+1. 승패 체크 (_checkVictory)
+2. 모든 unit.moved = false, unit.attacked = false 리셋
+3. 사기 붕괴 유닛 제거
+4. 1페이즈(시작)로 복귀 → 다음 턴
+```
+
+---
 
 ### 4-0. 전술 맵 구조
 
@@ -717,6 +900,10 @@ perFleet = totalLoss * (fleet.initShips / totalInitShips)
 - [x] **래스터라이즈**: terrain 객체 → 256×256 타일 배열 변환 (`rasterizeTerrain`)
 - [x] **다중 함대 배치**: `makeUnits(fleetIndex, totalFleets)`로 기함 Y 균등 분산 (§4-2 참조)
 - [x] **분함대 합산**: `buildFleetsMap`에서 parentFlt 제외, 상위 함대 ships에 합산
+- [x] **시작 페이즈 구조**: 총사령관 결정 + 작전 목표 설정 (§4-P1)
+- [x] **총사령관 결정 로직**: `military_rank` jobCode 우선, 동급 시 jobExp 비교
+- [x] **작전 목표 8종**: 공격/방어 각 4종 (행성점령/함대공격/이동/대기)
+- [x] **파에타 총사령관**: JB_MR004 exp:900 (파스톨레:600, 무어:300)
 
 ### 미결 항목
 - [ ] **진형 수치 확정** (offMod/defMod/rangeMod/speedMod/encBonus 표 2-2)
@@ -730,3 +917,10 @@ perFleet = totalLoss * (fleet.initShips / totalInitShips)
 - [x] **분함대(S) 전술전투 참여 방식** — 전략 레이어에서 상위 함대에 합산, 전술 BU세트 미분리 (§4-1 참조)
 - [ ] **주요 성계 terrain 입력** (티아메트, 암릿처, 이제르론 등)
 - [ ] **TILE_PX(타일 픽셀 크기) 확정** — 뷰포트 가시 타일 수 결정
+- [x] **2페이즈 설계 (§4-P2)**: 색적(시야반경) + 함대 명령 입력 (선택→예약→확정 모델)
+- [x] **3페이즈 설계 (§4-P3)**: 이동 패스 → 공격 패스 (각각 이니셔티브 순서)
+- [ ] **색적 수치 확정** — `BASE_SIGHT=4`, `inf/25 + mng/25` 공식 (초안)
+- [ ] **fog of war 구현** — 현재 `SHOW_ALL=true`로 우회
+- [ ] **선택→예약 모델 구현** — tacticalStore 페이즈 관리 전환 (player→order→execute)
+- [ ] **시작 페이즈 UI** — 작전 목표 선택 화면 설계 미확정
+- [ ] **적극성(proactive) 연계** — LOGH VI 참조, 추후 구현

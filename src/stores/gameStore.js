@@ -9,8 +9,9 @@ import {
 import { SCENARIOS }           from '@/data/scenario/scenarioData.js'
 import { buildSystemsMap, OBSTACLES, LANES } from '@/utils/starUtils'
 import { buildCharactersMap }  from '@/utils/charUtils'
-import { buildFleetsMap }      from '@/utils/fleetUtils'
-import { buildFactionsMap }    from '@/utils/factionUtils'
+import { buildFleetsMap }          from '@/utils/fleetUtils'
+import { buildFactionsMap }        from '@/utils/factionUtils'
+import { resolveSupremeCommander } from '@/utils/battleUtils'
 
 const _GLOB_STAR_DETAIL   = import.meta.glob('/src/data/scenario/*/*/*/stars/starDetail.js')
 const _GLOB_PLANET_DETAIL = import.meta.glob('/src/data/scenario/*/*/*/stars/planetDetail.js')
@@ -928,6 +929,10 @@ export const useGameStore = defineStore('game', {
     // _pendingBattles 스키마:
     //   { locationId, attackerFaction, defenderFaction,
     //     attackerFleets: [snap], defenderFleets: [snap],
+    //     attackerSupCmd: charCode|null,   // 공격측 총사령관
+    //     defenderSupCmd: charCode|null,   // 방어측 총사령관
+    //     attackerObjective: string|null,  // 시작 페이즈에서 설정
+    //     defenderObjective: string|null,
     //     opType, _handled, _notified }
     _checkInitialEncounters() {
       const done = new Set()
@@ -941,17 +946,23 @@ export const useGameStore = defineStore('game', {
         const allied = this.pFleets.filter(f => f.location === fleet.location)
         allied.forEach(f => { f.status = 'battle' })
 
-        const sysName = this.systems[fleet.location]?.name ?? fleet.location
+        const sysName  = this.systems[fleet.location]?.name ?? fleet.location
+        const atkSnaps = allied.map(f => this._snapFleet(f, this.playerFaction))
+        const defSnaps = enemies.map(e => this._snapFleet(e, e.faction))
         this._pendingBattles.push({
-          locationId:      fleet.location,
-          playerFaction:   this.playerFaction,
-          attackerFaction: this.playerFaction,
-          defenderFaction: enemies[0].faction,
-          attackerFleets:  allied.map(f => this._snapFleet(f, this.playerFaction)),
-          defenderFleets:  enemies.map(e => this._snapFleet(e, e.faction)),
-          opType:          'OCCUPATION',
-          _handled:        false,
-          _notified:       false,
+          locationId:        fleet.location,
+          playerFaction:     this.playerFaction,
+          attackerFaction:   this.playerFaction,
+          defenderFaction:   enemies[0].faction,
+          attackerFleets:    atkSnaps,
+          defenderFleets:    defSnaps,
+          attackerSupCmd:    resolveSupremeCommander(atkSnaps, this.characters),
+          defenderSupCmd:    resolveSupremeCommander(defSnaps, this.characters),
+          attackerObjective: null,
+          defenderObjective: null,
+          opType:            'OCCUPATION',
+          _handled:          false,
+          _notified:         false,
         })
         this.addLog(`⚔ [조우] ${sysName} — 아군 ${allied.length}개 함대 vs 적 ${enemies.length}개 함대`)
       })
@@ -985,16 +996,21 @@ export const useGameStore = defineStore('game', {
               if (!existing.attackerFleets.find(f => f.id === fleet.id))
                 existing.attackerFleets.push(this._snapFleet(fleet, faction))
             } else {
+              const defSnaps = enemies.map(e => this._snapFleet(e, e.faction))
               detected.push({
-                locationId:      fleet.location,
-                playerFaction:   this.playerFaction,
-                attackerFaction: faction,
-                defenderFaction: enemies[0].faction,
-                attackerFleets:  [this._snapFleet(fleet, faction)],
-                defenderFleets:  enemies.map(e => this._snapFleet(e, e.faction)),
-                opType:          'OCCUPATION',
-                _handled:        false,
-                _notified:       false,
+                locationId:        fleet.location,
+                playerFaction:     this.playerFaction,
+                attackerFaction:   faction,
+                defenderFaction:   enemies[0].faction,
+                attackerFleets:    [this._snapFleet(fleet, faction)],
+                defenderFleets:    defSnaps,
+                attackerSupCmd:    null,   // 루프 완료 후 확정
+                defenderSupCmd:    resolveSupremeCommander(defSnaps, this.characters),
+                attackerObjective: null,
+                defenderObjective: null,
+                opType:            'OCCUPATION',
+                _handled:          false,
+                _notified:         false,
               })
               if (faction === this.playerFaction)
                 this.addLog(`⚔ [전투] ${fleet.name} — ${sysName} 적 함대 조우`)
@@ -1003,6 +1019,10 @@ export const useGameStore = defineStore('game', {
             }
           }
         })
+      })
+      // 공격측 총사령관 확정 (다중 함대 합류 후)
+      detected.forEach(b => {
+        b.attackerSupCmd = resolveSupremeCommander(b.attackerFleets, this.characters)
       })
       // 성계 ID 순서대로 전술턴 진행
       detected.sort((a, b) => a.locationId.localeCompare(b.locationId))

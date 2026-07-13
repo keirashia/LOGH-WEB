@@ -7,6 +7,7 @@ import { CHARACTERS } from '@/data/masterData'
 
 const BASE_SPEED = 4
 const BASE_RANGE = 2
+const BASE_SIGHT = 4
 const MORALE_ROUT = 15
 
 function rand(lo, hi) { return lo + Math.random() * (hi - lo) }
@@ -144,8 +145,10 @@ export const useTacticalStore = defineStore('tactical', {
     result:           null,
     context:          null,
     logs:             [],
-    // 애니메이션 진행 중 입력 잠금
     animating:        false,
+    // ── Fog of War ──
+    fowEnabled:       true,
+    sightMap:         {},     // { "x,y": true } 아군 시야 내 타일
   }),
 
   getters: {
@@ -157,6 +160,11 @@ export const useTacticalStore = defineStore('tactical', {
 
     isMovable:        s => (x, y) => s.movableCells.some(c => c.x === x && c.y === y),
     isAttackable:     s => (x, y) => s.attackableCells.some(c => c.x === x && c.y === y),
+    isTileVisible:    s => (x, y) => !s.fowEnabled || !!s.sightMap[`${x},${y}`],
+    isUnitVisible:    s => u => {
+      if (u.faction === (s.context?.playerFaction ?? s.context?.attackerFaction)) return true
+      return !s.fowEnabled || !!s.sightMap[`${u.x},${u.y}`]
+    },
 
     playerFleets() {
       const fcs = new Set(this.units.filter(u => u.faction === this.playerFaction).map(u => u.fleetCode))
@@ -205,6 +213,7 @@ export const useTacticalStore = defineStore('tactical', {
 
       this.units = [...atkUnits, ...defUnits]
       this.units.forEach(syncPixels)
+      this._calcSight()
 
       this._log(`⚔️ 전술전투 개시 — ${context.attackerFleets.map(f=>f.name).join(', ')} vs ${context.defenderFleets.map(f=>f.name).join(', ')}`)
       this._log(`── 1턴 플레이어 페이즈 ──`)
@@ -263,6 +272,7 @@ export const useTacticalStore = defineStore('tactical', {
 
       // 이동 후 사거리 내 자동교전 체크
       this._checkAutoEngage(this.selectedFleet)
+      this._calcSight()
       return true
     },
 
@@ -398,6 +408,7 @@ export const useTacticalStore = defineStore('tactical', {
         })
         this.turn++
         this.phase = 'player'
+        this._calcSight()
         this._log(`── ${this.turn}턴 플레이어 페이즈 ──`)
         // 플레이어 턴 시작 시 자동교전 체크
         for (const fc of this.playerFleets) this._checkAutoEngage(fc)
@@ -508,6 +519,43 @@ export const useTacticalStore = defineStore('tactical', {
     _log(msg) {
       this.logs.unshift(msg)
       if (this.logs.length > 200) this.logs.pop()
+    },
+
+    // ── Fog of War ───────────────────────────────────────────
+    toggleFow() {
+      this.fowEnabled = !this.fowEnabled
+      this._calcSight()
+    },
+
+    _calcSight() {
+      if (!this.fowEnabled) { this.sightMap = {}; return }
+      const mapW = this.map.width  ?? MAP_W
+      const mapH = this.map.height ?? MAP_H
+      const newMap = {}
+
+      // 아군 유닛별 시야 원 계산
+      this.units
+        .filter(u => u.faction === this.playerFaction && u.status === 'active')
+        .forEach(u => {
+          // 기함: 사령관 statInf+statMng 기반 시야 / 일반 부대: BASE_SIGHT
+          let radius = BASE_SIGHT
+          if (u.role === 'flagship' && u.commander) {
+            const c = CHARACTERS?.[u.commander]
+            const inf = c?.statInf ?? 50
+            const mng = c?.statMng ?? 50
+            radius = Math.min(12, BASE_SIGHT + Math.floor(inf / 25) + Math.floor(mng / 25))
+          }
+          for (let dy = -radius; dy <= radius; dy++) {
+            for (let dx = -radius; dx <= radius; dx++) {
+              if (dx * dx + dy * dy <= radius * radius) {
+                const tx = u.x + dx, ty = u.y + dy
+                if (tx >= 0 && tx < mapW && ty >= 0 && ty < mapH)
+                  newMap[`${tx},${ty}`] = true
+              }
+            }
+          }
+        })
+      this.sightMap = newMap
     },
   },
 })

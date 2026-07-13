@@ -55,7 +55,7 @@ export const CHAR_JOBS = [
   {
     charCode: "CH_000139",
     jobCode: "JB_MR004",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+    jobLevel: 0, jobExp: 300, jobStDate: 0, jobEdDate: 0,
   },
   // 빌리바르트 요아힘 폰 메르카츠
   {
@@ -149,13 +149,13 @@ export const CHAR_JOBS = [
   {
     charCode: "CH_000478",
     jobCode: "JB_MR004",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+    jobLevel: 0, jobExp: 600, jobStDate: 0, jobEdDate: 0,
   },
-  // 파에타
+  // 파에타 — 아스타테 회전 FPA 총사령관 (동 계급 3인 중 최고 경험치)
   {
     charCode: "CH_000479",
     jobCode: "JB_MR004",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
+    jobLevel: 0, jobExp: 900, jobStDate: 0, jobEdDate: 0,
   },
   // 장 로베르 랍 (아스타테 회전 기준 6함대 참모, 당시 소령)
   {

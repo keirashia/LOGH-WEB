@@ -24,6 +24,7 @@ import { STAR_SYSTEMS, OBSTACLES } from '@/data/base/stars/starSystemData'
 import { PLANETS }                 from '@/data/base/stars/planetsData'
 import { LANES }                   from '@/data/base/stars/laneData'
 import { PLANET_TRAITS }           from '@/data/base/stars/planetDetailTrait'
+import { BUILDING_MAP }            from '@/data/base/buildingData'
 
 // ================================================================
 //  raw 데이터 re-export
@@ -184,6 +185,21 @@ export function buildSystemsMap(starDetail = [], planetDetail = []) {
     // TODO: planetDetailTrait.js에 FORTIFIED 트레잇이 채워진 뒤 트레잇 기반으로 재구현.
     const fortress = null
 
+    // planetsData 기반 집계
+    const totalPop = planets.reduce((sum, p) => sum + (p.pops?.unit ?? 0), 0)
+    const totalIndustry = planets.reduce((sum, p) =>
+      sum + (p.buildings?.details ?? [])
+        .filter(d => d.active)
+        .reduce((s, d) => s + ((BUILDING_MAP[d.b_id]?.effects?.industry ?? 0) * d.count), 0)
+    , 0)
+    const totalDefense = planets.reduce((sum, p) =>
+      sum + (p.buildings?.details ?? [])
+        .filter(d => d.active)
+        .reduce((s, d) => s + ((BUILDING_MAP[d.b_id]?.effects?.defense ?? 0) * d.count), 0)
+    , 0)
+
+    const defaults = STAR_TYPE_DEFAULTS[s.type] ?? STAR_TYPE_DEFAULTS.normal
+
     systems[s.code] = {
       id:               s.code,
       code:             s.code,
@@ -200,7 +216,9 @@ export function buildSystemsMap(starDetail = [], planetDetail = []) {
       tax:              d.tax     ?? 0,
       traits:           d.traits  ?? [],
       underConstruction: null,
-      ...(STAR_TYPE_DEFAULTS[s.type] ?? STAR_TYPE_DEFAULTS.normal),
+      population: totalPop      || defaults.population,
+      industry:   totalIndustry || defaults.industry,
+      defense:    totalDefense  || defaults.defense,
     }
   }
   return systems

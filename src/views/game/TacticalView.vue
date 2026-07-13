@@ -16,6 +16,11 @@
       <button class="btn log-toggle-btn" @click="logOpen = !logOpen">
         전투 기록 {{ logOpen ? '▲' : '▼' }}
       </button>
+      <!-- FOW 토글 (개발용) -->
+      <button :class="['btn', 'fow-toggle-btn', store.fowEnabled ? 'btn-gold' : '']"
+              @click="store.toggleFow()">
+        FOW {{ store.fowEnabled ? 'ON' : 'OFF' }}
+      </button>
     </div>
 
     <div class="tac-body">
@@ -321,6 +326,18 @@ function render() {
     }
   }
 
+  // Fog of War 오버레이 (시야 밖 타일 어둡게)
+  if (store.fowEnabled) {
+    ctx.fillStyle = 'rgba(0,0,0,0.62)'
+    for (let ty = ty0; ty <= ty1; ty++) {
+      for (let tx = tx0; tx <= tx1; tx++) {
+        if (!store.isTileVisible(tx, ty)) {
+          ctx.fillRect(tx * TILE_PX - camX, ty * TILE_PX - camY, TILE_PX, TILE_PX)
+        }
+      }
+    }
+  }
+
   // 이동 가능 하이라이트
   ctx.fillStyle = 'rgba(40,130,255,0.18)'
   ctx.strokeStyle = '#4488ff'
@@ -345,6 +362,7 @@ function render() {
   // 유닛 그리기
   ctx.textAlign = 'center'
   for (const u of store.units) {
+    if (!store.isUnitVisible(u)) continue   // FOW — 시야 밖 적 유닛 숨김
     const sx = u.px - camX, sy = u.py - camY
     if (sx + TILE_PX < 0 || sx > W || sy + TILE_PX < 0 || sy > H) continue
 
@@ -654,6 +672,7 @@ function returnToCampaign() { finishTacticalSession(false) }
 .battle-label { font-size: 11px; color: var(--td); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .ai-label     { font-size: 12px; color: #e88; white-space: nowrap; animation: pulse 1s infinite; }
 .log-toggle-btn { font-size: 11px; padding: 4px 9px; white-space: nowrap; flex-shrink: 0; }
+.fow-toggle-btn { font-size: 11px; padding: 4px 9px; white-space: nowrap; flex-shrink: 0; opacity: 0.85; }
 
 /* ── 바디 (position: relative → 로그 overlay 기준) ─────────── */
 .tac-body { display: flex; flex: 1; overflow: hidden; position: relative; }

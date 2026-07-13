@@ -123,6 +123,7 @@ import NationPostModal  from '@/components/game/modals/NationPostModal.vue'
 import FleetInfoModal      from '@/components/game/modals/FleetInfoModal.vue'
 import CharacterListPopup  from '@/components/char/CharacterListPopup.vue'
 import StarSystemInfoListPopup from '@/components/starSystem/StarSystemInfoListPopup.vue'
+import BattleConfirmModal from '@/components/game/modals/BattleConfirmModal.vue'
 
 const router = useRouter()
 const game = useGameStore()
@@ -156,49 +157,35 @@ function onPopState() {
 }
 
 // ── 전투 확인 모달 (배경클릭/뒤로가기로 응답 없이 닫히면 재소환) ──
-// 이 모달은 반드시 네/아니오 응답을 거쳐야 _pendingBattles가 줄어들고
+// 이 모달은 반드시 수동/자동 응답을 거쳐야 _pendingBattles가 줄어들고
 // endTurn()의 _finishTurn() 보류가 풀린다. 응답 없이 닫히면(ctx._handled 없음)
 // 큐가 영원히 남아 턴이 멈추므로, 닫힘을 감지해 동일 전투를 다시 띄운다.
 function showBattleConfirm(ctx) {
   ctx._notified = true
-
-  // 플레이어 캐릭터가 공격측/방어측 어느 함대에든 있으면 전술턴 진입
-  const hasPlayerChar = (fleets) => fleets.some(snap => {
-    const live = game.fleets[snap.faction]?.find(f => f.id === snap.id)
-    if (!live) return false
-    return live.commander === game.playerCharCode ||
-      (live.officers ?? []).includes(game.playerCharCode) ||
-      (live.subCommanders ?? []).some(c => c.charCode === game.playerCharCode)
-  })
-  const playerCharPresent = game.playerCharCode && (
-    hasPlayerChar(ctx.attackerFleets) || hasPlayerChar(ctx.defenderFleets)
-  )
-  if (playerCharPresent) { router.push('/game/tactical'); return }
-
   const sysName = game.systems[ctx.locationId]?.name ?? ctx.locationId
-  game.openModal('event', {
-    battleConfirm: true,
-    title: '교전 발생',
-    desc: `${sysName}에서 교전이 발생하였습니다.\n상세 전투를 보시겠어요?`,
-    buttons: [
-      { label: '네',   cls: 'btn-gold', action: () => { ctx._handled = true; router.push('/game/tactical') } },
-      {
-        label: '아니오', cls: 'btn',
-        action: () => {
-          ctx._handled = true
-          const result = game.autoResolveBattle()
-          if (!result) return
-          setTimeout(() => {
-            game.openModal('event', {
-              title: '전투 결과',
-              desc: `${sysName} 전투가 자동 처리되었습니다.\n`
-                  + `${result.winner === game.playerFaction ? '아군 승리' : '아군 패배'}\n`
-                  + `아군 손실 ${result.attackerLosses.toLocaleString()}척 · 적 손실 ${result.defenderLosses.toLocaleString()}척`,
-            })
-          }, 0)
-        },
-      },
-    ],
+  game.openModal('battleConfirm', {
+    locationName:    sysName,
+    attackerFaction: ctx.attackerFaction,
+    defenderFaction: ctx.defenderFaction,
+    attackerFleets:  ctx.attackerFleets,
+    defenderFleets:  ctx.defenderFleets,
+    onManual() {
+      ctx._handled = true
+      router.push('/game/tactical')
+    },
+    onAuto() {
+      ctx._handled = true
+      const result = game.autoResolveBattle()
+      if (!result) return
+      setTimeout(() => {
+        game.openModal('event', {
+          title: '전투 결과',
+          desc: `${sysName} 전투가 자동 처리되었습니다.\n`
+              + `${result.winner === game.playerFaction ? '아군 승리' : '아군 패배'}\n`
+              + `아군 손실 ${result.attackerLosses.toLocaleString()}척 · 적 손실 ${result.defenderLosses.toLocaleString()}척`,
+        })
+      }, 0)
+    },
   })
 }
 
@@ -210,8 +197,7 @@ function onShowBattle() {
 // 모달을 닫는 모든 경로(배경클릭 / 뒤로가기 / 버튼 close)에서 공통으로 사용.
 // 닫힌 모달이 미응답 전투 확인 모달이었다면 같은 전투를 다시 띄운다.
 function closeModalSafe() {
-  const payload = game.activeModal?.payload
-  const wasBattleConfirm = payload?.battleConfirm === true
+  const wasBattleConfirm = game.activeModal?.name === 'battleConfirm'
   const ctx = game._pendingBattles[0]
   game.closeModal()
   if (wasBattleConfirm && ctx && !ctx._handled && game._pendingBattles[0] === ctx) {
@@ -220,7 +206,7 @@ function closeModalSafe() {
 }
 
 
-const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, nationInfo:NationInfoModal, nationPost:NationPostModal, fleetInfo:FleetInfoModal, charList:CharacterListPopup, starList:StarSystemInfoListPopup }
+const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, nationInfo:NationInfoModal, nationPost:NationPostModal, fleetInfo:FleetInfoModal, charList:CharacterListPopup, starList:StarSystemInfoListPopup, battleConfirm:BattleConfirmModal }
 const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.name] ?? null) : null)
 </script>
 
