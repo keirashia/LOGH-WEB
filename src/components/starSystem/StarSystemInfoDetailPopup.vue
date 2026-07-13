@@ -28,17 +28,28 @@
       <div class="ssd-sep"><span class="ssd-sep-lbl">행성 ({{ sys.planets?.length ?? 0 }})</span></div>
       <div class="ssd-planets">
         <template v-if="sys.planets?.length">
-          <div v-for="p in sys.planets" :key="p.code" class="ssd-planet-row">
+          <div v-for="p in sortedPlanets" :key="p.code"
+               class="ssd-planet-row ssd-planet-row--link"
+               @click="selectedPlanetCode = p.code">
             <span class="serif ssd-planet-name">{{ p.nameKr ?? p.name ?? p.code }}</span>
             <span v-if="p.nameEn" class="mono dim ssd-planet-en">{{ p.nameEn }}</span>
             <span v-if="p.faction && p.faction !== sys.faction"
                   class="mono ssd-planet-fc" :class="`fc-${p.faction}`">
               {{ FACTION_NAMES[p.faction] ?? p.faction }}
             </span>
+            <span class="mono dim ssd-planet-arrow">›</span>
           </div>
         </template>
         <span v-else class="dim serif" style="font-size:11px">행성 정보 없음</span>
       </div>
+
+      <!-- 행성 상세 팝업 -->
+      <PlanetInfoDetailPopup
+        :show="!!selectedPlanetCode"
+        :planets="sys.planets ?? []"
+        :initial-code="selectedPlanetCode"
+        @close="selectedPlanetCode = null"
+      />
 
       <!-- 설명 -->
       <template v-if="sys.desc">
@@ -54,8 +65,9 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import PlanetInfoDetailPopup from '@/components/starSystem/PlanetInfoDetailPopup.vue'
 
 const props = defineProps({
   show:       { type: Boolean, default: false },
@@ -65,8 +77,14 @@ defineEmits(['close'])
 
 const game = useGameStore()
 
+const selectedPlanetCode = ref(null)
+
 const sys = computed(() =>
   props.systemCode ? (game.systems?.[props.systemCode] ?? null) : null
+)
+
+const sortedPlanets = computed(() =>
+  [...(sys.value?.planets ?? [])].sort((a, b) => (b.pops?.unit ?? 0) - (a.pops?.unit ?? 0))
 )
 
 const FACTION_NAMES = { REH: '은하제국', FPA: '자유행성동맹', PZN: '페잔' }
@@ -174,6 +192,9 @@ function valStyle(v, max) {
 .ssd-planet-name { font-size: 12px; color: var(--t1); }
 .ssd-planet-en   { font-size: 10px; flex: 1; }
 .ssd-planet-fc   { font-size: 10px; flex-shrink: 0; }
+.ssd-planet-arrow { font-size: 14px; margin-left: auto; }
+.ssd-planet-row--link { cursor: pointer; }
+.ssd-planet-row--link:hover { background: rgba(255,255,255,.05); border-radius: 4px; }
 
 /* 설명 */
 .ssd-desc {

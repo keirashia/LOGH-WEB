@@ -25,6 +25,7 @@ import { PLANETS }                 from '@/data/base/stars/planetsData'
 import { LANES }                   from '@/data/base/stars/laneData'
 import { PLANET_TRAITS }           from '@/data/base/stars/planetDetailTrait'
 import { BUILDING_MAP }            from '@/data/base/buildingData'
+import { TRAIT_MAP }              from '@/data/base/trait/stars/starTraitData'
 
 // ================================================================
 //  raw 데이터 re-export
@@ -177,7 +178,29 @@ export function buildSystemsMap(starDetail = [], planetDetail = []) {
       const nameKr  = planetName(p, 'Kr')
       const nameEn  = planetName(p, 'En')
       const faction = planetFactionMap[p.code] ?? p.faction ?? null
-      return { ...p, nameKr, nameEn, faction }
+
+      const enrichedDetails = (p.buildings?.details ?? []).map(d => {
+        const bld = BUILDING_MAP[d.b_id]
+        return {
+          ...d,
+          bldName:     bld?.name?.find(n => n.code === 'Kr')?.context ?? d.b_id,
+          bldCategory: bld?.category ?? null,
+        }
+      })
+
+      const traitData = (p.traits ?? []).map(id => {
+        const t = TRAIT_MAP[id]
+        return t
+          ? { id, nameKr: t.nameKr, icon: t.icon ?? '', desc: t.desc ?? '' }
+          : { id, nameKr: id, icon: '', desc: '' }
+      })
+
+      return {
+        ...p,
+        nameKr, nameEn, faction,
+        buildings: p.buildings ? { ...p.buildings, details: enrichedDetails } : p.buildings,
+        traitData,
+      }
     })
 
     const faction = resolveStarFaction(planets)
@@ -198,7 +221,8 @@ export function buildSystemsMap(starDetail = [], planetDetail = []) {
         .reduce((s, d) => s + ((BUILDING_MAP[d.b_id]?.effects?.defense ?? 0) * d.count), 0)
     , 0)
 
-    const defaults = STAR_TYPE_DEFAULTS[s.type] ?? STAR_TYPE_DEFAULTS.normal
+    const defaults  = STAR_TYPE_DEFAULTS[s.type] ?? STAR_TYPE_DEFAULTS.normal
+    const hasData   = planets.length > 0
 
     systems[s.code] = {
       id:               s.code,
@@ -216,9 +240,9 @@ export function buildSystemsMap(starDetail = [], planetDetail = []) {
       tax:              d.tax     ?? 0,
       traits:           d.traits  ?? [],
       underConstruction: null,
-      population: totalPop      || defaults.population,
-      industry:   totalIndustry || defaults.industry,
-      defense:    totalDefense  || defaults.defense,
+      population: hasData ? totalPop      : defaults.population,
+      industry:   hasData ? totalIndustry : defaults.industry,
+      defense:    hasData ? totalDefense  : defaults.defense,
     }
   }
   return systems
