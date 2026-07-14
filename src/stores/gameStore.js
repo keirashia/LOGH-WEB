@@ -214,6 +214,15 @@ export const useGameStore = defineStore('game', {
       this.addLog(`은하력 ${this.year}년 ${this.month}월 ${this.day}일 (턴 ${this.turn}) 시작합니다`)
       this._turnActionTaken = false
       this._checkInitialEncounters()
+      // 플레이어 인물이 전투 중인 함대 소속이면 해당 턴 행동력 전부 소진
+      const _pChar = this.playerCharCode ? this.characters[this.playerCharCode] : null
+      if (_pChar?.fleetCode) {
+        const _pFleet = this.pFleets.find(f => f.id === _pChar.fleetCode)
+        if (_pFleet?.status === 'battle') {
+          this._opActionsUsed = 3
+          this._actionSlots   = []
+        }
+      }
     },
 
     selectSystem(id)  { this.selectedSystem = id;    this.selectedFleet = null },

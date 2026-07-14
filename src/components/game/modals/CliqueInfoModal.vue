@@ -13,7 +13,6 @@
 
           <div class="ci-card-head">
             <span class="serif ci-name">{{ clq.name }}</span>
-            <span class="mono dim ci-id">{{ clq.id }}</span>
             <div class="ci-lv mono">Lv.{{ clq.level }}</div>
           </div>
 
@@ -34,11 +33,11 @@
             <!-- 성향 -->
             <div class="ci-row">
               <span class="ci-lbl">경제</span>
-              <span class="ci-val mono">{{ clq.tender?.econ ?? '—' }}</span>
+              <span class="ci-val serif">{{ nearestEcon(clq.tender?.econ) }}</span>
             </div>
             <div class="ci-row">
               <span class="ci-lbl">이념</span>
-              <span class="ci-val mono">{{ clq.tender?.idea ?? '—' }}</span>
+              <span class="ci-val serif">{{ nearestIdea(clq.tender?.idea) }}</span>
             </div>
 
             <!-- 경험치 -->
@@ -80,8 +79,9 @@
 <script setup>
 import { computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import { charName as _charName } from '@/utils/charUtils'
 import CharChip from '@/components/common/CharChip.vue'
+import { ECONOMY_DATA } from '@/data/base/regime/economyData'
+import { IDEOLOGY_DATA } from '@/data/base/regime/ideologyData'
 
 defineEmits(['close'])
 const game = useGameStore()
@@ -101,6 +101,15 @@ const factionLabel = computed(() =>
 
 function leaderChar(clq)  { return game.characters[clq.leader]  ?? null }
 function founderChar(clq) { return game.characters[clq.founder] ?? null }
+
+function nearest(arr, val) {
+  if (val == null) return '—'
+  return arr.reduce((a, b) =>
+    Math.abs(b.code - val) < Math.abs(a.code - val) ? b : a
+  ).name
+}
+function nearestEcon(val) { return nearest(ECONOMY_DATA,  val) }
+function nearestIdea(val) { return nearest(IDEOLOGY_DATA, val) }
 </script>
 
 <style scoped>
@@ -147,7 +156,6 @@ function founderChar(clq) { return game.characters[clq.founder] ?? null }
   border-bottom: 1px solid var(--bd);
 }
 .ci-name { font-size: 13px; color: var(--t1); letter-spacing: .5px; flex: 1; }
-.ci-id   { font-size: 9px; }
 .ci-lv   {
   font-size: 9px; padding: 2px 7px;
   background: rgba(212,170,96,.1); border: 1px solid rgba(212,170,96,.25);

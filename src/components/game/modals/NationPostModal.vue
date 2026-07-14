@@ -38,9 +38,8 @@
           <template v-if="!collapsed[sec.label]">
             <div v-for="pos in sec.positions" :key="pos.title" class="np-pos-row">
               <span class="np-pos-title dim">{{ pos.title }}</span>
-              <span class="np-pos-name" :class="{ vacant: !pos.char }">
-                {{ pos.char ? charDisplayName(pos.char) : '(공석)' }}
-              </span>
+              <CharChip v-if="pos.char" :char-code="pos.char.code" />
+              <span v-else class="np-pos-vacant">공석</span>
             </div>
           </template>
         </div>
@@ -61,6 +60,7 @@ import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import CouncilRingComp from '@/components/game/modals/CouncilRingComp.vue'
 import MonarchyPostComp from '@/components/game/modals/MonarchyPostComp.vue'
+import CharChip from '@/components/common/CharChip.vue'
 
 defineEmits(['close'])
 const game = useGameStore()
@@ -156,12 +156,6 @@ function charByJob(jobCode) {
   ) ?? null
 }
 
-function charDisplayName(ch) {
-  return ch.name?.find(e => e.code === 'Kr')?.context
-      ?? ch.name?.find(e => e.code === 'En')?.context
-      ?? ch.code
-      ?? '?'
-}
 
 const councilSeats = computed(() => {
   const faction = game.factions[game.playerFaction]
@@ -188,7 +182,7 @@ const sections = computed(() => {
 </script>
 
 <style scoped>
-.np-modal { width: 80vh; height: 80vh; display: flex; flex-direction: column; padding: 0; overflow: hidden }
+.np-modal { width: 80vw; height: 80vh; display: flex; flex-direction: column; padding: 0; overflow: hidden }
 
 .np-header {
   display: flex; align-items: center; justify-content: space-between;
@@ -251,10 +245,10 @@ const sections = computed(() => {
   font-family: var(--font-serif); letter-spacing: .5px; flex-shrink: 0;
   min-width: 90px;
 }
-.np-pos-name {
-  font-family: var(--font-serif); letter-spacing: .3px; color: var(--t1);
+.np-pos-vacant {
+  font-family: var(--font-serif); font-size: 11px;
+  color: var(--td); font-style: italic; letter-spacing: .3px;
 }
-.np-pos-name.vacant { color: var(--td); font-style: italic; }
 
 .np-footer {
   display: flex; justify-content: center; padding: 10px 16px;

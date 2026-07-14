@@ -218,7 +218,6 @@ export const MENU_TREES = {
       label: "세력",
       type: "group",
       items: [
-        { id: "clique_status", label: "세력",     disabled: true },
         { id: "clique_info",   label: "파벌정보", modal: "cliqueInfo" },
       ],
     },
