@@ -1,8 +1,10 @@
 <template>
   <div class="char-panel" :class="{ overlay: isOverlay }">
 
-    <!-- 오버레이 닫기 (모바일) -->
-    <button v-if="isOverlay" class="panel-close mono dim" @click="$emit('close')">✕</button>
+    <!-- 오버레이 닫기 바 (모바일) -->
+    <div v-if="isOverlay" class="overlay-close-bar">
+      <button class="panel-close mono dim" @click="$emit('close')">✕</button>
+    </div>
 
     <!-- 인물 없는 경우 -->
     <div v-if="!char" class="no-char">
@@ -260,14 +262,28 @@ function statClass(val) {
   border-bottom: 1px solid var(--bd);
   overflow-y: auto;
 }
+.char-panel.overlay .portrait-img {
+  max-width: 20vw;
+}
+
+.overlay-close-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: flex-end;
+  padding: 6px 8px;
+  background: rgba(5,10,18,.92);
+  flex-shrink: 0;
+}
 
 .panel-close {
-  position: absolute;
-  top: 10px; right: 12px;
+  background: none; border: none;
   font-size: 16px; color: var(--td);
-  cursor: pointer; z-index: 10;
+  cursor: pointer;
   padding: 4px 8px; border-radius: var(--r);
   transition: color .15s;
+  line-height: 1;
 }
 .panel-close:hover { color: var(--t1); }
 

@@ -745,7 +745,7 @@ onUnmounted(() => {
 .map-legend {
   position:absolute; bottom:10px; left:10px;
   padding:7px 11px; display:flex; flex-direction:column; gap:4px;
-  pointer-events:none;
+  pointer-events:none; z-index:130;
 }
 .leg-row { display:flex; align-items:center; gap:6px }
 .leg-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; display:inline-block }

@@ -21064,7 +21064,7 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000550",
     name: [{ code: "Kr", context: "호우드" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "호우드" }],
     searchKeys: [],
     birth: "",
     death: "",

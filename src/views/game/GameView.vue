@@ -121,6 +121,7 @@ import OperationModal  from '@/components/game/modals/OperationModal.vue'
 import NationInfoModal from '@/components/game/modals/NationInfoModal.vue'
 import NationPostModal  from '@/components/game/modals/NationPostModal.vue'
 import FleetInfoModal      from '@/components/game/modals/FleetInfoModal.vue'
+import FleetDetailModal    from '@/components/game/modals/FleetDetailModal.vue'
 import CharacterListPopup  from '@/components/char/CharacterListPopup.vue'
 import StarSystemInfoListPopup from '@/components/starSystem/StarSystemInfoListPopup.vue'
 import BattleConfirmModal from '@/components/game/modals/BattleConfirmModal.vue'
@@ -206,7 +207,7 @@ function closeModalSafe() {
 }
 
 
-const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, nationInfo:NationInfoModal, nationPost:NationPostModal, fleetInfo:FleetInfoModal, charList:CharacterListPopup, starList:StarSystemInfoListPopup, battleConfirm:BattleConfirmModal }
+const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, nationInfo:NationInfoModal, nationPost:NationPostModal, fleetInfo:FleetInfoModal, fleetDetail:FleetDetailModal, charList:CharacterListPopup, starList:StarSystemInfoListPopup, battleConfirm:BattleConfirmModal }
 const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.name] ?? null) : null)
 </script>
 
@@ -248,12 +249,12 @@ const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.
 /* 버튼 a-1 (모바일 세로 탭) */
 .char-tab-btn {
   position: absolute;
-  top: 0; right: 0;
+  top: 0; left: 0;
   width: clamp(32px, 10vw, 52px);
   height: 100%;
   z-index: 120;
   background: rgba(8,12,20,.85);
-  border-left: 1px solid var(--bd);
+  border-right: 1px solid var(--bd);
   display: flex; flex-direction: column;
   align-items: center; justify-content: center;
   gap: 8px;
@@ -261,10 +262,10 @@ const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.
 }
 .char-tab-btn:hover,.char-tab-btn.on {
   background: rgba(12,20,36,.95);
-  border-left-color: var(--tg);
+  border-right-color: var(--tg);
 }
 .char-tab-text {
-  writing-mode: vertical-rl;
+  writing-mode: vertical-lr;
   text-orientation: mixed;
   font-family: var(--font-serif);
   font-size: clamp(9px, 1.4vw, 13px);
