@@ -61,6 +61,42 @@ export const TERRAIN = {
   PLANET:   { id:'PLANET',   name:'행성',     color:'#1a0800', passable:false, offMod:0,   defMod:0,   rangeMod: 0, moveMod:0.0 },
 }
 
+// ── 작전 목표 정의 ───────────────────────────────────────────
+export const OPERATION_OBJECTIVES = [
+  {
+    code: 'OBJ_ANNIHILATE',
+    name: '섬멸',
+    desc: '적 함대를 완전히 전멸시킨다.',
+    sides: ['attacker', 'defender'],
+  },
+  {
+    code: 'OBJ_SUPPRESS',
+    name: '제압',
+    desc: '적 전력을 절반 이하로 격감시켜 전의를 꺾는다.',
+    sides: ['attacker', 'defender'],
+  },
+  {
+    code: 'OBJ_CAPTURE',
+    name: '거점 확보',
+    desc: '성계를 점령하고 아군 거점으로 삼는다.',
+    sides: ['attacker'],
+  },
+  {
+    code: 'OBJ_DELAY',
+    name: '지연',
+    desc: '적의 진격을 저지하며 시간을 번다.',
+    sides: ['defender'],
+  },
+  {
+    code: 'OBJ_RETREAT',
+    name: '퇴각',
+    desc: '아군 피해를 최소화하며 전선에서 이탈한다.',
+    sides: ['attacker', 'defender'],
+  },
+]
+
+export const OBJ_MAP = Object.fromEntries(OPERATION_OBJECTIVES.map(o => [o.code, o]))
+
 // ── terrain 래스터라이즈 ──────────────────────────────────────
 // STAR_MAP.tactical.terrain(1000×1000 좌표)을 타일 배열로 변환
 function setTile(grid, x, y, w, h, typeId) {

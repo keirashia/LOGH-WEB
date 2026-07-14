@@ -532,6 +532,22 @@ export const CHAR_TRAITS_MASTER = [
     permanent: true,
     effects: { statMng: 8, statInf: 6 },
   },
+  {
+    id: "TRC_U_000550",
+    nameKr: "후위의 방패",
+    nameEn: "Rearguard Shield",
+    rarity: "unique",
+    desc: "아군이 압도적으로 불리한 상황에서 자신의 피해를 무릅쓰고 적을 향해 돌격, 아군의 퇴각로를 열어준다. 운영·방어 능력이 향상되며, 아군 함대 위기 시 공격력이 급등하는 대신 자함 피해가 증가한다.",
+    permanent: true,
+    effects: { statMng: 6, statDef: 3 },
+    conditionalEffects: [
+      {
+        // TODO: ally_fleet_critical — 아군 함대가 위기(전력 50% 이하) 상태일 때 트리거
+        trigger: "ally_fleet_critical",
+        effects: { statAtt: 15, selfDamageMult: 1.5 },
+      },
+    ],
+  },
 
   {
     id: "TRC_G_001",

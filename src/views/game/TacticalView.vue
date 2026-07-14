@@ -202,6 +202,14 @@
       </button>
     </div>
 
+    <!-- 작전 회의 팝업 -->
+    <OperationBriefingModal
+      v-if="showBriefing && store.context"
+      :ctx="store.context"
+      @confirm="onBriefingConfirm"
+      @skip="onBriefingSkip"
+    />
+
     <!-- 결과 오버레이 -->
     <transition name="fade">
       <div v-if="store.phase === 'result' && store.result" class="result-overlay">
@@ -226,6 +234,7 @@ import { useTacticalStore } from '@/stores/tacticalStore'
 import { useGameStore }     from '@/stores/gameStore'
 import { FORMATIONS, TERRAIN, TILE_PX } from '@/data/base/tactical/tacticalData'
 import { CHARACTERS_MAP, FACTIONS } from '@/data/masterData'
+import OperationBriefingModal from '@/components/game/tactical/OperationBriefingModal.vue'
 
 const router = useRouter()
 const store  = useTacticalStore()
@@ -239,6 +248,7 @@ const logOpen       = ref(false)
 const showLeftPanel = ref(true)
 const showGrid      = ref(true)
 const hoverTile     = ref(null)   // { x, y } — 마우스 커서 타일 좌표
+const showBriefing  = ref(false)
 
 // ── 카메라 + 줌 ─────────────────────────────────────────────
 const cam     = ref({ x: 0, y: 0 })   // 뷰포트 픽셀 오프셋 (줌 적용 공간)
@@ -737,10 +747,26 @@ function onPopState() {
 // ── 라이프사이클 ─────────────────────────────────────────────
 const resizeObserver = new ResizeObserver(() => { resizeCanvas(); clampCam() })
 
+// ── 작전 회의 ─────────────────────────────────────────────────
+function onBriefingConfirm(objectiveCode) {
+  const ctx = game._pendingBattles[0]
+  if (ctx) {
+    if (ctx.playerFaction === ctx.attackerFaction)
+      ctx.attackerObjective = objectiveCode
+    else
+      ctx.defenderObjective = objectiveCode
+  }
+  showBriefing.value = false
+}
+function onBriefingSkip() {
+  showBriefing.value = false
+}
+
 onMounted(() => {
   if (game._pendingBattles.length) {
     const ctx = game._pendingBattles[0]
     if (store.context !== ctx) store.initBattle(ctx)
+    showBriefing.value = true
   }
 
   resizeCanvas()
@@ -771,6 +797,7 @@ function finishTacticalSession(useReplace = false) {
   if (store.result) game.applyBattleResult(store.result)
   if (game._pendingBattles.length) {
     store.initBattle(game._pendingBattles[0])
+    showBriefing.value = true
     return false
   }
   store.active = false

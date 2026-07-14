@@ -117,7 +117,9 @@ import FinanceModal    from '@/components/game/modals/FinanceModal.vue'
 import MilitaryModal   from '@/components/game/modals/MilitaryModal.vue'
 import IntelModal      from '@/components/game/modals/IntelModal.vue'
 import EventModal      from '@/components/game/modals/EventModal.vue'
-import OperationModal  from '@/components/game/modals/OperationModal.vue'
+import OperationModal     from '@/components/game/modals/OperationModal.vue'
+import OperationInfoModal from '@/components/game/modals/OperationInfoModal.vue'
+import CliqueInfoModal    from '@/components/game/modals/CliqueInfoModal.vue'
 import NationInfoModal from '@/components/game/modals/NationInfoModal.vue'
 import NationPostModal  from '@/components/game/modals/NationPostModal.vue'
 import FleetInfoModal      from '@/components/game/modals/FleetInfoModal.vue'
@@ -207,7 +209,7 @@ function closeModalSafe() {
 }
 
 
-const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, nationInfo:NationInfoModal, nationPost:NationPostModal, fleetInfo:FleetInfoModal, fleetDetail:FleetDetailModal, charList:CharacterListPopup, starList:StarSystemInfoListPopup, battleConfirm:BattleConfirmModal }
+const MODAL_MAP = { tax:TaxModal, fleet:FleetModal, build:BuildModal, char:CharModal, finance:FinanceModal, military:MilitaryModal, intel:IntelModal, event:EventModal, operation:OperationModal, operationInfo:OperationInfoModal, cliqueInfo:CliqueInfoModal, nationInfo:NationInfoModal, nationPost:NationPostModal, fleetInfo:FleetInfoModal, fleetDetail:FleetDetailModal, charList:CharacterListPopup, starList:StarSystemInfoListPopup, battleConfirm:BattleConfirmModal }
 const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.name] ?? null) : null)
 </script>
 

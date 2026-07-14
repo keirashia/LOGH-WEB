@@ -20,12 +20,13 @@ const _GLOB_FLEET_DATA    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fle
 const _GLOB_FLEET_TRAIT   = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetTraitData.js')
 const _GLOB_CHAR_LIST     = import.meta.glob('/src/data/scenario/*/*/*/characters/charactersData.js')
 const _GLOB_CLIQUE_DATA   = import.meta.glob('/src/data/scenario/*/*/*/cliqueData.js')
+const _GLOB_OP_PROPOSE    = import.meta.glob('/src/data/scenario/*/*/*/opProposeData.js')
 
 async function _loadScenarioFiles(scId) {
   const [y, m, s] = scId.split('_')
   const base = `/src/data/scenario/${y}/${m}/${s}`
   const load = (glob, suf) => (glob[`${base}/${suf}`] ?? (() => Promise.resolve(null)))()
-  const [sd, pd, cj, cl, cld, fd, ftd] = await Promise.all([
+  const [sd, pd, cj, cl, cld, fd, ftd, op] = await Promise.all([
     load(_GLOB_STAR_DETAIL,   'stars/starDetail.js'),
     load(_GLOB_PLANET_DETAIL, 'stars/planetDetail.js'),
     load(_GLOB_CHAR_JOBS,     'characters/charactersJobs.js'),
@@ -33,16 +34,36 @@ async function _loadScenarioFiles(scId) {
     load(_GLOB_CLIQUE_DATA,   'cliqueData.js'),
     load(_GLOB_FLEET_DATA,    'fleet/fleetData.js'),
     load(_GLOB_FLEET_TRAIT,   'fleet/fleetTraitData.js'),
+    load(_GLOB_OP_PROPOSE,    'opProposeData.js'),
   ])
   return {
-    starDetail:    sd?.STAR_DETAIL             ?? [],
-    planetDetail:  pd?.PLANET_DETAIL           ?? [],
-    charJobs:      cj?.CHAR_JOBS               ?? null,
-    charList:      cl?.CHAR_LIST               ?? null,
-    cliqueData:    cld?.CLIQUE_DATA            ?? [],
-    fleetData:     fd?.FLEET_DATA              ?? [],
-    fleetTraitData:ftd?.FLEET_TRAIT_DATA       ?? [],
+    starDetail:     sd?.STAR_DETAIL             ?? [],
+    planetDetail:   pd?.PLANET_DETAIL           ?? [],
+    charJobs:       cj?.CHAR_JOBS               ?? null,
+    charList:       cl?.CHAR_LIST               ?? null,
+    cliqueData:     cld?.CLIQUE_DATA            ?? [],
+    fleetData:      fd?.FLEET_DATA              ?? [],
+    fleetTraitData: ftd?.FLEET_TRAIT_DATA       ?? [],
+    opProposeData:  op?.OP_PROPOSE_DATA         ?? [],
   }
+}
+
+function buildInitialAgendas(opProposeData = []) {
+  let seq = 0
+  return opProposeData.map(op => {
+    seq++
+    const typeLabel = op.opType === 'attack' ? '공격' : '방어'
+    return {
+      id:             `AGD_${String(seq).padStart(4, '0')}`,
+      category:       'military',
+      action:         'op_propose',
+      title:          `${op.targetName} ${typeLabel}작전`,
+      payload:        { ...op },
+      registeredBy:   null,
+      registeredTurn: 0,
+      status:         'approved',
+    }
+  })
 }
 
 function buildState(scId, pf, extraData = {}) {
@@ -50,7 +71,7 @@ function buildState(scId, pf, extraData = {}) {
   const {
     starDetail = [], planetDetail = [],
     charJobs = null, charList = null, cliqueData = [],
-    fleetData = [],
+    fleetData = [], opProposeData = [],
   } = extraData
 
   const factions   = buildFactionsMap(sc.factions ?? ['REH', 'FPA', 'PZN'])
@@ -75,14 +96,14 @@ function buildState(scId, pf, extraData = {}) {
   return {
     sc, playerFaction: pf,
     year: sc.year, impYear: sc.year - 309, month: sc.month ?? 1, day: sc.date ?? 1, turn: 1,
-    factions, systems, resources, characters, fleets,
+    factions, systems, resources, characters, fleets, cliques: cliqueData,
     log: [], selectedSystem: null, selectedFleet: null,
     _levyCooldown: 0, _loanBalance: 0, _loanDueTurn: null, _fleetSeq: 10, _truce: {}, _tradeBonus: 0,
     _reserve: 0, _intelligenceFund: 0, _budgetAllocation: null,
     _pendingBattles: [],
     _turnActionTaken: false,
     activeModal: null, gameOver: false, winner: null,
-    agendas: [], _agendaSeq: 0,
+    agendas: buildInitialAgendas(opProposeData), _agendaSeq: opProposeData.length,
     playerCharCode: null,
     _pendingOp: null,
     _opActionsUsed: 0,
@@ -239,13 +260,19 @@ export const useGameStore = defineStore('game', {
               existing.attackerFleets.push(this._snapFleet(fleet, this.playerFaction))
           } else {
             const sysName = this.systems[targetId]?.name ?? targetId
+            const atkSnaps = [this._snapFleet(fleet, this.playerFaction)]
+            const defSnaps = enemies.map(e => this._snapFleet(e, e.faction))
             this._pendingBattles.push({
-              locationId:      targetId,
-              playerFaction:   this.playerFaction,
-              attackerFaction: this.playerFaction,
-              defenderFaction: enemies[0].faction,
-              attackerFleets:  [this._snapFleet(fleet, this.playerFaction)],
-              defenderFleets:  enemies.map(e => this._snapFleet(e, e.faction)),
+              locationId:        targetId,
+              playerFaction:     this.playerFaction,
+              attackerFaction:   this.playerFaction,
+              defenderFaction:   enemies[0].faction,
+              attackerFleets:    atkSnaps,
+              defenderFleets:    defSnaps,
+              attackerSupCmd:    resolveSupremeCommander(atkSnaps, this.characters),
+              defenderSupCmd:    resolveSupremeCommander(defSnaps, this.characters),
+              attackerObjective: null,
+              defenderObjective: null,
               opType,
               _handled:  false,
               _notified: false,
@@ -1149,16 +1176,22 @@ export const useGameStore = defineStore('game', {
               if (!existing.attackerFleets.find(af => af.id === fleet.id))
                 existing.attackerFleets.push(this._snapFleet(fleet, f))
             } else {
+              const aiAtkSnaps = [this._snapFleet(fleet, f)]
+              const aiDefSnaps = enemies.map(e => this._snapFleet(e, e.faction))
               this._pendingBattles.push({
-                locationId:      target.id,
-                playerFaction:   this.playerFaction,
-                attackerFaction: f,
-                defenderFaction: enemies[0].faction,
-                attackerFleets:  [this._snapFleet(fleet, f)],
-                defenderFleets:  enemies.map(e => this._snapFleet(e, e.faction)),
-                opType:          'OCCUPATION',
-                _handled:        false,
-                _notified:       false,
+                locationId:        target.id,
+                playerFaction:     this.playerFaction,
+                attackerFaction:   f,
+                defenderFaction:   enemies[0].faction,
+                attackerFleets:    aiAtkSnaps,
+                defenderFleets:    aiDefSnaps,
+                attackerSupCmd:    resolveSupremeCommander(aiAtkSnaps, this.characters),
+                defenderSupCmd:    resolveSupremeCommander(aiDefSnaps, this.characters),
+                attackerObjective: null,
+                defenderObjective: null,
+                opType:            'OCCUPATION',
+                _handled:          false,
+                _notified:         false,
               })
               if (enemies.some(e => e.faction === this.playerFaction))
                 this.addLog(`⚔ [AI 침공] ${this.factions[f]?.nameKr ?? f} ${fleet.name} — ${target.name} 침공!`)

@@ -76,6 +76,7 @@ export const MENU_TREES = {
          *  제안 가능 계급: 중장 이상.
          *  실행 가능 계급: 전 계급
          */
+        { id: "op_info",         label: "작전정보",  modal: "operationInfo" },
         { id: "op_propose",      label: "작전제안",  modal: "operation" },
         { id: "fleet_transport", label: "수송",      modal: "fleet" },
       ],
@@ -217,12 +218,8 @@ export const MENU_TREES = {
       label: "세력",
       type: "group",
       items: [
-        { id: "faction_military",   label: "군부",   disabled: true },
-        { id: "faction_bureaucrat", label: "관료",   disabled: true },
-        { id: "faction_noble",      label: "귀족",   disabled: true },
-        { id: "faction_merchant",   label: "상인",   disabled: true },
-        { id: "faction_religion",   label: "종교",   disabled: true },
-        { id: "faction_eat",        label: "지구교", disabled: true },
+        { id: "clique_status", label: "세력",     disabled: true },
+        { id: "clique_info",   label: "파벌정보", modal: "cliqueInfo" },
       ],
     },
     {

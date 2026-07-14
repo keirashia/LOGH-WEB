@@ -19,7 +19,12 @@
           <!-- 초상화 + 기본 -->
           <div class="fd-info-col">
             <div class="fd-portrait-wrap">
-              <span class="fd-portrait">{{ commander?.portrait ?? '👤' }}</span>
+              <img v-if="commander"
+                   :key="commander.code"
+                   :src="charImgSrc(commander.code)"
+                   class="fd-portrait-img" alt=""
+                   @error="handleCharImgError($event, commander.code)" />
+              <span v-else class="fd-portrait">👤</span>
             </div>
             <div class="fd-basic">
               <div class="fd-basic-row">
@@ -28,7 +33,8 @@
               </div>
               <div class="fd-basic-row">
                 <span class="fd-lbl">사령관</span>
-                <span class="serif fd-val">{{ commanderName }}</span>
+                <CharChip v-if="commander" :char-code="fleet.commander" />
+                <span v-else class="serif fd-val dim">미임명</span>
               </div>
               <div class="fd-basic-row">
                 <span class="fd-lbl">위치</span>
@@ -50,7 +56,7 @@
             <div class="fd-section-label">함대 참모</div>
             <div v-if="officerList.length" class="fd-staff-list">
               <div v-for="o in officerList" :key="o.code" class="fd-staff-row">
-                <span class="serif fd-staff-name">{{ o.name }}</span>
+                <CharChip :char-code="o.code" />
               </div>
             </div>
             <div v-else class="dim" style="font-size:11px">(편성된 참모 없음)</div>
@@ -147,8 +153,9 @@
 <script setup>
 import { computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import { charName } from '@/utils/charUtils'
 import { FORMATIONS } from '@/data/base/tactical/tacticalData'
+import { charImgSrc, handleCharImgError } from '@/utils/charImg'
+import CharChip from '@/components/common/CharChip.vue'
 
 const props = defineProps({ payload: Object })
 defineEmits(['close'])
@@ -165,16 +172,9 @@ const commander = computed(() =>
   fleet.value?.commander ? (game.characters[fleet.value.commander] ?? null) : null
 )
 
-const commanderName = computed(() =>
-  commander.value ? charName(commander.value) : '(미임명)'
-)
-
 // ── 참모 목록 ─────────────────────────────────────────
 const officerList = computed(() =>
-  (fleet.value?.officers ?? []).map(code => {
-    const ch = game.characters[code]
-    return ch ? { code, name: charName(ch) } : { code, name: code }
-  })
+  (fleet.value?.officers ?? []).map(code => ({ code }))
 )
 
 // ── 능력치 계산 (computeFleetStats 인라인) ────────────
@@ -286,8 +286,13 @@ function statusClass(s) {
   width: 60px; height: 70px; flex-shrink: 0;
   background: var(--bg4); border: 1px solid var(--bd); border-radius: var(--r);
   display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
 }
 .fd-portrait { font-size: 38px; line-height: 1; }
+.fd-portrait-img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: top;
+}
 
 .fd-basic { flex: 1; display: flex; flex-direction: column; gap: 4px; justify-content: center; }
 .fd-basic-row { display: flex; align-items: center; gap: 8px; font-size: 11px; }
@@ -306,11 +311,7 @@ function statusClass(s) {
   width: 140px; flex-shrink: 0; display: flex; flex-direction: column; gap: 6px;
 }
 .fd-staff-list { display: flex; flex-direction: column; gap: 3px; }
-.fd-staff-row  {
-  padding: 4px 8px; background: var(--bg4);
-  border: 1px solid var(--bd); border-radius: 3px;
-}
-.fd-staff-name { font-size: 11px; letter-spacing: .3px; }
+.fd-staff-row  { display: flex; }
 
 /* ── 구분선 ───────────────────────────────────── */
 .fd-divider    { height: 1px; background: var(--bd); flex-shrink: 0; }
