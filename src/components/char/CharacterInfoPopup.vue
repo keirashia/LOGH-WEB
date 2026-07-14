@@ -1,6 +1,7 @@
 <template>
-  <transition name="cp-fade">
-    <div v-if="show && char" class="cp-box" @click.stop>
+  <Teleport to="body">
+    <transition name="cp-fade">
+      <div v-if="show && char" class="cp-box" @click.stop>
 
       <!-- ① 헤더: 초상화 | 소속국가 | 풀네임 -->
       <div class="cp-head">
@@ -22,9 +23,7 @@
       <div class="cp-sep"><span class="cp-sep-lbl">직업</span></div>
       <div class="cp-jobs">
         <template v-if="char.jobs?.length">
-          <span v-for="j in char.jobs" :key="j.jobCode" class="cp-chip mono">
-            {{ jobName(j.jobCode) }}
-          </span>
+          <JobChip v-for="j in char.jobs" :key="j.jobCode" :job-code="j.jobCode" />
         </template>
         <span v-else class="dim serif" style="font-size:11px">없음</span>
       </div>
@@ -97,16 +96,17 @@
       <div class="cp-sep" />
       <button class="btn btn-gold cp-close-btn" @click="$emit('close')">닫기</button>
 
-    </div>
-  </transition>
+      </div>
+    </transition>
+  </Teleport>
 </template>
 
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import TraitBadge from '@/components/char/TraitBadge.vue'
+import JobChip from '@/components/common/JobChip.vue'
 import { CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
-import { JOB_MAP } from '@/data/base/jobs/jobData.js'
 import { braveLabel, ideaLabel, econLabel, friendGrade } from '@/utils/charValueLabel.js'
 
 const props = defineProps({
@@ -175,10 +175,6 @@ function onPortraitError() {
 
 const initials = computed(() => fullName.value?.slice(-1) ?? '?')
 
-function jobName(code) {
-  return JOB_MAP[code]?.name?.find(e => e.code === 'Kr')?.context ?? code
-}
-
 function pct(v, max = 100) {
   const n = Number(v ?? 0)
   return `${Math.min((n / max) * 100, 100)}%`
@@ -201,7 +197,7 @@ function valStyle(v, max = 100) {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
   width: 90vw; height: 90vh;
-  z-index: 200;
+  z-index: 3000;
   background: linear-gradient(180deg, #101828 0%, #0b1220 100%);
   border: 1px solid rgba(212,170,96,.4);
   border-radius: var(--r);

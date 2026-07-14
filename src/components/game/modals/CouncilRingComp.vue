@@ -9,86 +9,28 @@
       v-for="(pos, i) in resolved"
       :key="pos.jobCode"
       class="cring-seat"
-      :class="{ vacant: !pos.charName, chair: i === 0, held: heldIdx === i }"
+      :class="{ vacant: !pos.charCode, chair: i === 0 }"
       :style="{ '--i': i, '--n': resolved.length }"
-      @mousedown="onDown(i)"
-      @mouseup="onUp"
-      @mouseleave="onUp"
-      @touchstart.prevent="onDown(i)"
-      @touchend.prevent="onUp"
-      @touchcancel="onUp"
-      @contextmenu.prevent
     >
-      <div class="seat-gauge" v-if="heldIdx === i && gaugePercent > 0"
-           :style="{ clipPath: `inset(0 ${100 - gaugePercent}% 0 0)` }" />
-      <div class="seat-lbl mono">{{ pos.shortTitle }}</div>
-      <div class="seat-nm serif" :class="{ dim: !pos.charName }">{{ pos.charName ?? '공석' }}</div>
+      <JobChip :job-code="pos.jobCode" :label="pos.shortTitle" class="seat-lbl" />
+      <CharChip v-if="pos.charCode" :char-code="pos.charCode" disp-type="F" class="seat-chip" />
+      <div v-else class="seat-nm dim">공석</div>
     </div>
-
-    <!-- 중앙 힌트 패널 -->
-    <CharacterInfoPopup
-      :show="showHintIdx !== null && !!resolved[showHintIdx]"
-      :char-code="resolved[showHintIdx]?.charCode ?? null"
-      :title="resolved[showHintIdx]?.shortTitle ?? ''"
-      @close="showHintIdx = null"
-    />
-
 
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onUnmounted } from 'vue'
+import { computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import CharacterInfoPopup from '@/components/char/CharacterInfoPopup.vue'
+import CharChip from '@/components/common/CharChip.vue'
+import JobChip from '@/components/common/JobChip.vue'
 
 const props = defineProps({
   seats: { type: Array, required: true },
 })
 
 const game = useGameStore()
-
-const HOLD_MS = 800
-const TICK_MS = 16
-
-const gaugePercent  = ref(0)
-const heldIdx       = ref(null)
-const showHintIdx   = ref(null)
-
-let timerId = null
-let elapsed = 0
-
-function onDown(i) {
-  if (!resolved.value[i]?.charName) return
-  if (showHintIdx.value !== null) { showHintIdx.value = null; return }
-  heldIdx.value = i
-  elapsed = 0
-  gaugePercent.value = 0
-  timerId = setInterval(() => {
-    elapsed += TICK_MS
-    gaugePercent.value = Math.min((elapsed / HOLD_MS) * 100, 100)
-    if (elapsed >= HOLD_MS) {
-      stop()
-      gaugePercent.value = 0
-      heldIdx.value = null
-      showHintIdx.value = i
-    }
-  }, TICK_MS)
-}
-
-function onUp() {
-  stop()
-  if (showHintIdx.value === null) {
-    gaugePercent.value = 0
-    heldIdx.value = null
-  }
-}
-
-function stop() {
-  if (timerId) { clearInterval(timerId); timerId = null }
-}
-
-onUnmounted(stop)
 
 function charByJob(jobCode) {
   return Object.values(game.characters).find(
@@ -103,10 +45,6 @@ const resolved = computed(() =>
     return {
       ...s,
       charCode: ch?.code ?? null,
-      charName: ch?.nick?.find(e => e.code === 'Kr')?.context
-             ?? ch?.name?.find(e => e.code === 'Kr')?.context
-             ?? null,
-      traits: ch?.traits ?? [],
     }
   })
 )
@@ -159,31 +97,13 @@ const resolved = computed(() =>
   align-items: center;
   gap: 0;
   text-align: center;
-  cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
 }
-.cring-seat.chair .seat-lbl {
-  border-color: rgba(212,170,96,.6);
-  color: var(--tg);
-}
-.cring-seat.chair .seat-nm {
-  border-color: rgba(212,170,96,.4);
-}
-.cring-seat.vacant { opacity: .55; cursor: default; }
+.cring-seat.vacant { opacity: .55; }
 
-/* 홀드 게이지 */
-.seat-gauge {
-  position: absolute;
-  inset: -2px;
-  border: 2px solid rgba(212,170,96,.85);
-  border-radius: 5px;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.seat-lbl {
-  display: inline-block;
+/* JobChip as seat label */
+.cring-seat :deep(.seat-lbl) {
   width: 100%;
   font-size: 10px;
   color: rgba(255,255,255,.9);
@@ -194,12 +114,28 @@ const resolved = computed(() =>
   border-radius: 3px 3px 0 0;
   padding: 2px 4px;
   box-sizing: border-box;
+  justify-content: center;
 }
+.cring-seat.chair :deep(.seat-lbl) {
+  border-color: rgba(212,170,96,.6);
+  color: var(--tg);
+}
+
+/* CharChip as seat name */
+.cring-seat :deep(.seat-chip) {
+  width: 100%;
+  border-radius: 0 0 3px 3px;
+  border-top: none;
+  justify-content: center;
+}
+
 .seat-nm {
   display: inline-block;
   width: 100%;
   font-size: 11px;
-  color: var(--t1);
+  font-family: var(--font-serif);
+  color: var(--td);
+  font-style: italic;
   letter-spacing: .3px;
   line-height: 1.5;
   background: var(--bg2);
@@ -208,9 +144,6 @@ const resolved = computed(() =>
   border-radius: 0 0 3px 3px;
   padding: 2px 4px;
   box-sizing: border-box;
-  overflow-wrap: anywhere;
-  word-break: break-all;
+  text-align: center;
 }
-.seat-nm.dim { color: var(--td); font-style: italic; }
-
 </style>

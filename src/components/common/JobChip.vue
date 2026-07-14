@@ -1,9 +1,8 @@
 <template>
   <button
     v-bind="$attrs"
-    class="char-chip serif"
+    class="job-chip mono"
     :class="{ 'is-held': isHeld }"
-    :disabled="!char"
     @mousedown="onDown"
     @mouseup="onUp"
     @mouseleave="onUp"
@@ -12,37 +11,32 @@
     @touchcancel="onUp"
     @contextmenu.prevent
   >
-    <span v-if="isHeld" class="char-chip-gauge"
+    <span v-if="isHeld" class="job-chip-gauge"
           :style="{ clipPath: `inset(0 ${100 - gaugePercent}% 0 0)` }" />
     {{ displayName }}
   </button>
-  <CharacterInfoPopup
-    :show="showDetail"
-    :char-code="charCode"
-    @close="showDetail = false"
-  />
+  <JobInfoPopup :show="showDetail" :job-code="jobCode" @close="showDetail = false" />
 </template>
 
 <script setup>
 import { computed, ref, onUnmounted } from 'vue'
-import { useGameStore } from '@/stores/gameStore'
-import { charName, charNick } from '@/utils/charUtils'
-import CharacterInfoPopup from '@/components/char/CharacterInfoPopup.vue'
+import { JOB_MAP } from '@/data/base/jobs/jobData.js'
+import JobInfoPopup from '@/components/common/JobInfoPopup.vue'
 
 defineOptions({ inheritAttrs: false })
 
 const props = defineProps({
-  charCode: { type: String, default: null },
-  dispType: { type: String, default: 'F' }, // 'F' 풀네임 | 'N' 닉네임
+  jobCode: { type: String, default: null },
+  label:   { type: String, default: null }, // 표시명 오버라이드
 })
 
-const game = useGameStore()
-const char = computed(() => props.charCode ? (game.characters?.[props.charCode] ?? null) : null)
-const displayName = computed(() => {
-  if (!char.value) return props.charCode ?? '—'
-  if (props.dispType === 'N') return charNick(char.value) || charName(char.value)
-  return charName(char.value)
-})
+const job = computed(() => props.jobCode ? (JOB_MAP[props.jobCode] ?? null) : null)
+const displayName = computed(() =>
+  props.label
+  ?? job.value?.name?.find(e => e.code === 'Kr')?.context
+  ?? props.jobCode
+  ?? '?'
+)
 
 const HOLD_MS = 500
 const TICK_MS = 16
@@ -55,7 +49,7 @@ let timerId = null
 let elapsed = 0
 
 function onDown() {
-  if (!char.value) return
+  if (!job.value) return
   if (showDetail.value) { showDetail.value = false; return }
   isHeld.value = true
   elapsed = 0
@@ -88,15 +82,15 @@ onUnmounted(stop)
 </script>
 
 <style scoped>
-.char-chip {
+.job-chip {
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding: 2px 9px;
+  padding: 3px 8px;
   background: var(--bg4);
   border: 1px solid var(--bd);
-  border-radius: 4px;
-  color: var(--t1);
+  border-radius: var(--r);
+  color: var(--t2);
   font-size: 11px;
   letter-spacing: .3px;
   line-height: 1.6;
@@ -106,14 +100,10 @@ onUnmounted(stop)
   overflow: hidden;
   transition: border-color .15s, background .15s;
 }
-.char-chip:disabled {
-  opacity: .45;
-  cursor: default;
-}
-.char-chip.is-held {
+.job-chip.is-held {
   border-color: rgba(212, 170, 96, .5);
 }
-.char-chip-gauge {
+.job-chip-gauge {
   position: absolute;
   inset: 0;
   background: rgba(212, 170, 96, .18);

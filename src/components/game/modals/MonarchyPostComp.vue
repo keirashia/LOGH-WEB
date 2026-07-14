@@ -8,87 +8,28 @@
           v-for="pos in tier.seats"
           :key="pos.jobCode"
           class="mph-cell"
-          :class="{ apex: tier.level === 0, vacant: !pos.charName, held: heldCode === pos.jobCode }"
-          @mousedown="onDown(pos)"
-          @mouseup="onUp"
-          @mouseleave="onUp"
-          @touchstart.prevent="onDown(pos)"
-          @touchend.prevent="onUp"
-          @touchcancel="onUp"
-          @contextmenu.prevent
+          :class="{ apex: tier.level === 0, vacant: !pos.charCode }"
         >
-          <div class="cell-gauge" v-if="heldCode === pos.jobCode && gaugePercent > 0"
-               :style="{ clipPath: `inset(0 ${100 - gaugePercent}% 0 0)` }" />
-          <div class="mph-lbl mono">{{ pos.label }}</div>
-          <div class="mph-name serif" :class="{ dim: !pos.charName }">
-            {{ pos.charName ?? '공석' }}
-          </div>
+          <JobChip :job-code="pos.jobCode" :label="pos.label" class="mph-lbl" />
+          <CharChip v-if="pos.charCode" :char-code="pos.charCode" disp-type="F" class="mph-chip" />
+          <div v-else class="mph-name dim">공석</div>
         </div>
       </div>
     </div>
-
-    <!-- 힌트 패널 -->
-    <CharacterInfoPopup
-      :show="!!hintPos"
-      :char-code="hintPos?.charCode ?? null"
-      :title="hintPos?.label ?? ''"
-      @close="hintPos = null"
-    />
   </div>
 </template>
 
 <script setup>
-import { ref, computed, onUnmounted } from 'vue'
+import { computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
-import CharacterInfoPopup from '@/components/char/CharacterInfoPopup.vue'
+import CharChip from '@/components/common/CharChip.vue'
+import JobChip from '@/components/common/JobChip.vue'
 
 const props = defineProps({
   seats: { type: Array, required: true },
 })
 
 const game = useGameStore()
-
-const HOLD_MS = 800
-const TICK_MS = 16
-
-const gaugePercent = ref(0)
-const heldCode     = ref(null)
-const hintPos      = ref(null)
-
-let timerId = null
-let elapsed = 0
-
-function onDown(pos) {
-  if (!pos.charName) return
-  if (hintPos.value) { hintPos.value = null; return }
-  heldCode.value = pos.jobCode
-  elapsed = 0
-  gaugePercent.value = 0
-  timerId = setInterval(() => {
-    elapsed += TICK_MS
-    gaugePercent.value = Math.min((elapsed / HOLD_MS) * 100, 100)
-    if (elapsed >= HOLD_MS) {
-      stop()
-      gaugePercent.value = 0
-      heldCode.value = null
-      hintPos.value = pos
-    }
-  }, TICK_MS)
-}
-
-function onUp() {
-  stop()
-  if (!hintPos.value) {
-    gaugePercent.value = 0
-    heldCode.value = null
-  }
-}
-
-function stop() {
-  if (timerId) { clearInterval(timerId); timerId = null }
-}
-
-onUnmounted(stop)
 
 function charByJob(jobCode) {
   return Object.values(game.characters).find(
@@ -103,10 +44,6 @@ const resolved = computed(() =>
     return {
       ...s,
       charCode: ch?.code ?? null,
-      charName: ch?.nick?.find(e => e.code === 'Kr')?.context
-             ?? ch?.name?.find(e => e.code === 'Kr')?.context
-             ?? null,
-      traits: ch?.traits ?? [],
     }
   })
 )
@@ -157,19 +94,11 @@ const tiers = computed(() => {
   justify-content: center;
 }
 
-/* tier 1 (재상급): 내용 너비에 맞추되 최대 50% */
 .tier-1 .mph-cell {
   flex: 0 0 auto;
   width: fit-content;
   max-width: 50%;
 }
-.tier-1 .mph-name {
-  white-space: nowrap;
-  word-break: normal;
-  overflow-wrap: normal;
-}
-
-/* tier 2 (각 상서): 2열 고정 */
 .tier-2 .mph-cell {
   flex: 0 0 calc(50% - 2px);
 }
@@ -180,37 +109,14 @@ const tiers = computed(() => {
   min-width: 60px;
   text-align: center;
   border-radius: var(--r);
-  cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
 }
+.mph-cell.apex { flex: 0 0 90px; }
+.mph-cell.vacant { opacity: .55; }
 
-.mph-cell.apex {
-  flex: 0 0 90px;
-}
-.mph-cell.apex .mph-lbl {
-  border-color: rgba(212,170,96,.6);
-  color: var(--tg);
-}
-.mph-cell.apex .mph-name {
-  border-color: rgba(212,170,96,.4);
-  background: rgba(255,215,0,.05);
-}
-
-.mph-cell.vacant { cursor: default; }
-.mph-cell.vacant .mph-name { color: rgba(255,255,255,.45); font-style: italic; }
-
-/* 홀드 게이지 */
-.cell-gauge {
-  position: absolute;
-  inset: -2px;
-  border: 2px solid rgba(212,170,96,.85);
-  border-radius: calc(var(--r) + 2px);
-  pointer-events: none;
-  z-index: 2;
-}
-
-.mph-lbl {
+/* JobChip as lbl */
+.mph-cell :deep(.mph-lbl) {
   display: block;
   width: 100%;
   font-size: 10px;
@@ -222,13 +128,32 @@ const tiers = computed(() => {
   border-radius: 3px 3px 0 0;
   padding: 2px 4px;
   box-sizing: border-box;
+  justify-content: center;
+}
+.mph-cell.apex :deep(.mph-lbl) {
+  border-color: rgba(212,170,96,.6);
+  color: var(--tg);
+}
+
+/* CharChip as name */
+.mph-cell :deep(.mph-chip) {
+  width: 100%;
+  border-radius: 0 0 3px 3px;
+  border-top: none;
+  justify-content: center;
+}
+.mph-cell.apex :deep(.mph-chip) {
+  border-color: rgba(212,170,96,.4);
+  background: rgba(255,215,0,.05);
 }
 
 .mph-name {
   display: block;
   width: 100%;
   font-size: 11px;
-  color: var(--t1);
+  font-family: var(--font-serif);
+  color: var(--td);
+  font-style: italic;
   letter-spacing: .3px;
   line-height: 1.5;
   background: var(--bg2);
@@ -237,10 +162,6 @@ const tiers = computed(() => {
   border-radius: 0 0 3px 3px;
   padding: 2px 4px;
   box-sizing: border-box;
-  overflow-wrap: anywhere;
-  word-break: break-all;
+  text-align: center;
 }
-
-.mph-name.dim { color: rgba(255,255,255,.45); font-style: italic; }
-
 </style>

@@ -37,7 +37,7 @@
           </div>
           <template v-if="!collapsed[sec.label]">
             <div v-for="pos in sec.positions" :key="pos.title" class="np-pos-row">
-              <span class="np-pos-title dim">{{ pos.title }}</span>
+              <JobChip :job-code="pos.jobCode" :label="pos.title" />
               <CharChip v-if="pos.char" :char-code="pos.char.code" />
               <span v-else class="np-pos-vacant">공석</span>
             </div>
@@ -61,6 +61,7 @@ import { useGameStore } from '@/stores/gameStore'
 import CouncilRingComp from '@/components/game/modals/CouncilRingComp.vue'
 import MonarchyPostComp from '@/components/game/modals/MonarchyPostComp.vue'
 import CharChip from '@/components/common/CharChip.vue'
+import JobChip from '@/components/common/JobChip.vue'
 
 defineEmits(['close'])
 const game = useGameStore()
@@ -174,8 +175,9 @@ const sections = computed(() => {
   return config.map(sec => ({
     label: sec.label,
     positions: sec.jobCodes.map(p => ({
-      title: p.title,
-      char:  charByJob(p.jobCode),
+      title:   p.title,
+      jobCode: p.jobCode,
+      char:    charByJob(p.jobCode),
     })),
   }))
 })
@@ -240,10 +242,6 @@ const sections = computed(() => {
   display: flex; align-items: center; justify-content: space-between;
   padding: 8px 24px; border-top: 1px solid rgba(255,255,255,.04);
   font-size: 12px;
-}
-.np-pos-title {
-  font-family: var(--font-serif); letter-spacing: .5px; flex-shrink: 0;
-  min-width: 90px;
 }
 .np-pos-vacant {
   font-family: var(--font-serif); font-size: 11px;
