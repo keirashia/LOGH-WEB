@@ -13,7 +13,8 @@
       "PowerShell(Select-String -Path \"c:\\\\Users\\\\keira\\\\Project_Genei\\\\LOGH-WEB\\\\src\\\\data\\\\base\\\\characters\\\\charactersData.js\" -Pattern 'point:' | Select-Object -First 10 | ForEach-Object { $_.Line })",
       "Bash(node --input-type=module -e ' *)",
       "WebSearch",
-      "Bash(sort -t_ -k2 -n)"
+      "Bash(sort -t_ -k2 -n)",
+      "Bash(python3 -c ' *)"
     ]
   }
 }

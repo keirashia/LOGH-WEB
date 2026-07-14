@@ -21060,6 +21060,7 @@ export const CHAR_BASE = [
     // — 직업
     // — 트레잇
   },
+  // 호우드 Hawood · ホーウッド
   {
     // — 기본
     code: "CH_000550",
@@ -21069,22 +21070,26 @@ export const CHAR_BASE = [
     birth: "",
     death: "",
     // — 성향
-    faction: "",
+    faction: "FPA",
     idea: "",
     econ: "",
     brave: "",
     moral: "",
     friend: "",
-    // — 능력치
-    statCmd: 0,
+    /** — 능력치
+     * 4 | 통솔:79  지휘:-   공격:83  방어:78  기동:71  운영:36  정보:55  육전:73  공전:85
+     * 5 | 통솔:62  지휘:-   공격:78  방어:85  기동:66  운영:73  정보:63  육전:45  공전:78
+     * 6 | 통솔:74  지휘:62  공격:67  방어:61  기동:65  운영:48  정보:27  육전:-   공전:-
+     */
+    statCmd: 79,
     statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
+    statAtt: 83,
+    statDef: 78,
+    statFst: 71,
+    statMng: 36,
+    statInf: 55,
+    statGfg: 73,
+    statAfg: 85,
     statPlt: 0,
     // — 기타
     loc: "",
