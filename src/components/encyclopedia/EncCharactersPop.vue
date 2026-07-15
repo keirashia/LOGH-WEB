@@ -108,12 +108,19 @@ import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
 import { CHAR_BASE } from '@/data/base/characters/charactersData.js'
 import CharDetailComp from '@/components/char/CharDetailComp.vue'
 import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
+import { useLang } from '@/composables/useLang'
 
 const enc = useEncyclopediaStore()
+const { lang } = useLang()
 
 const ALL = CHAR_BASE
-const NAMES_MAP = Object.fromEntries(
-  CHAR_BASE.map(c => [c.code, { name: c.nameKr, nick: c.nickKr }])
+const NAMES_MAP = computed(() =>
+  Object.fromEntries(
+    CHAR_BASE.map(c => [c.code, {
+      name: c.name?.find(e => e.code === lang.value)?.context ?? c.code,
+      nick: c.nick?.find(e => e.code === lang.value)?.context ?? '',
+    }])
+  )
 )
 
 const FACTION_FILTERS = [
@@ -139,7 +146,7 @@ const selectedCode = ref(enc.chaCode ?? null)
 
 const charName = computed(() => {
   if (!selectedCode.value) return ''
-  return NAMES_MAP[selectedCode.value]?.name ?? selectedCode.value
+  return NAMES_MAP.value[selectedCode.value]?.name ?? selectedCode.value
 })
 
 const filtered = computed(() => {
@@ -147,7 +154,7 @@ const filtered = computed(() => {
   return ALL.filter(c => {
     if (factionFilter.value && c.faction !== factionFilter.value) return false
     if (!q) return true
-    const name = NAMES_MAP[c.code]
+    const name = NAMES_MAP.value[c.code]
     return (
       name?.name.toLowerCase().includes(q) ||
       name?.nick.toLowerCase().includes(q)

@@ -52,6 +52,7 @@
 
 <script setup>
 import { ref, computed, onUnmounted } from 'vue'
+import { useLang } from '@/composables/useLang'
 
 const props = defineProps({
   trait:     { type: Object, required: true },
@@ -100,7 +101,8 @@ function stop() {
 
 onUnmounted(stop)
 
-const traitName  = computed(() => props.trait.name?.find(e => e.code === 'Kr')?.context ?? '')
+const { lang } = useLang()
+const traitName  = computed(() => props.trait.name?.find(e => e.code === lang.value)?.context ?? '')
 const MAX_EXP = 100
 const expPercent = computed(() => Math.min(((props.charTrait?.traitExp ?? 0) / MAX_EXP) * 100, 100))
 const hasEffects = computed(() => Object.keys(props.trait.effects ?? {}).length > 0)

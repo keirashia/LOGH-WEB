@@ -5,8 +5,8 @@
       <!-- 헤더 -->
       <div class="ppd-head">
         <div>
-          <div class="serif gold ppd-name">{{ planet.nameKr }}</div>
-          <div v-if="planet.nameEn" class="mono dim" style="font-size:10px;margin-top:2px">{{ planet.nameEn }}</div>
+          <div class="serif gold ppd-name">{{ planetName }}</div>
+          <div v-if="planetEnName" class="mono dim" style="font-size:10px;margin-top:2px">{{ planetEnName }}</div>
         </div>
         <button class="ppd-close" @click="$emit('close')">✕</button>
       </div>
@@ -14,7 +14,7 @@
       <!-- 네비게이터 -->
       <div class="ppd-nav">
         <button class="ppd-nav-btn" :disabled="planets.length <= 1" @click="move(-1)">◀</button>
-        <span class="serif ppd-nav-name">{{ planet.nameKr }}</span>
+        <span class="serif ppd-nav-name">{{ planetName }}</span>
         <span class="mono dim ppd-nav-idx">{{ currentIdx + 1 }}/{{ planets.length }}</span>
         <button class="ppd-nav-btn" :disabled="planets.length <= 1" @click="move(1)">▶</button>
       </div>
@@ -67,7 +67,7 @@
             <div v-for="t in planet.traitData" :key="t.id" class="ppd-trait-card">
               <div class="ppd-trait-head">
                 <span v-if="t.icon" class="ppd-trait-icon">{{ t.icon }}</span>
-                <span class="serif ppd-trait-name">{{ t.nameKr }}</span>
+                <span class="serif ppd-trait-name">{{ t.name?.find(e => e.code === lang)?.context ?? t.id }}</span>
                 <span class="mono dim ppd-trait-id">{{ t.id }}</span>
               </div>
               <div v-if="t.desc" class="ppd-trait-desc serif">{{ t.desc }}</div>
@@ -166,6 +166,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import { useLang } from '@/composables/useLang'
 
 const props = defineProps({
   show:        { type: Boolean, default: false },
@@ -175,6 +176,7 @@ const props = defineProps({
 defineEmits(['close'])
 
 const game = useGameStore()
+const { lang } = useLang()
 
 const currentIdx = ref(0)
 const activeTab  = ref('overview')
@@ -190,6 +192,9 @@ watch(() => props.show, v => { if (v) activeTab.value = 'overview' })
 
 const planet = computed(() => props.planets[currentIdx.value] ?? null)
 
+const planetName   = computed(() => planet.value?.name?.find(e => e.code === lang.value)?.context ?? '')
+const planetEnName = computed(() => planet.value?.name?.find(e => e.code === 'En')?.context ?? '')
+
 function move(dir) {
   currentIdx.value = (currentIdx.value + dir + props.planets.length) % props.planets.length
   activeTab.value = 'overview'
@@ -197,11 +202,11 @@ function move(dir) {
 
 const govName = computed(() => {
   const code = planet.value?.governor
-  return (code && game.characters[code]?.name) || '공석'
+  return (code && game.characters[code]?.name?.find(e => e.code === lang.value)?.context) || '공석'
 })
 const cmdName = computed(() => {
   const code = planet.value?.commander
-  return (code && game.characters[code]?.name) || '공석'
+  return (code && game.characters[code]?.name?.find(e => e.code === lang.value)?.context) || '공석'
 })
 
 const buildingUsed = computed(() =>
@@ -211,7 +216,7 @@ const buildingUsed = computed(() =>
 const descText = computed(() => {
   const arr = planet.value?.desc
   if (!arr) return ''
-  return (Array.isArray(arr) ? arr.find(e => e.code === 'Kr')?.context : arr) ?? ''
+  return (Array.isArray(arr) ? arr.find(e => e.code === lang.value)?.context : arr) ?? ''
 })
 
 function pct(unit, total) {

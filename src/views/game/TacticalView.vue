@@ -235,10 +235,12 @@ import { useGameStore }     from '@/stores/gameStore'
 import { FORMATIONS, TERRAIN, TILE_PX } from '@/data/base/tactical/tacticalData'
 import { CHARACTERS_MAP, FACTIONS } from '@/data/masterData'
 import OperationBriefingModal from '@/components/game/tactical/OperationBriefingModal.vue'
+import { useLang } from '@/composables/useLang'
 
 const router = useRouter()
 const store  = useTacticalStore()
 const game   = useGameStore()
+const { lang } = useLang()
 
 // ── refs ─────────────────────────────────────────────────────
 const mapWrap       = ref(null)
@@ -320,7 +322,7 @@ const selectedCommander = computed(() => {
   const ch = CHARACTERS_MAP[code]
   if (!ch) return null
   const nameKr = Array.isArray(ch.name)
-    ? (ch.name.find(n => n.code === 'Kr')?.context ?? ch.name[0]?.context ?? '')
+    ? (ch.name.find(n => n.code === lang.value)?.context ?? ch.name[0]?.context ?? '')
     : (ch.name ?? '')
   return { ...ch, nameKr }
 })

@@ -5,7 +5,7 @@
       <template v-if="selYear !== null">
         <button class="nav-arrow" :disabled="!prevPlayable" @click="emit('navigate', prevPlayable)">
           <span class="arr-sym">‹</span>
-          <span class="arr-name mono">{{ prevPlayable ? prevPlayable.nameKr : '🔒' }}</span>
+          <span class="arr-name mono">{{ prevPlayable ? scName(prevPlayable) : '🔒' }}</span>
         </button>
         <div class="year-info">
           <span class="serif gold" style="font-size:22px">{{ selYearType }} {{ selYear }}년</span>
@@ -13,7 +13,7 @@
         </div>
         <button class="nav-arrow nav-arrow-r" :disabled="!nextPlayable" @click="emit('navigate', nextPlayable)">
           <span class="arr-sym">›</span>
-          <span class="arr-name mono">{{ nextPlayable ? nextPlayable.nameKr : '🔒' }}</span>
+          <span class="arr-name mono">{{ nextPlayable ? scName(nextPlayable) : '🔒' }}</span>
         </button>
       </template>
       <template v-else>
@@ -61,8 +61,8 @@
               </div>
               <div class="card-body">
                 <span class="cb-icon">{{ cardIcon(sc) }}</span>
-                <span class="cb-title serif">{{ sc.nameKr }}</span>
-                <span v-if="sc.nameEn" class="cb-sub mono">{{ sc.nameEn }}</span>
+                <span class="cb-title serif">{{ scName(sc) }}</span>
+                <span v-if="scEnName(sc)" class="cb-sub mono">{{ scEnName(sc) }}</span>
               </div>
               <div class="card-corner br">
                 <span class="cc-icon">{{ cardIcon(sc) }}</span>
@@ -96,8 +96,13 @@
 import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useLobbyStore } from '@/stores/lobbyStore'
+import { useLang } from '@/composables/useLang'
 
 const lobby = useLobbyStore()
+const { lang } = useLang()
+
+function scName(sc)   { return sc?.name?.find(e => e.code === lang.value)?.context ?? '' }
+function scEnName(sc) { return sc?.name?.find(e => e.code === 'En')?.context ?? '' }
 
 const TAG_COLORS = {
   '사실':       '#4488FF',

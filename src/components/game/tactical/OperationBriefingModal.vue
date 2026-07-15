@@ -86,6 +86,7 @@ import { ref, computed } from 'vue'
 import { useGameStore }  from '@/stores/gameStore'
 import { OPERATION_OBJECTIVES } from '@/data/base/tactical/tacticalData'
 import { JOB_MAP } from '@/data/base/jobs/jobData'
+import { useLang } from '@/composables/useLang'
 
 const props = defineProps({
   ctx: { type: Object, required: true },
@@ -93,15 +94,17 @@ const props = defineProps({
 const emit = defineEmits(['confirm', 'skip'])
 
 const game     = useGameStore()
+const { lang } = useLang()
 const selected = ref(null)
 
 // ── 기본 정보 ─────────────────────────────────────────────────
 const locationName = computed(() => {
-  return game.systems?.[props.ctx.locationId]?.name ?? props.ctx.locationId
+  const sys = game.systems?.[props.ctx.locationId]
+  return sys?.name?.find(e => e.code === lang.value)?.context ?? props.ctx.locationId
 })
 
 function factionName(id) {
-  return game.factions?.[id]?.nameKr ?? id
+  return game.factions?.[id]?.name?.find(e => e.code === lang.value)?.context ?? id
 }
 
 // ── 총사령관 ──────────────────────────────────────────────────
@@ -118,7 +121,7 @@ function rankName(char) {
   if (!char) return ''
   const rankJob = (char.jobs ?? []).find(j => j.jobCode?.startsWith('JB_MR'))
   if (!rankJob) return ''
-  return JOB_MAP[rankJob.jobCode]?.name?.find(n => n.code === 'Kr')?.context ?? rankJob.jobCode
+  return JOB_MAP[rankJob.jobCode]?.name?.find(n => n.code === lang.value)?.context ?? rankJob.jobCode
 }
 
 const attackerRankName = computed(() => rankName(attackerSupChar.value))

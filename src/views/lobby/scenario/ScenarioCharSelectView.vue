@@ -9,7 +9,7 @@
 
         <div class="title-block">
           <span class="serif gold title-main">국가 선택</span>
-          <span class="mono dim title-sub">{{ cur.nameKr }}</span>
+          <span class="mono dim title-sub">{{ curName }}</span>
         </div>
 
         <div
@@ -74,7 +74,7 @@
           <span class="serif gold title-main">
             {{ factionFilter ? (factionNamesMap[factionFilter]?.name ?? factionFilter) : '전체' }}
           </span>
-          <span class="mono dim title-sub">인물 선택 · {{ cur.nameKr }}</span>
+          <span class="mono dim title-sub">인물 선택 · {{ curName }}</span>
         </div>
 
         <!-- 검색 -->
@@ -152,13 +152,15 @@ import { useRoute, useRouter } from 'vue-router'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useLobbyStore } from '@/stores/lobbyStore'
 import { useGameStore } from '@/stores/gameStore'
+import { useLang } from '@/composables/useLang'
 import { FACTIONS } from '@/data/masterData'
 import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
 import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
 import {
   CHAR_BASE, CHAR_JOBS, JOB_MAP,
-  CHAR_NAMES_MAP as namesMap,
+  CHAR_NAMES_MAP,
   CHAR_UNIQUE_TRAIT_MAP as charUniqueTraitMap,
+  charName, charNick,
 } from '@/utils/charUtils.js'
 import StarfieldCanvas from '@/components/common/StarfieldCanvas.vue'
 import CharDetailComp from '@/components/char/CharDetailComp.vue'
@@ -168,11 +170,25 @@ const router = useRouter()
 const lobby  = useLobbyStore()
 const game   = useGameStore()
 
+const { lang } = useLang()
+
 const cur     = computed(() => SCENARIOS.find(s => s.id === route.params.scId) ?? SCENARIOS[0])
+const curName = computed(() => cur.value?.name?.find(e => e.code === lang.value)?.context ?? '')
 const options = computed(() => lobby.options)
 
-const factionNamesMap = Object.fromEntries(
-  FACTION_NAMES.filter(n => n.lang === 'Kr').map(n => [n.factionId, n])
+const factionNamesMap = computed(() =>
+  Object.fromEntries(
+    FACTION_NAMES.filter(n => n.lang === lang.value).map(n => [n.factionId, n])
+  )
+)
+
+const namesMap = computed(() =>
+  Object.fromEntries(
+    CHAR_BASE.map(c => [c.code, {
+      name: charName(c, lang.value),
+      nick: charNick(c, lang.value),
+    }])
+  )
 )
 
 // 시나리오 오버라이드 직업 반영 (base + 시나리오 덮어쓰기)
@@ -188,7 +204,7 @@ const charJobMap = computed(() => Object.fromEntries(
     const primary = effectiveCharJobs.value
       .filter(j => j.charCode === c.code)
       .sort((a, b) => a.jobStDate - b.jobStDate)[0]
-    return [c.code, primary ? (JOB_MAP[primary.jobCode]?.name?.find(e => e.code === 'Kr')?.context ?? '') : '']
+    return [c.code, primary ? (JOB_MAP[primary.jobCode]?.name?.find(e => e.code === lang.value)?.context ?? '') : '']
   })
 ))
 
@@ -311,7 +327,7 @@ const sortedFilteredChars = computed(() => {
   const kw = q.value.trim().toLowerCase()
   const list = kw
     ? scenarioChars.value.filter(c => {
-        const e = namesMap[c.code]
+        const e = CHAR_NAMES_MAP[c.code]
         return e?.searchTokens?.some(t => t.toLowerCase().includes(kw))
       })
     : scenarioChars.value

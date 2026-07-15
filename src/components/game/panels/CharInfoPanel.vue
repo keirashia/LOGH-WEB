@@ -119,11 +119,13 @@ import { CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
 import { useGameStore } from '@/stores/gameStore'
 import { JOB_MAP } from '@/data/base/jobs/jobData'
 import { CHAR_JOBS, charName } from '@/utils/charUtils'
+import { useLang } from '@/composables/useLang'
 
 defineProps({ isOverlay: { type: Boolean, default: false } })
 defineEmits(['close'])
 
 const game = useGameStore()
+const { lang } = useLang()
 
 const char = computed(() => game.playerChar)
 
@@ -135,15 +137,13 @@ const charJobData = computed(() => {
     const jobDef = JOB_MAP[jobCode]
     return {
       jobCode,
-      nameKr:   jobDef?.name?.find(e => e.code === 'Kr')?.context ?? jobCode,
+      nameKr:   jobDef?.name?.find(e => e.code === lang.value)?.context ?? jobCode,
       category: jobDef?.category ?? '',
       jobLevel: entry?.jobLevel  ?? 0,
       jobExp:   entry?.jobExp    ?? 0,
     }
   })
 })
-
-const USER_LANG = 'Kr'  // TODO: 유저 설정에서 읽기
 
 const NAME_MIN_PX = 11
 const NAME_MAX_PX = 15
@@ -156,7 +156,7 @@ function _nameFit(str) {
 
 const displayName = computed(() => {
   if (!char.value) return ''
-  return charName(char.value, USER_LANG)
+  return charName(char.value, lang.value)
 })
 
 const nameFontStyle = computed(() => ({

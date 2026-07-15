@@ -82,7 +82,7 @@
               <text text-anchor="middle" dy="5"
                     :font-size="s.type==='capital' ? 13 : 10">{{ ico(s) }}</text>
               <text class="sys-lbl" text-anchor="middle" dy="17" font-size="9"
-                    :fill="s.faction ? FACTION_COLORS[s.faction] : '#6a8aaa'">{{ s.nameKr }}</text>
+                    :fill="s.faction ? FACTION_COLORS[s.faction] : '#6a8aaa'">{{ s.name?.find(n => n.code === lang)?.context ?? s.code }}</text>
             </g>
 
           </g>
@@ -119,8 +119,8 @@
       <transition name="detail-fade">
         <div v-if="selectedSystem" class="sys-detail panel">
           <div class="sys-detail-header">
-            <span class="serif" style="font-size:14px">{{ selectedSystem.nameKr }}</span>
-            <span class="mono dim" style="font-size:11px">{{ selectedSystem.nameEn }}</span>
+            <span class="serif" style="font-size:14px">{{ selectedSystem.name?.find(n => n.code === lang)?.context }}</span>
+            <span class="mono dim" style="font-size:11px">{{ selectedSystem.name?.find(n => n.code === 'En')?.context }}</span>
             <span v-if="selectedSystem.faction"
                   class="mono"
                   :style="`color:${FACTION_COLORS[selectedSystem.faction]};font-size:10px`">
@@ -143,9 +143,11 @@ import { Delaunay } from 'd3-delaunay'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
 import { useGameStore }         from '@/stores/gameStore'
 import { FACTIONS }     from '@/data/masterData'
+import { useLang } from '@/composables/useLang'
 
 const enc  = useEncyclopediaStore()
 const game = useGameStore()
+const { lang } = useLang()
 
 // ── 상수 ──────────────────────────────────────────────────────
 const VW = 1600, VH = 1000
@@ -171,7 +173,6 @@ const mapTitle = computed(() =>
 const systems = computed(() =>
   Object.values(game.systems)
     .filter(s => s.x > 0 && s.y > 0)
-    .map(s => ({ ...s, nameKr: s.name }))
 )
 
 // ── 항로 ──────────────────────────────────────────────────────

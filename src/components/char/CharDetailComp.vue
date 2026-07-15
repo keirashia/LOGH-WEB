@@ -17,7 +17,7 @@
             {{ NATION_LABEL[charData.faction] ?? charData.faction }}
           </span>
           <span v-for="j in topJobs" :key="j.jobCode" class="job-badge mono">
-            {{ JOB_MAP[j.jobCode]?.name?.find(e => e.code === 'Kr')?.context ?? j.jobCode }}
+            {{ JOB_MAP[j.jobCode]?.name?.find(e => e.code === lang)?.context ?? j.jobCode }}
           </span>
         </div>
         <div v-if="descData?.desc" class="cdc-desc dim">{{ descData.desc }}</div>
@@ -35,7 +35,7 @@
       <div v-if="!jobList.length" class="job-row mono dim">직책 없음</div>
       <template v-else-if="jobsExpanded || jobList.length === 1">
         <div v-for="j in jobList" :key="j.jobCode" class="job-row">
-          <span class="job-label serif">{{ JOB_MAP[j.jobCode]?.name?.find(e => e.code === 'Kr')?.context ?? j.jobCode }}</span>
+          <span class="job-label serif">{{ JOB_MAP[j.jobCode]?.name?.find(e => e.code === lang)?.context ?? j.jobCode }}</span>
           <div class="job-right mono">
             <span class="job-lv">Lv.{{ j.jobLevel ?? 0 }}</span>
             <div class="job-exp-bar">
@@ -112,6 +112,7 @@ import {
   JOB_MAP,
   charName, charNick, charDesc,
 } from '@/utils/charUtils.js'
+import { useLang } from '@/composables/useLang'
 
 const props = defineProps({
   chaCode:    { type: String, required: true },
@@ -160,11 +161,13 @@ const open = reactive({ stat: false, tend: false })
 function toggle(key) { open[key] = !open[key] }
 const jobsExpanded = ref(true)
 
+const { lang } = useLang()
+
 // ── 데이터 ───────────────────────────────────────────────────
 const charData  = computed(() => CHAR_DATA_MAP[props.chaCode] ?? null)
 const nameData  = computed(() => charData.value ? {
-  name: charName(charData.value),
-  nick: charNick(charData.value),
+  name: charName(charData.value, lang.value),
+  nick: charNick(charData.value, lang.value),
 } : null)
 const descData  = computed(() => charData.value ? {
   desc: charDesc(charData.value),

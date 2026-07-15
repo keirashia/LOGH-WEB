@@ -5,8 +5,8 @@
       <!-- 헤더 -->
       <div class="ssd-head">
         <div class="ssd-head-left">
-          <span class="serif gold ssd-name">{{ sys.name }}</span>
-          <span v-if="sys.nameEn" class="mono dim ssd-name-en">{{ sys.nameEn }}</span>
+          <span class="serif gold ssd-name">{{ sysName }}</span>
+          <span v-if="sysEnName" class="mono dim ssd-name-en">{{ sysEnName }}</span>
         </div>
         <div class="ssd-head-right">
           <span class="mono ssd-type-badge" :class="`ssd-type--${sys.type}`">{{ TYPE_LABELS[sys.type] ?? sys.type }}</span>
@@ -31,8 +31,8 @@
           <div v-for="p in sortedPlanets" :key="p.code"
                class="ssd-planet-row ssd-planet-row--link"
                @click="selectedPlanetCode = p.code">
-            <span class="serif ssd-planet-name">{{ p.nameKr ?? p.name ?? p.code }}</span>
-            <span v-if="p.nameEn" class="mono dim ssd-planet-en">{{ p.nameEn }}</span>
+            <span class="serif ssd-planet-name">{{ p.name?.find(e => e.code === lang)?.context ?? p.code }}</span>
+            <span v-if="p.name?.find(e => e.code === 'En')?.context" class="mono dim ssd-planet-en">{{ p.name?.find(e => e.code === 'En')?.context }}</span>
             <span v-if="p.faction && p.faction !== sys.faction"
                   class="mono ssd-planet-fc" :class="`fc-${p.faction}`">
               {{ FACTION_NAMES[p.faction] ?? p.faction }}
@@ -68,6 +68,7 @@
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import PlanetInfoDetailPopup from '@/components/starSystem/PlanetInfoDetailPopup.vue'
+import { useLang } from '@/composables/useLang'
 
 const props = defineProps({
   show:       { type: Boolean, default: false },
@@ -76,12 +77,16 @@ const props = defineProps({
 defineEmits(['close'])
 
 const game = useGameStore()
+const { lang } = useLang()
 
 const selectedPlanetCode = ref(null)
 
 const sys = computed(() =>
   props.systemCode ? (game.systems?.[props.systemCode] ?? null) : null
 )
+
+const sysName   = computed(() => sys.value?.name?.find(e => e.code === lang.value)?.context ?? '')
+const sysEnName = computed(() => sys.value?.name?.find(e => e.code === 'En')?.context ?? '')
 
 const sortedPlanets = computed(() =>
   [...(sys.value?.planets ?? [])].sort((a, b) => (b.pops?.unit ?? 0) - (a.pops?.unit ?? 0))

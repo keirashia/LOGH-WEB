@@ -82,9 +82,11 @@ import { useGameStore } from '@/stores/gameStore'
 import CharChip from '@/components/common/CharChip.vue'
 import { ECONOMY_DATA } from '@/data/base/regime/economyData'
 import { IDEOLOGY_DATA } from '@/data/base/regime/ideologyData'
+import { useLang } from '@/composables/useLang'
 
 defineEmits(['close'])
 const game = useGameStore()
+const { lang } = useLang()
 
 // 플레이어 세력의 파벌만 — 리더의 faction 기준
 const myCliques = computed(() =>
@@ -96,7 +98,7 @@ const myCliques = computed(() =>
 )
 
 const factionLabel = computed(() =>
-  game.factions?.[game.playerFaction]?.nameKr ?? game.playerFaction
+  game.factions?.[game.playerFaction]?.name?.find(e => e.code === lang.value)?.context ?? game.playerFaction
 )
 
 function leaderChar(clq)  { return game.characters[clq.leader]  ?? null }

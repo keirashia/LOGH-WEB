@@ -22,6 +22,7 @@
 import { computed, ref, onUnmounted } from 'vue'
 import { JOB_MAP } from '@/data/base/jobs/jobData.js'
 import JobInfoPopup from '@/components/common/JobInfoPopup.vue'
+import { useLang } from '@/composables/useLang'
 
 defineOptions({ inheritAttrs: false })
 
@@ -30,10 +31,11 @@ const props = defineProps({
   label:   { type: String, default: null }, // 표시명 오버라이드
 })
 
+const { lang } = useLang()
 const job = computed(() => props.jobCode ? (JOB_MAP[props.jobCode] ?? null) : null)
 const displayName = computed(() =>
   props.label
-  ?? job.value?.name?.find(e => e.code === 'Kr')?.context
+  ?? job.value?.name?.find(e => e.code === lang.value)?.context
   ?? props.jobCode
   ?? '?'
 )

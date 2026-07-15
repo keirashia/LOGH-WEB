@@ -40,6 +40,7 @@
 <script setup>
 import { computed } from 'vue'
 import { JOB_MAP } from '@/data/base/jobs/jobData.js'
+import { useLang } from '@/composables/useLang'
 
 const props = defineProps({
   show:    { type: Boolean, default: false },
@@ -54,8 +55,9 @@ const EFFECT_LABELS  = {
   MNG: '운영', INF: '정보', GFG: '육전', AFG: '공전', PLT: '정치',
 }
 
+const { lang } = useLang()
 const job     = computed(() => props.jobCode ? (JOB_MAP[props.jobCode] ?? null) : null)
-const jobName = computed(() => job.value?.name?.find(e => e.code === 'Kr')?.context ?? props.jobCode ?? '?')
+const jobName = computed(() => job.value?.name?.find(e => e.code === lang.value)?.context ?? props.jobCode ?? '?')
 const hasEffects = computed(() => job.value && Object.keys(job.value.effects ?? {}).length > 0)
 </script>
 

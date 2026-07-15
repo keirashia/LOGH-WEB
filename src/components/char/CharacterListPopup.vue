@@ -95,11 +95,13 @@ import { useGameStore } from '@/stores/gameStore'
 import { JOB_MAP } from '@/data/base/jobs/jobData.js'
 import { friendGrade } from '@/utils/charValueLabel.js'
 import CharacterInfoPopup from '@/components/char/CharacterInfoPopup.vue'
+import { useLang } from '@/composables/useLang'
 
 defineProps({ payload: { default: null } })
 defineEmits(['close'])
 
 const game = useGameStore()
+const { lang } = useLang()
 
 const detailCode = ref(null)
 const sortKey    = ref('friend')
@@ -133,8 +135,8 @@ const rows = computed(() => {
     .map(c => {
       const isPlayer = c.code === pc
       const fi       = friendGrade(c.friend, pf)
-      const nick     = c.nick?.find(e => e.code === 'Kr')?.context
-                    ?? c.name?.find(e => e.code === 'Kr')?.context
+      const nick     = c.nick?.find(e => e.code === lang.value)?.context
+                    ?? c.name?.find(e => e.code === lang.value)?.context
                     ?? '?'
       return {
         code:        c.code,
@@ -142,7 +144,7 @@ const rows = computed(() => {
         nick,
         initials:    nick.slice(-1),
         jobName:     c.jobs?.[0]
-                       ? (JOB_MAP[c.jobs[0].jobCode]?.name?.find(e => e.code === 'Kr')?.context ?? '-')
+                       ? (JOB_MAP[c.jobs[0].jobCode]?.name?.find(e => e.code === lang.value)?.context ?? '-')
                        : '-',
         brave:       Number(c.brave ?? 0),
         braveLabel:  c.braveLabel ?? '-',

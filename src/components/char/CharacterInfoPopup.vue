@@ -104,6 +104,7 @@
 <script setup>
 import { computed, ref, watch } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import { useLang } from '@/composables/useLang'
 import TraitBadge from '@/components/char/TraitBadge.vue'
 import JobChip from '@/components/common/JobChip.vue'
 import { CHAR_TRAIT_MAP } from '@/data/base/trait/chars/charTraitData.js'
@@ -117,6 +118,7 @@ const props = defineProps({
 defineEmits(['close'])
 
 const game = useGameStore()
+const { lang } = useLang()
 
 const char = computed(() =>
   props.charCode ? (game.characters?.[props.charCode] ?? null) : null
@@ -155,7 +157,7 @@ const friendInfo = computed(() =>
 const activeHint = ref(null)
 
 const fullName = computed(() =>
-  char.value?.name?.find(e => e.code === 'Kr')?.context ?? '?'
+  char.value?.name?.find(e => e.code === lang.value)?.context ?? '?'
 )
 
 const portraitSrc = ref(null)
