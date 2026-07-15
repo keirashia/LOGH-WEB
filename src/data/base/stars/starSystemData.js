@@ -28,9 +28,10 @@ export const STAR_SYSTEMS = [
    *  행성 : 바텐-도라흐 */
   {
     code: "230001",
-    nameKr: "알멘트푸벨",
-    nameEn: "ALMENTFUBEEL",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "알멘트푸벨" },
+      { code: "En", context: "ALMENTFUBEEL" },
+    ],
     alias: ["알멘트푸벨", "Almentfubeel", "ALMENTFUBEEL"],
     x: 1080,
     y: 440,
@@ -46,9 +47,10 @@ export const STAR_SYSTEMS = [
    *        헤세-카셀 > 알테너 성계의 중심행성. 가이에스부르크로 물자를 조달하기 위한 농업시설과 소규모 조병창이 있다. */
   {
     code: "230002",
-    nameKr: "알테너",
-    nameEn: "ALTENER",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "알테너" },
+      { code: "En", context: "ALTENER" },
+    ],
     alias: [
       "알테너",
       "Altener",
@@ -69,9 +71,11 @@ export const STAR_SYSTEMS = [
    *        모르겐  */
   {
     code: "230003",
-    nameKr: "암릿처",
-    nameEn: "AMRITZER",
-    nameJp: "アムリッツァ",
+    name: [
+      { code: "Kr", context: "암릿처" },
+      { code: "En", context: "AMRITZER" },
+      { code: "Jp", context: "アムリッツァ" },
+    ],
     alias: ["암릿처", "Amritsar", "AMRITSAR", "암릿자", "Amlitzer"],
     x: 920,
     y: 210,
@@ -85,9 +89,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230004",
-    nameKr: "아레스하임",
-    nameEn: "ARLESHEIM",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "아레스하임" },
+      { code: "En", context: "ARLESHEIM" },
+    ],
     alias: [
       "아레스하임",
       "Arlesheim",
@@ -112,9 +117,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230005",
-    nameKr: "아스타테",
-    nameEn: "ASTARTE",
-    nameJp: "アスターテ",
+    name: [
+      { code: "Kr", context: "아스타테" },
+      { code: "En", context: "ASTARTE" },
+      { code: "Jp", context: "アスターテ" },
+    ],
     alias: [
       "아스타테",
       "Astarte",
@@ -143,9 +150,11 @@ export const STAR_SYSTEMS = [
    *        스리나가르(시뤼나갈에서 변경) */
   {
     code: "230006",
-    nameKr: "바라트",
-    nameEn: "BA'ALAT",
-    nameJp: "バーラト",
+    name: [
+      { code: "Kr", context: "바라트" },
+      { code: "En", context: "BA'ALAT" },
+      { code: "Jp", context: "バーラト" },
+    ],
     alias: ["바라트", "Ballat", "BALLAT", "BA'ALAT", "바알라트", "바라트 성계"],
     x: 70,
     y: 320,
@@ -159,9 +168,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230007",
-    nameKr: "바라투르프",
-    nameEn: "BALATROOP",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "바라투르프" },
+      { code: "En", context: "BALATROOP" },
+    ],
     alias: ["바라투르프", "Balatroop", "BALATROOP", "바라트루프"],
     x: 520,
     y: 820,
@@ -179,9 +189,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230008",
-    nameKr: "보덴",
-    nameEn: "BODEN",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "보덴" },
+      { code: "En", context: "BODEN" },
+    ],
     alias: ["보덴", "Boden", "BODEN"],
     x: 1050,
     y: 110,
@@ -198,9 +209,11 @@ export const STAR_SYSTEMS = [
    *        베스타란트 > 인구 200만명의 극도로 건조한 사막행성으로 사람이 거주하기 대단히 힘든 환경이다. 희귀금속이 많은 지역 */
   {
     code: "230009",
-    nameKr: "브라운슈바이크",
-    nameEn: "BRUNSCHWEIG",
-    nameJp: "ブラウンシュヴァイク",
+    name: [
+      { code: "Kr", context: "브라운슈바이크" },
+      { code: "En", context: "BRUNSCHWEIG" },
+      { code: "Jp", context: "ブラウンシュヴァイク" },
+    ],
     alias: ["브라운슈바이크", "Brunschweig", "BRUNSCHWEIG", "Braunschweig"],
     x: 1270,
     y: 660,
@@ -216,9 +229,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230010",
-    nameKr: "다곤",
-    nameEn: "DAGON",
-    nameJp: "ダゴン",
+    name: [
+      { code: "Kr", context: "다곤" },
+      { code: "En", context: "DAGON" },
+      { code: "Jp", context: "ダゴン" },
+    ],
     alias: [
       "다곤",
       "Dagon",
@@ -240,9 +255,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230011",
-    nameKr: "도리아",
-    nameEn: "DORIA",
-    nameJp: "ドーリア",
+    name: [
+      { code: "Kr", context: "도리아" },
+      { code: "En", context: "DORIA" },
+      { code: "Jp", context: "ドーリア" },
+    ],
     alias: ["도리아", "Doria", "DORIA", "도리아 성역"],
     x: 510,
     y: 110,
@@ -257,9 +274,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230012",
-    nameKr: "에크하르트",
-    nameEn: "ECKHART",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "에크하르트" },
+      { code: "En", context: "ECKHART" },
+    ],
     alias: ["에크하르트", "Eckhart", "ECKHART"],
     x: 1000,
     y: 810,
@@ -273,9 +291,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230013",
-    nameKr: "엘류세라",
-    nameEn: "ELUCERA",
-    nameJp: "エリューセラ",
+    name: [
+      { code: "Kr", context: "엘류세라" },
+      { code: "En", context: "ELUCERA" },
+      { code: "Jp", context: "エリューセラ" },
+    ],
     alias: ["엘류세라", "Elucera", "ELUCERA", "엘류셀러", "엘류셀러 성역"],
     x: 40,
     y: 720,
@@ -291,9 +311,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230014",
-    nameKr: "아이젠헤르츠",
-    nameEn: "EISENHERZ",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "아이젠헤르츠" },
+      { code: "En", context: "EISENHERZ" },
+    ],
     alias: ["아이젠헤르츠", "Eisenherz", "EISENHERZ"],
     x: 840,
     y: 850,
@@ -308,9 +329,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230015",
-    nameKr: "아이젠후트",
-    nameEn: "EISENHUT",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "아이젠후트" },
+      { code: "En", context: "EISENHUT" },
+    ],
     alias: ["아이젠후트", "Eisenhut", "EISENHUT", "Eishnhut"],
     x: 1050,
     y: 860,
@@ -328,9 +350,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230016",
-    nameKr: "엘곤",
-    nameEn: "ELGON",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "엘곤" },
+      { code: "En", context: "ELGON" },
+    ],
     alias: ["엘곤", "Elgon", "ELGON"],
     x: 430,
     y: 110,
@@ -345,9 +368,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230017",
-    nameKr: "엘-파실",
-    nameEn: "EL-PACIL",
-    nameJp: "エル・ファシル",
+    name: [
+      { code: "Kr", context: "엘-파실" },
+      { code: "En", context: "EL-PACIL" },
+      { code: "Jp", context: "エル・ファシル" },
+    ],
     alias: [
       "엘-파실",
       "El Facil",
@@ -370,9 +395,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230018",
-    nameKr: "파이어자드",
-    nameEn: "FIREZARD",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "파이어자드" },
+      { code: "En", context: "FIREZARD" },
+    ],
     alias: ["파이어져드", "Firezard", "FIREZARD", "파이어자드"],
     x: 570,
     y: 500,
@@ -388,9 +414,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230019",
-    nameKr: "프레이아",
-    nameEn: "FREYA",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "프레이아" },
+      { code: "En", context: "FREYA" },
+    ],
     alias: ["프레야", "Freya", "FREYA", "Freva"],
     x: 1340,
     y: 390,
@@ -407,9 +434,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230020",
-    nameKr: "간다르바",
-    nameEn: "GANDHALVA",
-    nameJp: "ガンダルヴァ",
+    name: [
+      { code: "Kr", context: "간다르바" },
+      { code: "En", context: "GANDHALVA" },
+      { code: "Jp", context: "ガンダルヴァ" },
+    ],
     alias: [
       "간다르바",
       "Gandhalva",
@@ -430,9 +459,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230021",
-    nameKr: "하안",
-    nameEn: "HACHN",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "하안" },
+      { code: "En", context: "HACHN" },
+    ],
     alias: ["하안", "Hachn", "HACHN"],
     x: 940,
     y: 460,
@@ -448,9 +478,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230022",
-    nameKr: "알테나",
-    nameEn: "ALTENA",
-    nameJp: "アルテナ",
+    name: [
+      { code: "Kr", context: "알테나" },
+      { code: "En", context: "ALTENA" },
+      { code: "Jp", context: "アルテナ" },
+    ],
     alias: [
       "알테나",
       "Altena",
@@ -477,9 +509,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230023",
-    nameKr: "잠시드",
-    nameEn: "JYAMSEED",
-    nameJp: "ジャムシード",
+    name: [
+      { code: "Kr", context: "잠시드" },
+      { code: "En", context: "JYAMSEED" },
+      { code: "Jp", context: "ジャムシード" },
+    ],
     alias: [
       "잠시드",
       "Jyamseed",
@@ -500,9 +534,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230024",
-    nameKr: "요툰하임",
-    nameEn: "JOTUNHEIM",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "요툰하임" },
+      { code: "En", context: "JOTUNHEIM" },
+    ],
     alias: ["요툰하임", "Jotunheim", "JOTUNHEIM"],
     x: 1200,
     y: 910,
@@ -517,9 +552,10 @@ export const STAR_SYSTEMS = [
    *        케니히그라흐 > 카스트로프 행성과 인접한 위성. 행성을 보호하기 위한 아르테미스의 목걸이가 설치되어 있다. */
   {
     code: "230026",
-    nameKr: "카스트로프",
-    nameEn: "KASTOROP",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "카스트로프" },
+      { code: "En", context: "KASTOROP" },
+    ],
     alias: ["카스트로프", "Kastorop", "KASTOROP", "Castrop", "카스트로프 성계"],
     x: 1520,
     y: 700,
@@ -536,9 +572,11 @@ export const STAR_SYSTEMS = [
    *        가랴르호른 */
   {
     code: "230028",
-    nameKr: "키포이져",
-    nameEn: "KIFOISER",
-    nameJp: "キフォイザー",
+    name: [
+      { code: "Kr", context: "키포이져" },
+      { code: "En", context: "KIFOISER" },
+      { code: "Jp", context: "キフォイザー" },
+    ],
     alias: [
       "키포이져",
       "Kifoiser",
@@ -558,9 +596,10 @@ export const STAR_SYSTEMS = [
    *  행성 : 에르힌겐 */
   {
     code: "230030",
-    nameKr: "리히텐라데",
-    nameEn: "LICHTENLADE",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "리히텐라데" },
+      { code: "En", context: "LICHTENLADE" },
+    ],
     alias: ["리히텐라데", "Lichtenlade", "LICHTENLADE", "리히텐라드"],
     x: 1460,
     y: 210,
@@ -574,9 +613,11 @@ export const STAR_SYSTEMS = [
    *        에르뮐 */
   {
     code: "230032",
-    nameKr: "리텐하임",
-    nameEn: "LITTENHEIM",
-    nameJp: "リッテンハイム",
+    name: [
+      { code: "Kr", context: "리텐하임" },
+      { code: "En", context: "LITTENHEIM" },
+      { code: "Jp", context: "リッテンハイム" },
+    ],
     alias: ["리텐하임", "Littenheim", "LITTENHEIM"],
     x: 1270,
     y: 440,
@@ -591,9 +632,10 @@ export const STAR_SYSTEMS = [
    *        루드밀라 */
   {
     code: "230033",
-    nameKr: "로포덴",
-    nameEn: "ROFORTEN",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "로포덴" },
+      { code: "En", context: "ROFORTEN" },
+    ],
     alias: ["로포덴", "Roforten", "ROFORTEN", "로포턴"],
     x: 150,
     y: 500,
@@ -607,9 +649,10 @@ export const STAR_SYSTEMS = [
    *  행성 : 카스티리오네 */
   {
     code: "230034",
-    nameKr: "룬비니",
-    nameEn: "LUNBINI",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "룬비니" },
+      { code: "En", context: "LUNBINI" },
+    ],
     alias: ["룬비니", "Lunbini", "LUNBINI", "룸비니", "Lumbini"],
     x: 470,
     y: 650,
@@ -622,9 +665,11 @@ export const STAR_SYSTEMS = [
    *  행성 : 비트리아 */
   {
     code: "230035",
-    nameKr: "뤼카스",
-    nameEn: "LYUCAS",
-    nameJp: "リューカス",
+    name: [
+      { code: "Kr", context: "뤼카스" },
+      { code: "En", context: "LYUCAS" },
+      { code: "Jp", context: "リューカス" },
+    ],
     alias: ["뤼카스", "Lyucas", "LYUCAS", "류카스", "Luykas", "뤼카스 성계"],
     x: 270,
     y: 550,
@@ -637,9 +682,11 @@ export const STAR_SYSTEMS = [
    *  행성 : 파프라비 */
   {
     code: "230037",
-    nameKr: "마르-아데타",
-    nameEn: "MARR-ADETTA",
-    nameJp: "マル・アデッタ",
+    name: [
+      { code: "Kr", context: "마르-아데타" },
+      { code: "En", context: "MARR-ADETTA" },
+      { code: "Jp", context: "マル・アデッタ" },
+    ],
     alias: [
       "마르-아데타",
       "Marr-Adetta",
@@ -661,9 +708,10 @@ export const STAR_SYSTEMS = [
    *  행성 : 민덴 */
   {
     code: "230038",
-    nameKr: "마르바흐",
-    nameEn: "MARBACH",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "마르바흐" },
+      { code: "En", context: "MARBACH" },
+    ],
     alias: ["마르바흐", "Marbach", "MARBACH"],
     x: 1340,
     y: 700,
@@ -676,9 +724,11 @@ export const STAR_SYSTEMS = [
    *  행성 : 테레젠슈타트 */
   {
     code: "230039",
-    nameKr: "마린도르프",
-    nameEn: "MARIENDORF",
-    nameJp: "マリーンドルフ",
+    name: [
+      { code: "Kr", context: "마린도르프" },
+      { code: "En", context: "MARIENDORF" },
+      { code: "Jp", context: "マリーンドルフ" },
+    ],
     alias: ["마린도르프", "Mariendorf", "MARIENDORF"],
     x: 1460,
     y: 890,
@@ -692,9 +742,10 @@ export const STAR_SYSTEMS = [
    *  행성 : 케르코포르타 */
   {
     code: "230041",
-    nameKr: "팔란티아",
-    nameEn: "PALANTIA",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "팔란티아" },
+      { code: "En", context: "PALANTIA" },
+    ],
     alias: ["팔란티아", "Palantia", "PALANTIA", "Palntia"],
     x: 580,
     y: 340,
@@ -707,9 +758,11 @@ export const STAR_SYSTEMS = [
    *  행성 : 페잔 */
   {
     code: "230042",
-    nameKr: "페잔",
-    nameEn: "PHEZZAN",
-    nameJp: "フェザーン",
+    name: [
+      { code: "Kr", context: "페잔" },
+      { code: "En", context: "PHEZZAN" },
+      { code: "Jp", context: "フェザーン" },
+    ],
     alias: ["페잔", "Phezzan", "PHEZZAN", "페샨", "Phessan", "페잔 자치령"],
     x: 760,
     y: 740,
@@ -722,9 +775,11 @@ export const STAR_SYSTEMS = [
    *  행성 : 루지아나 */
   {
     code: "230043",
-    nameKr: "포레비트",
-    nameEn: "POLEVIT",
-    nameJp: "ポレヴィト",
+    name: [
+      { code: "Kr", context: "포레비트" },
+      { code: "En", context: "POLEVIT" },
+      { code: "Jp", context: "ポレヴィト" },
+    ],
     alias: ["포레비트", "Polevit", "POLEVIT", "Porevit", "포레비토 성역"],
     x: 510,
     y: 960,
@@ -737,9 +792,10 @@ export const STAR_SYSTEMS = [
    *  행성 : 하펜 */
   {
     code: "230044",
-    nameKr: "포르겐",
-    nameEn: "FORGEN",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "포르겐" },
+      { code: "En", context: "FORGEN" },
+    ],
     alias: ["포르겐", "Forgen", "FORGEN"],
     x: 1020,
     y: 340,
@@ -753,9 +809,11 @@ export const STAR_SYSTEMS = [
    *  행성 : 마그-토레드 */
   {
     code: "230045",
-    nameKr: "라이갈",
-    nameEn: "LYGALL",
-    nameJp: "ライガール",
+    name: [
+      { code: "Kr", context: "라이갈" },
+      { code: "En", context: "LYGALL" },
+      { code: "Jp", context: "ライガール" },
+    ],
     alias: ["라이갈", "Lygall", "LYGALL", "라이갈 성역"],
     x: 190,
     y: 750,
@@ -775,9 +833,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230046",
-    nameKr: "란테마리오",
-    nameEn: "RANTEMARIO",
-    nameJp: "ランテマリオ",
+    name: [
+      { code: "Kr", context: "란테마리오" },
+      { code: "En", context: "RANTEMARIO" },
+      { code: "Jp", context: "ランテマリオ" },
+    ],
     alias: ["란테마리오", "Rantemario", "RANTEMARIO", "란테마리오 성역"],
     x: 380,
     y: 780,
@@ -794,9 +854,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230047",
-    nameKr: "리오-베르데",
-    nameEn: "RIO-VERDE",
-    nameJp: "リオヴェルデ",
+    name: [
+      { code: "Kr", context: "리오-베르데" },
+      { code: "En", context: "RIO-VERDE" },
+      { code: "Jp", context: "リオヴェルデ" },
+    ],
     alias: [
       "리오-베르데",
       "Rio Verde",
@@ -818,9 +880,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230048",
-    nameKr: "샤헨",
-    nameEn: "SCHACHEN",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "샤헨" },
+      { code: "En", context: "SCHACHEN" },
+    ],
     alias: ["샤헨", "Schachen", "SCHACHEN"],
     x: 990,
     y: 630,
@@ -834,9 +897,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230049",
-    nameKr: "샨다르아",
-    nameEn: "SHANDALUA",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "샨다르아" },
+      { code: "En", context: "SHANDALUA" },
+    ],
     alias: [
       "샨다르아",
       "Shandaula",
@@ -861,9 +925,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230050",
-    nameKr: "샨타우",
-    nameEn: "SHANTAU",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "샨타우" },
+      { code: "En", context: "SHANTAU" },
+    ],
     alias: ["샨타우", "Shantau", "SHANTAU", "샨다우"],
     x: 1240,
     y: 290,
@@ -879,9 +944,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230051",
-    nameKr: "시바",
-    nameEn: "SYVA",
-    nameJp: "シヴァ",
+    name: [
+      { code: "Kr", context: "시바" },
+      { code: "En", context: "SYVA" },
+      { code: "Jp", context: "シヴァ" },
+    ],
     alias: ["시바", "Syva", "SYVA", "시바 성계", "Shiva", "희바"],
     x: 400,
     y: 290,
@@ -895,9 +962,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230052",
-    nameKr: "슈팔라",
-    nameEn: "SHUPALA",
-    nameJp: "シュパーラ",
+    name: [
+      { code: "Kr", context: "슈팔라" },
+      { code: "En", context: "SHUPALA" },
+      { code: "Jp", context: "シュパーラ" },
+    ],
     alias: ["슈팔라", "Shupala", "SHUPALA", "슈파라"],
     x: 470,
     y: 550,
@@ -913,9 +982,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230053",
-    nameKr: "타나투스",
-    nameEn: "TANATUS",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "타나투스" },
+      { code: "En", context: "TANATUS" },
+    ],
     alias: [
       "타나투스",
       "Tanatus",
@@ -936,9 +1006,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230054",
-    nameKr: "타실리",
-    nameEn: "TASSILI",
-    nameJp: "タッシリ",
+    name: [
+      { code: "Kr", context: "타실리" },
+      { code: "En", context: "TASSILI" },
+      { code: "Jp", context: "タッシリ" },
+    ],
     alias: ["타시리", "Tassili", "TASSILI", "탓시리", "탓시리 성역"],
     x: 200,
     y: 600,
@@ -955,9 +1027,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230055",
-    nameKr: "티아메트",
-    nameEn: "TIAMAT",
-    nameJp: "ティアマト",
+    name: [
+      { code: "Kr", context: "티아메트" },
+      { code: "En", context: "TIAMAT" },
+      { code: "Jp", context: "ティアマト" },
+    ],
     alias: [
       "티아메트",
       "Tiamat",
@@ -980,9 +1054,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230056",
-    nameKr: "트라바흐",
-    nameEn: "TRABACH",
-    nameJp: "トラーバッハ",
+    name: [
+      { code: "Kr", context: "트라바흐" },
+      { code: "En", context: "TRABACH" },
+      { code: "Jp", context: "トラーバッハ" },
+    ],
     alias: ["트라바흐", "Trabach", "TRABACH"],
     x: 1340,
     y: 120,
@@ -997,9 +1073,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230057",
-    nameKr: "트리플라",
-    nameEn: "TRIPLA",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "트리플라" },
+      { code: "En", context: "TRIPLA" },
+    ],
     alias: [
       "트리폴라",
       "Tripla",
@@ -1022,9 +1099,11 @@ export const STAR_SYSTEMS = [
    *        유그드라실 > 발할라 성계에 위치한 1행성. */
   {
     code: "230058",
-    nameKr: "발할라",
-    nameEn: "VALHALLA",
-    nameJp: "ヴァルハラ",
+    name: [
+      { code: "Kr", context: "발할라" },
+      { code: "En", context: "VALHALLA" },
+      { code: "Jp", context: "ヴァルハラ" },
+    ],
     alias: [
       "발할라",
       "Valhalla",
@@ -1046,9 +1125,10 @@ export const STAR_SYSTEMS = [
    *        카르슈타트 */
   {
     code: "230059",
-    nameKr: "바르텐베르크",
-    nameEn: "WARTENBERG",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "바르텐베르크" },
+      { code: "En", context: "WARTENBERG" },
+    ],
     alias: ["바르텐베르크", "Wartenberg", "WARTENBERG"],
     x: 1150,
     y: 810,
@@ -1061,9 +1141,11 @@ export const STAR_SYSTEMS = [
    *  행성 : 카토르브러 */
   {
     code: "230060",
-    nameKr: "밴플리트",
-    nameEn: "VANFLEET",
-    nameJp: "ヴァンフリート",
+    name: [
+      { code: "Kr", context: "밴플리트" },
+      { code: "En", context: "VANFLEET" },
+      { code: "Jp", context: "ヴァンフリート" },
+    ],
     alias: [
       "밴플리트",
       "Vanfleet",
@@ -1084,9 +1166,10 @@ export const STAR_SYSTEMS = [
    *  행성 : 몽마라유 */
   {
     code: "230061",
-    nameKr: "버밀리온",
-    nameEn: "VERMILION",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "버밀리온" },
+      { code: "En", context: "VERMILION" },
+    ],
     alias: ["버밀리온", "Vermilion", "VERMILION", "바미리온", "버밀리온 성역"],
     x: 200,
     y: 390,
@@ -1101,9 +1184,10 @@ export const STAR_SYSTEMS = [
    *        야반하르 */
   {
     code: "230062",
-    nameKr: "빌렌슈타인",
-    nameEn: "VILLENSTEIN",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "빌렌슈타인" },
+      { code: "En", context: "VILLENSTEIN" },
+    ],
     alias: [
       "빌렌슈타인",
       "Villenstein",
@@ -1124,9 +1208,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230063",
-    nameKr: "케림",
-    nameEn: "KERIM",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "케림" },
+      { code: "En", context: "KERIM" },
+    ],
     alias: ["케림", "Kerim", "KERIM", "케륨", "케리므", "케림 성역"],
     x: 200,
     y: 190,
@@ -1154,9 +1239,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230064",
-    nameKr: "빌로스트",
-    nameEn: "BYLOST",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "빌로스트" },
+      { code: "En", context: "BYLOST" },
+    ],
     alias: ["빌로스트", "Bylost", "BYLOST", "빌로슈트"],
     x: 1020,
     y: 220,
@@ -1170,9 +1256,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230070",
-    nameKr: "야반하르",
-    nameEn: "YAVANHAR",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "야반하르" },
+      { code: "En", context: "YAVANHAR" },
+    ],
     alias: ["야반하르", "Yavanhar", "YAVANHAR"],
     x: 1040,
     y: 280,
@@ -1186,9 +1273,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230069",
-    nameKr: "테라",
-    nameEn: "TERRA",
-    nameJp: "テラ",
+    name: [
+      { code: "Kr", context: "테라" },
+      { code: "En", context: "TERRA" },
+      { code: "Jp", context: "テラ" },
+    ],
     alias: ["테라", "Terra", "TERRA", "지구", "Earth"],
     x: 860,
     y: 650,
@@ -1208,9 +1297,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230071",
-    nameKr: "란즈베르크",
-    nameEn: "LANSBERG",
-    nameJp: "ランズベルク",
+    name: [
+      { code: "Kr", context: "란즈베르크" },
+      { code: "En", context: "LANSBERG" },
+      { code: "Jp", context: "ランズベルク" },
+    ],
     alias: ["란즈베르크", "Lansberg", "LANSBERG"],
     x: 1490,
     y: 760,
@@ -1228,9 +1319,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230072",
-    nameKr: "오펜하이머",
-    nameEn: "OPPENHEIMER",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "오펜하이머" },
+      { code: "En", context: "OPPENHEIMER" },
+    ],
     alias: ["오펜하이머", "Oppenheimer", "OPPENHEIMER"],
     x: 1350,
     y: 450,
@@ -1244,9 +1336,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230073",
-    nameKr: "히르데스하임",
-    nameEn: "HILDESHEIM",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "히르데스하임" },
+      { code: "En", context: "HILDESHEIM" },
+    ],
     alias: ["히르데스하임", "Hildesheim", "HILDESHEIM", "힐데스하임"],
     x: 1520,
     y: 410,
@@ -1266,9 +1359,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230074",
-    nameKr: "뤼네부르크",
-    nameEn: "LÜNEBURG",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "뤼네부르크" },
+      { code: "En", context: "LÜNEBURG" },
+    ],
     alias: ["뤼네부르크", "Luneburg", "LUNEBURG", "Lüneburg"],
     x: 1390,
     y: 750,
@@ -1282,9 +1376,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230075",
-    nameKr: "하르텐베르크",
-    nameEn: "HARTENBERG",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "하르텐베르크" },
+      { code: "En", context: "HARTENBERG" },
+    ],
     alias: ["하르텐베르크", "Hartenberg", "HARTENBERG"],
     x: 1560,
     y: 600,
@@ -1302,9 +1397,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230076",
-    nameKr: "로엔그람",
-    nameEn: "LOHENGRAMM",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "로엔그람" },
+      { code: "En", context: "LOHENGRAMM" },
+    ],
     alias: ["로엔그람", "Lohengramm", "LOHENGRAMM"],
     x: 1500,
     y: 470,
@@ -1318,9 +1414,11 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230077",
-    nameKr: "클롭슈톡",
-    nameEn: "KLOPSTOCK",
-    nameJp: "クロプシュトック",
+    name: [
+      { code: "Kr", context: "클롭슈톡" },
+      { code: "En", context: "KLOPSTOCK" },
+      { code: "Jp", context: "クロプシュトック" },
+    ],
     alias: ["클롭슈톡", "Klopstock", "KLOPSTOCK"],
     x: 1420,
     y: 400,
@@ -1334,9 +1432,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230078",
-    nameKr: "베네뮌데",
-    nameEn: "BENEMÜNDE",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "베네뮌데" },
+      { code: "En", context: "BENEMÜNDE" },
+    ],
     alias: ["베네뮌데", "Benemunde", "BENEMUNDE", "Benemünde"],
     x: 1090,
     y: 370,
@@ -1350,9 +1449,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230079",
-    nameKr: "그뤼네발트",
-    nameEn: "GRÜNEWALD",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "그뤼네발트" },
+      { code: "En", context: "GRÜNEWALD" },
+    ],
     alias: ["그뤼네발트", "Grunewald", "GRUNEWALD", "Grünewald"],
     x: 1410,
     y: 840,
@@ -1366,9 +1466,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230080",
-    nameKr: "팔스트롱",
-    nameEn: "FALSTRONG",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "팔스트롱" },
+      { code: "En", context: "FALSTRONG" },
+    ],
     alias: ["팔스트롱", "Falstrong", "FALSTRONG"],
     x: 1520,
     y: 340,
@@ -1382,9 +1483,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230081",
-    nameKr: "렘샤이트",
-    nameEn: "REMSCHEID",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "렘샤이트" },
+      { code: "En", context: "REMSCHEID" },
+    ],
     alias: ["렘샤이트", "Remscheid", "REMSCHEID"],
     x: 880,
     y: 840,
@@ -1398,9 +1500,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230082",
-    nameKr: "헤르크스하이머",
-    nameEn: "HERXHEIMER",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "헤르크스하이머" },
+      { code: "En", context: "HERXHEIMER" },
+    ],
     alias: ["헤르크스하이머", "Herxheimer", "HERXHEIMER"],
     x: 1270,
     y: 370,
@@ -1414,9 +1517,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230083",
-    nameKr: "에렌베르크",
-    nameEn: "EHRENBERG",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "에렌베르크" },
+      { code: "En", context: "EHRENBERG" },
+    ],
     alias: ["에렌베르크", "Ehrenberg", "EHRENBERG"],
     x: 980,
     y: 560,
@@ -1430,9 +1534,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230067",
-    nameKr: "뮈켄베르거",
-    nameEn: "MÜKKENBERGER",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "뮈켄베르거" },
+      { code: "En", context: "MÜKKENBERGER" },
+    ],
     alias: ["뮈켄베르거", "Muckenberger", "MUCKENBERGER", "Mükkenberger"],
     x: 1090,
     y: 180,
@@ -1449,9 +1554,10 @@ export const STAR_SYSTEMS = [
    */
   {
     code: "230068",
-    nameKr: "포르세티",
-    nameEn: "FORSETI",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "포르세티" },
+      { code: "En", context: "FORSETI" },
+    ],
     alias: ["포르세티", "Forseti", "FORSETI", "Folseti"],
     x: 640,
     y: 560,
@@ -1498,9 +1604,11 @@ export const STAR_SYSTEMS = [
   //   다른 제국령 lane과는 연결하지 않음(고립 클러스터, laneData.js 참조).
   {
     code: "230087",
-    nameKr: "프록시마",
-    nameEn: "PROXIMA",
-    nameJp: "プロキシマ",
+    name: [
+      { code: "Kr", context: "프록시마" },
+      { code: "En", context: "PROXIMA" },
+      { code: "Jp", context: "プロキシマ" },
+    ],
     alias: ["프록시마", "Proxima", "PROXIMA"],
     x: 830,
     y: 570,
@@ -1508,9 +1616,11 @@ export const STAR_SYSTEMS = [
   },
   {
     code: "230088",
-    nameKr: "시리우스",
-    nameEn: "SIRIUS",
-    nameJp: "シリウス",
+    name: [
+      { code: "Kr", context: "시리우스" },
+      { code: "En", context: "SIRIUS" },
+      { code: "Jp", context: "シリウス" },
+    ],
     alias: ["시리우스", "Sirius", "SIRIUS"],
     x: 960,
     y: 710,
@@ -1518,9 +1628,11 @@ export const STAR_SYSTEMS = [
   },
   {
     code: "230084",
-    nameKr: "알타이르",
-    nameEn: "ALTAIR",
-    nameJp: "アルタイル",
+    name: [
+      { code: "Kr", context: "알타이르" },
+      { code: "En", context: "ALTAIR" },
+      { code: "Jp", context: "アルタイル" },
+    ],
     alias: ["알타이르", "Altair", "ALTAIR"],
     x: 870,
     y: 760,
@@ -1528,9 +1640,11 @@ export const STAR_SYSTEMS = [
   },
   {
     code: "230086",
-    nameKr: "카노프스",
-    nameEn: "CANOPUS",
-    nameJp: "カノープス",
+    name: [
+      { code: "Kr", context: "카노프스" },
+      { code: "En", context: "CANOPUS" },
+      { code: "Jp", context: "カノープス" },
+    ],
     alias: ["카노프스", "Canopus", "CANOPUS"],
     x: 900,
     y: 510,
@@ -1538,9 +1652,10 @@ export const STAR_SYSTEMS = [
   },
   {
     code: "230085",
-    nameKr: "베텔기우스",
-    nameEn: "BETELGEUSE",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "베텔기우스" },
+      { code: "En", context: "BETELGEUSE" },
+    ],
     alias: ["베텔기우스", "Betelgeuse", "BETELGEUSE"],
     x: 820,
     y: 700,
@@ -1558,9 +1673,10 @@ export const STAR_SYSTEMS = [
   //     좀 더 자연스럽게 분산)
   {
     code: "230089",
-    nameKr: "레자빅",
-    nameEn: "REZAVIK",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "레자빅" },
+      { code: "En", context: "REZAVIK" },
+    ],
     alias: ["레자빅", "Rezavik", "REZAVIK", "레사비크"],
     x: 200,
     y: 290,
@@ -1568,9 +1684,10 @@ export const STAR_SYSTEMS = [
   },
   {
     code: "230090",
-    nameKr: "포리슨",
-    nameEn: "FORISON",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "포리슨" },
+      { code: "En", context: "FORISON" },
+    ],
     alias: ["포리슨", "Forison", "FORISON"],
     x: 130,
     y: 390,
@@ -1578,9 +1695,10 @@ export const STAR_SYSTEMS = [
   },
   {
     code: "230091",
-    nameKr: "파라파라",
-    nameEn: "PARAFARA",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "파라파라" },
+      { code: "En", context: "PARAFARA" },
+    ],
     alias: ["파라파라", "Parafara", "PARAFARA"],
     x: 140,
     y: 690,
@@ -1588,9 +1706,10 @@ export const STAR_SYSTEMS = [
   },
   {
     code: "230092",
-    nameKr: "프레뷔도",
-    nameEn: "PREVDO",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "프레뷔도" },
+      { code: "En", context: "PREVDO" },
+    ],
     alias: ["프레뷔도", "Prevdo", "PREVDO"],
     x: 360,
     y: 600,
@@ -1598,9 +1717,10 @@ export const STAR_SYSTEMS = [
   },
   {
     code: "230093",
-    nameKr: "닛슈우히더스",
-    nameEn: "NISHUHIDERS",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "닛슈우히더스" },
+      { code: "En", context: "NISHUHIDERS" },
+    ],
     alias: ["닛슈우히더스", "Nishuhiders", "NISHUHIDERS"],
     x: 650,
     y: 40,

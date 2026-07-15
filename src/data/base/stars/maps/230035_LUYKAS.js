@@ -4,14 +4,16 @@
 export const STAR_MAP = {
   id:      'LUYKAS',
   code:    '230035',
-  nameKr:  '뤼카스',
-  nameEn:  'LUYKAS',
+  name: [
+    { code: "Kr", context: "뤼카스" },
+    { code: "En", context: "LUYKAS" },
+  ],
   mapSize: [1000, 1000],
   nebulae: [
     { x:263, y:735, r:167, color:'rgba(20,80,60,', alpha:0.15 },
     { x:723, y:619, r:273, color:'rgba(20,60,80,', alpha:0.1 },
   ],
   planets: [
-    { nameKr:'비트리아', nameEn:'', main:true, type:'terrestrial', fortress:null, x:500, y:500, size:42 },
+    { name: [{ code: "Kr", context: "비트리아" }], main:true, type:'terrestrial', fortress:null, x:500, y:500, size:42 },
   ],
 };

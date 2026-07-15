@@ -28,8 +28,10 @@ export const STAR_TRAITS = [
   // ── 환경 트레잇 (영구) ───────────────────────────────────
   {
     id:        'FERTILE_SOIL',
-    nameKr:    '비옥한 토지',
-    nameEn:    'Fertile Soil',
+    name: [
+      { code: "Kr", context: "비옥한 토지" },
+      { code: "En", context: "Fertile Soil" },
+    ],
     category:  'environment',
     target:    'planet',
     icon:      '🌾',
@@ -46,8 +48,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'MINERAL_RICH',
-    nameKr:    '풍부한 광물',
-    nameEn:    'Mineral Rich',
+    name: [
+      { code: "Kr", context: "풍부한 광물" },
+      { code: "En", context: "Mineral Rich" },
+    ],
     category:  'environment',
     target:    'planet',
     icon:      '⛏️',
@@ -63,8 +67,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'NATURAL_FORTRESS',
-    nameKr:    '천연 요새',
-    nameEn:    'Natural Fortress',
+    name: [
+      { code: "Kr", context: "천연 요새" },
+      { code: "En", context: "Natural Fortress" },
+    ],
     category:  'environment',
     target:    'planet',
     icon:      '🏔️',
@@ -81,8 +87,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'STRATEGIC_POSITION',
-    nameKr:    '전략적 요충지',
-    nameEn:    'Strategic Position',
+    name: [
+      { code: "Kr", context: "전략적 요충지" },
+      { code: "En", context: "Strategic Position" },
+    ],
     category:  'environment',
     target:    'star',
     icon:      '🌀',
@@ -98,8 +106,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'HARSH_ENVIRONMENT',
-    nameKr:    '가혹한 환경',
-    nameEn:    'Harsh Environment',
+    name: [
+      { code: "Kr", context: "가혹한 환경" },
+      { code: "En", context: "Harsh Environment" },
+    ],
     category:  'environment',
     target:    'planet',
     icon:      '🌪️',
@@ -116,8 +126,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'OCEANIC_WORLD',
-    nameKr:    '해양 행성',
-    nameEn:    'Oceanic World',
+    name: [
+      { code: "Kr", context: "해양 행성" },
+      { code: "En", context: "Oceanic World" },
+    ],
     category:  'environment',
     target:    'planet',
     icon:      '🌊',
@@ -136,8 +148,10 @@ export const STAR_TRAITS = [
   // ── 역사 트레잇 (영구) ───────────────────────────────────
   {
     id:        'ANCIENT_CAPITAL',
-    nameKr:    '유서 깊은 수도',
-    nameEn:    'Ancient Capital',
+    name: [
+      { code: "Kr", context: "유서 깊은 수도" },
+      { code: "En", context: "Ancient Capital" },
+    ],
     category:  'history',
     target:    'star',
     icon:      '🏛️',
@@ -153,8 +167,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'MILITARY_TRADITION',
-    nameKr:    '군사적 전통',
-    nameEn:    'Military Tradition',
+    name: [
+      { code: "Kr", context: "군사적 전통" },
+      { code: "En", context: "Military Tradition" },
+    ],
     category:  'history',
     target:    'both',
     icon:      '⚔️',
@@ -171,8 +187,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'TRADE_HUB',
-    nameKr:    '무역 중심지',
-    nameEn:    'Trade Hub',
+    name: [
+      { code: "Kr", context: "무역 중심지" },
+      { code: "En", context: "Trade Hub" },
+    ],
     category:  'history',
     target:    'star',
     icon:      '💹',
@@ -188,8 +206,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'IMPERIAL_HERITAGE',
-    nameKr:    '제국의 유산',
-    nameEn:    'Imperial Heritage',
+    name: [
+      { code: "Kr", context: "제국의 유산" },
+      { code: "En", context: "Imperial Heritage" },
+    ],
     category:  'history',
     target:    'both',
     icon:      '👑',
@@ -204,8 +224,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'FRONTIER_SPIRIT',
-    nameKr:    '개척자 정신',
-    nameEn:    'Frontier Spirit',
+    name: [
+      { code: "Kr", context: "개척자 정신" },
+      { code: "En", context: "Frontier Spirit" },
+    ],
     category:  'history',
     target:    'both',
     icon:      '🚀',
@@ -224,8 +246,10 @@ export const STAR_TRAITS = [
   // ── 이벤트 트레잇 (임시) ─────────────────────────────────
   {
     id:        'WAR_SCAR',
-    nameKr:    '전쟁의 상흔',
-    nameEn:    'War Scar',
+    name: [
+      { code: "Kr", context: "전쟁의 상흔" },
+      { code: "En", context: "War Scar" },
+    ],
     category:  'event',
     target:    'both',
     icon:      '💥',
@@ -243,8 +267,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'OCCUPATION',
-    nameKr:    '점령지',
-    nameEn:    'Under Occupation',
+    name: [
+      { code: "Kr", context: "점령지" },
+      { code: "En", context: "Under Occupation" },
+    ],
     category:  'event',
     target:    'both',
     icon:      '🏴',
@@ -261,8 +287,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'PROSPERITY',
-    nameKr:    '번영의 시대',
-    nameEn:    'Prosperity',
+    name: [
+      { code: "Kr", context: "번영의 시대" },
+      { code: "En", context: "Prosperity" },
+    ],
     category:  'event',
     target:    'both',
     icon:      '✨',
@@ -280,8 +308,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'PLAGUE',
-    nameKr:    '역병',
-    nameEn:    'Plague',
+    name: [
+      { code: "Kr", context: "역병" },
+      { code: "En", context: "Plague" },
+    ],
     category:  'event',
     target:    'planet',
     icon:      '☣️',
@@ -298,8 +328,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'BLOCKADE',
-    nameKr:    '봉쇄',
-    nameEn:    'Blockade',
+    name: [
+      { code: "Kr", context: "봉쇄" },
+      { code: "En", context: "Blockade" },
+    ],
     category:  'event',
     target:    'star',
     icon:      '🚫',
@@ -318,8 +350,10 @@ export const STAR_TRAITS = [
   // ── 정치 트레잇 (영구/임시 혼재) ─────────────────────────
   {
     id:        'MAIN_PLANET',
-    nameKr:    '주요 행성',
-    nameEn:    'Main Planet',
+    name: [
+      { code: "Kr", context: "주요 행성" },
+      { code: "En", context: "Main Planet" },
+    ],
     category:  'political',
     target:    'planet',
     icon:      '⭐',
@@ -332,8 +366,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'CAPITAL',
-    nameKr:    '수도',
-    nameEn:    'Capital',
+    name: [
+      { code: "Kr", context: "수도" },
+      { code: "En", context: "Capital" },
+    ],
     category:  'political',
     target:    'planet',
     icon:      '👑',
@@ -346,8 +382,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'IMPERIAL_DEMESNE',
-    nameKr:    '황제직할령',
-    nameEn:    'Imperial Demesne',
+    name: [
+      { code: "Kr", context: "황제직할령" },
+      { code: "En", context: "Imperial Demesne" },
+    ],
     category:  'political',
     target:    'planet',
     icon:      '🏛️',
@@ -360,8 +398,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'DUCHY',
-    nameKr:    '공작령',
-    nameEn:    'Duchy',
+    name: [
+      { code: "Kr", context: "공작령" },
+      { code: "En", context: "Duchy" },
+    ],
     category:  'political',
     target:    'planet',
     icon:      '🎖️',
@@ -374,8 +414,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'MARQUISATE',
-    nameKr:    '후작령',
-    nameEn:    'Marquisate',
+    name: [
+      { code: "Kr", context: "후작령" },
+      { code: "En", context: "Marquisate" },
+    ],
     category:  'political',
     target:    'planet',
     icon:      '🎖️',
@@ -388,8 +430,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'COUNTY',
-    nameKr:    '백작령',
-    nameEn:    'County',
+    name: [
+      { code: "Kr", context: "백작령" },
+      { code: "En", context: "County" },
+    ],
     category:  'political',
     target:    'planet',
     icon:      '🎖️',
@@ -402,8 +446,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'VISCOUNTY',
-    nameKr:    '자작령',
-    nameEn:    'Viscounty',
+    name: [
+      { code: "Kr", context: "자작령" },
+      { code: "En", context: "Viscounty" },
+    ],
     category:  'political',
     target:    'planet',
     icon:      '🎖️',
@@ -416,8 +462,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'BARONY',
-    nameKr:    '남작령',
-    nameEn:    'Barony',
+    name: [
+      { code: "Kr", context: "남작령" },
+      { code: "En", context: "Barony" },
+    ],
     category:  'political',
     target:    'planet',
     icon:      '🎖️',
@@ -430,8 +478,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'MILITARIST_SURGE',
-    nameKr:    '군국주의 열풍',
-    nameEn:    'Militarist Surge',
+    name: [
+      { code: "Kr", context: "군국주의 열풍" },
+      { code: "En", context: "Militarist Surge" },
+    ],
     category:  'political',
     target:    'both',
     icon:      '🎖️',
@@ -448,8 +498,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'REFORM_MOVEMENT',
-    nameKr:    '개혁 운동',
-    nameEn:    'Reform Movement',
+    name: [
+      { code: "Kr", context: "개혁 운동" },
+      { code: "En", context: "Reform Movement" },
+    ],
     category:  'political',
     target:    'both',
     icon:      '📜',
@@ -465,8 +517,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'NOBLE_DOMINANCE',
-    nameKr:    '귀족 지배',
-    nameEn:    'Noble Dominance',
+    name: [
+      { code: "Kr", context: "귀족 지배" },
+      { code: "En", context: "Noble Dominance" },
+    ],
     category:  'political',
     target:    'star',
     icon:      '🏰',
@@ -485,8 +539,10 @@ export const STAR_TRAITS = [
   // ── 군사 트레잇 (임시) ───────────────────────────────────
   {
     id:        'FORTIFIED',
-    nameKr:    '요새화',
-    nameEn:    'Fortified',
+    name: [
+      { code: "Kr", context: "요새화" },
+      { code: "En", context: "Fortified" },
+    ],
     category:  'military',
     target:    'both',
     icon:      '🛡️',
@@ -503,8 +559,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'DEVASTATED',
-    nameKr:    '초토화',
-    nameEn:    'Devastated',
+    name: [
+      { code: "Kr", context: "초토화" },
+      { code: "En", context: "Devastated" },
+    ],
     category:  'military',
     target:    'both',
     icon:      '🔥',
@@ -522,8 +580,10 @@ export const STAR_TRAITS = [
   },
   {
     id:        'GARRISON_CITY',
-    nameKr:    '주둔 도시',
-    nameEn:    'Garrison City',
+    name: [
+      { code: "Kr", context: "주둔 도시" },
+      { code: "En", context: "Garrison City" },
+    ],
     category:  'military',
     target:    'planet',
     icon:      '🪖',

@@ -4,13 +4,15 @@
 export const STAR_MAP = {
   id:      'ISERLOHN',
   code:    '230022',
-  nameKr:  '이제르론',
-  nameEn:  'ISERLOHN',
+  name: [
+    { code: "Kr", context: "이제르론" },
+    { code: "En", context: "ISERLOHN" },
+  ],
   mapSize: [1000, 1000],
   nebulae: [
     { x:508, y:413, r:153, color:'rgba(80,40,20,', alpha:0.11 },
   ],
   planets: [
-    { nameKr:'이제르론', nameEn:'', main:true, type:'fortress', fortress:'ISERLOHN', x:500, y:500, size:50 },
+    { name: [{ code: "Kr", context: "이제르론" }], main:true, type:'fortress', fortress:'ISERLOHN', x:500, y:500, size:50 },
   ],
 };

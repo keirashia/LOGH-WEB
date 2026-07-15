@@ -4,13 +4,15 @@
 export const STAR_MAP = {
   id:      'PHEZZAN',
   code:    '230042',
-  nameKr:  '페잔',
-  nameEn:  'PHEZZAN',
+  name: [
+    { code: "Kr", context: "페잔" },
+    { code: "En", context: "PHEZZAN" },
+  ],
   mapSize: [1000, 1000],
   nebulae: [
     { x:839, y:803, r:167, color:'rgba(20,60,80,', alpha:0.1 },
   ],
   planets: [
-    { nameKr:'페잔', nameEn:'', main:true, type:'capital', fortress:null, x:500, y:500, size:55 },
+    { name: [{ code: "Kr", context: "페잔" }], main:true, type:'capital', fortress:null, x:500, y:500, size:55 },
   ],
 };

@@ -4,13 +4,15 @@
 export const STAR_MAP = {
   id:      'LIPPSTADT',
   code:    '230031',
-  nameKr:  '립슈타트',
-  nameEn:  'LIPPSTADT',
+  name: [
+    { code: "Kr", context: "립슈타트" },
+    { code: "En", context: "LIPPSTADT" },
+  ],
   mapSize: [1000, 1000],
   nebulae: [
     { x:818, y:821, r:191, color:'rgba(41,60,120,', alpha:0.17 },
   ],
   planets: [
-    { nameKr:'립슈타트', nameEn:'', main:true, type:'terrestrial', fortress:null, x:500, y:500, size:42 },
+    { name: [{ code: "Kr", context: "립슈타트" }], main:true, type:'terrestrial', fortress:null, x:500, y:500, size:42 },
   ],
 };

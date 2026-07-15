@@ -1142,9 +1142,11 @@ export const SCENARIOS = [
     month: 9,
     date: 13, // 시작일자 (795년 9월 13일)
     id: "SE795_0913_010",
-    nameKr: "제4차 티아마트 회전",
-    nameEn: "4Th Battle of Tiamat",
-    nameJp: "第四次 ティアマト会戦",
+    name: [
+      { code: "Kr", context: "제4차 티아마트 회전" },
+      { code: "En", context: "4Th Battle of Tiamat" },
+      { code: "Jp", context: "第四次 ティアマト会戦" },
+    ],
     subTitle: "주둔함대 출격하다",
     summary: `우주력 795년. 제국력 486년 9월.
     반년 전 어중간한 결과로 마무리된 3차 티아마트 회전 이후, 은하제국은 티아마트 성계에 대한 재원정을 선언했다.

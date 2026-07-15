@@ -4,15 +4,17 @@
 export const STAR_MAP = {
   id:      'ASTADE',
   code:    '230005',
-  nameKr:  '아스타데',
-  nameEn:  'ASTADE',
+  name: [
+    { code: "Kr", context: "아스타데" },
+    { code: "En", context: "ASTADE" },
+  ],
   nebulae: [
     { x:296, y:557, r:175, color:'rgba(20,80,60,', alpha:0.09 },
   ],
   planets: [
-    { nameKr:'아트라 하시스', nameEn:'', main:true, type:'terrestrial', fortress:null, x:398, y:228, size:42 },
-    { nameKr:'아스페륀', nameEn:'', main:false, type:'terrestrial', fortress:null, x:758, y:544, size:25 },
-    { nameKr:'우가리트', nameEn:'', main:false, type:'terrestrial', fortress:null, x:316, y:728, size:25 },
+    { name: [{ code: "Kr", context: "아트라 하시스" }], main:true, type:'terrestrial', fortress:null, x:398, y:228, size:42 },
+    { name: [{ code: "Kr", context: "아스페륀" }], main:false, type:'terrestrial', fortress:null, x:758, y:544, size:25 },
+    { name: [{ code: "Kr", context: "우가리트" }], main:false, type:'terrestrial', fortress:null, x:316, y:728, size:25 },
   ],
   tactical: {
     mapSize: [400, 240],

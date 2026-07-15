@@ -128,7 +128,8 @@ export const CHAR_UNIQUE_TRAIT_MAP = (() => {
   for (const a of CHAR_TRAITS) {
     if (!a.traitCode.startsWith('TRC_U_') || map[a.charCode]) continue
     const master = CHAR_TRAIT_MAP[a.traitCode]
-    if (master) map[a.charCode] = master.nameKr
+    //TODO
+    if (master) map[a.charCode] = master.name?.find(e => e.code === 'Kr')?.context
   }
   return map
 })()

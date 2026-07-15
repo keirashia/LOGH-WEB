@@ -4,13 +4,15 @@
 export const STAR_MAP = {
   id:      'ALMENTPUVEL',
   code:    '230001',
-  nameKr:  '알멘트푸벨',
-  nameEn:  'ALMENTPUVEL',
+  name: [
+    { code: "Kr", context: "알멘트푸벨" },
+    { code: "En", context: "ALMENTPUVEL" },
+  ],
   mapSize: [1000, 1000],
   nebulae: [
     { x:840, y:516, r:231, color:'rgba(20,60,80,', alpha:0.08 },
   ],
   planets: [
-    { nameKr:'바텐 도라흐', nameEn:'', main:true, type:'terrestrial', fortress:null, x:500, y:500, size:42 },
+    { name: [{ code: "Kr", context: "바텐 도라흐" }], main:true, type:'terrestrial', fortress:null, x:500, y:500, size:42 },
   ],
 };

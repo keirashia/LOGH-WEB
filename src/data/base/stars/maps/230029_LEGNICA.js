@@ -4,14 +4,16 @@
 export const STAR_MAP = {
   id:      'LEGNICA',
   code:    '230029',
-  nameKr:  '레그니차',
-  nameEn:  'LEGNICA',
+  name: [
+    { code: "Kr", context: "레그니차" },
+    { code: "En", context: "LEGNICA" },
+  ],
   mapSize: [1000, 1000],
   nebulae: [
     { x:562, y:335, r:174, color:'rgba(41,60,120,', alpha:0.15 },
     { x:880, y:895, r:191, color:'rgba(80,40,20,', alpha:0.13 },
   ],
   planets: [
-    { nameKr:'레그니처', nameEn:'', main:true, type:'terrestrial', fortress:null, x:500, y:500, size:42 },
+    { name: [{ code: "Kr", context: "레그니처" }], main:true, type:'terrestrial', fortress:null, x:500, y:500, size:42 },
   ],
 };

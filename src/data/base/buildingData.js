@@ -8,7 +8,7 @@
 //  trait/stars/starTraitData.js가 담당 — 예: MAIN_PLANET).
 //
 //  ⚠️ 2026-06-25 개편 내역:
-//    1) name/desc 다국어 배열화. nameKr/nameEn/nameJp(분리 필드) →
+//    1) name/desc 다국어 배열화.
 //       name: [{ code:"Kr", context }, { code:"En", context }, { code:"Jp", context }]
 //       (desc도 동일 구조). 이번 작업에서는 한국어(Kr)만 실제로 채우고
 //       En/Jp는 context:"" 상태로 자리만 만들어둠. (planetsData.js의 name/desc와

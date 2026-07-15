@@ -19,7 +19,7 @@
       @contextmenu.prevent
     >
       <span v-if="trait.rarity === 'unique'" class="tb-rarity mono">{{ RARITY_LABEL[trait.rarity] ?? trait.rarity }}</span>
-      <span class="tb-name serif">{{ trait.nameKr }}</span>
+      <span class="tb-name serif">{{ traitName }}</span>
       <div class="tb-right">
         <span class="tb-lv mono">Lv.{{ charTrait?.traitLv ?? 0 }}</span>
         <div class="tb-exp-bar">
@@ -32,7 +32,7 @@
     <transition name="tb-drop">
       <div v-if="showHint" class="tb-hint" @click.stop="showHint = false">
         <div class="tb-hint-head">
-          <span class="serif tb-hint-name">{{ trait.nameKr }}</span>
+          <span class="serif tb-hint-name">{{ traitName }}</span>
           <!-- <span class="tb-hint-rar mono">{{ RARITY_LABEL[trait.rarity] ?? trait.rarity }}</span> -->
         </div>
         <p class="tb-hint-desc">{{ trait.desc }}</p>
@@ -100,6 +100,7 @@ function stop() {
 
 onUnmounted(stop)
 
+const traitName  = computed(() => props.trait.name?.find(e => e.code === 'Kr')?.context ?? '')
 const MAX_EXP = 100
 const expPercent = computed(() => Math.min(((props.charTrait?.traitExp ?? 0) / MAX_EXP) * 100, 100))
 const hasEffects = computed(() => Object.keys(props.trait.effects ?? {}).length > 0)

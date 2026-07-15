@@ -21,18 +21,22 @@ export const PLANET_POPS_JOBS = [
   // ── 1차 산업 ──────────────────────────────────────────────
   {
     code: "FARMER",
-    nameKr: "농부",
-    nameEn: "Farmer",
-    nameJp: "農夫",
+    name: [
+      { code: "Kr", context: "농부" },
+      { code: "En", context: "Farmer" },
+      { code: "Jp", context: "農夫" },
+    ],
     category: "primary",
     desc: "농업시설(FARM 계열)에 배치되어 식량을 생산하는 인구.",
     linkedBuildingCategory: "economic", // TODO: buildingData.js의 어떤 건물군과 연동되는지 구체화 필요
   },
   {
     code: "MINER",
-    nameKr: "광부",
-    nameEn: "Miner",
-    nameJp: "鉱夫",
+    name: [
+      { code: "Kr", context: "광부" },
+      { code: "En", context: "Miner" },
+      { code: "Jp", context: "鉱夫" },
+    ],
     category: "primary",
     desc: "광산(MINE)에 배치되어 광물 자원을 채굴하는 인구.",
     linkedBuildingCategory: "economic",
@@ -41,18 +45,22 @@ export const PLANET_POPS_JOBS = [
   // ── 2차 산업 ──────────────────────────────────────────────
   {
     code: "WORKER",
-    nameKr: "노동자",
-    nameEn: "Worker",
-    nameJp: "労働者",
+    name: [
+      { code: "Kr", context: "노동자" },
+      { code: "En", context: "Worker" },
+      { code: "Jp", context: "労働者" },
+    ],
     category: "secondary",
     desc: "공업단지(FACTORY) 등에 배치되어 공산품을 생산하는 인구.",
     linkedBuildingCategory: "economic",
   },
   {
     code: "ARMORER",
-    nameKr: "조병공",
-    nameEn: "Armorer",
-    nameJp: "兵器工",
+    name: [
+      { code: "Kr", context: "조병공" },
+      { code: "En", context: "Armorer" },
+      { code: "Jp", context: "兵器工" },
+    ],
     category: "secondary",
     desc: "조병창(ARSENAL)에 배치되어 군수물자(mil_supply)를 생산하는 인구.",
     linkedBuildingCategory: "military",
@@ -61,27 +69,33 @@ export const PLANET_POPS_JOBS = [
   // ── 3차 산업 ──────────────────────────────────────────────
   {
     code: "MERCHANT",
-    nameKr: "상인",
-    nameEn: "Merchant",
-    nameJp: "商人",
+    name: [
+      { code: "Kr", context: "상인" },
+      { code: "En", context: "Merchant" },
+      { code: "Jp", context: "商人" },
+    ],
     category: "tertiary",
     desc: "상업지구(COMMERCIAL_DISTRICT)에 배치되어 무역/상업 활동을 수행하는 인구.",
     linkedBuildingCategory: "economic",
   },
   {
     code: "ADMINISTRATOR",
-    nameKr: "행정관",
-    nameEn: "Administrator",
-    nameJp: "行政官",
+    name: [
+      { code: "Kr", context: "행정관" },
+      { code: "En", context: "Administrator" },
+      { code: "Jp", context: "行政官" },
+    ],
     category: "tertiary",
     desc: "행정중심(ADMIN_CENTER)에 배치되어 행성 통치 효율을 보조하는 인구.",
     linkedBuildingCategory: "administrative",
   },
   {
     code: "RESEARCHER",
-    nameKr: "연구원",
-    nameEn: "Researcher",
-    nameJp: "研究員",
+    name: [
+      { code: "Kr", context: "연구원" },
+      { code: "En", context: "Researcher" },
+      { code: "Jp", context: "研究員" },
+    ],
     category: "tertiary",
     desc: "연구소(RESEARCH_LAB)에 배치되어 기술 개발을 수행하는 인구.",
     linkedBuildingCategory: "research",
@@ -90,9 +104,11 @@ export const PLANET_POPS_JOBS = [
   // ── 군사 ──────────────────────────────────────────────────
   {
     code: "GARRISON",
-    nameKr: "수비대원",
-    nameEn: "Garrison Trooper",
-    nameJp: "守備隊員",
+    name: [
+      { code: "Kr", context: "수비대원" },
+      { code: "En", context: "Garrison Trooper" },
+      { code: "Jp", context: "守備隊員" },
+    ],
     category: "military",
     desc: "요새(FORTRESS 계열)에 배치되어 행성 방어를 담당하는 인구.",
     linkedBuildingCategory: "military",
@@ -101,9 +117,11 @@ export const PLANET_POPS_JOBS = [
   // ── 건설 ──────────────────────────────────────────────────
   {
     code: "BUILDER",
-    nameKr: "건설자",
-    nameEn: "Builder",
-    nameJp: "建設者",
+    name: [
+      { code: "Kr", context: "건설자" },
+      { code: "En", context: "Builder" },
+      { code: "Jp", context: "建設者" },
+    ],
     category: "construction",
     desc: "건설 진행 중(construct > 0)인 건물 슬롯에 임시로 배치되는 인구.\n      건설이 완료되면 해당 건물의 정식 직업(FARMER 등)으로 전환된다.",
     linkedBuildingCategory: null, // 모든 카테고리 건설에 공통 적용
@@ -112,9 +130,11 @@ export const PLANET_POPS_JOBS = [
   // ── 미배정 ────────────────────────────────────────────────
   {
     code: "NONE",
-    nameKr: "배정없음",
-    nameEn: "None",
-    nameJp: "未配置",
+    name: [
+      { code: "Kr", context: "배정없음" },
+      { code: "En", context: "None" },
+      { code: "Jp", context: "未配置" },
+    ],
     category: "none",
     desc: "어떤 건물/직업에도 배치되지 않은 유휴 인구. pops.unit에서 다른 jobs 항목들의\n      unit 합계를 뺀 나머지가 사실상 이 상태와 같으나, 명시적으로 표기가 필요한\n      경우(예: UI 표시, 이벤트 조건)를 위해 코드로 등록함.",
     linkedBuildingCategory: null,

@@ -4,13 +4,15 @@
 export const STAR_MAP = {
   id:      'HAN',
   code:    '230021',
-  nameKr:  '하안',
-  nameEn:  'HAN',
+  name: [
+    { code: "Kr", context: "하안" },
+    { code: "En", context: "HAN" },
+  ],
   mapSize: [1000, 1000],
   nebulae: [
     { x:487, y:723, r:211, color:'rgba(20,80,60,', alpha:0.09 },
   ],
   planets: [
-    { nameKr:'자르펠트', nameEn:'', main:true, type:'terrestrial', fortress:null, x:500, y:500, size:42 },
+    { name: [{ code: "Kr", context: "자르펠트" }], main:true, type:'terrestrial', fortress:null, x:500, y:500, size:42 },
   ],
 };
