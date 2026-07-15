@@ -13,12 +13,15 @@
         <clipPath id="map-clip" clipPathUnits="userSpaceOnUse">
           <rect x="0" y="0" :width="VW" :height="VH"/>
         </clipPath>
-        <!-- 사르갓소 해저드 스트라이프 -->
-        <pattern id="sargasso-hazard" x="0" y="0" width="20" height="20"
-                 patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-          <rect width="10" height="20" fill="#0d0d0d"/>
-          <rect x="10" width="10" height="20" fill="#ffc200"/>
-        </pattern>
+        <!-- 사르갓소 성운 필터: 넓은 확산 블러 + 좁은 내부 블러 합산 -->
+        <filter id="sargasso-nebula" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="30" result="wide"/>
+          <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="inner"/>
+          <feMerge>
+            <feMergeNode in="wide"/>
+            <feMergeNode in="inner"/>
+          </feMerge>
+        </filter>
         <!-- 국경선 warp (비활성화용 보존) -->
         <filter id="bt-warp" x="-10%" y="-100%" width="120%" height="300%">
           <feTurbulence type="fractalNoise" baseFrequency="0.007 0.003" numOctaves="2" result="noise">
@@ -57,9 +60,10 @@
         <g style="pointer-events:none">
           <polygon v-for="obs in game.obstacles" :key="obs.id"
                    :points="obs.points.map(p => p.join(',')).join(' ')"
-                   :fill="obs.type==='SARGASSO' ? 'url(#sargasso-hazard)' : obs.color.fill"
-                   :stroke="obs.type==='SARGASSO' ? '#d4a000' : obs.color.outline"
-                   stroke-width="1.5"/>
+                   :fill="obs.type==='SARGASSO' ? 'rgba(110,30,210,0.38)' : obs.color.fill"
+                   :filter="obs.type==='SARGASSO' ? 'url(#sargasso-nebula)' : undefined"
+                   :stroke="obs.type==='SARGASSO' ? 'none' : obs.color.outline"
+                   :stroke-width="obs.type==='SARGASSO' ? 0 : 1.5"/>
         </g>
 
         <!-- 항로 (비경계) -->
@@ -113,9 +117,9 @@
                   stroke-width="0.8" stroke-dasharray="2 2" opacity=".7"/>
           <g v-if="labelOpacity > 0" :opacity="labelOpacity" style="pointer-events:none">
             <rect
-              :x="-(s.name.length * 9 / scale + 4 / scale)"
+              :x="-(s.displayName.length * 9 / scale + 4 / scale)"
               :y="vr(s) + 3 / scale"
-              :width="s.name.length * 18 / scale + 8 / scale"
+              :width="s.displayName.length * 18 / scale + 8 / scale"
               :height="22 / scale"
               :rx="2 / scale"
               fill="rgba(4,8,16,0.80)"
@@ -125,7 +129,7 @@
             <text class="sys-lbl" text-anchor="middle"
                   :dy="vr(s) + 19 / scale"
                   :font-size="18 / scale"
-                  :fill="fclr[s.faction] || 'rgba(255,255,255,0.9)'">{{ s.name }}</text>
+                  :fill="fclr[s.faction] || 'rgba(255,255,255,0.9)'">{{ s.displayName }}</text>
           </g>
         </g>
 
@@ -196,11 +200,13 @@
 import { ref, computed, onMounted, onUnmounted, nextTick } from 'vue'
 import { Delaunay } from 'd3-delaunay'
 import { useGameStore } from '@/stores/gameStore'
+import { useLang } from '@/composables/useLang'
 import { FACTIONS } from '@/data/masterData'
 import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
 import GameDateDisplay from '@/components/game/GameDateDisplay.vue'
 
 const game  = useGameStore()
+const { lang } = useLang()
 const bgCvs = ref(null)
 const svgEl = ref(null)
 let   aid   = null
@@ -602,7 +608,14 @@ const lanesComp = computed(() => {
 
 // ── 기존 헬퍼 ────────────────────────────────────────────────
 const fclr    = computed(() => game.fColors)
-const systems = computed(() => Object.values(game.systems))
+const systems = computed(() =>
+  Object.values(game.systems).map(s => ({
+    ...s,
+    displayName: Array.isArray(s.name)
+      ? (s.name.find(e => e.code === lang.value)?.context ?? s.name[0]?.context ?? s.id)
+      : (s.name ?? s.id),
+  }))
+)
 
 // 라벨 페이드: 줌아웃 시 서서히 사라짐
 // scale 0.75 이하에서 fade 시작, 0.55 이하에서 완전 소멸
