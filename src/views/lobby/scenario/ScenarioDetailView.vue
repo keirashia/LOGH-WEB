@@ -4,7 +4,7 @@
     <!-- 상단 네비 -->
     <div class="top-nav">
       <div class="nav-title">
-        <span class="serif">{{ cur.nameKr }}</span>
+        <span class="serif">{{ curName }}</span>
         <span v-if="cur.subTitle" class="mono dim nav-subtitle">{{ cur.subTitle }}</span>
       </div>
     </div>
@@ -68,6 +68,7 @@
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
+import { useLang } from '@/composables/useLang'
 import { useEncyclopediaStore } from '@/stores/encyclopediaStore'
 import { useGameStore } from '@/stores/gameStore'
 import { useLobbyStore } from '@/stores/lobbyStore'
@@ -78,7 +79,10 @@ const enc    = useEncyclopediaStore()
 const game   = useGameStore()
 const lobby  = useLobbyStore()
 
+const { lang } = useLang()
+
 const cur     = ref(SCENARIOS.find(s => s.id === route.params.scId) ?? SCENARIOS[0])
+const curName = computed(() => cur.value?.name?.find(e => e.code === lang.value)?.context ?? '')
 const pageIdx = ref(0)
 
 watch(() => route.params.scId, id => {

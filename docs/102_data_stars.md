@@ -147,8 +147,7 @@ LANE_006  PHEZZAN  ↔ LICHTENBERG   phezzan   ← 230066 (미등록 성계)
 // 변경 후 (현행)
 name: [ { code: "Kr", context: "하이네센" }, { code: "En", context: "HEINESSEN" } ]
 
-// 변경 전 (구형)
-nameKr: "하이네센", nameEn: "HEINESSEN"
+// 변경 전 (구형, 삭제됨) — 언어별 개별 필드 방식
 ```
 
 컴포넌트에서 이름 접근: `planet.name?.find(n => n.code === 'Kr')?.context ?? ''`
@@ -231,7 +230,7 @@ export const STAR_MAP_BY_CODE = { '230022': {...} } // code 기준 Map
 
 ## TODO
 
-- [ ] `nameJp` 전체 미입력
+- [ ] 성계 일본어(Jp) name 항목 62개 미입력
 - [ ] 미등록 성계 3개(230065/066/067) starSystemData.js에 추가
 - [ ] code 중복 의심 3건 원작 확인: 230002(ALTENER)/230035(LUYKAS)/230037(MARADEITA)
 - [ ] planetsData.js 좌표/size/type starMaps.js 기준으로 동기화

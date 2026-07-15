@@ -6,7 +6,7 @@
 
       <!-- 타이틀 (고정) -->
       <div class="title-block">
-        <span class="serif gold title-scenario">{{ cur.nameKr }}</span>
+        <span class="serif gold title-scenario">{{ curName }}</span>
         <div v-if="cur.subTitle" class="variant-nav">
           <button
             class="vnav-arrow"
@@ -115,6 +115,7 @@ import { storeToRefs } from 'pinia'
 import { useRoute, useRouter } from 'vue-router'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
 import { useLobbyStore } from '@/stores/lobbyStore'
+import { useLang } from '@/composables/useLang'
 import { useHelpStore } from '@/stores/helpStore'
 import StarfieldCanvas from '@/components/common/StarfieldCanvas.vue'
 
@@ -125,7 +126,10 @@ const help   = useHelpStore()
 const { allHidden: helpAllHidden } = storeToRefs(help)
 
 
-const cur = computed(() => SCENARIOS.find(s => s.id === route.params.scId) ?? SCENARIOS[0])
+const { lang } = useLang()
+
+const cur     = computed(() => SCENARIOS.find(s => s.id === route.params.scId) ?? SCENARIOS[0])
+const curName = computed(() => cur.value?.name?.find(e => e.code === lang.value)?.context ?? '')
 
 
 const variantList = computed(() => {

@@ -46,7 +46,7 @@
       <template v-if="activeTab==='intel'">
         <div v-for="(f,fid) in enemyFacs" :key="fid" class="intel-card">
           <div :class="`fc-${fid}`" style="font-size:13px;font-family:var(--font-serif);margin-bottom:7px">
-            {{ f.flag }} {{ f.nameKr }}
+            {{ f.flag }} {{ f.name?.find(e => e.code === lang)?.context ?? fid }}
           </div>
           <div class="dim" style="font-size:11px">보유 성계: {{ game.sysCounts[fid]||0 }}개</div>
           <div class="dim" style="font-size:11px">자금: ???</div>
@@ -60,8 +60,10 @@
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { charName } from '@/utils/charUtils'
+import { useLang } from '@/composables/useLang'
 
 const game = useGameStore()
+const { lang } = useLang()
 const activeTab = ref('fleets')
 const TABS = [
   { id:'fleets', icon:'🚀', label:'함대' },

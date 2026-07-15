@@ -60,9 +60,11 @@ import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { OPERATION_TYPES } from '@/data/masterData'
 import { charName } from '@/utils/charUtils'
+import { useLang } from '@/composables/useLang'
 const props = defineProps({ payload: Object })
 const emit = defineEmits(['close'])
 const game = useGameStore()
+const { lang } = useLang()
 const selFleet = ref(props.payload?.fleetId || game.pFleets.find(f=>f.status==='standby')?.id || null)
 const selOp = ref('PRECISION_BOMB')
 const targetSys = computed(() => {
@@ -71,7 +73,7 @@ const targetSys = computed(() => {
 })
 const available = computed(() => game.pFleets.filter(f => f.status==='standby'))
 const chr = id => game.characters[id]
-const fName = fid => game.factions[fid]?.nameKr || '중립'
+const fName = fid => game.factions[fid]?.name?.find(e => e.code === lang.value)?.context || '중립'
 function ico(s) {
   if (!s) return '🌟'
   if (s.type==='capital') return '🏛'

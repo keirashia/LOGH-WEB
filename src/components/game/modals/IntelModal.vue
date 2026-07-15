@@ -160,7 +160,7 @@
                    class="faction-item" :class="{ sel: proposal.targetFaction===fid }"
                    @click="proposal.targetFaction=fid">
               <span style="font-size:20px">{{ f.flag }}</span>
-              <span class="serif" style="font-size:11px">{{ f.nameKr }}</span>
+              <span class="serif" style="font-size:11px">{{ fName(fid) }}</span>
               <span class="gold" v-if="proposal.targetFaction===fid">✓</span>
             </label>
           </div>
@@ -187,7 +187,7 @@
       <div v-if="proposal.targetFaction && proposal.propType" class="effect-preview">
         <div class="ep-row">
           <span class="dim">대상</span>
-          <span>{{ game.factions[proposal.targetFaction]?.nameKr }}</span>
+          <span>{{ fName(proposal.targetFaction) }}</span>
         </div>
         <div class="ep-row">
           <span class="dim">예상 성공률</span>
@@ -213,9 +213,11 @@ import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { INTEL } from '@/data/masterData'
 import { charName } from '@/utils/charUtils'
+import { useLang } from '@/composables/useLang'
 
 const emit = defineEmits(['close'])
 const game = useGameStore()
+const { lang } = useLang()
 
 const tab = ref('spy')
 const TABS = [
@@ -262,7 +264,7 @@ const spySuccessRate = computed(() => {
   return Math.round(Math.min(0.95, base + bonus) * 100)
 })
 
-function fName(fid) { return game.factions[fid]?.nameKr || '중립' }
+function fName(fid) { return game.factions[fid]?.name?.find(e => e.code === lang.value)?.context || '중립' }
 
 function doSpy() {
   if (game.launchIntelOp(spy.value.targetId, spy.value.opType, spy.value.officerId)) {

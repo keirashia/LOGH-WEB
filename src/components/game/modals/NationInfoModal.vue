@@ -3,7 +3,7 @@
 
     <!-- 헤더 -->
     <div class="ni-header">
-      <span class="serif gold ni-title">{{ viewFaction?.nameKr ?? viewId }} 국가정보</span>
+      <span class="serif gold ni-title">{{ viewFaction?.name?.find(e => e.code === lang)?.context ?? viewId }} 국가정보</span>
       <button class="ni-close mono dim" @click="$emit('close')">✕</button>
     </div>
 
@@ -15,7 +15,7 @@
         class="ni-fc-chip serif"
         :class="[`fc-${id}`, { on: id === viewId }]"
         @click="viewIdx = i"
-      >{{ game.factions[id]?.shortNameKr ?? id }}</button>
+      >{{ game.factions[id]?.name?.find(e => e.code === lang)?.context ?? id }}</button>
       <button class="ni-arrow" @click="nextFaction">▶</button>
     </div>
 
@@ -177,9 +177,11 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import { useLang } from '@/composables/useLang'
 
 defineEmits(['close'])
 const game = useGameStore()
+const { lang } = useLang()
 
 const TABS = [
   { id: 'idea',     label: '이념' },

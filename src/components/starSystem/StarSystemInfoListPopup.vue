@@ -69,12 +69,14 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import { useLang } from '@/composables/useLang'
 import StarSystemInfoDetailPopup from '@/components/starSystem/StarSystemInfoDetailPopup.vue'
 
 defineProps({ payload: { default: null } })
 defineEmits(['close'])
 
 const game = useGameStore()
+const { lang } = useLang()
 
 const FACTION_TABS = [
   { key: 'FPA', label: '동맹' },
@@ -100,8 +102,8 @@ const rows = computed(() =>
     .filter(s => s.faction === factionTab.value)
     .map(s => ({
       id:         s.id,
-      name:       s.name,
-      nameEn:     s.nameEn ?? '',
+      name:       s.name?.find(e => e.code === lang.value)?.context ?? s.id,
+      enName:     s.name?.find(e => e.code === 'En')?.context ?? '',
       type:       s.type ?? 'normal',
       planets:    s.planets?.length ?? 0,
       planetList: s.planets ?? [],
@@ -118,7 +120,7 @@ const rows = computed(() =>
 const sorted = computed(() => {
   const q = query.value.trim().toLowerCase()
   const list = q
-    ? rows.value.filter(s => s.name.toLowerCase().includes(q) || s.nameEn.toLowerCase().includes(q))
+    ? rows.value.filter(s => s.name.toLowerCase().includes(q) || s.enName.toLowerCase().includes(q))
     : rows.value
   return [...list].sort((a, b) => {
     if (sortKey.value === 'name') return sortDir.value * a.name.localeCompare(b.name, 'ko')

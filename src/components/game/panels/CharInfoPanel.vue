@@ -47,7 +47,7 @@
         <div v-if="!charJobData.length" class="no-trait mono dim">직업 없음</div>
         <div v-for="j in charJobData" :key="j.jobCode" class="job-chip">
           <!-- <span class="chip-cat mono">{{ j.category }}</span> -->
-          <span class="chip-name serif">{{ j.nameKr }}</span>
+          <span class="chip-name serif">{{ j.displayName }}</span>
           <div class="job-right mono">
             <span class="job-lv">Lv.{{ j.jobLevel }}</span>
             <div class="job-exp-bar">
@@ -137,7 +137,7 @@ const charJobData = computed(() => {
     const jobDef = JOB_MAP[jobCode]
     return {
       jobCode,
-      nameKr:   jobDef?.name?.find(e => e.code === lang.value)?.context ?? jobCode,
+      displayName: jobDef?.name?.find(e => e.code === lang.value)?.context ?? jobCode,
       category: jobDef?.category ?? '',
       jobLevel: entry?.jobLevel  ?? 0,
       jobExp:   entry?.jobExp    ?? 0,

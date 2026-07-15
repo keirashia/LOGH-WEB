@@ -138,5 +138,5 @@ LOGH-API `TBL_ACHIEVEMENT_MASTER` / `TBL_USER_ACHIEVEMENT` 참조 (`LOGH-API/doc
 - [ ] `ScenarioDetailView.vue` [🔒 Npt로 구매] 버튼 클릭 핸들러 연결
 
 ### 언어 교체
-- [x] 전 JS 데이터·유틸·스토어 파일 `nameKr`/`nameEn`/`nameJp` → `name:[{code,context}]` 배열 변환 (2026-07-15)
-- [ ] Vue 파일 `nameKr` 하드코딩 → `name.find(e=>e.code==='Kr')?.context` 일괄 교체
+- [x] 전 JS 데이터·유틸·스토어 파일 구형 언어별 필드 → `name:[{code,context}]` 배열 변환 (2026-07-15)
+- [x] Vue 파일 구형 언어별 필드 하드코딩 → `name.find(e=>e.code===lang)?.context` 일괄 교체 (2026-07-15)

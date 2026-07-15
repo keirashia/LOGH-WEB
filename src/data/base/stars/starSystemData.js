@@ -1566,9 +1566,7 @@ export const STAR_SYSTEMS = [
   // /** 구현 필요 없음. 추후 구현 예정이니 주석만 유지할 것
   // // {
   // //   code: "",
-  // //   nameKr: "리겔",
-  // //   nameEn: "RIGEL",
-  // //   nameJp: "",
+  // //   name: [{ code: "Kr", context: "리겔" }, { code: "En", context: "RIGEL" }],
   // //   x: 0,
   // //   y: 0,
   // //   type: "normal",
@@ -1578,9 +1576,7 @@ export const STAR_SYSTEMS = [
   // /** 구현 필요 없음. 추후 구현 예정이니 주석만 유지할 것
   // // {
   // //   code: "",
-  // //   nameKr: "알데바란",
-  // //   nameEn: "Aldebaran",
-  // //   nameJp: "",
+  // //   name: [{ code: "Kr", context: "알데바란" }, { code: "En", context: "Aldebaran" }],
   // //   x: 0,
   // //   y: 0,
   // //   type: "normal",

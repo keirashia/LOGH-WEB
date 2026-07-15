@@ -81,18 +81,18 @@
                 <ellipse v-for="(n,i) in starMapData.nebulae" :key="'n'+i"
                          :cx="n.x" :cy="n.y" :rx="n.r" :ry="n.r*.7"
                          :fill="`${n.color}${n.alpha})`"/>
-                <g v-for="p in starMapData.planets" :key="p.nameKr"
+                <g v-for="p in starMapData.planets" :key="p.code ?? p.name?.[0]?.context"
                    :transform="`translate(${p.x},${p.y})`">
                   <circle :r="p.size/2" fill="#1a2a3a" stroke="#3a5a7a" stroke-width="2"/>
                   <circle :r="p.size/2*.55" :fill="p.main?'#d4aa60':'#2a4a6a'"/>
                   <text text-anchor="middle" :dy="p.size/2+18"
-                        font-size="28" fill="#8aaabb">{{ p.nameKr }}</text>
+                        font-size="28" fill="#8aaabb">{{ p.name?.find(e => e.code === lang)?.context ?? '' }}</text>
                 </g>
               </svg>
               <div class="star-map-legend">
-                <div v-for="p in starMapData.planets" :key="p.nameKr" class="sml-row">
+                <div v-for="p in starMapData.planets" :key="p.code ?? p.name?.[0]?.context" class="sml-row">
                   <span>{{ p.main?'⭐':'🪐' }}</span>
-                  <span>{{ p.nameKr }}</span>
+                  <span>{{ p.name?.find(e => e.code === lang)?.context ?? '' }}</span>
                   <span class="dim mono" style="font-size:9px">{{ p.type }}</span>
                 </div>
               </div>
@@ -110,9 +110,9 @@
               <div v-if="selPlanet.type" class="sr-row"><span class="dim">유형</span><span>{{ selPlanet.type }}</span></div>
               <div v-if="selPlanet.fortress" class="sr-row"><span class="dim">요새</span><span style="color:#9b59b6">{{ selPlanet.fortress }}</span></div>
               <div class="sr-row"><span class="dim">대표 행성</span><span>{{ selPlanet.main ? 'Y' : 'N' }}</span></div>
-              <div v-if="selPlanet.nameEn" class="sr-row">
+              <div v-if="selPlanet.name?.find(e => e.code === 'En')?.context" class="sr-row">
                 <span class="dim">영문명</span>
-                <span class="mono" style="font-size:10px">{{ selPlanet.nameEn }}</span>
+                <span class="mono" style="font-size:10px">{{ selPlanet.name?.find(e => e.code === 'En')?.context }}</span>
               </div>
             </template>
             <template v-else>
@@ -123,7 +123,7 @@
                       class="list-item" @click="selPlanet=p">
                 <span class="li-ico">{{ p.main?'⭐':'🪐' }}</span>
                 <div class="li-text">
-                  <div>{{ p.nameKr||'(무명)' }}</div>
+                  <div>{{ p.name?.find(e => e.code === lang)?.context || '(무명)' }}</div>
                   <div class="mono dim" style="font-size:9px">{{ p.code }}</div>
                 </div>
                 <span v-if="p.fortress" class="li-tag">요새</span>
@@ -253,12 +253,14 @@
 <script setup>
 import { ref, computed, watch } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import { useLang } from '@/composables/useLang'
 import { CONSTRUCTION_TYPES } from '@/data/masterData'
 import { charName } from '@/utils/charUtils'
 import { getStarMapByCode } from '@/data/base/stars/maps/index.js'
 import StatRow from '@/components/ui/StatRow.vue'
 
 const game  = useGameStore()
+const { lang } = useLang()
 const sys   = computed(() => game.selSysObj)
 const fleet = computed(() => game.selFleetObj)
 const cmd   = computed(() => fleet.value ? game.characters[fleet.value.commander] : null)
@@ -328,8 +330,8 @@ const sysTabs = computed(() => [
 ])
 
 const bodyTitle = computed(() => {
-  if (sysTab.value === 'planets' && selPlanet.value) return selPlanet.value.nameKr || '(무명)'
-  if (sysTab.value === 'lanes'   && selLane.value)   return game.systems[selLane.value.other]?.name || selLane.value.other
+  if (sysTab.value === 'planets' && selPlanet.value) return selPlanet.value.name?.find(e => e.code === lang.value)?.context || '(무명)'
+  if (sysTab.value === 'lanes'   && selLane.value)   return game.systems[selLane.value.other]?.name?.find(e => e.code === lang.value)?.context || selLane.value.other
   return { info:'성계 정보', detail:'상세 지도', planets:'소속 성계', lanes:'항로 정보', action: actionLabel.value }[sysTab.value] || ''
 })
 
@@ -355,7 +357,7 @@ const supportBreakdown = computed(() => {
 })
 
 // ── 헬퍼 ──────────────────────────────────────────────────────
-function fName(fid)  { return game.factions[fid]?.nameKr || '중립' }
+function fName(fid)  { return game.factions[fid]?.name?.find(e => e.code === lang.value)?.context || '중립' }
 function fColor(fid) { return game.factions[fid]?.color || '#4a5a6a' }
 function ico(s) {
   if (!s) return '🌟'

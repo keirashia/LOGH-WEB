@@ -136,7 +136,7 @@ docs/
 - **menuTree.js 전체 재작성**: 8개 카테고리 × 그룹 구조 완성 (2026-06-27)
 - **의안 시스템**: agendaData.js APPROVAL_CHAINS 재설계 — 제국/동맹 직위 개편, finance·intel 카테고리 추가 (2026-06-26~27)
 - **요직 개편**: REH JB_R004 삭제·JB_R011 추가 / FPA JB_F003/010/011 삭제·JB_F013~018 추가
-- **planetsData.js name 배열 도입**: nameKr/nameEn → name:[{code,context}] 배열 형식으로 변환
+- **전체 name 배열 도입**: JS 데이터·유틸·스토어·Vue 파일 구형 언어별 필드 → `name:[{code,context}]` 배열 형식으로 완전 전환 (2026-07-15)
 - **MD 개편**: docs/ 폴더 중앙화 (102~113 작성)
 - **턴 종료 / 교전 발생 confirm 다이얼로그**: `_turnActionTaken` 플래그, `_pendingBattles` 큐(스칼라→배열) 전환, `autoResolveBattle()` 신규 (2026-07-03~04, 상세: [108_data_turns.md](108_data_turns.md), [114_data_battle.md](114_data_battle.md))
 - **BottomBar.vue → StrategyBar.vue 리네임** 완료, `TacticalBar`/`CharInfoPanel` 교체는 회귀 위험 대비 실익 낮아 보류 (2026-07-04)
@@ -158,7 +158,7 @@ docs/
 | 우선순위 | 항목 | 비고 |
 |---|---|---|
 | 🟡 | lane.js 고립 성계 항로 추가 | ARESHYUM/BARATULF/FIREZIERD/HAN/LUYKAS_FPA/MARBACH/PORGEN |
-| 🟡 | starSystemData.js nameJp 62개 입력 | 현재 빈 문자열 |
+| 🟡 | starSystemData.js 일본어(Jp) 62개 입력 | name 배열 내 En만 입력, Jp 항목은 공란 |
 | 🟡 | code 중복 3건 원작 확인 | ALTENER/LUYKAS/MARADEITA |
 | 🟡 | starsData.js LEGACY 파일 삭제 확인 | 현재 미참조 |
 | 🟡 | 의안 _executeAgenda 액션 구현 | planet_develop/ship_design/research_* stub 상태 |

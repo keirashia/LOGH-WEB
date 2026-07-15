@@ -297,11 +297,13 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import { useLang } from '@/composables/useLang'
 import { JOB_MAP } from '@/data/base/jobs/jobData'
 import { APPROVAL_CHAINS } from '@/data/base/agenda/agendaData'
 
 const emit = defineEmits(['close'])
 const game = useGameStore()
+const { lang } = useLang()
 
 // ── 상수 ──────────────────────────────────────────────────────────
 const GENERAL_RANK_JOBS = new Set(['JB_MR001', 'JB_MR002', 'JB_MR003', 'JB_MR004'])
@@ -460,14 +462,14 @@ const targetLabel = computed(() => {
   const sys = game.systems[targetStar.value]
   if (!sys) return targetStar.value
   const type = sys.faction === game.playerFaction ? '방어' : '공격'
-  return `${sys.name} ${type}작전`
+  return `${sys.name?.find(e => e.code === lang.value)?.context ?? sys.id} ${type}작전`
 })
 
 const filteredTargetSystems = computed(() => {
   const q = targetQ.value.trim().toLowerCase()
   return Object.values(game.systems)
     .filter(s => s.faction !== game.playerFaction || opType.value === 'defense')
-    .filter(s => !q || s.name.toLowerCase().includes(q) || (s.nameEn ?? '').toLowerCase().includes(q))
+    .filter(s => !q || (s.name?.find(e => e.code === lang.value)?.context ?? '').toLowerCase().includes(q) || (s.name?.find(e => e.code === 'En')?.context ?? '').toLowerCase().includes(q))
     .slice(0, 40)
 })
 

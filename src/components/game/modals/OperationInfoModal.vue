@@ -130,10 +130,12 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import { useLang } from '@/composables/useLang'
 
 defineEmits(['close'])
 
 const game = useGameStore()
+const { lang } = useLang()
 
 const activeTab = ref('all')
 
@@ -158,7 +160,7 @@ const TABS = [
 ]
 
 function factionName(id) {
-  return game.factions?.[id]?.nameKr ?? id
+  return game.factions?.[id]?.name?.find(e => e.code === lang.value)?.context ?? id
 }
 
 function fleetName(fid) {

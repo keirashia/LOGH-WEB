@@ -128,7 +128,7 @@
             <!-- 사령관 -->
             <div v-if="selectedCommander" class="cmd-line">
               <span class="cmd-label">사령관</span>
-              <span class="cmd-name serif">{{ selectedCommander.nameKr }}</span>
+              <span class="cmd-name serif">{{ selectedCommander.displayName }}</span>
             </div>
 
             <button
@@ -321,10 +321,10 @@ const selectedCommander = computed(() => {
   if (!code) return null
   const ch = CHARACTERS_MAP[code]
   if (!ch) return null
-  const nameKr = Array.isArray(ch.name)
+  const displayName = Array.isArray(ch.name)
     ? (ch.name.find(n => n.code === lang.value)?.context ?? ch.name[0]?.context ?? '')
     : (ch.name ?? '')
-  return { ...ch, nameKr }
+  return { ...ch, displayName }
 })
 const totalShips = computed(() => {
   if (!store.selectedFleet) return 0
