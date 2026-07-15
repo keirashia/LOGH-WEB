@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import CouncilRingComp from '@/components/game/modals/CouncilRingComp.vue'
 import MonarchyPostComp from '@/components/game/modals/MonarchyPostComp.vue'
@@ -66,11 +66,28 @@ import JobChip from '@/components/common/JobChip.vue'
 defineEmits(['close'])
 const game = useGameStore()
 
+// 세력 이념 체제 (없음/공화/혼합/군주)
+const system = computed(() => game.factions[game.playerFaction]?.ideology?.system ?? '없음')
+
+// 체제별 탭 구성
+//   없음  → (없음)
+//   공화  → 평의회 + 군무성
+//   혼합  → 군무성
+//   군주  → 궁정   + 군무성
+const tabs = computed(() => {
+  const list = []
+  if (system.value === '공화') list.push({ id: 'court', label: '평의회' })
+  else if (system.value === '군주') list.push({ id: 'court', label: '궁정' })
+  if (system.value !== '없음') list.push({ id: 'military', label: '군무성' })
+  return list
+})
+
 const activeTab = ref('court')
-const tabs = [
-  { id: 'court',    label: '궁정' },
-  { id: 'military', label: '군무성' },
-]
+watch(tabs, newTabs => {
+  if (!newTabs.find(t => t.id === activeTab.value)) {
+    activeTab.value = newTabs[0]?.id ?? null
+  }
+}, { immediate: true })
 
 // ── 공화 체제 평의회 링 설정 ────────────────────────────────────────
 const COUNCIL_CONFIG = {
