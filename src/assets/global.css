@@ -12,12 +12,27 @@
   --font-sans:'Noto Sans KR',sans-serif;
   --font-mono:'Share Tech Mono',monospace;
   --r:6px;
+  /* ── 폰트 크기 스케일 ──
+   * html root: clamp(8px, 2.5vmin, 10px) → 1rem ≈ 10px (일반 폰·데스크탑 기준)
+   * 소형폰(360px vmin)에서 root≈9px, 일반폰(430px+)에서 root=10px(cap)
+   * rem 값은 10px 기준으로 읽으면 직관적 (0.1rem = 1px)
+   */
+  --fs-2xs:0.9rem;  /* ≈ 9px  — 마이크로: 코드·타입 배지 */
+  --fs-xs: 1.0rem;  /* ≈ 10px — 보조: 서브 코드·수치 */
+  --fs-sm: 1.1rem;  /* ≈ 11px — 소: 보조 텍스트·설명 */
+  --fs-md: 1.2rem;  /* ≈ 12px — 중: 패널 기본 레이블 */
+  --fs-base:1.3rem; /* ≈ 13px — 기본: body 전역 기본값 */
+  --fs-lg: 1.4rem;  /* ≈ 14px — 대: 강조 텍스트·헤딩 */
+  --fs-xl: 1.6rem;  /* ≈ 16px — 소제목 */
+  --fs-2xl:1.8rem;  /* ≈ 18px — 모달 타이틀 */
+  --fs-3xl:2.2rem;  /* ≈ 22px — 대형 타이틀 */
 }
 @media (orientation:landscape) and (max-height:480px){
   :root{ --bar-h: 52px; }
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{width:100%;height:100%;background:var(--bg);color:var(--t1);font-family:var(--font-sans);font-size:13px;overflow:hidden;line-height:1.5}
+html{font-size:clamp(8px,2.5vmin,10px)}
+body{width:100%;height:100%;background:var(--bg);color:var(--t1);font-family:var(--font-sans);font-size:var(--fs-base);overflow:hidden;line-height:1.5}
 #app{width:100%;height:100%;display:flex;flex-direction:column}
 button{cursor:pointer;font-family:var(--font-sans);color:inherit;background:transparent;border:none}
 button:disabled{opacity:.4;pointer-events:none}
@@ -30,9 +45,28 @@ button:disabled{opacity:.4;pointer-events:none}
 .gold{color:var(--tg)}
 .dim{color:var(--t2)}
 .alert{color:var(--ta)}
+/* ── 폰트 크기 단독 유틸 ── */
+.fs-2xs{font-size:var(--fs-2xs)}.fs-xs{font-size:var(--fs-xs)}.fs-sm{font-size:var(--fs-sm)}
+.fs-md{font-size:var(--fs-md)}.fs-lg{font-size:var(--fs-lg)}.fs-xl{font-size:var(--fs-xl)}
+.fs-2xl{font-size:var(--fs-2xl)}.fs-3xl{font-size:var(--fs-3xl)}
+/* ── 패널 타이포그래피 조합 클래스 (CLAUDE.md 규격) ──
+ * 게임 패널·모달 내부에서 사용. 패널 외 화면(로비·전술 풀스크린)은 vh 허용.
+ * 반드시 px 단위 사용, vh/vw 금지.
+ *
+ * .t-title  : serif 18px gold   — 모달/팝업 최상위 제목
+ * .t-label  : serif 12px t1     — 주요 레이블 (직책명, 트레잇명)
+ * .t-sub    : serif 11px t2     — 보조 항목 (하위 직책, 설명)
+ * .t-code   : mono  10px td     — 코드·약어·수치 (등급, 레벨)
+ * .t-micro  : mono   9px td     — 마이크로 배지 (타입, 코드 ID)
+ */
+.t-title{font-family:var(--font-serif);font-size:var(--fs-2xl);color:var(--tg);letter-spacing:.5px}
+.t-label{font-family:var(--font-serif);font-size:var(--fs-md);color:var(--t1);letter-spacing:.5px}
+.t-sub  {font-family:var(--font-serif);font-size:var(--fs-sm);color:var(--t2);letter-spacing:.5px}
+.t-code {font-family:var(--font-mono);font-size:var(--fs-xs);color:var(--td);letter-spacing:.5px}
+.t-micro{font-family:var(--font-mono);font-size:var(--fs-2xs);color:var(--td)}
 .fc-REH{color:var(--REH)}.fc-FPA{color:var(--FPA)}.fc-PZN{color:var(--PZN)}
 .bg-REH{background:rgba(192,57,43,.15)}.bg-FPA{background:rgba(41,128,185,.15)}.bg-PZN{background:rgba(39,174,96,.15)}
-.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border:1px solid var(--bd);border-radius:4px;background:var(--bg4);color:var(--t1);font-size:12px;transition:all .15s;cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border:1px solid var(--bd);border-radius:4px;background:var(--bg4);color:var(--t1);font-size:var(--fs-md);transition:all .15s;cursor:pointer}
 .btn:hover{background:var(--bgh);border-color:var(--bdg)}
 .btn-gold{border-color:var(--tg);color:var(--tg);background:rgba(212,170,96,.1)}
 .btn-gold:hover{background:rgba(212,170,96,.22)}
@@ -46,7 +80,7 @@ button:disabled{opacity:.4;pointer-events:none}
 .sbar-fill{height:100%;border-radius:3px;transition:width .4s}
 .modal-overlay{position:fixed;inset:0;background:rgba(2,5,8,.88);display:flex;align-items:center;justify-content:center;z-index:1600;backdrop-filter:blur(4px)}
 .modal-box{background:var(--bg3);border:1px solid var(--bdg);border-radius:var(--r);padding:22px;width:min(92vw,500px);max-height:82vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,.8)}
-.modal-title{font-family:var(--font-serif);font-size:17px;color:var(--tg);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
+.modal-title{font-family:var(--font-serif);font-size:var(--fs-2xl);color:var(--tg);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd)}
 .modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
 .fade-enter-active,.fade-leave-active{transition:opacity .2s}
 .fade-enter-from,.fade-leave-to{opacity:0}

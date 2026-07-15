@@ -430,7 +430,7 @@ function statClass(val) {
   display: flex; align-items: center; gap: 4px;
 }
 .stat-lbl {
-  font-size: 2.4vh; text-align: left; flex-shrink: 0;
+  font-size: var(--fs-xs); text-align: left; flex-shrink: 0;
   white-space: nowrap; letter-spacing: .3px;
 }
 .stat-bar-wrap { flex: 1; }
@@ -442,7 +442,7 @@ function statClass(val) {
   height: 100%; border-radius: 2px;
   transition: width .4s;
 }
-.stat-val { width: 24px; font-size: 2.4vh; text-align: right; flex-shrink: 0; }
+.stat-val { width: 24px; font-size: var(--fs-xs); text-align: right; flex-shrink: 0; }
 
 /* stat 색상 */
 .stat-high     { color: var(--tg); }
