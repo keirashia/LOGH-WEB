@@ -1170,9 +1170,11 @@ export const SCENARIOS = [
     month: 2,
     date: 11, // 시작일자 (796년 2월 11일)
     id: "SE796_0211_010", // 01번째 시나리오의 0번째
-    nameKr: "아스타테 성역 회전", // 시나리오명
-    nameEn: "Battle of Astarte",
-    nameJp: "アスターテ会戦",
+    name: [
+      { code: "Kr", context: "아스타테 성역 회전" },
+      { code: "En", context: "Battle of Astarte" },
+      { code: "Jp", context: "アスターテ会戦" },
+    ],
     subTitle: "영원한 어둠 속에서", // 시나리오_상세명
     summary: `우주력 796년. 제국력 487년 2월.
     아스타테 성역으로 제국의 함대 2만척이 침공한다.
@@ -1193,9 +1195,11 @@ export const SCENARIOS = [
     month: 2,
     date: 11, // 시작일자 (796년 2월 11일)
     id: "SE796_0211_011", // 01번째 시나리오의 1번째
-    nameKr: "아스타테 성역 회전", // 시나리오명
-    nameEn: "Battle of Astarte",
-    nameJp: "アスターテ会戦",
+    name: [
+      { code: "Kr", context: "아스타테 성역 회전" },
+      { code: "En", context: "Battle of Astarte" },
+      { code: "Jp", context: "アスターテ会戦" },
+    ],
     subTitle: "노원수 오다", // 시나리오_상세명
     summary: `우주력 796년. 제국력 487년 2월.
     아스타테 성역으로 제국의 함대 2만척이 침공한다.
@@ -1217,9 +1221,11 @@ export const SCENARIOS = [
     month: 2,
     date: 11, // 시작일자 (796년 2월 11일)
     id: "SE796_0211_012",
-    nameKr: "아스타테 성역 회전", // 시나리오명
-    nameEn: "Battle of Astarte",
-    nameJp: "アスターテ会戦",
+    name: [
+      { code: "Kr", context: "아스타테 성역 회전" },
+      { code: "En", context: "Battle of Astarte" },
+      { code: "Jp", context: "アスターテ会戦" },
+    ],
     subTitle: "주둔함대 출격하다", // 시나리오_상세명
     summary: `우주력 796년. 제국력 487년 2월. 
     아스타테 성역으로 제국의 함대 2만척이 침공한다.
@@ -1241,9 +1247,11 @@ export const SCENARIOS = [
     month: 2,
     date: 11, // 시작일자 (796년 2월 11일)
     id: "SE796_0211_013",
-    nameKr: "아스타테 성역 회전", // 시나리오명
-    nameEn: "Battle of Astarte",
-    nameJp: "アスターテ会戦",
+    name: [
+      { code: "Kr", context: "아스타테 성역 회전" },
+      { code: "En", context: "Battle of Astarte" },
+      { code: "Jp", context: "アスターテ会戦" },
+    ],
     subTitle: "젊은 사자들", // 시나리오_상세명
     summary: `우주력 796년. 제국력 487년 2월.
     아스타테 성역으로 제국의 함대 2만척이 침공한다.
@@ -1264,9 +1272,11 @@ export const SCENARIOS = [
     month: 2,
     date: 11, // 시작일자 (796년 2월 11일)
     id: "SE796_0211_014",
-    nameKr: "아스타테 성역 회전", // 시나리오명
-    nameEn: "Battle of Astarte",
-    nameJp: "アスターテ会戦",
+    name: [
+      { code: "Kr", context: "아스타테 성역 회전" },
+      { code: "En", context: "Battle of Astarte" },
+      { code: "Jp", context: "アスターテ会戦" },
+    ],
     subTitle: "라프 함대 출격하다.", // 시나리오_상세명
     summary: `우주력 796년. 제국력 487년 2월.
     자유행성동맹은 2만의 은하제국 침공군의 공격에 포위 작전으로 대응하던 중.
@@ -1408,9 +1418,9 @@ export const SCENARIOS = [
     month: 2,
     date: 19, // 시작일자 (797년 2월 19일)
     id: "SE797_0219_010", // 01번째 시나리오의 0번째
-    nameKr: "동맹·제국 포로교환", // 시나리오명
-    nameEn: "",
-    nameJp: "",
+    name: [
+      { code: "Kr", context: "동맹·제국 포로교환" },
+    ],
     subTitle: "", // 시나리오_상세명
     summary: ``,
     tags: ["사실"],
@@ -1459,9 +1469,11 @@ export const SCENARIOS = [
     month: 4,
     date: 13, // 시작일자 (797년 4월 13일)
     id: "SE797_0413_010",
-    nameKr: "구국군사회의 쿠데타", // 시나리오명
-    nameEn: "Coup d'état of the National Salvation Military Council",
-    nameJp: "救国軍事会議のクーデター",
+    name: [
+      { code: "Kr", context: "구국군사회의 쿠데타" },
+      { code: "En", context: "Coup d'état of the National Salvation Military Council" },
+      { code: "Jp", context: "救国軍事会議のクーデター" },
+    ],
     subTitle: "폭풍전야", // 시나리오_상세명
     summary: `우주력 797년 4월 13일. 자유행성동맹의 수도에서 쿠데타가 발생하고.
     반군 토벌을 명받은 양 웬리의 13함대.
@@ -1482,9 +1494,10 @@ export const SCENARIOS = [
     month: 4,
     date: 13, // 시작일자 (797년 4월 13일)
     id: "SE797_0413_011",
-    nameKr: "구국군사회의 쿠데타", // 시나리오명
-    nameEn: "",
-    nameJp: "救国軍事会議のクーデター",
+    name: [
+      { code: "Kr", context: "구국군사회의 쿠데타" },
+      { code: "Jp", context: "救国軍事会議のクーデター" },
+    ],
     subTitle: "", // 시나리오_상세명
     summary: `우주력 797년 4월 13일. 자유행성동맹의 수도에서 군사 쿠데타가 발생하고,
     순조롭게 수도를 장악한 '구국군사회의'는 의장으로 드와이트 그린힐을 소개한다.
@@ -1508,9 +1521,11 @@ export const SCENARIOS = [
     month: 4,
     date: 19, // 시작일자 (797년 4월 19일)
     id: "SE797_0419_011",
-    nameKr: "립슈타트 전역", // 시나리오명
-    nameEn: "Lippstadt War",
-    nameJp: "リップシュタット戦役",
+    name: [
+      { code: "Kr", context: "립슈타트 전역" },
+      { code: "En", context: "Lippstadt War" },
+      { code: "Jp", context: "リップシュタット戦役" },
+    ],
     subTitle: "", // 시나리오_상세명
     summary: `황제 프리드리히 4세의 급작스러운 사망.
     에르빈 요제프 2세의 즉위를 놓고, 이를 지지하는 리히텐라데 공작과 로엔그람 후작의 추축파.
@@ -1531,9 +1546,7 @@ export const SCENARIOS = [
     month: 4,
     date: 19, // 시작일자 (797년 4월 19일)
     id: "SE797_0419_011",
-    nameKr: "립슈타트 내전", // 시나리오명
-    nameEn: "",
-    nameJp: "",
+    name: [{ code: "Kr", context: "립슈타트 내전" }],
     subTitle: "", // 시나리오_상세명
     summary: `황제 프리드리히 4세의 급작스러운 사망.
     에르빈 요제프 2세의 즉위를 놓고, 분쟁하던 중.

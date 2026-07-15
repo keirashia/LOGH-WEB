@@ -95,12 +95,9 @@ export const PLANET_TRAIT_MAP = (() => {
  */
 export function planetName(planet, lang = 'Kr') {
   if (!planet) return ''
-  if (Array.isArray(planet.name)) {
-    return planet.name.find(n => n.code === lang)?.context
-        ?? planet.name.find(n => n.code === 'Kr')?.context
-        ?? ''
-  }
-  return planet.nameKr ?? planet.nameEn ?? ''
+  return planet.name?.find(n => n.code === lang)?.context
+      ?? planet.name?.find(n => n.code === 'Kr')?.context
+      ?? ''
 }
 
 /**
@@ -109,9 +106,9 @@ export function planetName(planet, lang = 'Kr') {
  */
 export function starName(star, lang = 'Kr') {
   if (!star) return ''
-  if (lang === 'En') return star.nameEn ?? star.nameKr ?? ''
-  if (lang === 'Jp') return star.nameJp ?? star.nameKr ?? ''
-  return star.nameKr ?? star.nameEn ?? ''
+  return star.name?.find(n => n.code === lang)?.context
+      ?? star.name?.find(n => n.code === 'Kr')?.context
+      ?? ''
 }
 
 // ================================================================
@@ -175,8 +172,6 @@ export function buildSystemsMap(starDetail = [], planetDetail = []) {
     const base    = PLANET_MAP[s.code] ?? []
 
     const planets = base.map(p => {
-      const nameKr  = planetName(p, 'Kr')
-      const nameEn  = planetName(p, 'En')
       const faction = planetFactionMap[p.code] ?? p.faction ?? null
 
       const enrichedDetails = (p.buildings?.details ?? []).map(d => {
@@ -191,13 +186,13 @@ export function buildSystemsMap(starDetail = [], planetDetail = []) {
       const traitData = (p.traits ?? []).map(id => {
         const t = TRAIT_MAP[id]
         return t
-          ? { id, nameKr: t.nameKr, icon: t.icon ?? '', desc: t.desc ?? '' }
-          : { id, nameKr: id, icon: '', desc: '' }
+          ? { id, name: t.name, icon: t.icon ?? '', desc: t.desc ?? '' }
+          : { id, name: [{ code: 'Kr', context: id }], icon: '', desc: '' }
       })
 
       return {
         ...p,
-        nameKr, nameEn, faction,
+        faction,
         buildings: p.buildings ? { ...p.buildings, details: enrichedDetails } : p.buildings,
         traitData,
       }
@@ -227,8 +222,7 @@ export function buildSystemsMap(starDetail = [], planetDetail = []) {
     systems[s.code] = {
       id:               s.code,
       code:             s.code,
-      name:             s.nameKr,
-      nameEn:           s.nameEn,
+      name:             s.name,
       type:             s.type,
       x:                s.x,
       y:                s.y,

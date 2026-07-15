@@ -13,6 +13,8 @@ import { buildFleetsMap }          from '@/utils/fleetUtils'
 import { buildFactionsMap }        from '@/utils/factionUtils'
 import { resolveSupremeCommander } from '@/utils/battleUtils'
 
+const _fkr = f => f?.name?.find(e => e.code === 'Kr')?.context
+
 const _GLOB_STAR_DETAIL   = import.meta.glob('/src/data/scenario/*/*/*/stars/starDetail.js')
 const _GLOB_PLANET_DETAIL = import.meta.glob('/src/data/scenario/*/*/*/stars/planetDetail.js')
 const _GLOB_CHAR_JOBS     = import.meta.glob('/src/data/scenario/*/*/*/characters/charactersJobs.js')
@@ -165,7 +167,7 @@ export const useGameStore = defineStore('game', {
       const fresh = buildState(scId, pf, extraData)
       Object.assign(this.$state, { initialized: true, ...fresh })
       if (charCode) this.playerCharCode = charCode
-      this.addLog(`[${this.factions[pf]?.nameKr ?? pf}] ${fresh.sc.nameKr} 시작.`)
+      this.addLog(`[${(_fkr(this.factions[pf]) ?? pf)}] ${fresh.sc.name?.find(e => e.code === 'Kr')?.context ?? fresh.sc.id} 시작.`)
       this._checkInitialEncounters()
     },
 
@@ -833,7 +835,7 @@ export const useGameStore = defineStore('game', {
       }
       this.pRes.gold -= prop.cost
       const dlg  = INTEL.DIALOGS.PROPOSAL
-      const tName = this.factions[targetFaction]?.nameKr ?? targetFaction
+      const tName = (_fkr(this.factions[targetFaction]) ?? targetFaction)
 
       this.addLog(`[재상] ${dlg.prime_suggest}`)
       this.addLog(`[고문] ${dlg.advisor_reply}`)
@@ -1053,7 +1055,7 @@ export const useGameStore = defineStore('game', {
               if (faction === this.playerFaction)
                 this.addLog(`⚔ [전투] ${fleet.name} — ${sysName} 적 함대 조우`)
               else if (enemies.some(e => e.faction === this.playerFaction))
-                this.addLog(`⚔ [AI 침공] ${this.factions[faction]?.nameKr ?? faction} — ${sysName} 침공!`)
+                this.addLog(`⚔ [AI 침공] ${(_fkr(this.factions[faction]) ?? faction)} — ${sysName} 침공!`)
             }
           }
         })
@@ -1203,7 +1205,7 @@ export const useGameStore = defineStore('game', {
                 _notified:         false,
               })
               if (enemies.some(e => e.faction === this.playerFaction))
-                this.addLog(`⚔ [AI 침공] ${this.factions[f]?.nameKr ?? f} ${fleet.name} — ${target.name} 침공!`)
+                this.addLog(`⚔ [AI 침공] ${(_fkr(this.factions[f]) ?? f)} ${fleet.name} — ${target.name} 침공!`)
             }
           } else {
             // 무방비 성계 → _battle()로 즉시 처리
@@ -1220,7 +1222,7 @@ export const useGameStore = defineStore('game', {
         if ((counts[f] || 0) >= Math.ceil(total * 0.7)) {
           this.gameOver = true
           this.winner = f
-          this.addLog(`🏆 [승리] ${this.factions[f]?.nameKr ?? f} 우주 통일!`)
+          this.addLog(`🏆 [승리] ${(_fkr(this.factions[f]) ?? f)} 우주 통일!`)
         }
       })
     },
@@ -1232,12 +1234,12 @@ export const useGameStore = defineStore('game', {
       const from = c.faction
       c.faction = targetFaction
       c.jobs = []
-      this.addLog(`🔴 [쿠데타] ${c.name}이(가) ${this.factions[from]?.nameKr ?? from}에서 ${this.factions[targetFaction]?.nameKr ?? targetFaction}으로 이적.`)
+      this.addLog(`🔴 [쿠데타] ${c.name}이(가) ${(_fkr(this.factions[from]) ?? from)}에서 ${(_fkr(this.factions[targetFaction]) ?? targetFaction)}으로 이적.`)
       this.openModal('event', {
         title: '쿠데타',
         portrait: c.portrait || '⚔️',
         speaker: c.name,
-        desc: `${c.name}이(가) 수수께끼의 세력과 함께 ${this.factions[targetFaction]?.nameKr ?? targetFaction} 측에 합류했습니다.`,
+        desc: `${c.name}이(가) 수수께끼의 세력과 함께 ${(_fkr(this.factions[targetFaction]) ?? targetFaction)} 측에 합류했습니다.`,
         effect: { morale: -10 },
       })
     },
@@ -1248,12 +1250,12 @@ export const useGameStore = defineStore('game', {
       const from = c.faction
       c.faction = targetFaction
       c.jobs = []
-      this.addLog(`💫 [이탈] ${c.name}이(가) ${this.factions[targetFaction]?.nameKr ?? targetFaction}으로 이탈.`)
+      this.addLog(`💫 [이탈] ${c.name}이(가) ${(_fkr(this.factions[targetFaction]) ?? targetFaction)}으로 이탈.`)
       this.openModal('event', {
         title: '이탈',
         portrait: c.portrait || '🌟',
         speaker: c.name,
-        desc: `${c.name}이(가) ${this.factions[from]?.nameKr ?? from}을 떠나 ${this.factions[targetFaction]?.nameKr ?? targetFaction}으로 귀순했습니다.`,
+        desc: `${c.name}이(가) ${(_fkr(this.factions[from]) ?? from)}을 떠나 ${(_fkr(this.factions[targetFaction]) ?? targetFaction)}으로 귀순했습니다.`,
       })
     },
 

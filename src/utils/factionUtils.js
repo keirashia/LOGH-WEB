@@ -127,8 +127,8 @@ export function getActiveFactions(yearType, year) {
  * 반환 필드:
  *   id, color, currency, flag
  *   ideology, economy  (factionsData.js 파생)
- *   nameKr, shortNameKr, nameEn, shortNameEn, nameJp, shortNameJp
- *   gold               (초기 자금 — 현재 기본값, 추후 scenarioFactionData 연동)
+ *   name[], shortName[]   (다국어 이름 배열: [{ code: 'Kr'|'En'|'Jp', context: string }])
+ *   gold                 (초기 자금 — 현재 기본값, 추후 scenarioFactionData 연동)
  */
 export function buildFactionsMap(factionIds = [], scenarioFactionData = {}) {
   const result = {}
@@ -147,13 +147,9 @@ export function buildFactionsMap(factionIds = [], scenarioFactionData = {}) {
       economyCode:  base.economyCode  ?? null,
       ideology: IDEOLOGY_MAP[base.ideologyCode] ?? null,
       economy:  ECONOMY_MAP[base.economyCode]   ?? null,
-      // 다국어 이름 (평면화)
-      nameKr:      factionName(id, 'Kr'),
-      shortNameKr: factionShortName(id, 'Kr'),
-      nameEn:      factionName(id, 'En'),
-      shortNameEn: factionShortName(id, 'En'),
-      nameJp:      factionName(id, 'Jp'),
-      shortNameJp: factionShortName(id, 'Jp'),
+      // 다국어 이름
+      name:      Object.entries(FACTION_NAMES_MAP[id] ?? {}).map(([code, e]) => ({ code, context: e.name })),
+      shortName: Object.entries(FACTION_NAMES_MAP[id] ?? {}).map(([code, e]) => ({ code, context: e.shortName })),
       // 초기 자금 (TODO: scenarioDesc에서 로드)
       gold: sc.gold ?? _DEFAULT_GOLD[id] ?? 3000,
     }
@@ -182,8 +178,8 @@ export function fncGetFactionInfo(factionId) {
   return {
     data: {
       ...faction,
-      nameKr:      factionName(factionId, 'Kr'),
-      shortNameKr: factionShortName(factionId, 'Kr'),
+      name:      Object.entries(FACTION_NAMES_MAP[factionId] ?? {}).map(([code, e]) => ({ code, context: e.name })),
+      shortName: Object.entries(FACTION_NAMES_MAP[factionId] ?? {}).map(([code, e]) => ({ code, context: e.shortName })),
     },
   }
 }
@@ -198,8 +194,8 @@ export function fncGetFactionsByPeriod(yearType, year) {
   return {
     data: list.map(f => ({
       ...f,
-      nameKr:      factionName(f.id, 'Kr'),
-      shortNameKr: factionShortName(f.id, 'Kr'),
+      name:      Object.entries(FACTION_NAMES_MAP[f.id] ?? {}).map(([code, e]) => ({ code, context: e.name })),
+      shortName: Object.entries(FACTION_NAMES_MAP[f.id] ?? {}).map(([code, e]) => ({ code, context: e.shortName })),
     })),
   }
 }
