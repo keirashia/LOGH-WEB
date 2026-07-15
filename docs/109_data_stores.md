@@ -67,7 +67,7 @@
 
 2. buildState(scId, pf, extraData) — 동기
      STAR_SYSTEMS + starDetail 병합 → systems
-     planetsData name 배열 자동 변환: [{code:"Kr", context:"..."}] → nameKr/nameEn 플랫 필드
+     STAR_SYSTEMS + starDetail 병합 → systems (name 배열 그대로 전달)
      charJobs 없으면 _BASE_CHAR_JOBS 폴백 → characters
      _buildFleets(fleetData, fleetCharData, fleetShipData) → fleets
 

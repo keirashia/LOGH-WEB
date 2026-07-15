@@ -41,12 +41,16 @@ CH_{6자리}  예) CH_000064 = 라인하르트 폰 뮤젤
 {
   // ── 기본 ──────────────────────────────────────────
   code:   "CH_000064",
-  nameKr: "라인하르트 폰 뮤젤",
-  nameEn: "Reinhard von Müsel",
-  nameJp: "ラインハルト・フォン・ミューゼル",
-  nickKr: "라인하르트",    // 게임 내 짧은 표기
-  nickEn: "Reinhard",
-  nickJp: "ラインハルト",
+  name: [
+    { code: "Kr", context: "라인하르트 폰 뮤젤" },
+    { code: "En", context: "Reinhard von Müsel" },
+    { code: "Jp", context: "ラインハルト・フォン・ミューゼル" },
+  ],
+  nick: [
+    { code: "Kr", context: "라인하르트" },   // 게임 내 짧은 표기
+    { code: "En", context: "Reinhard" },
+    { code: "Jp", context: "ラインハルト" },
+  ],
   searchKeys: [],     // 검색 키워드 (이칭·오기 등), 기본값 []
   birth:  "SE|743.05.14", // {yearType}|{year}.{mm}.{dd}
   death:  "SE|801.07.26", // 생존 중이면 null

@@ -29,9 +29,11 @@ src/data/base/stars/
 ```js
 {
   code:   "230001",          // 6자리 고유 코드 (230001~230062, ABC순)
-  nameKr: "알멘트푸벨",
-  nameEn: "ALMENTPUVEL",
-  nameJp: "",                // ⚠️ 62개 전체 미입력
+  name: [
+    { code: "Kr", context: "알멘트푸벨" },
+    { code: "En", context: "ALMENTPUVEL" },
+    // Jp: ⚠️ 62개 전체 미입력
+  ],
   alias:  ["알멘트푸벨", "Almentpuvel", "ALMENTPUVEL"],  // 검색용 한영일 모두 포함
   x: 1120,                   // GalaxyMap 픽셀 좌표 (VW=1600 기준)
   y: 450,                    // GalaxyMap 픽셀 좌표 (VH=1000 기준)
@@ -112,7 +114,7 @@ LANE_006  PHEZZAN  ↔ LICHTENBERG   phezzan   ← 230066 (미등록 성계)
 
 원작 나무위키 지명 문서 근거로 동맹 외곽 등 위치 비정하여 추가:
 
-| code | nameEn | nameKr | 좌표 | 비고 |
+| code | name[En] | name[Kr] | 좌표 | 비고 |
 |---|---|---|---|---|
 | 230063 | KERIM | 케림 | x:200, y:190 | 기존 laneData 참조 성계 |
 | 230065 | SCHATTENBURG | 샤텐부르크 | — | 페잔 회랑 LANE_005 참조 |
@@ -149,8 +151,7 @@ name: [ { code: "Kr", context: "하이네센" }, { code: "En", context: "HEINESS
 nameKr: "하이네센", nameEn: "HEINESSEN"
 ```
 
-`gameStore.js`의 planets 빌드 로직이 배열 → `nameKr`/`nameEn` 플랫 필드로 자동 변환하므로,  
-컴포넌트는 기존대로 `p.nameKr` 사용 가능.
+컴포넌트에서 이름 접근: `planet.name?.find(n => n.code === 'Kr')?.context ?? ''`
 
 ### code 체계
 
@@ -186,7 +187,7 @@ starMaps.js 기준 실제 배치된 행성:
 ```js
 // starMaps.js
 export const STAR_MAPS = [ ... ]                    // 62개 배열
-export const STAR_MAP_BY_ID   = { ISERLOHN: {...} } // nameEn 기준 Map
+export const STAR_MAP_BY_ID   = { ISERLOHN: {...} } // name[En] 기준 Map
 export const STAR_MAP_BY_CODE = { '230022': {...} } // code 기준 Map
 ```
 
@@ -194,18 +195,19 @@ export const STAR_MAP_BY_CODE = { '230022': {...} } // code 기준 Map
 
 ```js
 {
-  id:      'ISERLOHN',          // nameEn
+  id:      'ISERLOHN',          // name[En]
   code:    '230022',
-  nameKr:  '이제르론',
-  nameEn:  'ISERLOHN',
+  name: [
+    { code: 'Kr', context: '이제르론' },
+    { code: 'En', context: 'ISERLOHN' },
+  ],
   mapSize: [1000, 1000],        // 전 성계 통일
   nebulae: [
     { x, y, r, color: 'rgba(R,G,B,', alpha }  // color는 rgba 앞부분만
   ],
   planets: [
     {
-      nameKr:  '이제르론',
-      nameEn:  '',
+      name: [{ code: 'Kr', context: '이제르론' }],
       main:    true,            // 주행성 여부 (성계 대표 행성)
       type:    'fortress',      // capital | fortress | terrestrial
       fortress: 'ISERLOHN',    // fortress명 | null

@@ -1,6 +1,14 @@
 import { defineStore } from 'pinia'
 
-const STORAGE_KEY = 'logh_temp_code'
+const STORAGE_KEY      = 'logh_temp_code'
+const LANG_STORAGE_KEY = 'logh_lang'
+
+function detectBrowserLang() {
+  const raw = (navigator.language || navigator.languages?.[0] || 'ko').toLowerCase()
+  if (raw.startsWith('ko')) return 'Kr'
+  if (raw.startsWith('ja')) return 'Jp'
+  return 'En'
+}
 
 function generateTempCode() {
   const bytes = new Uint8Array(32) // 32 bytes = 64 hex chars
@@ -16,6 +24,7 @@ export const useAuthStore = defineStore('auth', {
     mode: null,        // 'single' | 'multi'
     tempCode: null,    // 64자리 hex, localStorage 연동
     points: 0,         // 유저 계정 포인트
+    lang: 'Kr',        // 'Kr' | 'En' | 'Jp' — 브라우저 감지 또는 유저 수동 설정
   }),
 
   getters: {
@@ -26,6 +35,21 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
+    // 앱 시작 시 호출 — 저장된 언어 설정 우선, 없으면 브라우저 언어 감지
+    initLang() {
+      const saved = localStorage.getItem(LANG_STORAGE_KEY)
+      this.lang = (saved === 'Kr' || saved === 'En' || saved === 'Jp')
+        ? saved
+        : detectBrowserLang()
+    },
+
+    // 유저 수동 언어 전환
+    setLang(code) {
+      if (code !== 'Kr' && code !== 'En' && code !== 'Jp') return
+      this.lang = code
+      localStorage.setItem(LANG_STORAGE_KEY, code)
+    },
+
     // 앱 시작 시 호출 — localStorage에 코드가 있으면 재사용, 없으면 신규 생성
     initTempCode() {
       const stored = localStorage.getItem(STORAGE_KEY)

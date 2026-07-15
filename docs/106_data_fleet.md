@@ -171,9 +171,11 @@ FS_{NAME}   예) FS_BRUNHILD, FS_HYPERION
   shipCode:  "FS_BRUNHILD",
   faction:   "REH",
   shipType:  "command_battleship",
-  nameKr:    "브륀힐트",
-  nameEn:    "Brünhild",
-  nameJp:    "ブリュンヒルト",
+  name: [
+    { code: "Kr", context: "브륀힐트" },
+    { code: "En", context: "Brünhild" },
+    { code: "Jp", context: "ブリュンヒルト" },
+  ],
   length:    1007,       // 미터
   width:     264,
   height:    273,

@@ -2,7 +2,7 @@
 > 분류: 데이터
 > 경로: `docs/103_data_scenarios.md`
 > 상위: [100_DATA.md](100_DATA.md)
-> 최종 수정: 2026-07-05
+> 최종 수정: 2026-07-15
 
 ---
 
@@ -61,9 +61,11 @@ src/data/scenario/
   id:          "SE796_0211_010",      // PK. {yearType}{year}_{MMDD}_{seq3자리}
                                       //   MMDD = 월2자리+일2자리 (2월11일 → 0211)
                                       //   seq  = 3자리 zero-pad (10번째 → 010)
-  nameKr:      "아스타테 회전",
-  nameEn:      "Battle of Astarte",
-  nameJp:      "アスターテ会戦",
+  name: [
+    { code: "Kr", context: "아스타테 회전" },
+    { code: "En", context: "Battle of Astarte" },
+    { code: "Jp", context: "アスターテ会戦" },
+  ],
   subTitle:    "영원한 어둠 속에서",   // variant 구분 부제
   summary:     "...",                 // 시나리오 한 줄 요약 (ScenarioOptionsView 표시)
   tags:        ["사실", "초심자추천"], // 사실|가상, 전략|전술|혼합, 초심자추천|숙련자추천

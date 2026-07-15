@@ -11,5 +11,7 @@ const app = createApp(App)
 
 app.use(pinia).use(router).mount('#app')
 
-useAuthStore().initTempCode()
+const auth = useAuthStore()
+auth.initLang()
+auth.initTempCode()
 useLobbyStore().loadUnlocks()

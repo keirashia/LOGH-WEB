@@ -151,7 +151,7 @@ info:      인물 / 함대 / 세력 / 성계*
 
 ```
 [이름]
-  - USER_LANG(현재 'Kr' 하드코딩) 기준 nameKr 표시
+  - USER_LANG(현재 'Kr' 하드코딩) 기준 `name.find(e=>e.code==='Kr')?.context` 표시
   - 글자 수 기반 동적 font-size: 11~15px (clamp 없이 JS 계산)
   - 이름이 너무 길면(11px 미만 예상) nickKr로 자동 대체
   - text-align: right
@@ -181,7 +181,7 @@ info:      인물 / 함대 / 세력 / 성계*
 - `gameStore.buildState()` → 시나리오 `characters/charactersJobs.js` 로드
 - `character.currentPost` (string): 1순위 직책 — 결재체인 로직용
 - `character.currentPosts` (array): 전체 직책 코드 목록 — CharInfoPanel 표시용
-- `charJobData` computed: `currentPosts` × `CHAR_JOBS` 조인 → `{ jobCode, nameKr, jobLevel, jobExp }`
+- `charJobData` computed: `currentPosts` × `CHAR_JOBS` 조인 → `{ jobCode, name:[{code,context}], jobLevel, jobExp }`
 
 **이미지 관련**:
 - `src/utils/charImg.js`: `charImgSrc(code)` + `handleCharImgError(e, code)` 사용

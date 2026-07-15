@@ -95,20 +95,15 @@ auth.user = {
 공통 유틸 함수 시그니처 설계:
 
 ```js
-// src/utils/i18n.js (신규, 위치 후보)
-export function getLocalizedName(obj, langPref) {
-  // obj: { nameKr, nameEn, nameJp }
-  // langPref: 'kr' | 'en' | 'jp'
-  // 반환: 해당 언어 이름, 없으면 nameKr 폴백
-  const map = { kr: 'nameKr', en: 'nameEn', jp: 'nameJp' }
-  return obj[map[langPref]] || obj.nameKr
-}
+// name 배열 접근 패턴 (전 프로젝트 통일, 2026-07-15 확정)
+// obj.name: [{ code: "Kr"|"En"|"Jp", context: string }]
+obj.name?.find(e => e.code === lang)?.context
+  ?? obj.name?.find(e => e.code === 'Kr')?.context
+  ?? fallback
 ```
 
-### 이번 단계에서 하지 않을 것
-
-기존 화면들의 `nameKr` 하드코딩 참조를 `getLocalizedName()` 호출로 일괄 교체.  
-영향 범위가 크므로 (예: `charactersData.js` 한 파일에서만 `nameKr` 참조 565곳) 별도 작업으로 분리.
+> `getLocalizedName()` 유틸 함수 설계는 폐기. 전 데이터가 `name: [{ code, context }]` 배열로 통일되어  
+> 직접 `.find()` 접근으로 충분하며, 별도 i18n.js 파일 불필요.
 
 ---
 
@@ -142,5 +137,6 @@ LOGH-API `TBL_ACHIEVEMENT_MASTER` / `TBL_USER_ACHIEVEMENT` 참조 (`LOGH-API/doc
 - [ ] `purchaseCharacter(charCode)` 액션 구현 (인증 흐름 완료 후)
 - [ ] `ScenarioDetailView.vue` [🔒 Npt로 구매] 버튼 클릭 핸들러 연결
 
-### 언어 교체 (별도 작업, 범위 큼)
-- [ ] 기존 화면들의 `nameKr` 하드코딩 → `getLocalizedName()` 일괄 교체
+### 언어 교체
+- [x] 전 JS 데이터·유틸·스토어 파일 `nameKr`/`nameEn`/`nameJp` → `name:[{code,context}]` 배열 변환 (2026-07-15)
+- [ ] Vue 파일 `nameKr` 하드코딩 → `name.find(e=>e.code==='Kr')?.context` 일괄 교체

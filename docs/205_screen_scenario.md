@@ -181,7 +181,7 @@ CH_  → encyclopediaStore.open('characters'); enc.searchQuery = label
 
 ```
 레이아웃: StarfieldCanvas 배경 + gold-dark 카드 UI
-타이틀: nameKr (gold serif, 3.6vh)
+타이틀: name[Kr] (gold serif, 3.6vh)
 서브타이틀: subTitle — pill 칩, 클릭 시 variants 드롭다운 (multi-variant 시나리오용)
 요약: summary 필드 — 칩 아래 짧은 시나리오 소개 (1.6vh, dim 색상)
 NPC 등장: 사실 / 가상
@@ -253,9 +253,9 @@ cur.variants 배열이 존재하고 2개 이상일 때 서브타이틀 칩에 �
 | year | ✅ 타임라인/헤더 | ✅ 헤더 | ✅ 요약 | - | |
 | month | ✅ 카드 | - | ✅ 요약 | - | |
 | id | - | - | - | - | 키/URL 파람 |
-| nameKr | ✅ 카드 | ✅ 헤더 | ✅ 요약 | - | |
-| **nameEn** | ❌ | ❌ | ❌ | ❌ | **미노출** |
-| **nameJp** | ❌ | ❌ | ❌ | ❌ | **미노출** |
+| name[Kr] | ✅ 카드 | ✅ 헤더 | ✅ 요약 | - | |
+| **name[En]** | ❌ | ❌ | ❌ | ❌ | **미노출** |
+| **name[Jp]** | ❌ | ❌ | ❌ | ❌ | **미노출** |
 | tags | ✅ 카드 | - | - | - | |
 | factions | - | - | - | ✅ 필터 | 텍스트 미표시 |
 | useYn | ✅ 카드 opacity | ✅ 버튼 분기 | - | - | |
@@ -269,8 +269,8 @@ cur.variants 배열이 존재하고 2개 이상일 때 서브타이틀 칩에 �
 
 ### 미노출 필드 활용 방안 (미확정)
 ```
-nameEn   →  Step1 카드 하단 소자 표시 (영문 부제)
-nameJp   →  Step1-1 상세 헤더 하단 (일문 병기) 또는 미표시
+name[En]   →  Step1 카드 하단 소자 표시 (영문 부제)
+name[Jp]   →  Step1-1 상세 헤더 하단 (일문 병기) 또는 미표시
 appearances → Step1-1 상세 본문 하단 "출처: 은하영웅전설 N권 ..." 형태
 factions →  Step1-1 상세 헤더 또는 태그 영역 세력 뱃지 표시
 ```
@@ -336,7 +336,7 @@ router
 ### 미결
 - [ ] `scenario.js` SE640~SE801 이벤트 항목 입력 (사용자 직접 작업)
 - [ ] `ScenarioDetailView.vue` 구매 완료 상태 연동 (lobbyStore.purchaseScenario, Phase 3)
-- [ ] nameEn 카드 노출 여부 결정
+- [ ] name[En] 카드 노출 여부 결정
 - [ ] appearances 화면 노출 방안 결정
 - [ ] factions 세력 뱃지 표시 여부 결정
 - [ ] legacy/ 폴더 삭제 — 삭제 전 잔존 참조 grep 확인 필수
@@ -350,7 +350,7 @@ router
 - [x] `ScenarioDetail.vue` 신규 생성 (desc[] 페이지, libs, 버튼 분기)
 - [x] `eventData.js` 삭제 — scenario.js 기반으로 통합
 - [x] `Step1HistoryGraph.vue` yearType AD/SE/RC 지원 + ERA_ORDER 정렬
-- [x] `Step2GameOptions.vue` event.name → event.nameKr
+- [x] `Step2GameOptions.vue` event.name → `event.name.find(e=>e.code==='Kr')?.context`
 - [x] `Step3CharSelect.vue` charList.js faction 우선 + charactersData.js 폴백
 - [x] `Step3CharSelect.vue` NPC 등장 사실 모드 → birth/death 기준 생존 필터
 - [x] `gameStore.js` startGame FACTIONS[pf] undefined 크래시 수정
