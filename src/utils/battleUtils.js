@@ -1,6 +1,42 @@
 // src/utils/battleUtils.js
 // 전투 유틸리티 — 전략/전술 양 레이어에서 공통 사용
 
+/**
+ * computeFleetStats(fleet, characters)
+ * fleet.commander(C)와 fleet.officers[](O) 기반 전투력 산출.
+ *
+ * 규칙:
+ *  - cmd: 사령관 statCmd 고정
+ *  - csm: 사령관 statCsm (상한값)
+ *  - att/def/fst/mng/inf: max(사령관, 부관 중 최고) → min(결과, csm)
+ */
+export function computeFleetStats(fleet, characters) {
+  const char = characters?.[fleet?.commander]
+  if (!char) return { cmd:50, csm:50, att:50, def:50, fst:50, mng:50, inf:50 }
+
+  const cmd = char.statCmd ?? 50
+  const csm = char.statCsm ?? 50
+  const cap = v => Math.min(v ?? 50, csm)
+
+  let att = cap(char.statAtt ?? 50)
+  let def = cap(char.statDef ?? 50)
+  let fst = cap(char.statFst ?? 50)
+  let mng = cap(char.statMng ?? 50)
+  let inf = cap(char.statInf ?? 50)
+
+  for (const offCode of (fleet.officers ?? [])) {
+    const off = characters?.[offCode]
+    if (!off) continue
+    att = Math.min(Math.max(att, off.statAtt ?? 0), csm)
+    def = Math.min(Math.max(def, off.statDef ?? 0), csm)
+    fst = Math.min(Math.max(fst, off.statFst ?? 0), csm)
+    mng = Math.min(Math.max(mng, off.statMng ?? 0), csm)
+    inf = Math.min(Math.max(inf, off.statInf ?? 0), csm)
+  }
+
+  return { cmd, csm, att, def, fst, mng, inf }
+}
+
 // 계급 코드 우선순위 (낮은 인덱스 = 높은 계급)
 const RANK_ORDER = [
   'JB_MR001', // 원수

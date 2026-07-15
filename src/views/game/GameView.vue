@@ -164,6 +164,14 @@ function onPopState() {
 // endTurn()의 _finishTurn() 보류가 풀린다. 응답 없이 닫히면(ctx._handled 없음)
 // 큐가 영원히 남아 턴이 멈추므로, 닫힘을 감지해 동일 전투를 다시 띄운다.
 function showBattleConfirm(ctx) {
+  // 24hr 중단 후 재개 경로: 모달 없이 바로 전술 뷰로
+  if (ctx._midBattlePaused) {
+    ctx._midBattlePaused = false
+    ctx._handled  = true
+    ctx._notified = true
+    router.push('/game/tactical')
+    return
+  }
   ctx._notified = true
   const sysName = game.systems[ctx.locationId]?.name ?? ctx.locationId
   game.openModal('battleConfirm', {

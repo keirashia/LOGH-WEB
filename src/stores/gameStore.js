@@ -103,6 +103,7 @@ function buildState(scId, pf, extraData = {}) {
     _levyCooldown: 0, _loanBalance: 0, _loanDueTurn: null, _fleetSeq: 10, _truce: {}, _tradeBonus: 0,
     _reserve: 0, _intelligenceFund: 0, _budgetAllocation: null,
     _pendingBattles: [],
+    _tacticalResume: null,   // 전술전투 중단 스냅샷 (24hr 전략 페이즈 대기 시 저장)
     _turnActionTaken: false,
     activeModal: null, gameOver: false, winner: null,
     agendas: buildInitialAgendas(opProposeData), _agendaSeq: opProposeData.length,
@@ -306,6 +307,32 @@ export const useGameStore = defineStore('game', {
       this.addLog(`[이동] ${fleet.name} → ${target.name} (${fleet.moveTurnsLeft}턴)`)
       this._markAction()
       return true
+    },
+
+    // ── 24hr 전술 전투 중단 → 전략 페이즈 진입 ──────────────────
+    // 전술 뷰에서 호출. 현재 유닛 상태를 스냅샷으로 저장하고
+    // 즉시 특수 이벤트를 발화한 뒤 라우터가 /game으로 전환한다.
+    pauseTacticalForStrategic(snapshot) {
+      this._tacticalResume = snapshot
+      const ctx = this._pendingBattles[0]
+      if (ctx) {
+        ctx._midBattlePaused = true
+        ctx._handled         = true   // battleConfirm 재표시 방지
+        ctx._notified        = true
+      }
+      // 전략 레이어 이벤트 즉시 발화
+      this._events()
+      this.addLog('⏸ 전술 전투 중단 — 전략 페이즈')
+    },
+
+    clearTacticalResume() {
+      this._tacticalResume = null
+      const ctx = this._pendingBattles[0]
+      if (ctx?._midBattlePaused) {
+        ctx._midBattlePaused = false
+        ctx._handled         = true
+        ctx._notified        = true
+      }
     },
 
     applyBattleResult(result) {
@@ -975,8 +1002,13 @@ export const useGameStore = defineStore('game', {
     //     defenderObjective: string|null,
     //     opType, _handled, _notified }
     _checkInitialEncounters() {
+      // 24hr 중단 중인 전투의 위치는 중복 전투 생성 방지
+      const pausedLocations = new Set(
+        this._pendingBattles.filter(b => b._midBattlePaused).map(b => b.locationId)
+      )
       const done = new Set()
       this.pFleets.forEach(fleet => {
+        if (pausedLocations.has(fleet.location)) return
         if (done.has(fleet.location)) return
         const enemies = this._enemiesAt(this.playerFaction, fleet.location)
         if (!enemies.length) return

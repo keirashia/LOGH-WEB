@@ -12681,7 +12681,8 @@ export const CHAR_BASE = [
       { code: "Jp", context: "トリューニヒト" },
     ],
     searchKeys: [],
-    birth: "SE|748.06.12",
+    // SE 755. 2. 13. ~ SE 800. 12. 16.(45세) 확실
+    birth: "SE|748.02.13",
     death: "SE|800.12.16",
     // — 성향
     faction: "FPA", // 자유행성동맹

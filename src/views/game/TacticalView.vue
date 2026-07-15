@@ -10,7 +10,6 @@
           {{ factionLabel(store.context.attackerFaction) }} vs {{ factionLabel(defFaction) }}
         </span>
       </div>
-      <div v-if="store.phase === 'ai'" class="ai-label">AI 행동 중…</div>
       <!-- 격자 토글 -->
       <button :class="['btn', 'grid-toggle-btn', showGrid ? 'btn-gold' : '']"
               @click="showGrid = !showGrid"
@@ -106,9 +105,39 @@
               </div>
               <div class="info-row">
                 <span class="ir-label">진형</span>
-                <span class="ir-value ir-gold">{{ FORMATIONS[store.selectedFlagship.formation]?.name ?? '—' }}</span>
+                <span class="ir-value ir-gold">
+                  {{ FORMATIONS[store.selectedFlagship.pendingFormation ?? store.selectedFlagship.formation]?.name ?? '—' }}
+                  <span v-if="store.selectedFlagship.pendingFormation" class="pending-badge">예약</span>
+                </span>
+              </div>
+              <div v-if="store.selectedFlagship.pendingMove" class="info-row">
+                <span class="ir-label">이동 예약</span>
+                <span class="ir-value ir-yellow">
+                  ({{ store.selectedFlagship.pendingMove.x }}, {{ store.selectedFlagship.pendingMove.y }})
+                </span>
+              </div>
+              <div v-if="store.selectedFlagship.pendingStandby" class="info-row">
+                <span class="ir-label">명령</span>
+                <span class="ir-value">대기</span>
               </div>
             </div>
+
+            <!-- 진형 선택 (P2 명령 페이즈에서만) -->
+            <template v-if="store.phase === 'order'">
+              <div class="panel-divider"></div>
+              <div class="form-row">
+                <span class="ir-label">진형</span>
+                <select
+                  class="form-sel"
+                  :value="store.selectedFlagship.pendingFormation ?? store.selectedFlagship.formation"
+                  @change="e => store.setPendingFormation(store.selectedFleet, e.target.value)"
+                >
+                  <option v-for="(fm, code) in FORMATIONS" :key="code" :value="code">
+                    {{ fm.name }}
+                  </option>
+                </select>
+              </div>
+            </template>
 
             <div class="panel-divider"></div>
 
@@ -130,18 +159,12 @@
               <span class="cmd-label">사령관</span>
               <span class="cmd-name serif">{{ selectedCommander.displayName }}</span>
             </div>
-
-            <button
-              v-if="store.attackableCells.length"
-              class="btn btn-red hint-btn"
-              @click="autoAttack"
-            >자동교전</button>
           </div>
         </template>
 
         <template v-else>
           <div class="panel unit-panel no-sel">
-            <div class="no-sel-txt">함대를 선택하세요<br/><span class="hint">클릭: 아군 함대 선택<br/>이동: 파란 타일 클릭<br/>공격: 빨간 타일 / 적 클릭</span></div>
+            <div class="no-sel-txt">함대를 선택하세요<br/><span class="hint">클릭: 아군 함대 선택<br/>이동: 파란 타일 클릭<br/>우클릭: 우선 공격 대상</span></div>
           </div>
         </template>
 
@@ -177,12 +200,7 @@
       <div class="tac-actions">
         <button
           class="tac-act-btn"
-          :disabled="!store.selectedFleet || store.phase !== 'player' || store.animating"
-          @click="autoAttack"
-        >자동교전</button>
-        <button
-          class="tac-act-btn"
-          :disabled="!store.selectedFleet || store.phase !== 'player' || store.animating"
+          :disabled="!store.selectedFleet || store.phase !== 'order' || store.animating"
           @click="waitFleet"
         >대기</button>
         <button
@@ -194,10 +212,10 @@
       <button
         class="tac-end-btn"
         :class="endBtnCls"
-        :disabled="store.phase !== 'player' || store.animating"
+        :disabled="store.phase !== 'order' || store.animating"
         @click="onEndTurnClick"
       >
-        {{ store.phase === 'ai' ? 'AI 행동 중…' : '턴 종료' }}
+        {{ store.phase === 'execute' ? '실행 중…' : '>> 진행' }}
         <span class="kbd">Space</span>
       </button>
     </div>
@@ -228,7 +246,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTacticalStore } from '@/stores/tacticalStore'
 import { useGameStore }     from '@/stores/gameStore'
@@ -249,12 +267,14 @@ const miniCanvas    = ref(null)
 const logOpen       = ref(false)
 const showLeftPanel = ref(true)
 const showGrid      = ref(true)
-const hoverTile     = ref(null)   // { x, y } — 마우스 커서 타일 좌표
-const showBriefing  = ref(false)
+const hoverTile     = ref(null)
+
+// ── 작전 회의 팝업: 'start' 페이즈에서 자동 표시
+const showBriefing = computed(() => store.phase === 'start' && !!store.context)
 
 // ── 카메라 + 줌 ─────────────────────────────────────────────
-const cam     = ref({ x: 0, y: 0 })   // 뷰포트 픽셀 오프셋 (줌 적용 공간)
-const zoom    = ref(0.25)              // 현재 줌 배율
+const cam     = ref({ x: 0, y: 0 })
+const zoom    = ref(0.25)
 const ZOOM_MIN = 0.1
 const ZOOM_MAX = 4.0
 let drag    = null
@@ -274,7 +294,7 @@ function applyZoom(factor, mx, my) {
 
 // ── rAF ──────────────────────────────────────────────────────
 let rafId = null
-const LERP = 0.18     // 픽셀 보간 속도 (0~1)
+const LERP = 0.18
 
 // ── 색상 ─────────────────────────────────────────────────────
 const FACTION_COLOR  = { REH:'#c0392b', FPA:'#2980b9', PZN:'#27ae60' }
@@ -288,7 +308,6 @@ function fmtShips(n)      { return n >= 10000 ? (n/1000).toFixed(0)+'K' : n >= 1
 
 const FACTION_SHORT = { REH:'제국', FPA:'동맹', PZN:'페잔' }
 function factionShort(id) { return FACTION_SHORT[id] ?? factionLabel(id) }
-
 
 function shipRatio(factionId) {
   const total = store.visibleUnitGroups.reduce((s, g) => s + g.ships, 0)
@@ -306,7 +325,13 @@ function logClass(e) {
   return ''
 }
 
-const phaseLabel = computed(() => ({ player:'🎮 플레이어 페이즈', ai:'🤖 AI 페이즈', result:'⚔️ 전투 결과' }[store.phase] || ''))
+const phaseLabel = computed(() => ({
+  start:   '📋 작전 회의',
+  order:   '🎮 명령 페이즈',
+  execute: '⚡ 실행 중…',
+  result:  '⚔️ 전투 결과',
+}[store.phase] ?? ''))
+
 const defFaction = computed(() => store.context?.defenderFleets?.[0]?.faction || '')
 const isPlayerWin = computed(() => store.result?.winner === store.playerFaction)
 const fleetStatDefs = [
@@ -331,13 +356,11 @@ const totalShips = computed(() => {
   return store.unitsOfFleet(store.selectedFleet).reduce((s, u) => s + u.ships, 0)
 })
 
-// 날짜 표시 (game 날짜 + 전투 턴 시간)
 const battleDate = computed(() => {
   const y = game.year ?? 796, m = game.month ?? 1, d = game.day ?? 1
-  const h = (store.turn - 1) % 24
-  const hStr = String(h).padStart(2, '0')
-  return `우주력 ${y}년 ${m}월 ${d}일 ${hStr}시`
+  return `우주력 ${y}년 ${m}월 ${d}일 ${store.timeLabel}`
 })
+
 const endBtnCls = computed(() => ({ REH:'btn-red', FPA:'btn-blue', PZN:'btn-green' }[store.playerFaction ?? 'REH']))
 
 const TERRAIN_LABEL = { SPACE: '우주', NEBULA: '성운', ASTEROID: '소행성', PLANET: '행성' }
@@ -346,6 +369,48 @@ const hoverTerrainLabel = computed(() => {
   const tile = store.tileAt?.(hoverTile.value.x, hoverTile.value.y)
   return TERRAIN_LABEL[tile?.terrain] ?? tile?.terrain ?? '-'
 })
+
+// ── 목표 지점 계산 (가이드 화살표용) ─────────────────────────
+function getObjectiveTarget() {
+  const obj  = store.operationObjective
+  const mapW = store.map.width  ?? 40
+  const mapH = store.map.height ?? 40
+  if (!obj) return null
+  if (obj === 'OBJ_ANNIHILATE' || obj === 'OBJ_SUPPRESS') {
+    const fp  = store.units.find(u => u.faction === store.playerFaction && u.role === 'flagship' && u.status === 'active')
+    const enemies = store.units.filter(u => u.faction !== store.playerFaction && u.status === 'active')
+    if (!fp || !enemies.length) return null
+    return enemies.reduce((a,b) =>
+      Math.abs(a.x-fp.x)+Math.abs(a.y-fp.y) < Math.abs(b.x-fp.x)+Math.abs(b.y-fp.y) ? a : b)
+  }
+  if (obj === 'OBJ_CAPTURE') {
+    const pt = store.map.tiles?.find(t => t.terrain === 'PLANET')
+    return pt ?? null
+  }
+  if (obj === 'OBJ_RETREAT') {
+    const isAtk = store.context?.playerFaction === store.context?.attackerFaction
+    return { x: isAtk ? 0 : mapW-1, y: Math.floor(mapH/2) }
+  }
+  return null
+}
+
+// 화살촉 그리기 헬퍼
+function drawArrowhead(ctx, fx, fy, tx, ty, size) {
+  const angle = Math.atan2(ty - fy, tx - fx)
+  const s = Math.max(6, size)
+  ctx.save()
+  ctx.setLineDash([])
+  ctx.translate(tx, ty)
+  ctx.rotate(angle)
+  ctx.beginPath()
+  ctx.moveTo(-s, -s/2)
+  ctx.lineTo(0, 0)
+  ctx.lineTo(-s,  s/2)
+  ctx.strokeStyle = 'rgba(212,170,96,0.7)'
+  ctx.lineWidth = 1.5
+  ctx.stroke()
+  ctx.restore()
+}
 
 // ── 픽셀 보간 업데이트 ───────────────────────────────────────
 function updateAnimation() {
@@ -377,17 +442,16 @@ function render() {
   const mapH = store.map.height
   const camX = cam.value.x
   const camY = cam.value.y
-  const tpx  = TILE_PX * zoom.value    // 현재 줌 적용 타일 픽셀 크기
+  const tpx  = TILE_PX * zoom.value
 
   ctx.clearRect(0, 0, W, H)
 
-  // 가시 타일 범위
   const tx0 = Math.max(0, Math.floor(camX / tpx))
   const ty0 = Math.max(0, Math.floor(camY / tpx))
   const tx1 = Math.min(mapW - 1, Math.ceil((camX + W) / tpx))
   const ty1 = Math.min(mapH - 1, Math.ceil((camY + H) / tpx))
 
-  // 지형 그리기
+  // 지형
   for (let ty = ty0; ty <= ty1; ty++) {
     for (let tx = tx0; tx <= tx1; tx++) {
       const tile = store.tileAt(tx, ty)
@@ -395,20 +459,17 @@ function render() {
       const sy = ty * tpx - camY
       ctx.fillStyle = TERRAIN_COLOR[tile.terrain] ?? TERRAIN_COLOR.SPACE
       ctx.fillRect(sx, sy, tpx, tpx)
-      // 격자선
       if (showGrid.value && tpx >= 4) {
         ctx.strokeStyle = 'rgba(255,255,255,0.12)'
         ctx.lineWidth = 0.5
         ctx.strokeRect(sx, sy, tpx, tpx)
       }
-      // 소행성 텍스처
       if (tile.terrain === 'ASTEROID' && tpx >= 12) {
         ctx.fillStyle = '#2a2a22'
         ctx.font = `${Math.max(8, tpx * 0.35)}px serif`
         ctx.textAlign = 'center'
         ctx.fillText('✦', sx + tpx/2, sy + tpx/2 + 4)
       }
-      // 성운 텍스처
       if (tile.terrain === 'NEBULA') {
         ctx.fillStyle = 'rgba(100,50,180,0.15)'
         ctx.fillRect(sx + 2, sy + 2, tpx - 4, tpx - 4)
@@ -416,7 +477,7 @@ function render() {
     }
   }
 
-  // Fog of War 오버레이
+  // Fog of War
   if (store.fowEnabled) {
     ctx.fillStyle = 'rgba(0,0,0,0.62)'
     for (let ty = ty0; ty <= ty1; ty++) {
@@ -449,11 +510,62 @@ function render() {
     ctx.strokeRect(sx+1, sy+1, tpx-2, tpx-2)
   }
 
+  // 목표 가이드 화살표 (P2 명령 페이즈, 목표 설정된 경우)
+  if (store.phase === 'order' && store.operationObjective) {
+    const target = getObjectiveTarget()
+    const playerFlagships = store.units.filter(u =>
+      u.faction === store.playerFaction && u.role === 'flagship' && u.status === 'active')
+    if (target && playerFlagships.length) {
+      const gtx = target.x * tpx - camX + tpx/2
+      const gty = target.y * tpx - camY + tpx/2
+      // 목표 지점 glow
+      const glowR = 3 * tpx
+      const grad = ctx.createRadialGradient(gtx, gty, 0, gtx, gty, glowR)
+      grad.addColorStop(0, 'rgba(212,170,96,0.12)')
+      grad.addColorStop(1, 'rgba(212,170,96,0)')
+      ctx.fillStyle = grad
+      ctx.beginPath(); ctx.arc(gtx, gty, glowR, 0, Math.PI*2); ctx.fill()
+      // 함대 → 목표 점선
+      ctx.save()
+      ctx.strokeStyle = 'rgba(212,170,96,0.5)'
+      ctx.lineWidth = 1.5
+      ctx.setLineDash([6, 4])
+      for (const fp of playerFlagships) {
+        const fx = (fp.px / TILE_PX) * tpx - camX + tpx/2
+        const fy = (fp.py / TILE_PX) * tpx - camY + tpx/2
+        ctx.beginPath(); ctx.moveTo(fx, fy); ctx.lineTo(gtx, gty); ctx.stroke()
+        drawArrowhead(ctx, fx, fy, gtx, gty, Math.max(6, tpx * 0.28))
+      }
+      ctx.setLineDash([])
+      ctx.restore()
+    }
+  }
+
+  // 이동 예약 표시 (P2: 아군 기함의 pendingMove → 노란 점선)
+  if (store.phase === 'order') {
+    ctx.save()
+    ctx.strokeStyle = 'rgba(255,220,0,0.65)'
+    ctx.fillStyle   = 'rgba(255,220,0,0.08)'
+    ctx.lineWidth = 1.5
+    ctx.setLineDash([4, 3])
+    for (const u of store.units) {
+      if (u.role !== 'flagship' || !u.pendingMove || u.faction !== store.playerFaction) continue
+      const sx = (u.px / TILE_PX) * tpx - camX + tpx/2
+      const sy = (u.py / TILE_PX) * tpx - camY + tpx/2
+      const dtx = u.pendingMove.x * tpx - camX
+      const dty = u.pendingMove.y * tpx - camY
+      ctx.beginPath(); ctx.moveTo(sx, sy); ctx.lineTo(dtx + tpx/2, dty + tpx/2); ctx.stroke()
+      ctx.strokeRect(dtx + 1, dty + 1, tpx - 2, tpx - 2)
+      ctx.fillRect(dtx + 1, dty + 1, tpx - 2, tpx - 2)
+    }
+    ctx.setLineDash([])
+    ctx.restore()
+  }
+
   // 유닛 그리기
   ctx.textAlign = 'center'
   for (const u of store.units) {
     if (!store.isUnitVisible(u)) continue
-    // u.px 는 TILE_PX 기준 픽셀 좌표 → zoom 보정
     const sx = (u.px / TILE_PX) * tpx - camX
     const sy = (u.py / TILE_PX) * tpx - camY
     if (sx + tpx < 0 || sx > W || sy + tpx < 0 || sy > H) continue
@@ -462,14 +574,12 @@ function render() {
     const fc = FACTION_COLOR[u.faction] ?? '#888'
     const fbg = FACTION_BG[u.faction] ?? 'rgba(80,80,80,0.7)'
 
-    // 선택 글로우
     if (isSelected) {
       ctx.strokeStyle = 'gold'
       ctx.lineWidth = 2
       ctx.strokeRect(sx - 1, sy - 1, tpx + 2, tpx + 2)
     }
 
-    // 본체
     ctx.fillStyle = fbg
     ctx.beginPath()
     ctx.roundRect(sx + 2, sy + 2, tpx - 4, tpx - 4, 4)
@@ -479,30 +589,25 @@ function render() {
     ctx.stroke()
 
     if (tpx >= 10) {
-      // 기함 별표
       if (u.role === 'flagship') {
         ctx.fillStyle = 'rgba(255,220,50,0.9)'
         ctx.font = `bold ${Math.max(7, tpx * 0.28)}px sans-serif`
         ctx.fillText('★', sx + tpx - 8, sy + 10)
       }
-      // 레이블 (함대명 앞 2자)
       ctx.fillStyle = '#fff'
       ctx.font = `bold ${Math.max(7, tpx * 0.28)}px serif`
       ctx.fillText(u.fleetName.slice(0, 2), sx + tpx/2, sy + tpx/2 - 2)
-      // 함선 수
       ctx.fillStyle = '#ddd'
       ctx.font = `${Math.max(6, tpx * 0.24)}px monospace`
       ctx.fillText(fmtShips(u.ships), sx + tpx/2, sy + tpx/2 + tpx * 0.28)
     }
 
-    // 사기 바
     const barW = Math.max(2, tpx - 8)
     ctx.fillStyle = '#111'
     ctx.fillRect(sx + 4, sy + tpx - 6, barW, 3)
     ctx.fillStyle = moraleColor(u.morale)
     ctx.fillRect(sx + 4, sy + tpx - 6, Math.max(0, barW * u.morale / 100), 3)
 
-    // 이동/공격 완료 표시
     if (u.role === 'flagship' && u.moved && u.attacked) {
       ctx.fillStyle = 'rgba(0,0,0,0.4)'
       ctx.fillRect(sx + 2, sy + 2, tpx - 4, tpx - 4)
@@ -533,21 +638,18 @@ function renderMinimap() {
   ctx.fillStyle = '#06090f'
   ctx.fillRect(0, 0, MW, MH)
 
-  // 지형
   for (const tile of store.map.tiles) {
     if (tile.terrain === 'SPACE') continue
     ctx.fillStyle = TERRAIN_COLOR[tile.terrain] ?? '#333'
     ctx.fillRect(tile.x * px, tile.y * py, Math.max(1, px), Math.max(1, py))
   }
 
-  // 유닛 (FOW ON 시 탐지된 유닛만)
   for (const u of store.units) {
     if (!store.isUnitVisible(u)) continue
     ctx.fillStyle = FACTION_COLOR[u.faction] ?? '#888'
     ctx.fillRect(u.x * px - 1, u.y * py - 1, Math.max(2, px + 1), Math.max(2, py + 1))
   }
 
-  // 뷰포트 rect
   const canvas = mainCanvas.value
   if (canvas) {
     const tpx = TILE_PX * zoom.value
@@ -605,9 +707,9 @@ function onCanvasClick(e) {
   const rect = mainCanvas.value.getBoundingClientRect()
   const { tx, ty } = canvasToTile(e.clientX - rect.left, e.clientY - rect.top)
 
-  // 1) 이동 가능 타일 클릭 → 이동
-  if (store.isMovable(tx, ty)) {
-    store.moveFleetTo(tx, ty)
+  // 1) 이동 가능 타일 → 이동 예약
+  if (store.phase === 'order' && store.isMovable(tx, ty)) {
+    store.setPendingMove(tx, ty)
     return
   }
 
@@ -616,16 +718,14 @@ function onCanvasClick(e) {
   if (unit) {
     if (unit.faction === store.playerFaction) {
       store.selectFleet(unit.fleetCode)
-    } else {
-      // 적 클릭 → 공격 시도
-      if (store.selectedFleet && store.isAttackable(tx, ty)) {
-        store.attackUnit(unit.unitId)
-      }
+    } else if (store.selectedFleet) {
+      // 적 클릭 → 우선 공격 대상 지정
+      store.setPriorityTarget(unit.unitId)
     }
     return
   }
 
-  // 3) 빈 공간 클릭 → 선택 해제
+  // 3) 빈 공간 → 선택 해제
   store.deselect()
 }
 
@@ -651,14 +751,13 @@ function onMiniClick(e) {
   clampCam()
 }
 
-// ── 드래그 패닝 (좌클릭) ─────────────────────────────────────
+// ── 드래그 패닝 ───────────────────────────────────────────────
 function onMouseDown(e) {
   if (e.button !== 0) return
   drag = { startX: e.clientX, startY: e.clientY, camX: cam.value.x, camY: cam.value.y }
   didDrag = false
 }
 function onMouseMove(e) {
-  // 호버 타일 갱신 (zoom 반영 — canvasToTile 재사용)
   if (mainCanvas.value) {
     const rect = mainCanvas.value.getBoundingClientRect()
     const { tx, ty } = canvasToTile(e.clientX - rect.left, e.clientY - rect.top)
@@ -709,22 +808,20 @@ function onTouchMove(e) {
 function onTouchEnd() { pinchDist = null }
 
 // ── 액션 버튼 ────────────────────────────────────────────────
-function autoAttack() {
-  if (store.selectedFleet) store._checkAutoEngage(store.selectedFleet)
-}
 function waitFleet() {
   if (!store.selectedFleet) return
-  store.unitsOfFleet(store.selectedFleet).forEach(u => { u.moved = true; u.attacked = true })
+  store.setStandby(store.selectedFleet)
   store.deselect()
 }
+
 function onEndTurnClick() {
-  if (store.phase === 'player' && !store.animating) store.endPlayerTurn()
+  if (store.phase === 'order' && !store.animating) store.executePhase()
 }
 
 // ── 키보드 ───────────────────────────────────────────────────
 const CAM_STEP = TILE_PX * 3
 function onKey(e) {
-  if (e.key === ' ')        { e.preventDefault(); if (store.phase === 'player') store.endPlayerTurn() }
+  if (e.key === ' ')        { e.preventDefault(); if (store.phase === 'order') store.executePhase() }
   if (e.key === 'Escape')   store.deselect()
   if (e.key === 'PageUp')   { e.preventDefault(); const c = mainCanvas.value; applyZoom(1.2, (c?.width??0)/2, (c?.height??0)/2) }
   if (e.key === 'PageDown') { e.preventDefault(); const c = mainCanvas.value; applyZoom(1/1.2, (c?.width??0)/2, (c?.height??0)/2) }
@@ -751,30 +848,28 @@ const resizeObserver = new ResizeObserver(() => { resizeCanvas(); clampCam() })
 
 // ── 작전 회의 ─────────────────────────────────────────────────
 function onBriefingConfirm(objectiveCode) {
-  const ctx = game._pendingBattles[0]
-  if (ctx) {
-    if (ctx.playerFaction === ctx.attackerFaction)
-      ctx.attackerObjective = objectiveCode
-    else
-      ctx.defenderObjective = objectiveCode
-  }
-  showBriefing.value = false
+  store.confirmObjective(objectiveCode)
 }
 function onBriefingSkip() {
-  showBriefing.value = false
+  // 기존 목표 유지, 또는 기본 목표로 전환
+  store.confirmObjective(null)
 }
 
 onMounted(() => {
-  if (game._pendingBattles.length) {
+  if (game._pendingBattles?.length) {
     const ctx = game._pendingBattles[0]
-    if (store.context !== ctx) store.initBattle(ctx)
-    showBriefing.value = true
+    if (game._tacticalResume) {
+      // 24hr 전략 페이즈 후 복원 경로
+      store.restoreSnapshot(game._tacticalResume, ctx)
+      game.clearTacticalResume()
+    } else if (store.context !== ctx) {
+      store.initBattle(ctx)
+    }
   }
 
   resizeCanvas()
   if (mapWrap.value) resizeObserver.observe(mapWrap.value)
 
-  // 미니맵 크기 (좌측 패널 너비에 맞춤)
   if (miniCanvas.value) {
     miniCanvas.value.width  = 176
     miniCanvas.value.height = 106
@@ -797,9 +892,8 @@ onUnmounted(() => {
 // ── 결과 처리 ────────────────────────────────────────────────
 function finishTacticalSession(useReplace = false) {
   if (store.result) game.applyBattleResult(store.result)
-  if (game._pendingBattles.length) {
+  if (game._pendingBattles?.length) {
     store.initBattle(game._pendingBattles[0])
-    showBriefing.value = true
     return false
   }
   store.active = false
@@ -823,25 +917,24 @@ function returnToCampaign() { finishTacticalSession(false) }
   padding: 8px 14px; border-bottom: 1px solid var(--bd);
   flex-shrink: 0;
 }
-.tac-title    { font-size: 16px; letter-spacing: 2px; color: var(--tg); white-space: nowrap; }
 .tac-info     { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
 .date-badge   { font-size: 12px; color: var(--tg); letter-spacing: .5px; white-space: nowrap; }
 .phase-badge  { padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; white-space: nowrap; }
-.phase-badge.player { background: rgba(41,128,185,0.22); border: 1px solid #2980b9; color: #7ab8e8; }
-.phase-badge.ai     { background: rgba(192,57,43,0.18);  border: 1px solid #c0392b; color: #e88; }
-.phase-badge.result { background: rgba(218,165,32,0.18); border: 1px solid var(--tg); color: var(--tg); }
+.phase-badge.start   { background: rgba(218,165,32,0.18); border: 1px solid var(--bdg); color: var(--tg); }
+.phase-badge.order   { background: rgba(41,128,185,0.22); border: 1px solid #2980b9; color: #7ab8e8; }
+.phase-badge.execute { background: rgba(231,76,60,0.22);  border: 1px solid #e74c3c; color: #ff8880; animation: pulse 0.8s infinite; }
+.phase-badge.result  { background: rgba(218,165,32,0.18); border: 1px solid var(--tg); color: var(--tg); }
 .battle-label { font-size: 11px; color: var(--td); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ai-label     { font-size: 12px; color: #e88; white-space: nowrap; animation: pulse 1s infinite; }
 .grid-toggle-btn { font-size: 15px; padding: 2px 8px; white-space: nowrap; flex-shrink: 0; line-height: 1; }
 .grid-toggle-btn:not(.btn-gold) { opacity: 0.45; }
 .grid-icon { font-style: normal; }
 .log-toggle-btn { font-size: 11px; padding: 4px 9px; white-space: nowrap; flex-shrink: 0; }
 .fow-toggle-btn { font-size: 11px; padding: 4px 9px; white-space: nowrap; flex-shrink: 0; opacity: 0.85; }
 
-/* ── 바디 (position: relative → 로그 overlay 기준) ─────────── */
+/* ── 바디 ────────────────────────────────────────────────── */
 .tac-body { display: flex; flex: 1; overflow: hidden; position: relative; }
 
-/* ── 전투 기록 오버레이 (float) ─────────────────────────────── */
+/* ── 전투 기록 오버레이 ─────────────────────────────────── */
 .tac-log-overlay {
   position: absolute; top: 0; left: 0; right: 0; z-index: 200;
   background: rgba(8,13,22,.94);
@@ -884,8 +977,22 @@ function returnToCampaign() { finishTacticalSession(false) }
 .ir-label   { color: var(--td); }
 .ir-value   { color: var(--t1); font-family: var(--font-mono); font-size: 10px; }
 .ir-gold    { color: var(--tg); font-family: var(--font-serif); font-size: 11px; }
+.ir-yellow  { color: #e6c84a; font-family: var(--font-mono); font-size: 10px; }
+.pending-badge {
+  font-size: 8px; background: rgba(230,200,74,.18); color: #e6c84a;
+  border-radius: 3px; padding: 0 3px; margin-left: 3px; border: 1px solid rgba(230,200,74,.3);
+}
 .morale-bar { height: 3px; background: #1a1a2e; border-radius: 3px; overflow: hidden; margin: 1px 0 3px; }
 .morale-fill { height: 100%; border-radius: 3px; transition: width .3s; }
+
+/* 진형 선택 */
+.form-row { display: flex; align-items: center; gap: 4px; margin: 2px 0; }
+.form-sel {
+  flex: 1; background: var(--bg3); border: 1px solid var(--bd);
+  color: var(--t1); font-size: 10px; padding: 3px 4px;
+  border-radius: 3px; cursor: pointer;
+}
+.form-sel:focus { border-color: var(--bdg); outline: none; }
 
 /* 함대 능력치 */
 .stats-section-title {
@@ -905,14 +1012,12 @@ function returnToCampaign() { finishTacticalSession(false) }
 .cmd-name   { font-size: 12px; font-weight: bold; color: var(--t1); }
 .no-cmd-txt { font-size: 10px; color: var(--td); text-align: center; margin-bottom: 6px; }
 
-.hint-btn   { width: 100%; margin-top: 6px; font-size: 11px; }
 .no-sel     { min-height: 100px; display: flex; align-items: center; justify-content: center; }
 .no-sel-txt { text-align: center; color: var(--td); font-size: 11px; line-height: 1.8; }
 .hint       { font-size: 10px; opacity: 0.6; }
 .strength-panel { padding: 9px 8px; }
 .sp-title { font-size: 11px; color: var(--td); margin-bottom: 7px; text-align: center; letter-spacing: .5px; }
 
-/* 통합 게이지 바 */
 .sp-gauge {
   display: flex; height: 8px;
   border-radius: 4px; overflow: hidden;
@@ -922,12 +1027,10 @@ function returnToCampaign() { finishTacticalSession(false) }
 }
 .sp-gauge-red  { background: var(--REH); transition: width .6s ease; border-radius: 4px 0 0 4px; }
 .sp-gauge-blue { background: var(--FPA); transition: width .6s ease; border-radius: 0 4px 4px 0; }
-
 .sp-row   { display: flex; align-items: center; gap: 6px; font-size: 11px; margin-bottom: 3px; padding: 0 2px; }
 .sp-name  { flex: 1; font-family: var(--font-serif); font-size: 12px; }
 .sp-count { color: var(--td); font-size: 10px; font-family: var(--font-mono); }
 
-/* 미니맵 (좌측 패널) */
 .mini-wrap    { padding: 8px; }
 .mini-title   { font-size: 10px; color: var(--td); margin-bottom: 5px; }
 .mini-canvas  { display: block; width: 100%; border: 1px solid var(--bd); border-radius: 4px; cursor: pointer; image-rendering: pixelated; }
@@ -938,7 +1041,6 @@ function returnToCampaign() { finishTacticalSession(false) }
 .cam-hint     { position: absolute; left: 8px; bottom: 22px; font-size: 10px; color: rgba(255,255,255,0.25); pointer-events: none; }
 .tile-coord   { position: absolute; left: 8px; bottom: 6px; font-size: 10px; font-family: var(--font-mono); color: rgba(255,255,255,0.45); pointer-events: none; letter-spacing: .3px; }
 
-/* 좌측 패널 토글 */
 .left-panel-toggle {
   position: absolute; left: 0; top: 50%; transform: translateY(-50%);
   z-index: 50; width: 16px; height: 48px;
@@ -957,7 +1059,7 @@ function returnToCampaign() { finishTacticalSession(false) }
 .log-kill   { color: #e67e22; }
 .log-move   { color: #3498db; }
 
-/* ── 하단 액션 바 (StrategyBar 참조) ────────────────────── */
+/* ── 하단 액션 바 ────────────────────────────────────────── */
 .tac-bottom {
   flex-shrink: 0;
   display: flex; align-items: stretch;
@@ -966,9 +1068,7 @@ function returnToCampaign() { finishTacticalSession(false) }
   border-top: 2px solid rgba(212,170,96,.5);
   box-shadow: 0 -8px 32px rgba(0,0,0,.8), inset 0 1px 0 rgba(212,170,96,.08);
 }
-.tac-actions {
-  flex: 1; display: flex;
-}
+.tac-actions { flex: 1; display: flex; }
 .tac-act-btn {
   flex: 1; padding: 0;
   position: relative; overflow: hidden;
@@ -983,7 +1083,6 @@ function returnToCampaign() { finishTacticalSession(false) }
 .tac-act-btn:hover:not(:disabled) { color: #fff; background: rgba(212,170,96,.04); }
 .tac-act-btn:disabled { opacity: .35; cursor: default; }
 
-/* 턴 종료 버튼 */
 .tac-end-btn {
   flex-shrink: 0; padding: 0 clamp(14px, 3vw, 28px);
   position: relative; overflow: hidden;
@@ -1002,10 +1101,23 @@ function returnToCampaign() { finishTacticalSession(false) }
 .tac-end-btn:disabled { opacity: .4; cursor: default; }
 .kbd { font-size: 9px; background: rgba(255,255,255,.12); border-radius: 3px; padding: 1px 4px; }
 
-/* 페이션 테마 */
 .theme-REH .tac-end-btn { color: var(--REH); }
 .theme-FPA .tac-end-btn { color: var(--FPA); }
 .theme-PZN .tac-end-btn { color: var(--PZN); }
+
+/* ── 전략 페이즈 대기 오버레이 ────────────────────────────── */
+.spause-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(2,5,8,.88);
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(6px);
+}
+.spause-box {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  padding: 40px 56px; text-align: center;
+}
+.spause-box .spause-title { font-size: 22px; letter-spacing: 3px; color: var(--tg); }
+.spause-box .spause-desc { font-size: 13px; color: var(--t2); line-height: 1.9; }
 
 /* ── 결과 오버레이 ─────────────────────────────────────── */
 .result-overlay {
@@ -1021,6 +1133,11 @@ function returnToCampaign() { finishTacticalSession(false) }
 .rs-row       { display: flex; justify-content: space-between; font-size: 13px; }
 .rs-val       { font-weight: bold; color: var(--tg); }
 .btn-return   { padding: 11px 26px; font-size: 14px; letter-spacing: 1px; }
+
+/* ── 세력 색상 ────────────────────────────────────────────── */
+.fc-REH { color: var(--REH); }
+.fc-FPA { color: var(--FPA); }
+.fc-PZN { color: var(--PZN); }
 
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 .fade-enter-active,.fade-leave-active { transition: opacity .4s }

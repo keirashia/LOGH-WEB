@@ -13,7 +13,7 @@
       </div>
     </div>
     <button class="btn end-btn" :class="endBtnCls" @click="onEndTurnClick">
-      {{ hasPendingBattle ? '전투 시작' : '턴 종료' }}
+      {{ endBtnLabel }}
     </button>
   </div>
 
@@ -29,7 +29,13 @@ const emit = defineEmits(['showBattle'])
 
 const game = useGameStore()
 const activecat = ref(null)
-const hasPendingBattle = computed(() => game._pendingBattles.length > 0)
+const hasPendingBattle  = computed(() => game._pendingBattles.length > 0)
+const isMidBattlePaused = computed(() => game._pendingBattles[0]?._midBattlePaused ?? false)
+const endBtnLabel = computed(() => {
+  if (!hasPendingBattle.value) return '턴 종료'
+  if (isMidBattlePaused.value) return '전투 재개'
+  return '전투 시작'
+})
 const endBtnCls = computed(() => ({ REH:'btn-red', FPA:'btn-blue', PZN:'btn-green' }[game.playerFaction]))
 
 const ROW1 = [
