@@ -14,7 +14,7 @@
           <span class="sys-img-ico">{{ ico(sys) }}</span>
         </div>
         <div class="ip-hd-info">
-          <div class="serif ip-name">{{ sys.name }}</div>
+          <div class="serif ip-name">{{ sys.name?.find(n => n.code === lang)?.context ?? sys.name?.[0]?.context ?? '' }}</div>
           <div class="ip-nation" :style="`color:${fColor(sys.faction)}`">{{ fName(sys.faction) }}</div>
           <div class="ip-type dim">{{ typeLabel(sys.type) }}</div>
         </div>
@@ -162,7 +162,7 @@
                 담당관이 없을 경우 국가수반에게 전달됩니다.
               </div>
               <button class="btn btn-gold" style="width:100%;justify-content:center;margin-top:12px"
-                      @click="game.addLog(`[제안] ${sys.name} 제안 기능 — 미구현`)">
+                      @click="game.addLog(`[제안] ${sys.name?.find(n => n.code === lang)?.context ?? ''} 제안 기능 — 미구현`)">
                 📋 제안하기
               </button>
             </div>

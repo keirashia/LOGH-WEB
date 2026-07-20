@@ -36,7 +36,7 @@
           <select v-model="newFleet.locationId" class="mil-select">
             <option value="">-- 선택 --</option>
             <option v-for="s in playerSystems" :key="s.id" :value="s.id">
-              {{ s.name }}
+              {{ sysN(s) }}
             </option>
           </select>
         </div>
@@ -82,7 +82,7 @@
           </div>
           <div style="display:flex;gap:10px;margin-top:4px">
             <span class="mono gold" style="font-size:11px">{{ fl.ships.toLocaleString() }}척</span>
-            <span class="dim" style="font-size:10px">📍{{ game.systems[fl.location]?.name }}</span>
+            <span class="dim" style="font-size:10px">📍{{ sysN(game.systems[fl.location]) }}</span>
             <span class="dim" style="font-size:10px">유지비 {{ fl.upkeep }}/턴</span>
           </div>
           <div v-if="selFleetId===fl.id" class="fm-actions">
@@ -131,7 +131,7 @@
             <option value="">-- 선택 --</option>
             <option v-for="fl in game.pFleets" :key="fl.id" :value="fl.id"
                     :disabled="fl.status !== 'standby'">
-              {{ fl.name }} ({{ stLbl(fl.status) }}) — {{ game.systems[fl.location]?.name }}
+              {{ fl.name }} ({{ stLbl(fl.status) }}) — {{ sysN(game.systems[fl.location]) }}
             </option>
           </select>
         </div>
@@ -140,7 +140,7 @@
           <select v-model="moveTargetId" class="mil-select">
             <option value="">-- 선택 --</option>
             <option v-for="s in playerSystems" :key="s.id" :value="s.id">
-              {{ s.name }}
+              {{ sysN(s) }}
             </option>
           </select>
         </div>
@@ -167,7 +167,7 @@
           <span class="dim ff-lbl">출발지</span>
           <select v-model="transport.fromId" class="mil-select">
             <option value="">-- 선택 --</option>
-            <option v-for="s in playerSystems" :key="s.id" :value="s.id">{{ s.name }}</option>
+            <option v-for="s in playerSystems" :key="s.id" :value="s.id">{{ sysN(s) }}</option>
           </select>
         </div>
         <div class="ff-row">
@@ -175,7 +175,7 @@
           <select v-model="transport.toId" class="mil-select">
             <option value="">-- 선택 --</option>
             <option v-for="s in playerSystems" :key="s.id" :value="s.id"
-                    :disabled="s.id === transport.fromId">{{ s.name }}</option>
+                    :disabled="s.id === transport.fromId">{{ sysN(s) }}</option>
           </select>
         </div>
         <div class="ff-row">
@@ -216,10 +216,13 @@
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { MILITARY } from '@/data/masterData'
+import { useLang } from '@/composables/useLang'
 import { charName } from '@/utils/charUtils'
 
 const emit = defineEmits(['close'])
 const game = useGameStore()
+const { lang } = useLang()
+function sysN(s) { return s?.name?.find(n => n.code === lang.value)?.context ?? s?.name?.[0]?.context ?? '' }
 
 const tab = ref('form')
 const TABS = [

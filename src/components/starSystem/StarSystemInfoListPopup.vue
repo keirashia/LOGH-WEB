@@ -44,7 +44,7 @@
         @click="selectedId = selectedId === s.id ? null : s.id"
       >
         <div class="sl-cell-name">
-          <span class="serif" style="font-size:12px;white-space:nowrap;letter-spacing:.3px">{{ s.name }}</span>
+          <span class="serif" style="font-size:12px;white-space:nowrap;letter-spacing:.3px">{{ s.name?.find(n => n.code === lang)?.context ?? s.name?.[0]?.context ?? '' }}</span>
           <span v-if="s.fortress" class="sl-badge mono">요새</span>
         </div>
         <div class="sl-cell num mono dim" style="font-size:11px">{{ s.planets }}</div>

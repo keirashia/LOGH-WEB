@@ -9,7 +9,8 @@
       "WebFetch(domain:kumashige.hatenadiary.org)",
       "WebFetch(domain:blog.goo.ne.jp)",
       "Bash(sort -t'|' -k2 -rn)",
-      "Bash(node \"C:/Users/keira/AppData/Local/Temp/claude/c--Users-keira-Project-Genei-LOGH-WEB/f33e5a7a-2602-4241-9125-1d777ae9f5d1/scratchpad/inspect.js\")"
+      "Bash(node \"C:/Users/keira/AppData/Local/Temp/claude/c--Users-keira-Project-Genei-LOGH-WEB/f33e5a7a-2602-4241-9125-1d777ae9f5d1/scratchpad/inspect.js\")",
+      "Bash(npm run *)"
     ],
     "additionalDirectories": [
       "c:\\Users\\keira\\Project_Genei\\LOGH-WEB\\src"

@@ -285,10 +285,12 @@ function onPtrDown(e) {
   const sys = sysAt(sp.x, sp.y)
 
   if (editMode.value && activeTool.value === 'move' && sys) {
-    ds.value = { type: 'sys', id: sys.id, startSvg: sp, moved: false }
+    ds.value = { type: 'sys', id: sys.id, startSvg: sp,
+                 startClientX: e.clientX, startClientY: e.clientY, moved: false }
   } else {
     ds.value = { type: 'pan', startSvg: sp,
-                 startPan: { x: panX.value, y: panY.value }, moved: false }
+                 startPan: { x: panX.value, y: panY.value },
+                 startClientX: e.clientX, startClientY: e.clientY, moved: false }
   }
 }
 
@@ -307,10 +309,12 @@ function onPtrMove(e) {
   }
 
   if (!ds.value) return
-  const d  = ds.value
-  const dx = sp.x - d.startSvg.x
-  const dy = sp.y - d.startSvg.y
-  if (!d.moved && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) d.moved = true
+  const d   = ds.value
+  const dx  = sp.x - d.startSvg.x
+  const dy  = sp.y - d.startSvg.y
+  const cdx = e.clientX - d.startClientX
+  const cdy = e.clientY - d.startClientY
+  if (!d.moved && (Math.abs(cdx) > 8 || Math.abs(cdy) > 8)) d.moved = true
 
   if (d.type === 'pan') {
     panX.value = d.startPan.x + dx

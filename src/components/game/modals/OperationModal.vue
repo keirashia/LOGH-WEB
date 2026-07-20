@@ -244,7 +244,7 @@
                       :class="{ sel: tempTarget === s.id }"
                       @click="tempTarget = s.id">
                 <div class="picker-info">
-                  <span class="serif">{{ s.name }}</span>
+                  <span class="serif">{{ s.name?.find(n => n.code === lang)?.context ?? s.name?.[0]?.context ?? '' }}</span>
                   <span class="mono dim" style="font-size:10px">{{ s.faction ?? '무소속' }}</span>
                 </div>
                 <span class="mono dim" style="font-size:10px">
@@ -263,7 +263,7 @@
                       @click="tempTarget = f.location">
                 <div class="picker-info">
                   <span class="serif">{{ f.name }}</span>
-                  <span class="mono dim" style="font-size:10px">{{ game.systems[f.location]?.name ?? f.location }}</span>
+                  <span class="mono dim" style="font-size:10px">{{ game.systems[f.location]?.name?.find(n => n.code === lang)?.context ?? game.systems[f.location]?.name?.[0]?.context ?? f.location }}</span>
                 </div>
                 <span class="mono dim" style="font-size:10px">{{ f.ships.toLocaleString() }}척</span>
               </button>

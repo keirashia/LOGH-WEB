@@ -7,7 +7,7 @@
       <div class="target-box" v-if="targetSys">
         <span style="font-size:22px">{{ ico(targetSys) }}</span>
         <div>
-          <div class="serif">{{ targetSys.name }}</div>
+          <div class="serif">{{ targetSys.name?.find(n => n.code === lang)?.context ?? targetSys.name?.[0]?.context ?? '' }}</div>
           <div class="mono dim" style="font-size:10px">방어 {{ targetSys.defense }}% · {{ fName(targetSys.faction) }}</div>
         </div>
       </div>

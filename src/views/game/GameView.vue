@@ -7,9 +7,9 @@
       <!-- CharInfoPanel: PC(landscape)에서 좌측 고정 -->
       <CharInfoPanel v-if="!isPortrait" />
 
-      <!-- InfoPanel: 성계 선택 시 CharInfoPanel 위를 덮는 overlay -->
+      <!-- InfoPanel: 성계 선택 시 CharInfoPanel 위를 덮는 overlay (portrait 포함) -->
       <Transition name="slide-info">
-        <InfoPanel v-if="!isPortrait && game.selectedSystem" class="info-panel-overlay" />
+        <InfoPanel v-if="game.selectedSystem" class="info-panel-overlay" />
       </Transition>
 
       <!-- GalaxyMap 영역 -->
@@ -24,8 +24,8 @@
                          @close="showCharPanel = false" />
         </Transition>
 
-        <!-- 버튼 a-1: 모바일 portrait 전용 탭 -->
-        <button v-if="isPortrait" class="char-tab-btn"
+        <!-- 버튼 a-1: 모바일 portrait 전용 탭 (성계 선택 중엔 숨김) -->
+        <button v-if="isPortrait && !game.selectedSystem" class="char-tab-btn"
                 :class="{ on: showCharPanel }"
                 @click="showCharPanel = !showCharPanel">
           <span class="char-tab-text">
@@ -81,7 +81,7 @@
             {{ game.winner===game.playerFaction?'승리':'패배' }}
           </div>
           <div :class="`fc-${game.winner}`" style="font-size:17px;letter-spacing:2px">
-            {{ FACTIONS[game.winner]?.name }} 우주 통일
+            {{ winnerName }} 우주 통일
           </div>
           <div style="display:flex;gap:10px;margin-top:10px">
             <button class="btn btn-gold serif" style="padding:11px 24px;font-size:14px"
@@ -101,6 +101,7 @@ import { useRouter } from 'vue-router'
 import { useGameStore } from '@/stores/gameStore'
 import { useHelpStore } from '@/stores/helpStore'
 import { FACTIONS } from '@/data/masterData'
+import { useLang } from '@/composables/useLang'
 import HelpOverlay from '@/components/ui/HelpOverlay.vue'
 import GameHud    from '@/components/ui/GameHud.vue'
 import EventLog   from '@/components/ui/EventLog.vue'
@@ -131,6 +132,8 @@ import BattleConfirmModal from '@/components/game/modals/BattleConfirmModal.vue'
 const router = useRouter()
 const game = useGameStore()
 const help = useHelpStore()
+const { lang } = useLang()
+const winnerName = computed(() => { const n = FACTIONS[game.winner]?.name; return Array.isArray(n) ? (n.find(e => e.code === lang.value)?.context ?? n[0]?.context ?? '') : (n ?? '') })
 
 const showGameHelp  = ref(false)
 const showSide      = ref(false)

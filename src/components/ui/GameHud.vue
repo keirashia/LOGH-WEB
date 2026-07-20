@@ -4,7 +4,7 @@
       <div class="hud-faction" :class="`bg-${game.playerFaction}`"
            :style="`border-color:${game.pFaction.color}`">
         <span>{{ game.pFaction.flag }}</span>
-        <span class="serif" style="font-size:12px;letter-spacing:1px">{{ game.pFaction.name }}</span>
+        <span class="serif" style="font-size:12px;letter-spacing:1px">{{ pFactionName }}</span>
       </div>
     </div>
     <div class="hud-mid">
@@ -23,10 +23,16 @@ import { computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { FACTIONS } from '@/data/masterData'
 import { useAuthStore } from '@/stores/authStore'
+import { useLang } from '@/composables/useLang'
 const game = useGameStore()
+const { lang } = useLang()
 const endBtnCls = computed(() => ({
   REH:'btn-red', FPA:'btn-blue', PZN:'btn-green'
 }[game.playerFaction]))
+const pFactionName = computed(() => {
+  const n = game.pFaction?.name
+  return Array.isArray(n) ? (n.find(e => e.code === lang.value)?.context ?? n[0]?.context ?? '') : (n ?? '')
+})
 const auth = useAuthStore()
 const user = auth.user
 </script>

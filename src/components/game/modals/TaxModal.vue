@@ -1,6 +1,6 @@
 ﻿<template>
   <div class="modal-box">
-    <div class="modal-title">💰 세율 변경 — {{ sys?.name }}</div>
+    <div class="modal-title">💰 세율 변경 — {{ sys?.name?.find(n => n.code === lang)?.context ?? sys?.name?.[0]?.context ?? '' }}</div>
     <div class="m-cur">
       <span class="dim">현재 세율</span>
       <span class="gold mono" style="font-size:20px">{{ sys?.tax }}%</span>
@@ -40,9 +40,11 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
+import { useLang } from '@/composables/useLang'
 const props = defineProps({ payload: Object })
 const emit = defineEmits(['close'])
 const game = useGameStore()
+const { lang } = useLang()
 const sys = computed(() => game.systems[props.payload?.systemId])
 const val = ref(sys.value?.tax || 30)
 const income = computed(() => {

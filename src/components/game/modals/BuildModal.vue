@@ -1,6 +1,6 @@
 <template>
   <div class="modal-box">
-    <div class="modal-title">🔧 건설 명령 — {{ sys?.name }}</div>
+    <div class="modal-title">🔧 건설 명령 — {{ sys?.name?.find(n => n.code === lang)?.context ?? sys?.name?.[0]?.context ?? '' }}</div>
     <div class="m-cur">
       <span class="dim">현재 자금</span>
       <span class="gold mono" style="font-size:16px">{{ game.pRes.gold.toLocaleString() }} 마크</span>
@@ -40,9 +40,11 @@
 import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { CONSTRUCTION_TYPES } from '@/data/masterData'
+import { useLang } from '@/composables/useLang'
 const props = defineProps({ payload: Object })
 const emit = defineEmits(['close'])
 const game = useGameStore()
+const { lang } = useLang()
 const sys = computed(() => game.systems[props.payload?.systemId])
 const selType = ref(null)
 const EFF = { industry:'산업', defense:'방어', population:'인구', morale:'민심' }

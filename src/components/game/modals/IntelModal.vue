@@ -44,7 +44,7 @@
           <select v-model="spy.targetId" class="intel-select">
             <option value="">-- 성계 선택 --</option>
             <option v-for="s in enemySystems" :key="s.id" :value="s.id">
-              {{ s.name }} ({{ fName(s.faction) }})
+              {{ s.name?.find(n => n.code === lang)?.context ?? s.name?.[0]?.context ?? '' }} ({{ fName(s.faction) }})
             </option>
           </select>
         </div>
@@ -88,7 +88,7 @@
           <select v-model="security.systemId" class="intel-select">
             <option value="">-- 선택 --</option>
             <option v-for="s in playerSystems" :key="s.id" :value="s.id">
-              {{ s.name }} (민심 {{ game.systems[s.id]?.morale }}%)
+              {{ s.name?.find(n => n.code === lang)?.context ?? s.name?.[0]?.context ?? '' }} (민심 {{ game.systems[s.id]?.morale }}%)
             </option>
           </select>
         </div>
