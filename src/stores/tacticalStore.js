@@ -150,6 +150,8 @@ export const useTacticalStore = defineStore('tactical', {
     // ── Fog of War
     fowEnabled:         true,
     sightMap:           {},
+    // ── 함대별 전술 역할 (fleetId → role code)
+    fleetRoles:         {},
   }),
 
   getters: {
@@ -235,6 +237,11 @@ export const useTacticalStore = defineStore('tactical', {
       this._log(`⚔️ 전술전투 개시`)
     },
 
+    // ── 함대별 전술 역할 저장 ─────────────────────────────────
+    setFleetRoles(roles) {
+      this.fleetRoles = { ...roles }
+    },
+
     // ── 작전 목표 확정 → P2 진입 ──────────────────────────────
     confirmObjective(code) {
       this.operationObjective = code ?? this.operationObjective
@@ -260,10 +267,22 @@ export const useTacticalStore = defineStore('tactical', {
       this.attackableCells = []
     },
 
+    // ── 함대 지휘권 체크 ───────────────────────────────────────
+    // playerCharCode가 설정된 경우 해당 캐릭터가 사령관인 함대만 직접 명령 가능.
+    // playerCharCode가 null이면 아군 함대 전체 제어 가능(자유 모드).
+    canCommand(fleetCode) {
+      const flagship = this.flagshipOf(fleetCode)
+      if (!flagship || flagship.faction !== this.playerFaction) return false
+      const game = useGameStore()
+      if (game.playerCharCode && flagship.commander !== game.playerCharCode) return false
+      return true
+    },
+
     // ── 이동 명령 예약 ─────────────────────────────────────────
     setPendingMove(tx, ty) {
       if (this.phase !== 'order' || this.animating) return false
       if (!this.selectedFleet) return false
+      if (!this.canCommand(this.selectedFleet)) return false
       const flagship = this.flagshipOf(this.selectedFleet)
       if (!flagship) return false
       if (!this.isMovable(tx, ty)) return false
@@ -276,8 +295,10 @@ export const useTacticalStore = defineStore('tactical', {
     // ── 진형 변경 예약 ─────────────────────────────────────────
     setPendingFormation(fleetCode, ffCode) {
       if (this.phase !== 'order') return
-      const flagship = this.flagshipOf(fleetCode ?? this.selectedFleet)
-      if (!flagship || flagship.faction !== this.playerFaction) return
+      const fc = fleetCode ?? this.selectedFleet
+      if (!this.canCommand(fc)) return
+      const flagship = this.flagshipOf(fc)
+      if (!flagship) return
       flagship.pendingFormation = ffCode
       this._log(`🔷 [${flagship.fleetName}] 진형 예약: ${FORMATIONS[ffCode]?.name ?? ffCode}`)
     },
@@ -285,8 +306,10 @@ export const useTacticalStore = defineStore('tactical', {
     // ── 대기 명령 ──────────────────────────────────────────────
     setStandby(fleetCode) {
       if (this.phase !== 'order') return
-      const flagship = this.flagshipOf(fleetCode ?? this.selectedFleet)
-      if (!flagship || flagship.faction !== this.playerFaction) return
+      const fc = fleetCode ?? this.selectedFleet
+      if (!this.canCommand(fc)) return
+      const flagship = this.flagshipOf(fc)
+      if (!flagship) return
       flagship.pendingMove    = null
       flagship.pendingStandby = true
       this._log(`⏸ [${flagship.fleetName}] 대기`)
@@ -295,6 +318,7 @@ export const useTacticalStore = defineStore('tactical', {
     // ── 우선 공격 대상 ──────────────────────────────────────────
     setPriorityTarget(targetUnitId) {
       if (!this.selectedFleet) return
+      if (!this.canCommand(this.selectedFleet)) return
       this.unitsOfFleet(this.selectedFleet).forEach(u => { u.priorityTarget = targetUnitId })
       this._log(`🎯 우선 대상 지정`)
     },
@@ -318,40 +342,48 @@ export const useTacticalStore = defineStore('tactical', {
       this._checkVictory()
       if (this.phase === 'result') return
 
-      // 시간 +1분
-      this.battleTime.minute++
-
-      if (this.battleTime.minute >= 60) {
+      // 시간 +10분
+      this.battleTime.minute += 10
+      while (this.battleTime.minute >= 60) {
+        this.battleTime.minute -= 60
         this.battleTime.hour++
-        this.battleTime.minute = 0
+      }
 
-        if (this.battleTime.hour >= 24) {
-          // 24시 → 전략 페이즈 진입 (B 방식: 실제 전략 맵으로 복귀)
-          this._resetTurnState()
-          this._log(`🌙 자정 도달 — 전략 페이즈 복귀`)
-          const game = useGameStore()
-          game.pauseTacticalForStrategic({
-            units:              JSON.parse(JSON.stringify(this.units)),
-            battleTime:         { hour: 0, minute: 0 },
-            operationObjective: this.operationObjective,
-            logs:               [...this.logs],
-            fowEnabled:         this.fowEnabled,
-          })
-          this.active = false
-          router.push('/game')
-          return
-        }
+      const totalMin = this.battleTime.hour * 60 + this.battleTime.minute
 
-        // 매 정시 P1 재진입
+      // 24시 → 전략 페이즈 진입
+      if (totalMin >= 24 * 60) {
+        this._resetTurnState()
+        this._log(`🌙 자정 도달 — 전략 페이즈 복귀`)
+        const game = useGameStore()
+        game.pauseTacticalForStrategic({
+          units:              JSON.parse(JSON.stringify(this.units)),
+          battleTime:         { hour: 0, minute: 0 },
+          operationObjective: this.operationObjective,
+          logs:               [...this.logs],
+          fowEnabled:         this.fowEnabled,
+          fleetRoles:         { ...this.fleetRoles },
+        })
+        this.active = false
+        router.push('/game')
+        return
+      }
+
+      // 회의 간격 체크 (tacticalPhase 옵션: detail=60분, normal=120분, simple=240분)
+      const game = useGameStore()
+      const INTERVAL = { detail: 60, normal: 120, simple: 240 }[game.tacticalPhase ?? 'normal']
+      if (totalMin % INTERVAL === 0) {
         this._resetTurnState()
         this.phase = 'start'
         this._log(`── P1 시작 페이즈 ${this.timeLabel} ──`)
-      } else {
-        this._resetTurnState()
-        this.phase = 'order'
-        this._calcSight()
-        this._log(`── P2 명령 페이즈 ${this.timeLabel} ──`)
+        return
       }
+
+      // P2 명령 페이즈 계속
+      this._resetTurnState()
+      this.phase = 'order'
+      this._calcSight()
+      this._log(`── P2 명령 페이즈 ${this.timeLabel} ──`)
     },
 
     // ── 전략 페이즈 후 스냅샷 복원 (TacticalView.onMounted에서 호출) ─
@@ -378,6 +410,7 @@ export const useTacticalStore = defineStore('tactical', {
         animating:          false,
         fowEnabled:         snapshot.fowEnabled ?? true,
         sightMap:           {},
+        fleetRoles:         snapshot.fleetRoles ?? {},
       })
       this._calcSight()
       this._log('── 재개: 새 날 전투 ──')

@@ -6,7 +6,7 @@ const UNLOCK_KEY = 'logh_unlocks'
 
 export const useLobbyStore = defineStore('lobby', {
   state: () => ({
-    options: { npcAppearance: 'fact', npcBehavior: 'fact' },
+    options: { npcAppearance: 'fact', npcBehavior: 'fact', tacticalPhase: 'normal' },
     selectedFaction:  null,
     selectedCharCode: null,
     selectedVariant:  null,

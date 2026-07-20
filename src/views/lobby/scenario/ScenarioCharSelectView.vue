@@ -358,7 +358,7 @@ function goBackToFaction() {
 
 async function onNext() {
   if (!selChar.value) return
-  await game.startGame(cur.value.id, selChar.value.faction, selChar.value.code)
+  await game.startGame(cur.value.id, selChar.value.faction, selChar.value.code, lobby.options)
   router.push({ name: 'game' })
 }
 </script>

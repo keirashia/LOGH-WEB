@@ -68,7 +68,7 @@ function buildInitialAgendas(opProposeData = []) {
   })
 }
 
-function buildState(scId, pf, extraData = {}) {
+function buildState(scId, pf, extraData = {}, options = {}) {
   const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]
   const {
     starDetail = [], planetDetail = [],
@@ -102,6 +102,7 @@ function buildState(scId, pf, extraData = {}) {
     log: [], selectedSystem: null, selectedFleet: null,
     _levyCooldown: 0, _loanBalance: 0, _loanDueTurn: null, _fleetSeq: 10, _truce: {}, _tradeBonus: 0,
     _reserve: 0, _intelligenceFund: 0, _budgetAllocation: null,
+    tacticalPhase: options.tacticalPhase ?? 'normal',  // 'detail'|'normal'|'simple'
     _pendingBattles: [],
     _tacticalResume: null,   // 전술전투 중단 스냅샷 (24hr 전략 페이즈 대기 시 저장)
     _turnActionTaken: false,
@@ -161,11 +162,11 @@ export const useGameStore = defineStore('game', {
       this.isLoading = false
     },
 
-    async startGame(scId, pf, charCode = null) {
+    async startGame(scId, pf, charCode = null, options = {}) {
       const extraData = this._preloadedScId === scId && this._preloadedData
         ? this._preloadedData
         : await _loadScenarioFiles(scId)
-      const fresh = buildState(scId, pf, extraData)
+      const fresh = buildState(scId, pf, extraData, options)
       Object.assign(this.$state, { initialized: true, ...fresh })
       if (charCode) this.playerCharCode = charCode
       this.addLog(`[${(_fkr(this.factions[pf]) ?? pf)}] ${fresh.sc.name?.find(e => e.code === 'Kr')?.context ?? fresh.sc.id} 시작.`)

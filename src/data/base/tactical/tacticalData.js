@@ -97,6 +97,24 @@ export const OPERATION_OBJECTIVES = [
 
 export const OBJ_MAP = Object.fromEntries(OPERATION_OBJECTIVES.map(o => [o.code, o]))
 
+// ── 함대 전술 역할 ────────────────────────────────────────────
+export const TACTICAL_ROLES = [
+  { code: 'ROLE_MAIN',    name: '주공',     desc: '적 중앙을 돌파하는 주력 공격' },
+  { code: 'ROLE_FLANK',   name: '측면기동', desc: '적 측면을 우회하여 포위' },
+  { code: 'ROLE_SUPPORT', name: '지원',     desc: '주공을 지원하며 적 화력 분산' },
+  { code: 'ROLE_COVER',   name: '후위엄호', desc: '아군 후방 방어 및 퇴로 확보' },
+  { code: 'ROLE_RESERVE', name: '예비대',   desc: '필요 시 전선 돌입, 평시 대기' },
+]
+export const ROLE_MAP = Object.fromEntries(TACTICAL_ROLES.map(r => [r.code, r]))
+
+// 함대 인덱스에 따른 기본 역할 자동 배정
+const ROLE_ORDER_ATK = ['ROLE_MAIN', 'ROLE_SUPPORT', 'ROLE_FLANK', 'ROLE_RESERVE', 'ROLE_COVER']
+const ROLE_ORDER_DEF = ['ROLE_COVER', 'ROLE_MAIN',   'ROLE_SUPPORT', 'ROLE_FLANK', 'ROLE_RESERVE']
+export function defaultFleetRole(index, isAttacker) {
+  const order = isAttacker ? ROLE_ORDER_ATK : ROLE_ORDER_DEF
+  return order[Math.min(index, order.length - 1)]
+}
+
 // ── terrain 래스터라이즈 ──────────────────────────────────────
 // STAR_MAP.tactical.terrain(1000×1000 좌표)을 타일 배열로 변환
 function setTile(grid, x, y, w, h, typeId) {

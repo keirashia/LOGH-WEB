@@ -122,10 +122,10 @@
               </div>
             </div>
 
-            <!-- 진형 선택 (P2 명령 페이즈에서만) -->
+            <!-- 진형 선택 (P2 명령 페이즈 + 지휘권 있을 때만) -->
             <template v-if="store.phase === 'order'">
               <div class="panel-divider"></div>
-              <div class="form-row">
+              <div v-if="canCommandSelected" class="form-row">
                 <span class="ir-label">진형</span>
                 <select
                   class="form-sel"
@@ -137,6 +137,7 @@
                   </option>
                 </select>
               </div>
+              <div v-else class="no-cmd-notice">⚠ 지휘권 없음 — 관찰만 가능</div>
             </template>
 
             <div class="panel-divider"></div>
@@ -200,7 +201,7 @@
       <div class="tac-actions">
         <button
           class="tac-act-btn"
-          :disabled="!store.selectedFleet || store.phase !== 'order' || store.animating"
+          :disabled="!store.selectedFleet || store.phase !== 'order' || store.animating || !canCommandSelected"
           @click="waitFleet"
         >대기</button>
         <button
@@ -220,12 +221,21 @@
       </button>
     </div>
 
-    <!-- 작전 회의 팝업 -->
+    <!-- 작전 회의 (총사령관) -->
     <OperationBriefingModal
       v-if="showBriefing && store.context"
       :ctx="store.context"
       @confirm="onBriefingConfirm"
       @skip="onBriefingSkip"
+    />
+
+    <!-- 함대별 회의 -->
+    <FleetBriefingModal
+      v-if="showFleetBriefing && store.context"
+      :ctx="store.context"
+      :objective="pendingObjective"
+      @done="onFleetBriefingDone"
+      @skip="onFleetBriefingSkip"
     />
 
     <!-- 결과 오버레이 -->
@@ -253,6 +263,7 @@ import { useGameStore }     from '@/stores/gameStore'
 import { FORMATIONS, TERRAIN, TILE_PX } from '@/data/base/tactical/tacticalData'
 import { CHARACTERS_MAP, FACTIONS } from '@/data/masterData'
 import OperationBriefingModal from '@/components/game/tactical/OperationBriefingModal.vue'
+import FleetBriefingModal      from '@/components/game/tactical/FleetBriefingModal.vue'
 import { useLang } from '@/composables/useLang'
 
 const router = useRouter()
@@ -269,8 +280,12 @@ const showLeftPanel = ref(true)
 const showGrid      = ref(true)
 const hoverTile     = ref(null)
 
-// ── 작전 회의 팝업: 'start' 페이즈에서 자동 표시
-const showBriefing = computed(() => store.phase === 'start' && !!store.context)
+// ── 작전 회의 / 함대별 회의 팝업 흐름 ──────────────────────────
+const showFleetBriefing  = ref(false)
+const pendingObjective   = ref(null)
+
+// 총사령관 회의: 'start' 페이즈 + 함대별 회의가 열리지 않은 동안 표시
+const showBriefing = computed(() => store.phase === 'start' && !showFleetBriefing.value && !!store.context)
 
 // ── 카메라 + 줌 ─────────────────────────────────────────────
 const cam     = ref({ x: 0, y: 0 })
@@ -355,6 +370,9 @@ const totalShips = computed(() => {
   if (!store.selectedFleet) return 0
   return store.unitsOfFleet(store.selectedFleet).reduce((s, u) => s + u.ships, 0)
 })
+
+// 현재 선택 함대에 대한 직접 명령 권한 여부
+const canCommandSelected = computed(() => store.canCommand(store.selectedFleet))
 
 const battleDate = computed(() => {
   const y = game.year ?? 796, m = game.month ?? 1, d = game.day ?? 1
@@ -846,13 +864,25 @@ function onPopState() {
 // ── 라이프사이클 ─────────────────────────────────────────────
 const resizeObserver = new ResizeObserver(() => { resizeCanvas(); clampCam() })
 
-// ── 작전 회의 ─────────────────────────────────────────────────
+// ── 작전 회의 → 함대별 회의 → 전투 개시 ─────────────────────
 function onBriefingConfirm(objectiveCode) {
-  store.confirmObjective(objectiveCode)
+  pendingObjective.value = objectiveCode
+  showFleetBriefing.value = true
 }
 function onBriefingSkip() {
-  // 기존 목표 유지, 또는 기본 목표로 전환
+  // 총사령관 회의 건너뜀 → 함대별 회의도 건너뜀
   store.confirmObjective(null)
+}
+function onFleetBriefingDone(roles) {
+  store.setFleetRoles(roles)
+  store.confirmObjective(pendingObjective.value)
+  showFleetBriefing.value = false
+  pendingObjective.value  = null
+}
+function onFleetBriefingSkip() {
+  store.confirmObjective(pendingObjective.value)
+  showFleetBriefing.value = false
+  pendingObjective.value  = null
 }
 
 onMounted(() => {
@@ -1011,6 +1041,7 @@ function returnToCampaign() { finishTacticalSession(false) }
 .cmd-label  { font-size: 9px; color: var(--td); flex-shrink: 0; }
 .cmd-name   { font-size: 12px; font-weight: bold; color: var(--t1); }
 .no-cmd-txt { font-size: 10px; color: var(--td); text-align: center; margin-bottom: 6px; }
+.no-cmd-notice { font-size: 10px; color: var(--td); text-align: center; padding: 4px 0; letter-spacing: .3px; }
 
 .no-sel     { min-height: 100px; display: flex; align-items: center; justify-content: center; }
 .no-sel-txt { text-align: center; color: var(--td); font-size: 11px; line-height: 1.8; }

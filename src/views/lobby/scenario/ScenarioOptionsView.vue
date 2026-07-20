@@ -194,6 +194,15 @@ const optGroups = [
       { val: 'fiction', icon: '🤖', name: '가상',  desc: 'AI가 자유롭게 판단' },
     ],
   },
+  {
+    key: 'tacticalPhase',
+    label: '전술 페이즈',
+    opts: [
+      { val: 'detail', icon: '⚔️', name: '상세', desc: '1시간마다 회의 (24턴/일)' },
+      { val: 'normal', icon: '🚀', name: '일반', desc: '2시간마다 회의 (12턴/일)' },
+      { val: 'simple', icon: '💨', name: '간이', desc: '4시간마다 회의 (6턴/일)' },
+    ],
+  },
 ]
 
 function onNext() {
