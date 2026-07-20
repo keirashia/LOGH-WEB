@@ -14,6 +14,15 @@
 // 직업 리스트는 제발 charCode, traitCode 순으로 정렬해주세요.
 
 export const CHAR_TRAITS = [
+  // 라인하르트 폰 로엔그람
+  {
+    charCode:    "CH_000064",
+    traitCode:   "TRC_U_000064",
+    traitLv:     0,
+    traitExp:    0,
+    traitStDate: 0,
+    traitEdDate: null,
+  },
   // 무어
   {
     charCode:    "CH_000139",
