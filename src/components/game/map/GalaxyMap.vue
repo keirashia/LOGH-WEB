@@ -116,20 +116,22 @@
                   :r="vr(s)+3" fill="none" stroke="#f0b030"
                   stroke-width="0.8" stroke-dasharray="2 2" opacity=".7"/>
           <g v-if="labelOpacity > 0" :opacity="labelOpacity" style="pointer-events:none">
-            <rect
-              :x="-(s.displayName.length * 9 / scale + 4 / scale)"
-              :y="vr(s) + 3 / scale"
-              :width="s.displayName.length * 18 / scale + 8 / scale"
-              :height="22 / scale"
-              :rx="2 / scale"
-              fill="rgba(4,8,16,0.80)"
-              :stroke="fclr[s.faction] || 'rgba(255,255,255,0.25)'"
-              :stroke-width="0.8 / scale"
-            />
-            <text class="sys-lbl" text-anchor="middle"
-                  :dy="vr(s) + 19 / scale"
-                  :font-size="18 / scale"
-                  :fill="fclr[s.faction] || 'rgba(255,255,255,0.9)'">{{ s.displayName }}</text>
+            <g :transform="labelTransform(s.id)">
+              <rect
+                :x="-(s.displayName.length * 9 / scale + 4 / scale)"
+                :y="vr(s) + 3 / scale"
+                :width="s.displayName.length * 18 / scale + 8 / scale"
+                :height="22 / scale"
+                :rx="2 / scale"
+                fill="rgba(4,8,16,0.80)"
+                :stroke="fclr[s.faction] || 'rgba(255,255,255,0.25)'"
+                :stroke-width="0.8 / scale"
+              />
+              <text class="sys-lbl" text-anchor="middle"
+                    :dy="vr(s) + 19 / scale"
+                    :font-size="18 / scale"
+                    :fill="fclr[s.faction] || 'rgba(255,255,255,0.9)'">{{ s.displayName }}</text>
+            </g>
           </g>
         </g>
 
@@ -629,6 +631,53 @@ const labelOpacity = computed(() =>
   Math.max(0, Math.min(1, (scale.value - LABEL_FADE_OUT) / (LABEL_FADE_IN - LABEL_FADE_OUT)))
 )
 
+// 라벨 밀림 처리: 중요도 순으로 그리디 배치
+// 각 성계마다 아래→위→오른쪽→왼쪽 순으로 후보를 시도, 첫 비겹침 위치 사용
+// 결과: Map<id, { dx, dyAdj }> — 기본(아래) 위치 대비 SVG 단위 오프셋
+const labelPositions = computed(() => {
+  if (labelOpacity.value <= 0) return new Map()
+  const sc  = scale.value
+  const gap = 3 / sc
+  const lh  = 22 / sc
+  const pad = 2 / sc
+  const placed = []
+  const result  = new Map()
+  const vrVal = s => s.type === 'capital' ? 7 : (s.type === 'fortress' || s.isGateway ? 5 : 4)
+  const rank  = s => s.type === 'capital' ? 0 : (s.type === 'fortress' || s.isGateway ? 1 : 2)
+  const sorted = [...systems.value].sort((a, b) =>
+    rank(a) - rank(b) || (b.population || 0) - (a.population || 0)
+  )
+  for (const s of sorted) {
+    const r  = vrVal(s)
+    const hw = s.displayName.length * 9 / sc + 4 / sc
+    const defaultY1 = r + gap
+    const candidates = [
+      { dx: 0,               y1: r + gap },          // 아래 (기본)
+      { dx: 0,               y1: -(r + gap + lh) },  // 위
+      { dx:  hw + r + gap,   y1: -lh / 2 },          // 오른쪽
+      { dx: -(hw + r + gap), y1: -lh / 2 },          // 왼쪽
+    ]
+    let chosen = candidates[0]
+    for (const c of candidates) {
+      const ax1 = s.x + c.dx - hw, ax2 = s.x + c.dx + hw
+      const ay1 = s.y + c.y1,      ay2 = ay1 + lh
+      if (!placed.some(p =>
+        ax1 < p.x2 + pad && ax2 > p.x1 - pad &&
+        ay1 < p.y2 + pad && ay2 > p.y1 - pad
+      )) { chosen = c; break }
+    }
+    result.set(s.id, { dx: chosen.dx, dyAdj: chosen.y1 - defaultY1 })
+    placed.push({ x1: s.x + chosen.dx - hw, y1: s.y + chosen.y1,
+                  x2: s.x + chosen.dx + hw, y2: s.y + chosen.y1 + lh })
+  }
+  return result
+})
+
+
+function labelTransform(id) {
+  const p = labelPositions.value.get(id)
+  return `translate(${p?.dx ?? 0},${p?.dyAdj ?? 0})`
+}
 
 function nr(s) {
   if (s.type === 'capital')  return 16

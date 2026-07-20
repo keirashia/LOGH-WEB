@@ -145,6 +145,7 @@ export function buildFactionsMap(factionIds = [], scenarioFactionData = {}) {
       currency: base.currency ?? '',
       ideologyCode: base.ideologyCode ?? null,
       economyCode:  base.economyCode  ?? null,
+      defaultTax:   base.defaultTax   ?? null,
       ideology: IDEOLOGY_MAP[base.ideologyCode] ?? null,
       economy:  ECONOMY_MAP[base.economyCode]   ?? null,
       // 다국어 이름

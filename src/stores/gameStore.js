@@ -8,6 +8,7 @@ import {
 } from '@/data/base/agenda/agendaData'
 import { SCENARIOS }           from '@/data/scenario/scenarioData.js'
 import { buildSystemsMap, OBSTACLES, LANES } from '@/utils/starUtils'
+import { BUILDING_MAP } from '@/data/base/buildingData'
 import { buildCharactersMap }  from '@/utils/charUtils'
 import { buildFleetsMap }          from '@/utils/fleetUtils'
 import { buildFactionsMap }        from '@/utils/factionUtils'
@@ -192,6 +193,7 @@ export const useGameStore = defineStore('game', {
       this._actionSlots   = []
       this._processAgendas()
       this._income()
+      this._food()
       this._supply()
       this._fleetMove()
       this._morale()
@@ -235,15 +237,8 @@ export const useGameStore = defineStore('game', {
     closeModal()      { this.activeModal = null },
     _markAction()     { this._turnActionTaken = true },
 
-    changeTax(sysId, rate) {
-      const s = this.systems[sysId]
-      if (!s || s.faction !== this.playerFaction) return
-      const old = s.tax
-      s.tax = Math.max(10, Math.min(80, rate))
-      s.morale = Math.max(5, Math.min(100, s.morale - Math.floor((s.tax - old) * 0.5)))
-      this.addLog(`[${s.name}] 세율 ${old}% → ${s.tax}%`)
-      this._markAction()
-    },
+    // changeTax: 성계별 세율 조정 — 국가 단위 defaultTax 전환으로 일시 비활성화
+    // changeTax(sysId, rate) { ... },
 
     buildConstruction(sysId, type) {
       const s = this.systems[sysId]
@@ -461,7 +456,7 @@ export const useGameStore = defineStore('game', {
       let monthlyIncome = 0
       Object.values(this.systems).forEach(s => {
         if (s.faction === this.playerFaction)
-          monthlyIncome += Math.floor(s.population * (s.tax / 100) * (s.industry / 100) * 10)
+          monthlyIncome += Math.floor(s.population * ((this.factions[this.playerFaction]?.defaultTax ?? 0) / 100) * (s.industry / 100) * 10)
       })
 
       const amount = Math.floor(monthlyIncome * terms.RATE)
@@ -936,15 +931,159 @@ export const useGameStore = defineStore('game', {
     },
 
     _income() {
+      const BASE_POP_INCOME    = 1
+      const CORRIDOR_TAX_RATE  = 0.08   // 페잔 회랑 통행세율
+      const PHEZZAN_CODE       = '230042'
+
+      // Pass 1: 세력별 행성 수입 계산 (세율: faction.defaultTax)
+      const planetIncome = {}
       Object.keys(this.resources).forEach(f => {
+        const tax = (this.factions[f]?.defaultTax ?? 0) / 100
         let inc = 0
-        Object.values(this.systems).forEach(s => {
-          if (s.faction === f) inc += Math.floor(s.population * (s.tax / 100) * (s.industry / 100) * 10)
+        Object.values(this.systems).forEach(sys => {
+          if (sys.faction !== f) return
+          for (const planet of (sys.planets ?? [])) {
+            if (planet.faction !== f) continue
+            let multiplier = 1.0
+            for (const d of (planet.buildings?.details ?? [])) {
+              if (!d.active) continue
+              const bonus = BUILDING_MAP[d.b_id]?.effects?.incomeBonus
+              if (bonus != null) multiplier += bonus * d.count
+            }
+            inc += Math.floor((planet.pops?.unit ?? 0) * BASE_POP_INCOME * Math.max(0, multiplier) * tax)
+          }
         })
+        planetIncome[f] = inc
+      })
+
+      // Pass 2: 페잔 회랑 통행세 (페잔 성계가 PZN 소유일 때만)
+      let corridorTax = 0
+      if (this.systems[PHEZZAN_CODE]?.faction === 'PZN') {
+        const corridorBase = (planetIncome['REH'] ?? 0) + (planetIncome['FPA'] ?? 0)
+        corridorTax = Math.floor(corridorBase * CORRIDOR_TAX_RATE)
+        planetIncome['PZN'] = (planetIncome['PZN'] ?? 0) + corridorTax
+      }
+
+      // Pass 3: 수입 적용 + 유지비
+      Object.keys(this.resources).forEach(f => {
         let upkeepTotal = 0
         ;(this.fleets[f] || []).forEach(fl => { upkeepTotal += (fl.upkeep || 0) })
+        const inc = planetIncome[f] ?? 0
         this.resources[f].gold = Math.max(0, this.resources[f].gold + inc - upkeepTotal)
-        if (f === this.playerFaction) this.addLog(`[수입] +${inc} / 유지비 -${upkeepTotal} (잔고 ${this.resources[f].gold})`)
+        if (f === this.playerFaction) {
+          if (f === 'PZN' && corridorTax > 0) {
+            const base = inc - corridorTax
+            this.addLog(`[수입] 행성 +${base} / 회랑세 +${corridorTax} / 유지비 -${upkeepTotal} (잔고 ${this.resources[f].gold})`)
+          } else {
+            this.addLog(`[수입] +${inc} / 유지비 -${upkeepTotal} (잔고 ${this.resources[f].gold})`)
+          }
+        }
+      })
+    },
+
+    _food() {
+      const POP_PER_FOOD  = 5    // food 5당 pops ±1
+
+      Object.keys(this.resources).forEach(f => {
+        const taxRate = (this.factions[f]?.defaultTax ?? 0) / 100
+        let factionFoodGold = 0
+
+        Object.values(this.systems).forEach(sys => {
+          if (sys.faction !== f) return
+
+          const planets = (sys.planets ?? []).filter(p => p.faction === f)
+          if (!planets.length) return
+
+          // ── 성계 food 생산 합산 ──────────────────────────────────
+          let foodTotal = 0
+          const planetFood = []   // 행성별 생산량 (분배 계산용)
+          for (const planet of planets) {
+            const jobMap = {}
+            for (const j of (planet.pops?.jobs ?? [])) {
+              if (!jobMap[j.b_id]) jobMap[j.b_id] = {}
+              jobMap[j.b_id][j.job_code] = (jobMap[j.b_id][j.job_code] ?? 0) + j.unit
+            }
+            let fp = 0
+            for (const d of (planet.buildings?.details ?? [])) {
+              if (!d.active) continue
+              const bld = BUILDING_MAP[d.b_id]
+              if (!bld?.effects?.food) continue
+              const reqFarmer = bld.reqPop?.find(r => r.code === 'FARMER')?.unit ?? 0
+              const staffed = reqFarmer === 0
+                ? d.count
+                : Math.min(Math.floor((jobMap[d.b_id]?.['FARMER'] ?? 0) / reqFarmer), d.count)
+              fp += bld.effects.food * staffed
+            }
+            planetFood.push(fp)
+            foodTotal += fp
+          }
+
+          // ── 세율 로직: food → gold ───────────────────────────────
+          const taxedFood  = Math.floor(foodTotal * taxRate)
+          const morale     = sys.morale ?? 70
+          factionFoodGold += Math.floor(taxedFood * 0.8 * (morale / 100))
+          const foodForSys = foodTotal - taxedFood
+
+          // ── 성계 인구 소비 ───────────────────────────────────────
+          const sysPops   = planets.reduce((s, p) => s + (p.pops?.unit ?? 0), 0)
+          const totalPops = sysPops || 1   // 0 나누기 방지
+          const balance   = foodForSys - sysPops
+
+          if (balance >= 0) {
+            // ── 흑자: surplus × 0.8 → credit 분배 + 인구 증가 ────
+            const creditPool = Math.floor(balance * 0.8)
+            const popGain    = Math.floor(balance / POP_PER_FOOD)
+            for (let i = 0; i < planets.length; i++) {
+              const planet = planets[i]
+              const ratio  = (planet.pops?.unit ?? 0) / totalPops
+              planet.assets.credit = (planet.assets.credit ?? 0) + Math.floor(creditPool * ratio)
+              if (popGain > 0 && planet.pops) {
+                planet.pops.unit += Math.floor(popGain * ratio)
+              }
+            }
+          } else {
+            // ── 적자: deficit × 1.2 → credit 차감, 부족 시 인구 감소
+            const deficit      = -balance
+            const purchaseCost = Math.floor(deficit * 1.2)
+            let   unpurchased  = deficit   // credit으로 충당 못한 food량
+
+            for (let i = 0; i < planets.length; i++) {
+              const planet    = planets[i]
+              const ratio     = (planet.pops?.unit ?? 0) / totalPops
+              const planetCost = Math.floor(purchaseCost * ratio)
+              const creditAvail = planet.assets.credit ?? 0
+
+              if (creditAvail >= planetCost) {
+                planet.assets.credit -= planetCost
+                unpurchased -= Math.floor(deficit * ratio)
+              } else {
+                // credit으로 커버 가능한 food량
+                const covered = Math.floor(creditAvail / 1.2)
+                planet.assets.credit = 0
+                unpurchased -= covered
+              }
+            }
+
+            // credit 미달로 구매 못한 food → 인구 감소
+            const popDecay = Math.floor(Math.max(0, unpurchased) / POP_PER_FOOD)
+            if (popDecay > 0) {
+              for (let i = 0; i < planets.length; i++) {
+                const planet = planets[i]
+                const ratio  = (planet.pops?.unit ?? 0) / totalPops
+                const decay  = Math.floor(popDecay * ratio)
+                if (decay > 0 && planet.pops) {
+                  planet.pops.unit = Math.max(0, planet.pops.unit - decay)
+                  if (f === this.playerFaction)
+                    this.addLog(`⚠ [기근] ${planet.name?.find(n => n.code === 'Kr')?.context ?? planet.code} 인구 -${decay}`)
+                }
+              }
+            }
+          }
+        })
+
+        this.resources[f].gold += factionFoodGold
+        if (f === this.playerFaction && factionFoodGold > 0)
+          this.addLog(`[식량세] +${factionFoodGold} gold`)
       })
     },
 
@@ -1195,11 +1334,7 @@ export const useGameStore = defineStore('game', {
 
     _ai() {
       Object.keys(this.factions).filter(f => f !== this.playerFaction).forEach(f => {
-        let inc = 0
-        Object.values(this.systems).forEach(s => {
-          if (s.faction === f) inc += Math.floor(s.population * 0.3 * (s.industry / 100) * 10)
-        })
-        this.resources[f].gold += inc
+        // 수입은 _income()에서 전 세력 일괄 처리 — 여기서 중복 계산하지 않음
 
         ;(this.fleets[f] || []).forEach(fleet => {
           if (fleet.status !== 'standby' || Math.random() > 0.15) return

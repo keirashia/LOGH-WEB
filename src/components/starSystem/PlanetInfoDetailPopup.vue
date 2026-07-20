@@ -4,9 +4,8 @@
 
       <!-- 헤더 -->
       <div class="ppd-head">
-        <div>
-          <div class="serif gold ppd-name">{{ planetName }}</div>
-          <div v-if="planetEnName" class="mono dim" style="font-size:10px;margin-top:2px">{{ planetEnName }}</div>
+        <div class="ppd-head-center">
+          <div class="serif gold ppd-name">{{ systemName }}</div>
         </div>
         <button class="ppd-close" @click="$emit('close')">✕</button>
       </div>
@@ -58,6 +57,28 @@
               <span class="ppd-rv mono">{{ buildingUsed }}<span class="dim"> / {{ planet.buildings?.maxSize ?? 0 }}</span></span>
               <span class="ppd-arrow mono dim">›</span>
             </div>
+            <template v-if="foodStats">
+              <div class="ppd-row">
+                <span class="ppd-rl mono dim">식량 생산</span>
+                <span class="ppd-rv mono">{{ foodStats.foodProd.toLocaleString() }}</span>
+              </div>
+              <div class="ppd-row">
+                <span class="ppd-rl mono dim">식량세</span>
+                <span class="ppd-rv mono dim">−{{ foodStats.foodTax.toLocaleString() }}<span class="dim" style="font-size:10px"> ({{ (game.factions[planet.faction]?.defaultTax ?? 0) }}%)</span></span>
+              </div>
+              <div class="ppd-row">
+                <span class="ppd-rl mono dim">수지</span>
+                <span class="ppd-rv mono"
+                      :class="foodStats.balance >= 0 ? 'food-surplus' : 'food-deficit'">
+                  {{ foodStats.balance >= 0 ? '+' : '' }}{{ foodStats.balance.toLocaleString() }}
+                  <span class="dim" style="font-size:10px"> (잔여 {{ foodStats.foodNet.toLocaleString() }} / 인구 {{ foodStats.popsUnit.toLocaleString() }})</span>
+                </span>
+              </div>
+              <div class="ppd-row">
+                <span class="ppd-rl mono dim">크레딧</span>
+                <span class="ppd-rv mono gold">{{ foodStats.credit.toLocaleString() }}</span>
+              </div>
+            </template>
           </div>
         </template>
 
@@ -167,6 +188,7 @@
 import { ref, computed, watch } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { useLang } from '@/composables/useLang'
+import { BUILDING_MAP } from '@/data/base/buildingData'
 
 const props = defineProps({
   show:        { type: Boolean, default: false },
@@ -195,6 +217,13 @@ const planet = computed(() => props.planets[currentIdx.value] ?? null)
 const planetName   = computed(() => planet.value?.name?.find(e => e.code === lang.value)?.context ?? '')
 const planetEnName = computed(() => planet.value?.name?.find(e => e.code === 'En')?.context ?? '')
 
+const systemName = computed(() => {
+  const sysCode = planet.value?.code?.slice(0, 6)
+  if (!sysCode) return ''
+  const sys = game.systems[sysCode]
+  return sys?.name?.find(e => e.code === lang.value)?.context ?? sys?.name?.[0]?.context ?? sysCode
+})
+
 function move(dir) {
   currentIdx.value = (currentIdx.value + dir + props.planets.length) % props.planets.length
   activeTab.value = 'overview'
@@ -212,6 +241,36 @@ const cmdName = computed(() => {
 const buildingUsed = computed(() =>
   (planet.value?.buildings?.details ?? []).reduce((s, d) => s + d.count, 0)
 )
+
+const foodStats = computed(() => {
+  const p = planet.value
+  if (!p) return null
+  const taxRate = (game.factions[p.faction]?.defaultTax ?? 0) / 100
+
+  const jobMap = {}
+  for (const j of (p.pops?.jobs ?? [])) {
+    if (!jobMap[j.b_id]) jobMap[j.b_id] = {}
+    jobMap[j.b_id][j.job_code] = (jobMap[j.b_id][j.job_code] ?? 0) + j.unit
+  }
+
+  let foodProd = 0
+  for (const d of (p.buildings?.details ?? [])) {
+    if (!d.active) continue
+    const bld = BUILDING_MAP[d.b_id]
+    if (!bld?.effects?.food) continue
+    const reqFarmer = bld.reqPop?.find(r => r.code === 'FARMER')?.unit ?? 0
+    const staffed = reqFarmer === 0
+      ? d.count
+      : Math.min(Math.floor((jobMap[d.b_id]?.['FARMER'] ?? 0) / reqFarmer), d.count)
+    foodProd += bld.effects.food * staffed
+  }
+
+  const foodTax     = Math.floor(foodProd * taxRate)
+  const foodNet     = foodProd - foodTax
+  const popsUnit    = p.pops?.unit ?? 0
+  const balance     = foodNet - popsUnit
+  return { foodProd, foodTax, foodNet, popsUnit, balance, credit: p.assets?.credit ?? 0 }
+})
 
 const descText = computed(() => {
   const arr = planet.value?.desc
@@ -268,6 +327,7 @@ const CAT_LABELS = {
   border-bottom: 1px solid var(--bd);
   flex-shrink: 0;
 }
+.ppd-head-center { flex: 1; text-align: center; }
 .ppd-name  { font-size: 16px; letter-spacing: .5px; }
 .ppd-close {
   background: none; border: none; color: var(--td);
@@ -388,6 +448,10 @@ const CAT_LABELS = {
 .fc-REH { color: var(--REH); }
 .fc-FPA { color: var(--FPA); }
 .fc-PZN { color: var(--PZN); }
+
+/* 식량 수지 */
+.food-surplus { color: #2ecc71; }
+.food-deficit { color: #e74c3c; }
 
 /* 트랜지션 */
 .ppd-fade-enter-active { transition: opacity .18s, transform .18s; }

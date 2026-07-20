@@ -31,6 +31,7 @@ const FACTIONS_RAW = [
     currency: "",
     ideologyCode: null,
     economyCode: null,
+    defaultTax: null,
     desc: `북아메리카 대륙에 위치한 초강대국. 모티브는 미국이다.
     '이성과 공화정치의 본고장'으로 당시 지구를 양분하던 3대륙 합중국보다 경제적/과학적으로 우위에 있었으나
     13일 전쟁 당시 3대륙 합중국의 열핵병기 세례를 맞고 멸망했다.
@@ -47,6 +48,7 @@ const FACTIONS_RAW = [
     currency: "",
     ideologyCode: null,
     economyCode: null,
+    defaultTax: null,
   },
 
   // 지구통일정부 (은하연방 성립 이전 지구의 통합 정부)
@@ -59,6 +61,7 @@ const FACTIONS_RAW = [
     currency: "",
     ideologyCode: null,
     economyCode: null,
+    defaultTax: null,
   },
 
   // 시리우스 성계 정부
@@ -71,6 +74,7 @@ const FACTIONS_RAW = [
     currency: "",
     ideologyCode: null,
     economyCode: null,
+    defaultTax: null,
   },
 
   // 은하연방
@@ -83,6 +87,7 @@ const FACTIONS_RAW = [
     currency: "",
     ideologyCode: null,
     economyCode: null,
+    defaultTax: null,
   },
 
   // ── RC / SE 시대 ───────────────────────────────────────────
@@ -97,6 +102,7 @@ const FACTIONS_RAW = [
     currency: "제국 마르크",
     ideologyCode: 240,
     economyCode: 60, // TODO: 1차 추정치(봉건경제), cliqueData.js 로엔그람파 tender.econ과 일치
+    defaultTax: 70,  // regime:제국 taxRate(30~70) 중앙값
   },
 
   // 립슈타트 귀족연합 (488 IC = 797 UC 창설 → 같은 해 해산)
@@ -109,6 +115,7 @@ const FACTIONS_RAW = [
     currency: "제국 마르크",
     ideologyCode: 240,
     economyCode: 60, // TODO: 1차 추정치
+    defaultTax: 70,  // regime:제국 taxRate(30~70) 중앙값
   },
 
   // 은하제국 정통정부 (Galaktische Reichsregierung der Legitimität)
@@ -121,6 +128,7 @@ const FACTIONS_RAW = [
     currency: "",
     ideologyCode: 240,
     economyCode: 60, // TODO: 1차 추정치
+    defaultTax: 50,  // regime:제국 taxRate(30~70) 중앙값
   },
 
   // 은하제국 로엔그람 왕조 (1 NIC = 490 IC = 799 UC 창건)
@@ -133,6 +141,7 @@ const FACTIONS_RAW = [
     currency: "제국 마르크",
     ideologyCode: 240,
     economyCode: 60, // TODO: 1차 추정치
+    defaultTax: 50,  // regime:제국 taxRate(30~70) 중앙값
   },
 
   // 자유행성동맹 (218 IC = 527 UC 창건 → 491 IC = 800 UC 해산)
@@ -145,6 +154,7 @@ const FACTIONS_RAW = [
     currency: "동맹 디나르",
     ideologyCode: 100,
     economyCode: 100, // TODO: 1차 추정치(자본주의)
+    defaultTax: 25,   // regime:자유민주공화국 taxRate(10~40) 중앙값
   },
 
   // 구국군사회의
@@ -157,6 +167,7 @@ const FACTIONS_RAW = [
     currency: "동맹 디나르",
     ideologyCode: 160,
     economyCode: 220, // TODO: 1차 추정치(사회주의, 군정 통제경제 성향)
+    defaultTax: 62,   // regime:혁명공화국 taxRate(40~85) 중앙값
   },
 
   // 엘 파실 독립정부 (El Facil Revolutionary Government)
@@ -169,6 +180,7 @@ const FACTIONS_RAW = [
     currency: "동맹 디나르",
     ideologyCode: null,
     economyCode: null,
+    defaultTax: null,
   },
 
   // 이제르론 공화정부 (Iserlohn Republic Government)
@@ -181,6 +193,7 @@ const FACTIONS_RAW = [
     currency: "동맹 디나르",
     ideologyCode: null,
     economyCode: null,
+    defaultTax: null,
   },
 
   // 바라트 성계 자치령 (Bharat Star System Autonomous Region)
@@ -193,6 +206,7 @@ const FACTIONS_RAW = [
     currency: "동맹 디나르",
     ideologyCode: 100,
     economyCode: 100, // TODO: 1차 추정치
+    defaultTax: 25,   // regime:자유민주공화국 taxRate(10~40) 중앙값
     desc: `시바 성역 회전 이후 율리안 민츠와 라인하르트 폰 로엔그람의 회담을 통해 SE 801년 성립된 민주공화주의 자치령.
     이제르론 요새의 반환을 조건으로 바라트 성계의 내정자치권을 얻었으며, 양 웬리가 꿈꾸었던 민주주의의 씨앗을 이어받았다.
     약 100여 년간 존속하며 은하 전역에 민주공화정이 다시 꽃피우는 토대가 되었다.`,
@@ -208,6 +222,7 @@ const FACTIONS_RAW = [
     currency: "페잔 골드",
     ideologyCode: 180,
     economyCode: 180, // TODO: 1차 추정치(국가자본주의, 무역 중심지 특성)
+    defaultTax: 32,   // regime:자치령 taxRate(15~50) 중앙값
   },
 
   // 지구교
@@ -220,6 +235,7 @@ const FACTIONS_RAW = [
     currency: "",
     ideologyCode: 85,
     economyCode: 100, // TODO: 1차 추정치(임시 대표값, 신권정치는 economy 전범위 허용)
+    defaultTax: 50,   // regime:신정국가 taxRate(30~70) 중앙값
   },
 
 ];
