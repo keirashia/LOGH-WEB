@@ -212,22 +212,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 380,
+      econ: [{ code: 60, unit: 296 }],
+      idea: [{ code: 240, unit: 296 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 167 },
+        { code: "CLQ_REH_001", unit: 102 },
+        { code: "CLQ_REH_002", unit: 21 },
+        { code: "CLQ_REH_004", unit: 6 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 361 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 76,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 80,
+      details: [{ b_id: "FARM_000", count: 76, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["DUCHY"],
@@ -437,7 +442,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 30,
       econ: [],
       idea: [],
       clique: [],
@@ -445,13 +450,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 3,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 6,
       details: [],
     },
     /** @특성 */
@@ -473,7 +478,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 20,
       econ: [],
       idea: [],
       clique: [],
@@ -481,13 +486,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 2,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 4,
       details: [],
     },
     /** @특성 */
@@ -547,7 +552,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 1200,
       econ: [],
       idea: [],
       clique: [],
@@ -555,13 +560,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 120,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 240,
       details: [],
     },
     /** @특성 */
@@ -583,7 +588,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 800,
       econ: [],
       idea: [],
       clique: [],
@@ -591,13 +596,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 80,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 160,
       details: [],
     },
     /** @특성 */
@@ -1303,7 +1308,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 400,
       econ: [],
       idea: [],
       clique: [],
@@ -1311,13 +1316,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 40,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 80,
       details: [],
     },
     /** @특성 */
@@ -1415,22 +1420,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 280,
+      econ: [{ code: 60, unit: 218 }],
+      idea: [{ code: 240, unit: 218 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 123 },
+        { code: "CLQ_REH_001", unit: 75 },
+        { code: "CLQ_REH_002", unit: 16 },
+        { code: "CLQ_REH_004", unit: 4 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 266 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 56,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 59,
+      details: [{ b_id: "FARM_000", count: 56, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["MARQUISATE"],
@@ -1570,7 +1580,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 120,
       econ: [],
       idea: [],
       clique: [],
@@ -1578,13 +1588,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 12,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 24,
       details: [],
     },
     /** @특성 */
@@ -1646,22 +1656,22 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 20,
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 20 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 4,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 5,
+      details: [{ b_id: "FARM_000", count: 4, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -1720,7 +1730,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 180,
       econ: [],
       idea: [],
       clique: [],
@@ -1728,13 +1738,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 18,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 36,
       details: [],
     },
     /** @특성 */
@@ -1796,22 +1806,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 80,
+      econ: [{ code: 60, unit: 62 }],
+      idea: [{ code: 240, unit: 62 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 35 },
+        { code: "CLQ_REH_001", unit: 21 },
+        { code: "CLQ_REH_002", unit: 4 },
+        { code: "CLQ_REH_004", unit: 2 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 76 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 16,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 17,
+      details: [{ b_id: "FARM_000", count: 16, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -1834,22 +1849,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 420,
+      econ: [{ code: 60, unit: 327 }],
+      idea: [{ code: 240, unit: 327 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 184 },
+        { code: "CLQ_REH_001", unit: 113 },
+        { code: "CLQ_REH_002", unit: 24 },
+        { code: "CLQ_REH_004", unit: 6 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 399 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 84,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 89,
+      details: [{ b_id: "FARM_000", count: 84, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["DUCHY"],
@@ -1870,22 +1890,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 310,
+      econ: [{ code: 60, unit: 241 }],
+      idea: [{ code: 240, unit: 241 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 136 },
+        { code: "CLQ_REH_001", unit: 83 },
+        { code: "CLQ_REH_002", unit: 17 },
+        { code: "CLQ_REH_004", unit: 5 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 294 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 62,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 66,
+      details: [{ b_id: "FARM_000", count: 62, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["DUCHY"],
@@ -1908,22 +1933,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 110,
+      econ: [{ code: 60, unit: 85 }],
+      idea: [{ code: 240, unit: 85 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 48 },
+        { code: "CLQ_REH_001", unit: 29 },
+        { code: "CLQ_REH_002", unit: 6 },
+        { code: "CLQ_REH_004", unit: 2 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 104 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 22,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 24,
+      details: [{ b_id: "FARM_000", count: 22, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -1944,22 +1974,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 90,
+      econ: [{ code: 60, unit: 70 }],
+      idea: [{ code: 240, unit: 70 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 39 },
+        { code: "CLQ_REH_001", unit: 24 },
+        { code: "CLQ_REH_002", unit: 5 },
+        { code: "CLQ_REH_004", unit: 2 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 85 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 18,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 19,
+      details: [{ b_id: "FARM_000", count: 18, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -1982,22 +2017,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 360,
+      econ: [{ code: 60, unit: 280 }],
+      idea: [{ code: 240, unit: 280 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 158 },
+        { code: "CLQ_REH_001", unit: 96 },
+        { code: "CLQ_REH_002", unit: 20 },
+        { code: "CLQ_REH_004", unit: 6 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 342 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 72,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 76,
+      details: [{ b_id: "FARM_000", count: 72, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["DUCHY"],
@@ -2092,7 +2132,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 100,
       econ: [],
       idea: [],
       clique: [],
@@ -2100,13 +2140,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 10,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 20,
       details: [],
     },
     /** @특성 */
@@ -2168,22 +2208,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 190,
+      econ: [{ code: 60, unit: 148 }],
+      idea: [{ code: 240, unit: 148 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 83 },
+        { code: "CLQ_REH_001", unit: 51 },
+        { code: "CLQ_REH_002", unit: 10 },
+        { code: "CLQ_REH_004", unit: 4 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 180 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 38,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 40,
+      details: [{ b_id: "FARM_000", count: 38, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -2242,22 +2287,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 240,
+      econ: [{ code: 60, unit: 187 }],
+      idea: [{ code: 240, unit: 187 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 105 },
+        { code: "CLQ_REH_001", unit: 64 },
+        { code: "CLQ_REH_002", unit: 13 },
+        { code: "CLQ_REH_004", unit: 5 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 228 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 48,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 51,
+      details: [{ b_id: "FARM_000", count: 48, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["MARQUISATE"],
@@ -2316,7 +2366,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 280,
       econ: [],
       idea: [],
       clique: [],
@@ -2324,13 +2374,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 28,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 56,
       details: [],
     },
     /** @특성 */
@@ -2430,7 +2480,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 200,
       econ: [],
       idea: [],
       clique: [],
@@ -2438,13 +2488,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 20,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 40,
       details: [],
     },
     /** @특성 */
@@ -2582,22 +2632,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 140,
+      econ: [{ code: 60, unit: 109 }],
+      idea: [{ code: 240, unit: 109 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 61 },
+        { code: "CLQ_REH_001", unit: 37 },
+        { code: "CLQ_REH_002", unit: 8 },
+        { code: "CLQ_REH_004", unit: 3 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 133 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 28,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 30,
+      details: [{ b_id: "FARM_000", count: 28, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -3070,22 +3125,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 160,
+      econ: [{ code: 60, unit: 124 }],
+      idea: [{ code: 240, unit: 124 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 70 },
+        { code: "CLQ_REH_001", unit: 42 },
+        { code: "CLQ_REH_002", unit: 9 },
+        { code: "CLQ_REH_004", unit: 3 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 152 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 32,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 34,
+      details: [{ b_id: "FARM_000", count: 32, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -3106,22 +3166,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 140,
+      econ: [{ code: 60, unit: 109 }],
+      idea: [{ code: 240, unit: 109 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 61 },
+        { code: "CLQ_REH_001", unit: 37 },
+        { code: "CLQ_REH_002", unit: 8 },
+        { code: "CLQ_REH_004", unit: 3 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 133 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 28,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 30,
+      details: [{ b_id: "FARM_000", count: 28, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -3180,7 +3245,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 320,
       econ: [],
       idea: [],
       clique: [],
@@ -3188,13 +3253,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 32,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 64,
       details: [],
     },
     /** @특성 */
@@ -3440,7 +3505,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 60,
       econ: [],
       idea: [],
       clique: [],
@@ -3448,13 +3513,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 6,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 12,
       details: [],
     },
     /** @특성 */
@@ -3476,7 +3541,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 50,
       econ: [],
       idea: [],
       clique: [],
@@ -3484,13 +3549,49 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 5,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 10,
+      details: [],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
+  },
+  {
+    code: "230055P04",
+    starCode: "230055",
+    name: [{ code: "Kr", context: "카프체란카" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
+    faction: "FPA",
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 45,
+      econ: [],
+      idea: [],
+      clique: [],
+      jobs: [],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 4,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 9,
       details: [],
     },
     /** @특성 */
@@ -3550,22 +3651,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 290,
+      econ: [{ code: 60, unit: 226 }],
+      idea: [{ code: 240, unit: 226 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 127 },
+        { code: "CLQ_REH_001", unit: 78 },
+        { code: "CLQ_REH_002", unit: 16 },
+        { code: "CLQ_REH_004", unit: 5 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 275 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 58,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 61,
+      details: [{ b_id: "FARM_000", count: 58, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["DUCHY"],
@@ -3713,22 +3819,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 580,
+      econ: [{ code: 60, unit: 452 }],
+      idea: [{ code: 240, unit: 452 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 255 },
+        { code: "CLQ_REH_001", unit: 156 },
+        { code: "CLQ_REH_002", unit: 33 },
+        { code: "CLQ_REH_004", unit: 8 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 551 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 116,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 122,
+      details: [{ b_id: "FARM_000", count: 116, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -4014,7 +4125,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 150,
       econ: [],
       idea: [],
       clique: [],
@@ -4022,13 +4133,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 15,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -4055,7 +4166,50 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 100,
+      econ: [{ code: 60, unit: 78 }],
+      idea: [{ code: 240, unit: 78 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 44 },
+        { code: "CLQ_REH_001", unit: 26 },
+        { code: "CLQ_REH_002", unit: 5 },
+        { code: "CLQ_REH_004", unit: 3 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 95 }],
+    },
+    /** @자원_건설 */
+    assets: {
+      credit: 20,
+      tax: 0,
+      complain: 0,
+      mil_supply: 0,
+    },
+    buildings: {
+      maxSize: 21,
+      details: [{ b_id: "FARM_000", count: 20, active: true, construct: 0 }],
+    },
+    /** @특성 */
+    traits: [],
+    /** @설명 */
+    desc: [{ code: "Kr", context: "" }],
+  },
+
+  // ── 230065_샤텐부르크 ──
+  {
+    code: "230065P01",
+    starCode: "230065",
+    name: [{ code: "Kr", context: "샤텐부르크" }],
+    /** @위치_및_물리적_특성 */
+    pos: { x: 500, y: 500 },
+    planetType: "terrestrial",
+    /** @소속_상태 */
+    faction: "FPA",
+    /** @소속_담당관 */
+    governor: "",
+    commander: "",
+    /** @인구 */
+    pops: {
+      unit: 150,
       econ: [],
       idea: [],
       clique: [],
@@ -4063,13 +4217,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 15,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 30,
       details: [],
     },
     /** @특성 */
@@ -4096,22 +4250,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 210,
+      econ: [{ code: 60, unit: 163 }],
+      idea: [{ code: 240, unit: 163 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 92 },
+        { code: "CLQ_REH_001", unit: 56 },
+        { code: "CLQ_REH_002", unit: 12 },
+        { code: "CLQ_REH_004", unit: 3 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 199 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 42,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 45,
+      details: [{ b_id: "FARM_000", count: 42, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -4216,22 +4375,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 120,
+      econ: [{ code: 60, unit: 93 }],
+      idea: [{ code: 240, unit: 93 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 52 },
+        { code: "CLQ_REH_001", unit: 32 },
+        { code: "CLQ_REH_002", unit: 6 },
+        { code: "CLQ_REH_004", unit: 3 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 114 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 24,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 26,
+      details: [{ b_id: "FARM_000", count: 24, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -4257,22 +4421,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 330,
+      econ: [{ code: 60, unit: 257 }],
+      idea: [{ code: 240, unit: 257 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 145 },
+        { code: "CLQ_REH_001", unit: 88 },
+        { code: "CLQ_REH_002", unit: 19 },
+        { code: "CLQ_REH_004", unit: 5 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 313 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 66,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 70,
+      details: [{ b_id: "FARM_000", count: 66, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["DUCHY"],
@@ -4298,22 +4467,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 260,
+      econ: [{ code: 60, unit: 202 }],
+      idea: [{ code: 240, unit: 202 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 114 },
+        { code: "CLQ_REH_001", unit: 69 },
+        { code: "CLQ_REH_002", unit: 14 },
+        { code: "CLQ_REH_004", unit: 5 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 247 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 52,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 55,
+      details: [{ b_id: "FARM_000", count: 52, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["MARQUISATE"],
@@ -4339,22 +4513,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 150,
+      econ: [{ code: 60, unit: 117 }],
+      idea: [{ code: 240, unit: 117 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 66 },
+        { code: "CLQ_REH_001", unit: 40 },
+        { code: "CLQ_REH_002", unit: 8 },
+        { code: "CLQ_REH_004", unit: 3 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 142 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 30,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 32,
+      details: [{ b_id: "FARM_000", count: 30, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -4380,22 +4559,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 370,
+      econ: [{ code: 60, unit: 288 }],
+      idea: [{ code: 240, unit: 288 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 162 },
+        { code: "CLQ_REH_001", unit: 99 },
+        { code: "CLQ_REH_002", unit: 21 },
+        { code: "CLQ_REH_004", unit: 6 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 351 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 74,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 78,
+      details: [{ b_id: "FARM_000", count: 74, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["DUCHY"],
@@ -4421,22 +4605,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 400,
+      econ: [{ code: 60, unit: 312 }],
+      idea: [{ code: 240, unit: 312 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 176 },
+        { code: "CLQ_REH_001", unit: 107 },
+        { code: "CLQ_REH_002", unit: 23 },
+        { code: "CLQ_REH_004", unit: 6 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 380 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 80,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 84,
+      details: [{ b_id: "FARM_000", count: 80, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["DUCHY"],
@@ -4462,22 +4651,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 480,
+      econ: [{ code: 60, unit: 374 }],
+      idea: [{ code: 240, unit: 374 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 211 },
+        { code: "CLQ_REH_001", unit: 129 },
+        { code: "CLQ_REH_002", unit: 27 },
+        { code: "CLQ_REH_004", unit: 7 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 456 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 96,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 101,
+      details: [{ b_id: "FARM_000", count: 96, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["DUCHY"],
@@ -4503,22 +4697,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 220,
+      econ: [{ code: 60, unit: 171 }],
+      idea: [{ code: 240, unit: 171 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 96 },
+        { code: "CLQ_REH_001", unit: 59 },
+        { code: "CLQ_REH_002", unit: 12 },
+        { code: "CLQ_REH_004", unit: 4 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 209 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 44,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 47,
+      details: [{ b_id: "FARM_000", count: 44, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["MARQUISATE"],
@@ -4544,22 +4743,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 130,
+      econ: [{ code: 60, unit: 101 }],
+      idea: [{ code: 240, unit: 101 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 57 },
+        { code: "CLQ_REH_001", unit: 34 },
+        { code: "CLQ_REH_002", unit: 7 },
+        { code: "CLQ_REH_004", unit: 3 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 123 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 26,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 28,
+      details: [{ b_id: "FARM_000", count: 26, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -4585,22 +4789,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 340,
+      econ: [{ code: 60, unit: 265 }],
+      idea: [{ code: 240, unit: 265 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 149 },
+        { code: "CLQ_REH_001", unit: 91 },
+        { code: "CLQ_REH_002", unit: 19 },
+        { code: "CLQ_REH_004", unit: 6 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 323 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 68,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 72,
+      details: [{ b_id: "FARM_000", count: 68, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["DUCHY"],
@@ -4626,22 +4835,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 430,
+      econ: [{ code: 60, unit: 335 }],
+      idea: [{ code: 240, unit: 335 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 189 },
+        { code: "CLQ_REH_001", unit: 115 },
+        { code: "CLQ_REH_002", unit: 24 },
+        { code: "CLQ_REH_004", unit: 7 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 408 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 86,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 91,
+      details: [{ b_id: "FARM_000", count: 86, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["DUCHY"],
@@ -4667,22 +4881,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 160,
+      econ: [{ code: 60, unit: 124 }],
+      idea: [{ code: 240, unit: 124 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 70 },
+        { code: "CLQ_REH_001", unit: 42 },
+        { code: "CLQ_REH_002", unit: 9 },
+        { code: "CLQ_REH_004", unit: 3 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 152 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 32,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 34,
+      details: [{ b_id: "FARM_000", count: 32, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -4708,22 +4927,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 230,
+      econ: [{ code: 60, unit: 179 }],
+      idea: [{ code: 240, unit: 179 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 101 },
+        { code: "CLQ_REH_001", unit: 61 },
+        { code: "CLQ_REH_002", unit: 13 },
+        { code: "CLQ_REH_004", unit: 4 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 218 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 46,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 49,
+      details: [{ b_id: "FARM_000", count: 46, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: ["MARQUISATE"],
@@ -4749,22 +4973,27 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
-      econ: [],
-      idea: [],
-      clique: [],
-      jobs: [],
+      unit: 170,
+      econ: [{ code: 60, unit: 132 }],
+      idea: [{ code: 240, unit: 132 }],
+      clique: [
+        { code: "CLQ_REH_003", unit: 74 },
+        { code: "CLQ_REH_001", unit: 45 },
+        { code: "CLQ_REH_002", unit: 9 },
+        { code: "CLQ_REH_004", unit: 4 },
+      ],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 161 }],
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 34,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 36,
+      details: [{ b_id: "FARM_000", count: 34, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -4995,7 +5224,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 90,
       econ: [],
       idea: [],
       clique: [],
@@ -5003,13 +5232,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 9,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 18,
       details: [],
     },
     /** @특성 */
@@ -5159,7 +5388,7 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 110,
       econ: [],
       idea: [],
       clique: [],
@@ -5167,13 +5396,13 @@ export const PLANETS = [
     },
     /** @자원_건설 */
     assets: {
-      credit: 0,
+      credit: 11,
       tax: 0,
       complain: 0,
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
+      maxSize: 22,
       details: [],
     },
     /** @특성 */

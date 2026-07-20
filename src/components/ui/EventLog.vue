@@ -30,12 +30,11 @@ function rowCls(m) {
 </script>
 
 <style scoped>
-.evlog{flex-shrink:0;background:var(--bg3);border-top:1px solid var(--bd);max-height:28px;transition:max-height .25s ease;overflow:hidden}
-.evlog.open{max-height:130px}
-.ev-hdr{display:flex;align-items:center;gap:7px;padding:5px 14px;cursor:pointer;user-select:none}
+.evlog{flex-shrink:0;background:var(--bg3);border-top:1px solid var(--bd);height:28px;position:relative;z-index:50}
+.ev-hdr{display:flex;align-items:center;gap:7px;padding:5px 14px;cursor:pointer;user-select:none;height:28px;box-sizing:border-box}
 .ev-hdr:hover{background:var(--bgh)}
 .ev-cnt{font-size:9px;background:rgba(212,170,96,.2);color:var(--tg);padding:1px 5px;border-radius:3px}
-.ev-body{height:100px;overflow-y:auto;padding:2px 14px 6px}
+.ev-body{position:absolute;top:100%;left:0;right:0;height:100px;overflow-y:auto;padding:2px 14px 6px;background:var(--bg3);border-bottom:1px solid var(--bd);box-shadow:0 4px 12px rgba(0,0,0,.5)}
 .ev-row{display:flex;gap:9px;font-size:10px;padding:2px 0;color:var(--t2)}
 .ev-mo{flex-shrink:0;width:24px;color:var(--td)}
 .ev-row.ok .ev-msg{color:#2ecc71}

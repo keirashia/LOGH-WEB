@@ -14,7 +14,8 @@
       "Bash(node --input-type=module -e ' *)",
       "WebSearch",
       "Bash(sort -t_ -k2 -n)",
-      "Bash(python3 -c ' *)"
+      "Bash(python3 -c ' *)",
+      "Bash(node -e ' *)"
     ]
   }
 }

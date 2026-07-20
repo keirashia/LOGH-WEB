@@ -87,7 +87,7 @@ const FACTION_TABS = [
 const factionTab = ref(game.playerFaction)
 const query      = ref('')
 const sortKey    = ref('population')
-const sortDir    = ref(-1)
+const sortDir    = ref(1)
 const selectedId = ref(null)
 
 function switchTab(key) {
@@ -133,13 +133,13 @@ function setSort(key) {
     sortDir.value *= -1
   } else {
     sortKey.value = key
-    sortDir.value = key === 'name' ? 1 : -1
+    sortDir.value = 1
   }
 }
 
 function arrow(key) {
   if (sortKey.value !== key) return ''
-  return sortDir.value < 0 ? ' ▼' : ' ▲'
+  return sortDir.value > 0 ? ' ▼' : ' ▲'
 }
 
 function valStyle(v, max) {
