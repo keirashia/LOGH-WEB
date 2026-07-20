@@ -235,7 +235,7 @@ const modalComp = computed(() => game.activeModal ? (MODAL_MAP[game.activeModal.
 .info-panel-overlay{
   position:absolute; left:0; top:0; bottom:0;
   width:clamp(200px,22vw,280px);
-  z-index:50;
+  z-index:210;
 }
 .slide-info-enter-active,.slide-info-leave-active{transition:transform .22s ease}
 .slide-info-enter-from,.slide-info-leave-to{transform:translateX(-100%)}
