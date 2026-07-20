@@ -23,6 +23,26 @@
 export const CHAR_TRAITS_MASTER = [
 
   {
+    id: "TRC_U_000064",
+    name: [
+      { code: "Kr", context: "상승의 천재" },
+      { code: "En", context: "Ever-Victorious Genius" },
+      { code: "Jp", context: "常勝の天才" },
+    ],
+    rarity: "unique",
+    desc: "전략·전술·정치 모든 영역에서 전례 없는 속도로 정점을 향해 뻗어나가는 천재. 함대 지휘와 전투 능력이 극대화되며, 공세 국면에서 더욱 날카로운 판단력을 발휘한다.",
+    permanent: true,
+    effects: { statCmd: 10, statAtt: 8, statCsm: 6 },
+    conditionalEffects: [
+      {
+        // TODO: battle_offensive — 공격 작전(출격·진군) 중일 때 트리거 (masterData.js)
+        trigger: "battle_offensive",
+        effects: { statCmd: 8, statAtt: 10, statFst: 6 },
+      },
+    ],
+  },
+
+  {
     id: "TRC_U_000004",
     name: [
       { code: "Kr", context: "우주의 장막" },

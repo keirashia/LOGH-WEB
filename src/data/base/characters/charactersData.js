@@ -2644,6 +2644,7 @@ export const CHAR_BASE = [
     // 상급대장(JB_MR002) LV0
     // 백작(JB_N003) LV0
     // — 트레잇
+    traits: ["TRC_U_000064"],
   },
   {
     // — 기본
