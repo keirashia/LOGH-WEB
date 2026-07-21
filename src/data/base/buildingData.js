@@ -105,11 +105,7 @@
  */
 
 function nm(kr) {
-  return [
-    { code: "Kr", context: kr },
-    { code: "En", context: "" },
-    { code: "Jp", context: "" },
-  ];
+  return [{ code: "Kr", context: kr }];
 }
 
 export const BUILDINGS = [
@@ -151,13 +147,11 @@ export const BUILDINGS = [
   },
   {
     id: "FARM_001",
-    name: nm("관개 농경지"),
+    name: [{ code: "Kr", context: "관개 농경지" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["food"],
-    desc: nm(
-      "수로를 통해 물을 끌어와 경작하는 농업시설. 화전 방식보다 안정적인 생산량을 보인다."
-    ),
-    effects: { food: 150 },
+    desc: [{ code: "Kr", context: "수로를 통해 물을 끌어와 경작하는 농업시설. 화전 방식보다 안정적인 생산량을 보인다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
+    effects: { food: 300 },
     reqPop: [{ code: "FARMER", unit: 30 }],
     buildRequire: {},
     buildCost: 300,
@@ -169,13 +163,11 @@ export const BUILDINGS = [
   },
   {
     id: "FARM_002",
-    name: nm("재래식 농업시설"),
+    name: [{ code: "Kr", context: "재래식 농업시설" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["food"],
-    desc: nm(
-      "인류가 지구에 있을 무렵, 중-근대 시대에 사용했던 농기구를 활용한 전통적 농업 방식."
-    ),
-    effects: { food: 200 },
+    desc: [{ code: "Kr", context: "인류가 지구에 있을 무렵, 중-근대 시대에 사용했던 농기구를 활용한 전통적 농업 방식." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
+    effects: { food: 600 },
     reqPop: [{ code: "FARMER", unit: 15 }],
     buildRequire: {},
     buildCost: 700,
@@ -187,13 +179,11 @@ export const BUILDINGS = [
   },
   {
     id: "FARM_003",
-    name: nm("기계화 농업시설"),
+    name: [{ code: "Kr", context: "기계화 농업시설" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["food"],
-    desc: nm(
-      "농기계를 도입한 현대적 농업시설. 재래식 대비 훨씬 적은 인력으로 많은 식량을 생산한다."
-    ),
-    effects: { food: 500 },
+    desc: [{ code: "Kr", context: "농기계를 도입한 현대적 농업시설. 재래식 대비 훨씬 적은 인력으로 많은 식량을 생산한다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
+    effects: { food: 1000 },
     reqPop: [{ code: "FARMER", unit: 5 }],
     buildRequire: {},
     buildCost: 1500,
@@ -205,13 +195,11 @@ export const BUILDINGS = [
   },
   {
     id: "FARM_004",
-    name: nm("생명공학 농장"),
+    name: [{ code: "Kr", context: "생명공학 농장" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["food"],
-    desc: nm(
-      "유전자 조작 작물과 수경재배 기술을 적용한 농장. 환경 제약 없이 대량 생산이 가능하다."
-    ),
-    effects: { food: 500 },
+    desc: [{ code: "Kr", context: "유전자 조작 작물과 수경재배 기술을 적용한 농장. 환경 제약 없이 대량 생산이 가능하다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
+    effects: { food: 1000 },
     reqPop: [{ code: "FARMER", unit: 2 }],
     buildRequire: {},
     buildCost: 3500,
@@ -223,13 +211,11 @@ export const BUILDINGS = [
   },
   {
     id: "FARM_005",
-    name: nm("완전자동화 농장"),
+    name: [{ code: "Kr", context: "완전자동화 농장" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["food"],
-    desc: nm(
-      "로봇과 AI로 전 공정이 자동화된 최첨단 농장. 최소한의 관리 인력만으로 막대한 식량을 생산한다."
-    ),
-    effects: { food: 1000 },
+    desc: [{ code: "Kr", context: "로봇과 AI로 전 공정이 자동화된 최첨단 농장. 최소한의 관리 인력만으로 막대한 식량을 생산한다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
+    effects: { food: 2000 },
     reqPop: [{ code: "FARMER", unit: 1 }],
     buildRequire: {},
     buildCost: 9000,
@@ -245,10 +231,10 @@ export const BUILDINGS = [
   // ════════════════════════════════════════════════════════════
   {
     id: "MINE_001",
-    name: nm("노천 채굴장"),
+    name: [{ code: "Kr", context: "노천 채굴장" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["industry"],
-    desc: nm("지표면을 직접 파헤쳐 광물을 채취하는 원시적인 채굴 시설."),
+    desc: [{ code: "Kr", context: "지표면을 직접 파헤쳐 광물을 채취하는 원시적인 채굴 시설." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { industry: 8 },
     reqPop: [{ code: "MINER", unit: 2 }],
     buildRequire: {},
@@ -261,12 +247,10 @@ export const BUILDINGS = [
   },
   {
     id: "MINE_002",
-    name: nm("수직 광산"),
+    name: [{ code: "Kr", context: "수직 광산" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["industry"],
-    desc: nm(
-      "지하 깊은 곳까지 갱도를 뚫어 채굴하는 광산. 노천 채굴보다 채굴량이 많다."
-    ),
+    desc: [{ code: "Kr", context: "지하 깊은 곳까지 갱도를 뚫어 채굴하는 광산. 노천 채굴보다 채굴량이 많다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { industry: 20 },
     reqPop: [{ code: "MINER", unit: 2 }],
     buildRequire: {},
@@ -279,12 +263,10 @@ export const BUILDINGS = [
   },
   {
     id: "MINE_003",
-    name: nm("기계화 광산"),
+    name: [{ code: "Kr", context: "기계화 광산" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["industry"],
-    desc: nm(
-      "중장비와 채굴 로봇을 도입한 광산. 적은 인력으로 훨씬 많은 자원을 채취한다."
-    ),
+    desc: [{ code: "Kr", context: "중장비와 채굴 로봇을 도입한 광산. 적은 인력으로 훨씬 많은 자원을 채취한다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { industry: 50, incomeBonus: 0.05 },
     reqPop: [{ code: "MINER", unit: 1 }],
     buildRequire: {},
@@ -297,10 +279,10 @@ export const BUILDINGS = [
   },
   {
     id: "MINE_004",
-    name: nm("심부 자원 채굴단지"),
+    name: [{ code: "Kr", context: "심부 자원 채굴단지" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["industry"],
-    desc: nm("행성 핵 인근의 고밀도 자원층까지 도달하는 대규모 채굴단지."),
+    desc: [{ code: "Kr", context: "행성 핵 인근의 고밀도 자원층까지 도달하는 대규모 채굴단지." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { industry: 110, incomeBonus: 0.1 },
     reqPop: [{ code: "MINER", unit: 1 }],
     buildRequire: {},
@@ -313,12 +295,10 @@ export const BUILDINGS = [
   },
   {
     id: "MINE_005",
-    name: nm("전자동 채굴 콤플렉스"),
+    name: [{ code: "Kr", context: "전자동 채굴 콤플렉스" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["industry"],
-    desc: nm(
-      "드릴 로봇과 자동 운반 시스템으로 무인 운영되는 최첨단 채굴 단지."
-    ),
+    desc: [{ code: "Kr", context: "드릴 로봇과 자동 운반 시스템으로 무인 운영되는 최첨단 채굴 단지." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { industry: 220, incomeBonus: 0.15 },
     reqPop: [{ code: "MINER", unit: 1 }],
     buildRequire: {},
@@ -335,10 +315,10 @@ export const BUILDINGS = [
   // ════════════════════════════════════════════════════════════
   {
     id: "FACTORY_001",
-    name: nm("수공업 작업장"),
+    name: [{ code: "Kr", context: "수공업 작업장" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["industry"],
-    desc: nm("장인들이 손으로 물건을 만드는 소규모 작업장."),
+    desc: [{ code: "Kr", context: "장인들이 손으로 물건을 만드는 소규모 작업장." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { industry: 10 },
     reqPop: [{ code: "WORKER", unit: 2 }],
     buildRequire: {},
@@ -351,10 +331,10 @@ export const BUILDINGS = [
   },
   {
     id: "FACTORY_002",
-    name: nm("경공업 공장"),
+    name: [{ code: "Kr", context: "경공업 공장" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["industry"],
-    desc: nm("증기·전력 기관을 도입한 초기 산업화 단계의 공장."),
+    desc: [{ code: "Kr", context: "증기·전력 기관을 도입한 초기 산업화 단계의 공장." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { industry: 25 },
     reqPop: [{ code: "WORKER", unit: 2 }],
     buildRequire: {},
@@ -367,10 +347,10 @@ export const BUILDINGS = [
   },
   {
     id: "FACTORY_003",
-    name: nm("자동화 공업단지"),
+    name: [{ code: "Kr", context: "자동화 공업단지" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["industry"],
-    desc: nm("컨베이어 벨트와 자동화 설비를 갖춘 현대적 공업단지."),
+    desc: [{ code: "Kr", context: "컨베이어 벨트와 자동화 설비를 갖춘 현대적 공업단지." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { industry: 55, incomeBonus: 0.1 },
     reqPop: [{ code: "WORKER", unit: 1 }],
     buildRequire: {},
@@ -383,10 +363,10 @@ export const BUILDINGS = [
   },
   {
     id: "FACTORY_004",
-    name: nm("로봇 생산 콤플렉스"),
+    name: [{ code: "Kr", context: "로봇 생산 콤플렉스" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["industry"],
-    desc: nm("산업용 로봇이 주력 노동력인 대규모 생산 콤플렉스."),
+    desc: [{ code: "Kr", context: "산업용 로봇이 주력 노동력인 대규모 생산 콤플렉스." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { industry: 120, incomeBonus: 0.15 },
     reqPop: [{ code: "WORKER", unit: 1 }],
     buildRequire: {},
@@ -399,10 +379,10 @@ export const BUILDINGS = [
   },
   {
     id: "FACTORY_005",
-    name: nm("초정밀 무인 생산단지"),
+    name: [{ code: "Kr", context: "초정밀 무인 생산단지" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["industry"],
-    desc: nm("나노 단위 정밀 제조까지 가능한 완전 무인 생산단지."),
+    desc: [{ code: "Kr", context: "나노 단위 정밀 제조까지 가능한 완전 무인 생산단지." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { industry: 240, incomeBonus: 0.2 },
     reqPop: [{ code: "WORKER", unit: 1 }],
     buildRequire: {},
@@ -419,10 +399,10 @@ export const BUILDINGS = [
   // ════════════════════════════════════════════════════════════
   {
     id: "COMMERCIAL_001",
-    name: nm("시장 거리"),
+    name: [{ code: "Kr", context: "시장 거리" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: [],
-    desc: nm("상인들이 좌판을 펴고 물건을 파는 소박한 시장 거리."),
+    desc: [{ code: "Kr", context: "상인들이 좌판을 펴고 물건을 파는 소박한 시장 거리." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { incomeBonus: 0.02 },
     reqPop: [{ code: "MERCHANT", unit: 2 }],
     buildRequire: {},
@@ -435,10 +415,10 @@ export const BUILDINGS = [
   },
   {
     id: "COMMERCIAL_002",
-    name: nm("상점가"),
+    name: [{ code: "Kr", context: "상점가" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: [],
-    desc: nm("상설 점포들이 줄지어 늘어선 상업 구역."),
+    desc: [{ code: "Kr", context: "상설 점포들이 줄지어 늘어선 상업 구역." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { incomeBonus: 0.04 },
     reqPop: [{ code: "MERCHANT", unit: 2 }],
     buildRequire: {},
@@ -451,12 +431,10 @@ export const BUILDINGS = [
   },
   {
     id: "COMMERCIAL_003",
-    name: nm("상업지구"),
+    name: [{ code: "Kr", context: "상업지구" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: [],
-    desc: nm(
-      "무역과 상업 활동이 본격적으로 이루어지는 구역. 페잔처럼 무역 중심지인 행성에 다수 건설된다."
-    ),
+    desc: [{ code: "Kr", context: "무역과 상업 활동이 본격적으로 이루어지는 구역. 페잔처럼 무역 중심지인 행성에 다수 건설된다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { incomeBonus: 0.08 },
     reqPop: [{ code: "MERCHANT", unit: 1 }],
     buildRequire: {},
@@ -469,10 +447,10 @@ export const BUILDINGS = [
   },
   {
     id: "COMMERCIAL_004",
-    name: nm("금융 중심지"),
+    name: [{ code: "Kr", context: "금융 중심지" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: [],
-    desc: nm("은행과 거대 상사들이 집결한 금융 중심지. 막대한 자본이 오간다."),
+    desc: [{ code: "Kr", context: "은행과 거대 상사들이 집결한 금융 중심지. 막대한 자본이 오간다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { incomeBonus: 0.14 },
     reqPop: [{ code: "MERCHANT", unit: 1 }],
     buildRequire: {},
@@ -485,10 +463,10 @@ export const BUILDINGS = [
   },
   {
     id: "COMMERCIAL_005",
-    name: nm("은하 무역 허브"),
+    name: [{ code: "Kr", context: "은하 무역 허브" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: [],
-    desc: nm("은하 전역의 물류와 자본이 집중되는 초거대 무역 허브."),
+    desc: [{ code: "Kr", context: "은하 전역의 물류와 자본이 집중되는 초거대 무역 허브." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { incomeBonus: 0.22 },
     reqPop: [{ code: "MERCHANT", unit: 1 }],
     buildRequire: {},
@@ -505,10 +483,10 @@ export const BUILDINGS = [
   // ════════════════════════════════════════════════════════════
   {
     id: "ADMIN_001",
-    name: nm("촌장 관사"),
+    name: [{ code: "Kr", context: "촌장 관사" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "administrative",
     product: [],
-    desc: nm("마을 단위의 소박한 행정 시설."),
+    desc: [{ code: "Kr", context: "마을 단위의 소박한 행정 시설." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { morale: 1 },
     reqPop: [{ code: "ADMINISTRATOR", unit: 2 }],
     buildRequire: {},
@@ -521,10 +499,10 @@ export const BUILDINGS = [
   },
   {
     id: "ADMIN_002",
-    name: nm("지방 행정청"),
+    name: [{ code: "Kr", context: "지방 행정청" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "administrative",
     product: [],
-    desc: nm("지역 단위의 행정 업무를 처리하는 관청."),
+    desc: [{ code: "Kr", context: "지역 단위의 행정 업무를 처리하는 관청." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { morale: 2 },
     reqPop: [{ code: "ADMINISTRATOR", unit: 2 }],
     buildRequire: {},
@@ -537,12 +515,10 @@ export const BUILDINGS = [
   },
   {
     id: "ADMIN_003",
-    name: nm("행정중심"),
+    name: [{ code: "Kr", context: "행정중심" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "administrative",
     product: [],
-    desc: nm(
-      "행성 통치 효율을 높이는 본격적인 행정 시설. 부패도 누적을 억제하는 효과가 있다."
-    ),
+    desc: [{ code: "Kr", context: "행성 통치 효율을 높이는 본격적인 행정 시설. 부패도 누적을 억제하는 효과가 있다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { morale: 4 },
     reqPop: [{ code: "ADMINISTRATOR", unit: 1 }],
     buildRequire: {},
@@ -555,10 +531,10 @@ export const BUILDINGS = [
   },
   {
     id: "ADMIN_004",
-    name: nm("총독부"),
+    name: [{ code: "Kr", context: "총독부" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "administrative",
     product: [],
-    desc: nm("행성 전체를 총괄하는 고위 행정 기관."),
+    desc: [{ code: "Kr", context: "행성 전체를 총괄하는 고위 행정 기관." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { morale: 7 },
     reqPop: [{ code: "ADMINISTRATOR", unit: 1 }],
     buildRequire: {},
@@ -571,10 +547,10 @@ export const BUILDINGS = [
   },
   {
     id: "ADMIN_005",
-    name: nm("중앙 통치기구"),
+    name: [{ code: "Kr", context: "중앙 통치기구" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "administrative",
     product: [],
-    desc: nm("국가 차원의 통치 기능까지 일부 수행하는 최고위 행정 기구."),
+    desc: [{ code: "Kr", context: "국가 차원의 통치 기능까지 일부 수행하는 최고위 행정 기구." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { morale: 12 },
     reqPop: [{ code: "ADMINISTRATOR", unit: 1 }],
     buildRequire: {},
@@ -591,12 +567,10 @@ export const BUILDINGS = [
   // ════════════════════════════════════════════════════════════
   {
     id: "RESEARCH_001",
-    name: nm("서당"),
+    name: [{ code: "Kr", context: "서당" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "research",
     product: [],
-    desc: nm(
-      "기초적인 학문을 가르치고 연구하는 소규모 시설. TODO: 연구 시스템 자체가 아직 미설계."
-    ),
+    desc: [{ code: "Kr", context: "기초적인 학문을 가르치고 연구하는 소규모 시설. TODO: 연구 시스템 자체가 아직 미설계." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: {},
     reqPop: [{ code: "RESEARCHER", unit: 2 }],
     buildRequire: {},
@@ -609,10 +583,10 @@ export const BUILDINGS = [
   },
   {
     id: "RESEARCH_002",
-    name: nm("학당"),
+    name: [{ code: "Kr", context: "학당" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "research",
     product: [],
-    desc: nm("체계적인 교육과 연구를 수행하는 중규모 학술 시설."),
+    desc: [{ code: "Kr", context: "체계적인 교육과 연구를 수행하는 중규모 학술 시설." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: {},
     reqPop: [{ code: "RESEARCHER", unit: 2 }],
     buildRequire: {},
@@ -625,10 +599,10 @@ export const BUILDINGS = [
   },
   {
     id: "RESEARCH_003",
-    name: nm("연구소"),
+    name: [{ code: "Kr", context: "연구소" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "research",
     product: [],
-    desc: nm("기술 개발을 수행하는 본격적인 연구 시설."),
+    desc: [{ code: "Kr", context: "기술 개발을 수행하는 본격적인 연구 시설." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: {},
     reqPop: [{ code: "RESEARCHER", unit: 1 }],
     buildRequire: {},
@@ -641,10 +615,10 @@ export const BUILDINGS = [
   },
   {
     id: "RESEARCH_004",
-    name: nm("국립 연구원"),
+    name: [{ code: "Kr", context: "국립 연구원" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "research",
     product: [],
-    desc: nm("국가 차원에서 지원하는 대규모 연구원."),
+    desc: [{ code: "Kr", context: "국가 차원에서 지원하는 대규모 연구원." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: {},
     reqPop: [{ code: "RESEARCHER", unit: 1 }],
     buildRequire: {},
@@ -657,10 +631,10 @@ export const BUILDINGS = [
   },
   {
     id: "RESEARCH_005",
-    name: nm("첨단 과학 연구단지"),
+    name: [{ code: "Kr", context: "첨단 과학 연구단지" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "research",
     product: [],
-    desc: nm("은하 최고 수준의 인력과 설비가 집결한 첨단 연구단지."),
+    desc: [{ code: "Kr", context: "은하 최고 수준의 인력과 설비가 집결한 첨단 연구단지." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: {},
     reqPop: [{ code: "RESEARCHER", unit: 1 }],
     buildRequire: {},
@@ -677,12 +651,10 @@ export const BUILDINGS = [
   // ════════════════════════════════════════════════════════════
   {
     id: "FORTRESS_001",
-    name: nm("요새"),
+    name: [{ code: "Kr", context: "요새" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "military",
     product: [],
-    desc: nm(
-      "행성 궤도에 건설하는 대규모 군사 요새. 방어력이 크게 상승하나 민간 경제활동이 제한된다."
-    ),
+    desc: [{ code: "Kr", context: "행성 궤도에 건설하는 대규모 군사 요새. 방어력이 크게 상승하나 민간 경제활동이 제한된다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { defense: 80, incomeBonus: -1.0 },
     reqPop: [{ code: "GARRISON", unit: 5 }],
     buildRequire: {},
@@ -695,12 +667,10 @@ export const BUILDINGS = [
   },
   {
     id: "ARSENAL_001",
-    name: nm("조병창"),
+    name: [{ code: "Kr", context: "조병창" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "military",
     product: ["industry"],
-    desc: nm(
-      "함선 무장과 군수물자를 생산하는 시설. 주둔 함대의 보급 효율을 높인다."
-    ),
+    desc: [{ code: "Kr", context: "함선 무장과 군수물자를 생산하는 시설. 주둔 함대의 보급 효율을 높인다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { defense: 15, industry: 20 },
     reqPop: [
       { code: "ARMORER", unit: 3 },
@@ -716,12 +686,10 @@ export const BUILDINGS = [
   },
   {
     id: "SHIPYARD_001",
-    name: nm("조선소"),
+    name: [{ code: "Kr", context: "조선소" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "military",
     product: ["industry"],
-    desc: nm(
-      "함선을 건조하는 시설. 보유 시 해당 행성에서 신규 함선 건조가 가능해진다."
-    ),
+    desc: [{ code: "Kr", context: "함선을 건조하는 시설. 보유 시 해당 행성에서 신규 함선 건조가 가능해진다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { industry: 30, buildSpeed: -1 },
     reqPop: [{ code: "WORKER", unit: 4 }],
     buildRequire: {},
@@ -738,12 +706,10 @@ export const BUILDINGS = [
   // ════════════════════════════════════════════════════════════
   {
     id: "EAT_BASE_001",
-    name: nm("지구교 비밀 지부"),
+    name: [{ code: "Kr", context: "지구교 비밀 지부" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "military", // TODO: 카테고리 적합성 재검토 필요(첩보/종교 성격 혼재)
     product: [],
-    desc: nm(
-      "지구교가 행성 내에 은밀히 설치한 비밀 거점. 비노출 시설로 건설 슬롯을 소모하지 않는다.\n      효과: 5턴마다 행성 pops의 1unit이 15%(*2) 확률로 idea=300(신정정치/테라이즘)으로 변환된다."
-    ),
+    desc: [{ code: "Kr", context: "지구교가 행성 내에 은밀히 설치한 비밀 거점. 비노출 시설로 건설 슬롯을 소모하지 않는다.\n      효과: 5턴마다 행성 pops의 1unit이 15%(*2) 확률로 idea=300(신정정치/테라이즘)으로 변환된다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: {}, // TODO: 정형화된 effects 키로 표현하기 어려운 확률적/주기적 효과. 별도 이벤트 로직으로 구현 필요.
     reqPop: [],
     buildRequire: {},
@@ -760,12 +726,10 @@ export const BUILDINGS = [
   // ════════════════════════════════════════════════════════════
   {
     id: "ISERLOHN_FORTRESS",
-    name: nm("이제르론 요새"),
+    name: [{ code: "Kr", context: "이제르론 요새" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "military",
     product: [],
-    desc: nm(
-      "이제르론 회랑에 위치한 난공불락의 인공 요새. 직경 60km, 요새주포 '뇌신의 망치(トゥール・ハンマー)' 보유."
-    ),
+    desc: [{ code: "Kr", context: "이제르론 회랑에 위치한 난공불락의 인공 요새. 직경 60km, 요새주포 '뇌신의 망치(トゥール・ハンマー)' 보유." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { defense: 999, incomeBonus: -1.0 },
     reqPop: [],
     buildRequire: {},
@@ -778,12 +742,10 @@ export const BUILDINGS = [
   },
   {
     id: "GAIESBURG_FORTRESS",
-    name: nm("가이에스부르크 요새"),
+    name: [{ code: "Kr", context: "가이에스부르크 요새" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "military",
     product: [],
-    desc: nm(
-      "은하제국의 군사 거점으로 건설된 인공 요새. 직경 45km. 리프슈타트 전역 당시 이동 요새로 개조되어 이제르론 공략에 투입되었다."
-    ),
+    desc: [{ code: "Kr", context: "은하제국의 군사 거점으로 건설된 인공 요새. 직경 45km. 리프슈타트 전역 당시 이동 요새로 개조되어 이제르론 공략에 투입되었다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { defense: 900, incomeBonus: -1.0 },
     reqPop: [],
     buildRequire: {},
@@ -796,12 +758,10 @@ export const BUILDINGS = [
   },
   {
     id: "GARMISCH_FORTRESS",
-    name: nm("가르미슈 요새"),
+    name: [{ code: "Kr", context: "가르미슈 요새" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "military",
     product: [],
-    desc: nm(
-      "제국 영내의 군사 거점. 구형 인공천체. 리프슈타트 전역 당시 문벌귀족연합의 거점 중 하나였다."
-    ),
+    desc: [{ code: "Kr", context: "제국 영내의 군사 거점. 구형 인공천체. 리프슈타트 전역 당시 문벌귀족연합의 거점 중 하나였다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { defense: 400, incomeBonus: -1.0 },
     reqPop: [],
     buildRequire: {},
@@ -814,12 +774,10 @@ export const BUILDINGS = [
   },
   {
     id: "RENTENBERG_FORTRESS",
-    name: nm("렌텐베르크 요새"),
+    name: [{ code: "Kr", context: "렌텐베르크 요새" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "military",
     product: [],
-    desc: nm(
-      "제국 영내의 군사 거점. 소행성을 깎아 만든 시설로, 표준적인 요새 규모를 갖춘다. 요새주포 없음(작중 설정 반영)."
-    ),
+    desc: [{ code: "Kr", context: "제국 영내의 군사 거점. 소행성을 깎아 만든 시설로, 표준적인 요새 규모를 갖춘다. 요새주포 없음(작중 설정 반영)." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: { defense: 400, incomeBonus: -1.0 },
     reqPop: [],
     buildRequire: {},
@@ -832,12 +790,10 @@ export const BUILDINGS = [
   },
   {
     id: "QUEMMEL_RESIDENCE",
-    name: nm("큄멜 저택"),
+    name: [{ code: "Kr", context: "큄멜 저택" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "military", // TODO: 카테고리 적합성 재검토 필요
     product: [],
-    desc: nm(
-      "지구교 관련 인물의 저택으로 위장된 비밀시설. 비노출, 건설 슬롯 미점유.\n      효과: 같은 행성의 EAT_BASE 주기를 5턴에서 3턴으로 단축시킨다."
-    ),
+    desc: [{ code: "Kr", context: "지구교 관련 인물의 저택으로 위장된 비밀시설. 비노출, 건설 슬롯 미점유.\n      효과: 같은 행성의 EAT_BASE 주기를 5턴에서 3턴으로 단축시킨다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     effects: {}, // TODO: EAT_BASE와 연동되는 효과. 별도 로직으로 구현 필요.
     reqPop: [],
     buildRequire: {},
