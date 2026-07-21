@@ -5019,11 +5019,11 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 700,
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 200 }],
     },
     /** @자원_건설 */
     assets: {
@@ -5033,8 +5033,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 140,
+      details: [{ b_id: "FARM_000", count: 4, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -5060,11 +5060,11 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 550,
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 150 }],
     },
     /** @자원_건설 */
     assets: {
@@ -5074,8 +5074,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 110,
+      details: [{ b_id: "FARM_000", count: 3, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -5101,11 +5101,11 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 550,
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 150 }],
     },
     /** @자원_건설 */
     assets: {
@@ -5115,8 +5115,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 110,
+      details: [{ b_id: "FARM_000", count: 3, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -5142,11 +5142,11 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 650,
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 200 }],
     },
     /** @자원_건설 */
     assets: {
@@ -5156,8 +5156,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 130,
+      details: [{ b_id: "FARM_000", count: 4, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -5183,11 +5183,11 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 250,
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 100 }],
     },
     /** @자원_건설 */
     assets: {
@@ -5197,8 +5197,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 50,
+      details: [{ b_id: "FARM_000", count: 2, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -5265,11 +5265,11 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 300,
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 100 }],
     },
     /** @자원_건설 */
     assets: {
@@ -5279,8 +5279,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 60,
+      details: [{ b_id: "FARM_000", count: 2, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -5306,11 +5306,11 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 450,
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 150 }],
     },
     /** @자원_건설 */
     assets: {
@@ -5320,8 +5320,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 90,
+      details: [{ b_id: "FARM_000", count: 3, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],
@@ -5347,11 +5347,11 @@ export const PLANETS = [
     commander: "",
     /** @인구 */
     pops: {
-      unit: 0,
+      unit: 600,
       econ: [],
       idea: [],
       clique: [],
-      jobs: [],
+      jobs: [{ job_code: "FARMER", b_id: "FARM_000", unit: 150 }],
     },
     /** @자원_건설 */
     assets: {
@@ -5361,8 +5361,8 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1,
-      details: [],
+      maxSize: 120,
+      details: [{ b_id: "FARM_000", count: 3, active: true, construct: 0 }],
     },
     /** @특성 */
     traits: [],

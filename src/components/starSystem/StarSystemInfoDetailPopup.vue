@@ -22,6 +22,23 @@
           <span class="ssd-sb"><span class="ssd-sf" :style="{ width: pct(sys[s.key], s.max) }" /></span>
           <span class="ssd-sv mono" :style="valStyle(sys[s.key], s.max)">{{ sys[s.key] ?? '-' }}</span>
         </div>
+        <!-- 식량 수지 바 (중앙=0, 왼쪽=부족, 오른쪽=잉여) -->
+        <div v-if="sysFood" class="ssd-stat">
+          <span class="ssd-sl mono">식량</span>
+          <div class="ssd-food-bar">
+            <div class="ssd-food-center" />
+            <div v-if="sysFood.balance >= 0"
+                 class="ssd-food-fill ssd-food-fill--pos"
+                 :style="{ width: foodPct(sysFood.balance, sysFood.pops) }" />
+            <div v-else
+                 class="ssd-food-fill ssd-food-fill--neg"
+                 :style="{ width: foodPct(-sysFood.balance, sysFood.pops) }" />
+          </div>
+          <span class="ssd-sv ssd-sv--food mono"
+                :class="sysFood.balance >= 0 ? 'food-pos' : 'food-neg'">
+            {{ sysFood.balance >= 0 ? '+' : '' }}{{ sysFood.balance.toLocaleString() }}
+          </span>
+        </div>
       </div>
 
       <!-- 행성 -->
@@ -69,6 +86,7 @@ import { ref, computed } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import PlanetInfoDetailPopup from '@/components/starSystem/PlanetInfoDetailPopup.vue'
 import { useLang } from '@/composables/useLang'
+import { BUILDING_MAP } from '@/data/base/buildingData'
 
 const props = defineProps({
   show:       { type: Boolean, default: false },
@@ -110,6 +128,43 @@ const STATS = [
   { key: 'morale',     label: '민심', max: 100 },
   { key: 'tax',        label: '세율', max: 100 },
 ]
+
+const sysFood = computed(() => {
+  if (!sys.value) return null
+  let totalNet = 0, totalPops = 0
+
+  for (const p of (sys.value.planets ?? [])) {
+    const taxRate = (game.factions[p.faction]?.defaultTax ?? 0) / 100
+
+    const jobMap = {}
+    for (const j of (p.pops?.jobs ?? [])) {
+      if (!jobMap[j.b_id]) jobMap[j.b_id] = {}
+      jobMap[j.b_id][j.job_code] = (jobMap[j.b_id][j.job_code] ?? 0) + j.unit
+    }
+
+    let foodProd = 0
+    for (const d of (p.buildings?.details ?? [])) {
+      if (!d.active) continue
+      const bld = BUILDING_MAP[d.b_id]
+      if (!bld?.effects?.food) continue
+      const reqFarmer = bld.reqPop?.find(r => r.code === 'FARMER')?.unit ?? 0
+      const staffed = reqFarmer === 0
+        ? d.count
+        : Math.min(Math.floor((jobMap[d.b_id]?.['FARMER'] ?? 0) / reqFarmer), d.count)
+      foodProd += bld.effects.food * staffed
+    }
+
+    totalNet += foodProd - Math.floor(foodProd * taxRate)
+    totalPops += (p.pops?.unit ?? 0)
+  }
+
+  return { net: totalNet, pops: totalPops, balance: totalNet - totalPops }
+})
+
+function foodPct(abs, pops) {
+  if (!pops) return '0%'
+  return `${Math.min((abs / pops) * 50, 50)}%`
+}
 
 function pct(v, max) {
   return `${Math.min((Number(v ?? 0) / max) * 100, 100)}%`
@@ -184,6 +239,24 @@ function valStyle(v, max) {
 .ssd-sb    { flex: 1; height: 4px; background: var(--bg4); border-radius: 2px; overflow: hidden; }
 .ssd-sf    { display: block; height: 100%; background: var(--tg); border-radius: 2px; opacity: .55; }
 .ssd-sv    { font-size: 12px; width: 30px; text-align: right; flex-shrink: 0; }
+.ssd-sv--food { width: auto; min-width: 48px; }
+
+/* 식량 수지 바 */
+.ssd-food-bar {
+  flex: 1; height: 4px; position: relative;
+  background: var(--bg4); border-radius: 2px; overflow: hidden;
+}
+.ssd-food-center {
+  position: absolute; left: 50%; top: 0;
+  width: 1px; height: 100%; background: rgba(255,255,255,.25);
+}
+.ssd-food-fill {
+  position: absolute; top: 0; height: 100%;
+}
+.ssd-food-fill--pos { left: 50%; background: #2ecc71; opacity: .7; }
+.ssd-food-fill--neg { right: 50%; background: #e74c3c; opacity: .7; }
+.food-pos { color: #2ecc71; }
+.food-neg { color: #e74c3c; }
 
 /* 행성 */
 .ssd-planets { display: flex; flex-direction: column; gap: 6px; }

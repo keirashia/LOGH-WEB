@@ -104,10 +104,6 @@
  * @property {boolean} hidden
  */
 
-function nm(kr) {
-  return [{ code: "Kr", context: kr }];
-}
-
 export const BUILDINGS = [
   // ════════════════════════════════════════════════════════════
   //  경제(economic) — 농업 6단계 (0~5단계)
@@ -125,17 +121,11 @@ export const BUILDINGS = [
   // ════════════════════════════════════════════════════════════
   {
     id: "FARM_000",
-    name: [{ code: "Kr", context: "화전 농경지" }],
+    name: [{ code: "Kr", context: "화전 농경지" }, { code: "En", context: "" }, { code: "Jp", context: "" }],
     category: "economic",
     product: ["food"],
-    desc: [
-      {
-        code: "Kr",
-        context: `가장 원시적인 식량 생산 방식. 맨땅에 불을 놓아 경작하는 화전 농법으로, 
-        자급자족이 가능한 정도의 식량만 생산 가능하다.`,
-      },
-    ],
-    effects: { food: 50 },
+    desc: [{ code: "Kr", context: "가장 원시적인 식량 생산 방식. 맨땅에 불을 놓아 경작하는 화전 농법으로, 자급자족이 가능한 정도의 식량만 생산 가능하다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
+    effects: { food: 200 },
     reqPop: [{ code: "FARMER", unit: 50 }],
     buildRequire: {},
     buildCost: 0,
@@ -167,7 +157,7 @@ export const BUILDINGS = [
     category: "economic",
     product: ["food"],
     desc: [{ code: "Kr", context: "인류가 지구에 있을 무렵, 중-근대 시대에 사용했던 농기구를 활용한 전통적 농업 방식." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
-    effects: { food: 600 },
+    effects: { food: 300 },
     reqPop: [{ code: "FARMER", unit: 15 }],
     buildRequire: {},
     buildCost: 700,
@@ -183,7 +173,7 @@ export const BUILDINGS = [
     category: "economic",
     product: ["food"],
     desc: [{ code: "Kr", context: "농기계를 도입한 현대적 농업시설. 재래식 대비 훨씬 적은 인력으로 많은 식량을 생산한다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
-    effects: { food: 1000 },
+    effects: { food: 200 },
     reqPop: [{ code: "FARMER", unit: 5 }],
     buildRequire: {},
     buildCost: 1500,
@@ -199,7 +189,7 @@ export const BUILDINGS = [
     category: "economic",
     product: ["food"],
     desc: [{ code: "Kr", context: "유전자 조작 작물과 수경재배 기술을 적용한 농장. 환경 제약 없이 대량 생산이 가능하다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
-    effects: { food: 1000 },
+    effects: { food: 140 },
     reqPop: [{ code: "FARMER", unit: 2 }],
     buildRequire: {},
     buildCost: 3500,
@@ -215,7 +205,7 @@ export const BUILDINGS = [
     category: "economic",
     product: ["food"],
     desc: [{ code: "Kr", context: "로봇과 AI로 전 공정이 자동화된 최첨단 농장. 최소한의 관리 인력만으로 막대한 식량을 생산한다." }, { code: "En", context: "" }, { code: "Jp", context: "" }],
-    effects: { food: 2000 },
+    effects: { food: 100 },
     reqPop: [{ code: "FARMER", unit: 1 }],
     buildRequire: {},
     buildCost: 9000,

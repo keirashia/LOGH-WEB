@@ -910,4 +910,20 @@ export const LANES = [
     stability: 45,
   }, // VERMILION↔REZAVIK
 
+  // 230092 PREVDO
+  {
+    id: "LANE_119",
+    stars: ["230092", "230034"],
+    type: "normal",
+    period: 1,
+    stability: 45,
+  }, // PREVDO↔LUNBINI
+  {
+    id: "LANE_120",
+    stars: ["230092", "230042"],
+    type: "normal",
+    period: 1,
+    stability: 45,
+  }, // PREVDO↔PHEZZAN
+
 ];
