@@ -32,18 +32,6 @@ export const JOBS = [
   //   desc: "사령관을 보좌하는 부관.",
   // },
   // {
-  //   id: "JB_M003",
-  //   name: [{ code: "Kr", context: "참모" }, { code: "En", context: "Staff Officer" }],
-  //   category: "military",
-  //   faction: null,
-  //   effects: { INF: 5, MNG: 5 },
-  //   canCommand: false,
-  //   canGovern: false,
-  //   expToNext: null,
-  //   nextJob: null,
-  //   desc: "내정·정보 보조를 담당하는 참모.",
-  // },
-  // {
   //   id: "JB_M004",
   //   name: [{ code: "Kr", context: "요새사령관" }, { code: "En", context: "Fortress Commander" }],
   //   category: "military",

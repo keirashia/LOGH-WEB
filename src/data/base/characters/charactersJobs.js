@@ -128,11 +128,6 @@ export const CHAR_JOBS = [
     jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
   },
   // 차오 유이룽 (https://gineipaedia.com/wiki/Chao_Yuiling)
-  {
-    charCode: "CH_000389",
-    jobCode: "JB_M003",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
   // 졸리오 프랑쿠르 (https://gineipaedia.com/wiki/Joliot_Frankul)
   {
     charCode: "CH_000381",
@@ -158,11 +153,6 @@ export const CHAR_JOBS = [
     jobLevel: 0, jobExp: 900, jobStDate: 0, jobEdDate: 0,
   },
   // 장 로베르 랍 (아스타테 회전 기준 6함대 참모, 당시 소령)
-  {
-    charCode: "CH_000368",
-    jobCode: "JB_M003",
-    jobLevel: 0, jobExp: 0, jobStDate: 0, jobEdDate: 0,
-  },
   {
     charCode: "CH_000368",
     jobCode: "JB_MR009",

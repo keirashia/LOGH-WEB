@@ -9483,7 +9483,7 @@ export const CHAR_BASE = [
     birth: "",
     death: "",
     // — 성향
-    faction: "FPA",
+    faction: "",
     idea: "30",
     econ: "140",
     brave: "65",
@@ -14215,7 +14215,6 @@ export const CHAR_BASE = [
     ],
     // 사망 이후 시나리오에선 desc에 추가 '아스타테 회전에서 전사. 이후 양 웬리는 그의 이른 죽음을 두고두고 안타까워했다.'
     // — 직업
-    // 참모(JB_M003) LV0
     // 소령(JB_MR009) LV0
     // — 트레잇
   },
@@ -15113,7 +15112,6 @@ export const CHAR_BASE = [
       },
     ],
     // — 직업
-    // 참모(JB_M003) LV0
     // — 트레잇
   },
   {
