@@ -101,7 +101,7 @@
 </template>
 
 <script setup>
-import { ref, computed, reactive, watch } from 'vue'
+import { ref, computed, reactive, watch, onMounted } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { OPERATION_OBJECTIVES, TACTICAL_ROLES, defaultFleetRole } from '@/data/base/tactical/tacticalData'
 import { useLang } from '@/composables/useLang'
@@ -126,7 +126,10 @@ const isAttacker    = computed(() => playerSide.value === 'attacker')
 
 const fleets = computed(() => {
   if (!playerSide.value) return []
-  return playerSide.value === 'attacker' ? props.ctx.attackerFleets : props.ctx.defenderFleets
+  const allFleets = playerSide.value === 'attacker' ? props.ctx.attackerFleets : props.ctx.defenderFleets
+  const pFleetId = game.playerChar?.fleetCode
+  if (!pFleetId) return []
+  return allFleets.filter(f => f.id === pFleetId)
 })
 
 // ── 현재 진행 상태 ────────────────────────────────────────────
@@ -146,6 +149,10 @@ function initRoles() {
 }
 initRoles()
 watch(() => fleets.value, initRoles)
+
+onMounted(() => {
+  if (fleets.value.length === 0) emit('skip')
+})
 
 const currentFleet  = computed(() => fleets.value[currentIdx.value] ?? null)
 const isPlayerFleet = computed(() =>

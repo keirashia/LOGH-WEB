@@ -60,7 +60,7 @@
         </div>
 
         <div class="obm-footer">
-          <button class="btn" @click="emit('skip')">건너뜀</button>
+          <button class="btn" :disabled="!canSkip" @click="emit('skip')">건너뜀</button>
           <button class="btn btn-gold" @click="stage = 'proposal'">작전 협의 →</button>
         </div>
       </template>
@@ -74,6 +74,12 @@
 
           <!-- 아군 제독들 -->
           <div v-for="f in playerSideFleets" :key="f.id" class="proposal-row" :class="{ 'player-row': f.isPlayerFleet }">
+            <img
+              v-if="f.char"
+              class="proposer-portrait"
+              :src="charImgSrc(f.char.code)"
+              @error="e => handleCharImgError(e, f.char.code)"
+            />
             <div class="proposer-info">
               <span class="proposer-name serif" :class="`fc-${ctx.playerFaction ?? ctx.attackerFaction}`">
                 {{ f.char ? charName(f.char) : f.name }}
@@ -163,7 +169,9 @@
 
 <script setup>
 import { ref, computed, reactive } from 'vue'
-import { useGameStore }  from '@/stores/gameStore'
+import { useGameStore }     from '@/stores/gameStore'
+import { useTacticalStore } from '@/stores/tacticalStore'
+import { charImgSrc, handleCharImgError } from '@/utils/charImg'
 import { OPERATION_OBJECTIVES } from '@/data/base/tactical/tacticalData'
 import { JOB_MAP } from '@/data/base/jobs/jobData'
 import { useLang } from '@/composables/useLang'
@@ -174,7 +182,10 @@ const props = defineProps({
 const emit = defineEmits(['confirm', 'skip'])
 
 const game     = useGameStore()
+const tactical = useTacticalStore()
 const { lang } = useLang()
+
+const canSkip = computed(() => tactical.operationObjective != null)
 
 // ── 단계 ──────────────────────────────────────────────────────
 const stage = ref('briefing')
@@ -374,6 +385,13 @@ function onConfirm() {
 }
 .proposal-row.player-row { border-color: rgba(218,165,32,.3); }
 
+.proposer-portrait {
+  width: 80px; height: 80px;
+  border-radius: 4px;
+  object-fit: cover; object-position: top;
+  border: 1px solid var(--bd);
+  flex-shrink: 0;
+}
 .proposer-info  { display: flex; flex-direction: column; gap: 2px; min-width: 80px; }
 .proposer-name  { font-size: 12px; font-weight: bold; }
 .proposer-fleet { font-size: 10px; color: var(--td); }
