@@ -98,7 +98,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 420,
+      maxSize: 840,
       details: [{ b_id: "FARM_000", count: 400, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -137,7 +137,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 160,
+      maxSize: 320,
       details: [{ b_id: "FARM_000", count: 152, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -185,7 +185,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 4,
+      maxSize: 8,
       details: [{ b_id: "FARM_000", count: 4, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -231,7 +231,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 80,
+      maxSize: 160,
       details: [{ b_id: "FARM_000", count: 76, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -272,7 +272,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 150,
+      maxSize: 300,
       details: [{ b_id: "FARM_000", count: 143, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -308,7 +308,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 120,
+      maxSize: 240,
       details: [{ b_id: "FARM_000", count: 114, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -344,7 +344,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 150,
+      maxSize: 300,
       details: [{ b_id: "FARM_000", count: 143, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -382,7 +382,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -420,7 +420,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 9,
+      maxSize: 18,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -456,7 +456,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 6,
+      maxSize: 12,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -492,7 +492,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 4,
+      maxSize: 8,
       details: [{ id: "FARM_002", count: 1 }],
     },
     /** @특성 */
@@ -530,7 +530,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 1950,
+      maxSize: 3900,
       details: [{ id: "FARM_003", count: 13 }],
     },
     /** @특성 */
@@ -566,7 +566,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 240,
+      maxSize: 480,
       details: [{ id: "FARM_002", count: 3 }],
     },
     /** @특성 */
@@ -602,7 +602,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 160,
+      maxSize: 320,
       details: [{ id: "FARM_002", count: 2 }],
     },
     /** @특성 */
@@ -640,7 +640,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -678,7 +678,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 180,
+      maxSize: 360,
       details: [{ b_id: "FARM_000", count: 171, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -714,7 +714,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 180,
+      maxSize: 360,
       details: [{ b_id: "FARM_000", count: 171, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -750,7 +750,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 180,
+      maxSize: 360,
       details: [{ b_id: "FARM_000", count: 171, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -788,7 +788,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 360,
+      maxSize: 720,
       details: [{ b_id: "FARM_000", count: 343, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -832,7 +832,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 4,
+      maxSize: 8,
       details: [{ b_id: "FARM_000", count: 4, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -876,7 +876,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -914,7 +914,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 120,
+      maxSize: 240,
       details: [{ id: "FARM_001", count: 3 }],
     },
     /** @특성 */
@@ -950,7 +950,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 120,
+      maxSize: 240,
       details: [{ id: "FARM_001", count: 3 }],
     },
     /** @특성 */
@@ -988,7 +988,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 240,
+      maxSize: 480,
       details: [{ b_id: "FARM_000", count: 229, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1026,7 +1026,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 450,
+      maxSize: 900,
       details: [{ id: "FARM_003", count: 3 }],
     },
     /** @특성 */
@@ -1064,7 +1064,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 150,
+      maxSize: 300,
       details: [{ b_id: "FARM_000", count: 143, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1100,7 +1100,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 150,
+      maxSize: 300,
       details: [{ b_id: "FARM_000", count: 143, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1138,7 +1138,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 480,
+      maxSize: 960,
       details: [{ b_id: "FARM_000", count: 457, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1176,7 +1176,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 300,
+      maxSize: 600,
       details: [{ id: "FARM_003", count: 2 }],
     },
     /** @특성 */
@@ -1212,7 +1212,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 180,
+      maxSize: 360,
       details: [{ id: "FARM_002", count: 2 }],
     },
     /** @특성 */
@@ -1248,7 +1248,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 240,
+      maxSize: 480,
       details: [{ id: "FARM_002", count: 3 }],
     },
     /** @특성 */
@@ -1286,7 +1286,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 180,
+      maxSize: 360,
       details: [{ id: "FARM_002", count: 2 }],
     },
     /** @특성 */
@@ -1322,7 +1322,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 80,
+      maxSize: 160,
       details: [{ id: "FARM_001", count: 2 }],
     },
     /** @특성 */
@@ -1360,7 +1360,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -1396,7 +1396,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -1439,7 +1439,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 59,
+      maxSize: 118,
       details: [{ b_id: "FARM_000", count: 56, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1475,7 +1475,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 450,
+      maxSize: 900,
       details: [{ b_id: "FARM_000", count: 429, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1516,7 +1516,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 270,
+      maxSize: 540,
       details: [{ id: "FARM_002", count: 3 }],
     },
     /** @특성 */
@@ -1555,7 +1555,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 270,
+      maxSize: 540,
       details: [{ id: "FARM_002", count: 3 }],
     },
     /** @특성 */
@@ -1594,7 +1594,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 24,
+      maxSize: 48,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -1632,7 +1632,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 300,
+      maxSize: 600,
       details: [{ b_id: "FARM_000", count: 286, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1670,7 +1670,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 5,
+      maxSize: 10,
       details: [{ b_id: "FARM_000", count: 4, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1708,7 +1708,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 450,
+      maxSize: 900,
       details: [{ id: "FARM_003", count: 3 }],
     },
     /** @특성 */
@@ -1744,7 +1744,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 36,
+      maxSize: 72,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -1782,7 +1782,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 360,
+      maxSize: 720,
       details: [{ b_id: "FARM_000", count: 343, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1825,7 +1825,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 17,
+      maxSize: 34,
       details: [{ b_id: "FARM_000", count: 16, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1868,7 +1868,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 89,
+      maxSize: 178,
       details: [{ b_id: "FARM_000", count: 84, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1909,7 +1909,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 66,
+      maxSize: 132,
       details: [{ b_id: "FARM_000", count: 62, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1952,7 +1952,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 24,
+      maxSize: 48,
       details: [{ b_id: "FARM_000", count: 22, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -1993,7 +1993,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 19,
+      maxSize: 38,
       details: [{ b_id: "FARM_000", count: 18, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -2036,7 +2036,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 76,
+      maxSize: 152,
       details: [{ b_id: "FARM_000", count: 72, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -2072,7 +2072,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 300,
+      maxSize: 600,
       details: [{ b_id: "FARM_000", count: 286, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -2108,7 +2108,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 270,
+      maxSize: 540,
       details: [{ b_id: "FARM_000", count: 257, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -2146,7 +2146,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 20,
+      maxSize: 40,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -2184,7 +2184,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 960,
+      maxSize: 1920,
       details: [{ b_id: "FARM_000", count: 914, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -2227,7 +2227,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 40,
+      maxSize: 80,
       details: [{ b_id: "FARM_000", count: 38, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -2265,7 +2265,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 360,
+      maxSize: 720,
       details: [{ b_id: "FARM_000", count: 343, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -2306,7 +2306,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 51,
+      maxSize: 102,
       details: [{ b_id: "FARM_000", count: 48, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -2344,7 +2344,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 90,
+      maxSize: 180,
       details: [{ id: "FARM_002", count: 1 }],
     },
     /** @특성 */
@@ -2380,7 +2380,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 56,
+      maxSize: 112,
       details: [{ id: "FARM_001", count: 2 }],
     },
     /** @특성 */
@@ -2418,7 +2418,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -2456,7 +2456,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 450,
+      maxSize: 900,
       details: [{ id: "FARM_003", count: 3 }],
     },
     /** @특성 */
@@ -2494,7 +2494,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 40,
+      maxSize: 80,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -2532,7 +2532,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -2570,7 +2570,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 660,
+      maxSize: 1320,
       details: [{ b_id: "FARM_000", count: 629, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -2608,7 +2608,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 540,
+      maxSize: 1080,
       details: [{ b_id: "FARM_000", count: 514, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -2651,7 +2651,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ b_id: "FARM_000", count: 28, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -2689,7 +2689,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -2727,7 +2727,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 3600,
+      maxSize: 7200,
       details: [],
     },
     /** @특성 */
@@ -2765,7 +2765,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -2803,7 +2803,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 120,
+      maxSize: 240,
       details: [{ b_id: "FARM_000", count: 114, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -2841,7 +2841,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 480,
+      maxSize: 960,
       details: [{ id: "FARM_003", count: 4 }],
     },
     /** @특성 */
@@ -2879,7 +2879,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -2915,7 +2915,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -2951,7 +2951,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -2989,7 +2989,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 510,
+      maxSize: 1020,
       details: [{ id: "FARM_003", count: 4 }],
     },
     /** @특성 */
@@ -3025,7 +3025,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 510,
+      maxSize: 1020,
       details: [{ id: "FARM_003", count: 4 }],
     },
     /** @특성 */
@@ -3063,7 +3063,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 360,
+      maxSize: 720,
       details: [{ b_id: "FARM_000", count: 343, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -3101,7 +3101,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -3144,7 +3144,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 34,
+      maxSize: 68,
       details: [{ b_id: "FARM_000", count: 32, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -3185,7 +3185,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ b_id: "FARM_000", count: 28, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -3221,7 +3221,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 300,
+      maxSize: 600,
       details: [{ b_id: "FARM_000", count: 286, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -3259,7 +3259,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 64,
+      maxSize: 128,
       details: [{ id: "FARM_001", count: 2 }],
     },
     /** @특성 */
@@ -3295,7 +3295,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 360,
+      maxSize: 720,
       details: [{ id: "FARM_002", count: 4 }],
     },
     /** @특성 */
@@ -3333,7 +3333,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -3371,7 +3371,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 480,
+      maxSize: 960,
       details: [{ id: "FARM_003", count: 4 }],
     },
     /** @특성 */
@@ -3407,7 +3407,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 480,
+      maxSize: 960,
       details: [{ id: "FARM_003", count: 4 }],
     },
     /** @특성 */
@@ -3445,7 +3445,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 180,
+      maxSize: 360,
       details: [{ id: "FARM_002", count: 2 }],
     },
     /** @특성 */
@@ -3483,7 +3483,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 15,
+      maxSize: 30,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -3519,7 +3519,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 12,
+      maxSize: 24,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -3555,7 +3555,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 10,
+      maxSize: 20,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -3591,7 +3591,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 9,
+      maxSize: 18,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -3629,7 +3629,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 390,
+      maxSize: 780,
       details: [{ b_id: "FARM_000", count: 371, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -3670,7 +3670,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 61,
+      maxSize: 122,
       details: [{ b_id: "FARM_000", count: 58, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -3708,7 +3708,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 360,
+      maxSize: 720,
       details: [{ id: "FARM_002", count: 4 }],
     },
     /** @특성 */
@@ -3755,7 +3755,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 990,
+      maxSize: 1980,
       details: [{ b_id: "FARM_000", count: 943, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -3797,7 +3797,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 360,
+      maxSize: 720,
       details: [{ b_id: "FARM_000", count: 343, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -3838,7 +3838,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 122,
+      maxSize: 244,
       details: [{ b_id: "FARM_000", count: 116, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -3876,7 +3876,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 240,
+      maxSize: 480,
       details: [{ b_id: "FARM_000", count: 229, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -3912,7 +3912,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 240,
+      maxSize: 480,
       details: [{ b_id: "FARM_000", count: 229, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -3950,7 +3950,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -3988,7 +3988,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 240,
+      maxSize: 480,
       details: [{ id: "FARM_002", count: 3 }],
     },
     /** @특성 */
@@ -4026,7 +4026,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 360,
+      maxSize: 720,
       details: [{ b_id: "FARM_000", count: 343, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4062,7 +4062,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 300,
+      maxSize: 600,
       details: [{ b_id: "FARM_000", count: 286, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4103,7 +4103,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 540,
+      maxSize: 1080,
       details: [{ id: "FARM_003", count: 4 }],
     },
     /** @특성 */
@@ -4139,7 +4139,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -4185,7 +4185,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 21,
+      maxSize: 42,
       details: [{ b_id: "FARM_000", count: 20, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4223,7 +4223,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -4269,7 +4269,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 45,
+      maxSize: 90,
       details: [{ b_id: "FARM_000", count: 42, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4307,7 +4307,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 30,
+      maxSize: 60,
       details: [],
     },
     /** @특성 */
@@ -4348,7 +4348,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 20,
+      maxSize: 40,
       details: [{ b_id: "FARM_000", count: 19, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4394,7 +4394,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 26,
+      maxSize: 52,
       details: [{ b_id: "FARM_000", count: 24, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4440,7 +4440,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 70,
+      maxSize: 140,
       details: [{ b_id: "FARM_000", count: 66, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4486,7 +4486,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 55,
+      maxSize: 110,
       details: [{ b_id: "FARM_000", count: 52, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4532,7 +4532,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 32,
+      maxSize: 64,
       details: [{ b_id: "FARM_000", count: 30, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4578,7 +4578,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 78,
+      maxSize: 156,
       details: [{ b_id: "FARM_000", count: 74, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4624,7 +4624,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 84,
+      maxSize: 168,
       details: [{ b_id: "FARM_000", count: 80, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4670,7 +4670,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 101,
+      maxSize: 202,
       details: [{ b_id: "FARM_000", count: 96, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4716,7 +4716,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 47,
+      maxSize: 94,
       details: [{ b_id: "FARM_000", count: 44, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4762,7 +4762,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 28,
+      maxSize: 56,
       details: [{ b_id: "FARM_000", count: 26, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4808,7 +4808,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 72,
+      maxSize: 144,
       details: [{ b_id: "FARM_000", count: 68, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4854,7 +4854,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 91,
+      maxSize: 182,
       details: [{ b_id: "FARM_000", count: 86, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4900,7 +4900,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 34,
+      maxSize: 68,
       details: [{ b_id: "FARM_000", count: 32, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4946,7 +4946,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 49,
+      maxSize: 98,
       details: [{ b_id: "FARM_000", count: 46, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -4992,7 +4992,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 36,
+      maxSize: 72,
       details: [{ b_id: "FARM_000", count: 34, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -5033,7 +5033,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 140,
+      maxSize: 280,
       details: [{ b_id: "FARM_000", count: 4, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -5074,7 +5074,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 110,
+      maxSize: 220,
       details: [{ b_id: "FARM_000", count: 3, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -5115,7 +5115,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 110,
+      maxSize: 220,
       details: [{ b_id: "FARM_000", count: 3, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -5156,7 +5156,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 130,
+      maxSize: 260,
       details: [{ b_id: "FARM_000", count: 4, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -5197,7 +5197,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 50,
+      maxSize: 100,
       details: [{ b_id: "FARM_000", count: 2, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -5238,7 +5238,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 18,
+      maxSize: 36,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
@@ -5279,7 +5279,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 60,
+      maxSize: 120,
       details: [{ b_id: "FARM_000", count: 2, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -5320,7 +5320,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 90,
+      maxSize: 180,
       details: [{ b_id: "FARM_000", count: 3, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -5361,7 +5361,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 120,
+      maxSize: 240,
       details: [{ b_id: "FARM_000", count: 3, active: true, construct: 0 }],
     },
     /** @특성 */
@@ -5402,7 +5402,7 @@ export const PLANETS = [
       mil_supply: 0,
     },
     buildings: {
-      maxSize: 22,
+      maxSize: 44,
       details: [{ id: "FARM_001", count: 1 }],
     },
     /** @특성 */
