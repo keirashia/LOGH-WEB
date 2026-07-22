@@ -175,6 +175,11 @@ function showBattleConfirm(ctx) {
     router.push('/game/tactical')
     return
   }
+  const playerFleetCode = game.playerChar?.fleetCode
+  const isParticipant = !!playerFleetCode && (
+    ctx.attackerFleets.some(f => f.id === playerFleetCode) ||
+    ctx.defenderFleets.some(f => f.id === playerFleetCode)
+  )
   ctx._notified = true
   const sysName = game.systems[ctx.locationId]?.name ?? ctx.locationId
   game.openModal('battleConfirm', {
@@ -183,10 +188,10 @@ function showBattleConfirm(ctx) {
     defenderFaction: ctx.defenderFaction,
     attackerFleets:  ctx.attackerFleets,
     defenderFleets:  ctx.defenderFleets,
-    onManual() {
+    onManual: isParticipant ? () => {
       ctx._handled = true
       router.push('/game/tactical')
-    },
+    } : null,
     onAuto() {
       ctx._handled = true
       const result = game.autoResolveBattle()

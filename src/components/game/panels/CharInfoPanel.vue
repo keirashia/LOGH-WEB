@@ -201,7 +201,12 @@ const fleetAssignment = computed(() => {
 
 const charTraits = computed(() => char.value?.traits ?? [])
 
-const hasPendingBattle = computed(() => game._pendingBattles.length > 0)
+const hasPendingBattle = computed(() => {
+  const fleetCode = char.value?.fleetCode
+  if (!fleetCode) return false
+  const fleet = game.pFleets.find(f => f.id === fleetCode)
+  return fleet?.status === 'battle'
+})
 
 // 행동력 슬롯 (항상 3개)
 const actionSlotDisplay = computed(() => {

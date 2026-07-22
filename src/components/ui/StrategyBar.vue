@@ -29,12 +29,26 @@ const emit = defineEmits(['showBattle'])
 
 const game = useGameStore()
 const activecat = ref(null)
-const hasPendingBattle  = computed(() => game._pendingBattles.length > 0)
-const isMidBattlePaused = computed(() => game._pendingBattles[0]?._midBattlePaused ?? false)
+const hasPendingBattle = computed(() => {
+  const fleetCode = game.playerChar?.fleetCode
+  if (!fleetCode) return false
+  const fleet = game.pFleets.find(f => f.id === fleetCode)
+  return fleet?.status === 'battle'
+})
+const hasAnyBattle = computed(() => game._pendingBattles.length > 0)
+const isMidBattlePaused = computed(() => {
+  if (!hasPendingBattle.value) return false
+  const fleetCode = game.playerChar?.fleetCode
+  const battle = game._pendingBattles.find(b =>
+    b.attackerFleets.some(f => f.id === fleetCode) ||
+    b.defenderFleets.some(f => f.id === fleetCode)
+  )
+  return battle?._midBattlePaused ?? false
+})
 const endBtnLabel = computed(() => {
-  if (!hasPendingBattle.value) return '턴 종료'
-  if (isMidBattlePaused.value) return '전투 재개'
-  return '전투 시작'
+  if (hasPendingBattle.value) return isMidBattlePaused.value ? '전투 재개' : '전투 시작'
+  // if (hasAnyBattle.value)     return '간략히 보기'
+  return '턴 종료'
 })
 const endBtnCls = computed(() => ({ REH:'btn-red', FPA:'btn-blue', PZN:'btn-green' }[game.playerFaction]))
 
@@ -68,7 +82,10 @@ function onEndTurnClick() {
     desc,
     buttons: [
       { label: '취소',   cls: 'btn' },
-      { label: '턴종료', cls: 'btn-gold', action: () => game.endTurn() },
+      { label: '턴종료', cls: 'btn-gold', action: () => {
+        game.endTurn()
+        if (game._pendingBattles.length > 0) setTimeout(() => emit('showBattle'), 0)
+      }},
     ],
   })
 }

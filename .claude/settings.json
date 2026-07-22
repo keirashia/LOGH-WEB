@@ -16,7 +16,11 @@
       "Bash(git checkout *)",
       "Bash(grep -v 'Use \\\\`node')",
       "Bash(node \"C:/Users/keira/AppData/Local/Temp/claude/c--Users-keira-Project-Genei-LOGH-WEB/f33e5a7a-2602-4241-9125-1d777ae9f5d1/scratchpad/fill-reh-pops.mjs\")",
-      "Bash(node \"C:/Users/keira/AppData/Local/Temp/claude/c--Users-keira-Project-Genei-LOGH-WEB/f33e5a7a-2602-4241-9125-1d777ae9f5d1/scratchpad/fpa_farm.js\")"
+      "Bash(node \"C:/Users/keira/AppData/Local/Temp/claude/c--Users-keira-Project-Genei-LOGH-WEB/f33e5a7a-2602-4241-9125-1d777ae9f5d1/scratchpad/fpa_farm.js\")",
+      "PowerShell(pnpm list -g playwright 2>$null)",
+      "PowerShell(pnpm root -g)",
+      "Read(//c/Users/keira/AppData/Local/pnpm/global/5/**)",
+      "PowerShell(npx playwright install chromium 2>&1)"
     ],
     "additionalDirectories": [
       "c:\\Users\\keira\\Project_Genei\\LOGH-WEB\\src"

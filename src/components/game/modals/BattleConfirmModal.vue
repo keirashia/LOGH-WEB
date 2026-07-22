@@ -30,7 +30,7 @@
     </div>
 
     <div class="modal-actions">
-      <button class="btn btn-gold" @click="onManual">수동 진행</button>
+      <button v-if="payload?.onManual" class="btn btn-gold" @click="onManual">수동 진행</button>
       <button class="btn" @click="onAuto">자동 진행</button>
     </div>
   </div>
