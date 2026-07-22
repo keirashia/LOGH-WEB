@@ -251,6 +251,39 @@ export const useGameStore = defineStore('game', {
       return true
     },
 
+    buildBuilding(sysId, planetCode, bldId) {
+      const sys    = this.systems[sysId]
+      const planet = sys?.planets?.find(p => p.code === planetCode)
+      const bld    = BUILDING_MAP[bldId]
+      if (!sys || !planet || !bld || !bld.buildable) return false
+      if (planet.faction !== this.playerFaction) return false
+      if (this.pRes.gold < (bld.buildCost ?? 0)) return false
+
+      const details = planet.buildings?.details ?? []
+      const totalCount = details.filter(d => d.b_id === bldId).reduce((s, d) => s + d.count, 0)
+      if (totalCount >= bld.maxCount) return false
+
+      if (bld.slotCost > 0) {
+        const usedSlots = details.reduce((sum, d) => sum + (BUILDING_MAP[d.b_id]?.slotCost ?? 1) * d.count, 0)
+        if (usedSlots + bld.slotCost > (planet.buildings?.maxSize ?? 0)) return false
+      }
+
+      this.pRes.gold -= bld.buildCost
+      details.push({
+        b_id:        bldId,
+        count:       1,
+        active:      false,
+        construct:   bld.buildTime,
+        bldName:     bld.name.find(n => n.code === 'Kr')?.context ?? bldId,
+        bldCategory: bld.category,
+      })
+      const bldName = bld.name.find(n => n.code === 'Kr')?.context ?? bldId
+      const sysName = _fkr(sys.name) ?? sysId
+      this.addLog(`[${sysName}] ${bldName} 건설 시작 (${bld.buildTime}턴)`)
+      this._markAction()
+      return true
+    },
+
     deployFleet(fleetId, targetId, opType) {
       const fleet  = this.pFleets.find(f => f.id === fleetId)
       const target = this.systems[targetId]
