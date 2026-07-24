@@ -150,7 +150,7 @@ onMounted(() => {
   checkLayout()
   window.addEventListener('resize', checkLayout)
   window.addEventListener('popstate', onPopState)
-  if (help.shouldShow('game_intro')) showGameHelp.value = true
+  showGameHelp.value = true
 })
 onUnmounted(() => {
   window.removeEventListener('resize', checkLayout)

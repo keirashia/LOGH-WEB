@@ -14194,12 +14194,12 @@ export const CHAR_BASE = [
     // — 능력치
     statCmd: 80,
     statCsm: 78,
-    statAtt: 80,
-    statDef: 80,
+    statAtt: 76,
+    statDef: 81,
     statFst: 78,
     statMng: 75,
     statInf: 78,
-    statGfg: 76,
+    statGfg: 66,
     statAfg: 78,
     statPlt: 77,
     // — 기타
@@ -14210,7 +14210,8 @@ export const CHAR_BASE = [
       {
         code: "Kr",
         context:
-          "자유행성동맹 소속의 군인. 집단을 지도하는 역량과 인격을 갖추어 훌륭한 지휘관이 될 것이라는 평가를 받고 있다.\n    높은 군사적 식견과 능력도 가지고 있어, 그와 사관학교 동기인 양 웬리는 동기 중 가장 출세할 사람이라고 생각했다.",
+          `자유행성동맹 소속의 군인.
+          집단을 지도하는 역량과 인격 뿐 아니라 높은 군사적 식견과 능력도 가지고 있다는 평을 받고 있다.`,
       },
     ],
     // 사망 이후 시나리오에선 desc에 추가 '아스타테 회전에서 전사. 이후 양 웬리는 그의 이른 죽음을 두고두고 안타까워했다.'

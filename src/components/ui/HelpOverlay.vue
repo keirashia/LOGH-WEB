@@ -39,8 +39,8 @@ const emit = defineEmits(['close'])
 
 const help = useHelpStore()
 
-const checkAll  = ref(false)
-const checkThis = ref(false)
+const checkAll  = ref(help.allHidden)
+const checkThis = ref(help.allHidden || !!help.hidden?.[props.menuId])
 
 watch(checkAll, (val) => { if (val) checkThis.value = true })
 

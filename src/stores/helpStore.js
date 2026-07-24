@@ -46,5 +46,5 @@ export const useHelpStore = defineStore('help', () => {
     writeLS(allHidden.value, hidden.value)
   }
 
-  return { init, shouldShow, hideAll, showHelp, hideThis, allHidden }
+  return { init, shouldShow, hideAll, showHelp, hideThis, allHidden, hidden }
 })

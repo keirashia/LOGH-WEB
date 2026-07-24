@@ -373,6 +373,7 @@ const footerButtons = computed(() =>
 .layout {
   flex: 1; min-height: 0;
   width: 100%;
+  position: relative; z-index: 1;
   display: flex; flex-direction: column; align-items: center;
   gap: 3vh;
   padding: 4vh 24px 2vh;
