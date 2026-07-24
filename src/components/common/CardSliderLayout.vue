@@ -55,13 +55,11 @@
       </div>
 
       <slot name="extra" />
-
-      <div class="cslay-footer">
-        <button class="cslay-back" @click="router.push(backTo)">
-          <span class="cslay-back-label mono">{{ backLabel }}</span>
-        </button>
-      </div>
     </div>
+
+    <LobbyFooterLayer :buttons="[
+      { label: backLabel, action: () => router.push(backTo) },
+    ]" />
 
     <slot />
   </div>
@@ -71,6 +69,7 @@
 import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import StarfieldCanvas from './StarfieldCanvas.vue'
+import LobbyFooterLayer from '@/components/ui/LobbyFooterLayer.vue'
 
 const props = defineProps({
   title:     { type: String, required: true },
@@ -205,12 +204,13 @@ onMounted(() => {
 /* ── 레이아웃 ─────────────────────────────────────────────── */
 .cslay-wrap {
   position: relative; width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  display: flex; flex-direction: column; overflow: hidden;
 }
 .starfield { position: absolute; inset: 0; z-index: 0; }
 .cslay-layout {
   position: relative; z-index: 1;
-  display: flex; flex-direction: column; align-items: center;
+  flex: 1; min-height: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 12px; padding: 12px 24px; width: 100%;
 }
 
@@ -291,35 +291,4 @@ onMounted(() => {
 }
 .dot.active { width: 20px; border-radius: 3px; background: var(--tg); border-color: var(--tg); }
 
-/* ── 푸터 뒤로가기 ───────────────────────────────────────── */
-.cslay-footer { display: flex; gap: 10px; align-items: center; justify-content: center; }
-.cslay-back {
-  position: relative;
-  display: flex; align-items: center; justify-content: center; gap: 1.6vh;
-  width: calc(55vh * 5 / 7); padding: 1.8vh 0;
-  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
-  border: 2px solid rgba(212,170,96,.6); border-radius: 12px;
-  box-shadow:
-    inset 0 0 0 4px #0d1520,
-    inset 0 0 0 6px rgba(212,170,96,.18),
-    0 6px 24px rgba(0,0,0,.7);
-  color: rgba(212,170,96,.8);
-  cursor: pointer; transition: all .2s; overflow: hidden;
-}
-.cslay-back::before {
-  content: ''; position: absolute; inset: 0;
-  background-image:
-    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.02) 10px, rgba(212,170,96,.02) 11px),
-    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.02) 10px, rgba(212,170,96,.02) 11px);
-  pointer-events: none;
-}
-.cslay-back:hover {
-  border-color: rgba(212,170,96,.9);
-  box-shadow:
-    inset 0 0 0 4px #0d1520,
-    inset 0 0 0 6px rgba(212,170,96,.4),
-    0 12px 40px rgba(212,170,96,.18);
-  color: var(--tg); transform: translateY(-3px);
-}
-.cslay-back-label { font-size: 1.8vh; letter-spacing: 0.25vw; position: relative; z-index: 1; }
 </style>
