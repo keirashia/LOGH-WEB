@@ -215,9 +215,15 @@ const statDefs = [
 ]
 
 // ── 표시 헬퍼 ─────────────────────────────────────────
-const locationName = computed(() =>
-  fleet.value?.location ? (game.systems[fleet.value.location]?.name ?? fleet.value.location) : '—'
-)
+const locationName = computed(() => {
+  const loc = fleet.value?.location
+  if (!loc) return '—'
+  const sys = game.systems[loc]
+  if (!sys) return loc
+  const n = sys.name
+  if (Array.isArray(n)) return n.find(e => e.code === 'Kr')?.context ?? n[0]?.context ?? loc
+  return n ?? loc
+})
 
 const formationName = computed(() =>
   fleet.value?.formation ? (FORMATIONS[fleet.value.formation]?.name ?? '—') : '—'

@@ -17072,27 +17072,31 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000443",
     name: [{ code: "Kr", context: "쿠브르슬리" }],
-    nick: [{ code: "Kr", context: "" }],
+    nick: [{ code: "Kr", context: "쿠브르슬리" }],
     searchKeys: [],
     birth: "",
     death: "",
     // — 성향
-    faction: "",
+    faction: "FPA",
     idea: "",
     econ: "",
     brave: "",
     moral: "",
     friend: "",
-    // — 능력치
-    statCmd: 0,
-    statCsm: 0,
-    statAtt: 0,
-    statDef: 0,
-    statFst: 0,
-    statMng: 0,
-    statInf: 0,
-    statGfg: 0,
-    statAfg: 0,
+    /** — 능력치
+     *  4EX : 통솔(87)/운영(74)/정보(65)/기동(69)/공격(78)/방어(81)/육전(50)/공전(72)
+     *  5 : 미등장
+     *  6 : 통솔(79)/지휘(75)/운영(88)/정보(78)/공격(62)/방어(65)/기동(59)
+     */
+    statCmd: 83,
+    statCsm: 75,
+    statAtt: 70,
+    statDef: 73,
+    statFst: 64,
+    statMng: 81,
+    statInf: 72,
+    statGfg: 50,
+    statAfg: 72,
     statPlt: 0,
     // — 기타
     loc: "",

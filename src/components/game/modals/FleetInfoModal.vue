@@ -73,7 +73,11 @@ function commanderName(charCode) {
 
 function locationName(locCode) {
   if (!locCode) return '—'
-  return game.systems[locCode]?.name ?? locCode
+  const sys = game.systems[locCode]
+  if (!sys) return locCode
+  const n = sys.name
+  if (Array.isArray(n)) return n.find(e => e.code === 'Kr')?.context ?? n[0]?.context ?? locCode
+  return n ?? locCode
 }
 
 function statusLabel(s) {
