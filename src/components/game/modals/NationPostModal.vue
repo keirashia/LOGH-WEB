@@ -169,7 +169,7 @@ function toggleSection(label) {
 
 function charByJob(jobCode) {
   return Object.values(game.characters).find(
-    ch => ch.faction === game.playerFaction && !ch.isDead &&
+    ch => ch.faction === game.playerFaction && ch.charStatus !== 'dead' &&
           ch.jobs?.some(j => j.jobCode === jobCode)
   ) ?? null
 }

@@ -137,7 +137,7 @@ const approver = computed(() => {
   const chain = (APPROVAL_CHAINS[pf] || {})[props.category] || []
   for (const jobId of chain) {
     const c = Object.values(game.characters).find(
-      ch => ch.jobs.some(j => j.jobCode === jobId) && ch.faction === pf && !ch.isDead
+      ch => ch.jobs.some(j => j.jobCode === jobId) && ch.faction === pf && ch.charStatus !== 'dead'
     )
     if (c) return c
   }

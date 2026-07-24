@@ -1477,7 +1477,7 @@ export const useGameStore = defineStore('game', {
     triggerDeath(charId) {
       const c = this.characters[charId]
       if (!c) return
-      c.isDead = true
+      c.charStatus = 'dead'
       c.jobs = []
       this.addLog(`💀 [사망] ${c.name} 사망.`)
       this.openModal('event', {
@@ -1547,7 +1547,7 @@ export const useGameStore = defineStore('game', {
         let approverChar = null
         for (const jobId of (chain[cat] || [])) {
           approverChar = Object.values(this.characters).find(
-            c => c.jobs.some(j => j.jobCode === jobId) && c.faction === pf && !c.isDead
+            c => c.jobs.some(j => j.jobCode === jobId) && c.faction === pf && c.charStatus !== 'dead'
           )
           if (approverChar) break
         }

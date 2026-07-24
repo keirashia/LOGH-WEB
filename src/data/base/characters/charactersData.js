@@ -31,6 +31,20 @@
  *  : searchKeys는 개편된 name의 Kr, En, Jp를 merge후, string을 ' ', '・'으로 split하여 처리하는 것이 맞는지? 아니라면 해당 로직으로 수정하는 것이 맞는 것 같음
  */
 
+/**
+ * 선택적 런타임 초기값 필드 (생략 시 charUtils.js의 buildCharactersMap이 기본값 적용)
+ *
+ *  credits    {number}  시나리오 시작 시 보유 크레딧. 기본값 0.
+ *                       특정 캐릭터에게 초기 자금을 부여할 때만 명시.
+ *
+ *  charStatus {string}  시나리오 시작 시 캐릭터 상태. 기본값 'normal'.
+ *                       'normal'  — 정상
+ *                       'injured' — 부상
+ *                       'retired' — 은퇴
+ *                       'dead'    — 사망 (보통 birth/death로 필터되므로 드물게 사용)
+ *                       시나리오 시점에 이미 은퇴/부상 상태인 경우만 명시.
+ */
+
 export const CHAR_BASE = [
   // D. 싱클레어
   {
@@ -21726,14 +21740,10 @@ export const CHAR_BASE = [
     // — 기본
     code: "CH_000565",
     name: [
-      { code: "Kr", context: "헤르만 크라우스" },
-      { code: "En", context: "Hermann Kraus" },
-      { code: "Jp", context: "ヘルマン・クラウス" },
+      { code: "Kr", context: "알렉스 이든" },
     ],
     nick: [
-      { code: "Kr", context: "크라우스" },
-      { code: "En", context: "Kraus" },
-      { code: "Jp", context: "クラウス" },
+      { code: "Kr", context: "알렉스 이든" },
     ],
     searchKeys: [],
     birth: "",

@@ -389,7 +389,7 @@ const dmJobs = computed(() => APPROVAL_CHAINS[game.playerFaction]?.military_op ?
 const autoApprover = computed(() => {
   const chars = Object.values(game.characters)
   for (const jobId of dmJobs.value) {
-    const found = chars.find(c => c.jobs.some(j => j.jobCode === jobId) && c.faction === game.playerFaction && !c.isDead)
+    const found = chars.find(c => c.jobs.some(j => j.jobCode === jobId) && c.faction === game.playerFaction && c.charStatus !== 'dead')
     if (found) return found
   }
   return null
@@ -422,7 +422,7 @@ const proposerCandidates = computed(() => {
   const pf = game.playerFaction
   const playerCode = game.playerCharCode
   const chars = Object.values(game.characters)
-    .filter(c => c.faction === pf && !c.isDead && c.jobs.some(j => isGeneralRank(j.jobCode)))
+    .filter(c => c.faction === pf && c.charStatus !== 'dead' && c.jobs.some(j => isGeneralRank(j.jobCode)))
     .map(c => ({ ...c, rankLabel: JOB_MAP[c.jobs.find(j => isGeneralRank(j.jobCode))?.jobCode]?.name?.find(e => e.code === 'Kr')?.context ?? '' }))
     .sort((a, b) => (b.statCmd ?? 0) - (a.statCmd ?? 0))
 

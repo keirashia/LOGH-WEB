@@ -131,7 +131,7 @@ const rows = computed(() => {
   const pc = game.playerCharCode
   const pf = Number(game.characters?.[pc]?.friend ?? 0)
   return Object.values(game.characters)
-    .filter(c => c.faction === game.playerFaction && !c.isDead)
+    .filter(c => c.faction === game.playerFaction && c.charStatus !== 'dead')
     .map(c => {
       const isPlayer = c.code === pc
       const fi       = friendGrade(c.friend, pf)

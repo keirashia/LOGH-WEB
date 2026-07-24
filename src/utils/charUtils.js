@@ -135,6 +135,16 @@ export const CHAR_UNIQUE_TRAIT_MAP = (() => {
 })()
 
 // ================================================================
+//  캐릭터 상태 상수
+// ================================================================
+export const CHAR_STATUS = {
+  NORMAL:  'normal',
+  INJURED: 'injured',
+  RETIRED: 'retired',
+  DEAD:    'dead',
+}
+
+// ================================================================
 //  초기화 빌더
 // ================================================================
 
@@ -280,7 +290,8 @@ export function buildCharactersMap({
       traits,
       fleetCode:  fleetByChar[c.code]  ?? null,
       cliqueId:   cliqueByChar[c.code] ?? null,
-      isDead:     false,
+      charStatus: c.charStatus ?? 'normal',
+      credits:    c.credits   ?? 0,
       braveLabel: braveLabel(c.brave),
       ideaLabel:  ideaLabel(c.idea),
       econLabel:  econLabel(c.econ),
