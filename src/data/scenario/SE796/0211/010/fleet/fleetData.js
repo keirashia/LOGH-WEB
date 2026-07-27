@@ -9,6 +9,7 @@
 //  location : 함대 현재 위치 (locCode, locPos, direction)
 //  charList : 이 함대 소속 인물 목록 (type: C=사령관/O=부관/S=분함대 사령관)
 //  shipList : 이 함대 함선 구성 (fltCode는 조인 키, type: F=기함/U=일반함선)
+//  proactive : 적극성
 //  formationList : 보유 방진 목록 (현재 사용 방진 포함)
 // ================================================================
 export const FLEET_DATA = [
