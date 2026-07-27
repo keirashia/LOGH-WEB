@@ -504,7 +504,7 @@ export const FLEET_DATA = [
   {
     fltCode: "REH004",
     faction: "REH",
-    fltNum: "004",
+    fltNum: "001",
     fltName: [{ code: "Kr", context: "로엔그람 함대" }],
     parentFlt: null,
     charList: [
