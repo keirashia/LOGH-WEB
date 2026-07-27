@@ -17,7 +17,6 @@ import { resolveSupremeCommander } from '@/utils/battleUtils'
 const _fkr = f => f?.name?.find(e => e.code === 'Kr')?.context
 
 const _GLOB_STAR_DETAIL   = import.meta.glob('/src/data/scenario/*/*/*/stars/starDetail.js')
-const _GLOB_PLANET_DETAIL = import.meta.glob('/src/data/scenario/*/*/*/stars/planetDetail.js')
 const _GLOB_CHAR_JOBS     = import.meta.glob('/src/data/scenario/*/*/*/characters/charactersJobs.js')
 const _GLOB_FLEET_DATA    = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetData.js')
 const _GLOB_FLEET_TRAIT   = import.meta.glob('/src/data/scenario/*/*/*/fleet/fleetTraitData.js')
@@ -29,9 +28,8 @@ async function _loadScenarioFiles(scId) {
   const [y, m, s] = scId.split('_')
   const base = `/src/data/scenario/${y}/${m}/${s}`
   const load = (glob, suf) => (glob[`${base}/${suf}`] ?? (() => Promise.resolve(null)))()
-  const [sd, pd, cj, cl, cld, fd, ftd, op] = await Promise.all([
+  const [sd, cj, cl, cld, fd, ftd, op] = await Promise.all([
     load(_GLOB_STAR_DETAIL,   'stars/starDetail.js'),
-    load(_GLOB_PLANET_DETAIL, 'stars/planetDetail.js'),
     load(_GLOB_CHAR_JOBS,     'characters/charactersJobs.js'),
     load(_GLOB_CHAR_LIST,     'characters/charactersData.js'),
     load(_GLOB_CLIQUE_DATA,   'cliqueData.js'),
@@ -41,7 +39,6 @@ async function _loadScenarioFiles(scId) {
   ])
   return {
     starDetail:     sd?.STAR_DETAIL             ?? [],
-    planetDetail:   pd?.PLANET_DETAIL           ?? [],
     charJobs:       cj?.CHAR_JOBS               ?? null,
     charList:       cl?.CHAR_LIST               ?? null,
     cliqueData:     cld?.CLIQUE_DATA            ?? [],
@@ -75,13 +72,13 @@ function buildInitialAgendas(opProposeData = []) {
 function buildState(scId, pf, extraData = {}, options = {}) {
   const sc = SCENARIOS.find(s => s.id === scId) || SCENARIOS[0]
   const {
-    starDetail = [], planetDetail = [],
+    starDetail = [],
     charJobs = null, charList = null, cliqueData = [],
     fleetData = [], opProposeData = [],
   } = extraData
 
   const factions   = buildFactionsMap(sc.factions ?? ['REH', 'FPA', 'PZN'])
-  const systems    = buildSystemsMap(starDetail, planetDetail)
+  const systems    = buildSystemsMap(starDetail)
   const characters = buildCharactersMap({
     charList,
     scenarioCharJobs: charJobs,

@@ -140,39 +140,22 @@ export function resolveStarFaction(planets) {
 // ================================================================
 
 /**
- * buildPlanetFactionMap(planetDetail)
- * 시나리오 planetDetail 배열 → { [planetCode]: faction } 맵 생성.
- *
- * @param {{ code: string, faction: string }[]} planetDetail
- * @returns {{ [planetCode: string]: string }}
- */
-export function buildPlanetFactionMap(planetDetail = []) {
-  const map = {}
-  for (const p of planetDetail) {
-    if (p.code && p.faction) map[p.code] = p.faction
-  }
-  return map
-}
-
-/**
- * buildSystemsMap(starDetail, planetDetail)
+ * buildSystemsMap(starDetail)
  * 성계·행성 초기 상태 맵 생성. gameStore의 systems{} 초기값으로 사용.
  *
  * @param {{ code: string, morale?: number, tax?: number, traits?: object[] }[]} starDetail
- * @param {{ code: string, faction: string }[]} planetDetail
  * @returns {{ [starCode: string]: object }}
  */
-export function buildSystemsMap(starDetail = [], planetDetail = []) {
-  const detailMap       = Object.fromEntries(starDetail.map(d => [d.code, d]))
-  const planetFactionMap = buildPlanetFactionMap(planetDetail)
+export function buildSystemsMap(starDetail = []) {
+  const detailMap = Object.fromEntries(starDetail.map(d => [d.code, d]))
 
   const systems = {}
   for (const s of STAR_SYSTEMS) {
-    const d       = detailMap[s.code] ?? {}
-    const base    = PLANET_MAP[s.code] ?? []
+    const d    = detailMap[s.code] ?? {}
+    const base = PLANET_MAP[s.code] ?? []
 
     const planets = base.map(p => {
-      const faction = planetFactionMap[p.code] ?? p.faction ?? null
+      const faction = p.faction ?? null
 
       const enrichedDetails = (p.buildings?.details ?? []).map(d => {
         const bld = BUILDING_MAP[d.b_id]
