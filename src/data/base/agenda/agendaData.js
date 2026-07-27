@@ -95,6 +95,81 @@ export const APPROVAL_CHAINS = {
   },
 };
 
+// ── action별 payload 스키마 정의 ──────────────────────────────────
+// 각 action이 기대하는 payload 필드 목록. 실행 시 _executeAgenda에서 참조.
+export const AGENDA_PAYLOAD_SCHEMA = {
+  // 군사 — 작전
+  op_propose: {
+    faction:    String,   // 수행 세력
+    opType:     String,   // 'attack' | 'defense' | 'occupy'
+    targetStar: String,   // 성계 ID
+    targetName: String,   // 표시용 이름
+    fleetIds:   Array,    // 참전 함대 코드 목록
+    period:     Number,   // 작전 기한 (턴)
+    notes:      String,   // 비고
+    intel: {
+      hasIntel:  Boolean, // 아군이 적 전력 정보를 보유 중인가
+      expiresAt: Number,  // 유효 턴 (null = 영구)
+      exposed:   Boolean, // 적이 이 작전을 탐지했는가
+    },
+  },
+  // 군사 — 함대 출격
+  fleet_deploy: {
+    fleetId:    String,
+    targetStar: String,
+    opType:     String,
+    intel: {
+      hasIntel:  Boolean,
+      expiresAt: Number,
+      exposed:   Boolean,
+    },
+  },
+  fleet_transport:  { fromStar: String, toStar: String, itemType: String, amount: Number },
+  fleet_train:      { fleetId: String, turns: Number },
+  fleet_reorganize: { fleetId: String, newShips: Number },
+  fleet_disband:    { fleetId: String },
+
+  // 인사
+  appoint:  { charId: String, jobId: String, fromJobId: String },
+  dismiss:  { charId: String, reason: String },
+
+  // 내정 — 건설
+  planet_develop: {
+    systemId:      String,
+    planetCode:    String,
+    buildId:       String,
+    cost:          Number,
+    turnsRequired: Number,
+  },
+  ship_build: {
+    systemId:      String,
+    shipType:      String,
+    amount:        Number,
+    cost:          Number,
+    turnsRequired: Number,
+  },
+  budget_alloc: {
+    allocations: Object,  // { MILITARY, CONSTRUCTION, INTELLIGENCE, WELFARE, RESERVE }
+  },
+
+  // 첩보
+  intel_spy:     { targetStar: String, opType: String, officerId: String },
+  intel_counter: { targetStar: String, opType: String, officerId: String },
+  intel_special: { targetStar: String, opType: String, officerId: String },
+
+  // 외교
+  war_declare:      { targetFaction: String },
+  ceasefire_propose:{ targetFaction: String },
+  peace_treaty:     { targetFaction: String, terms: Object },
+  alliance_propose: { targetFaction: String },
+  alliance_break:   { targetFaction: String },
+  passage_rights:   { targetFaction: String },
+  envoy_send:       { targetFaction: String, charId: String },
+  surrender_accept: { targetFaction: String },
+  trade_negotiate:  { targetFaction: String, terms: Object },
+  loan_request:     { amount: Number, targetFaction: String },
+}
+
 // ── 의안 최대 등록 수 ─────────────────────────────────────────────
 export const AGENDA_DISPLAY_LIMIT = 10;
 

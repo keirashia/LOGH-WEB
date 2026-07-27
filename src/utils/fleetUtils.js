@@ -130,24 +130,21 @@ export function buildFleetsMap(fleetData = []) {
   const sumShips = list => (list ?? []).reduce((s, sh) => s + (sh.shipAmt ?? 0), 0)
 
   for (const fleet of fleetData) {
-    if (fleet.parentFlt) continue            // 분함대 제외 (상위 함대로 관리)
     const f = fleet.faction
     if (!result[f]) result[f] = []
 
-    // 분함대(parentFlt로 이 함대를 가리키는 하위 함대) 함선 수를 상위 함대에 합산
-    const childFleets = fleetData.filter(c => c.parentFlt === fleet.fltCode)
-    const childShips = childFleets.reduce((s, c) => s + sumShips(c.shipList), 0)
-    const totalShips = sumShips(fleet.shipList) + childShips
+    const totalShips = sumShips(fleet.shipList)
 
-    // 분함대 사령관(type=S)은 officers(부관)와 구분해 별도 필드로 상위 함대에 반영
-    const subCommanders = childFleets.flatMap(c =>
-      (c.charList ?? [])
-        .filter(ch => ch.type === 'S')
-        .map(ch => ({ charCode: ch.charCode, fleetName: getFltName(c, 'Kr') }))
-    )
+    // 모함대에만 분함대 사령관 목록 첨부 (참조용)
+    const subCommanders = fleet.parentFlt ? [] : fleetData
+      .filter(c => c.parentFlt === fleet.fltCode)
+      .flatMap(c =>
+        (c.charList ?? [])
+          .filter(ch => ch.type === 'S')
+          .map(ch => ({ charCode: ch.charCode, fleetName: getFltName(c, 'Kr') }))
+      )
 
     result[f].push({
-      // 불변값
       id:            fleet.fltCode,
       faction:       f,
       name:          getFltName(fleet, 'Kr'),
@@ -155,14 +152,13 @@ export function buildFleetsMap(fleetData = []) {
       location:      fleet.location?.locCode ?? null,
       locPos:        fleet.location?.locPos ?? null,
       formation:     fleet.formationList?.find(ff => ff.useYn)?.ffCode ?? null,
-      commander:     fleet.charList?.find(c => c.type === 'C')?.charCode ?? null,
+      // 분함대는 type=S가 사령관
+      commander:     fleet.charList?.find(c => c.type === 'C' || c.type === 'S')?.charCode ?? null,
       officers:      fleet.charList?.filter(c => c.type === 'O').map(c => c.charCode) ?? [],
-      subCommanders, // [{ charCode, fleetName }] — 분함대 사령관 (메르카츠 등), officers와 별도 취급
-      // shipList 파생
+      subCommanders,
       ships:         totalShips,
       maxShips:      totalShips,
       upkeep:        Math.ceil(totalShips / 500),
-      // 런타임 변동값 초기값
       status:        'standby',
       moral:         100,
       supply:        100,
@@ -170,7 +166,7 @@ export function buildFleetsMap(fleetData = []) {
       moveTarget:    null,
       battleId:      null,
       target:        null,
-      stats:         null,   // computeFleetStats() lazy 캐시
+      stats:         null,
     })
   }
   return result

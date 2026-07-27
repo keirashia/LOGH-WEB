@@ -61,7 +61,10 @@ function buildInitialAgendas(opProposeData = []) {
       category:       'military',
       action:         'op_propose',
       title:          `${op.targetName} ${typeLabel}작전`,
-      payload:        { ...op },
+      payload:        {
+        ...op,
+        intel: op.intel ?? { hasIntel: false, expiresAt: null, exposed: false },
+      },
       registeredBy:   null,
       registeredTurn: 0,
       status:         'approved',
@@ -102,7 +105,7 @@ function buildState(scId, pf, extraData = {}, options = {}) {
     factions, systems, resources, characters, fleets, cliques: cliqueData,
     log: [], selectedSystem: null, selectedFleet: null,
     _levyCooldown: 0, _loanBalance: 0, _loanDueTurn: null, _fleetSeq: 10, _truce: {}, _tradeBonus: 0,
-    _reserve: 0, _intelligenceFund: 0, _budgetAllocation: null,
+    _reserve: 0, _intelligenceFund: 0, _budgetAllocation: null, _intelMap: {},
     tacticalPhase: options.tacticalPhase ?? 'normal',  // 'detail'|'normal'|'simple'
     _pendingBattles: [],
     _tacticalResume: null,   // 전술전투 중단 스냅샷 (24hr 전략 페이즈 대기 시 저장)
@@ -135,8 +138,12 @@ export const useGameStore = defineStore('game', {
       const r = []
       Object.entries(s.fleets).forEach(([faction, fl]) => {
         fl.forEach(f => {
+          if (f.parentFlt) return  // 분함대는 전략맵에서 모함대에 합산 표기
           const sys = s.systems[f.location]
-          if (sys) r.push({ ...f, faction, sx: sys.x, sy: sys.y })
+          if (!sys) return
+          const childShips = fl.filter(c => c.parentFlt === f.id)
+                               .reduce((sum, c) => sum + (c.ships ?? 0), 0)
+          r.push({ ...f, ships: f.ships + childShips, faction, sx: sys.x, sy: sys.y })
         })
       })
       return r
@@ -315,6 +322,7 @@ export const useGameStore = defineStore('game', {
               attackerObjective: null,
               defenderObjective: null,
               opType,
+              hasIntel:  this._hasIntel(targetId),
               _handled:  false,
               _notified: false,
             })
@@ -333,6 +341,9 @@ export const useGameStore = defineStore('game', {
       fleet.moveTarget    = targetId
       fleet.moveTurnsLeft = 2        // TODO: LANES 거리 기반으로 교체
       fleet.target        = targetId
+      this._syncSubFleets(fleet.id, fleet.faction, {
+        status: 'moving', moveTarget: targetId, moveTurnsLeft: 2, target: targetId,
+      })
       this.addLog(`[이동] ${fleet.name} → ${target.name} (${fleet.moveTurnsLeft}턴)`)
       this._markAction()
       return true
@@ -699,6 +710,7 @@ export const useGameStore = defineStore('game', {
       }
       const from = this.systems[fleet.location]?.name || fleet.location
       fleet.location = targetSystemId
+      this._syncSubFleets(fleet.id, fleet.faction, { location: targetSystemId })
       this.addLog(`🚀 [이동] ${fleet.name}: ${from} → ${target.name}`)
       this._markAction()
       return true
@@ -727,6 +739,7 @@ export const useGameStore = defineStore('game', {
       fleet.status = 'standby'
       fleet.target = null
       fleet.location = dest.id
+      this._syncSubFleets(fleet.id, fleet.faction, { status: 'standby', target: null, location: dest.id })
       // 철수 시 함선 10% 손실
       const loss = Math.floor(fleet.ships * 0.1)
       fleet.ships = Math.max(1000, fleet.ships - loss)
@@ -815,6 +828,7 @@ export const useGameStore = defineStore('game', {
           case 'SPY':
             this.addLog(dlg.success(sys.name))
             this.addLog(`🔍 [정찰] ${sys.name}: 방어 ${sys.defense} / 산업 ${sys.industry} / 민심 ${sys.morale}`)
+            this._intelMap[targetSystemId] = this.turn + 3
             break
           case 'SABOTAGE':
             sys.defense   = Math.max(5,  sys.defense   - 20)
@@ -1206,12 +1220,27 @@ export const useGameStore = defineStore('game', {
           attackerObjective: null,
           defenderObjective: null,
           opType:            'OCCUPATION',
+          hasIntel:          this._hasIntel(fleet.location),
           _handled:          false,
           _notified:         false,
         })
         this.addLog(`⚔ [조우] ${sysName} — 아군 ${allied.length}개 함대 vs 적 ${enemies.length}개 함대`)
       })
       this._pendingBattles.sort((a, b) => a.locationId.localeCompare(b.locationId))
+    },
+
+    // 해당 성계에 대한 첩보 유효 여부 (SPY 작전 성공 후 3턴간 유효)
+    _hasIntel(systemId) {
+      const exp = this._intelMap?.[systemId]
+      return exp != null && exp > this.turn
+    },
+
+    // 모함대 이동 시 분함대 상태 일괄 동기화
+    _syncSubFleets(parentId, faction, updates) {
+      const factionFleets = this.fleets[faction] ?? []
+      factionFleets
+        .filter(f => f.parentFlt === parentId)
+        .forEach(f => Object.assign(f, updates))
     },
 
     _fleetMove() {
@@ -1254,6 +1283,7 @@ export const useGameStore = defineStore('game', {
                 attackerObjective: null,
                 defenderObjective: null,
                 opType:            'OCCUPATION',
+                hasIntel:          this._hasIntel(fleet.location),
                 _handled:          false,
                 _notified:         false,
               })
@@ -1402,6 +1432,7 @@ export const useGameStore = defineStore('game', {
                 attackerObjective: null,
                 defenderObjective: null,
                 opType:            'OCCUPATION',
+                hasIntel:          this._hasIntel(target.id),
                 _handled:          false,
                 _notified:         false,
               })

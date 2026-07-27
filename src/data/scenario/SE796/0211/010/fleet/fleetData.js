@@ -565,6 +565,11 @@ export const FLEET_DATA = [
         shipAmt: 4000,
       },
     ],
+    location: {
+      locCode: "230005",        // 아스타테 (회전 발발 성계)
+      locPos: { x: 194, y: 75 },
+      direction: 12,
+    },
     formationList: [
       { ffCode: "FF_01", useYn: true },
     ],
@@ -595,6 +600,11 @@ export const FLEET_DATA = [
         shipAmt: 4000,
       },
     ],
+    location: {
+      locCode: "230005",        // 아스타테 (회전 발발 성계)
+      locPos: { x: 190, y: 71 },
+      direction: 12,
+    },
     formationList: [
       { ffCode: "FF_01", useYn: true },
     ],
@@ -625,6 +635,11 @@ export const FLEET_DATA = [
         shipAmt: 4000,
       },
     ],
+    location: {
+      locCode: "230005",        // 아스타테 (회전 발발 성계)
+      locPos: { x: 196, y: 71 },
+      direction: 12,
+    },
     formationList: [
       { ffCode: "FF_01", useYn: true },
     ],
@@ -655,6 +670,11 @@ export const FLEET_DATA = [
         shipAmt: 4000,
       },
     ],
+    location: {
+      locCode: "230005",        // 아스타테 (회전 발발 성계)
+      locPos: { x: 190, y: 78 },
+      direction: 12,
+    },
     formationList: [
       { ffCode: "FF_01", useYn: true },
     ],
@@ -685,6 +705,11 @@ export const FLEET_DATA = [
         shipAmt: 4000,
       },
     ],
+    location: {
+      locCode: "230005",        // 아스타테 (회전 발발 성계)
+      locPos: { x: 200, y: 70 },
+      direction: 12,
+    },
     formationList: [
       { ffCode: "FF_01", useYn: true },
     ],
