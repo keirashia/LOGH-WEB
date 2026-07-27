@@ -31,7 +31,7 @@ export const OP_PROPOSE_DATA = [
     fleetCount: 1,
     fleetIds:   ["REH004", "REH041", "REH042", "REH043", "REH044", "REH045"],
     period:     30,
-    intel: { hasIntel: false, expiresAt: null, exposed: false },
+    intel: { hasIntel: true, expiresAt: null, exposed: false },
   },
 
   // ── 자유행성동맹 — 아스타테 방어작전 ───────────────────────────
@@ -43,7 +43,6 @@ export const OP_PROPOSE_DATA = [
     fleetCount: 3,
     fleetIds:   ["FPA002", "FPA004", "FPA006"],
     period:     30,
-
-    intel: { hasIntel: false, expiresAt: null, exposed: false },
+    intel: { hasIntel: true, expiresAt: null, exposed: false },
   },
 ]

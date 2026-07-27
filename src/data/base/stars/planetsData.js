@@ -37,6 +37,17 @@
  * @property {number} tax        - TODO: 용도 확정 필요
  * @property {number} complain   - 구 vice/corruption(부패도)
  * @property {number} mil_supply - 군사 보급품 (조병창 생산, 함대 유지보수 소모)
+ *
+ * TODO: assets.ships — 행성 보유 함선 목록 (봉건 영주 보유분 / REH 전용)
+ *   구조: Array<{ shipCode: string, amt: number, status: string, fleetId?: string, dest?: string, turnsLeft?: number }>
+ *   status 값:
+ *     'pool'         — 미편성 가용 함선 (fleet_form 의안으로 차감)
+ *     'assigned'     — 특정 함대에 배속 중 (fleetId 필수)
+ *     'transit'      — 이동 중 또는 함대 해산 후 귀환 중 (dest, turnsLeft 필수)
+ *     'repairing'    — 수리 중 (turnsLeft 필수)
+ *     'constructing' — 건조 중 (turnsLeft 필수)
+ *   fleet_form 승인 시: status:'pool' 항목 차감 → 새 함대 shipList 생성
+ *   fleet_disband 승인 시: assigned → transit(dest=원래 행성, turnsLeft=N) → 귀환 후 pool 복귀
  */
 /**
  * @typedef {Object} PlanetNameDescEntry
