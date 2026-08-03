@@ -1,6 +1,5 @@
 <template>
   <div class="modal-box fd-modal">
-
     <!-- 헤더 -->
     <div class="fd-header">
       <button class="fd-back" @click="game.openModal('fleetInfo')" title="목록으로">◀</button>
@@ -12,10 +11,8 @@
 
     <template v-else>
       <div class="fd-body">
-
         <!-- ── 상단: 초상화 + 기본정보 + 참모 ───────────── -->
         <div class="fd-top">
-
           <!-- 초상화 + 기본 -->
           <div class="fd-info-col">
             <div class="fd-portrait-wrap">
@@ -61,14 +58,11 @@
             </div>
             <div v-else class="dim" style="font-size:11px">(편성된 참모 없음)</div>
           </div>
-
         </div>
-
         <div class="fd-divider" />
 
         <!-- ── 하단: 능력치 + 함대현황 ────────────────── -->
         <div class="fd-bottom">
-
           <!-- 전투 능력치 -->
           <div class="fd-stats-col">
             <div class="fd-section-label">전투 능력치</div>
@@ -113,14 +107,12 @@
               </div>
             </div>
           </div>
-
         </div>
 
         <div class="fd-divider" />
 
         <!-- ── 하단: 진형 도식 + 부대 편성 ──────────────── -->
         <div class="fd-bottom">
-
           <!-- 진형 도식 -->
           <div class="fd-formation-col">
             <div class="fd-section-label">진형 도식</div>
@@ -136,9 +128,7 @@
               <!-- TODO: 부대별 함선 목록 렌더링 -->
             </div>
           </div>
-
         </div>
-
       </div>
 
       <div class="fd-footer">
@@ -146,7 +136,6 @@
         <button class="btn" @click="$emit('close')">닫기</button>
       </div>
     </template>
-
   </div>
 </template>
 
@@ -204,14 +193,10 @@ const fleetStats = computed(() => {
 
 // ── 스탯 정의 ─────────────────────────────────────────
 const statDefs = [
-  ['통솔', 'statCmd', 'var(--tg)'],
-  ['문영', 'statMng', '#9b59b6'],
-  ['정보', 'statInf', '#1abc9c'],
-  ['기동', 'statFst', '#2ecc71'],
-  ['공격', 'statAtt', '#e74c3c'],
-  ['방어', 'statDef', '#3498db'],
-  ['육전', 'statGfg', '#e67e22'],
-  ['공전', 'statAfg', '#f39c12'],
+  ['통솔', 'statCmd', 'var(--tg)'], ['지휘', 'statCsm', '#c9a84c'],
+  ['공격', 'statAtt', '#e74c3c'],  ['방어', 'statDef', '#3498db'],
+  ['운영', 'statMng', '#9b59b6'],  ['정보', 'statInf', '#1abc9c'],
+  ['육전', 'statGfg', '#e67e22'],  ['공전', 'statAfg', '#f39c12'],
 ]
 
 // ── 표시 헬퍼 ─────────────────────────────────────────
@@ -336,7 +321,7 @@ function statusClass(s) {
 
 /* 전투 능력치 */
 .fd-stats-col  { flex: 1; }
-.fd-stats-grid { display: flex; flex-direction: column; gap: 6px; }
+.fd-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; }
 .fd-stat-row   { display: flex; align-items: center; gap: 7px; }
 .fd-stat-lbl   { width: 28px; font-size: 11px; color: var(--td); flex-shrink: 0; font-family: var(--font-serif); letter-spacing: .5px; }
 .fd-sbar       { flex: 1; height: 5px; background: rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }

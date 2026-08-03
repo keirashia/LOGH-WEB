@@ -51,7 +51,7 @@ defineEmits(['close'])
 const FACTION_NAMES  = { REH: '은하제국', FPA: '자유행성동맹', PZN: '페잔' }
 const CATEGORY_LABEL = { noble: '귀족', military: '군사', political: '정치', admin: '행정', other: '기타' }
 const EFFECT_LABELS  = {
-  CMD: '통솔', CSM: '운용', ATT: '공격', DEF: '방어', FST: '기동',
+  CMD: '통솔', CSM: '지휘', ATT: '공격', DEF: '방어', FST: '기동',
   MNG: '운영', INF: '정보', GFG: '육전', AFG: '공전', PLT: '정치',
 }
 

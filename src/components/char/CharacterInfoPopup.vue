@@ -127,16 +127,10 @@ const char = computed(() =>
 const FACTION_NAMES = { REH: '은하제국', FPA: '자유행성동맹', PZN: '페잔' }
 
 const STATS = [
-  { key: 'statCmd', label: '통솔' },
-  { key: 'statCsm', label: '운용' },
-  { key: 'statAtt', label: '공격' },
-  { key: 'statDef', label: '방어' },
-  { key: 'statFst', label: '기동' },
-  { key: 'statMng', label: '운영' },
-  { key: 'statInf', label: '정보' },
-  { key: 'statGfg', label: '육전' },
-  { key: 'statAfg', label: '공전' },
-  { key: 'statPlt', label: '정치' },
+  { key: 'statCmd', label: '통솔' }, { key: 'statCsm', label: '지휘' },
+  { key: 'statAtt', label: '공격' }, { key: 'statDef', label: '방어' },
+  { key: 'statMng', label: '운영' }, { key: 'statInf', label: '정보' },
+  { key: 'statGfg', label: '육전' }, { key: 'statAfg', label: '공전' },
 ]
 
 const PERSONALITY = [
@@ -295,12 +289,10 @@ function valStyle(v, max = 100) {
   gap: 8px 20px;
 }
 
-/* ⑤ 능력치 (2열 × 5행, column-flow) */
+/* ⑤ 능력치 (2열 × 4행, 쌍 단위 row-flow) */
 .cp-grid-2col {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: repeat(5, auto);
-  grid-auto-flow: column;
   gap: 8px 24px;
 }
 
