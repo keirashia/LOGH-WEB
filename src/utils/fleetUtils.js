@@ -58,13 +58,17 @@ export function getFltName(fleet, lang = 'Kr') {
       ?? ''
 }
 
+const _FLEET_STAT_KEYS = ['statAtt','statDef','statFst','statMng','statInf','statGfg','statAfg','statPlt']
+
 /**
  * computeFleetStats(fleet, charBaseMap)
- * charList + charBaseMap 기반 함대 스탯 계산
+ * raw fleetData(charList 포함) + charBaseMap 기반 함대 스탯 계산.
+ * 초기화·로비 등 게임 시작 전 용도.
+ *
  * 규칙:
- *   1. type=C 사령관 statCmd/statCsm 고정 (상한 미적용)
- *   2. 전원(C+O) 각 스탯 max 선택
- *   3. 각 스탯 = Math.min(선택값, statCsm)
+ *   - 사령관(C): 본인 스탯 cap 없이 그대로 사용
+ *   - 부관(O): 각 스탯을 statCsm으로 제한 후 최고값 선택
+ *   - 최종: max(사령관 원본, 부관 제한값 최고)
  */
 export function computeFleetStats(fleet, charBaseMap = {}) {
   const list = fleet.charList ?? []
@@ -75,14 +79,65 @@ export function computeFleetStats(fleet, charBaseMap = {}) {
   const statCsm  = cmdr?.statCsm ?? 100
   const statCmd  = cmdr?.statCmd ?? 0
 
-  const KEYS = ['statAtt','statDef','statFst','statMng','statInf','statGfg','statAfg','statPlt']
-  const chars = list.map(c => charBaseMap[c.charCode]).filter(Boolean)
+  const officers = list
+    .filter(c => c.type === 'O')
+    .map(c => charBaseMap[c.charCode])
+    .filter(Boolean)
 
   const result = { statCmd, statCsm }
-  for (const key of KEYS) {
-    const maxVal = Math.max(0, ...chars.map(c => c[key] ?? 0))
-    result[key] = Math.min(maxVal, statCsm)
+  for (const key of _FLEET_STAT_KEYS) {
+    const cmdVal    = cmdr?.[key] ?? 0
+    const ofcMax    = officers.length
+      ? Math.max(0, ...officers.map(o => Math.min(o[key] ?? 0, statCsm)))
+      : 0
+    result[key] = Math.max(cmdVal, ofcMax)
   }
+  return result
+}
+
+/**
+ * computeFleetStatsByStore(fleet, characters)
+ * gameStore 형식 함대(commander/officers 문자열) + characters 맵 기반 스탯 계산.
+ * 인게임 컴포넌트에서 사용.
+ *
+ * 규칙: computeFleetStats와 동일
+ * 반환값에 _attr: { [key]: charCode } 포함 — 각 스탯의 기여 인물 코드
+ */
+export function computeFleetStatsByStore(fleet, characters = {}) {
+  if (!fleet) return null
+
+  const cmdrCode = fleet.commander ?? null
+  const cmdr     = cmdrCode ? (characters[cmdrCode] ?? null) : null
+  const statCmd  = cmdr?.statCmd ?? 0
+  const statCsm  = cmdr?.statCsm ?? 100
+
+  const officerEntries = (fleet.officers ?? [])
+    .map(code => ({ code, char: characters[code] }))
+    .filter(e => e.char)
+
+  const result = { statCmd, statCsm }
+  const attr   = { statCmd: cmdrCode, statCsm: cmdrCode }
+
+  for (const key of _FLEET_STAT_KEYS) {
+    const cmdVal = cmdr?.[key] ?? 0
+
+    let bestOfcVal  = 0
+    let bestOfcCode = null
+    for (const { code, char } of officerEntries) {
+      const v = Math.min(char[key] ?? 0, statCsm)
+      if (v > bestOfcVal) { bestOfcVal = v; bestOfcCode = code }
+    }
+
+    if (bestOfcVal > cmdVal) {
+      result[key] = bestOfcVal
+      attr[key]   = bestOfcCode
+    } else {
+      result[key] = cmdVal
+      attr[key]   = cmdrCode
+    }
+  }
+
+  result._attr = attr
   return result
 }
 

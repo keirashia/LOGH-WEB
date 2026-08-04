@@ -61,74 +61,24 @@
         </div>
         <div class="fd-divider" />
 
-        <!-- ── 하단: 능력치 + 함대현황 ────────────────── -->
-        <div class="fd-bottom">
-          <!-- 전투 능력치 -->
-          <div class="fd-stats-col">
-            <div class="fd-section-label">전투 능력치</div>
-            <div class="fd-stats-grid">
-              <div v-for="[lbl, key, clr] in statDefs" :key="key" class="fd-stat-row">
-                <span class="fd-stat-lbl">{{ lbl }}</span>
-                <div class="fd-sbar">
-                  <div class="fd-sbar-fill"
-                    :style="{ width: pct(fleetStats?.[key]) + '%', background: clr }" />
-                </div>
-                <span class="fd-stat-val mono">{{ fleetStats?.[key] ?? '—' }}</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- 함대 현황 -->
-          <div class="fd-status-col">
-            <div class="fd-section-label">함대 현황</div>
-            <div class="fd-status-rows">
-              <div class="fd-status-row">
-                <span class="fd-lbl">총 함선</span>
-                <span class="mono fd-val gold">{{ fleet.ships.toLocaleString() }}척</span>
-              </div>
-              <div class="fd-status-row">
-                <span class="fd-lbl">사기</span>
-                <span class="mono fd-val" :style="{ color: moraleColor(fleet.moral ?? 100) }">
-                  {{ fleet.moral ?? 100 }}
-                </span>
-              </div>
-              <div class="fd-status-row">
-                <span class="fd-lbl">최대사기</span>
-                <span class="mono fd-val">{{ fleetStats?.statCsm ?? 100 }}</span>
-              </div>
-              <div class="fd-divider-sm" />
-              <div class="fd-status-row">
-                <span class="fd-lbl">유지비</span>
-                <span class="mono fd-val">{{ fleet.upkeep ?? 0 }}</span>
-              </div>
-              <div class="fd-status-row">
-                <span class="fd-lbl">보급</span>
-                <span class="mono fd-val">{{ fleet.supply ?? 100 }}%</span>
-              </div>
-            </div>
-          </div>
+        <!-- ── 탭 바 ───────────────────────────────────── -->
+        <div class="fd-tabs">
+          <button
+            v-for="tab in TABS" :key="tab.key"
+            class="fd-tab" :class="{ active: activeTab === tab.key }"
+            @click="activeTab = tab.key"
+          >
+            {{ tab.label }}
+          </button>
         </div>
 
-        <div class="fd-divider" />
-
-        <!-- ── 하단: 진형 도식 + 부대 편성 ──────────────── -->
-        <div class="fd-bottom">
-          <!-- 진형 도식 -->
-          <div class="fd-formation-col">
-            <div class="fd-section-label">진형 도식</div>
-            <div class="fd-formation-box">
-              <!-- TODO: 진형 캔버스 렌더링 -->
-            </div>
-          </div>
-
-          <!-- 부대 편성 -->
-          <div class="fd-units-col">
-            <div class="fd-section-label">부대 편성</div>
-            <div class="fd-units-list">
-              <!-- TODO: 부대별 함선 목록 렌더링 -->
-            </div>
-          </div>
-        </div>
+        <!-- ── 탭 컨텐츠 ─────────────────────────────────── -->
+        <component
+          :is="TAB_COMPONENTS[activeTab]"
+          :fleet="fleet"
+          :fleet-stats="fleetStats"
+          :formation-name="formationName"
+        />
       </div>
 
       <div class="fd-footer">
@@ -140,15 +90,32 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useGameStore } from '@/stores/gameStore'
 import { FORMATIONS } from '@/data/base/tactical/tacticalData'
+import { computeFleetStatsByStore } from '@/utils/fleetUtils'
 import { charImgSrc, handleCharImgError } from '@/utils/charImg'
 import CharChip from '@/components/common/CharChip.vue'
+import FleetStatusPanel    from './fleet/FleetStatusPanel.vue'
+import FleetInfoPanel      from './fleet/FleetInfoPanel.vue'
+import FleetFormationPanel from './fleet/FleetFormationPanel.vue'
 
 const props = defineProps({ payload: Object })
 defineEmits(['close'])
 const game = useGameStore()
+
+// ── 탭 ───────────────────────────────────────────────
+const TABS = [
+  { key: 'status',    label: '현황' },
+  { key: 'info',      label: '능력치' },
+  { key: 'formation', label: '진형' },
+]
+const TAB_COMPONENTS = {
+  status:    FleetStatusPanel,
+  info:      FleetInfoPanel,
+  formation: FleetFormationPanel,
+}
+const activeTab = ref('status')
 
 // ── 함대 ─────────────────────────────────────────────
 const fleet = computed(() => {
@@ -166,38 +133,10 @@ const officerList = computed(() =>
   (fleet.value?.officers ?? []).map(code => ({ code }))
 )
 
-// ── 능력치 계산 (computeFleetStats 인라인) ────────────
-// 규칙: statCmd/statCsm = 사령관 단독
-//       나머지 = 전원(사령관+부관) max, statCsm 상한
-const STAT_KEYS = ['statAtt','statDef','statFst','statMng','statInf','statGfg','statAfg']
-
-const fleetStats = computed(() => {
-  if (!fleet.value) return null
-  const allCodes = [fleet.value.commander, ...(fleet.value.officers ?? [])].filter(Boolean)
-  if (!allCodes.length) return null
-
-  const chars = allCodes.map(c => game.characters[c]).filter(Boolean)
-  if (!chars.length) return null
-
-  const cmd    = commander.value
-  const statCmd = cmd?.statCmd ?? 0
-  const statCsm = cmd?.statCsm ?? 100
-
-  const result = { statCmd, statCsm }
-  for (const key of STAT_KEYS) {
-    const maxVal = Math.max(0, ...chars.map(c => c[key] ?? 0))
-    result[key] = Math.min(maxVal, statCsm)
-  }
-  return result
-})
-
-// ── 스탯 정의 ─────────────────────────────────────────
-const statDefs = [
-  ['통솔', 'statCmd', 'var(--tg)'], ['지휘', 'statCsm', '#c9a84c'],
-  ['공격', 'statAtt', '#e74c3c'],  ['방어', 'statDef', '#3498db'],
-  ['운영', 'statMng', '#9b59b6'],  ['정보', 'statInf', '#1abc9c'],
-  ['육전', 'statGfg', '#e67e22'],  ['공전', 'statAfg', '#f39c12'],
-]
+// ── 능력치 계산 ───────────────────────────────────────
+const fleetStats = computed(() =>
+  computeFleetStatsByStore(fleet.value, game.characters)
+)
 
 // ── 표시 헬퍼 ─────────────────────────────────────────
 const locationName = computed(() => {
@@ -214,12 +153,6 @@ const formationName = computed(() =>
   fleet.value?.formation ? (FORMATIONS[fleet.value.formation]?.name ?? '—') : '—'
 )
 
-function pct(val) { return Math.min(100, Math.max(0, val ?? 0)) }
-
-function moraleColor(m) {
-  return m > 60 ? '#2ecc71' : m > 30 ? '#e67e22' : '#e74c3c'
-}
-
 function statusLabel(s) {
   return { standby:'대기', moving:'이동 중', battle:'교전 중', retreat:'후퇴' }[s] ?? s
 }
@@ -231,7 +164,7 @@ function statusClass(s) {
 
 <style scoped>
 .fd-modal {
-  width: min(90vw, 560px);
+  width: 80vw; height: 80vh;
   display: flex; flex-direction: column;
   padding: 0; overflow: hidden;
 }
@@ -305,52 +238,24 @@ function statusClass(s) {
 .fd-staff-row  { display: flex; }
 
 /* ── 구분선 ───────────────────────────────────── */
-.fd-divider    { height: 1px; background: var(--bd); flex-shrink: 0; }
-.fd-divider-sm { height: 1px; background: rgba(255,255,255,.06); margin: 3px 0; }
+.fd-divider { height: 1px; background: var(--bd); flex-shrink: 0; }
 
-/* ── 하단 ─────────────────────────────────────── */
-.fd-bottom {
-  display: flex; gap: 16px; align-items: flex-start;
+/* ── 탭 바 ────────────────────────────────────── */
+.fd-tabs {
+  display: flex; gap: 0; flex-shrink: 0;
+  border-bottom: 1px solid var(--bd);
+  margin: -6px 0 0;
 }
-
-/* 섹션 레이블 */
-.fd-section-label {
-  font-size: 10px; color: var(--td); letter-spacing: 1px;
-  text-transform: uppercase; margin-bottom: 8px;
+.fd-tab {
+  flex: 1; background: none; border: none;
+  border-bottom: 2px solid transparent;
+  padding: 7px 4px; color: var(--td);
+  font-size: 11px; font-family: var(--font-serif);
+  letter-spacing: .5px; cursor: pointer;
+  transition: color .15s, border-color .15s;
 }
-
-/* 전투 능력치 */
-.fd-stats-col  { flex: 1; }
-.fd-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 12px; }
-.fd-stat-row   { display: flex; align-items: center; gap: 7px; }
-.fd-stat-lbl   { width: 28px; font-size: 11px; color: var(--td); flex-shrink: 0; font-family: var(--font-serif); letter-spacing: .5px; }
-.fd-sbar       { flex: 1; height: 5px; background: rgba(255,255,255,.08); border-radius: 3px; overflow: hidden; }
-.fd-sbar-fill  { height: 100%; border-radius: 3px; transition: width .3s; }
-.fd-stat-val   { width: 28px; font-size: 10px; color: var(--t2); text-align: right; flex-shrink: 0; }
-
-/* 함대 현황 */
-.fd-status-col  { width: 148px; flex-shrink: 0; }
-.fd-status-rows { display: flex; flex-direction: column; gap: 0; }
-.fd-status-row  {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.04);
-  font-size: 11px; font-family: var(--font-serif); letter-spacing: .3px;
-}
-.fd-status-row:last-child { border-bottom: none; }
-
-/* 진형 도식 */
-.fd-formation-col { width: 140px; flex-shrink: 0; }
-.fd-formation-box {
-  width: 100%; aspect-ratio: 1;
-  background: var(--bg4); border: 1px solid var(--bd); border-radius: var(--r);
-}
-
-/* 부대 편성 */
-.fd-units-col  { flex: 1; }
-.fd-units-list {
-  min-height: 120px;
-  background: var(--bg4); border: 1px solid var(--bd); border-radius: var(--r);
-}
+.fd-tab:hover  { color: var(--t2); }
+.fd-tab.active { color: var(--tg); border-bottom-color: var(--tg); }
 
 /* ── 푸터 ─────────────────────────────────────── */
 .fd-footer {

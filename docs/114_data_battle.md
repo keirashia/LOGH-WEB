@@ -309,13 +309,22 @@ operation = {
 
 ### 1-2. 부관(O) 보정 규칙
 
+- **사령관(C)**: 본인 스탯을 cap 없이 그대로 사용
+- **부관(O)**: 각 스탯을 `statCsm`으로 제한한 뒤, 전원 최고값 선택
+- **최종값**: `max(사령관 원본, 부관 제한값 중 최고)`
+
 ```
-att_final = (officer.statAtt > commander.statAtt) ? officer.statAtt : commander.statAtt
-def_final = (officer.statDef > commander.statDef) ? officer.statDef : commander.statDef
-fst_final = (officer.statFst > commander.statFst) ? officer.statFst : commander.statFst
-// 단, 각 값은 statCsm을 초과할 수 없음
-att_final = Math.min(att_final, commander.statCsm)
+// 사령관은 cap 없음
+cmd_att = commander.statAtt
+
+// 부관 기여: 각자 statCsm으로 제한 후 max 선택
+ofc_att = max(...officers.map(o => min(o.statAtt, statCsm)))
+
+// 최종
+att_final = max(cmd_att, ofc_att)
 ```
+
+> 결과: 사령관의 높은 전투력은 그대로 반영되고, 부관은 사령관이 약한 영역을 statCsm 한도 내에서 보완한다.
 
 ### 1-3. 함대 전투력 객체 (산출값)
 

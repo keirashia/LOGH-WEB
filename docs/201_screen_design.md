@@ -294,6 +294,9 @@ width: min(92vw, 500px); max-height: 82vh; overflow-y: auto;
 box-shadow: 0 8px 40px rgba(0,0,0,.8);
 ```
 
+> **정보성 모달 (Info Modal)** — 함대 상세·국가 정보 등 다량의 정보를 표시하는 전용 패널은  
+> 고정 크기 `width: 80vw; height: 80vh` 사용. `NationInfoModal`, `NationPostModal`, `FleetDetailModal` 기준.
+
 ### `.modal-title`
 ```css
 font-family: var(--font-serif); font-size: 17px; color: var(--tg);
