@@ -135,7 +135,7 @@ const officerList = computed(() =>
 
 // ── 능력치 계산 ───────────────────────────────────────
 const fleetStats = computed(() =>
-  computeFleetStatsByStore(fleet.value, game.characters)
+  computeFleetStatsByStore(fleet.value, game.characters, game.charTraitEffects)
 )
 
 // ── 표시 헬퍼 ─────────────────────────────────────────

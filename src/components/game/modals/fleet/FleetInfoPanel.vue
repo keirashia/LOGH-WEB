@@ -1,12 +1,12 @@
 <template>
   <div class="fi-wrap">
     <div class="fi-pairs">
-      <div v-for="([left, right], i) in STAT_PAIRS" :key="i" class="fi-pair-row">
+      <div v-for="([left, right], i) in FLEET_STAT_PAIRS" :key="i" class="fi-pair-row">
         <!-- 왼쪽 스탯 -->
         <div class="fi-cell">
           <span class="fi-lbl">{{ left[0] }}</span>
           <div class="fi-bar">
-            <div class="fi-fill" :style="{ width: pct(fleetStats?.[left[1]]) + '%', background: left[2] }" />
+            <div class="fi-fill" :style="{ width: statPct(fleetStats?.[left[1]]) + '%', background: left[2] }" />
           </div>
           <span class="fi-val mono">{{ fleetStats?.[left[1]] ?? '—' }}</span>
           <div class="fi-chip-row">
@@ -21,7 +21,7 @@
         <div class="fi-cell">
           <span class="fi-lbl">{{ right[0] }}</span>
           <div class="fi-bar">
-            <div class="fi-fill" :style="{ width: pct(fleetStats?.[right[1]]) + '%', background: right[2] }" />
+            <div class="fi-fill" :style="{ width: statPct(fleetStats?.[right[1]]) + '%', background: right[2] }" />
           </div>
           <span class="fi-val mono">{{ fleetStats?.[right[1]] ?? '—' }}</span>
           <div class="fi-chip-row">
@@ -39,20 +39,11 @@
 
 <script setup>
 import CharChip from '@/components/common/CharChip.vue'
+import { FLEET_STAT_PAIRS, statPct } from '@/utils/fleetUtils'
 
 defineProps({
   fleetStats: { type: Object, default: null },
 })
-
-const STAT_PAIRS = [
-  [['통솔', 'statCmd', 'var(--tg)'],  ['지휘', 'statCsm', '#c9a84c']],
-  [['공격', 'statAtt', '#e74c3c'],    ['방어', 'statDef', '#3498db']],
-  [['운영', 'statMng', '#9b59b6'],    ['정보', 'statInf', '#1abc9c']],
-  [['육전', 'statGfg', '#e67e22'],    ['공전', 'statAfg', '#f39c12']],
-  [['기동', 'statFst', '#2ecc71'],    ['정치', 'statPlt', '#95a5a6']],
-]
-
-function pct(val) { return Math.min(100, Math.max(0, val ?? 0)) }
 </script>
 
 <style scoped>
@@ -93,12 +84,16 @@ function pct(val) { return Math.min(100, Math.max(0, val ?? 0)) }
 .fi-lbl {
   grid-column: 1;
   grid-row: 1 / 3;
-  align-self: center;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 13px;
   color: var(--t1);
   font-family: var(--font-serif);
   letter-spacing: .5px;
-  text-align: right;
+  background: rgba(255,255,255,.05);
+  border-radius: var(--r);
 }
 
 .fi-bar {

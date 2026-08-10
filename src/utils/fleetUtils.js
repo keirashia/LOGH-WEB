@@ -1,27 +1,81 @@
 // 경로: src/utils/fleetUtils.js
 // ================================================================
 //  fleetUtils.js — 함대 데이터 유틸리티
-//  수정: 2026-07-02
+//  수정: 2026-08-06
 //
 //  ■ 사용 범위
-//    게임 전 (로비·시나리오선택·초기화):
-//      buildFleetsMap(), fncGet*(), 마스터 맵 사용 가능.
-//    게임 중:
-//      gameStore.state(fleets, systems 등)만 사용.
-//      이 파일의 함수·맵을 인게임 로직에서 호출하지 말 것.
-//      → 게임 중 함대 정보는 gameStore.fleets[faction]으로 접근.
+//    공통 (게임 전·후 모두):
+//      FLEET_STAT_PAIRS, FLEET_STAT_DEFS, statPct
+//      computeFleetStatsByStore()
+//    게임 전 전용 (로비·시나리오선택·초기화):
+//      buildFleetsMap(), buildCharTraitEffects(), fncGet*(), 마스터 맵(FLAGSHIP_MAP 등)
+//      → 인게임 로직에서 호출 금지. 게임 중 함대는 gameStore.fleets[faction]으로 접근.
 //
 //  ※ 컴포넌트·스토어에서 data 파일을 직접 import 하지 말 것.
 //
 //  의존 데이터 파일 (외부에서 직접 import 금지):
-//    flagshipData.js   → FLAGSHIP_DATA
-//    formationData.js  → FORMATION_DATA
-//    unitshipData.js   → UNIT_SHIP_DATA
+//    flagshipData.js      → FLAGSHIP_DATA
+//    formationData.js     → FORMATION_DATA
+//    unitshipData.js      → UNIT_SHIP_DATA
+//    charactersTraits.js  → CHAR_TRAITS
+//    charTraitData.js     → CHAR_TRAITS_MASTER
 // ================================================================
 
 import { FLAGSHIP_DATA }  from '@/data/base/fleet/flagshipData'
 import { FORMATION_DATA } from '@/data/base/fleet/formationData'
 import { UNIT_SHIP_DATA } from '@/data/base/fleet/unitshipData'
+import { CHAR_TRAITS }        from '@/data/base/characters/charactersTraits'
+import { CHAR_TRAITS_MASTER } from '@/data/base/trait/chars/charTraitData'
+
+// ================================================================
+//  능력치 표시 정의
+// ================================================================
+
+const _GOLD = '#c9a84c'
+
+// statCmd·statCsm 포함 10개. 계산 루프용 8개는 _FLEET_STAT_KEYS 참조.
+/** 쌍으로 묶인 능력치 정의 (표시 순서) */
+export const FLEET_STAT_PAIRS = [
+  [['통솔', 'statCmd', _GOLD], ['지휘', 'statCsm', _GOLD]],
+  [['공격', 'statAtt', _GOLD], ['방어', 'statDef', _GOLD]],
+  [['운영', 'statMng', _GOLD], ['정보', 'statInf', _GOLD]],
+  [['육전', 'statGfg', _GOLD], ['공전', 'statAfg', _GOLD]],
+  [['기동', 'statFst', _GOLD], ['정치', 'statPlt', _GOLD]],
+]
+
+/** 단일 배열 (순회·검색 용도) */
+export const FLEET_STAT_DEFS = FLEET_STAT_PAIRS.flat()
+
+/** 능력치 바 퍼센트 계산 (0~100 클램프) */
+export function statPct(val) {
+  return Math.min(100, Math.max(0, val ?? 0))
+}
+
+// ================================================================
+//  트레잇 보정 맵 빌더
+// ================================================================
+
+/**
+ * buildCharTraitEffects(charTraits?, traitMaster?)
+ * CHAR_TRAITS × CHAR_TRAITS_MASTER → 인물별 영구 스탯 보정 합산 맵.
+ * 기본값으로 base 데이터 사용. gameStore init 시 1회 호출 후 state에 보관.
+ *
+ * 반환: { [charCode]: { statAtt: N, statCmd: N, ... } }
+ * ※ conditionalEffects(트리거 기반)는 포함하지 않음.
+ */
+export function buildCharTraitEffects(charTraits = CHAR_TRAITS, traitMaster = CHAR_TRAITS_MASTER) {
+  const masterMap = Object.fromEntries(traitMaster.map(t => [t.id, t]))
+  const result = {}
+  for (const entry of charTraits) {
+    const master = masterMap[entry.traitCode]
+    if (!master?.effects) continue
+    const acc = result[entry.charCode] ??= {}
+    for (const [key, val] of Object.entries(master.effects)) {
+      acc[key] = (acc[key] ?? 0) + val
+    }
+  }
+  return result
+}
 
 // ================================================================
 //  raw 데이터 re-export
@@ -58,6 +112,8 @@ export function getFltName(fleet, lang = 'Kr') {
       ?? ''
 }
 
+// statCmd·statCsm은 compute 함수에서 별도 처리하므로 제외.
+// 표시용 전체 목록은 FLEET_STAT_PAIRS 참조.
 const _FLEET_STAT_KEYS = ['statAtt','statDef','statFst','statMng','statInf','statGfg','statAfg','statPlt']
 
 /**
@@ -74,7 +130,7 @@ export function computeFleetStats(fleet, charBaseMap = {}) {
   const list = fleet.charList ?? []
   if (!list.length) return null
 
-  const cmdEntry = list.find(c => c.type === 'C')
+  const cmdEntry = list.find(c => c.type === 'C' || c.type === 'S')
   const cmdr     = cmdEntry ? charBaseMap[cmdEntry.charCode] : null
   const statCsm  = cmdr?.statCsm ?? 100
   const statCmd  = cmdr?.statCmd ?? 0
@@ -96,20 +152,27 @@ export function computeFleetStats(fleet, charBaseMap = {}) {
 }
 
 /**
- * computeFleetStatsByStore(fleet, characters)
+ * computeFleetStatsByStore(fleet, characters, traitEffects?)
  * gameStore 형식 함대(commander/officers 문자열) + characters 맵 기반 스탯 계산.
  * 인게임 컴포넌트에서 사용.
  *
  * 규칙: computeFleetStats와 동일
+ * traitEffects: buildCharTraitEffects() 결과. 영구 트레잇 보정 적용.
+ *   - 사령관: 보정 후 값 그대로 (100 초과 허용)
+ *   - 부관:   보정 후 값을 statCsm으로 cap
+ *   - conditionalEffects(트리거 기반)는 별도 레이어에서 처리
  * 반환값에 _attr: { [key]: charCode } 포함 — 각 스탯의 기여 인물 코드
  */
-export function computeFleetStatsByStore(fleet, characters = {}) {
+export function computeFleetStatsByStore(fleet, characters = {}, traitEffects = {}) {
   if (!fleet) return null
 
-  const cmdrCode = fleet.commander ?? null
-  const cmdr     = cmdrCode ? (characters[cmdrCode] ?? null) : null
-  const statCmd  = cmdr?.statCmd ?? 0
-  const statCsm  = cmdr?.statCsm ?? 100
+  const cmdrCode  = fleet.commander ?? null
+  const cmdr      = cmdrCode ? (characters[cmdrCode] ?? null) : null
+  const cmdrBonus = traitEffects[cmdrCode] ?? {}
+  const statCmd   = (cmdr?.statCmd ?? 0) + (cmdrBonus.statCmd ?? 0)
+  const statCsm   = cmdr
+    ? (cmdr.statCsm ?? 100) + (cmdrBonus.statCsm ?? 0)
+    : 100
 
   const officerEntries = (fleet.officers ?? [])
     .map(code => ({ code, char: characters[code] }))
@@ -119,12 +182,13 @@ export function computeFleetStatsByStore(fleet, characters = {}) {
   const attr   = { statCmd: cmdrCode, statCsm: cmdrCode }
 
   for (const key of _FLEET_STAT_KEYS) {
-    const cmdVal = cmdr?.[key] ?? 0
+    const cmdVal = (cmdr?.[key] ?? 0) + (cmdrBonus[key] ?? 0)
 
     let bestOfcVal  = 0
     let bestOfcCode = null
     for (const { code, char } of officerEntries) {
-      const v = Math.min(char[key] ?? 0, statCsm)
+      const ofcBonus = traitEffects[code] ?? {}
+      const v = Math.min((char[key] ?? 0) + (ofcBonus[key] ?? 0), statCsm)
       if (v > bestOfcVal) { bestOfcVal = v; bestOfcCode = code }
     }
 
@@ -221,7 +285,6 @@ export function buildFleetsMap(fleetData = []) {
       moveTarget:    null,
       battleId:      null,
       target:        null,
-      stats:         null,
     })
   }
   return result

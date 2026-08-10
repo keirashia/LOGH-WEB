@@ -10,7 +10,7 @@ import { SCENARIOS }           from '@/data/scenario/scenarioData.js'
 import { buildSystemsMap, OBSTACLES, LANES } from '@/utils/starUtils'
 import { BUILDING_MAP } from '@/data/base/buildingData'
 import { buildCharactersMap }  from '@/utils/charUtils'
-import { buildFleetsMap }          from '@/utils/fleetUtils'
+import { buildFleetsMap, buildCharTraitEffects } from '@/utils/fleetUtils'
 import { buildFactionsMap }        from '@/utils/factionUtils'
 import { resolveSupremeCommander } from '@/utils/battleUtils'
 
@@ -77,9 +77,9 @@ function buildState(scId, pf, extraData = {}, options = {}) {
     fleetData = [], opProposeData = [],
   } = extraData
 
-  const factions   = buildFactionsMap(sc.factions ?? ['REH', 'FPA', 'PZN'])
-  const systems    = buildSystemsMap(starDetail)
-  const characters = buildCharactersMap({
+  const factions        = buildFactionsMap(sc.factions ?? ['REH', 'FPA', 'PZN'])
+  const systems         = buildSystemsMap(starDetail)
+  const characters      = buildCharactersMap({
     charList,
     scenarioCharJobs: charJobs,
     fleetData,
@@ -89,7 +89,8 @@ function buildState(scId, pf, extraData = {}, options = {}) {
     scenarioMonth:    sc.month    ?? 1,
     scenarioDay:      sc.date     ?? 1,
   })
-  const fleets     = buildFleetsMap(fleetData)
+  const fleets          = buildFleetsMap(fleetData)
+  const charTraitEffects = buildCharTraitEffects()
 
   const resources = {}
   for (const [id, f] of Object.entries(factions)) {
@@ -99,7 +100,7 @@ function buildState(scId, pf, extraData = {}, options = {}) {
   return {
     sc, playerFaction: pf,
     year: sc.year, impYear: sc.year - 309, month: sc.month ?? 1, day: sc.date ?? 1, turn: 1,
-    factions, systems, resources, characters, fleets, cliques: cliqueData,
+    factions, systems, resources, characters, fleets, charTraitEffects, cliques: cliqueData,
     log: [], selectedSystem: null, selectedFleet: null,
     _levyCooldown: 0, _loanBalance: 0, _loanDueTurn: null, _fleetSeq: 10, _truce: {}, _tradeBonus: 0,
     _reserve: 0, _intelligenceFund: 0, _budgetAllocation: null, _intelMap: {},
