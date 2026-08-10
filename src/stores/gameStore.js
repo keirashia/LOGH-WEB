@@ -23,12 +23,14 @@ const _GLOB_FLEET_TRAIT   = import.meta.glob('/src/data/scenario/*/*/*/fleet/fle
 const _GLOB_CHAR_LIST     = import.meta.glob('/src/data/scenario/*/*/*/characters/charactersData.js')
 const _GLOB_CLIQUE_DATA   = import.meta.glob('/src/data/scenario/*/*/*/cliqueData.js')
 const _GLOB_OP_PROPOSE    = import.meta.glob('/src/data/scenario/*/*/*/opProposeData.js')
+const _GLOB_PLANETS_DATA  = import.meta.glob('/src/data/scenario/*/*/*/planetsData.js')
+const _GLOB_JOB_DATA      = import.meta.glob('/src/data/scenario/*/*/*/jobData.js')
 
 async function _loadScenarioFiles(scId) {
   const [y, m, s] = scId.split('_')
   const base = `/src/data/scenario/${y}/${m}/${s}`
   const load = (glob, suf) => (glob[`${base}/${suf}`] ?? (() => Promise.resolve(null)))()
-  const [sd, cj, cl, cld, fd, ftd, op] = await Promise.all([
+  const [sd, cj, cl, cld, fd, ftd, op, pd, jd] = await Promise.all([
     load(_GLOB_STAR_DETAIL,   'stars/starDetail.js'),
     load(_GLOB_CHAR_JOBS,     'characters/charactersJobs.js'),
     load(_GLOB_CHAR_LIST,     'characters/charactersData.js'),
@@ -36,6 +38,8 @@ async function _loadScenarioFiles(scId) {
     load(_GLOB_FLEET_DATA,    'fleet/fleetData.js'),
     load(_GLOB_FLEET_TRAIT,   'fleet/fleetTraitData.js'),
     load(_GLOB_OP_PROPOSE,    'opProposeData.js'),
+    load(_GLOB_PLANETS_DATA,  'planetsData.js'),
+    load(_GLOB_JOB_DATA,      'jobData.js'),
   ])
   return {
     starDetail:     sd?.STAR_DETAIL             ?? [],
@@ -45,6 +49,8 @@ async function _loadScenarioFiles(scId) {
     fleetData:      fd?.FLEET_DATA              ?? [],
     fleetTraitData: ftd?.FLEET_TRAIT_DATA       ?? [],
     opProposeData:  op?.OP_PROPOSE_DATA         ?? [],
+    planetsData:    pd?.PLANET_DATA             ?? [],
+    jobData:        jd?.JOB_DATA               ?? [],
   }
 }
 

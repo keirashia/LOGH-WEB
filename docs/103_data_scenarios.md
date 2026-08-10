@@ -32,15 +32,21 @@ src/data/scenario/
         │   ├── characters/
         │   │   ├── charactersData.js   등장 인물 코드 목록 (CHAR_LIST)
         │   │   └── charactersJobs.js   시나리오 직책 오버라이드 (CHAR_JOBS)
-        │   └── fleet/
-        │       ├── fleetData.js        (charList/shipList 내장, [106_data_fleet.md](106_data_fleet.md) 참조)
-        │       └── fleetTraitData.js
+        │   ├── fleet/
+        │   │   ├── fleetData.js        (charList/shipList 내장, [106_data_fleet.md](106_data_fleet.md) 참조)
+        │   │   └── fleetTraitData.js
+        │   ├── planetsData.js          행성 담당관 (PLANET_DATA — governor/commander) [선택]
+        │   └── jobData.js              인물 서브직업 직접 지정 (JOB_DATA) [선택]
         └── 011/                 ← ID SE796_0211_011/012/013/014 (아스타테 — 가상 그룹, 파일 미생성 TODO)
 ```
 
 > 위 `010/` 구조가 현재 시나리오 폴더의 표준 형태 (2026-07-02 스키마 개편 반영: `charList.js`→`characters/charactersData.js`,
 > `fleetCharacterData.js`/`fleetShipData.js` 삭제 후 `fleetData.js`에 통합, `starDetail.js`/`planetDetail.js`는 `stars/` 서브폴더로 이동).
 > 신규 시나리오 폴더는 이 구조를 따를 것.
+>
+> `planetsData.js` / `jobData.js`는 **선택적** 파일. 없으면 `gameStore._loadScenarioFiles`에서 `[]` 폴백.
+> `planetsData.js`는 행성별 governor/commander 캐릭터 코드 지정 (고유직업 ①).
+> `jobData.js`는 charJobListMap 서브직업(③) 직접 지정용 — 한 인물이 다건 가능.
 
 > **폴더 ↔ ID 1:1 매핑**: `SE796_0211_010` → `SE796/0211/010/`  
 > `id.split('_')` → `[y, m, s]` → `${y}/${m}/${s}/`  

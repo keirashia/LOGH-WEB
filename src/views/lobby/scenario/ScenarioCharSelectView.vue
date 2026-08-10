@@ -68,58 +68,58 @@
           <span class="mono dim title-sub">인물 선택 · {{ curName }}</span>
         </div>
 
-        <!-- 검색 -->
-        <div class="search-row">
-          <input class="search-input mono" v-model="q" placeholder="이름 검색..." />
-          <span class="search-count dim mono">{{ sortedFilteredChars.length }}명</span>
-        </div>
+        <div class="char-body">
 
-        <!-- 테이블 헤더 -->
-        <div class="cl-header">
-          <div />
-          <div class="cl-th mono">이름</div>
-          <div class="cl-th mono">직업</div>
-          <div class="cl-th mono">고유트레잇</div>
-          <div />
-          <div />
-        </div>
-
-        <!-- 인물 리스트 -->
-        <div class="cl-list">
-          <div v-if="!sortedFilteredChars.length" class="cl-empty dim mono">검색 결과 없음</div>
-          <div
-            v-for="ch in sortedFilteredChars" :key="ch.code"
-            class="cl-item"
-            :class="{ active: selChar?.code === ch.code }"
-            @click="selChar = ch"
-          >
-            <div class="cl-img-wrap">
-              <img :src="charImgSrc(ch.code)" class="cl-img"
-                   @error="handleCharImgError($event, ch.code, 'H')" />
+          <!-- 왼쪽: 리스트 -->
+          <div class="char-list-panel">
+            <!-- 검색 -->
+            <div class="search-row">
+              <input class="search-input mono" v-model="q" placeholder="이름 검색..." />
+              <span class="search-count dim mono">{{ sortedFilteredChars.length }}명</span>
             </div>
-            <div class="cl-info">
-              <div class="serif cl-name">{{ namesMap[ch.code]?.name ?? ch.code }}</div>
-              <div class="mono dim cl-nick">{{ namesMap[ch.code]?.nick ?? '' }}</div>
-            </div>
-            <div class="cl-job mono">{{ charJobMap[ch.code] || '—' }}</div>
-            <div class="cl-trait serif">{{ charUniqueTraitMap[ch.code] || '—' }}</div>
-            <span class="cl-rec mono">{{ ch.recommend > 0 ? '★' : '' }}</span>
-            <span class="cl-dot" :style="{ background: fcolor(ch.faction) }" />
-          </div>
-        </div>
 
-        <!-- 선택된 인물 상세 -->
-        <Transition name="sel-bar-fade">
-          <div v-if="selChar" class="char-detail-panel" :class="{ collapsed: !detailExpanded }">
-            <button class="detail-toggle mono" @click="detailExpanded = !detailExpanded">
-              <span>{{ namesMap[selChar.code]?.name ?? selChar.code }}</span>
-              <span class="toggle-arrow">{{ detailExpanded ? '▼' : '▲' }}</span>
-            </button>
-            <div v-show="detailExpanded" class="detail-body">
-              <CharDetailComp :cha-code="selChar.code" :scenario-id="cur.id" />
+            <!-- 테이블 헤더 -->
+            <div class="cl-header">
+              <div />
+              <div class="cl-th mono">이름</div>
+              <div class="cl-th mono">소속</div>
+              <div />
+              <div />
+            </div>
+
+            <!-- 인물 리스트 -->
+            <div class="cl-list">
+              <div v-if="!sortedFilteredChars.length" class="cl-empty dim mono">검색 결과 없음</div>
+              <div
+                v-for="ch in sortedFilteredChars" :key="ch.code"
+                class="cl-item"
+                :class="{ active: selChar?.code === ch.code }"
+                @click="selChar = ch"
+              >
+                <div class="cl-img-wrap">
+                  <img :src="charImgSrc(ch.code)" class="cl-img"
+                       @error="handleCharImgError($event, ch.code, 'H')" />
+                </div>
+                <div class="cl-info">
+                  <div class="serif cl-name">{{ namesMap[ch.code]?.name ?? ch.code }}</div>
+                  <div class="mono dim cl-nick">{{ namesMap[ch.code]?.nick ?? '' }}</div>
+                </div>
+                <div class="cl-fleet mono">{{ charJobListMap[ch.code]?.primary ?? charJobListMap[ch.code]?.subs[0] ?? '—' }}</div>
+                <span class="cl-rec mono">{{ ch.recommend > 0 ? '★' : '' }}</span>
+                <span class="cl-dot" :style="{ background: fcolor(ch.faction) }" />
+              </div>
             </div>
           </div>
-        </Transition>
+
+          <!-- 오른쪽: 인물 상세 -->
+          <div class="char-detail-side">
+            <Transition name="detail-fade" mode="out-in">
+              <CharDetailComp v-if="selChar" :key="selChar.code" :cha-code="selChar.code" :scenario-id="cur.id" />
+              <div v-else class="no-char mono dim">인물을 선택하세요</div>
+            </Transition>
+          </div>
+
+        </div>
 
       </div>
 
@@ -130,7 +130,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watchEffect } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 import { useRoute, useRouter } from 'vue-router'
 import { SCENARIOS } from '@/data/scenario/scenarioData.js'
@@ -141,11 +141,11 @@ import { FACTIONS } from '@/data/masterData'
 import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
 import { charImgSrc, handleCharImgError } from '@/utils/charImg.js'
 import {
-  CHAR_BASE, CHAR_JOBS, JOB_MAP,
+  CHAR_BASE,
   CHAR_NAMES_MAP,
-  CHAR_UNIQUE_TRAIT_MAP as charUniqueTraitMap,
   charName, charNick,
 } from '@/utils/charUtils.js'
+import { PLANETS } from '@/data/base/stars/planetsData.js'
 import StarfieldCanvas from '@/components/common/StarfieldCanvas.vue'
 import LobbyFooterLayer from '@/components/ui/LobbyFooterLayer.vue'
 import CharDetailComp from '@/components/char/CharDetailComp.vue'
@@ -176,22 +176,60 @@ const namesMap = computed(() =>
   )
 )
 
-// 시나리오 오버라이드 직업 반영 (base + 시나리오 덮어쓰기)
-const effectiveCharJobs = computed(() => {
-  const scJobs = game._preloadedData?.charJobs
-  if (!scJobs?.length) return CHAR_JOBS
-  const overridden = new Set(scJobs.map(j => j.charCode))
-  return [...scJobs, ...CHAR_JOBS.filter(j => !overridden.has(j.charCode))]
-})
 
-const charJobMap = computed(() => Object.fromEntries(
-  CHAR_BASE.map(c => {
-    const primary = effectiveCharJobs.value
-      .filter(j => j.charCode === c.code)
-      .sort((a, b) => a.jobStDate - b.jobStDate)[0]
-    return [c.code, primary ? (JOB_MAP[primary.jobCode]?.name?.find(e => e.code === lang.value)?.context ?? '') : '']
-  })
-))
+const FLEET_ROLE   = { C: '사령관', O: '부관', S: '분함대 사령관' }
+const PLANET_NAME  = Object.fromEntries(
+  PLANETS.map(p => [p.code, p.name?.find(n => n.code === 'Kr')?.context ?? p.code])
+)
+
+// 소속: ①행성(총독/사령관) ②함대 → 고유직업(primary), ③jobData → 서브직업(subs, 다건)
+// primary 중복은 데이터 오류 — 나중 값으로 덮어쓰고 console.error 출력
+const charJobListMap = computed(() => {
+  const map = {}  // charCode → { primary: string|null, subs: string[] }
+
+  const ensure = code => { map[code] ??= { primary: null, subs: [] } }
+
+  const setP = (code, label, src) => {
+    if (!code || !label) return
+    ensure(code)
+    if (map[code].primary !== null) {
+      console.error(
+        `[charJobListMap] 고유직업 중복 — ${code}: "${map[code].primary}" → "${label}" 로 덮어씀 [${src}]`
+      )
+    }
+    map[code].primary = label
+  }
+
+  const addSub = (code, label) => {
+    if (!code || !label) return
+    ensure(code)
+    map[code].subs.push(label)
+  }
+
+  // ① planetsData: governor / commander (고유직업)
+  for (const p of (game._preloadedData?.planetsData ?? [])) {
+    const pname = PLANET_NAME[p.code] ?? p.code
+    setP(p.governor,  `${pname} 총독`,   `①planets/${p.code}/governor`)
+    setP(p.commander, `${pname} 사령관`, `①planets/${p.code}/commander`)
+  }
+
+  // ② fleetData: charList (고유직업)
+  for (const fleet of (game._preloadedData?.fleetData ?? [])) {
+    const fname = fleet.fltName?.find(n => n.code === lang.value)?.context
+               ?? fleet.fltName?.[0]?.context
+               ?? fleet.fltCode
+    for (const member of (fleet.charList ?? [])) {
+      setP(member.charCode, `${fname} ${FLEET_ROLE[member.type] ?? ''}`.trim(), `②fleet/${fleet.fltCode}`)
+    }
+  }
+
+  // ③ jobData: 서브직업 (다건 허용)
+  for (const j of (game._preloadedData?.jobData ?? [])) {
+    addSub(j.charCode, j.label)
+  }
+
+  return map
+})
 
 const stage         = ref('faction')
 const transDir      = ref('slide-forward')
@@ -254,21 +292,16 @@ function fcPick(fid) {
   if (idx !== -1) { fcCurrentIdx.value = idx; fcScrollTo(idx) }
 }
 
-const selChar        = ref(null)
-const charList       = ref([])
-const q              = ref('')
-const detailExpanded = ref(true)
+const selChar = ref(null)
+const q       = ref('')
 
-watchEffect(async () => {
-  if (!cur.value?.id) return
-  try {
-    const [y, m, s] = cur.value.id.split('_')
-    const mod = await import(`@/data/scenario/${y}/${m}/${s}/characters/charactersData.js`)
-    charList.value = mod.CHAR_LIST
-  } catch {
-    charList.value = []
+onMounted(() => {
+  if (game._preloadedScId !== cur.value?.id || !game._preloadedData) {
+    router.replace({ name: 'scenario-select' })
   }
 })
+
+const charList = computed(() => game._preloadedData?.charList ?? [])
 
 function isAliveAt(char, yearType, year) {
   if (char.birth) {
@@ -379,7 +412,7 @@ const footerButtons = computed(() =>
   padding: 4vh 24px 2vh;
   overflow: hidden;
 }
-.layout-char { gap: 1.4vh; }
+.layout-char { gap: 1.2vh; }
 
 /* ── 타이틀 ────────────────────────────────────────────────── */
 .title-block {
@@ -462,6 +495,52 @@ const footerButtons = computed(() =>
   letter-spacing: 0.15vw;
 }
 
+/* ── Stage 2: 좌우 분할 ──────────────────────────────────── */
+.char-body {
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  gap: 1.6vw;
+  overflow: hidden;
+}
+
+/* 왼쪽 리스트 패널 */
+.char-list-panel {
+  flex: 0 0 42%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* 오른쪽 상세 패널 */
+.char-detail-side {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
+  border: 2px solid rgba(212,170,96,.45);
+  border-radius: 14px;
+  box-shadow:
+    inset 0 0 0 5px #0d1520,
+    inset 0 0 0 7px rgba(212,170,96,.1),
+    0 8px 32px rgba(0,0,0,.7);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(212,170,96,.2) transparent;
+}
+.char-detail-side::-webkit-scrollbar { width: 3px; }
+.char-detail-side::-webkit-scrollbar-thumb { background: rgba(212,170,96,.25); border-radius: 2px; }
+
+.no-char {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 1.4vh;
+  opacity: .35;
+}
+
 /* ── 검색 ────────────────────────────────────────────────── */
 .search-row {
   flex-shrink: 0;
@@ -491,14 +570,14 @@ const footerButtons = computed(() =>
 }
 
 /* ── 인물 리스트 ──────────────────────────────────────────── */
-/* 헤더·아이템 공통 그리드: img | 이름 | 직업 | 고유트레잇 | star | dot */
+/* 헤더·아이템 공통 그리드: img | 이름 | 소속(함대) | star | dot */
 .cl-header,
 .cl-item {
   display: grid;
-  grid-template-columns: 5.5vh 1.1fr 1fr 1.3fr 2.4vw 1vh;
+  grid-template-columns: 5.5vh 1fr 1.2fr 2.4vw 0.7vh;
   column-gap: 1.2vw;
   align-items: center;
-  padding: 0 1.6vw;
+  padding: 0 1.2vw;
   width: 100%;
   box-sizing: border-box;
 }
@@ -516,7 +595,6 @@ const footerButtons = computed(() =>
   letter-spacing: 0.5px;
   color: rgba(212,170,96,.5);
 }
-.cl-th-r { text-align: right; }
 
 /* 리스트 */
 .cl-list {
@@ -540,7 +618,7 @@ const footerButtons = computed(() =>
 }
 
 .cl-item {
-  height: 9vh;
+  height: 8.5vh;
   flex-shrink: 0;
   border-bottom: 1px solid rgba(212,170,96,.08);
   cursor: pointer;
@@ -551,6 +629,7 @@ const footerButtons = computed(() =>
 .cl-item:hover { background: rgba(212,170,96,.05); }
 .cl-item.active {
   background: rgba(212,170,96,.1);
+  border-left: 2px solid rgba(212,170,96,.6);
   border-bottom-color: rgba(212,170,96,.15);
 }
 
@@ -593,18 +672,13 @@ const footerButtons = computed(() =>
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.cl-trait {
-  font-size: 1.3vh;
-  color: rgba(212,170,96,.6);
+
+.cl-fleet {
+  font-size: 1.2vh;
+  color: var(--t2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.cl-rec {
-  font-size: 1.3vh;
-  color: rgba(212,170,96,.8);
-  text-align: center;
 }
 
 .cl-dot {
@@ -614,60 +688,15 @@ const footerButtons = computed(() =>
   justify-self: center;
 }
 
-/* ── 선택된 인물 상세 ─────────────────────────────────────── */
-.char-detail-panel {
-  flex-shrink: 0;
-  width: 100%;
-  position: relative;
-  background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);
-  border: 2px solid rgba(212,170,96,.55);
-  border-radius: 14px;
-  box-shadow:
-    inset 0 0 0 5px #0d1520,
-    inset 0 0 0 7px rgba(212,170,96,.14),
-    0 8px 32px rgba(0,0,0,.7);
-  overflow: hidden;
-  transition: border-color .2s;
-}
-.char-detail-panel.collapsed { border-color: rgba(212,170,96,.3); }
-.char-detail-panel::before {
-  content: '';
-  position: absolute; inset: 0;
-  background-image:
-    repeating-linear-gradient( 45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px),
-    repeating-linear-gradient(-45deg, transparent, transparent 10px, rgba(212,170,96,.018) 10px, rgba(212,170,96,.018) 11px);
-  pointer-events: none;
-  z-index: 0;
-  border-radius: 12px;
-}
-.detail-toggle {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1vh 1.6vw;
-  background: none;
-  border: none;
-  border-bottom: 1px solid rgba(212,170,96,.15);
+.cl-rec {
+  font-size: 1.3vh;
   color: rgba(212,170,96,.8);
-  font-size: 1.5vh;
-  letter-spacing: 0.15vw;
-  cursor: pointer;
-  transition: color .15s, background .15s;
+  text-align: center;
 }
-.detail-toggle:hover { color: var(--tg); background: rgba(212,170,96,.04); }
-.collapsed .detail-toggle { border-bottom: none; }
-.toggle-arrow { font-size: 1.2vh; color: rgba(212,170,96,.5); }
-.detail-body {
-  position: relative;
-  z-index: 1;
-  height: 36vh;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(212,170,96,.2) transparent;
-}
+
+/* ── 상세 패널 전환 ───────────────────────────────────────── */
+.detail-fade-enter-active, .detail-fade-leave-active { transition: opacity .18s; }
+.detail-fade-enter-from, .detail-fade-leave-to { opacity: 0; }
 
 
 
@@ -683,6 +712,4 @@ const footerButtons = computed(() =>
 .slide-back-enter-from    { opacity: 0; transform: translateX(-40px); }
 .slide-back-leave-to      { opacity: 0; transform: translateX(40px); }
 
-.sel-bar-fade-enter-active, .sel-bar-fade-leave-active { transition: opacity .2s, transform .2s; }
-.sel-bar-fade-enter-from, .sel-bar-fade-leave-to { opacity: 0; transform: translateY(8px); }
 </style>

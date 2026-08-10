@@ -22,10 +22,12 @@
       "Read(//c/Users/keira/AppData/Local/pnpm/global/5/**)",
       "PowerShell(npx playwright install chromium 2>&1)",
       "Bash(npx --yes xlsx-to-json \"src/data/base/characters/xls/은하영웅전설4EX-능력표.xls\")",
-      "Bash(npm install *)"
+      "Bash(npm install *)",
+      "Read(//c/Users/keira/.claude/projects/c--Users-keira-Project-Genei-LOGH-WEB/memory/**)"
     ],
     "additionalDirectories": [
-      "c:\\Users\\keira\\Project_Genei\\LOGH-WEB\\src"
+      "c:\\Users\\keira\\Project_Genei\\LOGH-WEB\\src",
+      "c:\\Users\\keira\\.claude\\projects\\c--Users-keira-Project-Genei-LOGH-WEB\\memory"
     ]
   }
 }

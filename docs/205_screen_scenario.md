@@ -207,13 +207,71 @@ cur.variants 배열이 존재하고 2개 이상일 때 서브타이틀 칩에 �
 
 국가 선택(Stage 1) + 인물 선택(Stage 2) 통합 화면.
 
+### 사전 조건 — preload guard
+```js
+// onMounted: preload 없이 직접 접근하면 scenario-select로 리디렉트
+if (game._preloadedScId !== cur.value?.id || !game._preloadedData)
+  router.replace({ name: 'scenario-select' })
 ```
-인물 목록: 시나리오별 characters/charactersData.js(dynamic import)의 CHAR_LIST + 전체 CHAR_BASE 조합
-직책 오버라이드: game._preloadedData?.charJobs 로 시나리오 직책 반영(effectiveCharJobs)
+`ScenarioDetailView.onMounted`에서 `game.preloadScenario(scId)` 호출 후 CharSelectView 진입하는 정상 경로만 허용.
+
+### Stage 1 — 국가 선택
+```
+가로 스크롤 카드: [전체] + 시나리오 세력 카드
+드래그/스와이프/휠 지원 (fcDragStart/Move/End, fcWheel)
+선택된 카드 gold 강조 + translateY(-8px) 스케일업
+[다음 →] → goToChar() → factionFilter 세팅 후 stage = 'char'
+```
+
+### Stage 2 — 인물 선택 (좌우 분할 레이아웃)
+```
+┌─────────────────────┬──────────────────────┐
+│  검색 입력 / N명     │                      │
+│─────────────────────│   CharDetailComp      │
+│  이름표   소속  ★ ● │   (우측 사이드 패널)   │
+│  ─────────────────  │   선택 없으면         │
+│  [인물 행 × N]       │   "인물을 선택하세요"  │
+└─────────────────────┴──────────────────────┘
+```
+
+```
+인물 목록: game._preloadedData.charList + 전체 CHAR_BASE 조합
 생존 필터: isAliveAt() — npcAppearance === 'fact'일 때 생몰년(birth/death) 기준 필터링
-추천 인물: recommend 값 기준 자동 선택(leadChars)
+추천 인물: recommend 값 기준 자동 선택(leadChars) — Stage 2 진입 시 자동 선택
+소속 열: charJobListMap[ch.code]?.primary ?? subs[0] ?? '—'
+우측 패널: <CharDetailComp :cha-code :scenario-id> — detail-fade 트랜지션
 [게임 시작] 클릭 → game.startGame(scId, faction, charCode) 후 /game 라우팅
 ```
+
+### charJobListMap — 소속(직업) 3단계 집계
+```
+map 값 타입: { primary: string|null, subs: string[] }
+
+① planetsData (고유직업): governor → "{행성명} 총독" / commander → "{행성명} 사령관"
+② fleetData   (고유직업): charList[].type C/O/S → "{함대명} 사령관/부관/분함대 사령관"
+③ jobData     (서브직업): { charCode, label } — 다건 허용, subs[]에 push
+
+규칙:
+- ①②는 primary에 set. 이미 값 있으면 나중 값으로 덮어쓰고 console.error 출력
+  → "[charJobListMap] 고유직업 중복 — {code}: "{기존}" → "{신규}" 로 덮어씀 [{source}]"
+- ③은 항상 subs[]에 push (primary와 독립)
+- 소스 없으면 '—' 표시
+```
+
+**데이터 파일 스키마** (시나리오 폴더 선택적 추가):
+```js
+// planetsData.js  →  PLANET_DATA
+export const PLANET_DATA = [
+  { code: "230006P01", governor: "CH_000443", commander: "CH_000444" },
+]
+
+// jobData.js  →  JOB_DATA
+export const JOB_DATA = [
+  { charCode: "CH_000789", label: "최고평의회 의장" },
+]
+```
+
+gameStore `_loadScenarioFiles`에서 두 파일 모두 dynamic import (`planetsData`, `jobData` 키로 `_preloadedData`에 저장). 파일 없으면 `[]` 폴백.
 
 ---
 
@@ -328,6 +386,9 @@ router
 | 2026-06-18 | prevPlayable/nextPlayable: showYn !== false 필터 추가 |
 | 2026-06-18 | SingleView 새 게임 진입 시 lobby.loadUnlocks() 선행 호출 |
 | 2026-07-03 | `ScenarioDetailView.onStart()` 라우팅 버그 수정 — `scenario-options`로 정상 이동하도록 변경, `ScenarioOptionsView.vue`의 옵션 카드 `disabled` 제거 후 클릭 시 `lobby.options[grp.key] = opt.val` 연결 |
+| 2026-08-10 | `ScenarioCharSelectView.vue` Step 3 전면 재설계 — Stage 1(국가 선택)/Stage 2(인물 선택) 2단계 유지, 인물 상세 우측 사이드 패널로 이동, 소속 열 추가, preload guard(onMounted 리디렉트) 추가 |
+| 2026-08-10 | charJobListMap 도입 — `{ primary, subs }` 구조. ①planetsData(총독/사령관) ②fleetData(함대직) = 고유직업(primary), ③jobData = 서브직업(subs). primary 중복 시 덮어쓰기 + console.error |
+| 2026-08-10 | gameStore `_loadScenarioFiles` — planetsData.js(`PLANET_DATA`), jobData.js(`JOB_DATA`) 두 파일 dynamic import 추가 (없으면 `[]` 폴백) |
 
 ---
 
