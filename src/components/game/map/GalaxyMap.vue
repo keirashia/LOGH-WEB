@@ -104,10 +104,17 @@
                   stroke-width="0.5"
                   stroke-dasharray="3 2"
                   style="pointer-events:none"/>
-          <circle v-if="game.selectedSystem===s.id && !editMode"
+          <circle v-if="game.selectedSystem===s.id && !editMode && !selectionMode"
                   :r="vr(s)+6" fill="none"
                   :stroke="fclr[s.faction]||'rgba(255,255,255,0.25)'"
                   stroke-width="1.5" opacity=".8" class="sel-ring"/>
+          <!-- selection mode: 선택된 성계 하이라이트 링 -->
+          <circle v-if="selectionMode && props.selHighlight===s.id"
+                  :r="vr(s)+7" fill="rgba(212,170,96,0.15)"
+                  stroke="rgba(212,170,96,0.9)" stroke-width="2" class="sel-ring"/>
+          <!-- selection mode: 비선택 가능 성계 dim -->
+          <circle v-if="selectionMode && props.sysFilter && !props.sysFilter(s)"
+                  :r="vr(s)+3" fill="rgba(0,0,0,0.55)" style="pointer-events:none"/>
           <circle v-if="editMode && laneFrom===s.id"
                   :r="vr(s)+8" fill="none" stroke="gold" stroke-width="2" opacity=".85"/>
           <circle :r="vr(s)+2" :fill="fclr[s.faction]||'none'" opacity="0.25"/>
@@ -181,10 +188,10 @@
     </div>
 
     <!-- 날짜 -->
-    <GameDateDisplay class="map-date" />
+    <GameDateDisplay v-if="!selectionMode" class="map-date" />
 
     <!-- 범례 -->
-    <div class="map-legend panel">
+    <div v-if="!selectionMode" class="map-legend panel">
       <div v-for="fid in scenarioFactions" :key="fid" class="leg-row">
         <span class="leg-dot" :style="`background:${FACTIONS[fid]?.color}`"/>
         <span class="dim" style="font-size:10px">{{ FACTION_NAME_MAP[fid] }}</span>
@@ -206,6 +213,13 @@ import { useLang } from '@/composables/useLang'
 import { FACTIONS } from '@/data/masterData'
 import { FACTION_NAMES } from '@/data/base/factions/factionName.js'
 import GameDateDisplay from '@/components/game/GameDateDisplay.vue'
+
+const props = defineProps({
+  selectionMode: { type: Boolean, default: false },
+  selHighlight:  { type: String,  default: null  },
+  sysFilter:     { type: Function, default: null  },
+})
+const emit = defineEmits(['pick'])
 
 const game  = useGameStore()
 const { lang } = useLang()
@@ -352,6 +366,8 @@ function onPtrUp(e) {
 
   if (editMode.value) {
     handleEditClick(sys, cp.x, cp.y, e)
+  } else if (props.selectionMode) {
+    if (sys && (!props.sysFilter || props.sysFilter(sys))) emit('pick', sys.id)
   } else {
     if (sys)        game.selectSystem(sys.id)
     else if (fleet) game.selectFleet(fleet.id)
