@@ -229,8 +229,13 @@
           </div>
 
           <!-- 지도 탭 -->
-          <div v-if="targetTab === 'map'" class="target-content dim mono" style="text-align:center;padding:24px;font-size:12px">
-            지도 선택은 추후 지원 예정입니다.<br>성계 또는 함대 탭을 이용해 주세요.
+          <div v-if="targetTab === 'map'" class="target-content map-content">
+            <GalaxyMap
+              selection-mode
+              :sel-highlight="tempTarget"
+              :sys-filter="s => filteredTargetSystems.some(x => x.id === s.id)"
+              @pick="tempTarget = $event"
+            />
           </div>
 
           <!-- 성계 탭 -->
@@ -300,6 +305,7 @@ import { useGameStore } from '@/stores/gameStore'
 import { useLang } from '@/composables/useLang'
 import { JOB_MAP } from '@/data/base/jobs/jobData'
 import { APPROVAL_CHAINS } from '@/data/base/agenda/agendaData'
+import GalaxyMap from '@/components/game/map/GalaxyMap.vue'
 
 const emit = defineEmits(['close'])
 const game = useGameStore()
@@ -334,7 +340,7 @@ const notes             = ref('')
 const showProposerPicker = ref(false)
 const pendingProposer   = ref(null)
 const showTargetPicker  = ref(false)
-const targetTab         = ref('star')
+const targetTab         = ref('map')
 const targetQ           = ref('')
 const tempTarget        = ref('')
 const activeHint        = ref(null)
@@ -742,7 +748,7 @@ function doSubmit() {
   display: flex; flex-direction: column; overflow: hidden;
 }
 .inner-popup.compact { width: min(80vw, 340px); padding: 20px; }
-.target-popup { width: min(90vw, 460px); }
+.target-popup { width: min(92vw, 680px); max-height: min(88vh, 620px); }
 .popup-header {
   display: flex; align-items: center; justify-content: space-between;
   padding: 14px 16px; border-bottom: 1px solid var(--bd);
@@ -780,6 +786,7 @@ function doSubmit() {
   border-bottom: 2px solid var(--tg);
 }
 .target-content { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
+.map-content { min-height: 320px; }
 .target-search { padding: 10px 14px 4px; }
 .op-search {
   width: 100%; padding: 7px 10px; font-size: 12px;

@@ -68,6 +68,7 @@ function confirm() {
 }
 
 .sp-popup {
+  font-size: clamp(1.3rem, 2vmin, 1.6rem);
   width: min(92vw, 680px);
   height: min(88vh, 560px);
   background: linear-gradient(165deg, #0d1b2a 0%, #1a082e 60%, #0d1520 100%);

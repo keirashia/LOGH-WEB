@@ -125,18 +125,18 @@
           <g v-if="labelOpacity > 0" :opacity="labelOpacity" style="pointer-events:none">
             <g :transform="labelTransform(s.id)">
               <rect
-                :x="-(s.displayName.length * 9 / scale + 4 / scale)"
+                :x="-(s.displayName.length * lBase / 2 / scale + lBase * 4 / 18 / scale)"
                 :y="vr(s) + 3 / scale"
-                :width="s.displayName.length * 18 / scale + 8 / scale"
-                :height="22 / scale"
+                :width="s.displayName.length * lBase / scale + lBase * 8 / 18 / scale"
+                :height="lBase * 22 / 18 / scale"
                 :rx="2 / scale"
                 fill="rgba(4,8,16,0.80)"
                 :stroke="fclr[s.faction] || 'rgba(255,255,255,0.25)'"
                 :stroke-width="0.8 / scale"
               />
               <text class="sys-lbl" text-anchor="middle"
-                    :dy="vr(s) + 19 / scale"
-                    :font-size="18 / scale"
+                    :dy="vr(s) + lBase * 19 / 18 / scale"
+                    :font-size="lBase / scale"
                     :fill="fclr[s.faction] || 'rgba(255,255,255,0.9)'">{{ s.displayName }}</text>
             </g>
           </g>
@@ -280,6 +280,7 @@ function resetZoom()  { scale.value = 1; panX.value = 0; panY.value = 0 }
 // ── 포인터 통합 (팬·드래그·핀치) ────────────────────────────
 const activePointers = new Map()   // pointerId → { x, y }
 let   pinchDist0     = 0
+let   _pinchActive   = false       // 핀치 직후 오발 클릭 방지
 
 // drag state: null | { type:'pan'|'sys', id?, startSvg, startPan, startContent, moved }
 const ds = ref(null)
@@ -292,6 +293,7 @@ function onPtrDown(e) {
   if (activePointers.size === 2) {
     const pts = [...activePointers.values()]
     pinchDist0 = Math.hypot(pts[1].x - pts[0].x, pts[1].y - pts[0].y)
+    _pinchActive = true
     ds.value = null
     return
   }
@@ -358,6 +360,12 @@ function onPtrUp(e) {
   addPreview.value = null
 
   if (wasMoved) return
+
+  // 핀치 줌 직후 손가락 떼기를 클릭으로 오인하는 현상 방지
+  if (_pinchActive) {
+    if (activePointers.size === 0) _pinchActive = false
+    return
+  }
 
   // 클릭 처리
   const cp    = toContent(sp.x, sp.y)
@@ -644,8 +652,14 @@ const systems = computed(() =>
 const LABEL_FADE_IN  = 0.75
 const LABEL_FADE_OUT = 0.55
 const labelOpacity = computed(() =>
-  Math.max(0, Math.min(1, (scale.value - LABEL_FADE_OUT) / (LABEL_FADE_IN - LABEL_FADE_OUT)))
+  props.selectionMode
+    ? 1  // 선택 모드에서는 항상 라벨 표시
+    : Math.max(0, Math.min(1, (scale.value - LABEL_FADE_OUT) / (LABEL_FADE_IN - LABEL_FADE_OUT)))
 )
+
+// 선택 모드에서는 라벨 기준 크기를 키워 팝업 내 가독성 확보
+// SVG 화면 변환: font_px ≈ lBase × (displayWidth / VW) — 팝업 540px 기준 18→≈6px, 36→≈12px
+const lBase = computed(() => props.selectionMode ? 36 : 18)
 
 // 라벨 밀림 처리: 중요도 순으로 그리디 배치
 // 각 성계마다 아래→위→오른쪽→왼쪽 순으로 후보를 시도, 첫 비겹침 위치 사용
@@ -653,9 +667,10 @@ const labelOpacity = computed(() =>
 const labelPositions = computed(() => {
   if (labelOpacity.value <= 0) return new Map()
   const sc  = scale.value
-  const gap = 3 / sc
-  const lh  = 22 / sc
-  const pad = 2 / sc
+  const lb  = lBase.value
+  const gap = lb * 3 / 18 / sc
+  const lh  = lb * 22 / 18 / sc
+  const pad = lb * 2 / 18 / sc
   const placed = []
   const result  = new Map()
   const vrVal = s => s.type === 'capital' ? 7 : (s.type === 'fortress' || s.isGateway ? 5 : 4)
@@ -665,7 +680,7 @@ const labelPositions = computed(() => {
   )
   for (const s of sorted) {
     const r  = vrVal(s)
-    const hw = s.displayName.length * 9 / sc + 4 / sc
+    const hw = s.displayName.length * lb / 2 / sc + lb * 4 / 18 / sc
     const defaultY1 = r + gap
     const candidates = [
       { dx: 0,               y1: r + gap },          // 아래 (기본)

@@ -183,13 +183,13 @@ function onPlanetPick(planetCode) {
   border-bottom: 1px solid rgba(212,170,96,.18);
 }
 .sp-tab {
-  padding: 5px 16px;
+  padding: 6px 20px;
   background: none;
   border: 1px solid rgba(212,170,96,.2);
   border-bottom: none;
   border-radius: 4px 4px 0 0;
   color: var(--t2);
-  font-size: var(--fs-sm);
+  font-size: 1em;
   cursor: pointer;
   transition: background .12s, color .12s;
 }
@@ -210,12 +210,12 @@ function onPlanetPick(planetCode) {
 }
 .sp-search {
   flex-shrink: 0;
-  padding: 6px 10px;
+  padding: 8px 12px;
   background: rgba(255,255,255,.04);
   border: 1px solid rgba(212,170,96,.22);
   border-radius: var(--r);
   color: var(--t1);
-  font-size: var(--fs-sm);
+  font-size: 1em;
   outline: none;
 }
 .sp-search:focus { border-color: rgba(212,170,96,.6); }
@@ -235,8 +235,8 @@ function onPlanetPick(planetCode) {
 .sp-sys-row {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 8px;
+  gap: 10px;
+  padding: 10px 10px;
   border-radius: var(--r);
   cursor: pointer;
   transition: background .1s;
@@ -246,28 +246,28 @@ function onPlanetPick(planetCode) {
 .sp-sys-row.disabled { opacity: .35; cursor: default; }
 
 .sp-dot {
-  width: 8px; height: 8px;
+  width: 10px; height: 10px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 .sp-sys-name {
   flex: 1;
-  font-size: var(--fs-md);
+  font-size: 1.05em;
   color: var(--t1);
 }
 .sp-faction {
-  font-size: var(--fs-xs);
+  font-size: 0.85em;
   color: var(--td);
 }
 .sp-check {
-  font-size: var(--fs-sm);
+  font-size: 0.9em;
 }
 
 /* 행성 서브 행 */
 .sp-planet-row {
   display: flex;
   align-items: center;
-  padding: 5px 8px 5px 24px;
+  padding: 8px 10px 8px 28px;
   cursor: pointer;
   border-radius: var(--r);
   transition: background .1s;
@@ -276,14 +276,14 @@ function onPlanetPick(planetCode) {
 .sp-planet-row.active { background: rgba(212,170,96,.1); }
 .sp-planet-name {
   flex: 1;
-  font-size: var(--fs-sm);
+  font-size: 0.95em;
   color: var(--t2);
 }
 
 .sp-empty {
   padding: 24px;
   text-align: center;
-  font-size: var(--fs-sm);
+  font-size: 0.9em;
   opacity: .5;
 }
 
@@ -297,8 +297,8 @@ function onPlanetPick(planetCode) {
 /* ── 선택 상태 바 ─────────────────────────────────────────────── */
 .sp-status {
   flex-shrink: 0;
-  padding: 8px 12px;
-  font-size: var(--fs-sm);
+  padding: 9px 14px;
+  font-size: 0.9em;
   border-top: 1px solid rgba(212,170,96,.12);
   background: rgba(0,0,0,.2);
 }
