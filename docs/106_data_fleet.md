@@ -48,8 +48,10 @@ src/data/scenario/{id}/fleet/
     { charCode: "CH_000479", type: "C", stDate: "0", proactive: 100 },  // 파에타
     { charCode: "CH_000266", type: "O", stDate: "0", proactive: 50  },  // 양 웬리
   ],
-  shipList: [                // 함선 구성 (fltCode는 조인 키로 유지)
-    { fltCode: "FPA002", shipIndex: 1, type: "F", shipCode: "", shipAmt: 15000 },
+  shipList: [                // 함선 구성 — 함종별로 항목 분리, 합산이 총 함선 수
+    { type: "U", shipCode: "US_FPA_BS", shipAmt: 3000 },
+    { type: "U", shipCode: "US_FPA_CR", shipAmt: 5000 },
+    { type: "U", shipCode: "US_FPA_DS", shipAmt: 7000 },
   ],
   location: {                 // 분함대는 location 필드 자체를 생략 (상위 함대 위치 따름)
     locCode: "230006", locPos: { x: 527, y: 775 }, direction: 12,
@@ -58,6 +60,14 @@ src/data/scenario/{id}/fleet/
   stratageList: [],
 }
 ```
+
+### shipList 설계 원칙
+
+- **함종별 분리**: 동일 함종 × 척수로 항목을 나눈다. 단일 통합 항목(전체 15,000) 방식 사용하지 않음.
+- `type`: `"U"` = 일반 함선 유닛 (type `"F"` 기함 항목은 flagshipData에서 별도 처리 — 현재 미구현)
+- `shipCode`: `unitshipData.js`의 `US_{faction}_{typeCode}` 참조
+- 합계 척수 = `shipList.reduce((s, e) => s + e.shipAmt, 0)`
+- 전략 스탯(속도·보급·화력) 산출 → [116_data_ship_unit.md](116_data_ship_unit.md) §5 참조
 
 ### type 분류 (charList)
 
@@ -220,6 +230,8 @@ typeCode:
 - [ ] `location.locCode` 나머지 함대 입력 (REH004 외 대부분 여전히 빈값 또는 하이네센 고정)
 - [x] `REH001`(뮈켄베르거 함대) / 이제르론 주둔함대 — 이 시나리오 범위에 포함하지 않기로 결정 (위 예시 절 참조) — 2026-07-05
 - [x] 분함대 사령관(메르카츠 등)을 상위 함대에 반영 — `subCommanders: [{charCode, fleetName}]` 별도 필드 추가 (officers=O타입과 구분) — 2026-07-05
+- [ ] **SE796_0211_010 shipList 채우기**: 전체 함대 `shipCode: ""` → 실제 함종별 shipCode+shipAmt 항목으로 분리 (FPA: BS/CR/DS 3종, REH: BS/CR/DS 3종) — 2026-08-13
+- [ ] **구축함 슬롯 불일치 수정**: `HL_REH_DS` / `HL_FPA_DS` 모두 `slots.weapon: 1` 이지만 `unitshipData`에서 BEAM+MISSILE 2종 장착 → 슬롯 2로 수정 or 무기 1종으로 감소 확정 필요
 - [ ] fleetTraitData.js 스키마 문서화 (현재 미입력)
 - [ ] formationData.js `effect` 미완성 6종 (FF_04~10 중 일부) 입력
 - [ ] SE640/01, SE745/01 함대 데이터 미작성

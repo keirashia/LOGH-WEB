@@ -292,9 +292,12 @@ operation = {
 
 ## 1. 함대 전투력 계산 (Fleet Combat Stats)
 
+> **주의**: 이 섹션은 **인물 스탯 기반** 전술 전투력(cmd/att/def/fst/mng)을 다룬다.  
+> 함선 구성 기반 전략 스탯(speed/supplyDrain/firepower)은 [116_data_ship_unit.md §5](116_data_ship_unit.md) 참조.
+
 ### 1-1. 기반 스탯
 
-`fleetCharacterData.js` C/O/S 계층 + `charactersData.js` 인물 스탯을 합산해 함대 1개의 전투력을 결정한다.
+`charList` C/O/S 계층 + `charactersData.js` 인물 스탯을 합산해 함대 1개의 전투력을 결정한다.
 
 | 항목 | 설명 | 결정 방식 |
 |---|---|---|
